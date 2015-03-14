@@ -3,4 +3,4 @@
 [Home](index.md)
 [About](README.md)
 [Download](download.md)
-[gimmick:theme](journal)
+[gimmick:theme](readable)
