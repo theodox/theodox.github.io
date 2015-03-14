@@ -1,6 +1,5 @@
-# Tech Art Mafia
+# Theodox.com
 
 [Home](index.md)
-[About](README.md)
-[Download](download.md)
+[Character Rigger's Cookbook](cookbook/index.md)
 [gimmick:theme](readable)
