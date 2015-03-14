@@ -1,3 +1,6 @@
+README
+======
+
 You really ouugt to read me or go back to the [index](index.md)
 
 However, here's some example code
@@ -16,3 +19,5 @@ and a list
 
 0. item
 0. item
+
+[gimmick:Disqus](theodox)
