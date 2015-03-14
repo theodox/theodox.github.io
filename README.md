@@ -1,4 +1,4 @@
-You really ouugt to read me or go back to the [index](index)
+You really ouugt to read me or go back to the [index](index.md)
 
 However, here's some example code
 
