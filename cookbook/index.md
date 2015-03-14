@@ -5,7 +5,7 @@ These are the slides for a 2-hour introductory rigging course I did at the [Game
 
 Use the discussion links at the bottom of each page to ask questions. If you see a question there that you can answer, chime in! This is all about sharing information.
 
-There's also a nice write-up of the original presentation [here](http://archive.gamedev.net/archive/columns/events/gdc2006/articlee9d2.html?id=655)
+The concept of 'spaces' is a key on in the rigging business. It's a key part of the slides as well.  The ideas are discussed more thoroughly in [this article](http://techartsurvival.blogspot.com/2014/12/the-conquest-of-space.html)
 
 Anway, [here's the slides.](01.md)  Enjoy!
 
