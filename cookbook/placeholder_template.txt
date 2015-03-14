@@ -2,3 +2,5 @@
 $index of $total
 
 _Click on the image for the [next slide]($next.md), or click [here for the previous one]($prev.md)_
+
+[gimmick:Disqus](theodox-github)
