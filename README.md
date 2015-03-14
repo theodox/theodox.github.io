@@ -1,4 +1,1 @@
-theodox.github.io
-=================
-
-Course notes from a course
+You really ouugt to read me or go back to the [index](index)
