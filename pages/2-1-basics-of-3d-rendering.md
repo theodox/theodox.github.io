@@ -17,6 +17,6 @@ Transforms can be nested into [parent-child](glossary#parent) relationship. Move
 * In the world, X and Z are the ground plane, Y is the vertical dimension
 * On the screen, X is horizontal, Y is vertical. (Z is still present in  the math but not used)
 
-[next](2-2-how-3d-models-work)
+[next](2-2-how-3d-models-work.md)
 
 [persp]:http://en.wikipedia.org/w/index.php?title=Perspective_(graphical)&oldid=585108474
