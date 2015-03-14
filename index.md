@@ -2,4 +2,4 @@
 
 This is example text
 
-this is a [link](readme.md) to the readme
+this is a [link](README.md) to the readme
