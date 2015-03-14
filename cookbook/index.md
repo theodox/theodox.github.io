@@ -5,4 +5,4 @@ These are the slides for a 2-hour introductory rigging course I did at the [Game
 
 [start here](00.md)
 
-<iframe src=http://brython.info/console.html width=800 height=400></iframe>
+{<iframe src=http://brython.info/console.html width=800 height=400></iframe>}
