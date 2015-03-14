@@ -1,4 +1,4 @@
 theodox.github.io
 =================
 
-Course notes from a 
+Course notes from a course
