@@ -1,7 +1,5 @@
 [![slide $index](https://dl.dropboxusercontent.com/u/2977490/presentations/cookbook/img$index.jpg)]($next.md)
 $index of $total
-[beginning](01.md)
-[end](89.md)
 
 _Click on the image for the [next slide]($next.md), or click [here for the previous one]($prev.md)_
 
