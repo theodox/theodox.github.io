@@ -12,3 +12,6 @@ this is a [link](README.md) to the readme
 headhing 2
 ----------
 more stuff here
+
+
+[gimmick:Disqus](theodox-github)
