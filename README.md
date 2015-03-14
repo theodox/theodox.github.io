@@ -20,4 +20,4 @@ and a list
 0. item
 0. item
 
-[gimmick:Disqus](theodox)
+[gimmick:Disqus](stevetheodore)
