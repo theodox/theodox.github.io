@@ -1,23 +1,6 @@
-README
-======
+Readme
+=====
 
-You really ouugt to read me or go back to the [index](index.md)
+This repo is the markdown based wiki website.  To edit it, you can clone the repo using github, edit the local markdown files, and sync them back up to this repo -- that's all it takes to update the website.
 
-However, here's some example code
-
-    def code_test():
-    	for r in range (100):
-    		print r
-
-----
-
-here's a quote
-
->  I am a quote!
-
-and a list
-
-0. item
-0. item
-
-[gimmick:Disqus](theodox-github)
+**Note**:  The github wiki for the repo (link at right) is **not** part of the website!  Editing it won't change the website!
