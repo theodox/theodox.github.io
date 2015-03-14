@@ -1,17 +1,7 @@
-Hello world
+WORK IN PROGRESS
 ===========
 
-heading 1
--------------
+I'm reworking this page right now as I transition over to [MDWiki](http://dynalon.github.io) -- which, I should say, is awesome.  So, right now this is pretty much placeholder (the nav bar does not work yet either).
 
-This is example text
+Eventually this site will host some [unity course notes](pages/introduction-to-game-development-with-unity.md) and also the [character riggers cookbook](http://archive.gamedev.net/archive/columns/events/gdc2006/articlee9d2.html?id=655) slides.
 
-this is a [link](README.md) to the readme
-[wiki](wiki/dummy.md)
-
-headhing 2
-----------
-more stuff here
-
-
-[gimmick:Disqus](theodox-github)
