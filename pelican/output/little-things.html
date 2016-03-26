@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>little things</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="./theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,16 +12,16 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">static_site_test </a></h1>
+                <h1><a href="./">static_site_test </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                    <li class="active"><a href="./category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/little-things.html" rel="bookmark"
+        <a href="./little-things.html" rel="bookmark"
            title="Permalink to little things">little things</a></h1>
     </header>
 
@@ -32,10 +32,10 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
         </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="/tag/blog.html">blog</a> </p>
+<p>In <a href="./category/blog.html">Blog</a>.</p>
+<p>tags: <a href="./tag/blog.html">blog</a> </p>
 </footer><!-- /.post-info -->      <p>If you've ever spent any time wrestling with Maya distribution, you've probably noticed that <code>userSetup.py</code> executes in an odd fashion: it's not a module that gets imported, it's basically a series of statements that get executed when Maya fires up. Unfortunately that also means that most of the usual strategies you'd use in python to find out <em>where</em>, exactly, you are running from is problematic.  The usual python tricks like <code>__file__</code> don't work; and most of the time asking for <code>os.getcwd()</code> will point at your Maya program directory.  Usually you end up running around looking at all the directories where Maya might be stashing a <code>userSetup</code> and trying to figure out which one is the one you are in`.  It's ugly.</p>
 <p>However today, I <em>actually found one which works</em>.  At least, I haven't figured out how to break it yet.</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">inspect</span>

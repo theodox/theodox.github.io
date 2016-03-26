@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>static_site_test - games</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="../theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,25 +12,25 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">static_site_test </a></h1>
+                <h1><a href="../">static_site_test </a></h1>
                 <nav><ul>
-                    <li><a href="/category/blog.html">Blog</a></li>
+                    <li><a href="../category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 
             <aside id="featured" class="body">
                 <article>
-                    <h1 class="entry-title"><a href="/proportional-integral-differential-awesome.html">Proportional Integral Differential Awesome</a></h1>
+                    <h1 class="entry-title"><a href="../proportional-integral-differential-awesome.html">Proportional Integral Differential Awesome</a></h1>
 <footer class="post-info">
         <abbr class="published" title="2014-01-01T00:00:00-08:00">
                 Published: Wed 01 January 2014
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+                By                         <a class="url fn" href="../author/stevet.html">stevet</a>
         </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="/tag/unity.html">unity</a> <a href="/tag/python.html">python</a> <a href="/tag/games.html">games</a> </p>
+<p>In <a href="../category/blog.html">Blog</a>.</p>
+<p>tags: <a href="../tag/unity.html">unity</a> <a href="../tag/python.html">python</a> <a href="../tag/games.html">games</a> </p>
 </footer><!-- /.post-info --><p>Outside of work I've been toying a lot with <a href="http://www.dexterindustries.com/site/?product_cat=brickpi-lego-for-raspberry-pi">BrickPi</a>, which allows a Raspberry Pi to control <a href="http://www.lego.com/en-us/mindstorms/?domainredir=mindstorms.lego.com">Lego Mindstorms</a> sensors and motors.  One of the neatest ideas I stumbled on in my reading is the Proportional Integral Differential Controller, or 'PID' for short. It's a nifty idea with a lot of possible applications in games, particularly in animation.</p>
 <p>The PID algorithm is actually a pretty old trick - PID's were originally invented for automatic steering of steamships back in the 1890's (a helpful reminder, if you need one, that people were pretty damn clever even before the internet). Nowadays PIDs can be found  in all sorts of semi-automatic control systems from thermostats to autopilots to Segways.  Although the original implementations are mechanical, nowadays the overwhelming majority of PIDs are done in software, because if you take away all the fancy terminology they are just a tool for trying to fiddle some numbers to get other numbers to come out where you want them to be. Those numbers could be the temperature of your home being adjusted by the output of your air conditioner, the angle of a rudder on a ship trying to compensate for winds and current, or the force of a servo motor trying to keep a Segway from <a href="https://www.youtube.com/watch?v=F8oKJbU5MCQ">doing something embarrassing</a>. </p>
 <h2>PID Basics</h2>

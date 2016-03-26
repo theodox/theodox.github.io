@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>minq</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="./theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,16 +12,16 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">static_site_test </a></h1>
+                <h1><a href="./">static_site_test </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                    <li class="active"><a href="./category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/minq.html" rel="bookmark"
+        <a href="./minq.html" rel="bookmark"
            title="Permalink to minq">minq</a></h1>
     </header>
 
@@ -32,10 +32,10 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
         </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="/tag/blog.html">blog</a> <a href="/tag/maya.html">maya</a> <a href="/tag/programming.html">programming</a> <a href="/tag/python.html">python</a> </p>
+<p>In <a href="./category/blog.html">Blog</a>.</p>
+<p>tags: <a href="./tag/blog.html">blog</a> <a href="./tag/maya.html">maya</a> <a href="./tag/programming.html">programming</a> <a href="./tag/python.html">python</a> </p>
 </footer><!-- /.post-info -->      <p>If you're a long-time reader, you may recall that i'm very ambivalent about <a href="http://techartsurvival.blogspot.com/2015/07/blockquote-background-f9f9f9-border.html">wrapper code</a>.  I'm just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I've also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years.  Sure, extra typing is annoying -- but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.</p>
 <p>So, it's with a little bit of trepidation that I'm sharing my latest library.  <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as 'a query language for Maya scenes.'  The goal is to simplify a very common task for Maya coders: finding things in a scene.</p>
 <p>Now, that isn't a particularly interesting job most of the time, but it's one we do a <em>lot</em>:  a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code>  and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make.  </p>

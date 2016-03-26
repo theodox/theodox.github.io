@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>code wars</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="./theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,16 +12,16 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">static_site_test </a></h1>
+                <h1><a href="./">static_site_test </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                    <li class="active"><a href="./category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/code-wars.html" rel="bookmark"
+        <a href="./code-wars.html" rel="bookmark"
            title="Permalink to code wars">code wars</a></h1>
     </header>
 
@@ -32,10 +32,10 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
         </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="/tag/blog.html">blog</a> <a href="/tag/programming.html">programming</a> </p>
+<p>In <a href="./category/blog.html">Blog</a>.</p>
+<p>tags: <a href="./tag/blog.html">blog</a> <a href="./tag/programming.html">programming</a> </p>
 </footer><!-- /.post-info -->      <p>By a certain stroke of cosmic irony, it was just after I finished shoe-horning lame <em>Star Wars</em> jokes into my last post that I started to get obsessed with <a href="http://www.codewars.com">CodeWars</a>, one of the plethora of competitive coding sites that have sprung up in the last few years.  </p>
 <p>Mostly I find that sort of thing pretty annoying -- it's a genre that all too easily degenerates into macho brogrammer chest-thumping. 90 percent of the code I see on those sites is so tightly knotted -- in hopes of scoring fewest-number-of-lines bragging rights -- that it's useless for learning. I'm impressed as hell by this:</p>
 <div class="highlight"><pre><span></span><span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span><span class="nb">next</span><span class="p">((</span><span class="n">t</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:(</span><span class="n">s</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">i</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="k">if</span> <span class="n">t</span><span class="o">*</span><span class="n">k</span><span class="o">==</span><span class="n">s</span><span class="p">)</span>

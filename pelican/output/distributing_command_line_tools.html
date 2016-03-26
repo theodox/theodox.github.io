@@ -3,7 +3,7 @@
 <head>
         <meta charset="utf-8" />
         <title>distributing_command_line_tools</title>
-        <link rel="stylesheet" href="/theme/css/main.css" />
+        <link rel="stylesheet" href="./theme/css/main.css" />
 
         <!--[if IE]>
             <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -12,16 +12,16 @@
 
 <body id="index" class="home">
         <header id="banner" class="body">
-                <h1><a href="/">static_site_test </a></h1>
+                <h1><a href="./">static_site_test </a></h1>
                 <nav><ul>
-                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                    <li class="active"><a href="./category/blog.html">Blog</a></li>
                 </ul></nav>
         </header><!-- /#banner -->
 <section id="content" class="body">
   <article>
     <header>
       <h1 class="entry-title">
-        <a href="/distributing_command_line_tools.html" rel="bookmark"
+        <a href="./distributing_command_line_tools.html" rel="bookmark"
            title="Permalink to distributing_command_line_tools">distributing_command_line_tools</a></h1>
     </header>
 
@@ -32,10 +32,10 @@
         </abbr>
 
         <address class="vcard author">
-                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
         </address>
-<p>In <a href="/category/blog.html">Blog</a>.</p>
-<p>tags: <a href="/tag/blog.html">blog</a> </p>
+<p>In <a href="./category/blog.html">Blog</a>.</p>
+<p>tags: <a href="./tag/blog.html">blog</a> </p>
 </footer><!-- /.post-info -->      <p>It's pretty common for TA's to want some specialty command-line tools that for their own use, or to share with a select number of power users who aren't afraid of typing.  While python is great at making tools for this kind of one-off use, distributing and maintaing these kinds of scripts  requires jumping even more hoops than sending out artist tools (something covered in more detail <a href="http://techartsurvival.blogspot.com/2014/06/save-environment.html">here</a> and <a href="http://techartsurvival.blogspot.com/2014/07/save-environment-2-i-am-egg-man.html">here</a>). </p>
 <p>It's much easier for folders full of loose scripts to diverge among coders, who are likely to be tinkering with their contents, than it is among artists.  My usual answer to keeping the artists on the same page is to <a href="http://techartsurvival.blogspot.com/2014/07/save-environment-2-i-am-egg-man.html">distribute a complete environment in a single .zip file</a>, which has definitely cut my distribution headaches by an order of magnitude and simplified my management a great deal.</p>
 <p>Lately one of my colleagues has been working on some command line tools and we realized that we can get many of the same benefits by using the same zip file as part of our command line arsenal.  This means we can write scipts that use our up-to-date in-house libraries (and also all of the path manipulation that gets done for our artist tools) without modification.</p>
