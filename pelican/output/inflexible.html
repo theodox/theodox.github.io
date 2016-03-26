@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>inflexible</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+
+<meta name="keywords" content="blog, history">
+
+  <title>
+    static_site_test
+&ndash; inflexible  </title>
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="./">static_site_test </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="./category/blog.html">Blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
     <header>
-      <h1 class="entry-title">
-        <a href="./inflexible.html" rel="bookmark"
-           title="Permalink to inflexible">inflexible</a></h1>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      </p>
     </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-01-01T00:00:00-08:00">
-                Published: Thu 01 January 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
-        </address>
-<p>In <a href="./category/blog.html">Blog</a>.</p>
-<p>tags: <a href="./tag/blog.html">blog</a> <a href="./tag/history.html">history</a> </p>
-</footer><!-- /.post-info -->      <p>"Inflexbility" might be the right concept - but the time scale is rather different.  The Senate's fatal failure was not in 69, or 49, but in 133.</p>
+<article>
+  <div class="article_title">
+    <h3><a href="./inflexible.html">inflexible</a></h3>
+  </div>
+  <div class="article_text">
+    <p>"Inflexbility" might be the right concept - but the time scale is rather different.  The Senate's fatal failure was not in 69, or 49, but in 133.</p>
 <h1>Caesar and the Senate</h1>
 <p>It's true that the final crisis of the Republic was deliberately provoked by the conservative (or, if you prefer, <em>reactionary</em>) faction in the Senate, particularly by Cato and his allies.  Caesar's recall from Gaul was not just a routine Senatorial decree -- it was intended to force Caesar out of political life (or out of life altogether -- though the most likely precedent was the comfortable exile of other overly ambitious politicians like <a href="https://en.wikipedia.org/wiki/Verres">Verres</a>  and <a href="https://en.wikipedia.org/wiki/Publius_Cornelius_Sulla">Publius Cornelius Sulla</a>). The reactionaries knew full well that they were risking a civil war by removing Caesar's official immunity and summoning home to face a highly politicized trial, and during the months leading up to the final rupture the majority of Senators pleaded in vain for some kind of deal to avoid the final reckoning.</p>
 <p>However that was not inflexibility: it was desperation.  The struggle to save the Republic was already lost before Caesar marched off to Gaul.  The plot against Caesar was not an effort to <em>save</em> the Republic: it was a last-ditch gamble to <em>restore</em> it. The Roman constitution -- such as it was -- had been basically abrogated for a decade at that point.  From 59 to 49 the <a href="https://en.wikipedia.org/wiki/First_Triumvirate">first triumivirate</a> owned Roman politics.  This was not just an informal power-sharing deal between Caesar, Pompey and Crassus: it involved organized political violence and the threat of worse:  Here, for example, in Plutarch's description of the aftermath of the <a href="https://en.wikipedia.org/wiki/Lucca_Conference">Lucca Conference</a> in 56 BC where Caesar, Crassus and Pompey reorganized their racket:</p>
@@ -64,37 +83,21 @@ Plutarch <em>Crassus</em>, 15.</p>
 <p>They were murdered for it.  </p>
 <p>Their opponents claimed they were using populist proposals to make themselves tyrants; their supporters pointed out that their murderers had huge financial stakes in the land which the Gracci proposed to redistribute. In this case it doesn't matter if the Gracchi were sincere reformers or populist rabble-rousers aiming at tyranny (which was, of course, what their opponents believed).  The problem they articulated was real, and the Senate failed to address it constructively while they were alive or after their deaths.  </p>
 <p>The murder of Gaius Grachus in 133 -- by a mob of Senators led by the sitting <em>pontifex maximus</em>, no less --  was a double tragedy. It was the first open political murder in Rome for centuries.  And, it  guaranteed that nothing would be done to stop the proletarianization of Italy and the rise of the military dynasts. With fewer and fewer opportunities in civilian life, more and more Romans drifted into the professional military where your general was your patron -- the source of your wealth and the guarantor of your retirement.  The Roman state was just an abstraction. Marius and Sulla, Caeasar, Pompey, Antony,  Octavian, and everyone ever plopped onto the throne by the Praetorians all owe their careers to the Nasica the reactionary: the man who killed both Gaius Gracchus and the Roman Republic.</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Thu 01 January 2015</p>
+    <p>Category: <a href="./category/blog.html">Blog</a>
+ &ndash; Tags:
+      <a href="./tag/blog.html">blog</a>,      <a href="./tag/history.html">history</a>    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
 </body>
 </html>

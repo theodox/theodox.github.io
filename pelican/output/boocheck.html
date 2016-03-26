@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>boocheck</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+
+<meta name="keywords" content="blog">
+
+  <title>
+    static_site_test
+&ndash; boocheck  </title>
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="./">static_site_test </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="./category/blog.html">Blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
     <header>
-      <h1 class="entry-title">
-        <a href="./boocheck.html" rel="bookmark"
-           title="Permalink to boocheck">boocheck</a></h1>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      </p>
     </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-01-01T00:00:00-08:00">
-                Published: Thu 01 January 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
-        </address>
-<p>In <a href="./category/blog.html">Blog</a>.</p>
-<p>tags: <a href="./tag/blog.html">blog</a> </p>
-</footer><!-- /.post-info -->      <p>If <a href="http://techartsurvival.blogspot.com/2015/05/boo-who.html">my last post about Boo</a> piqued your interest, but you haven't had time to do a deep dive into the language to see for yourself, I've posted a version of the <a href="https://github.com/theodox/spelchek">Spelchek</a> Python spell checker module converted to Boo so you can see the similarities and differences between the two languages.  </p>
+<article>
+  <div class="article_title">
+    <h3><a href="./boocheck.html">boocheck</a></h3>
+  </div>
+  <div class="article_text">
+    <p>If <a href="http://techartsurvival.blogspot.com/2015/05/boo-who.html">my last post about Boo</a> piqued your interest, but you haven't had time to do a deep dive into the language to see for yourself, I've posted a version of the <a href="https://github.com/theodox/spelchek">Spelchek</a> Python spell checker module converted to Boo so you can see the similarities and differences between the two languages.  </p>
 <p>The original Python version is <a href="https://github.com/theodox/spelchek/issues">here</a> and the Boo port is <a href="https://github.com/theodox/BooSpell">here</a>.  As a good indication of what I've been saying about the economy of Boo syntax, the Boo version comes in at almost the same size as the Python original (5.05 kb for Boo and 4.95kb for Python) and pretty much the same number of lines -- I haven't done the excersize of converting it to C# for comparison but I'd guess the C# version would come in at about half again as much typing.</p>
 <p>Looking at the code, significant chunks are almost identical: the logic is pretty much the same and the type annotations are the only real difference.  </p>
 <p>Thus</p>
@@ -108,37 +127,21 @@ Adds &lt;word&gt; to the dictionary with the specified priority (default is 4)
 <h1>So...</h1>
 <p>The point of the experiment was to see how hard the Python &gt; Boo translation would be.  This is an application where types actually matter a good deal, since all my values are strings and I need to be able to do string operations like joins on them -- if all I was doing as asking questions of them things would have been more Pythonic (though probably slower as well: one of the reasons we need those types is to get the compiler to help us speed the code up).  </p>
 <p>While this is hardly a demanding application, it is at least a proof-of-concept for the idea of prototyping in Python and then selectively porting to Boo isn't completely nuts.</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Thu 01 January 2015</p>
+    <p>Category: <a href="./category/blog.html">Blog</a>
+ &ndash; Tags:
+      <a href="./tag/blog.html">blog</a>    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
 </body>
 </html>

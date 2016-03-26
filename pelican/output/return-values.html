@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>return values</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+
+<meta name="keywords" content="blog">
+
+  <title>
+    static_site_test
+&ndash; return values  </title>
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="./">static_site_test </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="./category/blog.html">Blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
     <header>
-      <h1 class="entry-title">
-        <a href="./return-values.html" rel="bookmark"
-           title="Permalink to return values">return values</a></h1>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      </p>
     </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-02-01T00:00:00-08:00">
-                Published: Sat 01 February 2014
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
-        </address>
-<p>In <a href="./category/blog.html">Blog</a>.</p>
-<p>tags: <a href="./tag/blog.html">blog</a> </p>
-</footer><!-- /.post-info -->      <p>I'm sure you've read or written code that looks like this:</p>
+<article>
+  <div class="article_title">
+    <h3><a href="./return-values.html">return values</a></h3>
+  </div>
+  <div class="article_text">
+    <p>I'm sure you've read or written code that looks like this:</p>
 <div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
 <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
     <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
@@ -176,37 +195,21 @@
 
 <p>Unlike classes or dictionaries, namedtuples are <em>immutable</em>; that is, they are read-only by default.  This is usually a Good Thing<sup>(tm)</sup> for a result object, since data changing in mid-flight can lead to subtle bugs that may be very hard to reproduce.  Immutability also makes them cheaper: they don't require Python to do as much setup behind then scenes when a they are created, which can be significant in large quantities.  They usually <a href="http://blog.explainmydata.com/2012/07/expensive-lessons-in-python-performance.html">take up less memory as well</a>. </p>
 <p>This combination of features is tough to beat in a cheapo data-only class.  If for some reason you need to upgrade to a real class instead, you probably won't even need to change the code which reads your namedtuples:  Python doesn't care if <code>result.node</code> is a namedtuple field or a regular object field.  For all these reasons, namedtuples are a great little tool for a lot of common data-bundling jobs.   No strategy fits every battle, but namedtuples are an excellent - and often overlooked! -- way to manage this very common (albeit not very interesting) problem and to keep your overall toolkit cleaner, more robust and easier to maintain.</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 01 February 2014</p>
+    <p>Category: <a href="./category/blog.html">Blog</a>
+ &ndash; Tags:
+      <a href="./tag/blog.html">blog</a>    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
 </body>
 </html>

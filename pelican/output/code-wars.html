@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>code wars</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+
+<meta name="keywords" content="blog, programming">
+
+  <title>
+    static_site_test
+&ndash; code wars  </title>
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="./">static_site_test </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="./category/blog.html">Blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
     <header>
-      <h1 class="entry-title">
-        <a href="./code-wars.html" rel="bookmark"
-           title="Permalink to code wars">code wars</a></h1>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      </p>
     </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-01-01T00:00:00-08:00">
-                Published: Thu 01 January 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
-        </address>
-<p>In <a href="./category/blog.html">Blog</a>.</p>
-<p>tags: <a href="./tag/blog.html">blog</a> <a href="./tag/programming.html">programming</a> </p>
-</footer><!-- /.post-info -->      <p>By a certain stroke of cosmic irony, it was just after I finished shoe-horning lame <em>Star Wars</em> jokes into my last post that I started to get obsessed with <a href="http://www.codewars.com">CodeWars</a>, one of the plethora of competitive coding sites that have sprung up in the last few years.  </p>
+<article>
+  <div class="article_title">
+    <h3><a href="./code-wars.html">code wars</a></h3>
+  </div>
+  <div class="article_text">
+    <p>By a certain stroke of cosmic irony, it was just after I finished shoe-horning lame <em>Star Wars</em> jokes into my last post that I started to get obsessed with <a href="http://www.codewars.com">CodeWars</a>, one of the plethora of competitive coding sites that have sprung up in the last few years.  </p>
 <p>Mostly I find that sort of thing pretty annoying -- it's a genre that all too easily degenerates into macho brogrammer chest-thumping. 90 percent of the code I see on those sites is so tightly knotted -- in hopes of scoring fewest-number-of-lines bragging rights -- that it's useless for learning. I'm impressed as hell by this:</p>
 <div class="highlight"><pre><span></span><span class="n">f</span><span class="o">=</span><span class="k">lambda</span> <span class="n">s</span><span class="p">:</span><span class="nb">next</span><span class="p">((</span><span class="n">t</span><span class="p">,</span><span class="n">k</span><span class="p">)</span><span class="k">for</span> <span class="n">t</span><span class="p">,</span><span class="n">k</span> <span class="ow">in</span> <span class="nb">map</span><span class="p">(</span><span class="k">lambda</span> <span class="n">i</span><span class="p">:(</span><span class="n">s</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">/</span><span class="n">i</span><span class="p">),</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="nb">len</span><span class="p">(</span><span class="n">s</span><span class="p">)</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span><span class="k">if</span> <span class="n">t</span><span class="o">*</span><span class="n">k</span><span class="o">==</span><span class="n">s</span><span class="p">)</span>
 </pre></div>
@@ -47,37 +66,21 @@
 <p>The other nice thing is that most of the problems are bite-sized, the sort of thing you can chew on while waiting for a longish perforce sync to complete.  It's a great way to practice you coding chops outside all the gnarly things that come with working in a particular problems set for work.  I've had a work task which involved me in a lot of 5-minute wait times this week and I found CodeWars to be a nice chance to do keep my brains warm while waiting for Perforce.</p>
 <p>So, if you're looking to sharpen up your coding skills you should definitely check out <a href="http://www.codewars.com">CodeWars</a>.  My username is <em>Theodox</em> and in the goofy ninja-academy language of Codewars we can form an 'alliance' by following one another. We can make technical art a power in the land!</p>
 <p>On the practical side: codewars supports Python, Javascript, and several other languages -- they just added C#.  It's great way to get familiar with new syntaxes and to see how folks who know what they are doing tackle problems natively, it's a great tool to pick up a new language on your own.  Give it a shot!</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Thu 01 January 2015</p>
+    <p>Category: <a href="./category/blog.html">Blog</a>
+ &ndash; Tags:
+      <a href="./tag/blog.html">blog</a>,      <a href="./tag/programming.html">programming</a>    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
 </body>
 </html>

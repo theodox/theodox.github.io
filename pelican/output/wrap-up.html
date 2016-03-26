@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>wrap-up</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+
+<meta name="keywords" content="blog, programming, maya, python">
+
+  <title>
+    static_site_test
+&ndash; wrap-up  </title>
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="./">static_site_test </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="./category/blog.html">Blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
     <header>
-      <h1 class="entry-title">
-        <a href="./wrap-up.html" rel="bookmark"
-           title="Permalink to wrap-up">wrap-up</a></h1>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      </p>
     </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2014-01-05T00:00:00-08:00">
-                Published: Sun 05 January 2014
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
-        </address>
-<p>In <a href="./category/blog.html">Blog</a>.</p>
-<p>tags: <a href="./tag/blog.html">blog</a> <a href="./tag/programming.html">programming</a> <a href="./tag/maya.html">maya</a> <a href="./tag/python.html">python</a> </p>
-</footer><!-- /.post-info -->      <p>The beauty of working with code, even really simple code, is that you can build your own little universe out of bits and pieces contributed by thousands of other people -- all without paying a dime or even asking them for help.  From sharing a script off of CreativeCrash to downloading a huge open-source behemoth like Apache, any reasonably plucky individual can today make stuff that actually involves the work of thousands of anonymous others. It's really quite a remarkable evolution in human history that so many people voluntarily give away their work for nothing, and (whatever else you can say about the internet era) it's something to be proud of participatng in.</p>
+<article>
+  <div class="article_title">
+    <h3><a href="./wrap-up.html">wrap-up</a></h3>
+  </div>
+  <div class="article_text">
+    <p>The beauty of working with code, even really simple code, is that you can build your own little universe out of bits and pieces contributed by thousands of other people -- all without paying a dime or even asking them for help.  From sharing a script off of CreativeCrash to downloading a huge open-source behemoth like Apache, any reasonably plucky individual can today make stuff that actually involves the work of thousands of anonymous others. It's really quite a remarkable evolution in human history that so many people voluntarily give away their work for nothing, and (whatever else you can say about the internet era) it's something to be proud of participatng in.</p>
 <p>On the other hand... </p>
 <p>Well, Say you are an Amish farmer and all your neighbors showed up to help you raise your barn, you'd certainly be grateful. But you might still be pretty annoyed if Hans from next door hung your barn doors so they stuck in the summer heat.  Maybe old Hans worries more about keeping the barn warm than you do, so he prefers a tight seal: but that's small comfort when you're heaving on that handle in a muggy Pennsylvania morning. The internet abounds in excellent -- and, amazingly, free -- tools to help make your life easier. But they all started life as tools to make somebody else's life easier. If your needs don't line up perfectly with the needs of the original author, you're likely to get a little <em><a href="http://www.dict.cc/deutsch-englisch/gereizt.html">gereizt</a></em>.</p>
 <p><img alt="barn raising" src="http://notonbluray.com/blog/wp-content/uploads/2014/04/Witness-barn-raising-scene-Bluray-screenshot-3.png" /></p>
@@ -114,37 +133,21 @@
 <p>So if you're thinking about writing a wrapper, ask yourself this: does the code you want to write teach you something about the problem your solving? Or does it just save you a few keystrokes? Typing is a pain, but you'll spend a lot more tine looking at your code than you ever will typing it. So don't focus on just counting lines or syntax: focus on whether the wrapper helps you understand the problem better.  If the wrapped code reads like a description of your thought process, you're on the right track.  If it's  just getting you back to <a href="http://www.twitch.tv/undeadlabs">that TwitchTV stream</a> on your second monitor a few minutes earlier it might not be worth your time.</p>
 <h1>PS</h1>
 <p>I used an ORM for my example because it provides such a powerful example of code that's not bogged down in syntactic complexities. There is, however, a classic internet flame war about ORMs that I'm glossing over, with nerd rage aplenty for friends and foes of ORMs. Background <a href="http://martinfowler.com/bliki/OrmHate.html">here</a> if you care.  </p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sun 05 January 2014</p>
+    <p>Category: <a href="./category/blog.html">Blog</a>
+ &ndash; Tags:
+      <a href="./tag/blog.html">blog</a>,      <a href="./tag/programming.html">programming</a>,      <a href="./tag/maya.html">maya</a>,      <a href="./tag/python.html">python</a>    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
 </body>
 </html>

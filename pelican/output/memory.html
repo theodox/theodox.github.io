@@ -1,42 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-        <meta charset="utf-8" />
-        <title>memory</title>
-        <link rel="stylesheet" href="./theme/css/main.css" />
 
-        <!--[if IE]>
-            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-        <![endif]-->
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+
+<meta name="keywords" content="blog, ta, programming">
+
+  <title>
+    static_site_test
+&ndash; memory  </title>
+
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="./">static_site_test </a></h1>
-                <nav><ul>
-                    <li class="active"><a href="./category/blog.html">Blog</a></li>
-                </ul></nav>
-        </header><!-- /#banner -->
-<section id="content" class="body">
-  <article>
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
     <header>
-      <h1 class="entry-title">
-        <a href="./memory.html" rel="bookmark"
-           title="Permalink to memory">memory</a></h1>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      </p>
     </header>
 
-    <div class="entry-content">
-<footer class="post-info">
-        <abbr class="published" title="2015-03-15T00:00:00-07:00">
-                Published: Sun 15 March 2015
-        </abbr>
-
-        <address class="vcard author">
-                By                         <a class="url fn" href="./author/stevet.html">stevet</a>
-        </address>
-<p>In <a href="./category/blog.html">Blog</a>.</p>
-<p>tags: <a href="./tag/blog.html">blog</a> <a href="./tag/ta.html">ta</a> <a href="./tag/programming.html">programming</a> </p>
-</footer><!-- /.post-info -->      <p>We tend to be the kind of people who throw themselves into things -- we live for the joy of problem solving. So when we're really grappling with the intricacies of todays disaster, we immerse ourselves in it.  We tear it apart and inspect all the little moving pieces till we understand it well enought to duct-tape it back together again. </p>
+<article>
+  <div class="article_title">
+    <h3><a href="./memory.html">memory</a></h3>
+  </div>
+  <div class="article_text">
+    <p>We tend to be the kind of people who throw themselves into things -- we live for the joy of problem solving. So when we're really grappling with the intricacies of todays disaster, we immerse ourselves in it.  We tear it apart and inspect all the little moving pieces till we understand it well enought to duct-tape it back together again. </p>
 <p>Along the way, that attention to detail and mastery of nuance tends to make us think we know it all.  But -- a shock, I know -- we don't.  More to the point, we might now it all <em>for the moment</em>.  But we'll dump that knowledge to make sure we have room for our encyclopedic knowledge of tomorrow's problem. And next week's. And next months.</p>
 <p>In short, we're constantly flushing our caches.  Unless you're stuck in a rut, doing the same thing every day, you're constantly learning new little things for your current problem and silently shelving the knowledge you aquired for your last.</p>
 <p>This is one reason why good code comments are so important. Sure, comments rot just like code.  But a couple of well-placed notes about how and why the code looks the way it does can save future you a lot of time when many layers of memory recycling have left you completeley oblivious about what the hell past you was up to.  I can easily think of a couple of embarrassing occasions where I've literally chased my own tail -- done something non-obvious because of a wierd maya bug, then come back six month later to 'clean up' my 'ugly code' and of course hit the exact same bug again.  </p>
@@ -45,37 +64,21 @@
 <p>Yep. I'd already written it. I'd even <a href="https://github.com/theodox/attributeEvents">put it up on Github</a>.</p>
 <p>In my defense, I realized in retrospect that I had cancelled the project at work that made it necessary the first time: I did the work on the system, got it ready to go, and then decided that there was a simpler way to solve the problem without all those attribute-change scripts anyway. Nonetheless it's a perfect illustration of how thoroughly one's short-term memory cache gets flushed -- and of the importance of leaving good comments. At least when I found the damn thing the readme that Github makes you put up reminded me how it was supposed to work (as an aside, it's a great reason for putting your stuff up on GitHub or similar forums: knowing that other people will be looking at it forces you to clean up and document more than you would if you just decided to shelve a project).</p>
 <p>So there you have it: an object lesson in the importance of clarity in tools development <em>and</em> a free module for messing around with AttributeChange scriptJobs!</p>
-    </div><!-- /.entry-content -->
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sun 15 March 2015</p>
+    <p>Category: <a href="./category/blog.html">Blog</a>
+ &ndash; Tags:
+      <a href="./tag/blog.html">blog</a>,      <a href="./tag/ta.html">ta</a>,      <a href="./tag/programming.html">programming</a>    </p>
+  </div>
 
-  </article>
-</section>
-        <section id="extras" class="body">
-                <div class="blogroll">
-                        <h2>blogroll</h2>
-                        <ul>
-                            <li><a href="http://getpelican.com/">Pelican</a></li>
-                            <li><a href="http://python.org/">Python.org</a></li>
-                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
-                            <li><a href="#">You can modify those links in your config file</a></li>
-                        </ul>
-                </div><!-- /.blogroll -->
-                <div class="social">
-                        <h2>social</h2>
-                        <ul>
 
-                            <li><a href="#">You can add links in your config file</a></li>
-                            <li><a href="#">Another social link</a></li>
-                        </ul>
-                </div><!-- /.social -->
-        </section><!-- /#extras -->
+</article>
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
 
-                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
-        </footer><!-- /#contentinfo -->
-
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
 </body>
 </html>
