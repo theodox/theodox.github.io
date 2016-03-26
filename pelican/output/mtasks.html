@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>mtasks</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">static_site_test </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/mtasks.html" rel="bookmark"
+           title="Permalink to mtasks">mtasks</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-01T00:00:00-08:00">
+                Published: Wed 01 January 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->      <p>Maya is coming up on its twentieth birthday this year.  That's an impressive run for a piece of software, and it definitely validates some of the key design decisions made back in the 90's.  </p>
+<p>However, the old gray mare is a little long in the tooth these days.  Many of the key changes in computing that have take place since the days of Windows 95 are not fully integrated into the Maya ecosystem. In particular, the core of Maya remains single-threaded:  only the main Maya thread can touch your maya scenes.  </p>
+<p>If you've ever tried to run multiple tasks simultaneously in Maya using Python threads, you know it's a giant pain in the proverbial patootie.  If you don't obsessively wrap every call to <code>maya.cmds</code> or PyMel with <code>utils.executeDeferred()</code> you will be plagued with mysterious, inconsistent bugs - when you're not actually just hard-crashing your machine. Sometimes -- like when you've got a big long-running task you need to kick off and monitor -- the pain is worth it it.  There are a lot of little jobs -- particularly things where a bit of concurrency would make your users' experience a bit smoother, such as flashing messages in a gui window -- where the hassle doesn't justify the extra work and increased risk of bugs.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

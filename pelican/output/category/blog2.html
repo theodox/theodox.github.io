@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>static_site_test - Blog</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">static_site_test </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+
+                <section id="content" class="body">
+                    <ol id="posts-list" class="hfeed" start="9">
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/covenant.html" rel="bookmark"
+                           title="Permalink to covenant">covenant</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-05-01T00:00:00-07:00">
+                Published: Thu 01 May 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> <a href="/tag/scifi.html">scifi</a> <a href="/tag/quora.html">quora</a> </p>
+</footer><!-- /.post-info -->                <p>While an interesting tactical proposition, this question misses an important point.  The Covenant has already met the Empire; indeed, the whole of Covenant culture is nothing but a kind of cargo-cult effort to reconstitute the Empire.</p>
+<p>Because the Empire is just what the Covenant know as the Forerunners.  If the ...</p>
+                <a class="readmore" href="/covenant.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/sfx.html" rel="bookmark"
+                           title="Permalink to sfx">sfx</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-01T00:00:00-07:00">
+                Published: Tue 01 April 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->                <p>All of shaderfx in maya is organized by a single, undocumented command. Which is pretty lame. </p>
+<p>However, it's not as bad as it seems once you figure out the standard command form, which is always some variant of this form:</p>
+<div class="highlight"><pre><span></span>    shaderfx -sfxnode &lt;shader node&gt; -command &lt;command&gt; &lt;node id&gt;
+</pre></div>
+
+
+<p>The ...</p>
+                <a class="readmore" href="/sfx.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/scriptctx-is-your-frenemy.html" rel="bookmark"
+                           title="Permalink to ScriptCtx is your frenemy">ScriptCtx is your frenemy</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-03-01T00:00:00-08:00">
+                Published: Sat 01 March 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> <a href="/tag/maya.html">maya</a> <a href="/tag/python.html">python</a> </p>
+</footer><!-- /.post-info -->                <p>You may have noticed the little poll I ran in the sidebar during   February and March: the question about <code>scriptCtx</code> in Maya.  </p>
+<p>The poll was hardly scientific: with a sample size of 31 hardy souls it has even less statistical validity than the average re-tweeted infographic.  Still, it certainly jibes ...</p>
+                <a class="readmore" href="/scriptctx-is-your-frenemy.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/return-values.html" rel="bookmark"
+                           title="Permalink to return values">return values</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-02-01T00:00:00-08:00">
+                Published: Sat 01 February 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->                <p>I'm sure you've read or written code that looks like this:</p>
+<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Here <code>some_function</code> must be using one of Python's handiest features, the ability to return lists or tuples of different types in a ...</p>
+                <a class="readmore" href="/return-values.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/wrap-up.html" rel="bookmark"
+                           title="Permalink to wrap-up">wrap-up</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-05T00:00:00-08:00">
+                Published: Sun 05 January 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> <a href="/tag/programming.html">programming</a> <a href="/tag/maya.html">maya</a> <a href="/tag/python.html">python</a> </p>
+</footer><!-- /.post-info -->                <p>The beauty of working with code, even really simple code, is that you can build your own little universe out of bits and pieces contributed by thousands of other people -- all without paying a dime or even asking them for help.  From sharing a script off of CreativeCrash to downloading ...</p>
+                <a class="readmore" href="/wrap-up.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/mtasks.html" rel="bookmark"
+                           title="Permalink to mtasks">mtasks</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-01T00:00:00-08:00">
+                Published: Wed 01 January 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->                <p>Maya is coming up on its twentieth birthday this year.  That's an impressive run for a piece of software, and it definitely validates some of the key design decisions made back in the 90's.  </p>
+<p>However, the old gray mare is a little long in the tooth these days ...</p>
+                <a class="readmore" href="/mtasks.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/proportional-integral-differential-awesome.html" rel="bookmark"
+                           title="Permalink to Proportional Integral Differential Awesome">Proportional Integral Differential Awesome</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-01T00:00:00-08:00">
+                Published: Wed 01 January 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/unity.html">unity</a> <a href="/tag/python.html">python</a> <a href="/tag/games.html">games</a> </p>
+</footer><!-- /.post-info -->                <p>Outside of work I've been toying a lot with <a href="http://www.dexterindustries.com/site/?product_cat=brickpi-lego-for-raspberry-pi">BrickPi</a>, which allows a Raspberry Pi to control <a href="http://www.lego.com/en-us/mindstorms/?domainredir=mindstorms.lego.com">Lego Mindstorms</a> sensors and motors.  One of the neatest ideas I stumbled on in my reading is the Proportional Integral Differential Controller, or 'PID' for short. It's a nifty idea with ...</p>
+                <a class="readmore" href="/proportional-integral-differential-awesome.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+
+            <li><article class="hentry">
+                <header>
+                    <h1><a href="/python_in_unity.html" rel="bookmark"
+                           title="Permalink to python_in_unity">python_in_unity</a></h1>
+                </header>
+
+                <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-01-01T00:00:00-08:00">
+                Published: Wed 01 January 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->                <ul>
+<li>importing Unity</li>
+<li>you need to use clr.AddReferenceToFile, not clr.AddReference</li>
+<li>the path to Unity/editor/data/managed needs to be in your python system path</li>
+<li>
+<p>then import UnityEngine</p>
+</li>
+<li>
+<p>Compiling:</p>
+</li>
+<li>use pyc.py in ipy/tools/scripts</li>
+<li>/target:dll</li>
+<li>
+<p>reference http://dbaportal.eu/2009/12/21/ironpython-how-to-compile-exe/</p>
+</li>
+<li>
+<p>Don't work ...</p></li></ul>
+                <a class="readmore" href="/python_in_unity.html">read more</a>
+                </div><!-- /.entry-content -->
+            </article></li>
+                </ol><!-- /#posts-list -->
+<p class="paginator">
+        <a href="/category/blog.html">&laquo;</a>
+    Page 2 / 2
+</p>
+                </section><!-- /#content -->
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

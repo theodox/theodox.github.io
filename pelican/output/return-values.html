@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>return values</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">static_site_test </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/return-values.html" rel="bookmark"
+           title="Permalink to return values">return values</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-02-01T00:00:00-08:00">
+                Published: Sat 01 February 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->      <p>I'm sure you've read or written code that looks like this:</p>
+<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+</pre></div>
+
+
+<p>Here <code>some_function</code> must be using one of Python's handiest features, the ability to return lists or tuples of different types in a single function.  Python's ability to return 'whatever' - a list, a tuple, or a single object -- makes it easy to assemble a stream of data in one place and consume it in others wihout worrying about type declarations or creating a custom class to hold the results.  Trying to create a similarly flexible system in, say, C# involves a lot of type-mongering.  So it's nice.</p>
+<p>At least, it's nice <em>at first</em>.  Unfortunately it's got some serious drawbacks that will become apparent after a while -- outside the context of a single script or function, relying entirely on indices to keep things straight is dangerous. As so often in Pythonia, freedom and flexibility can come at the cost of chaos downstream if you're not careful.</p>
+<h1>I have a bad feeling about this...</h1>
+<p>Everything will be hunky-dory as long as <code>some_function</code> continues to pack its output the same way. In this example <code>some_function</code>  is probably doing something like:</p>
+<div class="highlight"><pre><span></span><span class="c1"># imagine some actual code here ...</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_list</span>
+    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">:</span>
+        <span class="n">settable</span> <span class="o">=</span> <span class="n">is_attrib_settable</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">settable</span><span class="p">:</span>
+           <span class="n">new_value</span> <span class="o">=</span> <span class="n">dict_of_defaults</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>
+           <span class="n">results</span><span class="o">.</span><span class="n">append</span> <span class="p">([</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">new_value</span><span class="p">])</span>
+<span class="k">return</span> <span class="n">results</span>
+</pre></div>
+
+
+<p>Inevitably, though, something will come along that causes the order of the results to change.  In a Maya example like this, for example, the likely cause would be some other user of this function finding out that the code needs to set defaults on an unusual value type. <code>setAttr</code> needs to be told what type of data to expect if things are unusual.  </p>
+<p>That being the case, your teammate extends <code>some_function</code> to output the data type needed.  If you're lucky, the results look like <code>[node, attribute, value, type]</code> and your existing code works fine.  But if it changes to <code>[node, attribute, type, value]</code>  your existing code will break in wierd ways.  Moreover if you haven't written a lot of comments, the person fixing the bugs will have to sit down and deduce what <code>item[0]</code>, <code>item[1]</code> and <code>item[2]</code> were supposed to be.  </p>
+<p>This example is a perfect illustration unit tests are such a nice thing to have in Python-land: a unit test would probably catch the change in signature right away, alerting your helpful co-worker to the can of worms they have opened up by changing the output of the function. But the real moral of the story is how dangerous it is to rely on implicit knowledge of structures -- like the ordering of a list -- instead of on explicit instructions. When somebody fails to understand the implications of that ordering, bad things will happen.  When the knowledge you need to debug the problem is hidden,  things will be even worse.</p>
+<h1>Return classes strike back</h1>
+<p>In most languages the way around this is to create a class that holds the results of something like <code>some_function</code>.  A result class provides clear, named access to what's going on:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attr</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">val</span>
+
+ <span class="c1"># and inside of some_function()</span>
+<span class="o">...</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>
+<span class="o">...</span>
+</pre></div>
+
+
+<p>This means the receiving code is much neater and easier to understand:</p>
+<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">node</span><span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This is a better record of what you were trying to achieve in the first place, and it's also much more survivable: as long as HelpfulCoworker01 does not actually rename the fields in the result object it can be tweaked and updated without causing problems.</p>
+<p>For many cases this is the right way to go. However it comes with some drawbacks of its own. </p>
+<p>First off -- let's be honest -- there's a lot of typing for something so dull.  I always try to leave that out of the equation when I can - the time spent typing the code is such a tiny fraction of the time you'll spend reading it that trying to save a few keystrokes is usually a Bad Idea <sup>(tm)</sup>.  However, typing 5 lines when you could just type a pair of bracket does feel like an imposition -- particularly when the 5 lines are 100% boring boilerplate.</p>
+<p>The second issue is that, being a class, <code>SomeFuncResult</code> is comparatively expensive: it costs a smidge more in both memory and processor time than just a list or a tuple of values. I'm ranking this behind the typing costs because most of the time that increment of cost doesn't matter at all: if you're dealing with a few hundred or even a few thousand of them, at a time the costs for spinning up new instances of <code>SomeFuncResult</code> just to hold data are going to be invisible to users.  However if you are doing something more performance-intensive the costs of creating a full mutable object can be significant in large numbers.  As always, <a href="http://techartsurvival.blogspot.com/2015/04/the-right-profile.html">it's wiser not to try to optimize until things are working</a> but this is still a consideration worth recalling.</p>
+<p>The last issue is that <code>SomeFuncResult</code> can be changed in flight. Since it is a class, the data in a <code>SomeFuncResult</code> can be updated (for you CS types, it is <em>mutable</em>).  This means some other piece of code that looks at the result object in between <code>some_function</code> and you might can decide to mess with the results.  That can be a feature or a bug depending on how you want to code it -- but since Python does not have a built-in mechanism for locking fields in an object, you'd have to put in extra work to make sure the results didn't get changed by accident if keeping the data pristine was mission-critical.  You can use the a property decorator to make a fake read only field:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="n">node</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_attribute</span> <span class="o">=</span> <span class="n">attr</span>
+         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">val</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attribute</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
+</pre></div>
+
+
+<p>Alas, our 5 lines of boilerplate have now blossomed into 16. Our quest for clarity is getting expensive.</p>
+<h1>De-objectifying?</h1>
+<p>One common way to get around the hassles -- or at least, they typing costs --of custom return objects is simply to use dictionaries instead.  If you use the <a href="http://www.perforce.com/perforce/doc.current/user/p4pythonnotes.txt">perforce Python API</a> you'll be quite familiar with this strategy; instead of creating a class, you  just return dictionaries with nice descriptive names </p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_list</span>
+    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">:</span>
+        <span class="n">settable</span> <span class="o">=</span> <span class="n">is_attrib_settable</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">settable</span><span class="p">:</span>
+           <span class="n">new_value</span> <span class="o">=</span> <span class="n">dict_of_defaults</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>
+           <span class="n">results</span><span class="o">.</span><span class="n">append</span> <span class="p">({</span><span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">:</span><span class="n">attrib</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">new_value</span><span class="p">})</span>
+<span class="k">return</span> <span class="n">results</span>
+</pre></div>
+
+
+<p>Like a custom class this increases readability and clarity; it's also future proof since you can add more fields to the dictionary without messing with existing data.  </p>
+<p>Even better, dictionaries -- unlike classes --  are self-describing: in order to understand the contents of a custom result class like <code>SomeFuncResult</code> you'll have to look at the source code, whereas you can see the contents of a result dictionary with a simple print statement.  Dictionaries are slightly cheaper than classes (there is a <a href="http://stackoverflow.com/questions/1336791/dictionary-vs-object-which-is-more-efficient-and-why">good workaround</a> to speed up classes, but it's something you have to write and maintain).  And, of course, dictionaries have minimal setup costs: they are boiler-plate free.</p>
+<p>This doesn't mean they are ideal for all circumstances, howerver.  </p>
+<p>The  Achilles' heel of using dictionaries is keys, which are likely to be strings. Unless you are very disciplined about using named constants for all your result dictionaries you'll inevitably find that somebody somewhere has type <code>attribite</code> with an extra <em>i</em> instead of a <em>u</em> and suddenly perfectly valid, impeccably logical code is failing because nobody thought to look at the key names. Instead of typing lots of setup code once, you'll be dribbling out square brackets and quotes till the end of time, with lots of little missteps and typos along the way.  While that's not an insurmoutable problem it's another annoyance.</p>
+<h1>Return of the namedtuples</h1>
+<p>Luckily there is yet another -- and for most purposes better -- way to return complex results --- one that is both flexible and self-describing. <a href="http://pymotw.com/2/collections/namedtuple.html">namedtuples</a> are part of the python standard library and they offer a clean, simple way to create lightweight objects that have named properties -- like classes -- but require almost no setup: you can create a new type of named tuple with a single line of code, and then use it like a lightweight (and immutable) class.</p>
+<p>A namedtuple is just a python tuple that can also use names to access it's own fields. For example:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
+
+<span class="c1"># create a namedtuple called &#39;SomeFuncRes&#39; to hold nodes, attributes and values</span>
+<span class="n">SomeFuncRes</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;SomeFuncRes&quot;</span><span class="p">,</span> <span class="s2">&quot;node attribute value&quot;</span><span class="p">)</span>
+
+<span class="c1"># make an instance</span>
+<span class="n">example</span> <span class="o">=</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="s1">&#39;pCube1&#39;</span><span class="p">,</span> <span class="s1">&#39;tx&#39;</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">)</span>
+<span class="c1"># Result: SomeFuncRes(node=&#39;pCube1&#39;, attribute=&#39;tx&#39;, value=33.0)</span>
+</pre></div>
+
+
+<p>As you can see, namedtuples are as even easier to 'read' than dictionaries when printed out. However, namedtuples give you dot-access to their contents.  </p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">example</span><span class="o">.</span><span class="n">node</span>
+<span class="c1"># pCube1</span>
+</pre></div>
+
+
+<p>This saves a few characters: <code>result.node</code> beats <code>result['node']</code> -- but mopre important offers with far fewer opportunities for mistyped keys or open quotes. </p>
+<p>However, namedtuples can also use old-fashioned indexed access too:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="c1"># pCube1</span>
+</pre></div>
+
+
+<p>And you can even iterate over them if you need to, since a namedtuple is in the end just a slightly fancier tuple:</p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">item</span>
+
+<span class="c1"># pCube1</span>
+<span class="c1"># tx</span>
+<span class="c1"># 30</span>
+</pre></div>
+
+
+<p>Namedtuples are easy to instantiate: You can create them using index ordering, names, or **keyword arguments.  Names tend to be better for clarity, but if you're expanding the results of other functions like <code>zip()</code> indices and double-starred dictionaries can be very handy.  Having all three options allows you to create them in the most appropriate way.</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="s1">&#39;pSphere1&#39;</span><span class="p">,</span> <span class="s1">&#39;ry&#39;</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>
+<span class="c1"># SomeFuncRes(node=&#39;pSphere1&#39;, attribute=&#39;ry&#39;, value=180)</span>
+<span class="k">print</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="s1">&#39;pCube1&#39;</span><span class="p">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s1">&#39;tz&#39;</span><span class="p">)</span>
+<span class="c1"># SomeFuncRes(node=&#39;pCube1&#39;, attribute=&#39;tz&#39;, value=1)</span>
+<span class="n">from_dict</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="s1">&#39;pPlane1&#39;</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">:</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="mf">40.5</span><span class="p">}</span>
+<span class="n">SomeFuncRes</span><span class="p">(</span><span class="o">**</span><span class="n">from_dict</span><span class="p">)</span>
+<span class="c1"># SomeFuncRes(node=&#39;pPlane1&#39;, attribute=&#39;rz&#39;, value=40.5)</span>
+</pre></div>
+
+
+<p>Unlike classes or dictionaries, namedtuples are <em>immutable</em>; that is, they are read-only by default.  This is usually a Good Thing<sup>(tm)</sup> for a result object, since data changing in mid-flight can lead to subtle bugs that may be very hard to reproduce.  Immutability also makes them cheaper: they don't require Python to do as much setup behind then scenes when a they are created, which can be significant in large quantities.  They usually <a href="http://blog.explainmydata.com/2012/07/expensive-lessons-in-python-performance.html">take up less memory as well</a>. </p>
+<p>This combination of features is tough to beat in a cheapo data-only class.  If for some reason you need to upgrade to a real class instead, you probably won't even need to change the code which reads your namedtuples:  Python doesn't care if <code>result.node</code> is a namedtuple field or a regular object field.  For all these reasons, namedtuples are a great little tool for a lot of common data-bundling jobs.   No strategy fits every battle, but namedtuples are an excellent - and often overlooked! -- way to manage this very common (albeit not very interesting) problem and to keep your overall toolkit cleaner, more robust and easier to maintain.</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

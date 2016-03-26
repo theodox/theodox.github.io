@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>sfx</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">static_site_test </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/sfx.html" rel="bookmark"
+           title="Permalink to sfx">sfx</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2014-04-01T00:00:00-07:00">
+                Published: Tue 01 April 2014
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->      <p>All of shaderfx in maya is organized by a single, undocumented command. Which is pretty lame. </p>
+<p>However, it's not as bad as it seems once you figure out the standard command form, which is always some variant of this form:</p>
+<div class="highlight"><pre><span></span>    shaderfx -sfxnode &lt;shader node&gt; -command &lt;command&gt; &lt;node id&gt;
+</pre></div>
+
+
+<p>The <code>sfxnode</code> argument tells maya which sfx shader to work on.  The <code>command</code> flag indiciates an action and the <code>node id</code> specifies an node in the network.  Nodes are assigned an id in order of creation, with the firstnode after the root ordinarily being number 2 and so on -- however the ids are not recycled so a network which has been edited extensively can have what look like random ids and there is no guarantee that the nodes will form a neat, continuous order.  </p>
+<p>Many commands take additional arguments as well.  Those extra always follow the main command; thus </p>
+<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -edit_int 19 &quot;uiorder&quot; 1;
+</pre></div>
+
+
+<p>sets the value of the <code>uiorder</code> field on node 19 to a value of 1.  </p>
+<p>The <code>shaderfx</code> command can also return a value: to query the <code>uiorder</code> field in the example above you'd issue </p>
+<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -getPropertyValue 19 &quot;uiorder&quot;;
+    // Result: 1 // 
+</pre></div>
+
+
+<p>So, the good news is that the <code>shaderfx</code> command is actually pretty capable: so far, at least, I have not found anything I really needed to do that the command did not support. For some reason the help documentation on the mel command is pretty sparse but the python version of the help text is actually quite verbose and useful.</p>
+<p>Still, it's kind of a wonky API: a single command for everything, and no way to really reason over a network as a whole.  Worse, the different types of nodes are identified only by cryptic (and undocumented) numeric codes: for example a <code>Cosine</code> node is 20205 -- but the only way to find that out is to use the <code>getNodeTypeByClassName</code> command (and, by the way, the node type names are case and space sensitive).</p>
+<h1>Cleanup crew</h1>
+<p>With all that baggage I was pretty discouraged about actually getting any work done using shaderfx programmatically. However a little poking around produced what I hope is a somewhat more logical API, which I'm <a href="https://github.com/theodox/sfx">sharing on github</a>.</p>
+<p>The <code>sfx</code> module is a plain python module - you can drop it into whatever location you use to story your Maya python scripts. It exposes two main classes:</p>
+<p><em>SFXNetwork</em> represents a single shader network -- it is a wrapper around the Maya shader ball.  The <code>SFXNetwork</code> contains an indexed list of all the nodes in the network and also exposes methods for adding, deleting, finding and connecting the nodes in the network.</p>
+<p><em>SFXNode</em> represets a single node inside the network.  It exposes the properties of the node so they can be accessed and edited using python dot-style syntax.  </p>
+<p>The module also includes to submodules, <code>sfxnodes</code> and <code>pbsnodes</code>.  These make it easier to work with the zillions of custom node ids: Instead of remembering that a <code>Cosine</code> node is type 20205, you reference <code>sfxnodes.Cosine</code>.  I'll be using the <code>StingrayPBSNetwork</code> class  and the <code>pbsnodes</code> submodule in my examples, since most of my actual use-case involves the Stingray PBS shader.   The syntax and usage, however, are the same for the vanilla <code>SFXNetwork</code> and <code>sfxnodes</code> -- only the array of node types and their properties.</p>
+<p>Here's a bit of the basic network functionality.  </p>
+<h1>Create a network</h1>
+<p>To create a new shaderfx network, use the <code>create</code> classmethod:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sfx</span> <span class="kn">import</span> <span class="n">StingrayPBSNetwork</span>
+<span class="kn">import</span> <span class="nn">sfx.pbsnodes</span> <span class="kn">as</span> <span class="nn">pbsnodes</span>
+
+<span class="n">network</span> <span class="o">=</span> <span class="n">StingrayPBSNetwork</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;new_shader&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>That creates a new shaderball (note that it won't be connected to a shadingEngine by default -- that's up to you).</p>
+<h1>Listing nodes</h1>
+<p>An SFXNetwork contains a dictionary of id and nodes in the field <code>nodes</code>.  This represents all of the graph nodes in the network.  <em>Note I've used a different shader than the default one in this example to make things easier to read.</em></p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span>
+<span class="c1"># { 1 : &lt;sfxNode UnlitBase (1)&gt;, 2: &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt; }</span>
+
+<span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>
+<span class="c1"># &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt;</span>
+</pre></div>
+
+
+<p>The keys of the dictionary are the node ids. As already noted, these are not guaranteed to be in a continuous order depending on what you do to the network - however they are stable and they will always match the id numbers shown in the shaderfx ui when you activate the <code>show node IDs</code> toggle in the ShaderFX window.</p>
+<p>The values of the node dictionary are <code>SFXNode</code> objects.</p>
+<h1>Adding new nodes</h1>
+<p>To add a node to the network use its <code>add()</code> method and pass a class from either the <code>sfxnodes</code> or <code>pbsnodes</code> submodule to indicate the type. </p>
+<div class="highlight"><pre><span></span><span class="n">if_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">If</span><span class="p">)</span>
+<span class="c1"># creates an If node and adds it to the network</span>
+
+<span class="n">var_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">MaterialVariable</span><span class="p">)</span>
+<span class="c1"># creates a MaterialVariable node and adds it to the network</span>
+</pre></div>
+
+
+<h1>Connecting nodes</h1>
+<p>Connecting nodes in shaderfx requires specifying the source node the source plug, the target node and the target plug. Unforunately the plugs are indentifited by zero-based index numbers: the only way to know them by default is to count the slots in the actual shaderfx UI.  Output plugs are usually (not always) going to be index zero but the target plugs can be all over the map.</p>
+<p>To make this cleaner, each <code>SFXNode</code> object exposes two fields called <code>inputs</code> and <code>outputs</code>, which have named members for the available plugs.  So to connect the 'result' output of the <code>var_node</code> object to the input named 'B' on the <code>if_node</code>:</p>
+<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="p">,</span> <span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
+</pre></div>
+
+
+<p>If the connection can't be made for some reason, a <code>MayaCommandError</code> will be raised.</p>
+<p>It's common to have to 'swizzle' the connections: to connect the x and z channels of a 3-pronged output to channels of an input, for example.  Mismatched swizzles are a common cause of those <code>MayaCommandErrores</code>.  You can set the swizzle along with the connection by passing the swizzle you need as a string</p>
+<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="p">,</span> <span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>
+<span class="c1"># connects the &#39;x&#39; output of var_node  to the b channel of the input</span>
+</pre></div>
+
+
+<h1>Setting node properties</h1>
+<p>Nodes often have editable properties.  There are a lot of different ones so it is often necessary to inspect a node and find out what properties it has and what type of values those properties accept.  Every <code>SFXNode</code> object has a read-only member <code>properties</code>, which is a dictionary of names and property types.  Using the same example objects as above:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">if_node</span><span class="o">.</span><span class="n">properties</span>
+<span class="c1">### BLah blah example here</span>
+</pre></div>
+
+
+<p>If you know that a property exists on an object you can query it or set it using typical python dot syntax:</p>
+<div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span> 
+<span class="c1"># get the node at index 5 in this network</span>
+
+<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>
+<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
+
+<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>
+<span class="c1"># 1.0</span>
+<span class="c1"># getting a named property returns its value.</span>
+
+<span class="n">node</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="mf">2.0</span>
+<span class="c1"># sets the node value</span>
+
+<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>
+<span class="c1"># 2.0</span>
+</pre></div>
+
+
+<p>If you try to access a property that doesnt exist, an error will be raised:</p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span>
+<span class="c1"># AttributeError: no attribute named i_dont_exist</span>
+
+<span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span> <span class="o">=</span> <span class="mi">99</span>
+<span class="c1"># MayaCommandError</span>
+</pre></div>
+
+
+<h1>Help wanted!</h1>
+<p>So, there's the basics. This module is pretty simople but I've found it extremely helpful in workign with SFX nodes.  It will be much easier to work with, of course, if you already know your way around ShaderFX.  Please let me know how it works for you -- and as always bug reports and pull requests are very welcome!</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>

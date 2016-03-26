@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta charset="utf-8" />
+        <title>mGui2</title>
+        <link rel="stylesheet" href="/theme/css/main.css" />
+
+        <!--[if IE]>
+            <script src="https://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="/">static_site_test </a></h1>
+                <nav><ul>
+                    <li class="active"><a href="/category/blog.html">Blog</a></li>
+                </ul></nav>
+        </header><!-- /#banner -->
+<section id="content" class="body">
+  <article>
+    <header>
+      <h1 class="entry-title">
+        <a href="/mgui2.html" rel="bookmark"
+           title="Permalink to mGui2">mGui2</a></h1>
+    </header>
+
+    <div class="entry-content">
+<footer class="post-info">
+        <abbr class="published" title="2015-01-01T00:00:00-08:00">
+                Published: Thu 01 January 2015
+        </abbr>
+
+        <address class="vcard author">
+                By                         <a class="url fn" href="/author/stevet.html">stevet</a>
+        </address>
+<p>In <a href="/category/blog.html">Blog</a>.</p>
+<p>tags: <a href="/tag/blog.html">blog</a> </p>
+</footer><!-- /.post-info -->      <p>For those of you who've been using <a href="https://github.com/theodox/mGui">mGui</a> to speed up and simplify your Maya gui coding, there are some interesting changes on the horizon.  Although I'm not entirely ready to release the changes I have in mind they are mostly sitting in <a href="https://github.com/theodox/mGui/tree/remove_keys">their own branch in the Github repo</a>.  </p>
+<p>The upcoming version introduces some new idioms - in particular, it gets rid of the need for explicitly setting keys on new controls to get access to nested properties. In the first version of mGui you'd write something like this:</p>
+<div class="highlight"><pre><span></span>    <span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
+            <span class="n">Text</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>
+            <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">(</span><span class="s1">&#39;lister&#39;</span> <span class="p">)</span><span class="o">.</span><span class="n">Collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>  
+            <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">):</span>
+                <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>
+                <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>With the new refactor that looks like this:</p>
+<div class="highlight"><pre><span></span>    <span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>
+            <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>
+            <span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>  
+            <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>
+                <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>
+                <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The big advantage here is that those local variables are not scoped exclusively to the layout context managers where they live, which makes it easy to control when and where you hook up your event handlers:  In the above example you could defer all the bindings and event handlers to the end of the script like this:</p>
+<div class="highlight"><pre><span></span>    <span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>
+        <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
+            <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>
+            <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>
+            <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>
+                <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>
+                <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
+
+    <span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>
+    <span class="n">refresh</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">refresh_def</span>
+    <span class="n">close</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">close_def</span>
+</pre></div>
+
+
+<p>So far I'm really liking the new idiom, particularly eliminating the extra quotes and redundant <code>None</code> keys.   However this is a minorly breaking change: in some cases, old code which relied on the key value to name and also label a control at the same time will when the keys become redundant.  Moreover I bit the bullet and started to refactor the entire mGui module to use correct pep-8 naming conventions -- in particular, member variables are <em>no longer capitalized</em>.  So if you have code outside of mGui this will introduce some issues. When I converted my own code, most of the changes could be done with a regular expression but there were a few danglers.</p>
+<p>I think the changes are worth the effort, but I'd be really interested in hearing from users before trying to bring the new mGui branch back into the main line.  It should actually be possible to write a script that fixes most existing code automatically, that's something we could refine collaboratively.Please let me know in the comments or by opening an issue on the GitHub site if you have comments or plans.  As always, bug fixes and pull requests always entertained!</p>
+    </div><!-- /.entry-content -->
+
+  </article>
+</section>
+        <section id="extras" class="body">
+                <div class="blogroll">
+                        <h2>blogroll</h2>
+                        <ul>
+                            <li><a href="http://getpelican.com/">Pelican</a></li>
+                            <li><a href="http://python.org/">Python.org</a></li>
+                            <li><a href="http://jinja.pocoo.org/">Jinja2</a></li>
+                            <li><a href="#">You can modify those links in your config file</a></li>
+                        </ul>
+                </div><!-- /.blogroll -->
+                <div class="social">
+                        <h2>social</h2>
+                        <ul>
+
+                            <li><a href="#">You can add links in your config file</a></li>
+                            <li><a href="#">Another social link</a></li>
+                        </ul>
+                </div><!-- /.social -->
+        </section><!-- /#extras -->
+
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>, which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+
+                <p>The theme is by <a href="http://coding.smashingmagazine.com/2009/08/04/designing-a-html-5-layout-from-scratch/">Smashing Magazine</a>, thanks!</p>
+        </footer><!-- /#contentinfo -->
+
+</body>
+</html>
