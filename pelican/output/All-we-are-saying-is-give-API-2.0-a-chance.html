@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; All we are saying is give API 2.0 a chance  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./All-we-are-saying-is-give-API-2.0-a-chance.html">All we are saying is give API 2.0 a chance</a></h3>
+  </div>
+  <div class="article_text">
+    <p>Doing all this math-related posting has reminded me of something I've been meaning to write up:  </p>
+<p>Maya's <a href="http://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/index-html.html">python API 2.0,</a> first introduced in the 2013 version, got off to a rocky start. People complained about <a href="http://stackoverflow.com/questions/20232835/maya-python-api-2-0-has-no-mitdag-so-how-traverse-dag-graph">missing functions</a> and <a href="http://jeremyyk.com/tutorials/maya-s-python-api-2-0-">missing modules</a>.  It uses (mostly) the same function and class names as the original OpenMaya Python, which is a recipe for confusion. The documentation is pretty confusing too, since it points at the original C++ docs and leaves it up to you to do much of the translation in your head.    However....  </p>
+<p>One thing that API 2 definitely does right is to eliminate the dreaded _<a href="http://techartsurvival.blogspot.com/2014/03/if-your-maya-python-api-is-crashing.html">MScriptUtil</a>, _with its ugly and confusing interface and all of the opportunities for failures that it includes.  I've been busy porting over a bunch of geometry utilities to the new API and I'm routinely finding that stuff like this:  </p>
+<div class="highlight"><pre><span></span>def APIVector( iterable, normal=False ):  
+    &#39;&#39;&#39;  
+    return an iterable as an OpenMaya MVector
+
+    if iterable is an openMaya MVector, returns untouched  
+    &#39;&#39;&#39;  
+    if isinstance( iterable, OpenMaya.MVector ):  
+        o_vector = iterable  
+    else:  
+        assert len( iterable ) == 3, &quot;argument to APIVector must have 3 entries&quot;  
+        v_util = OpenMaya.MScriptUtil()  
+        it = list( copy( iterable ) )  
+        v_util.createFromDouble( iterable[0], iterable[1], iterable[2] )  
+        o_vector = OpenMaya.MVector( v_util.asDoublePtr() )
+
+    if normal:  
+        o_vector = o_vector.normal ()  
+    return o_vector
+</pre></div>
+
+
+<p>Turns into to this:  </p>
+<div class="highlight"><pre><span></span>def APIVector(*iterable, **kwargs):
+
+
+    result = None  
+    try:  
+        result = api2.MVector(iterable)  
+    except ValueError:  
+        result = api2.MVector(iterable[0])  
+    finally:  
+        if kwargs.pop(&#39;normal&#39;, False):  
+            result.normalize()  
+        return result
+</pre></div>
+
+
+<p>In other words, one reasonable line for 4 icky ones.  </p>
+<p>Plus, the new versions are generally more pythonic - the API 2 version of _MVector, _for example supports both dot-access, bracket access, and iteration over the vector components (though, annoyingly, _not _slicing).  </p>
+<p>It's certainly not all perfect. You do have to be very careful about mixing API 1 and API 2 code in the same functions - even though they are both wrapping the same C++ underpinnings they are are mutually incompatible.  Some things are still cumbersome -- converting strings to MSelectionList items to MObjects to MFNs is still a waste of good brain cells -- but it's a step in the right direction. I'll post more as I know more.  </p>
+<p>By the way, I spent several minutes surfing around for a funny image to wrap up on, I even did a meme-generator.com thing with The Most Interesting Man In The World saying something dismissive about MScriptUtil.  And then I thought... "What's the point."  </p>
+<p>See? Progress _is _possible.   Or maybe I'm just getting old. In Internet Years I'm already like 7,303.  </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Fri 12 December 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

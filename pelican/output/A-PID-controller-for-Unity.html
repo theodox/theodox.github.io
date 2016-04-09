@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; A PID controller for Unity  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./A-PID-controller-for-Unity.html">A PID controller for Unity</a></h3>
+  </div>
+  <div class="article_text">
+    <p>Outside of work I've been toying a lot with <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a>, which allows a <a href="http://www.raspberrypi.org/">Raspberry Pi</a> to control <a href="http://www.lego.com/en-us/mindstorms/?domainredir=mindstorms.lego.com">Lego Mindstorms</a> sensors and motors.  One of the neatest ideas I stumbled on in my reading is the <a href="http://en.wikipedia.org/wiki/PID_controller#Droop">Proportional Integral Differential Controller</a>, or 'PID' for short. It's a nifty idea with a lot of possible applications in games, particularly in animation.  </p>
+<p>A PID is an algorithm for adjusting a process so that it converges on a desired outcome: imagine a thermostat, for example, that controls heaters and air conditioners to keep a constant temperature.  PID's were originally invented for automatic steering of ships; nowadays they are in all sorts of semi-automatic control systems from thermostats to autopilots to <a href="http://www.chrismarion.net/index.php?option=com_content&amp;view=article&amp;id=122:the-segway-theory&amp;catid=44:robotics">Segways</a>.  </p>
+<p>Here's <a href="https://www.youtube.com/watch?v=XfAt6hNV8XM">a great video on the background theory </a>of PID controllers.  But on a high level here's how it works:  </p>
+<p>The PID controller uses three different strategies simultaneously try to nudge a process in the right direction.  </p>
+<ol>
+<li>The <strong>proportional</strong> component applies a direct fix to the process; the strength of the correction is proportional to how far off the signal is from the target value.(need correct names) </li>
+<li>The <strong>integral</strong> component applies a fix based on how long the signal has been off. Essentially the integral fix will be more powerful if the signal has been away from the target for long times.  </li>
+<li>The <strong>differential </strong> component applies a fix which scales based on how quickly the error is diminishing. It's useful for preventing overshoots: as the corrections take hold and the signal approaches the target more quickly, the correction will scale down.</li>
+</ol>
+<h3>Basic code</h3>
+<p>I've put the basic code for the PID controller <a href="https://gist.github.com/theodox/3c956ccffd3d5d060b15">up on GitHub</a>.  Since it's in C# it's fairly self-explanatory, but here's some basic highlights of how it's put together.</p>
+<p>The Monobehavior component itself is called <strong>Follower</strong>, and it's really just example of how a PID controller could be rather than a complete system in it's own right. When applied to a game object, a Follower will try to </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Mon 27 October 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

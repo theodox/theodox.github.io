@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Multiple MayaPy Management Mania  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Multiple-MayaPy-Management-Mania.html">Multiple MayaPy Management Mania</a></h3>
+  </div>
+  <div class="article_text">
+    <p>Lately I've been re-factoring the build system I use to distribute my python tools to users.  The things which has been driving me crazy is the need to start supporting multiple versions of Maya at the same time.   </p>
+<p><a href="http://www.opensrs.com/images/wordpress/uploads/2007/04/email-service-1/it-worked-on-my-machine.jpg"><img alt="" src="http://www.opensrs.com/images/wordpress/uploads/2007/04/email-service-1/it-worked-on-my-machine.jpg" /></a></p>
+<p>Besides the general hassle involved, supporting multiple Maya versions and multiple projects at the same time is a nightmare for doing good testing and QA.  With so many different configurations it becomes increasingly easy for something to slip through the cracks.  You might have a bit of Python 2.7 syntax which you wrote in Maya 2014 sneaking into a tool used in Maya 2011. You might have tools that rely on an external dll that is correctly set up in your Maya 2011 tools but not in the outsourcer version of your 2012 setup.... The possibilities for shooting yourself in the foot are endless.  </p>
+<p>So, in an effort to clean this up, I've cooked up a simple module designed to create and run instances of MayaPy.exe with precise control over the paths and environment variables.  You can use it to run tests or automatic processes in isolation, knowing that only the paths and settings you're using will be live.  </p>
+<p>The actual code is not super complex -<a href="https://gist.github.com/theodox/2c712a91155c7e1c4c15"> it's up on gitHub</a>, as usual free-to-use under the MIT license.  Comments / questions/ feedback and especially bug fixes all welcome! Code also here after the jump  </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sun 11 May 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

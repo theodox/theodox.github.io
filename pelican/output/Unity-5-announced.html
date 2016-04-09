@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Unity 5 announced  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Unity-5-announced.html">Unity 5 announced</a></h3>
+  </div>
+  <div class="article_text">
+    <p>So it looks like Unity <a href="http://unity3d.com/5">is announcing Unity 5 a bit early</a>.   It's a bit premature, since they are not done with the much anticipated 4.6 release (I've been wrestling with the existing, awful Unitry GUI system for months and I <strong>can't freaking wait </strong>to push it over the gunwale!)   </p>
+<h2><a href="http://unity3d.com/profiles/unity3d/themes/unity/images/pages/unity5/slider/doll2.jpg"><img alt="" src="http://unity3d.com/profiles/unity3d/themes/unity/images/pages/unity5/slider/doll2.jpg" /></a></h2>
+<p>Realtime GI... On my phone?!?!?<br />
+Tech notes after the jump  </p>
+<h2></h2>
+<p>Key points of interest:</p>
+<h4>They are integrating the realtime GI middleware <a href="http://www.geomerics.com/">Enlighten </a></h4>
+<p>This is an interesting choice on a couple of levels; for one thing, I'm not sure most platforms out there are quite ready for realtime GI yet -- while you can _do _it, as Crytek has been doing for a couple of years, it's hard to do it in a real production environment with real assets and (more importantly) real performance constraints.  I wonder how many current Unity users really need this?  Given that Unity perf generally lags more traditional engines thanks to the C# layer switch costs and managed memory, I'm a bit surprised they took on something so high end.   They advertise this as 'mobile ready' - I'll believe it when I see it. <a href="https://www.marmoset.co/skyshop">SkyShop </a>makes gorgeous pictures on an iPad  - at around 20 fps for one object on screen. </p>
+<p>That said, it does make really pretty demos.</p>
+<h4>Physically based shaders.</h4>
+<p>This is very interesting, but the devil is in the details;  physically correct rendering is a very appealing idea, and is hard to beat when done right; but the mental and artistic adjustment costs can be pretty significant if you've been doing traditional anything-goes rendering for a decade or more.  Will be very interested to see if they manage to popularize this approach.</p>
+<h4>A 64 bit version of the editor.</h4>
+<p>How will this play out with the notoriously flaky GUID system in unity? And honestly, I'd take a 32 bit version that <a href="http://tech-artists.org/forum/showthread.php?4584-Studio-Switching-to-Perforce-need-good-introduction-ramp-up">integrated better with source control</a> and was better adapted to collaborative work environments.  And '<a href="http://forum.unity3d.com/threads/48088-Prefab-saving-question">save my goddam prefab</a>' would also be nice.  </p>
+<ul>
+<li></li>
+<li>
+<p>On the other hand it looks like they're also making the editor more multi-core friendly, which gives me another reason to buy that <a href="https://www.apple.com/mac-pro/">Mac Pro</a> I've been dreaming of. </p>
+</li>
+</ul>
+<h4>More direct control over blend weights in Mecanim.</h4>
+<p>The recent addition of CrossFade() and Play() is already a big step forward, but this seems like \even more belated recognition that the original was too doctrinaire. Who, exactly, thought that an animation system that <em>didn't let you tell it what animations to play</em> was a good idea?  </p>
+<p>The most exciting bullet on animation though is a real headsmacking 'Oh of course' things: the ability to add behavior scripts directly to animation states. This should go a <em>long</em> way to enabling much more interesting -- and comprehensible -- procedural animation code. I'm <em>very excited.</em></p>
+<h4>Forking the web player between the old plugin and WebGL</h4>
+<p>you'll be able to publish to the traditional web player plugin, or to WebGL. Interesting to see how that plays out - I wonder if it will affect security sandbox issues with the web player. I'm still wishing it was easier to write real 3-d tools that could be published on the web, ala <a href="http://clara.o/">clara.o</a>.  </p>
+<p>Of course, once you get into _interesting _stuff, like shader work, "write once run anywhere" gets a little more difficult (I've been battling stencil shader difference between PC, IOS and Android for a while now, so I'm prejudiced).  Will this make it even dicier?  </p>
+<h4>A new audio system.</h4>
+<p>Not my area, but given the complaints I've heard from audio guys any change is probably for the good.  </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 18 March 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

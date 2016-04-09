@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Some fixups for sfx  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Some-fixups-for-sfx.html">Some fixups for sfx</a></h3>
+  </div>
+  <div class="article_text">
+    <p>I've posted <a href="https://github.com/theodox/sfx/commits/master">a couple of fixes</a> to the code for the <a href="http://techartsurvival.blogspot.com/2016/01/first-module-of-year.htmlDone">shaderfx module</a> I posted a little while ago.  <a href="https://plus.google.com/116374315761191190711">+Sophie Brennan</a> spotted a problem with the way that module handled some kinds of nodes -- which I had assumed were just plain old objects but which were in fact buttoned-up group nodes.  Since they didn't use the same method to report their outputs as the rest of shaderfx they could not easily be created or connected using the module.  </p>
+<p>Luckily  <a href="https://plus.google.com/115746724358684308496">+Kees Rijnen</a>, the main author of shaderfx, noticed the blog post and helpfully  pointed me at the source of the problem which I've included in a fix.   </p>
+<p>If you are using the original version of the code this may be a breaking change.  To unify the way that individual nodes and groups are connected,  I changed the connect() and disconnect() methods to take only two arguments where they previously took 4.  In the first pass you would write  </p>
+<div class="highlight"><pre><span></span>network.connect( node1, node1.outputs.xyz, node2, node2.inputs.rgb)
+</pre></div>
+
+
+<p>which was needlessly wordy.  So connect() and disconnect() now sport the cleaner, simpler syntax  </p>
+<div class="highlight"><pre><span></span>network.connect(node1.outputs.xyz,   node2.inputs.rgb)
+</pre></div>
+
+
+<p>As always, comments and pulls are encouraged!</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Fri 29 January 2016</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

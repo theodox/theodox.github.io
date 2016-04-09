@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Earth calling maya.standalone!  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Earth-calling-maya.standalone!.html">Earth calling maya.standalone!</a></h3>
+  </div>
+  <div class="article_text">
+    <p>Somebody on Tech-artists.org was <a href="http://tech-artists.org/forum/showthread.php?4642-Python-Maya-Open-commandPort-for-Mayapy&amp;p=24225#post24225">asking about how to control a maya.standalone instance remotely</a>.  In ordinary Maya you could use the commandPort, but the commandPort doesn't exist when running under standalone - apparently it's part of the GUI layer which is not present in batch mode.  </p>
+<p>So, I whipped up an uber-simple JSON-RPC-like server to run in a maya standalone and accept remote commands. In response to some queries I've polished it up and <a href="https://github.com/theodox/standaloneRPC">put it onto GitHub</a>.  </p>
+<p>It's an ultra-simple setup. Running the module as a script form mayapy.exe starts a server:  </p>
+<div class="highlight"><pre><span></span>    mayapy.exe   path/to/standaloneRPC.py
+</pre></div>
+
+
+<p>To connect to it from another environment, you import the module, format the command you want to send, and shoot it across to the server. Commands return a JSON-encoded dictionary. When you make a successful command, the return object will include a field called 'results' containg a json-encoded version of the results:   </p>
+<div class="highlight"><pre><span></span>        cmd = CMD(&#39;cmds.ls&#39;, type=&#39;transform&#39;)  
+        print send_command(cmd)  
+        &gt;&gt;&gt; {success:True, result:[u&#39;persp&#39;, u&#39;top&#39;, u&#39;side&#39;, u&#39;front&#39;}
+</pre></div>
+
+
+<p>For failed queries, the result includes the exception and a traceback string:   </p>
+<div class="highlight"><pre><span></span>        cmd = CMD(&#39;cmds.fred&#39;)  # nonexistent command  
+        print send_command(cmd)  
+        &gt;&gt;&gt; {&quot;exception&quot;: &quot;&quot;,   
+             &quot;traceback&quot;: &quot;Traceback (most recent call last)... #SNIP#&quot;,  
+             &quot;success&quot;: false,   
+             &quot;args&quot;: &quot;[]&quot;,   
+             &quot;kwargs&quot;: &quot;{}&quot;,   
+             &quot;cmd_name&quot;: &quot;cmds.fred&quot;}
+</pre></div>
+
+
+<p>It's a single file for easy drop. Please, <strong>please</strong> read the notes - the module includes no effort at authentication or security, so it exposes any machine running it to anyone who knows its there. Don't let a machine running this be visible to the internet! </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 05 April 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

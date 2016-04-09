@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; From the annals of bug subtlety  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./From-the-annals-of-bug-subtlety.html">From the annals of bug subtlety</a></h3>
+  </div>
+  <div class="article_text">
+    <p>... comes an object lesson in why it's nice to have a debugger.</p>
+<p>I'm porting a biggish python codebase to support multiple OSs  and maya versions.  As I move things around I try to use the opportunity to shore up test coverage.  And it feels like the most boring chore imaginable, until something like this crops up.</p>
+<p>I've got an exporter framework that I share between projects and files, and when I was moving from 2011- only to multiple version.  It's important code, so it's tested - but the test is really dumb: it creates a test scene, imports the test framework, and calls one function. But running the tests in 2014 never works - even though I can manually execute the exact steps in a regular copy of maya and all is well.</p>
+<p>So I threw it under the debugger -- <a href="http://www.jetbrains.com/pycharm/">PyCharm FTW! </a> -- and started stepping through. No dice, everything seemed OK but still the test failed: it could not find my test objects. Finally, in desperation, I started stepping though the test and issuing an ls() after every step... and I found that the break wasn't caused by running code - it was caused by importing my module.  I didn't call it - just <em>imported</em> it.  WTF?</p>
+<p>It turns out that _importing PyMel was wiping my test scene _in 2014! The tests all run under maya.standalone, and the bug only shows up there, which is why just doing it by hand in maya wasn't showing the same symptoms.</p>
+<p>Here's my repro case:</p>
+<p>import maya.cmds as cmds</p>
+<p>cmds.polyCube()</p>
+<h1>[u'pCube1', u'polyCube1']</h1>
+<p>cmds.ls(type='transform')</p>
+<h1>[u'front', u'pCube1', u'persp', u'side', u'top']</h1>
+<p>import pymel.core as pm</p>
+<p>cmds.ls(type='transform')</p>
+<h1>[u'front', u'persp', u'side', u'top']</h1>
+<p>This is a 100% repro in maya.standalone - but <em>not</em> in GUI maya, where the bug does not occur.Is this true for everybody else ?   The workaround is to import pymel earlier so that the destruction doesn't affect anything important. </p>
+<p>But... ouch!</p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Fri 20 June 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

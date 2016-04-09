@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; mGui updates  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./mGui-updates.html">mGui updates</a></h3>
+  </div>
+  <div class="article_text">
+    <p>For anybody whos been following the mGui Maya GUI construction kit posts, I've added a few fixes and tweaks to the GitHub project in the last couple of weeks:<br />
+<strong><br />
+</strong>  </p>
+<h4><a href="https://github.com/theodox/mGui/blob/master/mGui/progress.py">mGui.progress</a></h4>
+<p>The progress module wraps Maya's progressBar command for mGui style coding of progress bars.   </p>
+<p>There are two classes in the module;  <strong>ProgressBar </strong> is the generic version and <strong>MainProgressBar </strong>always points at Maya's main progress bar.  Both classes have _start(), update() _and _end() _methods instead of Maya's clunky _cmds.progressBar(name, e=True, beginProgress=1) _ and so on.  They also both have an iter method, which will loop over a generator expression and update the progress bar for each yield then pass along the value. This allows simple idioms like:  </p>
+<p>``  </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.progress</span> <span class="kn">import</span> <span class="n">MainProgressBar</span>  
+<span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>  
+    <span class="c1"># pretend this is as long, slow function...  </span>
+    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>  
+        <span class="k">yield</span> <span class="n">item</span>
+
+<span class="n">pb</span> <span class="o">=</span> <span class="n">MainProgressBar</span><span class="p">()</span>  
+<span class="k">for</span> <span class="n">each_file</span> <span class="ow">in</span> <span class="n">pb</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="n">list_files</span><span class="p">()):</span>  
+    <span class="k">print</span> <span class="n">each_file</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  
+    <span class="c1"># here&#39;s where you do something with the results</span>
+</pre></div>
+
+
+<p>``  </p>
+<p>So you can update the progress bar without unduly intertwining the GUI update and the program logic.  </p>
+<h4><a href="https://github.com/theodox/mGui/blob/master/mGui/menu_loader.py">mGui.menu_loader</a></h4>
+<p>The menu_loader module will create menus from a <a href="http://pyyaml.org/wiki/PyYAMLDocumentation">YAML</a> data file.  It does a little bit of introspection to figure out how to create the items and attach their handlers to functions. This makes it easy to set up a menu with several items from a single setup routine.</p>
+<p>The menu data is a text-based YAML file that looks like this:  </p>
+<p>``  </p>
+<div class="highlight"><pre><span></span><span class="sx">!MMenu  </span>
+    <span class="n">key</span><span class="p">:</span>   <span class="n">UndeadLabs</span>  
+    <span class="n">label</span><span class="p">:</span> <span class="n">Undead</span> <span class="n">Labs</span>  
+    <span class="n">items</span><span class="p">:</span>  
+        <span class="o">-</span> !<span class="n">MMenuItem</span>  
+            <span class="n">key</span><span class="p">:</span> <span class="n">About</span>  
+            <span class="n">label</span><span class="p">:</span> <span class="n">About</span> <span class="n">Undead</span> <span class="n">Labs</span><span class="c">...  </span>
+            <span class="n">annotation</span><span class="p">:</span> &quot;<span class="n">About</span> <span class="n">this</span> <span class="n">UndeadLabs</span> <span class="n">tool</span> <span class="n">setup</span>&quot;  
+            <span class="n">command</span><span class="p">:</span> <span class="n">tools</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">aboutDialog</span><span class="p">.</span><span class="n">open</span>
+
+        <span class="o">-</span> !<span class="n">MMenuItem</span>  
+            <span class="n">key</span><span class="p">:</span> <span class="n">RemoteDebugger</span>  
+            <span class="n">label</span><span class="p">:</span>  <span class="n">Remote</span> <span class="n">Debugger</span>  
+            <span class="n">annotation</span><span class="p">:</span> <span class="n">Start</span> <span class="o">/</span> <span class="n">Stop</span> <span class="n">remote</span> <span class="n">python</span> <span class="n">debugger</span>  
+            <span class="n">command</span><span class="p">:</span> <span class="n">tools</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">remoteDebug</span><span class="p">.</span><span class="n">remote_debugger_dialog</span>
+</pre></div>
+
+
+<p>``  </p>
+<p>And loading the menu is as simple as:  </p>
+<p>``  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mGui.menu_loader</span> <span class="kn">as</span> <span class="nn">loader</span>  
+<span class="n">loader</span><span class="o">.</span><span class="n">load_menu</span><span class="p">(</span><span class="s1">&#39;path/to/undeadlabs.YAML&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>``   </p>
+<h4><a href="https://github.com/theodox/mGui/blob/master/mGui/scriptJobs.py">mGui.scriptJobs</a></h4>
+<p>The scriptJobs module adapts the event model for use with scriptJobs. A ScriptJobEvent is a derivative of Event which allows you to hook multiple handlers to a single scriptjob (in the same way that the other Event classes allow for multicast delegates):  </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.scriptJobs</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">print_selected</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+    <span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
+
+<span class="n">sj</span> <span class="o">=</span> <span class="n">ScriptJobEvent</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;SelectionChanged&quot;</span><span class="p">)</span>  
+<span class="n">sj</span> <span class="o">+=</span> <span class="n">print_selected</span>
+</pre></div>
+
+
+<p>As with all the mGui Event classes, you can add multiple handlers to  single event:  </p>
+<div class="highlight"><pre><span></span>sj += some_other_function()
+</pre></div>
+
+
+<p>The module also includes named subclasses to simplify setup. That way you can do things like:  </p>
+<div class="highlight"><pre><span></span>closing_sj = RecentCommandChanged()  
+closing_sj += close_handler
+</pre></div>
+
+
+<p>which is a bit nicer and less typo prone if you use an autocompleting IDE.  </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 24 June 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

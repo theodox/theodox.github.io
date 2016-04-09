@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; spelchek  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./spelchek.html">spelchek</a></h3>
+  </div>
+  <div class="article_text">
+    <h2><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#spelchek"></a>Spelchek</h2>
+<p>I’m planning one of the worst things that can happen to a TA: a big massive file move-and-rename operation. Much as I love my team, we have a poor record as a company when it comes to spelling, and it occurred to me that I’d like to at least have some degree of automatic spell checking on the names of the new files, folders and assets.<br />
+It turns out that there’s no good spell checker for Python that doesn’t come with some kind of extension module (BTW, I’d love to be wrong about that - if you know one definitely post it in the comments). <a href="http://pythonhosted.org/pyenchant/">PyEnchant</a> for example is great, but it’s got 32-bit only Windows extensions that I can’t distribute without a hassle.   </p>
+<p><img alt="" src="https://s-media-cache-ak0.pinimg.com/236x/55/2c/b5/552cb539fcc6b8addffb0eb19ec98298.jpg" /></p>
+<p>I did, however, find a very neat example of Python Power in a little post by Peter Norvig, who put together a simple spellchecker in a few dozen lines of plain, readable Python <a href="http://norvig.com/spell-correct.html">code and great explanations here</a>. <br />
+I shamelessly borrowed his structure, with a couple of minor and not very creative tweaks. Peter’s original is built around Bayesian analysis: it guesses the correct word by looking at the relative frequencies with which variants show up – if ‘meet’ shows up 1000 times in your database but ‘mete’ shows up 5 times, that’s a good indication that ‘meet’ is the correct first guess. <br />
+Since I’m in a rush, I didn’t use that functionality very much. I scrounged around for as many sources correctly scored words. Unfortunately the only free source I could rely on turned out to be the venerable ‘GSL’ or ‘General Service List’, which has great data but only for about 2000 words (I used the version found <a href="http://jbauman.com/gsl.html">here</a>, by <a href="http://jbauman.com/index.html">John Bauman</a> as a the core of the list, and then scrounged the internet for other free sources. Since all of these were less common words than the ones in the GSL I gave them pretty arbitrary Bayes scores (4’s and 5’s for common words, 3’s for variants, plurals and participles). This is not sophisticated linguistics, but it’s close enough for horseshoes.<br />
+The result is up on github as <a href="https://github.com/theodox/spelchek">spelchek</a>, which I affectionately refer to as the <em>cheap-ass spell checker.</em><br />
+It is hardly rocket science, but it does work. You can do something like:  </p>
+<div class="highlight"><pre><span></span>   <span class="kn">import</span> <span class="nn">spelchek</span>  
+   <span class="n">spelchek</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="s1">&#39;vhicle&#39;</span><span class="p">)</span>  
+    <span class="c1"># &#39;vehicle&#39;</span>
+</pre></div>
+
+
+<p>or   </p>
+<div class="highlight"><pre><span></span>    spelchek.guesses(&#39;flied&#39;)  
+    # [&#39;filed&#39;, &#39;flied&#39;, &#39;flies&#39;, &#39;lied&#39;]
+</pre></div>
+
+
+<p>I would caution against using this for hard-core text work where perfect accuracy matters -- like database stuff, a customer-facing website, or a word processor -- since I did not go with high quality commercially or academically vetted word lists. I’m reasonably certain that there are some mis-spellings or oddballs in the 75,000 or so words I ended up with from various sources. Still, the module useful for my intended use, which is making sure that we don’t get things like ‘floder’, ‘frunishings’ and ‘vetegation’ (all of which shipped with in <a href="http://www.ign.com/games/state-of-decay-year-one-survival-edition/xbox-one-20023993">State of Decay</a>, I’m sorry to admit). <br />
+As always, MIT licensed so go to town. </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 16 May 2015</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

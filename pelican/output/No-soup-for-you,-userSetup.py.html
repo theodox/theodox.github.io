@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; No soup for you, userSetup.py  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./No-soup-for-you,-userSetup.py.html">No soup for you, userSetup.py</a></h3>
+  </div>
+  <div class="article_text">
+    <p>When I start working on <a href="http://techartsurvival.blogspot.com/2014/05/what-happens-at-startup.html">isolating maya environments,</a> I came across a nice bit of trivia I didn't know about.  </p>
+<p>If you ever want to run a Maya without its <em>userSetup.py</em> and without having to move or rename files, it turns out you can suppress userSetups by setting an environment variable called MAYA_SKIP_USERSETUP_PY to any value that evaluates as True.  This is handy for testing and isolating path management problems - if you've got a rogue path and you're not sure where it's coming from, this is an easy way to make sure it's not being added in by the userSetup.  </p>
+<p>PS: If you're using a <a href="http://techartsurvival.blogspot.com/2014/05/what-happens-at-startup.html">MayaPyManager </a>to run mayapy instances, you can set this variable like so:  </p>
+<div class="highlight"><pre><span></span>    <span class="kn">from</span> <span class="nn">mayaPyManager</span> <span class="kn">import</span> <span class="n">MayaPyManager</span>  
+    <span class="kn">import</span> <span class="nn">os</span>
+
+    <span class="n">env</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  
+    <span class="n">env</span><span class="p">[</span><span class="s1">&#39;MAYA_SKIP_USERSETUP_PY&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;1&#39;</span>  
+    <span class="n">mgr</span> <span class="o">=</span> <span class="n">MayaPyManager</span><span class="p">(</span><span class="s1">&#39;path/to/mayapy.exe&#39;</span><span class="p">,</span> <span class="n">env</span><span class="p">,</span> <span class="s1">&#39;path/to/maya/scripts&#39;</span><span class="p">)</span>  
+    <span class="c1"># this manager will use only the user provided path  </span>
+    <span class="c1"># and won&#39;t run the userSetup.py on startup</span>
+</pre></div>
+
+
+<p><a href="http://4.bp.blogspot.com/_U3jHsmZuyeg/TLr6UM2AS-I/AAAAAAAADg0/1BFasu5yW70/s1600/obama_poster_soup_nazi.gif"><img alt="" src="http://4.bp.blogspot.com/_U3jHsmZuyeg/TLr6UM2AS-I/AAAAAAAADg0/1BFasu5yW70/s1600/obama_poster_soup_nazi.gif" /></a></p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Tue 13 May 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

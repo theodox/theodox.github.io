@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Good tricks  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Good-tricks.html">Good tricks</a></h3>
+  </div>
+  <div class="article_text">
+    <h2>itertools is your friend</h2>
+<p>The itertools module is a bit of Python arcana that many people overlook.  For an in-depth look , <a href="http://pymotw.com/2/itertools/index.html">Doug Hellman's PyMOTW article</a> is a great overview.. Here are some of the highlights:</p>
+<p><strong>itertools.chain  </strong> is a fast way to string a list of iterables together. For example, you might have a list of lists - say, a bunch of component selections in Maya - and want to combine them into a single list.  It creates a generator that you can run through one item at a time or convert to a list with a list comprehension</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>  
+<span class="n">cube_verts</span> <span class="o">=</span>  <span class="p">[</span><span class="s1">&#39;pCube1.vtx[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;pCube1.vtx[2]&#39;</span><span class="p">,</span> <span class="s1">&#39;pCube1.vtx[4]&#39;</span><span class="p">,</span> <span class="s1">&#39;pCube1.vtx[5]&#39;</span><span class="p">]</span>  
+<span class="n">sphere_verts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pSphere1.vtx[10]&#39;</span><span class="p">,</span> <span class="s1">&#39;pSphere1.vtx[11]&#39;</span><span class="p">,</span> <span class="s1">&#39;pSphere1.vtx[12]&#39;</span><span class="p">,</span> <span class="s1">&#39;pSphere1.vtx[99]&#39;</span><span class="p">]</span>  
+<span class="n">plane_verts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pPlane1.vtx[2]&#39;</span><span class="p">,</span> <span class="s1">&#39;pPlane1.vtx[20]&#39;</span><span class="p">,</span> <span class="s1">&#39;pPlane1.vtx[200]&#39;</span><span class="p">,</span> <span class="s1">&#39;pPlane1.vtx[202]&#39;</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">chain</span><span class="p">(</span><span class="n">cube_verts</span><span class="p">,</span> <span class="n">sphere_verts</span><span class="p">,</span> <span class="n">plane_verts</span><span class="p">):</span>  
+    <span class="k">print</span> <span class="n">item</span>
+
+<span class="c1">#pCube1.vtx[1]  </span>
+<span class="c1">#pCube1.vtx[2]  </span>
+<span class="c1">#pCube1.vtx[4]  </span>
+<span class="c1">#pCube1.vtx[5]  </span>
+<span class="c1">#pSphere1.vtx[10]  </span>
+<span class="c1">#pSphere1.vtx[11]  </span>
+<span class="c1">#pSphere1.vtx[12]  </span>
+<span class="c1">#pSphere1.vtx[99]  </span>
+<span class="c1">#pPlane1.vtx[2]  </span>
+<span class="c1">#pPlane1.vtx[20]  </span>
+<span class="c1">#pPlane1.vtx[200]  </span>
+<span class="c1">#pPlane1.vtx[202]</span>
+</pre></div>
+
+
+<p><strong><br />
+</strong><strong>itertools.product  </strong> will give you a generator that produces all the combinations of multiple iterable items. For example:  </p>
+<div class="highlight"><pre><span></span>axes = (&#39;x&#39;, &#39;y&#39;, &#39;z&#39;)  
+dimensions = (-1, 0, 1)  
+print [i for i in itertools.product(axes, dimensions)]  
+# [(&#39;x&#39;, -1), (&#39;x&#39;, 0), (&#39;x&#39;, 1), (&#39;y&#39;, -1), (&#39;y&#39;, 0), (&#39;y&#39;, 1), (&#39;z&#39;, -1), (&#39;z&#39;, 0), (&#39;z&#39;, 1)]
+</pre></div>
+
+
+<h2>regex testers</h2>
+<h3>Python: <a href="https://pythex.org/">Pythex</a></h3>
+<h3>C# / dotnet : <a href="http://regexstorm.net/tester">Regex Storm</a></h3>
+<h2>Coding Tips</h2>
+<h3><strong>Maya list returns</strong></h3>
+<p>Before maya 2014, cmds had several commands with an annoying, anti-pythonic behaviour: if you ask a question that usually returns a list but get no results, Maya will return <em>None</em> instead of an empty list. The most common example is a call to <em>cmds.ls</em> which returns nothing:  </p>
+<div class="highlight"><pre><span></span>good_stuff = cmds.ls(type=&#39;mesh&#39;)  
+for item in good_stuff:  
+    do_something(item)  
+# ERROR: NoneType is not iterable
+</pre></div>
+
+
+<p>Luckily, Python has a handy language feature that makes it easy to avoid this trap without an extra if test. If you change the ls like so:   </p>
+<div class="highlight"><pre><span></span>good_stuff = cmds.ls(type=&#39;mesh&#39;) or []  
+for item in good_stuff:  
+    do_something(item)
+</pre></div>
+
+
+<p>The 'or []' will pass a list result with something in it unchanged; but if the result is None, the or will substitute the empty list. Everything downstream from there can rely on the presence of a real list, even if it's empty   </p>
+<h3>Maya like selection-or-list behavior</h3>
+<p>If you want to make a function that behaves like the default maya commands -- that is, it works on arguments you pass or on selected objects -- you can combine the *args variable input and the or [] trick to make a nice one liner :  </p>
+<div class="highlight"><pre><span></span>def mayalike(*args):  
+     my_objects = args or cmds.ls(sl=True) or []  
+     for item in my_objects:  
+           #do stuff
+</pre></div>
+
+
+<p>This will use args if provided, ls-sl if not, and [] if there is nothing selected  </p>
+<h3>multiple assignment</h3>
+<p>python has a handy trick of unpacking iterables in a single assigment call.  This lets you write things like:</p>
+<p>rotation = [ 0, 90, 0 ]</p>
+<p>rx, ry, rz = rotation</p>
+<p>which saves some annoying boilderplate.  It can be especially useful when dealing with functions that produce tuple or list results:</p>
+<p>filename, extension = os.splitext(completefilename)</p>
+<p>which is much more elegant than</p>
+<p>results = os.splitext(completefilename)</p>
+<p>filename = results[0]</p>
+<p>extension = results[1]</p>
+<p>It's a good idea, though, to resist the temptation to overdo it: if you find yourself unpacking long tuples a lot:</p>
+<p>name, address, state, zip, phone = customer</p>
+<p>that's a good sign that customer should be a dictionary, a class, or a <a href="http://pymotw.com/2/collections/namedtuple.html">namedtuple </a>so you can parse it reliably:</p>
+<h3>Learn to love Mayapy</h3>
+<p>If' your doing a lot of work that involves restarting and reloading maya - particularly if you're iterating on one script that involves a bunch of setup work -- the common trick is to keep all of your steps in a python tab in your listener.  It's better than nothing, but it's still pretty slow.  </p>
+<p>If what you're working on does not require GUI access, you can use MayaPy.exe and the -c and -i flags to get into your script quickly. The -c flag launches mayapy and runs a command, and the -i flag keeps the  interpreter running. So you can boot mayapy directly into a running, headless copy of maya python like this:  </p>
+<p>path/to/maya.py.exe -i -c "import maya.standalone; maya.standalone.initialize()"  </p>
+<p>and obviously you could put your test setup in a separate module and import that after standalone. I've found this saves me a <em>huge</em> amount of time when I'm iterating on something that doesn't need GUI.  I stick this into a button in my IDE or make a shell alias / bat script to do it.  </p>
+<h2><a href="http://lesterbanks.com/2014/01/maya-using-transfer-attributes-as-a-shrink-wrap-deformer/">http://lesterbanks.com/2014/01/maya-using-transfer-attributes-as-a-shrink-wrap-deformer/</a></h2>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Wed 29 October 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

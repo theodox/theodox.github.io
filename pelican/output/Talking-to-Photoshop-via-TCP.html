@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Talking to Photoshop via TCP  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Talking-to-Photoshop-via-TCP.html">Talking to Photoshop via TCP</a></h3>
+  </div>
+  <div class="article_text">
+    <p>A recent <a href="http://tech-artists.org/forum/showthread.php?4481-Communicating-between-Photoshop-and-Maya-(Python)">thread on TAO</a> got me thinking about communicating with Photoshop from Python. In the past I've done this <a href="http://techarttiki.blogspot.com/2008/08/photoshop-scripting-with-python.html">Adam Plechter-style</a> using COM ( from both C# and Python) and it's worked for me, but I know some people have problems with COM for a variety of reasons relating to windows versions and DLL hell.  </p>
+<p>Using COM always makes me feel like Mr. Yuk.</p>
+<p><a href="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif"><img alt="" src="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif" /></a></p>
+<p>Since I had to learn a few JavaScript tricks back when I started <a href="http://techartsurvival.blogspot.com/2013/12/and-i-thought-we-had-it-bad.html">looking into Python web development</a>, I thought it might be worth investigating what could be done to cut out COM.  It turns out that ExtendScript - the JavaScript flavor that comes with Adobe products (at least since CS 5, and I think earlier) includes a socket object which allows for TCP communication.  That's not kosher in 'real' browser based JS - but ExtendScript cheats a little (that's also why it allows you to do things like hit the local file system, another JS no-no).</p>
+<p>The<a href="https://wwwimages2.adobe.com/content/dam/Adobe/en/products/indesign/pdfs/JavaScriptToolsGuide_CS5.pdf"> Adobe docs</a> have an example (around page 196) which shows how you can implement a chat server or a web server running inside Photoshop. That might not be practical but it provides a simple framework you can hijack to turn Photoshop into a remote procedure call server.  Here's an example of a super-simple server that can be run inside Photoshop:</p>
+<p><em>Note: You'll need to save the file as a .JSX (not .JS!) for Photoshop to allow the ExtendScript functionality which makes the socket objects work.</em>  </p>
+<p>This example is very bare bones, but it is easy to extend - just create function objects and add them to <strong>known_commands </strong>dictionary and then send them over the socket. The way it's written here the commands and arguments are split on spaces (similar to the way a shell command works) -- if you need to get at them in your JS functions you can <a href="http://stackoverflow.com/a/2141530/1936075">get at them using the arguments() keyword:</a>.  For serious work I'd probably use the ExtendScript XML object and send the commands and responses as xml since that gets you out of having to worry about stuff like 'what if I want to send an argument with a space in it' -- however this purpose of this excersize is just to demonstrate what's possible.  </p>
+<p>I should note that while the server is running, Photoshop is locked into the wait loop so it will not be accessible interactively -- like a Maya running a long script, the main thread is just waiting for the script to continue. For the typical 'remote control' application that's what you'd expect, but it may not answer for all purposes - so be warned.  </p>
+<p>If you're trying to talk to Photoshop from Python, it's incredibly simple:  </p>
+<p>That's all there is to it - of course, the _real _problem is getting useful work done in the clunky Photoshop API -- but that's going to be the same no matter whether you talk to PS via COM or TCP/IP.  Anecdotally, I've heard the PS scripts are faster in JavaScript than when using COM or AppleTalk or VB, so perhaps this method will be competitive on speed as well.  For small tasks it's certainly a simpler and less irritating way to send a squirt to and from PS </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Wed 29 January 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

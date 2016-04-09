@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Distributing IronPython exes  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Distributing-IronPython-exes.html">Distributing IronPython exes</a></h3>
+  </div>
+  <div class="article_text">
+    <p>Inside c# exe  </p>
+<ol>
+<li>zip up the standard lib</li>
+<li>Include it as embedded resource</li>
+<li>Put it on on sys.metapath with a ResourceMetaPathImporter<ol>
+<li>http://blog.ironpython.net/2012/07/whats-new-in-ironpython-273.html</li>
+</ol>
+</li>
+<li>Create a C# app with included Ironython script engine<ol>
+<li>Same as the Unity blog post</li>
+</ol>
+</li>
+<li>Build!<ol>
+<li>whole thing is pretty small - mine compiled to under 4 mb</li>
+</ol>
+</li>
+</ol>
+<p>IPy exe</p>
+<p>http://stackoverflow.com/questions/6195781/ironpython-exe-compiled-using-pyc-py-cannot-import-module-os</p>
+<p>Essentially: compile an Ipy stdlib dll using the pyc compiler</p>
+<div class="highlight"><pre><span></span>clr.AddReference(&#39;StdLib&#39;)
+</pre></div>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Mon 01 September 2014</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>

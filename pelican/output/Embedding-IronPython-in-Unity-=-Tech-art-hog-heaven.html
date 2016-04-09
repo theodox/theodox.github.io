@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- ## for client-side less
+  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
+  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
+  -->
+  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
+  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
+  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="stevet">
+  <meta name="description" content="Posts and writings by stevet">
+
+  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
+
+<meta name="keywords" content="">
+
+  <title>
+    static_site_test
+&ndash; Embedding IronPython in Unity = Tech-art hog heaven  </title>
+
+</head>
+
+<body>
+  <aside>
+    <div id="user_meta">
+      <a href=".">
+        <img src="./theme/images/logo.png" alt="logo">
+      </a>
+      <h2><a href=".">stevet</a></h2>
+      <p></p>
+      <ul>
+        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
+        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        <li><a href="#" target="_blank">You can add links in your config file</a></li>
+        <li><a href="#" target="_blank">Another social link</a></li>
+      </ul>
+    </div>
+  </aside>
+
+  <main>
+    <header>
+      <p>
+      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
+      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
+      </p>
+    </header>
+
+<article>
+  <div class="article_title">
+    <h3><a href="./Embedding-IronPython-in-Unity-=-Tech-art-hog-heaven.html">Embedding IronPython in Unity = Tech-art hog heaven</a></h3>
+  </div>
+  <div class="article_text">
+    <p><em>Update 6/2/2015</em> If you are relatively new to Unity, and you're here because you're looking for ways to work in Python rather than C#, you may also want to check out <a href="http://techartsurvival.blogspot.com/2015/05/boo-who.html">this 2015 post</a> about Boo - the very obscure, but very Python like language in Mono that lets you write Unity games with fast, compiled code by almost-Python syntax. You don't work long in games without griping about your engine, and I've got my share of complaints about Unity. But I have to admit that it's the best toy in the world for a classic tech-art geek personality. Unlike bigger, more powerful AAA engines, Unity lets you get in under the hood really quickly. The editor environment is extremely extensible - you can add not just dialogs and buttons but 3d widgets and <a href="http://www.thewanderlust.net/blog/2010/03/29/user-interface-design-in-video-games/">diegetic UI </a>.   </p>
+<p>When I first got my hands on Unity I was a bit disappointed to note that, unlike Maya, it doesn't include a built in interactive console environment. The console is a wonderful thing for a TA - it's great for printing out data, lightweight automation of the "find everything in the scene named 'foo' and rename it to 'bar'" variety. So, I thought, is there some way to get this into Unity?  The fact that one could even ask it is a tribute to how flexible Unity is - and as it turned out it was not only possible, it wasn't too hard.  </p>
+<h2>You got Python in my Unity!</h2>
+<p>To start with a console needs some kind of scripting language. Not surprisingly, I wanted to see I could do it in python. Fortunately, this is ridiculously easy thanks to <a href="http://ironpython.codeplex.com/">IronPython</a>, the dotnet flavor of Python.  IronPython  runs on dotnet, and so does Unity - so it's not tough to plug IronPython into Unity directly.  Here's how:  </p>
+<ol>
+<li>You need a verstion of IronPython that will run on Unity's version of <a href="http://www.mono-project.com/Main_Page">Mono </a>, which as of this writing (Unity 4.22 , late 2013) is version 2.6.  By a happy coincidence of naming, that points you at <a href="http://ironpython.codeplex.com/downloads/get/159511">IronPython 2.6.2</a>.  (I've tried later versions but without much luck).</li>
+<li>Locate the IronPython dlls and the IronPython stdlib in the zip file. You will need<br />
+_<ul>
+<li>IronPython.dll</li>
+<li>IronPython.Modules.dll</li>
+<li>Microsoft.Scripting.Core.dll</li>
+<li>Microsoft.Scripting.dll</li>
+<li>Microsoft.Scripting.Debugging.dll</li>
+<li>Microsoft.Scripting.ExtensionAttribute.dll</li>
+<li>Microsoft.Dynamic.dll
+_</li>
+</ul>
+</li>
+<li>CORRECTION : 12-22-2013 If you want access to the Python stdlib, you'll also need to grab a copy of the python 2.6 /Lib folder -- this is <a href="http://techartsurvival.blogspot.com/2013/12/python-in-unity-minor-correction.html">not distributed with IronPython 2.6</a>.  I unzipped the Python26.zip file from my Maya bin directory into the /Lib folder, taking care to leave the handful of IronPython files already there</li>
+<li>Copy all of the above into an Editor/Plugins/Resources folder in Unity. If you're not sure what that means:</li>
+<li>
+<ul>
+<li>Naming a folder <em>Editor</em> tells Unity it only runs in the editor, not at runtime (IronPython <em>won't</em> run inside Unity on IOS devices, since those never run editor code)</li>
+<li>Naming it a folder _Plugins _tells Unity to load dlls from it</li>
+<li>Naming a folder <em>Resources</em> makes sure it loads before scripts are compiled
+For our application we need all three, hence "Editor/Plugins/Resources/..."  You can stick that whole thing into a top level folder for cleanliness if you want. Note the path names in this example:  </li>
+</ul>
+</li>
+</ol>
+<p><a href="http://3.bp.blogspot.com/-uHVdPvrDduM/Uq_uSf5ZxNI/AAAAAAAABO0/H0PMXUJlFso/s1600/layout.png"><img alt="" src="http://3.bp.blogspot.com/-uHVdPvrDduM/Uq_uSf5ZxNI/AAAAAAAABO0/H0PMXUJlFso/s640/layout.png" /></a>
+  6. Restart Unity and open up MonoDevelop. If you check the Assembly-CSharp Editor info in the Solution panel you should see all of your IronPython DLL's are referenced therein:  </p>
+<p><a href="http://3.bp.blogspot.com/-A_kG1rnuiuY/Uq_vrq1bXhI/AAAAAAAABPA/b9v7p3wxpfw/s1600/assembl.png"><img alt="" src="http://3.bp.blogspot.com/-A_kG1rnuiuY/Uq_vrq1bXhI/AAAAAAAABPA/b9v7p3wxpfw/s400/assembl.png" /></a></p>
+<p>Once you've verified that the DLL's are in place, its time to test them.  Hosting an IronPython session in another app is much simpler than it sounds. The best resource for how it works is <a href="http://www.voidspace.org.uk/ironpython/embedding.shtml">Michael Foord's Voidspace site</a> (his <a href="http://www.manning.com/foord/">book on IronPython</a> is a great resource if you plan on going far with this , btw) . However in overview the process is pretty simple (  </p>
+<ol>
+<li>Create a ScriptEngine. This is the actual Python interpreter.</li>
+<li>Create a ScriptScope ( <a href="https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptScope.cs">Microsoft.Hosting.ScriptScope</a><a href="http://www.blogger.com/"></a>) This corresponds to the global namespace of your interpreter - much like the interpeter namespace in Maya</li>
+<li>Create  a ScriptSource ( <a href="https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptSource.cs">Microsoft.Hosting.ScriptSource</a>) using some text you've entered or composed.</li>
+<li>Execute the script</li>
+<li>Rinse &amp; Repeat. You are in business.</li>
+</ol>
+<h2>Script hosting in practice</h2>
+<p>Here's an example .cs script that demostrates the process. Put it in an editor folder so that it can access the Unity Editor assembly (it's probably a good idea to keep it in the editor folder where you have your plugins/resources folder for cleanliness).   </p>
+<div class="highlight"><pre><span></span> using UnityEngine;    
+ using UnityEditor;    
+ using IronPython;    
+ using IronPython.Modules;    
+ using System.Text;    
+ // derive from EditorWindow for convenience, but this is just a fire-n-forget script    
+ public class ScriptExample : EditorWindow {    
+     [MenuItem(&quot;Python/HelloWorld&quot;)]    
+     public static void ScriptTest()    
+     {    
+         // create the engine    
+         var ScriptEngine = IronPython.Hosting.Python.CreateEngine();    
+         // and the scope (ie, the python namespace)    
+         var ScriptScope = ScriptEngine.CreateScope();    
+         // execute a string in the interpreter and grab the variable    
+         string example = &quot;output = &#39;hello world&#39;&quot;;    
+         var ScriptSource = ScriptEngine.CreateScriptSourceFromString(example);    
+         ScriptSource.Execute(ScriptScope);    
+         string came_from_script = ScriptScope.GetVariable&lt;string&gt;(&quot;output&quot;);    
+         // Should be what we put into &#39;output&#39; in the script.    
+         Debug.Log(came_from_script);                
+     }    
+ }
+</pre></div>
+
+
+<p>When it compiles you'll get a menu items that activates the script.  When you hit it you should get a debug printout in your console like so.  </p>
+<p><a href="http://4.bp.blogspot.com/-OHCa77GIxGA/UrEnF442YzI/AAAAAAAABPQ/nYBOKL4W1ZI/s1600/hello+world.jpg"><img alt="" src="http://4.bp.blogspot.com/-OHCa77GIxGA/UrEnF442YzI/AAAAAAAABPQ/nYBOKL4W1ZI/s1600/hello+world.jpg" /></a></p>
+<p>Like the Maya python interpreter, you need to import the appropriate names so that you can get to them in scripts (it's always rather boggled my mind that Maya's own interpreter requires you to import cmds or pymel <em>every single freakin' time</em>.  IronPython lets you import dotnet assemblies as if they were python modules, and since Unity and the Unity Editor are dotnet assemblies you can get access to the entire Unity environment just by importing them into your interpreter.   </p>
+<p>First, we need to load the assemblies to make them available to the intpereter itself.  In dotnet land that's done by loading an assembly.  Once an assembly is loaded, it can be imported using typical Python syntax  </p>
+<div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">MenuItem</span><span class="p">(</span><span class="s2">&quot;Python/HelloWorldRuntime&quot;</span><span class="p">)]</span>    
+ <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">UnityScriptTest</span><span class="p">()</span>    
+ <span class="p">{</span>    
+     <span class="o">//</span> <span class="n">create</span> <span class="n">the</span> <span class="n">engine</span> <span class="n">like</span> <span class="n">last</span> <span class="n">time</span>    
+     <span class="n">var</span> <span class="n">ScriptEngine</span> <span class="o">=</span> <span class="n">IronPython</span><span class="o">.</span><span class="n">Hosting</span><span class="o">.</span><span class="n">Python</span><span class="o">.</span><span class="n">CreateEngine</span><span class="p">();</span>    
+     <span class="n">var</span> <span class="n">ScriptScope</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">CreateScope</span><span class="p">();</span>    
+     <span class="o">//</span> <span class="n">load</span> <span class="n">the</span> <span class="n">assemblies</span> <span class="k">for</span> <span class="n">unity</span><span class="p">,</span> <span class="n">using</span> <span class="n">the</span> <span class="n">types</span> <span class="n">of</span> <span class="n">GameObject</span>    
+     <span class="o">//</span> <span class="ow">and</span> <span class="n">Editor</span> <span class="n">so</span> <span class="n">we</span> <span class="n">don</span><span class="s1">&#39;t have to hardcoded paths    </span>
+     <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">LoadAssembly</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">GameObject</span><span class="p">)</span><span class="o">.</span><span class="n">Assembly</span><span class="p">);</span>    
+     <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">LoadAssembly</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">Editor</span><span class="p">)</span><span class="o">.</span><span class="n">Assembly</span><span class="p">);</span>    
+     <span class="n">StringBuilder</span> <span class="n">example</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuilder</span><span class="p">();</span>    
+     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;import UnityEngine as unity&quot;</span><span class="p">);</span>    
+     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;import UnityEditor as editor&quot;</span><span class="p">);</span>    
+     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;unity.Debug.Log(</span><span class="se">\&quot;</span><span class="s2">hello from inside the editor</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">);</span>    
+     <span class="n">var</span> <span class="n">ScriptSource</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">CreateScriptSourceFromString</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">ToString</span><span class="p">());</span>    
+     <span class="n">ScriptSource</span><span class="o">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>Running that one generates another console message - but this time from inside the script!  </p>
+<p><a href="http://3.bp.blogspot.com/-S6g8MqlQ4gg/UrEub33XuBI/AAAAAAAABPg/kJmAVPdZtAI/s1600/hello+2.png"><img alt="" src="http://3.bp.blogspot.com/-S6g8MqlQ4gg/UrEub33XuBI/AAAAAAAABPg/kJmAVPdZtAI/s1600/hello+2.png" /></a></p>
+<h2>Next time: building a console</h2>
+<p>That may not seem like much, but in reality it's a big deal. You've got a working script interpreter running in Unity now, with all the power of Python and access to the innards of the Unity environment.  What remains is to build a decent interactive environment. If you're content with something barebones, you can whip up a simple UI to allow you to type code into a text field and see the results in another text block.  That may be enough for some purposes (hell, half the 3d packages on the market do little more than that).  However a more featured editor is a little tougher and involves a  little hacking to work around the limitations of Unity's GUI text handling, which makes it a bit involved for a single post. I'll save that one for next time  </p>
+  </div>
+  <div class="article_meta">
+    <p>Posted on: Sat 21 December 2013</p>
+    <p>Category: <a href="./category/blog.html">blog</a>
+    </p>
+  </div>
+
+
+</article>
+
+
+    <div id="ending_message">
+      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
+    </div>
+  </main>
+</body>
+</html>
