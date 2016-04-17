@@ -1,7 +1,7 @@
 Title: For my homies
 Date: 2016-02-01 08:46:00.000
 Category: blog
-Tags: , 
+Tags: techart
 Slug: For-my-homies
 Authors: Steve Theodore
 Summary: pending

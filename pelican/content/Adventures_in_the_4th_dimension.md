@@ -1,10 +1,10 @@
 Title: Adventures in the 4th dimension
 Date: 2014-12-15 23:35:00.000
 Category: blog
-Tags: , , 
-Slug: Adventures-in-the-4th-dimension
+Tags: math
+Slug: adventures-in-the-4th-dimension
 Authors: Steve Theodore
-Summary: pending
+Summary: Matrices and how they can be used to transform 3-d points
 
 In [our last discussion of 3d math](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html), we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that **matrices are just a convention for applying dot products in series.** We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  
   
@@ -19,17 +19,20 @@ After all of the time we’ve spent with dot products in this series, one thing 
 Multiplying a vector against a matrix, [you’ll recall](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html), is nothing more than stringing together a set of dot products between the vector and the columns of the matrix. So, putting together the fact that dots are additive and the fact that matrix multiplication uses dots, it seems logical that we can just stick our translation right onto the bottom of the matrix.  By dropping it down at the end of the matrix columns, we'll add it add it to our results. One important side effect that we’ll have to worry about is that this will break the pretty symmetry we noted last time whereby every matrix row is an axis in the matrix's local coordinate system.  However we’ll deal with that after we know it works.  
   
 To keep things simple, let’s start with a rotate matrix that doesn’t do any, you know, _rotating_ — a matrix that works but leaves incoming data unchanged. That'll make it easier to see when our translations kick in. The correct math moniker for this do-nothing matrix is an _identity_ matrix (as in the otherwise-inexplicable _MakeIdentity_ command in Maya) and it’s just a set of rows that match the default XYZ axes:  
-  
+
+|   |   | 
+|---|---|---|    
 1| 0| 0  
----|---|---  
 0| 1| 0  
 0| 0| 1  
   
 I won’t bother with the math here, but if your work it out for yourself you’ll quickly see that dotting the columns of this matrix in turn against any vector returns the original vector unchanged.   
   
 Next, we’d like to add some extra information to this matrix to include a translation. Since we know our dots are going down the columns, if we tack on an extra row we should be getting a new value added to the output: hopefully, the translation we want. Adding an extra row for translation gives us a 4X3 matrix like this (with an example translation of `[1,2,3]` :  
+
+|   |   | 
+|---|---|---|
 1| 0| 0  
----|---|---  
 0| 1| 0  
 0| 0| 1  
 1| 2| 3  
@@ -49,9 +52,7 @@ So now we’ve got a test matrix that should offset our initial value by  `[1,2,
   
 To make this work, we are going to need to extend our vector to grab the translation values from the new matrix row. It needs to become a 4-dimensional vector. _The fourth dimension! Trippy! Cue [theremin music](https://www.youtube.com/watch?v=4wQsWL-lMJw)...._  
 We've actually dimension jumped before, while working through rotation matrices. We could borrow the same tactic we used in the last post when we moved from a 2-D matrix to a 3-D matrix by just taking on a zero to our vector. This seems like a natural idea, since we know that the 2-D vector `[X,Y]` is equivalent to the 3-D vector `[X,Y,0]`. So let’s see what happens if we do the dot products:  
-  
 
-    
     
     [1,1,1,0] dot [1,0,0,1] = (1 * 1) + (1 * 0) + (1 * 0) + (0 * 1) = 1  
     [1,1,1,0] dot [0,1,0,2] = (1 * 0) + (1 * 1) + (1 * 0) + (0 * 2) = 1  
@@ -63,8 +64,6 @@ Not what we were hoping for: our result is still  `[1,1,1]`. What happened?
   
 The extra zero has allowed us to __do __the dot product — but it's  also zeroing out the translation we are trying to add. Evidently zero is not what we want here (this is not just an misstep, though: we'll come back to those zeroes later).   
 For now, the fix is pretty obvious, even though it’s much less obvious how to what the fix is supposed to mean. If we turn that final zero into a one, we’ll get our translation added to the original value:  
-  
-
     
     
     1,1,1,1 dot 1,0,0,1 = (1 * 1) + (1 * 0) + (1 * 0) + (1 * 1) = 2  
@@ -78,7 +77,7 @@ There, at last, is the translation we are looking for; our vector `[1,1,1,1]`has
 Well, it’s nice to get the right result, but this still leaves us with a bit of a conundrum.  I know what [2,3,4] means. But what the heck is that last coordinate doing there? Did we just make it up?  
 
 
-# X,Y,Z,WTH?
+## X,Y,Z,WTH?
 
 You may remember from our [original discussion of dot products](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html) that _vector_ is actually a very general term, encompassing any bundle of numbers. In tech art we’re used to thinking of vectors as XYZ bundles in 3-D space, but a vector can just as easily be something else — such as your weekly Starbucks expenditure, which is how we started down this road in the first place. 3-D points can be represented by vectors — but so could any bundle of 3 numbers which formed part of a linear equation; say, the value of the dollar, the euro and the yen on a given day. Dot products and matrices work the same way regardless of the subject matter. So, one thing we know already is that all 3-D points are vectors, so to speak, but _not _all vectors are 3-D.  
 [![](http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg)](http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg)  
@@ -86,13 +85,14 @@ You may remember from our [original discussion of dot products](http://techartsu
 Not only did he pioneer analytical geometry, he seems to have invented the Mall Santa look too.  
   
 The vectors we use in graphics, of course are usually [Euclidean vectors](https://www.princeton.edu/~achaney/tmve/wiki100k/docs/Euclidean_vector.html): a set of 3 numbers which represent a spatial offset in the X,Y and Z spatial dimensions. The word _vector_ comes from the Latin word for _one who carries_: the vector is the spatial difference between two positions. We get misled by the fact that programming languages usually use the _algebraic_ name vector (as “bundle of numbers”) for the data type we use to hold the _geometric_ Euclidean vector. _The fact that algebraic vectors and Euclidean vectors share the same noun while meaning different things is, to put it mildly, _annoying.  _With the goofy stuff we're getting in to, I personally would be happy to skip these minor surprises._  
+
 To understand what that weird extra number, however, we have to add in a third concept: the Euclidean **point**._ _Which is also frequently represented in code by something called "vector" but which is represents a different idea. Sigh. We will have to distinguish between two things which look similar when written down or stored as vectors in computer memory but which actually _mean _two different things. Up till now we've talked about vectors and points as if they were interchangeable, but to make the translation matrix work we need to differentiate them.  
   
 The default Euclidean vector is a purely relative quantity. It represents a _**change**_ in position. That's why the vector that gets you from `[0,0,0]` to `[1,1,1]` and the vector that gets you from `[8,8,8]` to `[9,9,9]` are the same: the vector proper has no location of it's own. You can think of it as a surface normal, which tells you which way a surface is facing without telling you anything about where the surface actually _is_, or the direction of a directional light which illuminates along a direction and which doesn't actually reside anywhere in 3-D space.  
   
 On the other hand a Euclidean point _is _an actual location in space. The point `[1,1,1]` is just that : the location `[1,1,1]`. it has no 'facing' or 'direction' the way a surface normal does - and it's not the same as any other 3-D point. It's an _address, _while a regular vector is an offset.  
   
-That's where our fourth coordinate comes in. **Th****e fourth coordinate in our example tells us if we’re dealing with a Euclidean point or a Euclidean vector, **that is, if we are dealing with something that can be translated or not.  If the last coordinate is a **1**, the data is a **point **which can be transformed (moved, rotated and scaled). If the last coordinate is a **0**, the data is a **vector**, which can be rotated and scaled but not moved. The last number is known as the [homogeneous coordinate](http://en.wikipedia.org/wiki/Homogeneous_coordinates), although most people refer to it as the “W” component by analogy with X Y and Z.  _Although I kind of wish they had just wrapped it around back to A, or started at W, or something. XYZW? Like I said, I'd like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh well._  
+That's where our fourth coordinate comes in. The fourth coordinate in our example **tells us if we’re dealing with a Euclidean point or a Euclidean vector**; that is, if we are dealing with something that can be translated or not.  If the last coordinate is a **1**, the data is a **point **which can be transformed (moved, rotated and scaled). If the last coordinate is a **0**, the data is a **vector**, which can be rotated and scaled but not moved. The last number is known as the [homogeneous coordinate](http://en.wikipedia.org/wiki/Homogeneous_coordinates), although most people refer to it as the “W” component by analogy with X Y and Z.  _Although I kind of wish they had just wrapped it around back to A, or started at W, or something. XYZW? Like I said, I'd like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh well._  
 
 
 # [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#homegeneophobia)Homegeneophobia

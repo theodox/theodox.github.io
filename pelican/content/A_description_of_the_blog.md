@@ -4,7 +4,7 @@ Category: site
 Tags: 
 Slug: A-description-of-the-blog
 Authors: Steve Theodore
-Summary: pending
+Summary: description
 
-A blog about technical art, particularly Maya, Python, and Unity. With lots of obscurantist references 
+A blog about technical art, particularly Maya, Python, and Unity. With lots of obscurantist references thrown in for my own amusement.
 

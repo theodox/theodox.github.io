@@ -1,12 +1,11 @@
 Title: Descriptors and pythonic Maya properties
 Date: 2014-03-11 15:15:00.000
 Category: blog
-Tags: , , , , 
+Tags: maya, python, gui, techart
 Slug: Descriptors-and-pythonic-Maya-properties
 Authors: Steve Theodore
-Summary: pending
+Summary: How to use descriptors for dot-style access to maya object properties instead of `cmds.getAttr()`
 
-**Updated 4/11/2015: fixing the embedded code that was busted by Blogger. **  
 I'm still working on the followup to [Rescuing Maya GUI From Itself](http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html), but while I was at it this [StackOverflow question](http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super) made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like `pCube1.translation = (0,10,0)`. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. 
 
 The goal is to be able to write something like

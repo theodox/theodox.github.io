@@ -63,9 +63,9 @@ My workaround is to patch cmds.ls on startup so that it safely renames any bad s
   
 This makes sure that existing code works as it did before and I don't _think_ it will break anything, since the invalid character strings were never going to be ls'ed into anything anyway.  Ordinarily I'm not a big fan of magical behind the scenes fixes but this is a pretty serious change to the behavior of ls which doesn't seem like an intentional upgrade so much as an oversight on Autodesk's part. So, at least until the old behavior comes back I'm gonna try it.  
   
-**Update:** Hat tip to +Robert White for pointing out that the original regex I posted did not handle namespaces. Code above includes the fix.  Never would have figured it out without [Pythex!](https://pythex.org/)  
+_**Update:** Hat tip to +Robert White for pointing out that the original regex I posted did not handle namespaces. Code above includes the fix.  Never would have figured it out without [Pythex!](https://pythex.org/)_  
   
-**Update 2:** Updated the `safe_ls` procedure to handle more of the allowable syntax in older mayas  
+_**Update 2:** Updated the `safe_ls` procedure to handle more of the allowable syntax in older mayas_  
   
 
 

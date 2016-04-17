@@ -1,16 +1,14 @@
 Title: Dot Net is Open?
 Date: 2014-11-13 00:38:00.000
 Category: blog
-Tags: , , , 
-Slug: Dot-Net-is-Open?
+Tags: industry, programming
+Slug: open-dot-net
 Authors: Steve Theodore
-Summary: pending
+Summary: Interesting news from the dotnet world, 
 
 Courtesy of [+Robert Butterworth](https://plus.google.com/116275833090172173559)  comes the news that [.Net is now open source](http://blogs.msdn.com/b/dotnet/archive/2014/11/12/net-core-is-open-source.aspx).  Future development will be done out of GitHub (!).  Is the timing - on the anniversary of the fall of the Berlin Wall - just a coincidence?  
   
 In the short term this probably only means that some projects which have avoided .Net for being closed-source may consider using C# or other .Net languages. Over the medium term it probably presages a 3-6% decline in the use of the dollar sign in derisive online references to Micro$oft.  What's most interesting, though, is what it might mean for Unity, which is hard to predict but tantalizing to speculate on.  
-  
-  
 
 
 [![](http://logomentor.com/logos/dot-net-logo.gif)](http://logomentor.com/logos/dot-net-logo.gif)

@@ -1,36 +1,31 @@
 Title: Dot's all, folks
 Date: 2014-11-29 00:12:00.001
 Category: blog
-Tags: , , 
-Slug: Dot's-all,-folks
+Tags: math, techart
+Slug: Dots-all-folks
 Authors: Steve Theodore
-Summary: pending
+Summary: Some ways to use the vector dot product in TA programming
 
 Last time out I went on (probably a bit too long) on the virtues of the dot product - the operation which takes two lists of numbers and multiplies them to create a single product. The highlight of the whole thing was the _cosine dot product_ \- the handy fact that the dot product of two normalized vectors is the cosine of the angle between them.  
   
 Now that the theory is out of the way, it’s time to highlight some of the zillions of applications for this handy little operation.  
   
-  
 _If none of this sounds familiar you might want to [revisit the first post in the series](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html) before continuing. _  
   
 The dot product is incredibly useful for a TA for two reasons. First, dots allow you to _convert between geometric measures and angles_ without the need for matrices or complex formulae. Second, dots provide an efficient way to _project one vector on to another_, allowing you to measure distances and quantities relative to an arbitrary axis or vector - a great tool for anything from color conversions in a pixel shader to measuring motion in a complex rig.  
-Before getting down to cases, a quick reminder of one important side fact we pointed out last time. A cosine dot product can only tell you _how different_ the angle between two vectors is - **not** what rotations would transform one vector into the other. If you try out this example you’ll see that the dot of `[1,0,0]` against both `[.5, .866, 0]` and `[.5, -.866, 0]` is .5, which (if you remember your sines and cosines) means the relative angle is 30 degrees. However one of those two vectors is clockwise from `[1,0,0]` and the other is counter-clockwise from it. The dot, by itself, can’t tell you which one is which. Don’t forget that bit!  
-
+Before getting down to cases, a quick reminder of one important side fact we pointed out last time. A cosine dot product can only tell you _how different_ the angle between two vectors is - **not** what rotations would transform one vector into the other. If you try out this example you’ll see that the dot of `[1,0,0]` against both `[.5, .866, 0]` and `[.5, -.866, 0]` is .5, which (if you remember your sines and cosines) means the relative angle is 30 degrees. However one of those two vectors is clockwise from `[1,0,0]` and the other is counter-clockwise from it. The dot, by itself, can’t tell you which one is which. _Don’t forget that bit!_
 
 > As I mentioned in the last article, the math for dots is trivially simple. Maxscript [includes vector math functions](http://www.scriptspot.com/bobo/mel2mxs/arithmetic.htm) by default, as does MEL, but vanilla maya.cmds does not. If you want to experiment with examples mentioned here in Maya python, you can import `pymel.core.datataypes` and use the `Vector`. I’ve also put a [simple vector module up on Github](https://github.com/theodox/vector) that works in `Maya.cmds`. I’ll be using that for these examples but translating between MXS, Pymel, and cmds should be a no-brainer.
 
-## [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#rigging)rigging
+##Rigging
 
 One of the most common tasks in rigging is wrangling information into the correct frame of reference.This is particularly tough when dealing with angular data, since angles are often presented in the form of Euler angles whose numeric values can vary unpredictably and which are therefore hard to use in expressions or code. Here are a few examples of how dot’s can help riggers get angular information while avoiding the Euler blues  
 
 
-#### [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#the-bends)The Bends
+####The Bends
 
 Dot’s are an excellent way to measure the extension of a limb, without relying on an Euler value which might be affected by local axis orientations, joint orients, or rotated local axes. Here’s an example that gets a reliable value for the extension of an arm (note: this is vanilla maya, you could do it more succintly with Pymel but it’s a better illustration to do it from scratch)  
-  
-  
-
-    
+     
     
     shoulder_pos = cmds.xform('r_shoulder', t=True, w=True)  
     elbow_pos = cmds.xform('r_elbow', t=True, w=True)  
@@ -41,19 +36,15 @@ Dot’s are an excellent way to measure the extension of a limb, without relying
     elbow_bend = Vector3.dot(bicep_vector, forearm_vector)  
     
 
-  
 then `arm_extension` will be 1 at full extension and 0 when the arm is bent back completely on itself (_ouch!_). You can map use this extension value to drive muscle deformations, blendshapes, or other behaviors without worrying about th underlying Euler values or converting from angles to linear ranges.  
 
 
-#### [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#leaning-in)Leaning In
+####Leaning In
 
 It’s often useful to have a general idea what a character’s whole body is doing, rather than focusing entirely on individual joint positions and orientations. For example, you might want to have rig behaviors turn on when a character is ‘upright’ and off when it it is ‘prone’, or vice-versa. Figuring out the gross orientation is often hard because there are so many bones cooperating to produce the visual effect – and because different animators may use different controls in different ways: animator A may prefer to put all of the big rotations onto a center-of-gravity control while animator B does everything on the pelvis.  
+
 Dots are great for extracting pose info from the world space position of key bones instead of trying to intuit them from rotation values. For example:  
   
-  
-
-    
-    
     head_pos = cmds.xform('head', t=True, w=True)  
     pelvis_pos = cmds.xform('pelvis', t=True, w=True)  
       
@@ -61,11 +52,8 @@ Dots are great for extracting pose info from the world space position of key bon
     body_vector = (Vector3(*head_pos) - Vector3(*pelvis_pos)).normalized()  
     upright = Vector3.dot(body_vector, Vector3(0,1,0)) # for a y-up world  
     
-
   
 Here upright will be close to 1 for an upstanding character, close to 0 for a prone character, and close to -1 for an upside down character (eg, during a handstand). This version tracks the pelvis-to-head vector so it will respond to things like a hunched-over spine; but one of the nice side effects of vector math it that you can easily ‘weight’ different elements as you put together your vectors. For example:  
-  
-
     
     
     chest_pos = cmds.xform('spine_3', q=True, t=True, w=True)  
@@ -77,14 +65,12 @@ Here upright will be close to 1 for an upstanding character, close to 0 for a pr
 would include bias the uprightness vector towards ‘spine_3’, diminishing the influence of the head on the final results.  
 
 
-#### [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#looky-here)Looky here
+####Looky here
 
 You don’t always have to use positions to drive dot-product calculations. You can always get the local orientation of a transform by looking at it’s matrix (the exact reason for this will be shown in a later posting, for now take it on faith). This allows you to see how closely a given object is oriented towards a given vector.   
+
 For example, something like this will help you figure out if a character’s body is oriented in roughly the same direction as the character’s root bone:  
   
-  
-
-    
     
     # assuming that the bones are constructed with positive z as 'forward'  
     world_forward = lambda b: cmds.getAttr(b + ".worldMatrix")[8:11]  
@@ -108,10 +94,8 @@ A value of 1 would have the character facing precisely along the same direction 
 
 Even more than rigging, shader authoring frequently involves a return to the math fundamentals. The most familiar example of the dot product in shader writing is the [Lambert rendering equation](https://www.blogger.com/blogger.g?blogID=3596910715538761404) which we discussed in the last post. However, you can get a variety of other handy effects from the dot inb shaders. The key is to find the right set of vectors to work with.   
 For example, if you dot a surface normal against the vector along which the camera is looking, the result will tell you how directly surface is facing the camera. This allows you to create a [fresnel](http://kylehalladay.com/blog/tutorial/2014/02/18/Fresnel-Shaders-From-The-Ground-Up.html) or edge-highlighting effect.   
-Here’s a snippet of a very minimal Unity shader that illustrates the principle:  
-  
 
-    
+Here’s a snippet of a very minimal Unity shader that illustrates the principle:
     
     void surf (Input IN, inout SurfaceOutput o) {  
             // a hacky way to get the camera vector…  
@@ -122,31 +106,27 @@ Here’s a snippet of a very minimal Unity shader that illustrates the principle
             }  
     
 
-  
 The only thing worth noting here is the way the result value is being inverted: we want the result number to be close to 1 at the horizon and close to zero where the camera normal and the surface normal are aligned, which is the reverse of what the dot would normally give us. By raising the result value to a higher or lower power (using `pow`) we can sharpen or soften the effect; since it the result value should always be 1 or lower a higher power will result in a smaller result value and thus a tighter highlight as you can see in the images.  
   
 [![](http://4.bp.blogspot.com/-CPrevKORkfE/VHl_alL2OkI/AAAAAAABLWg/N9jWYdWum-4/s1600/fresnel.jpg)](http://4.bp.blogspot.com/-CPrevKORkfE/VHl_alL2OkI/AAAAAAABLWg/N9jWYdWum-4/s1600/fresnel.jpg)  
 ---  
-The dotting the camera vector against the surface normal produces an edge highlight fresnel-style effect.   
+>The dotting the camera vector against the surface normal produces an edge highlight fresnel-style effect.   
+
 The size of the effect can be tweaked by raising the dot product value to a higher or lower power.  
   
 You can re-map that dot product in other ways as well. The popular Team Fortress 2 shader, for example, takes the dot between the light and the surface normal - which, of course, will range in value from -1 to 1 - and re-maps it onto the range 0 to 1 so it can be used to lookup a color value from a texture. That’s how the game achieves it’s distinctive ‘wrap-around’ lighting:  
   
-![The Team Fortress shader uses a shifted dot-product to look up lighting values from a hand-authored color ramp, creatng a distinctive illustrational look.](http://www.maginot.eu/space/mgto/projects/mods/tf2_lightwarp/mgto_lightwarp_mod.jpg)  
+![](http://www.maginot.eu/space/mgto/projects/mods/tf2_lightwarp/mgto_lightwarp_mod.jpg) 
+>The Team Fortress shader uses a shifted dot-product to look up lighting values from a hand-authored color ramp, creatng a distinctive illustrational look. 
   
 Both of those uses use the ‘cosine falloff’ intepretation of the dot product, that is, they represent angular differences. However dots have another mathematical meaning: they represent the projection of one vector onto another. One really cool aspect the projective use of the dot is that the logic works in color spaces as well as physical space. For example, a shader writer of can get the luminance of a pixel elegantly like this:  
-  
-
     
     
     float luma = dot( float3(0.2126, 0.7152, 0.0722), pixel_color);  
     
-
   
 Which is essentially projecting the color onto a ‘luminance vector’ dominated by green (numbers derived from [this](https://en.wikipedia.org/wiki/Relative_luminance)) You could use the same trick to identify ‘warm’ colors by dotting against a warm rgb value like (.707, .707, 0) - high dot values will be warm and low dot values will be cool. It takes some meditation to really grok what’s going on (try parsing what’s happening in [this example](http://makc3d.wordpress.com/2011/04/06/matching-colors-in-rgb/)!) but dots can be a very handy trick for navigating color space as well as 3-d space.  
 Shader writers have one more sneaky use for dots - they can be a cheap substitute for selection functions. Shader authors often have to pack data into vectors for efficiency, but accessing one component of a vector would need an expensive if-then branch in theshader. Dots, however, can let you pick one component out of your vector without using branches. Since the dot of any vector composed of all zeros is of course zero. If one component is a one and the rest are zeros, the result will be the corresponding component of the other vector. Thus:  
-  
-
     
     
     float3 y = float3(0,1,0);  
@@ -162,9 +142,8 @@ This is more compiler friendly than inserting a branch into the shader code to c
 ## tools
 
 It’s easy to see who the kinds of tricks we’ve already laid out for shaders and rigging generalize for tool writing. The dot of a surface normal and a vector is a great proxy for whether or not the a surface is facing something, dots are great for analyzing geometry. For example, A tree-and-rock scattering script can dot the normal of a terrain against gravity to figure out which slopes are too steep for trees, or which areas are bottomland where there ought to be lots of bushes. A terrain editing tool could against a sun vector to identify exposed areas where the grass is yellowed and shady spots where it’s lush and green.   
-As with rigging , the dot also provides a way to check relative orientations. For example, you might need to know if an object has been where another object can ‘see’ it. If you dot a reference vector - such the object’s local X or Z axs - against the vector to a target, you can figure out if the target is ‘ahead’ or ‘behind’ the reference object. For example this function would tell you if the target was within some angle of the forward axis of the observer:  
-  
 
+As with rigging , the dot also provides a way to check relative orientations. For example, you might need to know if an object has been where another object can ‘see’ it. If you dot a reference vector - such the object’s local X or Z axs - against the vector to a target, you can figure out if the target is ‘ahead’ or ‘behind’ the reference object. For example this function would tell you if the target was within some angle of the forward axis of the observer:  
     
     
        def target_visible(reference, target, cone-angle = .5_):  
@@ -190,9 +169,6 @@ You could restrict that to one or two axes using the same trick in the rigging e
 
   
 The projective function of dots is also useful in tools. For example, you can use a dot to clamp a line to the position of the mouse, even if the line is constrained so that the mouse doesn’t physically rest on the line:  
-  
-  
-
     
     
     line_vector = Vector2(.707, .707)  # a 45 degree line  
@@ -202,9 +178,7 @@ The projective function of dots is also useful in tools. For example, you can us
         draw_line (line_origin, line_origin + line_end)  
     
 
-### 
-
-### [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#further-reading)Further reading
+## Further reading
 
 If this one whetted your appetite and you need to know more, here’s a few links I found handy while reading up:  
 
@@ -215,8 +189,7 @@ If this one whetted your appetite and you need to know more, here’s a few link
   * **Update**: [+Paul Vosper](https://plus.google.com/105359351421932966635)  put me on to the excellent [Scratchapixel.com](http://scratchapixel.com/)
 
 
-
-I'll be back on the math trail again as soon as I emerge from my [mythical tryptophan coma.  ](http://www.webmd.com/food-recipes/features/the-truth-about-tryptophan)  
+I'll be back on the math trail again as soon as I emerge from my [mythical tryptophan coma.](http://www.webmd.com/food-recipes/features/the-truth-about-tryptophan)  
   
 
 

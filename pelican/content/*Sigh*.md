@@ -17,12 +17,10 @@ In honor of the passing of this great piece of software, I'm going to reprint an
 In the mean time, I'm going to go have an Irish wake for a poor old XSI.  (BTW, if you're waiting on the follow-up to [Rescuing Maya GUI From Itself, ](http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html)I'm cleaning up the code and writing tests before I go blabbing...)  
   
 _**Update**: Came upon [this interesting set of charts](http://gfxspeak.com/2014/02/27/autodesk-revenue-transition/) (espceially the next to the last one at the bottom) which explains a lot of what's going on on here. Doesn't make it hurt less, though._  
-_  
-__Equally relevant: [Autodesk's upgrade lockdown](http://forums.cgsociety.org/showthread.php?f=59&t=1159665). _  
+
+_**Equally relevant**: [Autodesk's upgrade lockdown](http://forums.cgsociety.org/showthread.php?f=59&t=1159665)._  
   
-
-
-* * *
+---
 
 ## **The M-Word**
 

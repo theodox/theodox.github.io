@@ -1,0 +1,813 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"T",
+				"Transformation"
+			],
+			[
+				"other",
+				"otherKlass"
+			],
+			[
+				"s",
+				"self"
+			],
+			[
+				"c",
+				"cmds"
+			],
+			[
+				"fun",
+				"function	ContextMenuItemAttribute.*"
+			],
+			[
+				"log",
+				"log	Debug.*(message, context)"
+			],
+			[
+				"cons",
+				"console	DeviceType.*"
+			],
+			[
+				"o",
+				"onclick	Attr"
+			],
+			[
+				"addre",
+				"address"
+			],
+			[
+				"node",
+				"node"
+			],
+			[
+				"m_co",
+				"m_cost"
+			],
+			[
+				"nex",
+				"next_link"
+			],
+			[
+				"current_",
+				"current_edge"
+			],
+			[
+				"m_d",
+				"m_edges"
+			],
+			[
+				"conne",
+				"connections	Network.*"
+			],
+			[
+				"m_",
+				"m_edges"
+			],
+			[
+				"test",
+				"test_addr"
+			],
+			[
+				"vali",
+				"valid_y"
+			],
+			[
+				"def",
+				"default	ReplacePrefabOptions.*"
+			],
+			[
+				"m_c",
+				"m_cells"
+			],
+			[
+				"del",
+				"delta	Event.*"
+			],
+			[
+				"Math",
+				"Mathf.Abs	*(value)"
+			],
+			[
+				"addres",
+				"Address"
+			],
+			[
+				"inval",
+				"invalid"
+			],
+			[
+				"M_c",
+				"m_cells"
+			],
+			[
+				"Map",
+				"MapCell"
+			],
+			[
+				"map",
+				"MapCell"
+			],
+			[
+				"dici",
+				"Dictionary"
+			],
+			[
+				"widh",
+				"width	Rect.*"
+			],
+			[
+				"next",
+				"next_link"
+			],
+			[
+				"Rem",
+				"Remove	Hashtable.*(?)"
+			],
+			[
+				"resu",
+				"result"
+			],
+			[
+				"nod",
+				"node_cost"
+			],
+			[
+				"cost",
+				"cost_to_here"
+			],
+			[
+				"curre",
+				"current_node"
+			],
+			[
+				"obj",
+				"object	[class]"
+			],
+			[
+				"coun",
+				"counter	ComputeBufferType.*"
+			],
+			[
+				"Remov",
+				"RemoveAt	ArrayUtility.*(array, index)"
+			],
+			[
+				"constr",
+				"constructor	Define constructor"
+			],
+			[
+				"recu",
+				"recurse_path"
+			],
+			[
+				"pre",
+				"previous"
+			],
+			[
+				"Front",
+				"Frontier"
+			],
+			[
+				"Deb",
+				"Debug.Log	*(message)"
+			],
+			[
+				"cou",
+				"counter	ComputeBufferType.*"
+			],
+			[
+				"L",
+				"Log	Debug.*(message, context)"
+			],
+			[
+				"pu",
+				"public"
+			],
+			[
+				"ed",
+				"edge	[class]"
+			],
+			[
+				"Sta",
+				"Start	UIBehaviour.*()"
+			],
+			[
+				"Ed",
+				"Edge	[class]"
+			],
+			[
+				"P",
+				"Person"
+			],
+			[
+				"Pe",
+				"Pet"
+			],
+			[
+				"b",
+				"bin_ct"
+			],
+			[
+				"bi",
+				"bin_ct"
+			],
+			[
+				"par",
+				"parents"
+			],
+			[
+				"de",
+				"depth"
+			],
+			[
+				"Sys",
+				"System"
+			],
+			[
+				"_",
+				"_Fred"
+			],
+			[
+				"Tran",
+				"Transform	[class]"
+			],
+			[
+				"pos",
+				"position	Transform.*"
+			],
+			[
+				"gameo",
+				"gameObject	[class]"
+			],
+			[
+				"SetPar",
+				"SetParent	Transform.*(parent, worldPositionStays)"
+			],
+			[
+				"tr",
+				"transform	[class]"
+			],
+			[
+				"Tras",
+				"Transform.localScale	[property]"
+			],
+			[
+				"transfor",
+				"transform	[class]"
+			],
+			[
+				"trans",
+				"transform	[class]"
+			],
+			[
+				"t",
+				"transform"
+			],
+			[
+				"U",
+				"UnityEngine"
+			],
+			[
+				"d",
+				"deltaTime"
+			],
+			[
+				"S",
+				"System"
+			],
+			[
+				"ee",
+				"edges"
+			],
+			[
+				"E",
+				"edges"
+			],
+			[
+				"l",
+				"lambda"
+			],
+			[
+				"h",
+				"hash"
+			],
+			[
+				"e",
+				"__eq__"
+			],
+			[
+				"co",
+				"counter"
+			],
+			[
+				"fir",
+				"first_facet"
+			],
+			[
+				"pro",
+				"process"
+			],
+			[
+				"fo",
+				"font-style"
+			]
+		]
+	},
+	"buffers":
+	[
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 147.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"markdp",
+				"Markdown Preview: Export HTML in Sublime Text"
+			],
+			[
+				"makrpd",
+				"Markdown Preview: Copy to Clipboard"
+			],
+			[
+				"inst",
+				"Package Control: Install Package"
+			],
+			[
+				"ins",
+				"Package Control: Install Package"
+			],
+			[
+				"install ",
+				"Package Control: Install Package"
+			],
+			[
+				"pre",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"prev",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"previ",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"prevo",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"MARKDP",
+				"Markdown Preview: Copy to Clipboard"
+			],
+			[
+				"PREVP",
+				"Markdown Preview: Preview in Browser"
+			],
+			[
+				"PREVI",
+				"Bookmarks: Select Previous"
+			],
+			[
+				"INST",
+				"Package Control: Install Package"
+			],
+			[
+				"remo",
+				"Package Control: Remove Package"
+			],
+			[
+				"markd",
+				"GitHub Flavored Markdown: Preview"
+			],
+			[
+				"markdo",
+				"GitHub Flavored Markdown: Preview"
+			],
+			[
+				"marks",
+				"Preferences: MarkdownEditing Settings – Default"
+			],
+			[
+				"disa",
+				"Package Control: Disable Package"
+			],
+			[
+				"dis",
+				"Package Control: Disable Package"
+			],
+			[
+				"packa",
+				"Preferences: Browse Packages"
+			],
+			[
+				"packages",
+				"Package Control: List Packages"
+			],
+			[
+				"user",
+				"Preferences: Settings - User"
+			],
+			[
+				"install",
+				"Package Control: Install Package"
+			],
+			[
+				"markdow",
+				"Preferences: MarkdownEditing Settings – Default"
+			],
+			[
+				"gi",
+				"GitHub: History"
+			],
+			[
+				"pac",
+				"Preferences: Browse Packages"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 126.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = 'eb2297e1a458f27d836c04bb0cbaf282' + 'd0e7a3098092775ccb37ca9d6b2e4b7d'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content"
+	],
+	"file_history":
+	[
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/First_module_of_the_year!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/For_my_homies.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/From_the_annals_of_bug_subtlety.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Future_Watch:_Graphics_&_Animation_Research.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/GDC_on_the_horizon.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Goddamit,_stop_messing_around.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Grrrr....._Maya!!!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Handy_link:_Python_string_format_cookbook.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/I_don't_endorse_this....md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/untitled_204.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Hm_-_sorry_for_jumping_the_gun._I_downloaded_the_2....md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Embedding_IronPython_in_Unity_=_Tech-art_hog_heaven.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Good_tricks.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/First_find_of_2014:_A_Scriptable_DCC_app_in_the_browser?!?!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Enter,_the_Chimaera.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Earth_calling_maya.standalone!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dot_Net_is_Open?.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Didn't_need_those_eyeballs_anyway!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dot_Matrix.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dot's_all,_folks.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Descriptors_and_pythonic_Maya_properties.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Dang.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/code_wars.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Comments_requested.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Con_Job.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Coderscrowd.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Classic_CG:__La_plus_ca_change.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Chromosaurus!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Classic_(?)_CG:_Bingo_the_Clown.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Charcoal_-_it's_smokin'!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Channeling_Gerry_Anderson.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Back_from_GDC.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Boo_Who?.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/But_the_real_question_is,_who_remembers_the_ladies....md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Book_Review.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Binary_bonanza!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/A_PID_controller_for_Unity.md",
+		"/Users/stevetheodore/Dropbox/blog/Unity PID.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Adventures_in_the_4th_dimension.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/All_we_are_saying_is_give_API_2.0_a_chance.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Bagels_and_Coffee,_or,_the_vector_dot_product_and_you.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Be_cross.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/Big_(?)_Python_bucks!.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/*Sigh*.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/2015_Bug_watch:_ls().md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/A_description_of_the_blog.md",
+		"/Users/stevetheodore/Dropbox/blog/mtasks.md",
+		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/...And_I_thought_we_had_it_bad....md",
+		"/Users/stevetheodore/Dropbox/blog/Uffda.md",
+		"/Users/stevetheodore/Dropbox/blog/deleteme.py",
+		"/Users/stevetheodore/Dropbox/blog/hebrew spartants",
+		"/Users/stevetheodore/Library/Application Support/Sublime Text 3/Packages/User/Default (OSX).sublime-keymap",
+		"/Users/stevetheodore/Dropbox/blog/gdc_2016.md",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2017/modules/dayton/usercustomize.py",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2017/modules/dayton.mod",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2017/modules/dayton/userSetup.py",
+		"/Users/stevetheodore/Dropbox/work notes/markup-unreal",
+		"/Users/stevetheodore/prj/minq/readme.MD",
+		"/Users/stevetheodore/Dropbox/minq2.py",
+		"/Users/stevetheodore/Dropbox/blog/little things.md",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2017/modules/dayton/example.pth",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2017/modules/dayton/zzz.py",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2017/modules/dayton/qqq/mod2.py",
+		"/Users/stevetheodore/Dropbox/chronicon",
+		"/Users/stevetheodore/Desktop/rapyd_tests/rapyd.js",
+		"/Users/stevetheodore/Dropbox/keeblog",
+		"/Users/stevetheodore/Dropbox/blog/sfx.md",
+		"/Users/stevetheodore/Dropbox/blog/assaph_2",
+		"/Users/stevetheodore/prj/electron/main.js",
+		"/Users/stevetheodore/Dropbox/blog/inflexible.md",
+		"/Users/stevetheodore/Dropbox/blog/inflex.html",
+		"/Users/stevetheodore/example_graph.sfx",
+		"/Users/stevetheodore/example_graph.material",
+		"/Users/stevetheodore/prj/electron/index.html",
+		"/Users/stevetheodore/prj/electron/main.pyj",
+		"/Users/stevetheodore/prj/electron/boo.pyj",
+		"/Users/stevetheodore/prj/electron/boo.js",
+		"/Users/stevetheodore/Documents/maya/projects/default/scenes/sfx.ma",
+		"/Users/stevetheodore/prj/electron/main.pyj.py",
+		"/Users/stevetheodore/Desktop/test.pyj",
+		"/Users/stevetheodore/Dropbox/dransfield",
+		"/Users/stevetheodore/Desktop/rapyd.pyj",
+		"/Users/stevetheodore/Dropbox/charcoal.md",
+		"/Users/stevetheodore/prj/boostar.boo",
+		"/Users/stevetheodore/Dropbox/boomap.boo",
+		"/Users/stevetheodore/Dropbox/astar.boo",
+		"/Users/stevetheodore/Dropbox/class4 risks",
+		"/Users/stevetheodore/prj/dummy.boo",
+		"/Users/stevetheodore/unity-legos/Assets/interrupted.m4a/minigames/boorts/boo/unit.boo copy",
+		"/Users/stevetheodore/Desktop/reviews",
+		"/Users/stevetheodore/Dropbox/blog/uv_hate",
+		"/Users/stevetheodore/Dropbox/blog/code wars.md",
+		"/Users/stevetheodore/Dropbox/blog/wrap.md",
+		"/Users/stevetheodore/Dropbox/blog/TA Panel",
+		"/Users/stevetheodore/peewee/pw.py",
+		"/Users/stevetheodore/Dropbox/blog/distributing_command_line_tools.md",
+		"/Users/stevetheodore/Dropbox/blog/Boo (Stephen’s Mac Pro's conflicted copy 2015-05-16).md",
+		"/Users/stevetheodore/Dropbox/blog/Boo.md",
+		"/Users/stevetheodore/Dropbox/work notes/ms intro notes",
+		"/Users/stevetheodore/Desktop/test_web/Release/test_web.js",
+		"/Users/stevetheodore/Desktop/__main__.py",
+		"/Users/stevetheodore/Dropbox/work notes/popcorn fx notes",
+		"/Users/stevetheodore/Documents/tmp/tmp.txt",
+		"/Users/stevetheodore/Documents/tmp/tmp.boo",
+		"/Users/stevetheodore/Documents/tmp/tmp.nant",
+		"/Users/stevetheodore/Dropbox/blog/profiling.md",
+		"/Users/stevetheodore/boo/boo/tmp.boo",
+		"/Users/stevetheodore/Dropbox/blog/fix_egg_gist.md",
+		"/Users/stevetheodore/Desktop/fred.boo",
+		"/Users/stevetheodore/scratch/Assets/boo.boo",
+		"/Users/stevetheodore/Documents/conemu/conemu.py",
+		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2016/scripts/__main__.py",
+		"/Users/stevetheodore/Desktop/example.mel",
+		"/Users/stevetheodore/Desktop/example.py",
+		"/Users/stevetheodore/Documents/TechArtMafia.github.io/crs/include_text.html",
+		"/Users/stevetheodore/Dropbox/work notes/bitsquid tools mtg",
+		"/Users/stevetheodore/Documents/TechArtMafia.github.io/crs/glossary.md",
+		"/Users/stevetheodore/Desktop/gaze_ball.bsi",
+		"/Users/stevetheodore/Documents/python/ulMaya/convex.py",
+		"/Users/stevetheodore/Dropbox/blog/api points 2",
+		"/Users/stevetheodore/Dropbox/blog/markdown preview settings for blog.json",
+		"/Users/stevetheodore/Dropbox/blog/blog_template.html",
+		"/Users/stevetheodore/Dropbox/blog/blog_template_darkly.html",
+		"/Users/stevetheodore/Library/Application Support/Sublime Text 3/Packages/Markdown Preview/MarkdownPreview.sublime-settings",
+		"/Users/stevetheodore/Dropbox/blog/darkly template.html",
+		"/Users/stevetheodore/Dropbox/Public/solarized-dark.css",
+		"/Users/stevetheodore/Dropbox/Public/github.css",
+		"/Users/stevetheodore/Dropbox/blog/ScriptCtx is your frenemy.md"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+			" - ",
+			"\\d+\\n",
+			"eval",
+			"shaderfx",
+			"message",
+			"\");\n",
+			"MapCell",
+			"OpenNodes",
+			"float",
+			"Frontier",
+			"get_next",
+			"return",
+			"last_update_user",
+			"kid",
+			"jock",
+			"[",
+			"world",
+			"-=",
+			"==",
+			"update",
+			"-=",
+			"==",
+			"([^:\\[])? ",
+			"([^:\\[])  ",
+			"[^:\\[] ",
+			"(\\[)\\s",
+			"(\\[)\\s\\w+([\\]])",
+			"([^\\{\\[])\\n\\t+([^\\w\\]\\}])",
+			"\\n\\t+([^\\w\\]\\}])",
+			" =",
+			"\\n(\\t+)([\\}\\]])",
+			" =",
+			"\\{\\,",
+			"\\{,",
+			"{,",
+			"\\n",
+			"\\m",
+			"\\}\\n",
+			"proc",
+			".point",
+			"'",
+			"highlight",
+			"codehighlight",
+			".highlight",
+			"skip",
+			"example"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"",
+			"”",
+			"execute",
+			"Cell",
+			"OpenList",
+			"single",
+			"OpenNodes",
+			"Frontier",
+			"next",
+			"updatable_user",
+			"user",
+			"--",
+			"$1, ",
+			",",
+			"$1,$2",
+			", $1",
+			":",
+			"$2",
+			":",
+			"\\{",
+			"\\{\\n",
+			"{\\n",
+			",\\n",
+			"codehilite",
+			".codehighlight"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"sheets":
+			[
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 34.0
+	},
+	"input":
+	{
+		"height": 33.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 267.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"output.markdown":
+	{
+		"height": 124.0
+	},
+	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"project": "untitled.sublime-project",
+	"replace":
+	{
+		"height": 64.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"",
+				"~/Documents/python/triggers/README.md"
+			]
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 214.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

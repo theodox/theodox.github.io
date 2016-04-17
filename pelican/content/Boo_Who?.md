@@ -1,12 +1,12 @@
 Title: Boo Who?
 Date: 2015-05-31 22:02:00.000
 Category: blog
-Tags: , , , 
-Slug: Boo-Who?
+Tags: programming, boo
+Slug: boo-who
 Authors: Steve Theodore
 Summary: pending
 
-Boo!
+##Boo!
 
 Did I scare you?
 
@@ -20,13 +20,13 @@ The reason is pretty simple, as this graph explains:
 
 For a lot of Unity developers (99.56% of them, apparently) this is non-news; Boo never really garnered much of a following in the Unity community. For new developers and recent grads, C# is an easy and very well documented option; for former web debs moving to mobile apps, UnityScript feels JavaScript-y enough to ease into a new environment. Boo, on the other hand, never got much traction: it's got a small but passionate community but it never garnered enough momentum to break out of its niche. 
 
-## Boo Hoo
+##Boo Hoo
 
 Now, I'm kind of a sucker for hopeless causes, so almost inevitably this news inclined me to revisit Boo, which I've toyed with a few times but never really tried to learn. I had to write a lot of C# for [Moonrise](http://store.steampowered.com/app/351040/) and it made me long for the clarity and concision of Python. Even though C# is a perfectly capable language with lots of modern features (closures, firest class functions, etc) it's still very chatty. The tantalizing promise of Boo - not completely fulfilled, but pretty close, is that it combines both: the performance, runtime type safety, and intimate access to Unity that C# offers in a language not deformed by punctuation and rendered ridiculous by overly wordy syntax.
 
 Here's the aesthetic differences in a nutshell:
 
-### Boo
+##Boo
     
     
     import UnityEngine  
@@ -61,7 +61,7 @@ Here's the aesthetic differences in a nutshell:
        transform.position = vp  
     
 
-### C
+##C\#
     
     
     using UnityEngine;  
@@ -276,7 +276,7 @@ TL;DR: I've gotten pretty fond of Boo. Above all, it serves me well for noodling
 
 Another hurdle for many Pythonistas, though one which does not matter in the the context of Unity games, is the lack of the Python standard library. About 70% of what you can do with the 'batteries included' in Python can, however, be replicated using the [dotnet Base Class Library](https://msdn.microsoft.com/en-us/library/hfa3fa08%28v=vs.110%29.aspx) if you're running Boo on a Windows box (on Linux or OSX the percentage is lower: Mono has its own base class library but it's not a complete replica of the one from Microsoft). For many tools tasks and projects, this is more than enough: you'll be able to read and write XML, to decrypt JSON, to talk to an http server and so on although the function names and APIs will vary. I have to admit I prefer the Python toolkit to the dotnet one, which reflects the same bureaucratic mindset that I dislike in C#'s design, but it's still a big, robust set of tools. You can also use anything that's available as a dotnet DLL. Almost anything advertised as a usable with C# will work with Boo.
 
-All That said, I'd definitely think twice before basing a commercial Unity project or a critical pipeline component on Boo. There does seem to be a small but measurable perfromance penalty compared to C# (the performance is, however, pretty much on par with that of UnityScript). More importantly, the Boo's biggest weakness is documentation: with a small community and (from now on) no docs on the Unity site, finding your way around in the language at first is pretty awkward. The [documentation](https://github.com/bamboo/boo/wiki) is a sporadic, volunteer effort with some glaring holes - it doesn't help that Google still sends you to the moribund Boo site on [codehaus](http://boo.codehaus.org/) instead of the current docs, which are in a [Github Wiki](https://github.com/bamboo/boo/wiki). The language is officially at version 0.9.4.9 and hasn't incremented in a long time: it's still getting commits from the original author and few other devs but it's a much smaller project than, say, IronPython. In short, it's a cool language that has not found it's audience yet, and unless it does it will remain a niche player. 
+All that said, I'd definitely think twice before basing a commercial Unity project or a critical pipeline component on Boo. There does seem to be a small but measurable perfromance penalty compared to C# (the performance is, however, pretty much on par with that of UnityScript). More importantly, the Boo's biggest weakness is documentation: with a small community and (from now on) no docs on the Unity site, finding your way around in the language at first is pretty awkward. The [documentation](https://github.com/bamboo/boo/wiki) is a sporadic, volunteer effort with some glaring holes - it doesn't help that Google still sends you to the moribund Boo site on [codehaus](http://boo.codehaus.org/) instead of the current docs, which are in a [Github Wiki](https://github.com/bamboo/boo/wiki). The language is officially at version 0.9.4.9 and hasn't incremented in a long time: it's still getting commits from the original author and few other devs but it's a much smaller project than, say, IronPython. In short, it's a cool language that has not found it's audience yet, and unless it does it will remain a niche player. 
 
 Still, it's pretty cool too. If, after those caveats, it still sounds interesting, you'll be relieved to know that Boo is not really 'going away': For the forseeable future, the language will still work in Unity, Boo, like C# and UnityScript, runs on [Mono](http://www.mono-project.com/), much as Java runs on the JVM. Unity doesn't distinguish between the source of Mono assemblies: you can still use Boo, and even more exotic dotnet languages such as F# (though not, alas, IronPython!) in Unity today. The only practical result of Unity's decision to sunset Boo support is the disappearance of the Boo documentation from the Unity website - which , to be honest was rarely adequate - and the lack of a 'create Boo script' menu item. Dropping a boo script into your assets folder, however still creates runnable code, and it should continue to do so for the forseeable future. 
 

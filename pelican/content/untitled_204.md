@@ -1,7 +1,7 @@
 Title: untitled_204
 Date: 2013-12-22 14:50:00.001
 Category: blog
-Tags: 
+Tags: industry, techart
 Slug: untitled_204
 Authors: Steve Theodore
 Summary: pending
