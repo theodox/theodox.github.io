@@ -1,62 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- ## for client-side less
-  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
-  -->
-  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
-  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/font-awesome.min.css">
+
+
+    <link href="http://blog.theodox.com/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Atom">
+
+
 
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="stevet">
-  <meta name="description" content="Posts and writings by stevet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
 
-  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
-
-<meta name="keywords" content="">
-
-  <title>
-    static_site_test
-&ndash; Adventures in the 4th dimension  </title>
-
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="Matrices and how they can be used to transform 3-d points" />
+<meta name="keywords" content="math">
+<meta property="og:site_name" content="theodox.com"/>
+<meta property="og:title" content="Adventures in the 4th dimension"/>
+<meta property="og:description" content="Matrices and how they can be used to transform 3-d points"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./adventures-in-the-4th-dimension.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-12-15 23:35:00-08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="math"/>
+<meta property="og:image" content="">
+  <title>theodox.com &ndash; Adventures in the 4th dimension</title>
 </head>
-
 <body>
   <aside>
-    <div id="user_meta">
+    <div>
       <a href=".">
-        <img src="./theme/images/logo.png" alt="logo">
+        <img src="./theme/img/profile.png" alt="" title="">
       </a>
-      <h2><a href=".">stevet</a></h2>
+      <h1><a href="."></a></h1>
       <p></p>
-      <ul>
-        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
-        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
-        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
-        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
-        <li><a href="#" target="_blank">You can add links in your config file</a></li>
-        <li><a href="#" target="_blank">Another social link</a></li>
+      <nav>
+        <ul class="list">
+          <li><a href="index.html" target="_blank">home</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
       </ul>
     </div>
   </aside>
-
   <main>
-    <header>
-      <p>
-      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
-      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
-      </p>
-    </header>
 
 <article>
-  <div class="article_title">
-    <h3><a href="./Adventures-in-the-4th-dimension.html">Adventures in the 4th dimension</a></h3>
-  </div>
-  <div class="article_text">
+  <header>
+    <h1 id="adventures-in-the-4th-dimension">Adventures in the 4th dimension</h1>
+    <p>Posted on Mon 15 December 2014 in <a href="./category/blog.html">blog</a></p>
+  </header>
+  <div>
     <p>In <a href="http://techartsurvival.blogspot.com/2014/12/dot-matrix.html">our last discussion of 3d math</a>, we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that <strong>matrices are just a convention for applying dot products in series.</strong> We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  </p>
 <p>Naturally, any TA reading this will be knows there's more. We all know that the matrices we’re most familiar with — the transform matrices that drive animation and modeling — do more than rotate. So this this time out we’re going talk about how <strong>translation</strong> — spatial offsets — can be packed into matrices.  And we're going to do it in a truly brain bending way.  Sort of.  </p>
 <blockquote>
@@ -68,12 +77,17 @@
 <table>
 <thead>
 <tr>
-<th>1</th>
-<th>0</th>
-<th>0</th>
+<th></th>
+<th></th>
+<th></th>
 </tr>
 </thead>
 <tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
 <tr>
 <td>0</td>
 <td>1</td>
@@ -87,12 +101,38 @@
 </tbody>
 </table>
 <p>I won’t bother with the math here, but if your work it out for yourself you’ll quickly see that dotting the columns of this matrix in turn against any vector returns the original vector unchanged.   </p>
-<p>Next, we’d like to add some extra information to this matrix to include a translation. Since we know our dots are going down the columns, if we tack on an extra row we should be getting a new value added to the output: hopefully, the translation we want. Adding an extra row for translation gives us a 4X3 matrix like this (with an example translation of <code>[1,2,3]</code> :<br />
-1| 0| 0<br />
----|---|---<br />
-0| 1| 0<br />
-0| 0| 1<br />
-1| 2| 3  </p>
+<p>Next, we’d like to add some extra information to this matrix to include a translation. Since we know our dots are going down the columns, if we tack on an extra row we should be getting a new value added to the output: hopefully, the translation we want. Adding an extra row for translation gives us a 4X3 matrix like this (with an example translation of <code>[1,2,3]</code> :  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
 <blockquote>
 <p><em>For future reference, matrices are usually described as ‘rows by columns’; in the last article we derived our matrix first as a 2X2 then as a 3X3 matrx. Most transformation matrices in 3d software are 4X4, for reasons that will become apparent shortly, but Max users will find this 4X3 format familiar — Maxscript makes extensive use of 4x3 matrices for object transforms.</em></p>
 </blockquote>
@@ -120,16 +160,16 @@ For now, the fix is pretty obvious, even though it’s much less obvious how to 
 
 <p>There, at last, is the translation we are looking for; our vector <code>[1,1,1,1]</code>has become <code>[2,3,4]</code>, reflecting the offset in the last row of the matrix.  </p>
 <p>Well, it’s nice to get the right result, but this still leaves us with a bit of a conundrum.  I know what [2,3,4] means. But what the heck is that last coordinate doing there? Did we just make it up?  </p>
-<h1>X,Y,Z,WTH?</h1>
+<h2>X,Y,Z,WTH?</h2>
 <p>You may remember from our <a href="http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html">original discussion of dot products</a> that <em>vector</em> is actually a very general term, encompassing any bundle of numbers. In tech art we’re used to thinking of vectors as XYZ bundles in 3-D space, but a vector can just as easily be something else — such as your weekly Starbucks expenditure, which is how we started down this road in the first place. 3-D points can be represented by vectors — but so could any bundle of 3 numbers which formed part of a linear equation; say, the value of the dollar, the euro and the yen on a given day. Dot products and matrices work the same way regardless of the subject matter. So, one thing we know already is that all 3-D points are vectors, so to speak, but _not _all vectors are 3-D.<br />
 <a href="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg"><img alt="" src="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg" /></a>  </p>
 <hr />
 <p>Not only did he pioneer analytical geometry, he seems to have invented the Mall Santa look too.  </p>
-<p>The vectors we use in graphics, of course are usually <a href="https://www.princeton.edu/~achaney/tmve/wiki100k/docs/Euclidean_vector.html">Euclidean vectors</a>: a set of 3 numbers which represent a spatial offset in the X,Y and Z spatial dimensions. The word <em>vector</em> comes from the Latin word for <em>one who carries</em>: the vector is the spatial difference between two positions. We get misled by the fact that programming languages usually use the <em>algebraic</em> name vector (as “bundle of numbers”) for the data type we use to hold the <em>geometric</em> Euclidean vector. <em>The fact that algebraic vectors and Euclidean vectors share the same noun while meaning different things is, to put it mildly, _annoying.  _With the goofy stuff we're getting in to, I personally would be happy to skip these minor surprises.</em><br />
-To understand what that weird extra number, however, we have to add in a third concept: the Euclidean <strong>point</strong>._ _Which is also frequently represented in code by something called "vector" but which is represents a different idea. Sigh. We will have to distinguish between two things which look similar when written down or stored as vectors in computer memory but which actually _mean _two different things. Up till now we've talked about vectors and points as if they were interchangeable, but to make the translation matrix work we need to differentiate them.  </p>
+<p>The vectors we use in graphics, of course are usually <a href="https://www.princeton.edu/~achaney/tmve/wiki100k/docs/Euclidean_vector.html">Euclidean vectors</a>: a set of 3 numbers which represent a spatial offset in the X,Y and Z spatial dimensions. The word <em>vector</em> comes from the Latin word for <em>one who carries</em>: the vector is the spatial difference between two positions. We get misled by the fact that programming languages usually use the <em>algebraic</em> name vector (as “bundle of numbers”) for the data type we use to hold the <em>geometric</em> Euclidean vector. <em>The fact that algebraic vectors and Euclidean vectors share the same noun while meaning different things is, to put it mildly, _annoying.  _With the goofy stuff we're getting in to, I personally would be happy to skip these minor surprises.</em>  </p>
+<p>To understand what that weird extra number, however, we have to add in a third concept: the Euclidean <strong>point</strong>._ _Which is also frequently represented in code by something called "vector" but which is represents a different idea. Sigh. We will have to distinguish between two things which look similar when written down or stored as vectors in computer memory but which actually _mean _two different things. Up till now we've talked about vectors and points as if they were interchangeable, but to make the translation matrix work we need to differentiate them.  </p>
 <p>The default Euclidean vector is a purely relative quantity. It represents a <em><strong>change</strong></em> in position. That's why the vector that gets you from <code>[0,0,0]</code> to <code>[1,1,1]</code> and the vector that gets you from <code>[8,8,8]</code> to <code>[9,9,9]</code> are the same: the vector proper has no location of it's own. You can think of it as a surface normal, which tells you which way a surface is facing without telling you anything about where the surface actually <em>is</em>, or the direction of a directional light which illuminates along a direction and which doesn't actually reside anywhere in 3-D space.  </p>
 <p>On the other hand a Euclidean point _is _an actual location in space. The point <code>[1,1,1]</code> is just that : the location <code>[1,1,1]</code>. it has no 'facing' or 'direction' the way a surface normal does - and it's not the same as any other 3-D point. It's an _address, _while a regular vector is an offset.  </p>
-<p>That's where our fourth coordinate comes in. <strong>Th<strong><em>*e fourth coordinate in our example tells us if we’re dealing with a Euclidean point or a Euclidean vector, </em>*that is, if we are dealing with something that can be translated or not.  If the last coordinate is a </strong>1</strong>, the data is a <strong>point </strong>which can be transformed (moved, rotated and scaled). If the last coordinate is a <strong>0</strong>, the data is a <strong>vector</strong>, which can be rotated and scaled but not moved. The last number is known as the <a href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous coordinate</a>, although most people refer to it as the “W” component by analogy with X Y and Z.  <em>Although I kind of wish they had just wrapped it around back to A, or started at W, or something. XYZW? Like I said, I'd like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh well.</em>  </p>
+<p>That's where our fourth coordinate comes in. The fourth coordinate in our example <strong>tells us if we’re dealing with a Euclidean point or a Euclidean vector</strong>; that is, if we are dealing with something that can be translated or not.  If the last coordinate is a <strong>1</strong>, the data is a <strong>point </strong>which can be transformed (moved, rotated and scaled). If the last coordinate is a <strong>0</strong>, the data is a <strong>vector</strong>, which can be rotated and scaled but not moved. The last number is known as the <a href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous coordinate</a>, although most people refer to it as the “W” component by analogy with X Y and Z.  <em>Although I kind of wish they had just wrapped it around back to A, or started at W, or something. XYZW? Like I said, I'd like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh well.</em>  </p>
 <h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#homegeneophobia"></a>Homegeneophobia</h1>
 <p>If you’re practically minded, all you <em>really _need to know today is that a W of 1 is a point and a W of 0 is a direction. If you are especially literal minded, in fact, this next bit may be a bit... bizarre. You can probably skip it without missing much practical information, but try to stick it out. It will give you an appreciation of the abstract beauty the underlies matrix math.  I'm going to try to explain of the ‘meaning’ of the W coordinate but take this with a grain of salt, since this one goes a bit beyond my limited mathematical imagination.<br />
 We've already suggested that the W component represents a 4th dimension.  While that's kind of hard to visualize, we can see the results by 'projecting' onto the XYZ space that we are used to. Got that? Just like we project a 3-D set of points onto the 2-D screen of our computers, we can project a 4-D quantity into 3 dimensions.<br />
@@ -185,19 +225,38 @@ Next time out we’ll talk about how a 4x4 matrix can encode scale as well, whic
 <li><a href="http://techartsurvival.blogspot.com/2015/01/to-scale.html">To Scale! (scale matrices)</a></li>
 </ul>
   </div>
-  <div class="article_meta">
-    <p>Posted on: Mon 15 December 2014</p>
-    <p>Category: <a href="./category/blog.html">blog</a>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/math.html">math</a>
     </p>
   </div>
-
-
 </article>
 
-
-    <div id="ending_message">
-      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
-    </div>
+    <footer>
+        <p>&copy; Steve Theodore </p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
-</body>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Adventures in the 4th dimension",
+  "headline": "Adventures in the 4th dimension",
+  "datePublished": "2014-12-15 23:35:00-08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Steve Theodore",
+    "url": "./author/steve-theodore.html"
+  },
+  "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
+  "url": "./adventures-in-the-4th-dimension.html",
+  "description": "Matrices and how they can be used to transform 3-d points"
+}
+</script></body>
 </html>

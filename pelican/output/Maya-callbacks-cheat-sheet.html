@@ -1,69 +1,80 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- ## for client-side less
-  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
-  -->
-  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
-  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/font-awesome.min.css">
+
+
+    <link href="http://blog.theodox.com/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Atom">
+
+
 
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="stevet">
-  <meta name="description" content="Posts and writings by stevet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
 
-  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
-
-<meta name="keywords" content="">
-
-  <title>
-    static_site_test
-&ndash; Maya callbacks cheat sheet  </title>
-
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly." />
+<meta name="keywords" content="Maya, GUI, python, programming">
+<meta property="og:site_name" content="theodox.com"/>
+<meta property="og:title" content="Maya callbacks cheat sheet"/>
+<meta property="og:description" content="An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./Maya-callbacks-cheat-sheet.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-04-23 13:53:00.001000-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="Maya"/>
+<meta property="article:tag" content="GUI"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="programming"/>
+<meta property="og:image" content="">
+  <title>theodox.com &ndash; Maya callbacks cheat sheet</title>
 </head>
-
 <body>
   <aside>
-    <div id="user_meta">
+    <div>
       <a href=".">
-        <img src="./theme/images/logo.png" alt="logo">
+        <img src="./theme/img/profile.png" alt="" title="">
       </a>
-      <h2><a href=".">stevet</a></h2>
+      <h1><a href="."></a></h1>
       <p></p>
-      <ul>
-        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
-        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
-        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
-        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
-        <li><a href="#" target="_blank">You can add links in your config file</a></li>
-        <li><a href="#" target="_blank">Another social link</a></li>
+      <nav>
+        <ul class="list">
+          <li><a href="index.html" target="_blank">home</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
       </ul>
     </div>
   </aside>
-
   <main>
-    <header>
-      <p>
-      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
-      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
-      </p>
-    </header>
 
 <article>
-  <div class="article_title">
-    <h3><a href="./Maya-callbacks-cheat-sheet.html">Maya callbacks cheat sheet</a></h3>
-  </div>
-  <div class="article_text">
+  <header>
+    <h1 id="Maya-callbacks-cheat-sheet">Maya callbacks cheat sheet</h1>
+    <p>Posted on Wed 23 April 2014 in <a href="./category/blog.html">blog</a></p>
+  </header>
+  <div>
     <p><em>Update 5/7/14: Added a note on closures and lambdas</em>  </p>
-<p>In <a href="http://techartsurvival.blogspot.com/2014/03/maya-gui-ii-all-your-base-classes-are.html">All Your Base Classes</a>,  I suggested that we can do better than the standard callback mechanism for doing Maya event handling.  The limitations of the default method are something I've <a href="http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html">complained about before</a>, and if you follow these things on <a href="http://tech-artists.org/forum/showthread.php?3292-maya-python-UI-acessing-controls-from-external-functions">TAO</a> or CGTalk or <a href="http://stackoverflow.com/questions/3435128/creating-a-ui-in-maya-using-python-scripting">StackOverflow</a> it seems pretty clear that a lot of other people have problems with the standard Maya code flow too.  </p>
-<p>I was planning on devoting the next big post to the event mechanism in <a href="https://github.com/theodox/mGui">mGui </a>. However as I did the spadework for this post I decided it was better to split it up into two parts, since a lot of folks seem to be confused about the right way to manage basic Maya callbacks. Before moving fancy stuff, it's a good idea to make sure the basics are clear. Most vets will already know most of what I'm going over here, but I found the  time spent laying it out for myself a useful exercise  so I figured it would be worth sharing even if it's not revolutionary.  </p>
-<h3></h3>
-<h3>Unsolved Mysteries of the Maya.</h3>
+<p>In <a href="http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html">All Your Base Classes</a>,  I suggested that we can do better than the standard callback mechanism for doing Maya event handling.  The limitations of the default method are something I've <a href="http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html">complained about before</a>, and if you follow these things on <a href="http://tech-artists.org/forum/showthread.php?3292-Maya-python-UI-acessing-controls-from-external-functions">TAO</a> or CGTalk or <a href="http://stackoverflow.com/questions/3435128/creating-a-ui-in-Maya-using-python-scripting">StackOverflow</a> it seems pretty clear that a lot of other people have problems with the standard Maya code flow too.  </p>
+<p>I was planning on devoting the next big post to the event mechanism in <a href="https://github.com/theodox/mGUI">mGUI </a>. However as I did the spadework for this post I decided it was better to split it up into two parts, since a lot of folks seem to be confused about the right way to manage basic Maya callbacks. Before moving fancy stuff, it's a good idea to make sure the basics are clear. Most vets will already know most of what I'm going over here, but I found the  time spent laying it out for myself a useful exercise  so I figured it would be worth sharing even if it's not revolutionary.  </p>
+<h2>Unsolved Mysteries of the Maya.</h2>
 <p>So, let's start by clearing up something that even a lot of old-school Maya coders find a bit mysterious when building GUIs.  </p>
-<p><a href="http://epguides.com/UnsolvedMysteries/cast.jpg"><img alt="" src="http://epguides.com/UnsolvedMysteries/cast.jpg" /></a></p>
+<p><a href="http://epGUIdes.com/UnsolvedMysteries/cast.jpg"><img alt="" src="http://epGUIdes.com/UnsolvedMysteries/cast.jpg" /></a></p>
 <p>In vanilla Maya, GUI components fire callbacks - that is to say that when Maya recognizes a user action like a button press or a text entry, it calls a function you've provided. There are two ways you can set this up.  The old-school MEL way is to use a string:  </p>
 <div class="highlight"><pre><span></span>my_button = cmds.button(&#39;hello&#39;, command = &#39;print &quot;hello&quot;&#39;)
 </pre></div>
@@ -96,9 +107,14 @@
 
 
 <p>When you hit the button you'll be told  </p>
-<p><code># Error: NameError: name 'print_hello_again' is not defined #</code>.</p>
+<div class="highlight"><pre><span></span># Error: NameError: name &#39;print_hello_again&#39; is not defined #
+</pre></div>
+
+
 <p>That's because <code>print_hello_again</code> is defined in the scope of the <em>function</em>, not the scope of the Maya interpreter -- when the callback actually fires, the name is buried away inside of _show_test_window _and can't be found by Maya, at least not using the simple string name.</p>
-<p>That "_" in the functions, by the way, is the standard python symbol for "I have to have a variable here but I intend to ignore it" - it shows up in a lot of these GUI examples because many, though not all, Maya callbacks fire off an argument when they activate. </p>
+<blockquote>
+<p>That "_" in the functions, by the way, is the standard python symbol for "I have to have a variable here but I intend to ignore it" - it shows up in a lot of these GUI examples because many, though not all, Maya callbacks fire off an argument when they activate.   </p>
+</blockquote>
 <p>This happens all the time to people trying to port old MEL code to Python - snippets that work in the interpreter don't work when converted to functions or split between modules because the string callbacks only execute in the global scope. Luckily, once you realize that the "where is my function" problem is just basic scoping, it's easy to fix. You can forcibly capture the functions you want by just passing them directly to your GUI callbacks instead of using strings, thanks to the magic of python's <a href="http://python-history.blogspot.com/2009/02/first-class-everything.html">first class functions</a>.  You just need to pass the function itself - not a quoted string that looks like the function - to the callback, Thus the previous example becomes</p>
 <div class="highlight"><pre><span></span>    def show_test_window():  
         def print_hello_again(_):  
@@ -117,7 +133,7 @@
 </pre></div>
 
 
-<p>Since you've got the callback in scope when you create the gui, you're certain to have it when you need it (if by some accident it was out of scope at creation time you'd get an obvious error that you'd have to fix before moving on).  </p>
+<p>Since you've got the callback in scope when you create the GUI, you're certain to have it when you need it (if by some accident it was out of scope at creation time you'd get an obvious error that you'd have to fix before moving on).  </p>
 <p>Clear, predictable scoping is why it's almost always the right decision to wrap your GUIs in classes. The class defines a predictable scope so you don't  have to worry about what's loaded or try to cram import statements into your callback functions.   Plus, classes include data storage, so you can keep your data nicely independent of your code. Suppose, for example, you needed to display a different set of greetings beyond the standard "hello world."  With a class you can defer the problem up to the moment of the actual button press with no fancy footwork or complex lambda management:  </p>
 <div class="highlight"><pre><span></span>    <span class="k">class</span> <span class="n">Greeter</span>(<span class="n">object</span>):  
         <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="n">greeting</span>):  
@@ -135,7 +151,7 @@
 
 
 <p>Whatever is stuffed into the Greeter's <em>greeting</em> field will be printed out when the button get's pressed.  </p>
-<p>Lambda Lambda Lambda  </p>
+<h2>Lambda Lambda Lambda</h2>
 <p>Of course, sometimes you don't need a full blown class for your callback functions; often you just want to do something simple that doesn't deserve a full function of it's own.  In cases like this, python provides a handy construct called a <em>lambda</em>, which is basically a one-line function.  A lambda looks like this:  </p>
 <div class="highlight"><pre><span></span>multiply = lambda x, y : x * y
 </pre></div>
@@ -157,7 +173,10 @@ cmds.showWindow(w)
 </pre></div>
 
 
-<p>creates a window with a button which creates a cube when the button is pressed.  You'll probably note that in this case the argument to the lambda is ignored - that's because buttons always fire their callbacks with one argument so the lambda needs to accept one.<em> In other examples, you'll recall, I use  a python convention of a single underscore as the 'ignore me' argument.</em>  </p>
+<p>creates a window with a button which creates a cube when the button is pressed.  You'll probably note that in this case the argument to the lambda is ignored - that's because buttons always fire their callbacks with one argument so the lambda needs to accept one.</p>
+<blockquote>
+<p>In other examples, you'll recall, I use  a python convention of a single underscore as the 'ignore me' argument.</p>
+</blockquote>
 <p>The one thing that makes lambdas interesting (sometimes the '<em>may you live in interesting times</em>' sort of interesting) is that they are inside the scope of your functions - which means they can use <a href="http://www.shutupandship.com/2012/01/python-closures-explained.html">closures</a> to capture variables <em>before</em> they fire.  This can be useful if you want to set up a simple relationship without building a full-on class. This example sets the text of a text widget based on a value you pass it at startup, showing the way closures capture names:  </p>
 <div class="highlight"><pre><span></span>def closure_example_window(value)  
     w = cmds.window()  
@@ -169,7 +188,7 @@ cmds.showWindow(w)
 </pre></div>
 
 
-<p>However, closures are automatically created by Python when a given scope is closed up - in this example, that would be at the end of the function. The values that are 'closed over' are determined when the function finishes. Which is usually what you want -- unless you're in the habit of re-using variable names:  </p>
+<p>However, closures are automatically created by Python when a given scope is closed up - in this example, that would be at the end of the function. The values that are 'closed over' are determined when the function finishes.  Which is usually what you want... unless you're in the habit of re-using variable names:  </p>
 <div class="highlight"><pre><span></span>def closure_example_surprise(value)  
     w = cmds.window()  
     c = cmds.columnLayout()  
@@ -180,8 +199,8 @@ cmds.showWindow(w)
 </pre></div>
 
 
-<p>When you run this one, the button ignores your value and prints "gotcha" instead of whatever value you passed in! That's because the closure will get its value when the function finishes in line 7, NOT when you first assign it in line 5. This little gotcha is usually a curiosity, but it makes life difficult if you want to, say, assign commands inside a loop. In a case like that you should use functions or callable objects (see below) in preference to lambdas. </p>
-<h3>Arguments for the prosecution</h3>
+<p>When you run this one, the button ignores your value and prints <code>gotcha</code> instead of whatever value you passed in! That's because the closure will get its value when the function finishes in line 7, NOT when you first assign it in line 5. This little gotcha is usually a curiosity, but it makes life difficult if you want to, say, assign commands inside a loop. In a case like that you should use functions or callable objects (see below) in preference to lambdas. </p>
+<h2>Arguments for the prosecution</h2>
 <p>So, the "where the hell is my function" problem which tends to plague beginners is easy to solve once you look at it the right way.   </p>
 <p>However, right after you're comfortable with passing functions directly, you immediately realize that's not enough.  It's very common to have multiple GUI controls that do more or less the same thing with different settings such a set of buttons which make different sized objects.    </p>
 <p>Alas, while this is easy to understand, it's also kinda ugly to code.  </p>
@@ -235,21 +254,14 @@ cmds.showWindow(w)
 </pre></div>
 
 
-<p>Partials are handy for cleaning up the messes you'd get from trying to format a complex commands in-line in the middle of your gui code. This example is a sort of worst case scenario, since Maya buttons always fire with a single argument and cmds.polyCube doesn't like that.  Here I used lambdas   lambdas to swallow the arguments  - note the telltale underscores. More often you'll be calling your own functions and the syntax is much cleaner and easier to parse:</p>
+<p>Partials are handy for cleaning up the messes you'd get from trying to format a complex commands in-line in the middle of your GUI code. This example is a sort of worst case scenario, since Maya buttons always fire with a single argument and cmds.polyCube doesn't like that.  Here I used lambdas  to swallow the arguments (note the telltale underscores). More often you'll be calling your own functions and the syntax is much cleaner and easier to parse:</p>
 <div class="highlight"><pre><span></span>    <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
     <span class="k">def</span> <span class="nf">FuncBoxesClean</span><span class="p">():</span>
 
 
-
-        <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-
+        <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>    
            <span class="c1"># swallow the argument but keep the keywords...</span>
-
-
            <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-
 
         <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
         <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
@@ -264,9 +276,9 @@ cmds.showWindow(w)
 </pre></div>
 
 
-<p><code></code></p>
-<h3>Final Summation</h3>
-<p>So, here's a cheatsheet of the rules for hooking maya event callbacks:  </p>
+<p>That's far easier on the eyes and less of a nasty tax on future readers, but it requires a knowledge of how partials work.</p>
+<h2>Final Summation</h2>
+<p>So, here's a cheatsheet of the rules for hooking Maya event callbacks:  </p>
 <ol>
 <li>Don't use strings for python calls. <ol>
 <li>If you're calling MEL, OK: but don't use MEL anyway :)</li>
@@ -285,15 +297,14 @@ cmds.showWindow(w)
 </ol>
 <p>Now, even if you follow these rules,  its easy for your functional code and your GUI to get in each other's ways.  Creating a lot of throwaway functions is busywork, but formatting commands in-line inside GUI code is error prone and hard to read. Partials are nice for separating data from layout code, but usually come with annoying extra syntax to hide the callback arguments.  </p>
 <h3>Next Episode...</h3>
-<p>Of course if you've been following the <a href="https://github.com/theodox/mGui">mGui </a>series you'll know where I'm going. (If you haven't, you might want to check <a href="http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html">here</a>, <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">here </a>and <a href="http://techartsurvival.blogspot.com/2014/03/maya-gui-ii-all-your-base-classes-are.html">here</a> before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  </p>
-<div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">mGui.gui</span> <span class="kn">as</span> <span class="nn">mg</span>
-
+<p>Of course if you've been following the <a href="https://github.com/theodox/mGUI">mGUI</a>series you'll know where I'm going. (If you haven't, you might want to check <a href="http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html">here</a>, <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html">here </a>and <a href="http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html">here</a> before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  </p>
+<div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">mGUI.GUI</span> <span class="kn">as</span> <span class="nn">mg</span>
 
     <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
         <span class="n">H</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">D</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Tag</span>  
         <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">W</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">mGuiBoxes</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">mGUIBoxes</span><span class="p">():</span>  
         <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s2">&quot;boxes&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>  
             <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">ColumnLayout</span><span class="p">(</span><span class="s2">&quot;col&quot;</span><span class="p">):</span>  
                 <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;sm&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;small boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>  
@@ -305,19 +316,41 @@ cmds.showWindow(w)
         <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
   </div>
-  <div class="article_meta">
-    <p>Posted on: Wed 23 April 2014</p>
-    <p>Category: <a href="./category/blog.html">blog</a>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/maya.html">Maya</a>
+      <a href="./tag/gui.html">GUI</a>
+      <a href="./tag/python.html">python</a>
+      <a href="./tag/programming.html">programming</a>
     </p>
   </div>
-
-
 </article>
 
-
-    <div id="ending_message">
-      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
-    </div>
+    <footer>
+        <p>&copy; Steve Theodore </p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
-</body>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Maya callbacks cheat sheet",
+  "headline": "Maya callbacks cheat sheet",
+  "datePublished": "2014-04-23 13:53:00.001000-07:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Steve Theodore",
+    "url": "./author/steve-theodore.html"
+  },
+  "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
+  "url": "./Maya-callbacks-cheat-sheet.html",
+  "description": "An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly."
+}
+</script></body>
 </html>

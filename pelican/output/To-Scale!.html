@@ -1,62 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- ## for client-side less
-  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
-  -->
-  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
-  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/font-awesome.min.css">
+
+
+    <link href="http://blog.theodox.com/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Atom">
+
+
 
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="stevet">
-  <meta name="description" content="Posts and writings by stevet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
 
-  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
-
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="pending" />
 <meta name="keywords" content="">
-
-  <title>
-    static_site_test
-&ndash; To Scale!  </title>
-
+<meta property="og:site_name" content="theodox.com"/>
+<meta property="og:title" content="To Scale!"/>
+<meta property="og:description" content="pending"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./To-Scale!.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-01-04 22:08:00.004000-08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="og:image" content="">
+  <title>theodox.com &ndash; To Scale!</title>
 </head>
-
 <body>
   <aside>
-    <div id="user_meta">
+    <div>
       <a href=".">
-        <img src="./theme/images/logo.png" alt="logo">
+        <img src="./theme/img/profile.png" alt="" title="">
       </a>
-      <h2><a href=".">stevet</a></h2>
+      <h1><a href="."></a></h1>
       <p></p>
-      <ul>
-        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
-        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
-        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
-        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
-        <li><a href="#" target="_blank">You can add links in your config file</a></li>
-        <li><a href="#" target="_blank">Another social link</a></li>
+      <nav>
+        <ul class="list">
+          <li><a href="index.html" target="_blank">home</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
       </ul>
     </div>
   </aside>
-
   <main>
-    <header>
-      <p>
-      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
-      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
-      </p>
-    </header>
 
 <article>
-  <div class="article_title">
-    <h3><a href="./To-Scale!.html">To Scale!</a></h3>
-  </div>
-  <div class="article_text">
+  <header>
+    <h1 id="To-Scale!">To Scale!</h1>
+    <p>Posted on Sun 04 January 2015 in <a href="./category/blog.html">blog</a></p>
+  </header>
+  <div>
     <p>In our <a href="http://techartsurvival.blogspot.com/2014/12/adventures-in-4th-dimension.html">last visit to 3-d math land</a>, we moved from the 2x2 and 3x3 matrices we used to learn how matrices function to the full 4x4 matrix that we all know and love to hate from 3d applications. This time I’d like to add support for scaling to our matrices so we can round out the ways matrices work.   </p>
 <blockquote>
 <p>This might be a good time to back and breeze throught the <a href="http://techartsurvival.blogspot.com/2014/12/adventures-in-4th-dimension.html">last installment in our math series</a> if you’re a little fuzzy on how 4X4 matrices work, or just rusty after the holidays.</p>
@@ -208,19 +216,37 @@ Here’s a matrix that scales up by 2 in the X axis, by 3 in Y, and by 4 in Z:  
 <li><a href="http://techartsurvival.blogspot.com/2015/01/to-scale.html">To Scale! (scale matrices)</a></li>
 </ul>
   </div>
-  <div class="article_meta">
-    <p>Posted on: Sun 04 January 2015</p>
-    <p>Category: <a href="./category/blog.html">blog</a>
+  <div class="tag-cloud">
+    <p>
     </p>
   </div>
-
-
 </article>
 
-
-    <div id="ending_message">
-      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
-    </div>
+    <footer>
+        <p>&copy; Steve Theodore </p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
-</body>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "To Scale!",
+  "headline": "To Scale!",
+  "datePublished": "2015-01-04 22:08:00.004000-08:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Steve Theodore",
+    "url": "./author/steve-theodore.html"
+  },
+  "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
+  "url": "./To-Scale!.html",
+  "description": "pending"
+}
+</script></body>
 </html>

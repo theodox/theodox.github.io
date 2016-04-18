@@ -1,84 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- ## for client-side less
-  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
-  -->
-  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
-  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/font-awesome.min.css">
+
+
+    <link href="http://blog.theodox.com/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Atom">
+
+
 
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="stevet">
-  <meta name="description" content="Posts and writings by stevet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
 
-  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
-
-<meta name="keywords" content="">
-
-  <title>
-    static_site_test
-&ndash; Goddamit, stop messing around  </title>
-
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="A module for simple colored printing in a python terminal" />
+<meta name="keywords" content="programming, console">
+<meta property="og:site_name" content="theodox.com"/>
+<meta property="og:title" content="Goddamit, stop messing around"/>
+<meta property="og:description" content="A module for simple colored printing in a python terminal"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./Goddamit,-stop-messing-around.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-04-26 11:38:00-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="console"/>
+<meta property="og:image" content="">
+  <title>theodox.com &ndash; Goddamit, stop messing around</title>
 </head>
-
 <body>
   <aside>
-    <div id="user_meta">
+    <div>
       <a href=".">
-        <img src="./theme/images/logo.png" alt="logo">
+        <img src="./theme/img/profile.png" alt="" title="">
       </a>
-      <h2><a href=".">stevet</a></h2>
+      <h1><a href="."></a></h1>
       <p></p>
-      <ul>
-        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
-        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
-        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
-        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
-        <li><a href="#" target="_blank">You can add links in your config file</a></li>
-        <li><a href="#" target="_blank">Another social link</a></li>
+      <nav>
+        <ul class="list">
+          <li><a href="index.html" target="_blank">home</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
       </ul>
     </div>
   </aside>
-
   <main>
-    <header>
-      <p>
-      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
-      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
-      </p>
-    </header>
 
 <article>
-  <div class="article_title">
-    <h3><a href="./Goddamit,-stop-messing-around.html">Goddamit, stop messing around</a></h3>
-  </div>
-  <div class="article_text">
-    <p>It was inevitable, after I started noodling around with <a href="http://techartsurvival.blogspot.com/2015/04/blockquote-background-f9f9f9-border_12.html">terminal colors in ConEmu</a>, that I’d waste an afternoon cooking up a way to color my Maya terminal sessions automatically.<br />
-The actual code is <a href="https://github.com/theodox/conemu">up on GitHub</a> (under the usual MIT Open License - enjoy!).   </p>
+  <header>
+    <h1 id="Goddamit,-stop-messing-around">Goddamit, stop messing around</h1>
+    <p>Posted on Sun 26 April 2015 in <a href="./category/blog.html">blog</a></p>
+  </header>
+  <div>
+    <p>It was inevitable, after I started noodling around with <a href="http://techartsurvival.blogspot.com/2015/04/blockquote-background-f9f9f9-border_12.html">terminal colors in ConEmu</a>, that I’d waste an afternoon cooking up a way to color my Maya terminal sessions automatically.  </p>
+<p>The actual code is <a href="https://github.com/theodox/conemu">up on GitHub</a> (under the usual MIT Open License - enjoy!).   </p>
 <p>As implemented, its a module you can activate simply by importing <code>conemu</code>. Ordinarily I don't like modules that 'do things' on import, but this one is such a special case that it seems justifiable. Importing the module will replace <code>sys.stdout</code>, <code>sys.stdin</code>, and <code>sys.display_hook</code> with ConEmu-specific classes that do a little color formatting to make it easier to work in <code>mayapy</code>.  If for some reason you want to disable it, calling <code>conemu.unset_terminal()</code> will restore the default terminal.  </p>
 <p>Here are the main features:  </p>
-<h4><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#colored-prompts-and-printouts"></a>Colored prompts and printouts</h4>
+<h4>Colored prompts and printouts</h4>
 <p><a href="http://3.bp.blogspot.com/-AvNLhOBExmw/VT0sX69KZ2I/AAAAAAABLvo/Znt5WQHspns/s1600/conemu_2_1.jpg"><img alt="" src="http://3.bp.blogspot.com/-AvNLhOBExmw/VT0sX69KZ2I/AAAAAAABLvo/Znt5WQHspns/s1600/conemu_2_1.jpg" /></a></p>
 <p>This helps de-emphasize the prompt, which is the least interesting but item on screen, and to emphasize command results or printouts</p>
-<h4><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#unicode-objects-highlighted"></a>Unicode objects highlighted</h4>
+<h4>Unicode objects highlighted</h4>
 <p><a href="http://4.bp.blogspot.com/-ciIg7fGJIGw/VT0sxi0-F-I/AAAAAAABLvw/hlbGzLSFB5w/s1600/conemu_2_2.jpg"><img alt="" src="http://4.bp.blogspot.com/-ciIg7fGJIGw/VT0sxi0-F-I/AAAAAAABLvw/hlbGzLSFB5w/s1600/conemu_2_2.jpg" /></a></p>
 <p>Since all Maya objects returned by commands are printed as unicode string (like <code>u'pCube1'</code>, the terminal highlights unicode strings in a different color to make it easy to pick out Maya objects in return values. The annoying little <code>u</code> is also suppressed.  </p>
-<h4><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#code-objects-highlighted"></a>Code objects highlighted</h4>
+<h4>Code objects highlighted</h4>
 <p><a href="http://1.bp.blogspot.com/--6vJNm-EdE8/VT0s-3SVHuI/AAAAAAABLv4/SRVJ-2ZCWMQ/s1600/conemu_2_3.jpg"><img alt="" src="http://1.bp.blogspot.com/--6vJNm-EdE8/VT0s-3SVHuI/AAAAAAABLv4/SRVJ-2ZCWMQ/s1600/conemu_2_3.jpg" /></a></p>
 <p>Code objects (classes, functions and so on) are highlighted separately  </p>
-<h4><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#comment-colors"></a>Comment colors</h4>
+<h4>Comment colors</h4>
 <p><a href="http://1.bp.blogspot.com/-hUxg4Dc96vc/VT0tN5TF79I/AAAAAAABLwA/vUtHyrpuaXo/s1600/conemu_2_4.jpg"><img alt="" src="http://1.bp.blogspot.com/-hUxg4Dc96vc/VT0tN5TF79I/AAAAAAABLwA/vUtHyrpuaXo/s1600/conemu_2_4.jpg" /></a></p>
 <p>Lines beginning with a <code>#</code> or a <code>/</code> will be highlighted differently, allowing you separate out ordinary command results from warnings and infos. <strong>In this version I have not isolated the path used by <code>cmds.warning</code>, which makes this less useful. Does anybody out there know which pipe that uses? It appears to bypass <code>sys.stdout.write()</code> and sys.stderr.write()</strong>   </p>
-<h4><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#automatic-prettyprint"></a>Automatic prettyprint</h4>
+<h4>Automatic prettyprint</h4>
 <p><a href="http://4.bp.blogspot.com/-ua1kHl9PyQA/VT0txVSoYJI/AAAAAAABLwI/gL5CZb0MMjk/s1600/conemu_2_5.jpg"><img alt="" src="http://4.bp.blogspot.com/-ua1kHl9PyQA/VT0txVSoYJI/AAAAAAABLwI/gL5CZb0MMjk/s1600/conemu_2_5.jpg" /></a></p>
 <p>If the result of a command is anything other than a string, it will be run through <a href="https://docs.python.org/2/library/pprint.html"><code>prettyprint</code> </a>so that it will be formatted in a slightly more legible manner. This is particularly handy for commands like <code>ls</code> or <code>listAttr</code> which produce a lot of results: <code>pprint</code> will arrange these vertically if they result would otherwise be wider than 80 characters.  </p>
-<h2><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#utilities"></a>Utilities</h2>
+<h2>Utilities submodule</h2>
 <p>The module contains some helper classes if you want to make your own display more elaborate, or to mess with it interactively during a console session.  </p>
-<h3><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#terminal-screen-formatting"></a>Terminal: screen formatting</h3>
+<h4>Terminal class</h4>
 <p>The <em><code>Terminal</code></em> class makes it less cumbersome to control the display. The main use is to color or highlight text. The 16 terminal colors are available as <code>Terminal.color[0]</code> through <code>Terminal.color[15]</code>, and you can highlight a piece of text like so:  </p>
 <div class="highlight"><pre><span></span>print &quot;this is &quot; + Terminal.color[10](&quot;colored text&quot;)
 </pre></div>
@@ -90,30 +100,50 @@ The actual code is <a href="https://github.com/theodox/conemu">up on GitHub</a> 
 
 
 <p><code>Terminal</code> also has a helper for setting, coloring, and unsetting prompt strings.  </p>
-<h3><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#conemu-console-control"></a>Conemu: console control</h3>
+<h4>Conemu: console control</h4>
 <p>The <em><code>Conemu</code></em> class includes some limited access to the more elaborate functions offered by ConEmu (The methods in <code>Terminal</code> might work in other ANSI terminals – I haven’t tried ! – but the ConEmu ones specific to ConEmu). The key methods are:  </p>
-<p><code>ConEmu.alert(message)</code>
-    Pops up a GUI confirm dialog with ‘message’ in it.
-<code>ConEmu.set_tab(message)</code>
-    Sets the name of the current ConEmu tab to ‘message’.
-<code>ConEmu.set_title(message)</code>
-    Sets the name of the current ConEmu window to ‘message’.
-<code>ConEmu.progress(active, progress)</code>
-    if <code>active</code> is True, draw a progress indicator in the window task bar at <code>progress</code> percent. For example <code>ConEmu.progress(True, 50)</code> overlays a 50% progress bar on the ConEmu task bar icon. If <code>active</code> is false, the progress bar is hidden. This can be handy for long running batch items</p>
+<h5><code>ConEmu.alert(message)</code></h5>
+<p>Pops up a GUI confirm dialog with ‘message’ in it.</p>
+<h5><code>ConEmu.set_tab(message)</code></h5>
+<p>Sets the name of the current ConEmu tab to ‘message’.</p>
+<h5><code>ConEmu.set_title(message)</code></h5>
+<p>Sets the name of the current ConEmu window to ‘message’.</p>
+<h5><code>ConEmu.progress(active, progress)</code></h5>
+<p>if <code>active</code> is True, draw a progress indicator in the window task bar at <code>progress</code> percent. For example <code>ConEmu.progress(True, 50)</code> overlays a 50% progress bar on the ConEmu task bar icon. If <code>active</code> is false, the progress bar is hidden. This can be handy for long running batch items</p>
   </div>
-  <div class="article_meta">
-    <p>Posted on: Sun 26 April 2015</p>
-    <p>Category: <a href="./category/blog.html">blog</a>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/programming.html">programming</a>
+      <a href="./tag/console.html">console</a>
     </p>
   </div>
-
-
 </article>
 
-
-    <div id="ending_message">
-      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
-    </div>
+    <footer>
+        <p>&copy; Steve Theodore </p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
-</body>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Goddamit, stop messing around",
+  "headline": "Goddamit, stop messing around",
+  "datePublished": "2015-04-26 11:38:00-07:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Steve Theodore",
+    "url": "./author/steve-theodore.html"
+  },
+  "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
+  "url": "./Goddamit,-stop-messing-around.html",
+  "description": "A module for simple colored printing in a python terminal"
+}
+</script></body>
 </html>

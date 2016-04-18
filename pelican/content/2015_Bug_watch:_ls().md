@@ -11,16 +11,15 @@ For people switching to Maya 2015 here's an irritating bug in the 2015 Maya pyth
 In all Mayas before 2015 (as far as I can check, anyway), calling cmds.ls() with a string that was not a valid Maya object name was allowed. You could for example, call  
     
     
-      
+    
+    :::python  
     cmds.ls("@")  
     
 
   
 and you'd get back an empty array. In 2015, however, it looks like they have changed the way maya.cmds is converting the string into a dag node reference; it you call the same thing in 2015 you'll get this instead:  
   
-    
-    
-      
+    :::python  
     # Error: Syntax error: unexpected end @ at position 1 while parsing:  
     # ; ; @  
     # ; ; ^  
@@ -40,6 +39,7 @@ This is a bit more serious than it seems at first glance, because ls is such a c
 My workaround is to patch cmds.ls on startup so that it safely renames any bad string before passing them to Maya.  I do this in my bootstrap routine so I don't have to chase down every occurrence of ls anywhere in my code  (1,001 of them, or so PyCharm tells me...).  
   
     
+    :::python
     import re  
     import maya.cmds as cmds  
       

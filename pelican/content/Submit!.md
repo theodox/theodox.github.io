@@ -1,10 +1,10 @@
 Title: Submit!
 Date: 2014-08-14 22:52:00.000
 Category: blog
-Tags: , 
+Tags: industry, GDC
 Slug: Submit!
 Authors: Steve Theodore
-Summary: pending
+Summary: GDC call for submissions 2015 is open
 
 For any readers who are thinking about doing a GDC talk in 2015, it's time to get your submissions in! Talk abstracts [should be submitted by August 28th](http://www.gdconf.com/conference/c4p/)!   
   

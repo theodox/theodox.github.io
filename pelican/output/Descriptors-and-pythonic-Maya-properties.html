@@ -1,64 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <!-- ## for client-side less
-  <link rel="stylesheet/less" type="text/css" href="./theme/css/style.less">
-  <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/1.7.3/less.min.js" type="text/javascript"></script>
-  -->
-  <link rel="stylesheet" type="text/css" href="./theme/css/style.css">
-  <link rel="stylesheet" type="text/css" href="./theme/css/pygments.css">
-  <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=PT+Sans|PT+Serif|PT+Mono">
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" type="text/css" href="./theme/stylesheet/style.min.css">
+
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/pygments.min.css">
+  <link rel="stylesheet" type="text/css" href="./theme/stylesheet/font-awesome.min.css">
+
+
+    <link href="http://blog.theodox.com/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Atom">
+
+
 
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="stevet">
-  <meta name="description" content="Posts and writings by stevet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="" />
 
-  <link href="/atom/%s_all.atom.xml" type="application/atom+xml" rel="alternate" title="static_site_test Atom" />
-
-<meta name="keywords" content="">
-
-  <title>
-    static_site_test
-&ndash; Descriptors and pythonic Maya properties  </title>
-
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="How to use descriptors for dot-style access to maya object properties instead of cmds.getAttr()" />
+<meta name="keywords" content="maya, python, gui, techart">
+<meta property="og:site_name" content="theodox.com"/>
+<meta property="og:title" content="Descriptors and pythonic Maya properties"/>
+<meta property="og:description" content="How to use descriptors for dot-style access to maya object properties instead of cmds.getAttr()"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="./Descriptors-and-pythonic-Maya-properties.html"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-03-11 15:15:00-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="./author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="maya"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="gui"/>
+<meta property="article:tag" content="techart"/>
+<meta property="og:image" content="">
+  <title>theodox.com &ndash; Descriptors and pythonic Maya properties</title>
 </head>
-
 <body>
   <aside>
-    <div id="user_meta">
+    <div>
       <a href=".">
-        <img src="./theme/images/logo.png" alt="logo">
+        <img src="./theme/img/profile.png" alt="" title="">
       </a>
-      <h2><a href=".">stevet</a></h2>
+      <h1><a href="."></a></h1>
       <p></p>
-      <ul>
-        <li><a href="http://getpelican.com/" target="_blank">Pelican</a></li>
-        <li><a href="http://python.org/" target="_blank">Python.org</a></li>
-        <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
-        <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
-        <li><a href="#" target="_blank">You can add links in your config file</a></li>
-        <li><a href="#" target="_blank">Another social link</a></li>
+      <nav>
+        <ul class="list">
+          <li><a href="index.html" target="_blank">home</a></li>
+          <li><a href="http://python.org/" target="_blank">Python.org</a></li>
+          <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
+          <li><a href="#" target="_blank">You can modify those links in your config file</a></li>
+        </ul>
+      </nav>
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
       </ul>
     </div>
   </aside>
-
   <main>
-    <header>
-      <p>
-      <a href=".">Index</a> &brvbar; <a href="./archives.html">Archives</a>
-      &brvbar; <a href="/atom/%s_all.atom.xml">Atom</a>
-      </p>
-    </header>
 
 <article>
-  <div class="article_title">
-    <h3><a href="./Descriptors-and-pythonic-Maya-properties.html">Descriptors and pythonic Maya properties</a></h3>
-  </div>
-  <div class="article_text">
-    <p><strong>Updated 4/11/2015: fixing the embedded code that was busted by Blogger. </strong><br />
-I'm still working on the followup to <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">Rescuing Maya GUI From Itself</a>, but while I was at it this <a href="http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super">StackOverflow question</a> made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like <code>pCube1.translation = (0,10,0)</code>. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. </p>
+  <header>
+    <h1 id="Descriptors-and-pythonic-Maya-properties">Descriptors and pythonic Maya properties</h1>
+    <p>Posted on Tue 11 March 2014 in <a href="./category/blog.html">blog</a></p>
+  </header>
+  <div>
+    <p>I'm still working on the followup to <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">Rescuing Maya GUI From Itself</a>, but while I was at it this <a href="http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super">StackOverflow question</a> made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like <code>pCube1.translation = (0,10,0)</code>. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. </p>
 <p>The goal is to be able to write something like</p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xform</span> <span class="kn">import</span> <span class="n">Xform</span>  
 <span class="n">example</span> <span class="o">=</span> <span class="n">Xform</span><span class="p">(</span><span class="s1">&#39;pCube1&#39;</span><span class="p">)</span>  
@@ -186,19 +197,41 @@ I'm still working on the followup to <a href="http://techartsurvival.blogspot.co
 
 <p>You may note the absence of a <code>__metaclass__</code>. In this case, with only a single class, a meta would be an unnecessary complication. Meanwhile the <a href="https://github.com/theodox/mGui">code for MayaGUI itself is up on GitHub</a>. Comments and/or contributions welcome!</p>
   </div>
-  <div class="article_meta">
-    <p>Posted on: Tue 11 March 2014</p>
-    <p>Category: <a href="./category/blog.html">blog</a>
+  <div class="tag-cloud">
+    <p>
+      <a href="./tag/maya.html">maya</a>
+      <a href="./tag/python.html">python</a>
+      <a href="./tag/gui.html">gui</a>
+      <a href="./tag/techart.html">techart</a>
     </p>
   </div>
-
-
 </article>
 
-
-    <div id="ending_message">
-      <p>&copy; stevet. Built using <a href="http://getpelican.com" target="_blank">Pelican</a>. Theme by Giulio Fidente on <a href="https://github.com/gfidente/pelican-svbhack" target="_blank">github</a>. </p>
-    </div>
+    <footer>
+        <p>&copy; Steve Theodore </p>
+<p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
-</body>
+
+
+
+
+
+<script type="application/ld+json">
+{
+  "@context": "http://schema.org",
+  "@type": "BlogPosting",
+  "name": "Descriptors and pythonic Maya properties",
+  "headline": "Descriptors and pythonic Maya properties",
+  "datePublished": "2014-03-11 15:15:00-07:00",
+  "dateModified": "",
+  "author": {
+    "@type": "Person",
+    "name": "Steve Theodore",
+    "url": "./author/steve-theodore.html"
+  },
+  "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
+  "url": "./Descriptors-and-pythonic-Maya-properties.html",
+  "description": "How to use descriptors for dot-style access to maya object properties instead of cmds.getAttr()"
+}
+</script></body>
 </html>
