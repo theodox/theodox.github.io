@@ -1,22 +1,20 @@
 Title: Maya Bug Watch: API2 and GetPoints()
 Date: 2015-03-27 21:20:00.001
 Category: blog
-Tags: , , , 
-Slug: Maya-Bug-Watch:-API2-and-GetPoints()
+Tags: maya, bugs, python, api
+Slug: api-2-getpoints-bug
 Authors: Steve Theodore
-Summary: pending
+Summary: A very irritating bug in Maya Python API 2
 
 In general I’m more or less a [fan of Maya Python API 2.0](http://techartsurvival.blogspot.com/2014/12/all-we-are-saying-is-give-api-20-chance.html). It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.  
 If you want to get the vertices of an object in the api, the usual formula is:  
 
-
   1. Get the dagPath of the object
-  2. make an [MFnMesh](http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_fn_mesh_html)
-  3. call the ‘GetPoints’ method of your mesh
-  4. party on.
+  2. Make an [MFnMesh](http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_fn_mesh_html)
+  3. Call the ‘GetPoints’ method of your mesh
+  4. Party on, dudes
 
 Something like this, which returns a list of [MPoint](http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_point_html) objects for the verts in the mesh  
-
     
     
     import maya.api.OpenMaya as api  
@@ -31,10 +29,10 @@ Something like this, which returns a list of [MPoint](http://help.autodesk.com/v
     
 
 This works fine and dandy… except:  
+
 _**If the mesh has 256 or more verts, the first vertex comes back as garbage**_  
 Here’s an example, using the same function:  
 
-    
     
     mesh, _ = cmds.polyCube(sw = 1, sh= 1, sd = 1)  
     print get_verts(mesh)[:4]  
@@ -54,7 +52,6 @@ Here’s an example, using the same function:
     
 
 I’ll leave it to wiser heads to figure out _why_ it works out like this. My guess is that something is borked in pointer math going on inside the wrapper around `MfnMesh`, but I don’t know. Luckily, there’s a workaround: if you create _new_ MPoints out of the items coming back from the `GetPoints()` call, you get good data. I’m not sure why but this should be so but it appears to be reliable on my machine (Windows 7, 64 bit maya 2015). Here’s the workaround:  
-
     
     
     def safe_get_verts(mesh):  

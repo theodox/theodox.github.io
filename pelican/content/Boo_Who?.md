@@ -4,7 +4,7 @@ Category: blog
 Tags: programming, boo
 Slug: boo-who
 Authors: Steve Theodore
-Summary: pending
+Summary: A quick introduction to Boo, a python-like language for the CLR
 
 ##Boo!
 

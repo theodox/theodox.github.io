@@ -1,13 +1,10 @@
 Title: Just Put One Foot In Front of the Other
 Date: 2015-01-31 22:56:00.002
-Category: blog
-Tags: , , 
-Slug: Just-Put-One-Foot-In-Front-of-the-Other
+Category: articles
+Tags: animation, game developer
+Slug: one-foot-in-front
 Authors: Steve Theodore
-Summary: pending
-
-We've been look a lot at movement animations at work, which reminded me of this old _Game Developer_ article from 2007. It's got some handy reference for animators and tech animators, and it pushes one of my favorite ideas - a four way blend between  fast and slow, short and long versions of the same walk cycle as a way to get lots of variety and nicely tweakable ground speed for characters.  
-  
+Summary: An article about real-world character movement speeds: how they vary and how to mix and match them for better animations.
   
   
 The humble walk cycle is the foundation of the animator’s art. A really good cycle doesn’t just move a character from place to place: every cycle ought to be a highly compressed character study, as concise and elegant as a haiku. The climax of **Toy Story**, where Woody and Buzz race after the moving van, is a brilliant example of two characters doing the same thing, and yet doing it in ways that are perfect expressions of their respective personalities.  

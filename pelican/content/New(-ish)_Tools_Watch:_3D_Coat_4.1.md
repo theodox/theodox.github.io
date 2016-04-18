@@ -1,12 +1,11 @@
 Title: New(-ish) Tools Watch: 3D Coat 4.1
 Date: 2014-03-28 22:05:00.001
 Category: blog
-Tags: , , , 
+Tags: tools, cg
 Slug: New(-ish)-Tools-Watch:-3D-Coat-4.1
 Authors: Steve Theodore
-Summary: pending
+Summary: 3DCoat, an interesting voxel based ZBrush alternative.
 
-  
   
 Version 4.1 of 3DCoat just came out - details in the video above or at [3D-Coat.com](http://3d-coat.com/).  
   

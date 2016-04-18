@@ -4,7 +4,7 @@ Category: blog
 Tags: thunderbirds
 Slug: Channeling-Gerry-Anderson
 Authors: Steve Theodore
-Summary: pending
+Summary: The world's greatest Thunderbirds imitator
 
 Utterly off topic.  And brilliant.  This guy is totally channeling Gerry Anderson and Derek Meddings of Thunderbirds fame - not only is the home model animation work pretty cool, it's a pitch-perfect reproduction of the original aesthetic right down to the music choices and ponderous VO.  
   

@@ -1,8 +1,8 @@
 Title: Embedding IronPython in Unity = Tech-art hog heaven
 Date: 2013-12-21 11:14:00.001
 Category: blog
-Tags: , , , , 
-Slug: Embedding-IronPython-in-Unity-=-Tech-art-hog-heaven
+Tags: unity, python, programming, techart
+Slug: python-in-unity
 Authors: Steve Theodore
 Summary: How to embed an IronPython intepreter into Unity editor tools.
 

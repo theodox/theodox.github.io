@@ -2,9 +2,9 @@ Title: From the annals of bug subtlety
 Date: 2014-06-20 11:39:00.000
 Category: blog
 Tags:  programming, maya, python, bugs
-Slug: From-the-annals-of-bug-subtlety
+Slug: bug-subtlety
 Authors: Steve Theodore
-Summary: pending
+Summary: An object lesson in the way real bugs happen.
 
 ... comes an object lesson in why **it's really nice to have a debugger**.
 
@@ -17,7 +17,7 @@ But, for some reason, running the tests in 2014 never works - even though I can 
 
 So I threw it under the debugger -- [_PyCharm FTW!__](http://www.jetbrains.com/pycharm/) \-- and started stepping through. No dice, everything seemed OK but still the test failed: it could not find my test objects. Finally, in desperation, I started stepping though the test and issuing an ls() after every step... and I found that the break wasn't caused by running code - it was caused by importing my module.  I didn't call it - just _imported_ it.  WTF?
 
-It turns out that _importing PyMel was wiping my test scene _in 2014! The tests all run under maya.standalone, and the bug only shows up there, which is why just doing it by hand in maya wasn't showing the same symptoms.
+It turns out that _importing PyMel was wiping my test scene_ in 2014! The tests all run under maya.standalone, and the bug only shows up there, which is why just doing it by hand in maya wasn't showing the same symptoms.
 
  
 Here's my repro case:

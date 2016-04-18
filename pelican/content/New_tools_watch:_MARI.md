@@ -15,8 +15,7 @@ The point is, I love those tools. They've been part of my life for a long time. 
 For that reason I'm actively looking for alternatives to supplement or even supplant the old standbys.  And this GDC gave me some up-close and personal time with a very promising one: [Mari](http://www.thefoundry.co.uk/products/mari/), the 3-d painting app from [the Foundry](http://www.thefoundry.co.uk/).  
   
 [![](http://www.cgsociety.org/stories/2010_05/mari/banner01.jpg)](http://www.cgsociety.org/stories/2010_05/mari/banner01.jpg)  
----  
-Lots of Mari work on _Avatar_  
+> Lots of Mari work on _Avatar_ 
   
 More after the jump.  
   

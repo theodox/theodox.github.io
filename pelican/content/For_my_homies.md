@@ -4,7 +4,7 @@ Category: blog
 Tags: techart
 Slug: For-my-homies
 Authors: Steve Theodore
-Summary: pending
+Summary: Tech art representin'
 
 [![](http://3.bp.blogspot.com/-RZtbJhpL0Ds/Vq-LmkPaLjI/AAAAAAABNSk/i2R7KWtnOi4/s640/Slack%2Bfor%2BiOS%2BUpload.png.jpeg)](http://3.bp.blogspot.com/-RZtbJhpL0Ds/Vq-LmkPaLjI/AAAAAAABNSk/i2R7KWtnOi4/s1600/Slack%2Bfor%2BiOS%2BUpload.png.jpeg)
 

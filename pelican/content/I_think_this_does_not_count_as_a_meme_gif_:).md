@@ -1,8 +1,8 @@
 Title: I think this does not count as a meme gif :)
 Date: 2014-06-14 12:34:00.003
 Category: blog
-Tags: , 
-Slug: I-think-this-does-not-count-as-a-meme-gif-:)
+Tags: techart
+Slug: not-a-meme-gif
 Authors: Steve Theodore
 Summary: pending
 

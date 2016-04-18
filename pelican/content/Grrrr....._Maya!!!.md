@@ -4,7 +4,7 @@ Category: blog
 Tags: maya, bugs, programming,techart
 Slug: maya-materials-bug
 Authors: Steve Theodore
-Summary: pending
+Summary: A really annoying, and really old bug in Maya relating to materials.
 
 Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its over. 
 
