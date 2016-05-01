@@ -15,14 +15,14 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
+  <meta name="robots" content="index, follow" />
 
 <meta name="author" content="Steve Theodore" />
-<meta name="description" content="pending" />
-<meta name="keywords" content="">
+<meta name="description" content="Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans. The first post in the mGui series." />
+<meta name="keywords" content="maya, gui, python, mGui">
 <meta property="og:site_name" content="theodox.com"/>
 <meta property="og:title" content="Rescuing Maya GUI from itself"/>
-<meta property="og:description" content="pending"/>
+<meta property="og:description" content="Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans. The first post in the mGui series."/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="./Rescuing-Maya-GUI-from-itself.html"/>
 <meta property="og:type" content="article"/>
@@ -30,6 +30,10 @@
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="./author/steve-theodore.html">
 <meta property="article:section" content="blog"/>
+<meta property="article:tag" content="maya"/>
+<meta property="article:tag" content="gui"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="mGui"/>
 <meta property="og:image" content="">
   <title>theodox.com &ndash; Rescuing Maya GUI from itself</title>
 </head>
@@ -58,6 +62,11 @@
     </div>
   </aside>
   <main>
+    <nav>
+      <a href=".">Home</a>
+      <a href="TA-Bookstore-page.html">book store</a>
+      <a href="http://blog.theodox.com/atom/%s_all.atom.xml">Atom</a>
+    </nav>
 
 <article>
   <header>
@@ -65,16 +74,18 @@
     <p>Posted on Sun 23 February 2014 in <a href="./category/blog.html">blog</a></p>
   </header>
   <div>
-    <p><strong>Update 4/11/2015: Fixed the code examples which were blown away in the current Blogger template, and also dead image links</strong></p>
+    <blockquote>
+<p>Update 4/11/2015: Fixed the code examples which were blown away in the current Blogger template, and also dead image links</p>
+</blockquote>
 <p><a href="http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.htm">Last time out</a> was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.</p>
 <p><img alt="" src="http://www.fanderson.org.uk/news/images3/darlingpuppet.jpg" /></p>
-<p>And if you don't know what that picture is there, <a href="http://youtu.be/9XNWA_yZvWo&quot;">go here first</a> - this tech-art stuff is not as important as a good understanding of <a href="&quot;http://en.wikipedia.org/wiki/Thunderbirds_(TV_series)">Thunderbirds!</a>).</p>
+<p>And if you don't know what that picture is there, <a href="http://youtu.be/9XNWA_yZvWo&quot;">go here first</a> -- this tech-art stuff is not as important as a good understanding of <a href="&quot;http://en.wikipedia.org/wiki/Thunderbirds_(TV_series)">Thunderbirds!</a>).</p>
 <p>With that out of the way:</p>
 <p>Any good rescue mission starts with objectives. The three main drawbacks to coding in Maya GUI natively are <strong>nasty syntax</strong>, clunky <strong>event handling</strong>, and difficult <strong>management</strong>. In today's thrill-packed episode, we're going lay some foundations for tackling that old-school syntax and dragging Maya GUI kicking and screaming into the 21st century.</p>
 <h1>Under the surface</h1>
 <p><img alt="" src="http://www.foundation3d.com/forums/attachment.php?attachmentid=74848&amp;d=1410941489" /></p>
 <p>Composing a Maya GUI in code is annoying because the only way to access the properties of a Maya GUI node is via a command - there's no way to get at the properties directly without a lot of command mongering.</p>
-<p>Sure, the purist might say that alternatives are just <a href="http://www.javakey.net/1-java/92b15b2251bd8f85.htm">syntax sugar</a> - but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.</p>
+<p>Sure, the purist might say that alternatives are just <a href="http://www.javakey.net/1-java/92b15b2251bd8f85.htm">syntax sugar</a> -- but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.</p>
 <p>So, the first thing I'd like to ponder is how to cut out some of the crap. Not only will a decent wrapper be more pleasant to read and write - at some point in the future when we get to talk about styling controls, real property access will be a big help in keeping things tidy. Plus, by putting a wrapper around property access we'll have a built in hook for management and cleaning up event handling as well, even though that's a topic for a future post.</p>
 <p>The upshot of it all: we're stuck with the under-the-hood mechanism, but there's no reason we can't wrap it in something prettier. Consider this simple example:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
@@ -99,12 +110,12 @@
 
 
 <p>This is <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">plain-vanilla Python properties</a> in action. It's easy to extend it so you can set 'Label' also:</p>
-<div class="highlight"><pre><span></span>    @Label.setter  
-    def Label(self, val):  
-        return self.CMD(self.Widget, e=True, label=val)
+<div class="highlight"><pre><span></span>    <span class="nd">@Label.setter</span>  
+    <span class="k">def</span> <span class="nf">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
 
-# add this to the example above:  
-btn.Label = &quot;Goodbye cruel world&quot;
+<span class="c1"># add this to the example above:  </span>
+<span class="n">btn</span><span class="o">.</span><span class="n">Label</span> <span class="o">=</span> <span class="s2">&quot;Goodbye cruel world&quot;</span>
 </pre></div>
 
 
@@ -117,47 +128,47 @@ btn.Label = &quot;Goodbye cruel world&quot;
 <p>The "bad" part of that is that you the descriptor is ignorant of the class instance to which it is attached when you call it. Pyhton will pass the instance in to the descriptor, as you'll see in the example below. The good part, on the other hand, is that the descriptor itself can (if need be) have a memory of its own - that's why the descriptors in the next example can remember which flags to use when they call the underlying Maya GUI commands.</p>
 <p>While this sounds scary, it's mostly a minor mental adjustment - once you do a couple times it will be routine. And all the oddness is concentrated in the definition of the descriptor objects themselves - once the descriptor is actually declared, you access it just as if it were a conventional instance property and all is plain-jane <code>foo.bar = baz</code>.</p>
 <p>Here's the button example re-written with a couple of descriptors:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">CtlProperty</span> (<span class="n">object</span>):  
-    <span class="s">&#39;&#39;&#39;  </span>
-<span class="s">    Property descriptor.  When applied to a Control-derived class, invokes the correct Maya command under the hood to get or set values  </span>
-<span class="s">    &#39;&#39;&#39;</span>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CtlProperty</span> <span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Property descriptor.  When applied to a Control-derived class, invokes the correct Maya command under the hood to get or set values  </span>
+<span class="sd">    &#39;&#39;&#39;</span>
 
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="n">flag</span>, <span class="n">cmd</span>):  
-        <span class="n">assert</span> <span class="n">callable</span>(<span class="n">cmd</span>), <span class="s">&quot;cmd flag must be a maya command for editing gui objects&quot;</span>  
-        <span class="k">self</span>.<span class="n">Flag</span> = <span class="n">flag</span>  
-        <span class="k">self</span>.<span class="n">Command</span> = <span class="n">cmd</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>  
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">cmd</span><span class="p">),</span> <span class="s2">&quot;cmd flag must be a maya command for editing gui objects&quot;</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Command</span> <span class="o">=</span> <span class="n">cmd</span>
 
-    <span class="n">def</span> <span class="n">__get__</span>(<span class="k">self</span>, <span class="n">obj</span>, <span class="n">objtype</span>):  
-        <span class="s">&#39;&#39;&#39;  </span>
-<span class="s">        Class instance &lt;obj&gt; and its type &lt;objtype&gt; are passed in automatically.   </span>
-<span class="s">        &lt;self&gt; is this descriptor object, NOT an owning class instance!  </span>
-<span class="s">        &#39;&#39;&#39;</span>  
-        <span class="n">ctrl</span> = <span class="n">obj</span>.<span class="n">Widget</span> <span class="k">if</span> <span class="n">hasattr</span>(<span class="n">obj</span>, <span class="s">&quot;Widget&quot;</span>) <span class="k">else</span> <span class="n">str</span>(<span class="n">obj</span>)  
-        <span class="k">return</span> <span class="k">self</span>.<span class="n">Command</span>(<span class="n">ctrl</span>, **{<span class="s">&#39;q&#39;</span>:<span class="n">True</span>, <span class="k">self</span>.<span class="n">Flag:True</span>})
+    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        Class instance &lt;obj&gt; and its type &lt;objtype&gt; are passed in automatically.   </span>
+<span class="sd">        &lt;self&gt; is this descriptor object, NOT an owning class instance!  </span>
+<span class="sd">        &#39;&#39;&#39;</span>  
+        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Widget</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;Widget&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">:</span><span class="bp">True</span><span class="p">})</span>
 
-    <span class="n">def</span> <span class="n">__set__</span>(<span class="k">self</span>, <span class="n">obj</span>, <span class="nb">value</span>):  
-        <span class="s">&#39;&#39;&#39;  </span>
-<span class="s">        Again, the owning instance is passed in as &lt;obj&gt; automatically  </span>
-<span class="s">        &#39;&#39;&#39;</span>  
-        <span class="n">ctrl</span> = <span class="n">obj</span>.<span class="n">Widget</span> <span class="k">if</span> <span class="n">hasattr</span>(<span class="n">obj</span>, <span class="s">&quot;Widget&quot;</span>) <span class="k">else</span> <span class="n">str</span>(<span class="n">obj</span>)  
-        <span class="k">self</span>.<span class="n">Command</span>(<span class="n">ctrl</span>, **{<span class="s">&#39;e&#39;</span>:<span class="n">True</span>, <span class="k">self</span>.<span class="n">Flag:value</span>})
+    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        Again, the owning instance is passed in as &lt;obj&gt; automatically  </span>
+<span class="sd">        &#39;&#39;&#39;</span>  
+        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Widget</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;Widget&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;e&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">:</span><span class="n">value</span><span class="p">})</span>
 
-<span class="k">class</span> <span class="n">ExampleButton</span>(<span class="n">object</span>):  
-    <span class="n">CMD</span> = <span class="n">cmds</span>.<span class="n">button</span>
+<span class="k">class</span> <span class="nc">ExampleButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>
 
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, *<span class="n">args</span>, **<span class="n">kwargs</span>):  
-        <span class="k">self</span>.<span class="n">Widget</span> = <span class="k">self</span>.<span class="n">CMD</span> (*<span class="n">args</span>, **<span class="n">kwargs</span>)
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="n">Label</span> = <span class="n">CtlProperty</span>(<span class="s">&#39;label&#39;</span>, <span class="n">CMD</span>)  
-    <span class="n">BackgroundColor</span> = <span class="n">CtlProperty</span>(<span class="s">&#39;bgc&#39;</span>, <span class="n">CMD</span>)
+    <span class="n">Label</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>  
+    <span class="n">BackgroundColor</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="s1">&#39;bgc&#39;</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
 
-<span class="c c-Singleline"># same example as before      </span>
-<span class="n">example</span> = <span class="n">cmds</span>.<span class="n">window</span>()  
-<span class="n">col</span> = <span class="n">cmds</span>.<span class="n">columnLayout</span>()  
-<span class="n">btn</span> = <span class="n">ExampleButton</span>(<span class="s">&quot;hello world&quot;</span>)  
-<span class="n">cmds</span>.<span class="n">showWindow</span>(<span class="n">example</span>)  
-<span class="n">btn</span>.<span class="n">Label</span> = <span class="s">&quot;Thunderbirds are GO!&quot;</span>  
-<span class="n">btn</span>.<span class="n">BackgroundColor</span> = (<span class="mf">.25</span>, <span class="mi">1</span>, <span class="mf">.25</span>)
+<span class="c1"># same example as before      </span>
+<span class="n">example</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">btn</span> <span class="o">=</span> <span class="n">ExampleButton</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>  
+<span class="n">btn</span><span class="o">.</span><span class="n">Label</span> <span class="o">=</span> <span class="s2">&quot;Thunderbirds are GO!&quot;</span>  
+<span class="n">btn</span><span class="o">.</span><span class="n">BackgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
 </pre></div>
 
 
@@ -173,127 +184,126 @@ btn.Label = &quot;Goodbye cruel world&quot;
 <p>If you use the Python builtin <code>type</code> on any Python class, you'll get back <br />
 <code>type 'type'</code>. In other words, a Python class definition is itself an instance of the class 'type'. How… <em>meta.</em></p>
 <p>The reason this matters to us is that we can fabricate classes the same way fabricate other kinds of Python things. You would not hesitate to crank out a list of strings assembled in code: there's no reason you can't do the same thing for descriptors! You could do this by hand, creating type instances and filling them out yourself: types take three arguments: a string name, a list of parent types, and dictionary of named fields and propertis. Thus:</p>
-<div class="highlight"><pre><span></span>def constructor(self, name):  
-    self.Name = name
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
 
-example = type(&#39;Example&#39;, (), {&#39;__init__&#39;:constructor } )
+<span class="n">example</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s1">&#39;__init__&#39;</span><span class="p">:</span><span class="n">constructor</span> <span class="p">}</span> <span class="p">)</span>
 
-Test = example(&quot;Hello world&quot;)  
-# &lt;__main__.Example object at 0x00000000022D6198&gt;  
-Test.Name  
-# Hello world
+<span class="n">Test</span> <span class="o">=</span> <span class="n">example</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>  
+<span class="c1"># &lt;__main__.Example object at 0x00000000022D6198&gt;  </span>
+<span class="n">Test</span><span class="o">.</span><span class="n">Name</span>  
+<span class="c1"># Hello world</span>
 </pre></div>
 
 
 <p>However this would send you down a possible rabbit hole, since the idea we're really chasing is a way to mass produce classes to make UI coding easier and it would not be very easy if all of the classes had to be coded up in this clunky way. Luckily Python has an obscure but extremely powerful mechanism designed for just this sort of problem. Because, you know, it's the language of geniuses.</p>
 <p><img alt="" src="https://shapersofthe80s.files.wordpress.com/2011/01/thunderstampbrains.jpg" /></p>
 <h1>"Brains, Activate the Metaclass"</h1>
-<p>The helpful MacGuffin in this case it the <em><a href="http://docs.python.org/2/reference/datamodel.html#customizing-class-creation">Metaclass</a>. _Metaclasses have a reputation - not _entirely</em> undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."</p>
+<p>The helpful MacGuffin in this case it the <em><a href="http://docs.python.org/2/reference/datamodel.html#customizing-class-creation">Metaclass</a>.</em> Metaclasses have a reputation - not <em>entirely</em> undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."</p>
 <p>However, in our case we really can't solve the problem without some form of class factory. In particular, we need a way to bang out classes with the right collection of Descriptors to cover all of the zillions of flags in the Maya GUI system. So just this once we can put on the big blue glasses and lab coats and venture into the super secret lair of the mad metaclass scientists.</p>
 <p>The job of a metaclass is to customize the act of class creation. When a class is first defined, python will pass the type it creates (that same object we played with in the last example) to the metaclass for further manipulation. The <code>__new__</code> function of the metaclass will be called on the just-defined type, taking it name, parents and internal dictionary as arguments. The <code>__new__</code> can fiddle with any of these as it sees fit before passing it along for actual use.</p>
 <p>As you can imagine, this is a good time for PythonMan's Uncle Ben to remind us that 'with great power comes great responsibility' - it's easy to shoot yourself in the foot with a metaclass, since you can make changes to the runtime versions of your classes that will not be represented in your source files. Don't just run off and meta all over everything in sight. A minimalist approach is the best way to stay sane.</p>
 <p>But you'd probably like to see what this really looks like in practice. Here's an example.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">ControlMeta</span>(<span class="n">type</span>):  
-    <span class="s">&#39;&#39;&#39;  </span>
-<span class="s">    Metaclass which creates CtlProperty  objects for maya gui proxies  </span>
-<span class="s">    &#39;&#39;&#39;</span>  
-    <span class="n">CONTROL_ATTRIBS</span> = [<span class="s">&#39;annotation&#39;</span>, <span class="s">&#39;backgroundColor&#39;</span>, <span class="s">&#39;defineTemplate&#39;</span>,   
-                <span class="s">&#39;docTag&#39;</span>, <span class="s">&#39;dragCallback&#39;</span>, <span class="s">&#39;dropCallback&#39;</span>, <span class="s">&#39;enable&#39;</span>,   
-                <span class="s">&#39;enableBackground&#39;</span>,  <span class="s">&#39;exists&#39;</span>, <span class="s">&#39;fullPathName&#39;</span>, <span class="s">&#39;height&#39;</span>,    
-                <span class="s">&#39;manage&#39;</span>, <span class="s">&#39;noBackground&#39;</span>,  <span class="s">&#39;numberOfPopupMenus&#39;</span>, <span class="s">&#39;parent&#39;</span>,   
-                <span class="s">&#39;popupMenuArray&#39;</span>, <span class="s">&#39;preventOverride&#39;</span>, <span class="s">&#39;useTemplate&#39;</span>, <span class="s">&#39;visible&#39;</span>,   
-                <span class="s">&#39;visibleChangeCommand&#39;</span>, <span class="s">&#39;width&#39;</span>]
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Metaclass which creates CtlProperty  objects for maya gui proxies  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="n">CONTROL_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="s1">&#39;backgroundColor&#39;</span><span class="p">,</span> <span class="s1">&#39;defineTemplate&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;docTag&#39;</span><span class="p">,</span> <span class="s1">&#39;dragCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;dropCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;enable&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;enableBackground&#39;</span><span class="p">,</span>  <span class="s1">&#39;exists&#39;</span><span class="p">,</span> <span class="s1">&#39;fullPathName&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>    
+                <span class="s1">&#39;manage&#39;</span><span class="p">,</span> <span class="s1">&#39;noBackground&#39;</span><span class="p">,</span>  <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;preventOverride&#39;</span><span class="p">,</span> <span class="s1">&#39;useTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;visible&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;visibleChangeCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
 
-    <span class="n">def</span> <span class="n">__new__</span>(<span class="n">cls</span>, <span class="nb">name</span>, <span class="n">parents</span>, <span class="n">kwargs</span>):  
-        <span class="s">&#39;&#39;&#39;  </span>
-<span class="s">        __new__ is called then classes using this meta are defined.  It will add   </span>
-<span class="s">        all of the items in CONTROL_ATTRIBS to the new class definition as   </span>
-<span class="s">        CtlProperty descriptor objects using the CMD field (a maya.cmds command)   </span>
-<span class="s">        provied in the outer class.  </span>
-<span class="s">        &#39;&#39;&#39;</span>
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        __new__ is called then classes using this meta are defined.  It will add   </span>
+<span class="sd">        all of the items in CONTROL_ATTRIBS to the new class definition as   </span>
+<span class="sd">        CtlProperty descriptor objects using the CMD field (a maya.cmds command)   </span>
+<span class="sd">        provied in the outer class.  </span>
+<span class="sd">        &#39;&#39;&#39;</span>
 
-        <span class="n">CMD</span> = <span class="n">kwargs</span>.<span class="n">get</span>(<span class="s">&#39;CMD&#39;</span>, <span class="n">None</span>)
+        <span class="n">CMD</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
 
-        <span class="k">if</span> <span class="nb">not</span> <span class="n">kwargs</span>.<span class="n">get</span>(<span class="s">&#39;CMD&#39;</span>):  
-            <span class="n">CMD</span> = <span class="n">parents</span>[<span class="mi">0</span>].<span class="n">CMD</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">):</span>  
+            <span class="n">CMD</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">CMD</span>
 
-        <span class="k">for</span> <span class="n">item</span> <span class="n">in</span> <span class="n">ControlMeta</span>.<span class="n">CONTROL_ATTRIBS:</span>  
-            <span class="n">kwargs</span>[<span class="n">item</span>] = <span class="n">CtlProperty</span>(<span class="n">item</span>, <span class="n">CMD</span>)
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ControlMeta</span><span class="o">.</span><span class="n">CONTROL_ATTRIBS</span><span class="p">:</span>  
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">super</span>(<span class="n">ControlMeta</span>, <span class="n">cls</span>).<span class="n">__new__</span>(<span class="n">cls</span>, <span class="nb">name</span>, <span class="n">parents</span>, <span class="n">kwargs</span>)
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ControlMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 
 
 <p>The actual code is pretty simple. It takes the type object created by the 'real' class and grabs the contents of the CMD class field (remember that from the earlier examples?). Then it loops through its own list of command names and inserts them all into the new class as descriptors with the correct commands and the maya command that was stored in the command object. So our earlier button example becomes:</p>
-<div class="highlight"><pre><span></span>https://gist.githubusercontent.com/theodox/9106403/raw/60a06cba76748d7b157a5219349888f7b0bf0214/ButtonWithMeta.py  
-class MetaButton(object):  
-    CMD = cmds.button  
-    __metaclass__ = ControlMeta
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
 
-    def __init__(self, *args, **kwargs):  
-        self.Widget = self.CMD (*args, **kwargs)
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
 
-w = cmds.window()  
-c = cmds.columnLayout()  
-mb = MetaButton(&quot;button1&quot;)  
-cmds.showWindow(w)
+<span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">mb</span> <span class="o">=</span> <span class="n">MetaButton</span><span class="p">(</span><span class="s2">&quot;button1&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 
-print mb.exists  # We never had to add this one!  
-# True  
-print mb.visible  # or this  
-# True
+<span class="k">print</span> <span class="n">mb</span><span class="o">.</span><span class="n">exists</span>  <span class="c1"># We never had to add this one!  </span>
+<span class="c1"># True  </span>
+<span class="k">print</span> <span class="n">mb</span><span class="o">.</span><span class="n">visible</span>  <span class="c1"># or this ! </span>
+<span class="c1"># True</span>
 </pre></div>
 
 
 <p>There is a minor problem with this very truncated example, however: there's no label or command in the the metaclass, so the MetaButton has no button specific properties - only the generic ones in our list (which I made by trolling the flags for <code>cmds.control</code>, the 'base class' of all Maya control commands).</p>
 <p>This is easily fixed by adding properties that are specific to buttons to a class field, and tweaking the metaclass to read and use them the same way it already uses the CMD class field. Like CMD, these are good class-level attributes since the collection of flags is shared by all buttons, fields or whatever.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="n">ControlMeta</span>(<span class="n">type</span>):  
-    <span class="s">&#39;&#39;&#39;  </span>
-<span class="s">    Metaclass which creates CtlProperty  objects for Control classes  </span>
-<span class="s">    &#39;&#39;&#39;</span>  
-    <span class="n">CONTROL_ATTRIBS</span> = [<span class="s">&#39;annotation&#39;</span>, <span class="s">&#39;backgroundColor&#39;</span>, <span class="s">&#39;defineTemplate&#39;</span>, <span class="s">&#39;docTag&#39;</span>,   
-                        <span class="s">&#39;dragCallback&#39;</span>, <span class="s">&#39;dropCallback&#39;</span>, <span class="s">&#39;enable&#39;</span>, <span class="s">&#39;enableBackground&#39;</span>,   
-                        <span class="s">&#39;exists&#39;</span>, <span class="s">&#39;fullPathName&#39;</span>, <span class="s">&#39;height&#39;</span>,  <span class="s">&#39;manage&#39;</span>, <span class="s">&#39;noBackground&#39;</span>,   
-                        <span class="s">&#39;numberOfPopupMenus&#39;</span>, <span class="s">&#39;parent&#39;</span>, <span class="s">&#39;popupMenuArray&#39;</span>, <span class="s">&#39;preventOverride&#39;</span>,   
-                        <span class="s">&#39;useTemplate&#39;</span>, <span class="s">&#39;visible&#39;</span>, <span class="s">&#39;visibleChangeCommand&#39;</span>, <span class="s">&#39;width&#39;</span>]
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Metaclass which creates CtlProperty  objects for Control classes  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="n">CONTROL_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="s1">&#39;backgroundColor&#39;</span><span class="p">,</span> <span class="s1">&#39;defineTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;docTag&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;dragCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;dropCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;enable&#39;</span><span class="p">,</span> <span class="s1">&#39;enableBackground&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;exists&#39;</span><span class="p">,</span> <span class="s1">&#39;fullPathName&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>  <span class="s1">&#39;manage&#39;</span><span class="p">,</span> <span class="s1">&#39;noBackground&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">,</span> <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;preventOverride&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;useTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;visible&#39;</span><span class="p">,</span> <span class="s1">&#39;visibleChangeCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
 
 
-    <span class="n">def</span> <span class="n">__new__</span>(<span class="n">cls</span>, <span class="nb">name</span>, <span class="n">parents</span>, <span class="n">kwargs</span>):
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
 
-        <span class="n">CMD</span> = <span class="n">kwargs</span>.<span class="n">get</span>(<span class="s">&#39;CMD&#39;</span>, <span class="n">None</span>)  
-        <span class="n">_ATTRIBS</span> = <span class="n">kwargs</span>.<span class="n">get</span>(<span class="s">&#39;_ATTRIBS&#39;</span>,[])  <span class="c c-Singleline"># unique props from outer class</span>
+        <span class="n">CMD</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>  
+        <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_ATTRIBS&#39;</span><span class="p">,[])</span>  <span class="c1"># unique props from outer class</span>
 
-        <span class="k">if</span> <span class="nb">not</span> <span class="n">kwargs</span>.<span class="n">get</span>(<span class="s">&#39;CMD&#39;</span>):  
-            <span class="n">CMD</span> = <span class="n">parents</span>[<span class="mi">0</span>].<span class="n">CMD</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">):</span>  
+            <span class="n">CMD</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">CMD</span>
 
-        <span class="k">for</span> <span class="n">item</span> <span class="n">in</span> <span class="n">ControlMeta</span>.<span class="n">CONTROL_ATTRIBS:</span>  
-            <span class="n">kwargs</span>[<span class="n">item</span>] = <span class="n">CtlProperty</span>(<span class="n">item</span>, <span class="n">CMD</span>)
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ControlMeta</span><span class="o">.</span><span class="n">CONTROL_ATTRIBS</span><span class="p">:</span>  
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">item</span> <span class="n">in</span> <span class="n">_ATTRIBS:</span>   <span class="c c-Singleline"># now add in the outer class&#39;s unique props too  </span>
-            <span class="n">kwargs</span>[<span class="n">item</span>] = <span class="n">CtlProperty</span>(<span class="n">item</span>, <span class="n">CMD</span>)
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_ATTRIBS</span><span class="p">:</span>   <span class="c1"># now add in the outer class&#39;s unique props too  </span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
 
-        <span class="k">return</span> <span class="n">super</span>(<span class="n">ControlMeta</span>, <span class="n">cls</span>).<span class="n">__new__</span>(<span class="n">cls</span>, <span class="nb">name</span>, <span class="n">parents</span>, <span class="n">kwargs</span>)
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ControlMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
 
 
-<span class="k">class</span> <span class="n">MetaButton</span>(<span class="n">object</span>):  
-    <span class="n">CMD</span> = <span class="n">cmds</span>.<span class="n">button</span>  
-    <span class="n">_ATTRIBS</span> = [<span class="s">&#39;label&#39;</span>, <span class="s">&#39;command&#39;</span>]  <span class="c c-Singleline"># button specific props  </span>
-    <span class="n">__metaclass__</span> = <span class="n">ControlMeta</span>
+<span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
+    <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;command&#39;</span><span class="p">]</span>  <span class="c1"># button specific props  </span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
 
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, *<span class="n">args</span>, **<span class="n">kwargs</span>):  
-        <span class="k">self</span>.<span class="n">Widget</span> = <span class="k">self</span>.<span class="n">CMD</span> (*<span class="n">args</span>, **<span class="n">kwargs</span>)
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-<span class="k">class</span> <span class="n">MetaFloatField</span>(<span class="n">object</span>):  
-    <span class="n">CMD</span> = <span class="n">cmds</span>.<span class="n">floatField</span>  
-    <span class="n">_ATTRIBS</span> = [<span class="s">&#39;editable&#39;</span>,<span class="s">&#39;precision&#39;</span>,<span class="s">&#39;value&#39;</span>,<span class="s">&#39;maxValue&#39;</span>,<span class="s">&#39;step&#39;</span>,  
-                <span class="s">&#39;minValue&#39;</span>, <span class="s">&#39;changeCommand&#39;</span>,<span class="s">&#39;dragCommand&#39;</span>,<span class="s">&#39;enterCommand&#39;</span>,  
-                <span class="s">&#39;receiveFocusCommand&#39;</span>]  <span class="c c-Singleline"># this one has a lot of properties</span>
+<span class="k">class</span> <span class="nc">MetaFloatField</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">floatField</span>  
+    <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;editable&#39;</span><span class="p">,</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="s1">&#39;maxValue&#39;</span><span class="p">,</span><span class="s1">&#39;step&#39;</span><span class="p">,</span>  
+                <span class="s1">&#39;minValue&#39;</span><span class="p">,</span> <span class="s1">&#39;changeCommand&#39;</span><span class="p">,</span><span class="s1">&#39;dragCommand&#39;</span><span class="p">,</span><span class="s1">&#39;enterCommand&#39;</span><span class="p">,</span>  
+                <span class="s1">&#39;receiveFocusCommand&#39;</span><span class="p">]</span>  <span class="c1"># this one has a lot of properties</span>
 
-    <span class="n">__metaclass__</span> = <span class="n">ControlMeta</span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
 
-    <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, *<span class="n">args</span>, **<span class="n">kwargs</span>):  
-        <span class="k">self</span>.<span class="n">Widget</span> = <span class="k">self</span>.<span class="n">CMD</span> (*<span class="n">args</span>, **<span class="n">kwargs</span>)
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </pre></div>
 
 
@@ -306,12 +316,16 @@ print mb.visible  # or this
   </div>
   <div class="tag-cloud">
     <p>
+      <a href="./tag/maya.html">maya</a>
+      <a href="./tag/gui.html">gui</a>
+      <a href="./tag/python.html">python</a>
+      <a href="./tag/mgui.html">mGui</a>
     </p>
   </div>
 </article>
 
     <footer>
-        <p>&copy; Steve Theodore </p>
+        <p>&copy; Steve Theodore 2016</p>
 <p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
 
@@ -334,7 +348,7 @@ print mb.visible  # or this
   },
   "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
   "url": "./Rescuing-Maya-GUI-from-itself.html",
-  "description": "pending"
+  "description": "Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans. The first post in the mGui series."
 }
 </script></body>
 </html>

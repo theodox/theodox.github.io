@@ -15,25 +15,24 @@
 
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="robots" content="" />
+  <meta name="robots" content="index, follow" />
 
 <meta name="author" content="Steve Theodore" />
-<meta name="description" content="Some new features for mGui, including progress bars, menu loading from YAML files and scriptJobs" />
-<meta name="keywords" content="mGui, Maya">
+<meta name="description" content="A sneek peek at some changes in the 2.0 version of mGui" />
+<meta name="keywords" content="mGui">
 <meta property="og:site_name" content="theodox.com"/>
-<meta property="og:title" content="mGui updates"/>
-<meta property="og:description" content="Some new features for mGui, including progress bars, menu loading from YAML files and scriptJobs"/>
+<meta property="og:title" content="mGui updates in the offing..."/>
+<meta property="og:description" content="A sneek peek at some changes in the 2.0 version of mGui"/>
 <meta property="og:locale" content="en_US"/>
 <meta property="og:url" content="./mGui-updates.html"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2014-06-24 22:10:00-07:00"/>
+<meta property="article:published_time" content="2016-03-26 15:34:00-07:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="./author/steve-theodore.html">
 <meta property="article:section" content="blog"/>
 <meta property="article:tag" content="mGui"/>
-<meta property="article:tag" content="Maya"/>
 <meta property="og:image" content="">
-  <title>theodox.com &ndash; mGui updates</title>
+  <title>theodox.com &ndash; mGui updates in the offing...</title>
 </head>
 <body>
   <aside>
@@ -60,95 +59,69 @@
     </div>
   </aside>
   <main>
+    <nav>
+      <a href=".">Home</a>
+      <a href="TA-Bookstore-page.html">book store</a>
+      <a href="http://blog.theodox.com/atom/%s_all.atom.xml">Atom</a>
+    </nav>
 
 <article>
   <header>
-    <h1 id="mGui-updates">mGui updates</h1>
-    <p>Posted on Tue 24 June 2014 in <a href="./category/blog.html">blog</a></p>
+    <h1 id="mGui-updates">mGui updates in the offing...</h1>
+    <p>Posted on Sat 26 March 2016 in <a href="./category/blog.html">blog</a></p>
   </header>
   <div>
-    <p>For anybody whos been following the mGui Maya GUI construction kit posts, I've added a few fixes and tweaks to the GitHub project in the last couple of weeks:</p>
-<h4><a href="https://github.com/theodox/mGui/blob/master/mGui/progress.py">mGui.progress</a></h4>
-<p>The progress module wraps Maya's <code>progressBar</code> command for mGui style coding of progress bars.   </p>
-<p>There are two classes in the module;  <strong>ProgressBar </strong> is the generic version and <strong>MainProgressBar</strong> always points at Maya's main progress bar.  Both classes have <code>start()</code>, <code>update()</code> and <code>end()</code> methods instead of Maya's clunky <code>cmds.progressBar(name, e=True, beginProgress=1)</code> and so on.  They also both have an <code>iter()</code> method, which will loop over a generator expression and update the progress bar for each yield then pass along the value. This allows simple idioms like:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.progress</span> <span class="kn">import</span> <span class="n">MainProgressBar</span>  
-<span class="kn">import</span> <span class="nn">os</span>
-
-<span class="k">def</span> <span class="nf">list_files</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>  
-    <span class="c1"># pretend this is as long, slow function...  </span>
-    <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="nb">dir</span><span class="p">):</span>  
-        <span class="k">yield</span> <span class="n">item</span>
-
-<span class="n">pb</span> <span class="o">=</span> <span class="n">MainProgressBar</span><span class="p">()</span>  
-<span class="k">for</span> <span class="n">each_file</span> <span class="ow">in</span> <span class="n">pb</span><span class="o">.</span><span class="n">iter</span><span class="p">(</span><span class="n">list_files</span><span class="p">()):</span>  
-    <span class="k">print</span> <span class="n">each_file</span><span class="o">.</span><span class="n">upper</span><span class="p">()</span>  
-    <span class="c1"># here&#39;s where you do something with the results</span>
+    <p>For those of you who've been using <a href="https://github.com/theodox/mGui">mGui</a> to speed up and simplify your Maya gui coding, there are some interesting changes on the horizon. Although I'm not entirely ready to release the changes I have in mind they are mostly sitting in <a href="https://github.com/theodox/mGui/tree/remove_keys">their own branch in the Github repo</a>. </p>
+<p>The upcoming version introduces some new idioms - in particular, it gets rid of the need for explicitly setting keys on new controls to get access to nested properties. In the first version of mGui you'd write something like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
+    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
+        <span class="n">Text</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
+        <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">(</span><span class="s1">&#39;lister&#39;</span> <span class="p">)</span><span class="o">.</span><span class="n">Collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>    
+        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">):</span>  
+            <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
+            <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>So you can update the progress bar without unduly intertwining the GUI update and the program logic.  </p>
-<h4><a href="https://github.com/theodox/mGui/blob/master/mGui/menu_loader.py">mGui.menu_loader</a></h4>
-<p>The menu_loader module will create menus from a <a href="http://pyyaml.org/wiki/PyYAMLDocumentation">YAML</a> data file.  It does a little bit of introspection to figure out how to create the items and attach their handlers to functions. This makes it easy to set up a menu with several items from a single setup routine.</p>
-<p>The menu data is a text-based YAML file that looks like this:  </p>
-<div class="highlight"><pre><span></span><span class="sx">!MMenu  </span>
-    <span class="n">key</span><span class="p">:</span>   <span class="n">UndeadLabs</span>  
-    <span class="n">label</span><span class="p">:</span> <span class="n">Undead</span> <span class="n">Labs</span>  
-    <span class="n">items</span><span class="p">:</span>  
-        <span class="o">-</span> !<span class="n">MMenuItem</span>  
-            <span class="n">key</span><span class="p">:</span> <span class="n">About</span>  
-            <span class="n">label</span><span class="p">:</span> <span class="n">About</span> <span class="n">Undead</span> <span class="n">Labs</span><span class="c">...  </span>
-            <span class="n">annotation</span><span class="p">:</span> &quot;<span class="n">About</span> <span class="n">this</span> <span class="n">UndeadLabs</span> <span class="n">tool</span> <span class="n">setup</span>&quot;  
-            <span class="n">command</span><span class="p">:</span> <span class="n">tools</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">aboutDialog</span><span class="p">.</span><span class="n">open</span>
-
-        <span class="o">-</span> !<span class="n">MMenuItem</span>  
-            <span class="n">key</span><span class="p">:</span> <span class="n">RemoteDebugger</span>  
-            <span class="n">label</span><span class="p">:</span>  <span class="n">Remote</span> <span class="n">Debugger</span>  
-            <span class="n">annotation</span><span class="p">:</span> <span class="n">Start</span> <span class="o">/</span> <span class="n">Stop</span> <span class="n">remote</span> <span class="n">python</span> <span class="n">debugger</span>  
-            <span class="n">command</span><span class="p">:</span> <span class="n">tools</span><span class="p">.</span><span class="n">common</span><span class="p">.</span><span class="n">remoteDebug</span><span class="p">.</span><span class="n">remote_debugger_dialog</span>
+<p>With the new refactor that looks like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
+    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
+        <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
+        <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>  
+        <span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>    
+        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>  
+            <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
+            <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>And loading the menu is as simple as:  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mGui.menu_loader</span> <span class="kn">as</span> <span class="nn">loader</span>  
-<span class="n">loader</span><span class="o">.</span><span class="n">load_menu</span><span class="p">(</span><span class="s1">&#39;path/to/undeadlabs.YAML&#39;</span><span class="p">)</span>
+<p>The big advantage here is that those local variables are not scoped exclusively to the layout context managers where they live, which makes it easy to control when and where you hook up your event handlers: In the above example you could defer all the bindings and event handlers to the end of the script like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
+    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
+        <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
+        <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>  
+        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>  
+            <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
+            <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>  
+<span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>  
+<span class="n">refresh</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">refresh_def</span>  
+<span class="n">close</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">close_def</span>
 </pre></div>
 
 
-<h4><a href="https://github.com/theodox/mGui/blob/master/mGui/scriptJobs.py">mGui.scriptJobs</a></h4>
-<p>The scriptJobs module adapts the event model for use with scriptJobs. A ScriptJobEvent is a derivative of Event which allows you to hook multiple handlers to a single scriptjob (in the same way that the other Event classes allow for multicast delegates):  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.scriptJobs</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">def</span> <span class="nf">print_selected</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-    <span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">sl</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>
-
-<span class="n">sj</span> <span class="o">=</span> <span class="n">ScriptJobEvent</span><span class="p">(</span><span class="s2">&quot;e&quot;</span><span class="p">,</span> <span class="s2">&quot;SelectionChanged&quot;</span><span class="p">)</span>  
-<span class="n">sj</span> <span class="o">+=</span> <span class="n">print_selected</span>
-</pre></div>
-
-
-<p>As with all the mGui Event classes, you can add multiple handlers to  single event:  </p>
-<div class="highlight"><pre><span></span>sj += some_other_function()
-</pre></div>
-
-
-<p>The module also includes named subclasses to simplify setup. That way you can do things like:  </p>
-<div class="highlight"><pre><span></span>closing_sj = RecentCommandChanged()  
-closing_sj += close_handler
-</pre></div>
-
-
-<p>which is a bit nicer and less typo prone if you use an autocompleting IDE.  </p>
+<p>So far I'm really liking the new idiom, particularly eliminating the extra quotes and redundant <code>None</code> keys. However this is a minorly breaking change: in some cases, old code which relied on the key value to name and also label a control at the same time will when the keys become redundant. Moreover I bit the bullet and started to refactor the entire mGui module to use correct pep-8 naming conventions - in particular, member variables are <em>no longer capitalized</em>. So if you have code outside of mGui this will introduce some issues. When I converted my own code, most of the changes could be done with a regular expression but there were a few danglers.</p>
+<p>I think the changes are worth the effort, but I'd be really interested in hearing from users before trying to bring the new mGui branch back into the main line. It should actually be possible to write a script that fixes most existing code automatically, that's something we could refine collaboratively.Please let me know in the comments or by opening an issue on the GitHub site if you have comments or plans. </p>
+<p>As always, bug fixes and pull requests always entertained!</p>
   </div>
   <div class="tag-cloud">
     <p>
       <a href="./tag/mgui.html">mGui</a>
-      <a href="./tag/maya.html">Maya</a>
     </p>
   </div>
 </article>
 
     <footer>
-        <p>&copy; Steve Theodore </p>
+        <p>&copy; Steve Theodore 2016</p>
 <p>Built using <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a></p>    </footer>
   </main>
 
@@ -160,9 +133,9 @@ closing_sj += close_handler
 {
   "@context": "http://schema.org",
   "@type": "BlogPosting",
-  "name": "mGui updates",
-  "headline": "mGui updates",
-  "datePublished": "2014-06-24 22:10:00-07:00",
+  "name": "mGui updates in the offing...",
+  "headline": "mGui updates in the offing...",
+  "datePublished": "2016-03-26 15:34:00-07:00",
   "dateModified": "",
   "author": {
     "@type": "Person",
@@ -171,7 +144,7 @@ closing_sj += close_handler
   },
   "image": "{{ SITEURL }}/{{ THEME_STATIC_DIR }}/img/profile.png",
   "url": "./mGui-updates.html",
-  "description": "Some new features for mGui, including progress bars, menu loading from YAML files and scriptJobs"
+  "description": "A sneek peek at some changes in the 2.0 version of mGui"
 }
 </script></body>
 </html>

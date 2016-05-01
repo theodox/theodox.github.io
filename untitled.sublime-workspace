@@ -319,6 +319,113 @@
 	},
 	"buffers":
 	[
+		{
+			"file": "pelican/content/Porting_Spelchek_to_Boo.md",
+			"settings":
+			{
+				"buffer_size": 6102,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Python_in_Unity__-_minor_correction.md",
+			"settings":
+			{
+				"buffer_size": 2042,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Pythonistas_need_Pythonista!.md",
+			"settings":
+			{
+				"buffer_size": 3257,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Race_to_the_bottom?.md",
+			"settings":
+			{
+				"buffer_size": 1471,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Read_The_Damn_Ad!.md",
+			"settings":
+			{
+				"buffer_size": 12605,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Reference.md",
+			"settings":
+			{
+				"buffer_size": 326,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Rescuing_Maya_GUI_from_itself.md",
+			"settings":
+			{
+				"buffer_size": 19812,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Return_of_the_namedtuples.md",
+			"settings":
+			{
+				"buffer_size": 14778,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Roger_Roger.md",
+			"settings":
+			{
+				"buffer_size": 960,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/Save_the_environment!.md",
+			"settings":
+			{
+				"buffer_size": 15119,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/mGui_updates_in_the_offing....md",
+			"settings":
+			{
+				"buffer_size": 3694,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/mGui_updates.md",
+			"settings":
+			{
+				"buffer_size": 3747,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "proTitle: Maya callbacks cheat sheet\nDate: 2014-04-23 13:53:00.001\nCategory: blog\nTags: Maya, GUI, python, programming \nSlug: Maya-callbacks-cheat-sheet\nAuthors: Steve Theodore\nSummary: An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly.\n\n_Update 5/7/14: Added a note on closures and lambdas_  \n  \nIn [All Your Base Classes](http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html),  I suggested that we can do better than the standard callback mechanism for doing Maya event handling.  The limitations of the default method are something I've [complained about before](http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html), and if you follow these things on [TAO](http://tech-artists.org/forum/showthread.php?3292-Maya-python-UI-acessing-controls-from-external-functions) or CGTalk or [StackOverflow](http://stackoverflow.com/questions/3435128/creating-a-ui-in-Maya-using-python-scripting) it seems pretty clear that a lot of other people have problems with the standard Maya code flow too.  \n  \nI was planning on devoting the next big post to the event mechanism in [mGUI ](https://github.com/theodox/mGUI). However as I did the spadework for this post I decided it was better to split it up into two parts, since a lot of folks seem to be confused about the right way to manage basic Maya callbacks. Before moving fancy stuff, it's a good idea to make sure the basics are clear. Most vets will already know most of what I'm going over here, but I found the  time spent laying it out for myself a useful exercise  so I figured it would be worth sharing even if it's not revolutionary.  \n\n## Unsolved Mysteries of the Maya.\n\n  \nSo, let's start by clearing up something that even a lot of old-school Maya coders find a bit mysterious when building GUIs.  \n  \n\n[![](http://epGUIdes.com/UnsolvedMysteries/cast.jpg)](http://epGUIdes.com/UnsolvedMysteries/cast.jpg)\n\n  \nIn vanilla Maya, GUI components fire callbacks - that is to say that when Maya recognizes a user action like a button press or a text entry, it calls a function you've provided. There are two ways you can set this up.  The old-school MEL way is to use a string:  \n    \n    \n    my_button = cmds.button('hello', command = 'print \"hello\"')  \n    \n  \nIn the bad old days of MEL, this was usually fine since most procedures were declared as globals and so they were available everywhere.  \n  \nUnfortunately, Python's stricter rules about scoping mean that you constantly run into problems with this strategy if you're not careful. For example, this straight python conversion of the Mel paradigm works fine:  \n    \n      \n        def print_hello(_):  \n            print \"hello\"  \n      \n        my_w = cmds.window()  \n        my_col = cmds.columnLayout()  \n        my_button = cmds.button('hello', command = \"print_hello()\")  \n        cmds.showWindow(my_w)  \n    \n\n  \nBut try this:  \n\n      \n        def show_test_window():  \n            def print_hello_again(_):  \n                print \"hello\"  \n          \n            my_w = cmds.window()  \n            my_col = cmds.columnLayout()  \n            my_button = cmds.button('hello', command = \"print_hello_again()\")  \n            cmds.showWindow(my_w)  \n          \n        show_test_window()  \n    \n\nWhen you hit the button you'll be told  \n\n    # Error: NameError: name 'print_hello_again' is not defined #\n  \n\nThat's because `print_hello_again` is defined in the scope of the _function_, not the scope of the Maya interpreter -- when the callback actually fires, the name is buried away inside of _show_test_window _and can't be found by Maya, at least not using the simple string name.\n\n>That \"_\" in the functions, by the way, is the standard python symbol for \"I have to have a variable here but I intend to ignore it\" - it shows up in a lot of these GUI examples because many, though not all, Maya callbacks fire off an argument when they activate.   \n\nThis happens all the time to people trying to port old MEL code to Python - snippets that work in the interpreter don't work when converted to functions or split between modules because the string callbacks only execute in the global scope. Luckily, once you realize that the \"where is my function\" problem is just basic scoping, it's easy to fix. You can forcibly capture the functions you want by just passing them directly to your GUI callbacks instead of using strings, thanks to the magic of python's [first class functions](http://python-history.blogspot.com/2009/02/first-class-everything.html).  You just need to pass the function itself - not a quoted string that looks like the function - to the callback, Thus the previous example becomes\n    \n      \n        def show_test_window():  \n            def print_hello_again(_):  \n                print \"hello\"  \n          \n            my_w = cmds.window()  \n            my_col = cmds.columnLayout()  \n            my_button = cmds.button('hello', command = print_hello_again)  \n            # note: no quotes and no parens. \n    \n    \n            # You're passing the function as an object!  \n            cmds.showWindow(my_w)  \n          \n        show_test_window()  \n    \n  \nSince you've got the callback in scope when you create the GUI, you're certain to have it when you need it (if by some accident it was out of scope at creation time you'd get an obvious error that you'd have to fix before moving on).  \n  \nClear, predictable scoping is why it's almost always the right decision to wrap your GUIs in classes. The class defines a predictable scope so you don't  have to worry about what's loaded or try to cram import statements into your callback functions.   Plus, classes include data storage, so you can keep your data nicely independent of your code. Suppose, for example, you needed to display a different set of greetings beyond the standard \"hello world.\"  With a class you can defer the problem up to the moment of the actual button press with no fancy footwork or complex lambda management:  \n\n      \n        class Greeter(object):  \n            def __init__(self, greeting):  \n                self.greeting = greeting  \n                self.window = cmds.window()  \n                cmds.columnLayout()  \n                cmds.button('hello', command = self.greet)  \n      \n            def show(self):  \n                cmds.showWindow(self.window)  \n      \n            def greet(self, _):  \n                print self.greeting  \n    \n\nWhatever is stuffed into the Greeter's _greeting_ field will be printed out when the button get's pressed.  \n  \n## Lambda Lambda Lambda  \n  \nOf course, sometimes you don't need a full blown class for your callback functions; often you just want to do something simple that doesn't deserve a full function of it's own.  In cases like this, python provides a handy construct called a _lambda_, which is basically a one-line function.  A lambda looks like this:  \n  \n\n    \n    \n      \n    multiply = lambda x, y : x * y  \n    \n\n  \nwhich is exactly equivalent to:  \n\n    \n    \n      \n    def multiply (x, y):  \n        return x * y  \n    \n\n  \nIn this example 'multiply' is just a plain old variable name. x and y are the input variables, and the expression to the right of the colon is what the lambda returns.  Lambdas can have any number of arguments, but they don't use the *args / **kwargs variable argument syntax.   \n  \nThe main difference between  lambdas and functions  is that the body of a lambda is a single expression : you can't put flow control (such as loops) or statements which are not evaluable (such as 'print' ) into a lambda.  You can, however, call functions - even functions that return None.  \n  \nLambdas are a great way to  cook up throwaway functions. For example:  \n    \n      \n    w = cmds.window()  \n    cmds.columnLayout()  \n    cmd.button('cube', command = lambda x: cmds.polyCube(name = 'new_cube'))  \n    cmds.showWindow(w)  \n    \n  \ncreates a window with a button which creates a cube when the button is pressed.  You'll probably note that in this case the argument to the lambda is ignored - that's because buttons always fire their callbacks with one argument so the lambda needs to accept one.\n\n> In other examples, you'll recall, I use  a python convention of a single underscore as the 'ignore me' argument.\n  \nThe one thing that makes lambdas interesting (sometimes the '_may you live in interesting times_' sort of interesting) is that they are inside the scope of your functions - which means they can use [closures](http://www.shutupandship.com/2012/01/python-closures-explained.html) to capture variables _before_ they fire.  This can be useful if you want to set up a simple relationship without building a full-on class. This example sets the text of a text widget based on a value you pass it at startup, showing the way closures capture names:  \n    \n      \n    def closure_example_window(value)  \n        w = cmds.window()  \n        c = cmds.columnLayout()  \n        t = cmds.text(label = 'press the button')  \n        cmd.button('cube',  c= lambda _: cmds.text(t, e=True, label = value))  \n        # captures the name of the text and the value passed in by the user  \n        cmds.showWindow(w)  \n    \n  \nHowever, closures are automatically created by Python when a given scope is closed up - in this example, that would be at the end of the function. The values that are 'closed over' are determined when the function finishes.  Which is usually what you want... unless you're in the habit of re-using variable names:  \n\n      \n    def closure_example_surprise(value)  \n        w = cmds.window()  \n        c = cmds.columnLayout()  \n        t = cmds.text(label = 'press the button')  \n        cmd.button('cube', c = lambda _: cmds.text(t, e=True, label = value))  \n        value = 'gotcha!'  \n        cmds.showWindow(w)  \n    \n\n  \nWhen you run this one, the button ignores your value and prints `gotcha` instead of whatever value you passed in! That's because the closure will get its value when the function finishes in line 7, NOT when you first assign it in line 5. This little gotcha is usually a curiosity, but it makes life difficult if you want to, say, assign commands inside a loop. In a case like that you should use functions or callable objects (see below) in preference to lambdas. \n  \n## Arguments for the prosecution\n  \nSo, the \"where the hell is my function\" problem which tends to plague beginners is easy to solve once you look at it the right way.   \n  \nHowever, right after you're comfortable with passing functions directly, you immediately realize that's not enough.  It's very common to have multiple GUI controls that do more or less the same thing with different settings such a set of buttons which make different sized objects.    \n\nAlas, while this is easy to understand, it's also kinda ugly to code.  \n  \nFor starters, you might try making lots of little functions:  \n\n      \n        def Boxes():  \n            def make_big_box(_):  \n                cmds.polyCube(h = 10, d=10, w=10)  \n      \n            def make_med_box(_):  \n                cmds.polyCube(h = 5, d=5, w=5)  \n      \n            def make_sm_box(_):  \n                cmds.polyCube(h = 2, d=2, w=2)  \n      \n            my_w = cmds.window()  \n            cmds.columnLayout()  \n            cmds.button(\"small box\", c = make_sm_box)  \n            cmds.button(\"medium box\", c = make_med_box)  \n            cmds.button(\"large box\", c = make_big_box)  \n            cmds.showWindow(my_w)  \n    \n\n  \nOr you could do basically the same thing using lambdas to create temporary functions, which saves on the extra defs but tends to be illegible and tough to debug for complex commands :  \n\n    \n      \n        def BoxLambdas():  \n            my_w = cmds.window()  \n            cmds.columnLayout()  \n            cmds.button(\"small box\", c = lambda _: cmds.polyCube(d =2, w= 2 , h=2) )  \n            cmds.button(\"medium box\",  c = lambda _: cmds.polyCube(d = 10 , w = 5 , h = 5) )  \n            cmds.button(\"large box\", c = lambda _: cmds.polyCube(d = 10 , w = 10 , h = 10) )  \n            cmds.showWindow(my_w)\n\n_BTW There's that underscore again, in the lambdas, doing the same job: ignoring the callback argument from the buttons_.\n\n  \n\nA third method is to use the Python built-in module `functools`. Functools offsers the [`partial` object](https://docs.python.org/2/library/functools.html#functools.partial), which \"freezes\" a command and a set of arguments into a callable package.   \n    \n      \n        from functools import partial  \n        def FuncBoxes():  \n      \n            # note the comma - the command is an argument to partial!   \n            small_box = partial( cmds.polyCube,   d =2, w = 2 , h = 2 )  \n            med_box = partial( cmds.polyCube,  d = 5, w = 5 , h = 5 )  \n            big_box = partial( cmds.polyCube,  d = 10, w = 10 , h = 10 )  \n       \n            my_w = cmds.window()  \n            cmds.columnLayout()  \n            cmds.button(\"small box\", c = lambda _ : small_box())  \n            cmds.button(\"medium box\",  c = lambda _ : med_box() )  \n            cmds.button(\"large box\", c = lambda _ : big_box()  )  \n            cmds.showWindow(my_w)  \n\n  \nPartials are handy for cleaning up the messes you'd get from trying to format a complex commands in-line in the middle of your GUI code. This example is a sort of worst case scenario, since Maya buttons always fire with a single argument and cmds.polyCube doesn't like that.  Here I used lambdas  to swallow the arguments (note the telltale underscores). More often you'll be calling your own functions and the syntax is much cleaner and easier to parse:\n    \n    \n        from functools import partial  \n        def FuncBoxesClean():  \n\n    \n            def make_box(_, **kwargs):    \n               # swallow the argument but keep the keywords...\n               cmds.polyCube(**kwargs)  \n    \n            small_box = partial( make_box,   d =2, w = 2 , h = 2 )  \n            med_box = partial( make_box,  d = 5, w = 5 , h = 5 )  \n            big_box = partial( make_box,  d = 10, w = 10 , h = 10 )  \n       \n            my_w = cmds.window()  \n            cmds.columnLayout()  \n            cmds.button(\"small box\", c =  small_box)  \n            cmds.button(\"medium box\",  c = med_box )  \n            cmds.button(\"large box\", c = big_box  )  \n            cmds.showWindow(my_w)  \n            \nThat's far easier on the eyes and less of a nasty tax on future readers, but it requires a knowledge of how partials work.\n\n## Final Summation\n\nSo, here's a cheatsheet of the rules for hooking Maya event callbacks:  \n\n  1. Don't use strings for python calls. \n    1. If you're calling MEL, OK: but don't use MEL anyway :)\n  2. Pass functions to your callback directly. No quotes, no parens.\n    1. If you have a scope problem, you'll see it when you create the GUI; usually you can solve it with an import\n  3. If you need to pass arguments to your function in the callback, you have options:\n    1. custom mini-functions are clear, but extra work\n    2. lambdas are ugly, but workable\n    3. partials - especially on top of your own functions - are clean \n\n  \nNow, even if you follow these rules,  its easy for your functional code and your GUI to get in each other's ways.  Creating a lot of throwaway functions is busywork, but formatting commands in-line inside GUI code is error prone and hard to read. Partials are nice for separating data from layout code, but usually come with annoying extra syntax to hide the callback arguments.  \n  \n\n### Next Episode...\n\n  \nOf course if you've been following the [mGUI](https://github.com/theodox/mGUI)series you'll know where I'm going. (If you haven't, you might want to check [here](http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html), [here ](http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html)and [here](http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html) before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  \n    \n    \n        import mGUI.GUI as mg\n    \n        def make_box(*args, **kwargs):  \n            H,W,D = kwargs['sender'].Tag  \n            cmds.polyCube(h = H, d = D, w = W)  \n              \n        def mGUIBoxes():  \n            with mg.Window(\"boxes\") as window:  \n                with mg.ColumnLayout(\"col\"):  \n                    mg.Button(\"sm\", label = \"small boxes\", tag = (2,2,2) )  \n                    mg.Button(\"med\", label = \"medium boxes\", tag = (5,5,5) )  \n                    mg.Button(\"lrg\", label = \"large boxes\", tag = (10,10,10) )  \n              \n            for b in window.col.Controls:  \n                b.command += make_box  \n            window.show()  \n    \n\n  \n  \n  \n\n",
+			"file": "pelican/content/Maya_callbacks_cheat_sheet.md",
+			"file_size": 16788,
+			"file_write_time": 131054212800000000,
+			"settings":
+			{
+				"buffer_size": 16791,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -473,10 +580,33 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/stevetheodore/prj/theodox.github.io/pelican/content"
+		"/Users/stevet/theodox.github.io/pelican/content"
 	],
 	"file_history":
 	[
+		"/Users/stevet/theodox.github.io/pelican/content/Rob_G's_Maya_Python_book_is_finally_out.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Rob_G's_book_is_up_for_preorder_on_amazon.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Python_in_browsers.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Poll_tax.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Pax_Dev_State_of_Decay_Post-mortem.md",
+		"/Users/stevet/theodox.github.io/pelican/content/mGui_updates.md",
+		"/Users/stevet/theodox.github.io/pelican/content/mGui_updates_in_the_offing....md",
+		"/Users/stevet/theodox.github.io/pelican/content/New_tools_watch:_MARI.md",
+		"/Users/stevet/theodox.github.io/pelican/content/No_Humans_Involved_(Classic_CG).md",
+		"/Users/stevet/theodox.github.io/pelican/content/No_soup_for_you,_userSetup.py.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Pax!.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Pipeline_book_out_in_Japan_(!).md",
+		"/Users/stevet/theodox.github.io/pelican/content/Pity_for_the_outcast.md",
+		"/Users/stevet/theodox.github.io/pelican/content/The_Dismal_Science_:_Technical_Debt_For_Technical_Artists.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Submit!.md",
+		"/Users/stevet/theodox.github.io/pelican/content/untitled_204.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Warning:_Garish_graphics_ahead!.md",
+		"/Users/stevet/theodox.github.io/pelican/content/What_The...?.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Technical_Art_for_Art_Directors.md",
+		"/Users/stevet/theodox.github.io/pelican/content/Tech_art_for_art_directors.md",
+		"/Users/stevet/theodox.github.io/pelican/content/2015_Bug_watch:_ls().md",
+		"/Users/stevet/theodox.github.io/pelican/content/Worst._CG._EVAR..md",
+		"/Users/stevet/theodox.github.io/pelican/content/untitled_202.md",
 		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/First_module_of_the_year!.md",
 		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/For_my_homies.md",
 		"/Users/stevetheodore/prj/theodox.github.io/pelican/content/From_the_annals_of_bug_subtlety.md",
@@ -581,34 +711,11 @@
 		"/Users/stevetheodore/Dropbox/work notes/popcorn fx notes",
 		"/Users/stevetheodore/Documents/tmp/tmp.txt",
 		"/Users/stevetheodore/Documents/tmp/tmp.boo",
-		"/Users/stevetheodore/Documents/tmp/tmp.nant",
-		"/Users/stevetheodore/Dropbox/blog/profiling.md",
-		"/Users/stevetheodore/boo/boo/tmp.boo",
-		"/Users/stevetheodore/Dropbox/blog/fix_egg_gist.md",
-		"/Users/stevetheodore/Desktop/fred.boo",
-		"/Users/stevetheodore/scratch/Assets/boo.boo",
-		"/Users/stevetheodore/Documents/conemu/conemu.py",
-		"/Users/stevetheodore/Library/Preferences/Autodesk/maya/2016/scripts/__main__.py",
-		"/Users/stevetheodore/Desktop/example.mel",
-		"/Users/stevetheodore/Desktop/example.py",
-		"/Users/stevetheodore/Documents/TechArtMafia.github.io/crs/include_text.html",
-		"/Users/stevetheodore/Dropbox/work notes/bitsquid tools mtg",
-		"/Users/stevetheodore/Documents/TechArtMafia.github.io/crs/glossary.md",
-		"/Users/stevetheodore/Desktop/gaze_ball.bsi",
-		"/Users/stevetheodore/Documents/python/ulMaya/convex.py",
-		"/Users/stevetheodore/Dropbox/blog/api points 2",
-		"/Users/stevetheodore/Dropbox/blog/markdown preview settings for blog.json",
-		"/Users/stevetheodore/Dropbox/blog/blog_template.html",
-		"/Users/stevetheodore/Dropbox/blog/blog_template_darkly.html",
-		"/Users/stevetheodore/Library/Application Support/Sublime Text 3/Packages/Markdown Preview/MarkdownPreview.sublime-settings",
-		"/Users/stevetheodore/Dropbox/blog/darkly template.html",
-		"/Users/stevetheodore/Dropbox/Public/solarized-dark.css",
-		"/Users/stevetheodore/Dropbox/Public/github.css",
-		"/Users/stevetheodore/Dropbox/blog/ScriptCtx is your frenemy.md"
+		"/Users/stevetheodore/Documents/tmp/tmp.nant"
 	],
 	"find":
 	{
-		"height": 35.0
+		"height": 38.0
 	},
 	"find_in_files":
 	{
@@ -623,6 +730,13 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"minq",
+			"\\n\\n\\n",
+			"\\n\\n",
+			"( +)\\n",
+			"\\W+\\n",
+			"\\n\\n\\n",
+			"###",
 			" - ",
 			"\\d+\\n",
 			"eval",
@@ -673,9 +787,13 @@
 		"highlight": true,
 		"in_selection": false,
 		"preserve_case": false,
-		"regex": false,
+		"regex": true,
 		"replace_history":
 		[
+			"\\n\\n",
+			"\\n",
+			"\\n\\n",
+			"##",
 			"",
 			"”",
 			"execute",
@@ -711,8 +829,502 @@
 	"groups":
 	[
 		{
+			"selected": 9,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "pelican/content/Porting_Spelchek_to_Boo.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 6102,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5923,
+								5923
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 358,
+								"count": 823,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2404.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "pelican/content/Python_in_Unity__-_minor_correction.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2042,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1276,
+								1276
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 120,
+								"count": 317,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "pelican/content/Pythonistas_need_Pythonista!.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3257,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2106,
+								2106
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 201,
+								"count": 455,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "pelican/content/Race_to_the_bottom?.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1471,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								86,
+								86
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 107,
+								"count": 228,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "pelican/content/Read_The_Damn_Ad!.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 12605,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1814,
+								1814
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 108,
+								"count": 2113,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "pelican/content/Reference.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 326,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								323,
+								323
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 90,
+								"count": 36,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "pelican/content/Rescuing_Maya_GUI_from_itself.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19812,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1874,
+								1874
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 353,
+								"count": 2394,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "pelican/content/Return_of_the_namedtuples.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 14778,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								12196,
+								12196
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 665,
+								"count": 1843,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 4758.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "pelican/content/Roger_Roger.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 960,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								82,
+								82
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 252,
+								"count": 127,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "pelican/content/Save_the_environment!.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 15119,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								14852,
+								14852
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 191,
+								"count": 2105,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2037.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "pelican/content/mGui_updates_in_the_offing....md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3694,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								113,
+								113
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 2,
+								"count": 439,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "pelican/content/mGui_updates.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3747,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								102,
+								102
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 2,
+								"count": 400,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "pelican/content/Maya_callbacks_cheat_sheet.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 16791,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3,
+								3
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 3,
+								"count": 2013,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -763,7 +1375,7 @@
 	"project": "untitled.sublime-project",
 	"replace":
 	{
-		"height": 64.0
+		"height": 70.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -805,7 +1417,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 214.0,
+	"side_bar_width": 383.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

@@ -1,18 +1,18 @@
 Title: Rescuing Maya GUI from itself
 Date: 2014-02-23 10:22:00.000
 Category: blog
-Tags: , , , , , 
+Tags: maya, gui, python, mGui
 Slug: Rescuing-Maya-GUI-from-itself
 Authors: Steve Theodore
-Summary: pending
+Summary: Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans.  The first post in the [mGui](https://github.com/theodox/mGui) series.
 
-**Update 4/11/2015: Fixed the code examples which were blown away in the current Blogger template, and also dead image links**
+>Update 4/11/2015: Fixed the code examples which were blown away in the current Blogger template, and also dead image links
 
 [Last time out](http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.htm) was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.
 
 ![](http://www.fanderson.org.uk/news/images3/darlingpuppet.jpg)
 
-And if you don't know what that picture is there, [go here first](http://youtu.be/9XNWA_yZvWo") \- this tech-art stuff is not as important as a good understanding of [Thunderbirds!]("http://en.wikipedia.org/wiki/Thunderbirds_\(TV_series\))).
+And if you don't know what that picture is there, [go here first](http://youtu.be/9XNWA_yZvWo") -- this tech-art stuff is not as important as a good understanding of [Thunderbirds!]("http://en.wikipedia.org/wiki/Thunderbirds_\(TV_series\))).
 
 With that out of the way:
 
@@ -24,13 +24,13 @@ Any good rescue mission starts with objectives. The three main drawbacks to codi
 
 Composing a Maya GUI in code is annoying because the only way to access the properties of a Maya GUI node is via a command - there's no way to get at the properties directly without a lot of command mongering.
 
-Sure, the purist might say that alternatives are just [syntax sugar](http://www.javakey.net/1-java/92b15b2251bd8f85.htm) \- but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.
+Sure, the purist might say that alternatives are just [syntax sugar](http://www.javakey.net/1-java/92b15b2251bd8f85.htm) -- but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.
 
 So, the first thing I'd like to ponder is how to cut out some of the crap. Not only will a decent wrapper be more pleasant to read and write - at some point in the future when we get to talk about styling controls, real property access will be a big help in keeping things tidy. Plus, by putting a wrapper around property access we'll have a built in hook for management and cleaning up event handling as well, even though that's a topic for a future post.
 
 The upshot of it all: we're stuck with the under-the-hood mechanism, but there's no reason we can't wrap it in something prettier. Consider this simple example:
     
-    
+    :::python
     import maya.cmds as cmds  
       
     class ExampleButton(object):  
@@ -53,7 +53,7 @@ The upshot of it all: we're stuck with the under-the-hood mechanism, but there's
 
 This is [plain-vanilla Python properties](http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb) in action. It's easy to extend it so you can set 'Label' also:
     
-    
+    :::python
         @Label.setter  
         def Label(self, val):  
             return self.CMD(self.Widget, e=True, label=val)  
@@ -80,7 +80,7 @@ While this sounds scary, it's mostly a minor mental adjustment - once you do a c
 
 Here's the button example re-written with a couple of descriptors:
     
-    
+    :::python    
     class CtlProperty (object):  
         '''  
         Property descriptor.  When applied to a Control-derived class, invokes the correct Maya command under the hood to get or set values  
@@ -148,7 +148,7 @@ If you use the Python builtin `type` on any Python class, you'll get back
 
 The reason this matters to us is that we can fabricate classes the same way fabricate other kinds of Python things. You would not hesitate to crank out a list of strings assembled in code: there's no reason you can't do the same thing for descriptors! You could do this by hand, creating type instances and filling them out yourself: types take three arguments: a string name, a list of parent types, and dictionary of named fields and propertis. Thus:
     
-    
+    :::python    
     def constructor(self, name):  
         self.Name = name  
       
@@ -166,7 +166,7 @@ However this would send you down a possible rabbit hole, since the idea we're re
 
 # "Brains, Activate the Metaclass"
 
-The helpful MacGuffin in this case it the _[Metaclass](http://docs.python.org/2/reference/datamodel.html#customizing-class-creation). _Metaclasses have a reputation - not _entirely_ undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."
+The helpful MacGuffin in this case it the _[Metaclass](http://docs.python.org/2/reference/datamodel.html#customizing-class-creation)._ Metaclasses have a reputation - not _entirely_ undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."
 
 However, in our case we really can't solve the problem without some form of class factory. In particular, we need a way to bang out classes with the right collection of Descriptors to cover all of the zillions of flags in the Maya GUI system. So just this once we can put on the big blue glasses and lab coats and venture into the super secret lair of the mad metaclass scientists.
 
@@ -176,7 +176,7 @@ As you can imagine, this is a good time for PythonMan's Uncle Ben to remind us t
 
 But you'd probably like to see what this really looks like in practice. Here's an example.
     
-    
+    :::python    
     class ControlMeta(type):  
         '''  
         Metaclass which creates CtlProperty  objects for maya gui proxies  
@@ -210,7 +210,7 @@ But you'd probably like to see what this really looks like in practice. Here's a
 The actual code is pretty simple. It takes the type object created by the 'real' class and grabs the contents of the CMD class field (remember that from the earlier examples?). Then it loops through its own list of command names and inserts them all into the new class as descriptors with the correct commands and the maya command that was stored in the command object. So our earlier button example becomes:
     
     
-    https://gist.githubusercontent.com/theodox/9106403/raw/60a06cba76748d7b157a5219349888f7b0bf0214/ButtonWithMeta.py  
+    :::python
     class MetaButton(object):  
         CMD = cmds.button  
         __metaclass__ = ControlMeta  
@@ -226,7 +226,7 @@ The actual code is pretty simple. It takes the type object created by the 'real'
       
     print mb.exists  # We never had to add this one!  
     # True  
-    print mb.visible  # or this  
+    print mb.visible  # or this ! 
     # True  
     
 
@@ -234,7 +234,7 @@ There is a minor problem with this very truncated example, however: there's no l
 
 This is easily fixed by adding properties that are specific to buttons to a class field, and tweaking the metaclass to read and use them the same way it already uses the CMD class field. Like CMD, these are good class-level attributes since the collection of flags is shared by all buttons, fields or whatever.
     
-    
+    :::python   
     class ControlMeta(type):  
         '''  
         Metaclass which creates CtlProperty  objects for Control classes  

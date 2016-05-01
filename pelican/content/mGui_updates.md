@@ -2,7 +2,7 @@ Title: mGui updates
 Date: 2014-06-24 22:10:00.000
 Category: blog
 Tags: mGui, Maya
-Slug: mGui-updates
+Slug: mGui-updates-1
 Authors: Steve Theodore
 Summary: Some new features for [mGui](https://github.com/theodox/mGui), including progress bars, menu loading from YAML files and scriptJobs
 
@@ -12,7 +12,7 @@ For anybody whos been following the mGui Maya GUI construction kit posts, I've a
 
 The progress module wraps Maya's `progressBar` command for mGui style coding of progress bars.   
   
-There are two classes in the module;  **ProgressBar ** is the generic version and **MainProgressBar** always points at Maya's main progress bar.  Both classes have `start()`, `update()` and `end()` methods instead of Maya's clunky `cmds.progressBar(name, e=True, beginProgress=1)` and so on.  They also both have an `iter()` method, which will loop over a generator expression and update the progress bar for each yield then pass along the value. This allows simple idioms like:  
+There are two classes in the module;  `ProgressBar` is the generic version and `MainProgressBar` always points at Maya's main progress bar.  Both classes have `start()`, `update()` and `end()` methods instead of Maya's clunky `cmds.progressBar(name, e=True, beginProgress=1)` and so on.  They also both have an `iter()` method, which will loop over a generator expression and update the progress bar for each yield then pass along the value. This allows simple idioms like:  
   
   
     from mGui.progress import MainProgressBar  
@@ -88,5 +88,4 @@ The module also includes named subclasses to simplify setup. That way you can do
     closing_sj += close_handler  
     
 
-  
 which is a bit nicer and less typo prone if you use an autocompleting IDE.  

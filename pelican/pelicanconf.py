@@ -5,6 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Steve Theodore'
 SITENAME = u'theodox.com'
 SITEURL = 'http://blog.theodox.com'
+COPYRIGHT_YEAR = 2016
 
 PATH = 'content'
 
@@ -12,12 +13,21 @@ TIMEZONE = 'US/Pacific'
 
 DEFAULT_LANG = u'en'
 
+ROBOTS = 'index, follow'
+
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = 'atom/%s_all.atom.xml'
 CATEGORY_FEED_ATOM = 'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = 'rss/%s.rss.xml'
+
+
+MAIN_MENU = True
+
+MENUITEMS = (
+		('book store', 'TA-Bookstore-page.html'),
+		)
 
 # Blogroll
 LINKS = (('home', 'index.html'),
