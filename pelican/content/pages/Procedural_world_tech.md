@@ -1,18 +1,14 @@
 Title: Procedural world tech
 Date: 2015-03-14 18:23:00.000
-Category: blog
-Tags: 
+Category: pages
+Tags: graphics
 Slug: Procedural-world-tech
 Authors: Steve Theodore
-Summary: pending
+Summary: A list of interesting papers and articles related to open world games, procedural world technology, and other big-world related issues.
 
 This page is a very _lightly_ curated list of resource I'm keeping for myself while researching procedural world generation tech.  I'm keeping links here but I'm not commenting (at least not yet) on whether or not they look good, feasible or just plain goofy.  
   
-http://www.tcd.ie/civileng/Staff/Brian.Caulfield/3A1/3A1%20Lecture%2013.pdf  one of several on clothoid road curve generation . Good reference numbers.  
-
-
-  
-
+[An paper on on clothoid road curve generation](http://www.tcd.ie/civileng/Staff/Brian.Caulfield/3A1/3A1%20Lecture%2013.pdf) with some good reference numbers.  
 
 <http://hpcg.purdue.edu/bbenes/papers/Smelik14CGF.pdf>  survey of the 'state of the art'  
 

@@ -1,10 +1,10 @@
 Title: The right profile
 Date: 2015-04-18 22:16:00.000
 Category: blog
-Tags: , , , 
+Tags: python, programming, maya 
 Slug: The-right-profile
 Authors: Steve Theodore
-Summary: pending
+Summary: A brief, gentle introduction to the uses and abuses of profiling in Maya Python
 
 Lately I was working in one of those relatively rare TA tasks where performance really mattered. I had to do a lot of geometry processing and the whole thing was as slow as molasses, despite all my best guesses about clever little tricks to speed things up. 
 

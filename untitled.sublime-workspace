@@ -400,6 +400,22 @@
 			}
 		},
 		{
+			"file": "pelican/content/fix_slugs.py",
+			"settings":
+			{
+				"buffer_size": 229,
+				"line_ending": "Unix",
+				"name": "def rewrite(f):"
+			}
+		},
+		{
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Unix"
+			}
+		},
+		{
 			"file": "pelican/content/mGui_updates_in_the_offing....md",
 			"settings":
 			{
@@ -829,7 +845,7 @@
 	"groups":
 	[
 		{
-			"selected": 9,
+			"selected": 11,
 			"sheets":
 			[
 				{
@@ -851,15 +867,6 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 358,
-								"count": 823,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -868,7 +875,7 @@
 						"translation.y": 2404.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 9,
+					"stack_index": 11,
 					"type": "text"
 				},
 				{
@@ -890,22 +897,13 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 120,
-								"count": 317,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 8,
+					"stack_index": 10,
 					"type": "text"
 				},
 				{
@@ -927,22 +925,13 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 201,
-								"count": 455,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 9,
 					"type": "text"
 				},
 				{
@@ -964,22 +953,13 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 107,
-								"count": 228,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 6,
+					"stack_index": 2,
 					"type": "text"
 				},
 				{
@@ -1001,22 +981,13 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 108,
-								"count": 2113,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 5,
+					"stack_index": 8,
 					"type": "text"
 				},
 				{
@@ -1038,22 +1009,13 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 90,
-								"count": 36,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 3,
 					"type": "text"
 				},
 				{
@@ -1075,15 +1037,6 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 353,
-								"count": 2394,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1092,7 +1045,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 3,
+					"stack_index": 4,
 					"type": "text"
 				},
 				{
@@ -1114,15 +1067,6 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 665,
-								"count": 1843,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1131,7 +1075,7 @@
 						"translation.y": 4758.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 2,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -1147,28 +1091,19 @@
 						"selection":
 						[
 							[
-								82,
-								82
+								83,
+								87
 							]
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 252,
-								"count": 127,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 1,
+					"stack_index": 5,
 					"type": "text"
 				},
 				{
@@ -1190,26 +1125,90 @@
 						],
 						"settings":
 						{
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "pelican/content/fix_slugs.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 229,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								45,
+								45
+							]
+						],
+						"settings":
+						{
 							"WordCount":
 							{
-								"changes": 191,
-								"count": 2105,
+								"changes": -1,
+								"modified": true,
+								"selection": true,
+								"status": -1,
+								"syntax": "python"
+							},
+							"auto_name": "def rewrite(f):",
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 0,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 0,
+								"count": 0,
 								"modified": false,
 								"selection": false,
 								"status": -1,
 								"syntax": "plain text"
 							},
-							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 2037.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 10,
+					"buffer": 12,
 					"file": "pelican/content/mGui_updates_in_the_offing....md",
 					"semi_transient": false,
 					"settings":
@@ -1227,15 +1226,6 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 2,
-								"count": 439,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1244,11 +1234,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 12,
+					"stack_index": 14,
 					"type": "text"
 				},
 				{
-					"buffer": 11,
+					"buffer": 13,
 					"file": "pelican/content/mGui_updates.md",
 					"semi_transient": false,
 					"settings":
@@ -1266,15 +1256,6 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 2,
-								"count": 400,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1283,11 +1264,11 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 11,
+					"stack_index": 13,
 					"type": "text"
 				},
 				{
-					"buffer": 12,
+					"buffer": 14,
 					"file": "pelican/content/Maya_callbacks_cheat_sheet.md",
 					"semi_transient": false,
 					"settings":
@@ -1305,15 +1286,6 @@
 						],
 						"settings":
 						{
-							"WordCount":
-							{
-								"changes": 3,
-								"count": 2013,
-								"modified": false,
-								"selection": false,
-								"status": -1,
-								"syntax": "plain text"
-							},
 							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
@@ -1322,7 +1294,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 10,
+					"stack_index": 12,
 					"type": "text"
 				}
 			]

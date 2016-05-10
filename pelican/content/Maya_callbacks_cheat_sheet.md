@@ -68,21 +68,19 @@ That's because `print_hello_again` is defined in the scope of the _function_, no
 
 This happens all the time to people trying to port old MEL code to Python - snippets that work in the interpreter don't work when converted to functions or split between modules because the string callbacks only execute in the global scope. Luckily, once you realize that the "where is my function" problem is just basic scoping, it's easy to fix. You can forcibly capture the functions you want by just passing them directly to your GUI callbacks instead of using strings, thanks to the magic of python's [first class functions](http://python-history.blogspot.com/2009/02/first-class-everything.html).  You just need to pass the function itself - not a quoted string that looks like the function - to the callback, Thus the previous example becomes
     
+    :::python     
+    def show_test_window():  
+        def print_hello_again(_):  
+            print "hello"  
       
-        def show_test_window():  
-            def print_hello_again(_):  
-                print "hello"  
-          
-            my_w = cmds.window()  
-            my_col = cmds.columnLayout()  
-            my_button = cmds.button('hello', command = print_hello_again)  
-            # note: no quotes and no parens. 
-    
-    
-            # You're passing the function as an object!  
-            cmds.showWindow(my_w)  
-          
-        show_test_window()  
+        my_w = cmds.window()  
+        my_col = cmds.columnLayout()  
+        my_button = cmds.button('hello', command = print_hello_again)  
+        # note: no quotes and no parens. 
+        # You're passing the function as an object!  
+        cmds.showWindow(my_w)  
+      
+    show_test_window()  
     
   
 Since you've got the callback in scope when you create the GUI, you're certain to have it when you need it (if by some accident it was out of scope at creation time you'd get an obvious error that you'd have to fix before moving on).  
@@ -90,14 +88,15 @@ Since you've got the callback in scope when you create the GUI, you're certain t
 Clear, predictable scoping is why it's almost always the right decision to wrap your GUIs in classes. The class defines a predictable scope so you don't  have to worry about what's loaded or try to cram import statements into your callback functions.   Plus, classes include data storage, so you can keep your data nicely independent of your code. Suppose, for example, you needed to display a different set of greetings beyond the standard "hello world."  With a class you can defer the problem up to the moment of the actual button press with no fancy footwork or complex lambda management:  
 
       
-        class Greeter(object):  
-            def __init__(self, greeting):  
-                self.greeting = greeting  
-                self.window = cmds.window()  
-                cmds.columnLayout()  
-                cmds.button('hello', command = self.greet)  
+    :::python
+    class Greeter(object):  
+        def __init__(self, greeting):  
+            self.greeting = greeting  
+            self.window = cmds.window()  
+            cmds.columnLayout()  
+            cmds.button('hello', command = self.greet)  
       
-            def show(self):  
+        def show(self):  
                 cmds.showWindow(self.window)  
       
             def greet(self, _):  
@@ -109,11 +108,8 @@ Whatever is stuffed into the Greeter's _greeting_ field will be printed out when
 ## Lambda Lambda Lambda  
   
 Of course, sometimes you don't need a full blown class for your callback functions; often you just want to do something simple that doesn't deserve a full function of it's own.  In cases like this, python provides a handy construct called a _lambda_, which is basically a one-line function.  A lambda looks like this:  
-  
-
     
-    
-      
+    :::python      
     multiply = lambda x, y : x * y  
     
 
@@ -121,8 +117,7 @@ Of course, sometimes you don't need a full blown class for your callback functio
 which is exactly equivalent to:  
 
     
-    
-      
+    :::python     
     def multiply (x, y):  
         return x * y  
     
@@ -135,6 +130,7 @@ The main difference between  lambdas and functions  is that the body of a lambda
 Lambdas are a great way to  cook up throwaway functions. For example:  
     
       
+    :::python
     w = cmds.window()  
     cmds.columnLayout()  
     cmd.button('cube', command = lambda x: cmds.polyCube(name = 'new_cube'))  
@@ -147,7 +143,7 @@ creates a window with a button which creates a cube when the button is pressed. 
   
 The one thing that makes lambdas interesting (sometimes the '_may you live in interesting times_' sort of interesting) is that they are inside the scope of your functions - which means they can use [closures](http://www.shutupandship.com/2012/01/python-closures-explained.html) to capture variables _before_ they fire.  This can be useful if you want to set up a simple relationship without building a full-on class. This example sets the text of a text widget based on a value you pass it at startup, showing the way closures capture names:  
     
-      
+    :::python
     def closure_example_window(value)  
         w = cmds.window()  
         c = cmds.columnLayout()  
@@ -159,7 +155,7 @@ The one thing that makes lambdas interesting (sometimes the '_may you live in in
   
 However, closures are automatically created by Python when a given scope is closed up - in this example, that would be at the end of the function. The values that are 'closed over' are determined when the function finishes.  Which is usually what you want... unless you're in the habit of re-using variable names:  
 
-      
+    :::python     
     def closure_example_surprise(value)  
         w = cmds.window()  
         c = cmds.columnLayout()  
@@ -182,23 +178,23 @@ Alas, while this is easy to understand, it's also kinda ugly to code.
   
 For starters, you might try making lots of little functions:  
 
+    :::python
+    def Boxes():  
+        def make_big_box(_):  
+            cmds.polyCube(h = 10, d=10, w=10)  
       
-        def Boxes():  
-            def make_big_box(_):  
-                cmds.polyCube(h = 10, d=10, w=10)  
-      
-            def make_med_box(_):  
-                cmds.polyCube(h = 5, d=5, w=5)  
-      
-            def make_sm_box(_):  
-                cmds.polyCube(h = 2, d=2, w=2)  
-      
-            my_w = cmds.window()  
-            cmds.columnLayout()  
-            cmds.button("small box", c = make_sm_box)  
-            cmds.button("medium box", c = make_med_box)  
-            cmds.button("large box", c = make_big_box)  
-            cmds.showWindow(my_w)  
+        def make_med_box(_):  
+            cmds.polyCube(h = 5, d=5, w=5)  
+     
+        def make_sm_box(_):  
+            cmds.polyCube(h = 2, d=2, w=2)  
+     
+        my_w = cmds.window()  
+        cmds.columnLayout()  
+        cmds.button("small box", c = make_sm_box)  
+        cmds.button("medium box", c = make_med_box)  
+        cmds.button("large box", c = make_big_box)  
+        cmds.showWindow(my_w)  
     
 
   
@@ -221,44 +217,45 @@ _BTW There's that underscore again, in the lambdas, doing the same job: ignoring
 A third method is to use the Python built-in module `functools`. Functools offsers the [`partial` object](https://docs.python.org/2/library/functools.html#functools.partial), which "freezes" a command and a set of arguments into a callable package.   
     
       
-        from functools import partial  
-        def FuncBoxes():  
-      
-            # note the comma - the command is an argument to partial!   
-            small_box = partial( cmds.polyCube,   d =2, w = 2 , h = 2 )  
-            med_box = partial( cmds.polyCube,  d = 5, w = 5 , h = 5 )  
-            big_box = partial( cmds.polyCube,  d = 10, w = 10 , h = 10 )  
-       
-            my_w = cmds.window()  
-            cmds.columnLayout()  
-            cmds.button("small box", c = lambda _ : small_box())  
-            cmds.button("medium box",  c = lambda _ : med_box() )  
-            cmds.button("large box", c = lambda _ : big_box()  )  
-            cmds.showWindow(my_w)  
+    :::python
+    from functools import partial  
+    def FuncBoxes():  
+    
+        # note the comma - the command is an argument to partial!   
+        small_box = partial( cmds.polyCube,   d =2, w = 2 , h = 2 )  
+        med_box = partial( cmds.polyCube,  d = 5, w = 5 , h = 5 )  
+        big_box = partial( cmds.polyCube,  d = 10, w = 10 , h = 10 )  
+    
+        my_w = cmds.window()  
+        cmds.columnLayout()  
+        cmds.button("small box", c = lambda _ : small_box())  
+        cmds.button("medium box",  c = lambda _ : med_box() )  
+        cmds.button("large box", c = lambda _ : big_box()  )  
+        cmds.showWindow(my_w)  
 
   
 Partials are handy for cleaning up the messes you'd get from trying to format a complex commands in-line in the middle of your GUI code. This example is a sort of worst case scenario, since Maya buttons always fire with a single argument and cmds.polyCube doesn't like that.  Here I used lambdas  to swallow the arguments (note the telltale underscores). More often you'll be calling your own functions and the syntax is much cleaner and easier to parse:
     
-    
-        from functools import partial  
-        def FuncBoxesClean():  
+    :::python
 
-    
-            def make_box(_, **kwargs):    
-               # swallow the argument but keep the keywords...
-               cmds.polyCube(**kwargs)  
-    
-            small_box = partial( make_box,   d =2, w = 2 , h = 2 )  
-            med_box = partial( make_box,  d = 5, w = 5 , h = 5 )  
-            big_box = partial( make_box,  d = 10, w = 10 , h = 10 )  
-       
-            my_w = cmds.window()  
-            cmds.columnLayout()  
-            cmds.button("small box", c =  small_box)  
-            cmds.button("medium box",  c = med_box )  
-            cmds.button("large box", c = big_box  )  
-            cmds.showWindow(my_w)  
-            
+    from functools import partial  
+    def FuncBoxesClean():  
+        def make_box(_, **kwargs):    
+           # swallow the argument but keep the keywords...
+           cmds.polyCube(**kwargs)  
+
+        small_box = partial( make_box,   d =2, w = 2 , h = 2 )  
+        med_box = partial( make_box,  d = 5, w = 5 , h = 5 )  
+        big_box = partial( make_box,  d = 10, w = 10 , h = 10 )  
+
+        my_w = cmds.window()  
+        cmds.columnLayout()  
+        cmds.button("small box", c =  small_box)  
+        cmds.button("medium box",  c = med_box )  
+        cmds.button("large box", c = big_box  )  
+        cmds.showWindow(my_w)  
+        
+
 That's far easier on the eyes and less of a nasty tax on future readers, but it requires a knowledge of how partials work.
 
 ## Final Summation
@@ -284,22 +281,23 @@ Now, even if you follow these rules,  its easy for your functional code and your
 Of course if you've been following the [mGUI](https://github.com/theodox/mGUI)series you'll know where I'm going. (If you haven't, you might want to check [here](http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html), [here ](http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html)and [here](http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html) before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  
     
     
-        import mGUI.GUI as mg
-    
-        def make_box(*args, **kwargs):  
-            H,W,D = kwargs['sender'].Tag  
-            cmds.polyCube(h = H, d = D, w = W)  
-              
-        def mGUIBoxes():  
-            with mg.Window("boxes") as window:  
-                with mg.ColumnLayout("col"):  
-                    mg.Button("sm", label = "small boxes", tag = (2,2,2) )  
-                    mg.Button("med", label = "medium boxes", tag = (5,5,5) )  
-                    mg.Button("lrg", label = "large boxes", tag = (10,10,10) )  
-              
-            for b in window.col.Controls:  
-                b.command += make_box  
-            window.show()  
+    :::python
+    import mGUI.GUI as mg
+
+    def make_box(*args, **kwargs):  
+        H,W,D = kwargs['sender'].Tag  
+        cmds.polyCube(h = H, d = D, w = W)  
+          
+    def mGUIBoxes():  
+        with mg.Window("boxes") as window:  
+            with mg.ColumnLayout("col"):  
+                mg.Button("sm", label = "small boxes", tag = (2,2,2) )  
+                mg.Button("med", label = "medium boxes", tag = (5,5,5) )  
+                mg.Button("lrg", label = "large boxes", tag = (10,10,10) )  
+          
+        for b in window.col.Controls:  
+            b.command += make_box  
+        window.show()  
     
 
   

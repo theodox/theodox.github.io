@@ -14,7 +14,7 @@ The progress module wraps Maya's `progressBar` command for mGui style coding of 
   
 There are two classes in the module;  `ProgressBar` is the generic version and `MainProgressBar` always points at Maya's main progress bar.  Both classes have `start()`, `update()` and `end()` methods instead of Maya's clunky `cmds.progressBar(name, e=True, beginProgress=1)` and so on.  They also both have an `iter()` method, which will loop over a generator expression and update the progress bar for each yield then pass along the value. This allows simple idioms like:  
   
-  
+    :::python  
     from mGui.progress import MainProgressBar  
     import os  
       
@@ -37,7 +37,7 @@ The menu_loader module will create menus from a [YAML](http://pyyaml.org/wiki/Py
 
 The menu data is a text-based YAML file that looks like this:  
   
-    
+    :::python
     !MMenu  
         key:   UndeadLabs  
         label: Undead Labs  
@@ -56,7 +56,8 @@ The menu data is a text-based YAML file that looks like this:
     
 
 And loading the menu is as simple as:  
-    
+
+    :::python   
     import mGui.menu_loader as loader  
     loader.load_menu('path/to/undeadlabs.YAML')  
 
@@ -64,7 +65,7 @@ And loading the menu is as simple as:
 
 The scriptJobs module adapts the event model for use with scriptJobs. A ScriptJobEvent is a derivative of Event which allows you to hook multiple handlers to a single scriptjob (in the same way that the other Event classes allow for multicast delegates):  
   
-    
+    :::python    
     from mGui.scriptJobs import *  
       
     def print_selected (*args, **kwargs):  
@@ -77,13 +78,13 @@ The scriptJobs module adapts the event model for use with scriptJobs. A ScriptJo
   
 As with all the mGui Event classes, you can add multiple handlers to  single event:  
   
-
+    :::python
     sj += some_other_function()  
     
   
 The module also includes named subclasses to simplify setup. That way you can do things like:  
 
-    
+    :::python    
     closing_sj = RecentCommandChanged()  
     closing_sj += close_handler  
     

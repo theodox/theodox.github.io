@@ -46,8 +46,6 @@ If you have experimented a little with last time’s code, you may already have 
 There are two main reasons this is a useful complication.  
 First, and most usefully, event delegates make it easier to add your callbacks after you lay out your GUI, rather than forcing you to interleave your code logic with the process of building forms and layouts. De-coupling the functional code form the graphic display makes for more readable and more maintainable code. It also makes it possible for you to reuse fairly generic layouts with different back ends. In pseudo-code:  
 
-    
-    
     Layout  
        Layout  
          ButtonA  
@@ -127,7 +125,7 @@ Speaking of little things: there are some great tools in the Python language to 
 
 Speaking of that pass-in-zero-to-skip-names gimmick, one simple but super-useful thing we can do is to implement the `__nonzero__` method. That’s what Python calls when you try the familiar  
     
-    
+    :::python
     if something:  
         doSomething()  
     
@@ -146,14 +144,14 @@ The next magic method we want to add is `__iter__`. It is the what python calls 
 
 Now, a single GUI object obviously is not iterable. A layout like columnLayout, on the other hand, can be iterated since it has child controls. By implementing `__iter__` here and then over-riding it when we tackle layouts, we can iterate over both layouts and their children in a single call. This makes it easy to look for layout children :  
     
-    
+    :::python
     for child in mainlayout:  
         if child.Key == 'cancel': #.... etc  
     
 
 So with all those methods added the base Control class looks like this:  
 
-    
+    :::python    
     class Control(Styled, BindableObject):  
         '''  
         Base class for all mGUI controls.  Provides the necessary frameworks for CtlProperty and CallbackProperty access to the underlying widget.  
@@ -193,8 +191,6 @@ So with all those methods added the base Control class looks like this:
             kwargs = {'e':True, callbackName:event}  
             self.CMD(self.Widget, **kwargs)  
       
-      
-      
         def __nonzero__(self):  
             return self.exists  
       
@@ -224,6 +220,7 @@ Despite my rather verbose way of describing it all, this is not a lot of code. W
 
 There’s one little bit of plumbing in Control that is worth calling out:  
 
+    :::python
     Layout.add_current(self)  
     
 
@@ -233,7 +230,7 @@ To support nesting, we want our Layout wrapper class to be a context manager. Th
 
 If you’ve done a lot of Maya GUI you know it’s also nice to have the same functionality for menus as well. So, to avoid repeating ourselves let’s start by creating a generic version of Control that works as a context manager so we can get identical functionality in windows, layouts and menus. Then we can inherit it into a wrapper class for layouts and another for windows and voila, they are all context managers without cutting and pasting. Here’s the abstract base class for all ‘nested’ classes: menus, windows, layouts etc:  
     
-    
+    :::python  
     class Nested(Control):  
         '''  
         Base class for all the nested context-manager classes which automatically parent themselves  
@@ -294,7 +291,7 @@ All that really does is pop the current `Nested` onto a stack and make it possib
 
 Here’s the concrete implementation for actual Layout classes:  
 
-    
+    :::python   
     class Layout(Nested):  
       
         CMD = cmds.layout  
@@ -307,7 +304,7 @@ This is just a regular mGUI class (it gets all of the metaclass behavior from `C
 
 While we’re messing with contexts, this is also a great opportunity to do what PyMel already does and make all layouts automatically manage UI parenting. This gets rid of all those irritating calls to setParent(“..”), and lets us write GUI code that looks like real Python and not a plate of spaghetti. Compare this wordy cmds example:  
     
-    
+    :::python    
     win = window('main window', title="Ugly version")  
     columnLayout('GUI', width = 256)  
     frameLayout("t_buttons", label = "buttons column")  
@@ -340,7 +337,7 @@ To this version using context manager layouts:
 
 > **Historical note:** This uses 'mGui 1' syntax; in mGui 2 the explicit keys would not be needed
 
-
+    :::python
     from mGUI.GUI import *  
     # note the caps: all of these are wrapper objects, not Maya.cmds!  
       
@@ -372,6 +369,7 @@ There’s one little extra bit of magic in there to let the add method discrimin
 
 Here’s a snippet tacked on to the end of that last sample showing how you can use the iterability of the layouts to set properties in bulk. You can see how the work of turning command-style access into property style access, combined with the extra clarity we get from context managers, really pays off:  
     
+    :::python
     # using the iterability of the layout to set widths   
       
     for item in GUI.t_buttons:  
@@ -410,7 +408,7 @@ See? This was getting all programmery, but now we’re back in familiar TA spit-
 
 The actual code to build the wrappers isn’t particularly interesting (its [here](https://github.com/theodox/mGUI/blob/master/mGUI/helpers/tools.py) if you want to see it). In two sentences: Use the mel `help *` command to find all of the commands in Maya which share flags with cmds.control or cmds.layout. Then collect their flags to make the list of class attributes that the metaclass uses to create property descriptors. The final output will be a big ol’ string of class definitions like this:  
 
-    
+    :::python    
     class FloatSlider(Control):  
         '''sample output from mGUI.helpers.tools.generate_commands()'''  
         CMD = cmds.floatSlider  

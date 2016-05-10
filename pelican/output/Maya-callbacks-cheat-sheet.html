@@ -47,6 +47,11 @@
       <p></p>
       <nav>
         <ul class="list">
+          <li><a href="./pages/A-description-of-the-blog.html#A-description-of-the-blog">A description of the blog</a></li>
+          <li><a href="./pages/Good-tricks.html#Good-tricks">Good tricks</a></li>
+          <li><a href="./pages/Interesting-graphics-and-animation-research.html#Interesting-graphics-and-animation-research">Interesting graphics and animation research</a></li>
+          <li><a href="./pages/Procedural-world-tech.html#Procedural-world-tech">Procedural world tech</a></li>
+          <li><a href="./pages/references.html#references">Reference</a></li>
           <li><a href="index.html" target="_blank">home</a></li>
           <li><a href="http://python.org/" target="_blank">Python.org</a></li>
           <li><a href="http://jinja.pocoo.org/" target="_blank">Jinja2</a></li>
@@ -121,60 +126,58 @@
 <p>That "_" in the functions, by the way, is the standard python symbol for "I have to have a variable here but I intend to ignore it" - it shows up in a lot of these GUI examples because many, though not all, Maya callbacks fire off an argument when they activate.   </p>
 </blockquote>
 <p>This happens all the time to people trying to port old MEL code to Python - snippets that work in the interpreter don't work when converted to functions or split between modules because the string callbacks only execute in the global scope. Luckily, once you realize that the "where is my function" problem is just basic scoping, it's easy to fix. You can forcibly capture the functions you want by just passing them directly to your GUI callbacks instead of using strings, thanks to the magic of python's <a href="http://python-history.blogspot.com/2009/02/first-class-everything.html">first class functions</a>.  You just need to pass the function itself - not a quoted string that looks like the function - to the callback, Thus the previous example becomes</p>
-<div class="highlight"><pre><span></span>    def show_test_window():  
-        def print_hello_again(_):  
-            print &quot;hello&quot;
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_test_window</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">print_hello_again</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="k">print</span> <span class="s2">&quot;hello&quot;</span>
 
-        my_w = cmds.window()  
-        my_col = cmds.columnLayout()  
-        my_button = cmds.button(&#39;hello&#39;, command = print_hello_again)  
-        # note: no quotes and no parens.
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">my_col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">my_button</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="n">print_hello_again</span><span class="p">)</span>  
+    <span class="c1"># note: no quotes and no parens. </span>
+    <span class="c1"># You&#39;re passing the function as an object!  </span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
 
-
-        # You&#39;re passing the function as an object!  
-        cmds.showWindow(my_w)
-
-    show_test_window()
+<span class="n">show_test_window</span><span class="p">()</span>
 </pre></div>
 
 
 <p>Since you've got the callback in scope when you create the GUI, you're certain to have it when you need it (if by some accident it was out of scope at creation time you'd get an obvious error that you'd have to fix before moving on).  </p>
 <p>Clear, predictable scoping is why it's almost always the right decision to wrap your GUIs in classes. The class defines a predictable scope so you don't  have to worry about what's loaded or try to cram import statements into your callback functions.   Plus, classes include data storage, so you can keep your data nicely independent of your code. Suppose, for example, you needed to display a different set of greetings beyond the standard "hello world."  With a class you can defer the problem up to the moment of the actual button press with no fancy footwork or complex lambda management:  </p>
-<div class="highlight"><pre><span></span>    <span class="k">class</span> <span class="n">Greeter</span>(<span class="n">object</span>):  
-        <span class="n">def</span> <span class="n">__init__</span>(<span class="k">self</span>, <span class="n">greeting</span>):  
-            <span class="k">self</span>.<span class="n">greeting</span> = <span class="n">greeting</span>  
-            <span class="k">self</span>.<span class="n">window</span> = <span class="n">cmds</span>.<span class="n">window</span>()  
-            <span class="n">cmds</span>.<span class="n">columnLayout</span>()  
-            <span class="n">cmds</span>.<span class="n">button</span>(<span class="s">&#39;hello&#39;</span>, <span class="n">command</span> = <span class="k">self</span>.<span class="n">greet</span>)
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">greeting</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">greeting</span> <span class="o">=</span> <span class="n">greeting</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">greet</span><span class="p">)</span>
 
-        <span class="n">def</span> <span class="n">show</span>(<span class="k">self</span>):  
-            <span class="n">cmds</span>.<span class="n">showWindow</span>(<span class="k">self</span>.<span class="n">window</span>)
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+            <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
 
-        <span class="n">def</span> <span class="n">greet</span>(<span class="k">self</span>, <span class="n">_</span>):  
-            <span class="nb">print</span> <span class="k">self</span>.<span class="n">greeting</span>
+        <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>  
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">greeting</span>
 </pre></div>
 
 
 <p>Whatever is stuffed into the Greeter's <em>greeting</em> field will be printed out when the button get's pressed.  </p>
 <h2>Lambda Lambda Lambda</h2>
 <p>Of course, sometimes you don't need a full blown class for your callback functions; often you just want to do something simple that doesn't deserve a full function of it's own.  In cases like this, python provides a handy construct called a <em>lambda</em>, which is basically a one-line function.  A lambda looks like this:  </p>
-<div class="highlight"><pre><span></span>multiply = lambda x, y : x * y
+<div class="highlight"><pre><span></span><span class="n">multiply</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
 </pre></div>
 
 
 <p>which is exactly equivalent to:  </p>
-<div class="highlight"><pre><span></span>def multiply (x, y):  
-    return x * y
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multiply</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
 </pre></div>
 
 
 <p>In this example 'multiply' is just a plain old variable name. x and y are the input variables, and the expression to the right of the colon is what the lambda returns.  Lambdas can have any number of arguments, but they don't use the <em>args / </em>*kwargs variable argument syntax.   </p>
 <p>The main difference between  lambdas and functions  is that the body of a lambda is a single expression : you can't put flow control (such as loops) or statements which are not evaluable (such as 'print' ) into a lambda.  You can, however, call functions - even functions that return None.  </p>
 <p>Lambdas are a great way to  cook up throwaway functions. For example:  </p>
-<div class="highlight"><pre><span></span>w = cmds.window()  
-cmds.columnLayout()  
-cmd.button(&#39;cube&#39;, command = lambda x: cmds.polyCube(name = &#39;new_cube&#39;))  
-cmds.showWindow(w)
+<div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">cmd</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;new_cube&#39;</span><span class="p">))</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 
 
@@ -183,24 +186,24 @@ cmds.showWindow(w)
 <p>In other examples, you'll recall, I use  a python convention of a single underscore as the 'ignore me' argument.</p>
 </blockquote>
 <p>The one thing that makes lambdas interesting (sometimes the '<em>may you live in interesting times</em>' sort of interesting) is that they are inside the scope of your functions - which means they can use <a href="http://www.shutupandship.com/2012/01/python-closures-explained.html">closures</a> to capture variables <em>before</em> they fire.  This can be useful if you want to set up a simple relationship without building a full-on class. This example sets the text of a text widget based on a value you pass it at startup, showing the way closures capture names:  </p>
-<div class="highlight"><pre><span></span>def closure_example_window(value)  
-    w = cmds.window()  
-    c = cmds.columnLayout()  
-    t = cmds.text(label = &#39;press the button&#39;)  
-    cmd.button(&#39;cube&#39;,  c= lambda _: cmds.text(t, e=True, label = value))  
-    # captures the name of the text and the value passed in by the user  
-    cmds.showWindow(w)
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">closure_example_window</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  
+    <span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">t</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;press the button&#39;</span><span class="p">)</span>  
+    <span class="n">cmd</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span>  <span class="n">c</span><span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">value</span><span class="p">))</span>  
+    <span class="c1"># captures the name of the text and the value passed in by the user  </span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 
 
 <p>However, closures are automatically created by Python when a given scope is closed up - in this example, that would be at the end of the function. The values that are 'closed over' are determined when the function finishes.  Which is usually what you want... unless you're in the habit of re-using variable names:  </p>
-<div class="highlight"><pre><span></span>def closure_example_surprise(value)  
-    w = cmds.window()  
-    c = cmds.columnLayout()  
-    t = cmds.text(label = &#39;press the button&#39;)  
-    cmd.button(&#39;cube&#39;, c = lambda _: cmds.text(t, e=True, label = value))  
-    value = &#39;gotcha!&#39;  
-    cmds.showWindow(w)
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">closure_example_surprise</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  
+    <span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">t</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;press the button&#39;</span><span class="p">)</span>  
+    <span class="n">cmd</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">value</span><span class="p">))</span>  
+    <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;gotcha!&#39;</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
 </pre></div>
 
 
@@ -210,22 +213,22 @@ cmds.showWindow(w)
 <p>However, right after you're comfortable with passing functions directly, you immediately realize that's not enough.  It's very common to have multiple GUI controls that do more or less the same thing with different settings such a set of buttons which make different sized objects.    </p>
 <p>Alas, while this is easy to understand, it's also kinda ugly to code.  </p>
 <p>For starters, you might try making lots of little functions:  </p>
-<div class="highlight"><pre><span></span>    def Boxes():  
-        def make_big_box(_):  
-            cmds.polyCube(h = 10, d=10, w=10)
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Boxes</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">make_big_box</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
 
-        def make_med_box(_):  
-            cmds.polyCube(h = 5, d=5, w=5)
+    <span class="k">def</span> <span class="nf">make_med_box</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
 
-        def make_sm_box(_):  
-            cmds.polyCube(h = 2, d=2, w=2)
+    <span class="k">def</span> <span class="nf">make_sm_box</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
 
-        my_w = cmds.window()  
-        cmds.columnLayout()  
-        cmds.button(&quot;small box&quot;, c = make_sm_box)  
-        cmds.button(&quot;medium box&quot;, c = make_med_box)  
-        cmds.button(&quot;large box&quot;, c = make_big_box)  
-        cmds.showWindow(my_w)
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">make_sm_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">make_med_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">make_big_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
 </pre></div>
 
 
@@ -242,42 +245,40 @@ cmds.showWindow(w)
 
 <p><em>BTW There's that underscore again, in the lambdas, doing the same job: ignoring the callback argument from the buttons</em>.</p>
 <p>A third method is to use the Python built-in module <code>functools</code>. Functools offsers the <a href="https://docs.python.org/2/library/functools.html#functools.partial"><code>partial</code> object</a>, which "freezes" a command and a set of arguments into a callable package.   </p>
-<div class="highlight"><pre><span></span>    <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
-    <span class="k">def</span> <span class="nf">FuncBoxes</span><span class="p">():</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
+<span class="k">def</span> <span class="nf">FuncBoxes</span><span class="p">():</span>
 
-        <span class="c1"># note the comma - the command is an argument to partial!   </span>
-        <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
-        <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
-        <span class="n">big_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
+    <span class="c1"># note the comma - the command is an argument to partial!   </span>
+    <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
+    <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
+    <span class="n">big_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
 
-        <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">small_box</span><span class="p">())</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span>  <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">med_box</span><span class="p">()</span> <span class="p">)</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">big_box</span><span class="p">()</span>  <span class="p">)</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">small_box</span><span class="p">())</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span>  <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">med_box</span><span class="p">()</span> <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">big_box</span><span class="p">()</span>  <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
 </pre></div>
 
 
 <p>Partials are handy for cleaning up the messes you'd get from trying to format a complex commands in-line in the middle of your GUI code. This example is a sort of worst case scenario, since Maya buttons always fire with a single argument and cmds.polyCube doesn't like that.  Here I used lambdas  to swallow the arguments (note the telltale underscores). More often you'll be calling your own functions and the syntax is much cleaner and easier to parse:</p>
-<div class="highlight"><pre><span></span>    <span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
-    <span class="k">def</span> <span class="nf">FuncBoxesClean</span><span class="p">():</span>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
+<span class="k">def</span> <span class="nf">FuncBoxesClean</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>    
+       <span class="c1"># swallow the argument but keep the keywords...</span>
+       <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
+    <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
+    <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
+    <span class="n">big_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
 
-        <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>    
-           <span class="c1"># swallow the argument but keep the keywords...</span>
-           <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-        <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
-        <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
-        <span class="n">big_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
-
-        <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span>  <span class="n">small_box</span><span class="p">)</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">med_box</span> <span class="p">)</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">big_box</span>  <span class="p">)</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span>  <span class="n">small_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">med_box</span> <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">big_box</span>  <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
 </pre></div>
 
 
@@ -303,22 +304,22 @@ cmds.showWindow(w)
 <p>Now, even if you follow these rules,  its easy for your functional code and your GUI to get in each other's ways.  Creating a lot of throwaway functions is busywork, but formatting commands in-line inside GUI code is error prone and hard to read. Partials are nice for separating data from layout code, but usually come with annoying extra syntax to hide the callback arguments.  </p>
 <h3>Next Episode...</h3>
 <p>Of course if you've been following the <a href="https://github.com/theodox/mGUI">mGUI</a>series you'll know where I'm going. (If you haven't, you might want to check <a href="http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html">here</a>, <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html">here </a>and <a href="http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html">here</a> before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  </p>
-<div class="highlight"><pre><span></span>    <span class="kn">import</span> <span class="nn">mGUI.GUI</span> <span class="kn">as</span> <span class="nn">mg</span>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mGUI.GUI</span> <span class="kn">as</span> <span class="nn">mg</span>
 
-    <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="n">H</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">D</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Tag</span>  
-        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">W</span><span class="p">)</span>
+<span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+    <span class="n">H</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">D</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Tag</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">W</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">mGUIBoxes</span><span class="p">():</span>  
-        <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s2">&quot;boxes&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>  
-            <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">ColumnLayout</span><span class="p">(</span><span class="s2">&quot;col&quot;</span><span class="p">):</span>  
-                <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;sm&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;small boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>  
-                <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;med&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;medium boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>  
-                <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;lrg&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;large boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="p">)</span>
+<span class="k">def</span> <span class="nf">mGUIBoxes</span><span class="p">():</span>  
+    <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s2">&quot;boxes&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>  
+        <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">ColumnLayout</span><span class="p">(</span><span class="s2">&quot;col&quot;</span><span class="p">):</span>  
+            <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;sm&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;small boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>  
+            <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;med&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;medium boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>  
+            <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;lrg&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;large boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="p">)</span>
 
-        <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">window</span><span class="o">.</span><span class="n">col</span><span class="o">.</span><span class="n">Controls</span><span class="p">:</span>  
-            <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">make_box</span>  
-        <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">window</span><span class="o">.</span><span class="n">col</span><span class="o">.</span><span class="n">Controls</span><span class="p">:</span>  
+        <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">make_box</span>  
+    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
   </div>
   <div class="tag-cloud">
