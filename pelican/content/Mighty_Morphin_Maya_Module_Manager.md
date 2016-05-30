@@ -10,7 +10,7 @@ For folks who are interested in [fiddling with Maya modules](http://techartsurvi
   
 This is a bare bones bit of code. The main class is the `ModuleManager`, which can find any `.mod` files on the MAYA_MODULE_PATH of the current Maya environment. It's primary use is to find and list all the modules; secondarily it can be used to toggle them on and off (by changing the leading + which Maya uses to id a module to a -, or vice-versa). It's pretty dumb (no accounting for file permissions, incorrectly formatted .mod files, etc) but it's handy for quickly testing out configs.  
   
- Also included is a GUI class, `ModuleManagerDialog`, which finds provides a simple GUI for listing, enabling, and disabling .mod files. Again, pretty simple stuff, but people may find it useful.  
+Also included is a GUI class, `ModuleManagerDialog`, which finds provides a simple GUI for listing, enabling, and disabling .mod files. Again, pretty simple stuff, but people may find it useful.  
 
 [![](http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s400/modmgr.png)](http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s1600/modmgr.png)
 

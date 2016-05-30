@@ -43,9 +43,7 @@ In C++ or C# you could do this with a “preprocessor directive”, aka a “#de
   
 In Python we don’t even need that: you can just inline the check in your file and it will execute when the module is imported. Here’s a simple example which conditionally use Raymond Hettinger’s [ordereddict module](https://pypi.python.org/pypi/ordereddict) in Python 2.6 and the equivalent built-in version in Python 2.7:  
   
-
-    
-    
+    :::python
     import sys  
       
     if sys.version_info.major == 7:  
@@ -63,17 +61,12 @@ Fortunately, Python has an elegantly succinct way of annotating code for higher-
 The particularly nice thing about decorators in this case is that the way decorators work in any case is a natural match for the problem we have.   
 
 
-# 
-
 ## The substitute teacher
 
 A decorator is just a function (or a callable class) which takes another function or class as an argument. When Python finds a decorated function or class, it calls the decorator function and passes the target – that is, the decorated bit of code – as an argument Whatever comes out of the decorator function is then swapped in for the original code.   
 Here’s a simple example, using functions for simplicity:  
-  
-  
-
-    
-    
+ 
+    :::python   
     def decorated(original_func):  
             def replacement_func(arg):  
             # this function replaces the original  
@@ -97,19 +90,13 @@ Here’s a simple example, using functions for simplicity:
     # original says : 3  
     print example:  
     # 3  
-    
-    
-    
-      
-    
 
 The decorator can completely replace the original code if it wants to:  
   
 
-    
-    
-    def override(original\_func):  
-       def completely\_different():  
+    :::python    
+    def override(original_func):  
+       def completely_different():  
            return "and now for something completely different"  
       
     @override  
@@ -122,10 +109,8 @@ The decorator can completely replace the original code if it wants to:
 
   
 Or, it could leave it untouched too:  
-  
 
-    
-    
+    :::python    
     def untouched(original_func):  
         return original_func  
       
@@ -139,22 +124,18 @@ Or, it could leave it untouched too:
 
   
 The essential thing here is that the decorator sort of like one of those elves who swap out children for changelings. Officially nothing has changed - the name you defined in the un-decorated code is right there - but under the hood it may be different.  
-  
 
 
 [![](http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg)](http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg)
 
-  
 
 
 ## Mandatory testing
 
 Once you understand the decorator-as-changeling idea, it becomes pretty easy to see how the decorator can allow code swaps based on some condition. You might, for example, try to patch around a function which returns an empty list in Maya 2014, but [crashes in Maya 2015](https://www.blogger.com/blogger.g?blogID=3596910715538761404)(link):  
   
-  
-
     
-    
+    :::python  
     def safe_2015(original_func):  
             if '2015' in cmds.about(v=True):  
             # wrap it for safety in 2015  
@@ -174,13 +155,11 @@ Once you understand the decorator-as-changeling idea, it becomes pretty easy to 
     
 
   
-(_Disclaimer: I wouldn’t use this code in practice! It’s a good example of the principle, but not a wise way to patch around the 2015 ls bug_).  
+> Disclaimer: I wouldn’t use this code in practice! It’s a good example of the principle, but not a wise way to patch around the 2015 ls bug.  
   
 Returning at long last to the problem of suppressing tests: we just need to harness the power of decorators to replace the class definition of our test classes with something else that won’t get run by our test suite. And, luckily, that’s really easy to do since we don’t have to return anything:  
   
-
-    
-    
+    :::python    
     def Only2015(original):  
         if '2015' in cmds.about(v=True):  
                 return original # untouched!  
@@ -192,8 +171,7 @@ Returning at long last to the problem of suppressing tests: we just need to harn
 So if your do something like this in your tests:  
   
 
-    
-    
+    :::python    
     from unittest import TestCase  
     import maya.standalone  
     try:  
@@ -216,8 +194,7 @@ So if your do something like this in your tests:
 As you’d expect, both of these test will run and pass when run on a Maya 2015 python. However, under any other version of Maya the file really looks like this:  
   
 
-    
-    
+    :::python    
     from unittest import TestCase  
         import maya.standalone  
         try:  
@@ -236,10 +213,10 @@ As you’d expect, both of these test will run and pass when run on a Maya 2015 
     
 
   
-Because **Test2015Only **is now an **object()** instead of a **TestCase**, the test runner doesn’t even see it and doesn’t try to run it.  
+Because `Test2015Only()` is now an `object()` instead of a `TestCase()`, the test runner doesn’t even see it and doesn’t try to run it.  
 
 
-## [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#makeup-work)Makeup work
+## Makeup work
 
 This is a lovely example of why Python can be so much fun. The language has the magical ability to extend itself on the fly - in this case, change the meaning of whole blocks of otherwise conventional code - but at the same time it offers simple, conservative mechanisms that keep that process for degenerating into mere anarchy (or, worse, into _[JavaScript](http://qph.is.quoracdn.net/main-qimg-eb6eb210fd4116ef10fee083428ed482?convert_to_webp=true)_).  
   
@@ -248,8 +225,6 @@ This particular gimmick was a great way to clean up our messy test set. Predicta
 A few more minutes of reflection, however, brought me to see that this kind of trick should be reserved for special occasions. The ability to swap the contents of a name based on runtime condition is definitely cool - but it’s hardly a good practice for readability and maintenance down the road. It happens to be a nice fit for this problem because a test is never going to be used by anything other than the test suite. Trying the same thing with, say, a geometry library that gets imported all over the place would be a nightmare to debug.  
   
 Magic is wonderful but, best used _sparingly_.  
-  
-
 
 [![](http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg)](http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg)
 
