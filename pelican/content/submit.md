@@ -1,8 +1,8 @@
 Title: Submit!
 Date: 2014-08-14 22:52:00.000
-Category: blog
+Category: articles
 Tags: industry, GDC, articles
-Slug: _submit
+Slug: submit
 Authors: Steve Theodore
 Summary: How to present a high quality GDC talk for fun and profit!
 

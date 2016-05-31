@@ -2,7 +2,7 @@ Title: Goddamit, stop messing around
 Date: 2015-04-26 11:38:00.000
 Category: blog
 Tags: programming, console
-Slug: _stop_messing_around
+Slug: stop_messing_around
 Authors: Steve Theodore
 Summary: A module for simple colored printing in a python terminal
 

@@ -1,14 +1,14 @@
 Title: State of Decay moment of zen  (and lighting)
 Date: 2014-01-07 10:00:00.000
 Category: blog
-Tags: , , , 
-Slug: _state_of_decay_moment_of_zen_and_lighting_
+Tags: games, SOD
+Slug: state_of_decay_moment_of_zen_and_lighting
 Authors: Steve Theodore
-Summary: pending
+Summary: A moment of _State of Decay_ zen
 
 [![](http://1.bp.blogspot.com/-Y1CcBO5iyig/UsujMjcxTRI/AAAAAAAAPCc/dIyL6T-pZQY/s1600/home_07.png)](http://1.bp.blogspot.com/-Y1CcBO5iyig/UsujMjcxTRI/AAAAAAAAPCc/dIyL6T-pZQY/s1600/home_07.png)  
----  
-Pastor Will found the Super Fudge Chunk.    
+> Pastor Will found the Super Fudge Chunk.    
+
 The whole scene (except for that one spot of sunlight and the window) is lit entirely by ambient lighting with some vertex lighting and (small) point lights in the windows. What a nightmare - whatever we do in the next game, it won't be this!  
   
 There's no lightmapping, thanks to a 24 hour continuous time of day cycle.  The houses could also be placed at any orientation, so the vertex lighting has to be pretty gentle - we shot basically ran a very smoothed out hemsipherical dome light outside the house, once with Final Gather and once with a dome of stochastically placed Maya point lights to create the illusion of darker interiors and lighter areas near windows). The final gather provided some bounce light look and the point lights provided a smooth gradient; blending the two helped eliminate hard artifacts and cut down on the frequency since we didn't want real shadows which would be wrong as the sun moved.   We also ran a similar omnidirectional vert light pass on all the props to add depth to things like cabinets and shelving. I also did a little tool to try to do some vertex decimation on the lit meshes -- we tended to subdivide the big planar areas heavily before lighting and then trim down verts which didn't hold much light or shading information (again, the smoother interior gradients helped a lot on memory here).   

@@ -2,7 +2,7 @@ Title: The Game Artists Resume Guide (Revisited)
 Date: 2014-09-05 11:00:00.000
 Category: articles
 Tags: games, industry, jobs
-Slug: _the_game_artists_resume_guide
+Slug: game_artists_resume_guide
 Authors: Steve Theodore
 Summary: I noticed that my recent repost of the old job hunting guide, [Read  The Damn Ad](read_the_damn_ad) has quickly amassed a lot of views and links. In the interest of completeness, therefore, I thought I'd also repost the bookending article (also from Game Developer)  on the nuts and bolts of applying for a job.     
   

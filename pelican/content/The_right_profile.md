@@ -2,7 +2,7 @@ Title: The right profile
 Date: 2015-04-18 22:16:00.000
 Category: blog
 Tags: python, programming, maya 
-Slug: _the_right_profile
+Slug: the_right_profile
 Authors: Steve Theodore
 Summary: A brief, gentle introduction to the uses and abuses of profiling in Maya Python
 
@@ -68,17 +68,17 @@ That will print out the following report, or something pretty like it:
 
 The first line in the report prints out the total time, in this case a shade over 2 seconds. Each line in the report that follows lists the following information for a single function call (including nested calls)
 
-ncalls
+*ncalls*
     The number of times a given function was called during this run. If the function is recursive, this number may show up as two numbers separated by a a slash, where the first is the true number of total calls and second the number of direct, non-recursive calls. As you can see here `do()` itself was called only once, but the sub-functions `some_math()` and `slow()` were each called 200 times; `time.sleep()` was called 200 times as well since it was called by every iteration of `slow()`
-tottime
+*tottime*
     the total amount of time spent executing this function for the entire run. As you can see the call to `time.sleep` occupies the bulk of the time in this run. Not that this is the time it takes to process the function - _not_ the real-world time it takes to run! So our `do()` function in the first line shows a `tottime` of .002 seconds even though it clearly took more than two seconds to run. 
-percall
+*percall*
     The _average_ time spent executing the function on this line, if it was executed multiple times. Like `tottime`, this measures processor time only and does not include things like network delays or (as in this case) thread sleeps.
-cumtime
+*cumtime*
     this is the real world time needed to complete the call, or more precisely the total real world time spent on all of the calls (as you can see, it's the sleep call and `do()` which each take up about two seconds)
-percall
+*percall*
     the second percall column is the amount of average amount of real-world time spent executing the function on this line.
-filename
+*filename*
     this identifies the function and if possible the origin of the file where the function came from. Functions that originate in C or other extension modules will show up in curly braces.
 
 As you can see this is _incredibly_ powerful right out of the box: it lets you see the relative importance of different functions to your overall perfomance and it effortlessly includes useful back-tracking information so you can find the offenders.
@@ -120,7 +120,7 @@ The first thing to look at is _not_ the times: it's the call counts.
 
 If they seem wildly out of line, you may have inadvertently done something like call a more than you intended. If you have a script that does something to 500-vertex object but a particular vertex-oriented function shows up 2000 or 4000 times, that may mean you're approaching the data in an inefficient way. If it becomes something huge - like 250,000 calls - it sounds like you're doing an "all against all" or "n-squared" check: an algorithm that has to consider not just every vert, but every vertex-to-vertex relationship. These are generally something to avoid where possible, and the call count totals are a good way to spot cases where you've let one slip in by accident. 
 
-**The evils of 'n-squared' and so on are illustrated nicely [here](http://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/). You might also want to check out [Python Algorithms](http://astore.amazon.com/tecsurgui-20/detail/1430232374) if you're really getting in to waters where this kind of thing matters!**
+> The evils of 'n-squared' and so on are illustrated nicely [here](http://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/). You might also want to check out [Python Algorithms](http://astore.amazon.com/tecsurgui-20/detail/1430232374) if you're really getting in to waters where this kind of thing matters!
 
 ### Look for fat loops
 

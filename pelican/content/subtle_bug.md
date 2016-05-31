@@ -2,12 +2,11 @@ Title: From the annals of bug subtlety
 Date: 2014-06-20 11:39:00.000
 Category: blog
 Tags:  programming, maya, python, bugs
-Slug: _subtle_bug
+Slug: subtle_bug
 Authors: Steve Theodore
 Summary: An object lesson in the way real bugs happen.
 
-... comes an object lesson in why **it's really nice to have a debugger**.
-
+From the annals of the truly screwed up comes an object lesson in why **it's really nice to have a debugger**.
 
 I'm porting a biggish python codebase to support multiple OSs  and maya versions.  As I move things around I try to use the opportunity to shore up test coverage.  And it always feels like the most boring chore imaginable, until something like this crops up.
 
@@ -25,10 +24,10 @@ Here's my repro case:
     import maya.cmds as cmds
     cmds.polyCube()
     # [u'pCube1', u'polyCube1']
-
+    
     cmds.ls(type='transform')
     # [u'front', u'pCube1', u'persp', u'side', u'top']
-
+    
     import pymel.core as pm
     cmds.ls(type='transform')
     # [u'front', u'persp', u'side', u'top']

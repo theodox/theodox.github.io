@@ -2,7 +2,7 @@ Title: Production Pipeline Fundamentals for Film and Games
 Date: 2013-12-22 14:50:00.001
 Category: blog
 Tags: industry, techart
-Slug: _book_is_out
+Slug: book_is_out
 Authors: Steve Theodore
 Summary: [![](http://ecx.images-amazon.com/images/I/517mfQSVsqL._SX258_BO1,204,203,200_.jpg)](http://www.amazon.com/Production-Pipeline-Fundamentals-Film-Games/dp/0415812291/ref=sr_1_1?ie=UTF8&qid=1387519305)[](http://www.blogger.com/)
 

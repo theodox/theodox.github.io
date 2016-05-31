@@ -1,27 +1,19 @@
 Title: The Trust Fund
 Date: 2015-01-22 21:23:00.002
-Category: blog
-Tags: , , , , 
-Slug: _the_trust_fund
+Category: articles
+Tags: industry, games 
+Slug: the_trust_fund
 Authors: Steve Theodore
-Summary: pending
-
-A recent [discussion on TAO](http://tech-artists.org/forum/showthread.php?5243-Developing-Tools-for-your-pipeline-general-question) reminded me of this old GDMag column from 2010. Tech artists always have to fight to stay focused on the relationship at the heart of our business: no amount of technical wizardry matters if your artists aren't actually benefitting from what you do.   
+Summary: A recent [discussion on TAO](http://tech-artists.org/forum/showthread.php?5243-Developing-Tools-for-your-pipeline-general-question) reminded me of this old GDMag column from 2010. Tech artists always have to fight to stay focused on the relationship at the heart of our business: no amount of technical wizardry matters if your artists aren't actually benefitting from what you do.   
   
-While much has changed in the last five years, a lot of this still seems like good advice (to me, anyway, but I'm biased).  I might add a couple of sentences about 'more unit tests' and 'continuous integration' and similar buzzwords but that's just fluff: taking care of your users is all that really counts.  
-  
-  
+> While much has changed in the last five years, a lot of this still seems like good advice (to me, anyway, but I'm biased).  I might add a couple of sentences about 'more unit tests' and 'continuous integration' and similar buzzwords but that's just fluff: taking care of your users is all that really counts.  
   
 Every cloud, says the old cliche, has a silver lining.  Nobody likes the angst and insecurity of our dubious economy.  Still, in these lean times, at least we're far less likely to be dragged away from useful work for chirpy HR seminars on workplace communications or, God helps us, to don blindfolds and lean backwards into the clammy arms of that W.O.W. fanatic from IT so we can "learn to trust our teammates."  Say what you like about the dire business climate, at least it tamps down the fluff industry.  
   
 Honestly, though, the gurus of the workplace have it right about one thing. Blindfolds aside, trust is a key part of any functioning workplace and it's particularly important for us. We make art in a collective medium where all of the disciplines are inextricably tied up together.  You can make a career as a rock singer with a mediocre backing band.  You can prosper as the best actor on lame sitcom.  Cranking out great models for a game that crashes on load, however, isn't going to earn you fame or fortune. Our work can easily be dragged down by a lame graphics engine or a busted pipeline (though, to be fair, we should add that a fun design or a snappy engine can also be torpedoed by inadequate artwork).   
   
 
-
 [![](http://unbounce.com/photos/trust-me.png)](http://unbounce.com/photos/trust-me.png)
-
-  
-
 
   
 Put bluntly, there are no lone geniuses in game art. We depend on other people -- graphics engineers, tools coders, designers, and our fellow artists --- to do what we do.   
@@ -34,11 +26,6 @@ These relationships are the foundation of our work lives. This doesn't mean that
   
 Consider the morning ritual that greets most working artists at the beginning of the day.  Theoretically we all saunter in, fire up the box, and do a get to pull down the latest tools and most recent build of the engine.  We grab a cup of coffee while the our system assimilates yesterday's changes and by the time we're finished with [icanhascheezburger.com](http://icanhascheezburger.com/),_ (wow, that is** extremely** 2010! –ed) _we're all caught up and ready for the day's labors.  
    
-  
-
-
-  
-
 
 [  
 ![](http://blog.themistrading.com/wp-content/uploads/2012/06/lucy.jpg)](http://blog.themistrading.com/wp-content/uploads/2012/06/lucy.jpg)

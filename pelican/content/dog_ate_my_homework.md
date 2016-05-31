@@ -1,10 +1,10 @@
 Title: The Dog Ate My Homework
 Date: 2014-10-30 09:55:00.001
 Category: blog
-Tags: , , , , 
-Slug: _the_dog_ate_my_homework
+Tags: programming, python, maya
+Slug: dog_ate_my_homework
 Authors: Steve Theodore
-Summary: pending
+Summary: a cheap-ass way to specialize Maya unit tests for different Maya versions.
 
 I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth sharing.  
   

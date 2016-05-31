@@ -1,17 +1,15 @@
 Title: You kids get offa my lawn!
 Date: 2015-03-16 19:05:00.003
-Category: blog
-Tags: , , , , 
-Slug: _you_kids_get_offa_my_lawn_
+Category: articles
+Tags: industry, gdc
+Slug: you_kids_get_offa_my_lawn
 Authors: Steve Theodore
-Summary: pending
+Summary: A GDC panel on ageism
 
-I didn't get a chance to go to the [GDC panel on ageism](http://www.gamasutra.com/view/news/238236/Im_still_creative__Game_industry_vets_rally_against_ageism.php) this year, but it's definitely a topic that I've thought about a lot as I've gradually metamorphosed into an  old codger.  Seeing the panel and [related articles](http://www.gamesindustry.biz/articles/2015-03-12-is-ageism-the-only-prejudice-the-industry-isnt-discussing) reminded me of one of the very first columns I wrote for Game Developer, all the way back in 2004 when my back didn't make those bizarre noises every time I bend over.  
+I didn't get a chance to go to the [GDC panel on ageism](http://www.gamasutra.com/view/news/238236/Im_still_creative__Game_industry_vets_rally_against_ageism.php) this year, but it's definitely a topic that I've thought about a lot as I've gradually metamorphosed into an  old codger.  Seeing the panel and [related articles](http://www.gamesindustry.biz/articles/2015-03-12-is-ageism-the-only-prejudice-the-industry-isnt-discussing) reminded me of one of the very first columns I wrote for **Game Developer**, all the way back in 2004 when my back didn't make those bizarre noises every time I bend over.  
   
 Some of the observations here are a bit dated -- most notably, the article is pretty optimistic about the options for climbing the corporate ladder, since it was written at a time when team sizes and big mega-game-conglomerates were growing instead of looking increasingly rare.  However the problems seem to be very much alive today.  As somebody with very talented and accomplished friends who've fallen off the industry tightrope in their 40's and early 50's I can attest that the problems are real.  
 
-
-## 
 
 ## Never Hire Anyone Over 30
 

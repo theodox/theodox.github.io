@@ -2,7 +2,7 @@ Title: Worst. CG. EVAR.
 Date: 2014-03-19 12:15:00.000
 Category: blog
 Tags: cg
-Slug: _worst_cg_evar_
+Slug: worst_cg_evar_
 Authors: Steve Theodore
 Summary: A compendium of truly mind-blowingly bad CG
 

@@ -2,7 +2,7 @@ Title: Sony's Open Source Toolset
 Date: 2014-09-03 23:34:00.000
 Category: blog
 Tags: tools, industry
-Slug: sony's_open_source_toolset
+Slug: sony_open_source_toolset
 Authors: Steve Theodore
 Summary: pending
 

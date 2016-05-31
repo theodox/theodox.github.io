@@ -2,7 +2,7 @@ Title: Mighty Morphin Maya Module Manager
 Date: 2014-01-16 01:17:00.001
 Category: blog
 Tags: Maya, modules, 
-Slug: _mighty_morphin_maya_module_manager
+Slug: mighty_morphin_maya_module_manager
 Authors: Steve Theodore
 Summary: A GUI for managing Maya modules
 

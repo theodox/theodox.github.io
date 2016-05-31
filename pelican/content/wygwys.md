@@ -2,11 +2,11 @@ Title: WYG > WYS
 Date: 2014-11-01 11:00:00.000
 Category: blog
 Tags: blogging, markdown
-Slug: _wygwys
+Slug: wygwys
 Authors: Steve Theodore
 Summary: The first step on the long road to a streamlined, markdown based blogging platform...
 
-> Update 4/4/2015:  I've got a much improved pipeline for markdown blogging using Sublime Text, as detailed [here](http://techartsurvival.blogspot.com/2015/03/markdown-wrapup.html).  I'm also having a lot of luck with [MDWiki ](http://dynalon.github.io/mdwiki/#!index.md)for static sites on [github.io](http://github.io/)  
+> Update 4/4/2015:  I've got a much improved pipeline for markdown blogging using Sublime Text, as detailed [here](markdown-wrapup.html).  I'm also having a lot of luck with [MDWiki ](http://dynalon.github.io/mdwiki/#!index.md)for static sites on [github.io](http://github.io/)  
 > Update 5/1/2016:  If you're reading this, I've finally transitioned over to all-markdown, all-the-time using [Pelican](http://docs.getpelican.com/en/3.6.3/index.html)
 
 First off, a confession. I’ve become a plaintext nazi. 30 years since I first hit _Ctrl+I_ to italicise a piece of text, I’ve pretty much abandoned fancy-pants text edtors for the hardcore geek chic of plain text and [Markdown](http://daringfireball.net/projects/markdown/syntax).  
@@ -20,7 +20,6 @@ But I’m willing to be cool if that’s what it takes.
 The great thing about markdown is that it’s not dependent on the vagaries of a particular editor or application. There’s no need to worry about the layout of the menus or the mnemonics of the hotkeys - you just type. You just tap away without taking your hands off the keyboard to hit special key combinations for formatting (eg **bold**, _italic_), so you go a lot faster.   
 In markdown, the emphasis is on the structure of what you’re writing instead of the presentation. You don’t format, you ‘mark up’ - that is you indicate what the job of a particular bit of text, is but you don’t describe it’s appearance. You can create headings, lists, block quotes, and even code snippets just using some simple conventions. Moreover the conventions are pretty readable in plain text. For example, you this little snippet of text  
 
-    
     
     heading  
     ========  
