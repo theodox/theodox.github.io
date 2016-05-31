@@ -2,7 +2,7 @@ Title: Technical Art for Art Directors
 Date: 2016-03-05 16:06:00.002
 Category: blog
 Tags: gdc, industry, articles
-Slug: Technical-Art-for-Art-Directors
+Slug: _technical-art-for-art-directors
 Authors: Steve Theodore
 Summary: My 2015 GDC talk, [Technical Art For Art Directors](http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art).
 

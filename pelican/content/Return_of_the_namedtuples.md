@@ -2,7 +2,7 @@ Title: Return of the namedtuples
 Date: 2015-08-02 17:59:00.000
 Category: blog
 Tags: maya, python, programming
-Slug: return-of-the-namedtuples
+Slug: _return-of-the-namedtuples
 Authors: Steve Theodore
 Summary: A quick review of the Python `namedtuple` -- a great way to return complex data from your functions without needing complex custom classes.
 

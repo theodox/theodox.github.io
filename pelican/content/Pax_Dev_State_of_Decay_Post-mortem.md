@@ -2,7 +2,7 @@ Title: Pax Dev State of Decay Post-mortem
 Date: 2014-08-25 20:13:00.000
 Category: blog
 Tags: games, industry, tools 
-Slug: sod-post-mortem
+Slug: _sod-post-mortem
 Authors: Steve Theodore
 Summary: A PAX panel covering State of Decay and how it was made.
 

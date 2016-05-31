@@ -2,7 +2,7 @@ Title: Talking to Photoshop via TCP
 Date: 2014-01-29 02:04:00.000
 Category: blog
 Tags: , , , , , , 
-Slug: Talking-to-Photoshop-via-TCP
+Slug: _talking-to-photoshop-via-tcp
 Authors: Steve Theodore
 Summary: pending
 

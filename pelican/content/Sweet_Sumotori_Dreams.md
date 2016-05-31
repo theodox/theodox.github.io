@@ -2,7 +2,7 @@ Title: Sweet Sumotori Dreams
 Date: 2014-04-14 14:23:00.000
 Category: blog
 Tags: , , 
-Slug: Sweet-Sumotori-Dreams
+Slug: _sweet-sumotori-dreams
 Authors: Steve Theodore
 Summary: pending
 

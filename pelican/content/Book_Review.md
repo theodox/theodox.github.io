@@ -2,7 +2,7 @@ Title: Book Review
 Date: 2015-05-06 22:38:00.001
 Category: blog
 Tags: programming, industry, books 
-Slug: Book-Review
+Slug: _book-review
 Authors: Steve Theodore
 Summary: A few programming books that are worth reading... unlike most programming books.
 

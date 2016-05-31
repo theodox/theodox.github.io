@@ -2,7 +2,7 @@ Title: SIGGRAPH 2014 Short Review
 Date: 2014-08-20 12:28:00.002
 Category: blog
 Tags: 
-Slug: SIGGRAPH-2014-Short-Review
+Slug: _siggraph-2014-short-review
 Authors: Steve Theodore
 Summary: pending
 

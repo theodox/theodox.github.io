@@ -2,7 +2,7 @@ Title: Some fixups for sfx
 Date: 2016-01-29 00:52:00.001
 Category: blog
 Tags: , , , , 
-Slug: Some-fixups-for-sfx
+Slug: _some-fixups-for-sfx
 Authors: Steve Theodore
 Summary: pending
 

@@ -2,7 +2,7 @@ Title: The only meme I will ever post
 Date: 2014-05-02 22:55:00.000
 Category: blog
 Tags: , 
-Slug: The-only-meme-I-will-ever-post
+Slug: _the-only-meme-i-will-ever-post
 Authors: Steve Theodore
 Summary: pending
 

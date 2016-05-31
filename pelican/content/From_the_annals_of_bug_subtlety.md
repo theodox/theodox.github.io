@@ -2,7 +2,7 @@ Title: From the annals of bug subtlety
 Date: 2014-06-20 11:39:00.000
 Category: blog
 Tags:  programming, maya, python, bugs
-Slug: bug-subtlety
+Slug: _bug-subtlety
 Authors: Steve Theodore
 Summary: An object lesson in the way real bugs happen.
 

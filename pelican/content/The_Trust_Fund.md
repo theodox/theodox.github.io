@@ -2,7 +2,7 @@ Title: The Trust Fund
 Date: 2015-01-22 21:23:00.002
 Category: blog
 Tags: , , , , 
-Slug: The-Trust-Fund
+Slug: _the-trust-fund
 Authors: Steve Theodore
 Summary: pending
 

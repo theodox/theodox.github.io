@@ -2,7 +2,7 @@ Title: Morph targets revisited
 Date: 2014-03-14 22:16:00.000
 Category: blog
 Tags: tools, cg, techart 
-Slug: Morph-targets-revisited
+Slug: _morph-targets-revisited
 Authors: Steve Theodore
 Summary: Chronosculpt - a tool for Zbrush-like painting of dense polymodels
 

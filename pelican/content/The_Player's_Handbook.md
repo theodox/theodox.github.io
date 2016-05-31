@@ -2,7 +2,7 @@ Title: The Player's Handbook
 Date: 2014-09-16 22:53:00.000
 Category: blog
 Tags: , , , 
-Slug: The-Player's-Handbook
+Slug: _the-player's-handbook
 Authors: Steve Theodore
 Summary: pending
 

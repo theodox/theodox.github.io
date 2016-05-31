@@ -2,7 +2,7 @@ Title: Multiple MayaPy Management Mania
 Date: 2014-05-11 14:03:00.000
 Category: blog
 Tags: maya, tools, Python
-Slug: Multiple-MayaPy-Management-Mania
+Slug: _multiple-mayapy-management-mania
 Authors: Steve Theodore
 Summary: Introducing the ['MayaPyManager'](https://gist.github.com/theodox/2c712a91155c7e1c4c15) class, for spinning up isolated MayaPy instances with their own environments and Maya versions
 

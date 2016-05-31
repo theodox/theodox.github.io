@@ -2,7 +2,7 @@ Title: Comments requested
 Date: 2014-12-21 10:03:00.000
 Category: blog
 Tags: industry, gdc, techart 
-Slug: Comments-requested
+Slug: _comments-requested
 Authors: Steve Theodore
 Summary: seeking input for an upcoming talk on technical art at GDC
 

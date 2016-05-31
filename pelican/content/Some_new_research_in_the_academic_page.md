@@ -2,7 +2,7 @@ Title: Some new research in the academic page
 Date: 2014-02-20 08:00:00.000
 Category: blog
 Tags: , , , 
-Slug: Some-new-research-in-the-academic-page
+Slug: _some-new-research-in-the-academic-page
 Authors: Steve Theodore
 Summary: pending
 

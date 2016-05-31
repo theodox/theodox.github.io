@@ -2,7 +2,7 @@ Title: Tech art for art directors
 Date: 2015-05-09 09:13:00.000
 Category: blog
 Tags: , , , 
-Slug: Tech-art-for-art-directors
+Slug: _tech-art-for-art-directors
 Authors: Steve Theodore
 Summary: The slides for my 2015 GDC talk, [Technical Art For Art Directors](http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art) are available on the GDC Vault
 

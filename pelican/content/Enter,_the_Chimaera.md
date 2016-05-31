@@ -2,7 +2,7 @@ Title: Enter, the Chimaera
 Date: 2013-12-13 21:11:00.000
 Category: blog
 Tags: techart
-Slug: Enter-the-Chimaera
+Slug: _enter-the-chimaera
 Authors: Steve Theodore
 Summary: a meditation on Renaissance woodcuts -- seriously! -- and technical art.
 

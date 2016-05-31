@@ -2,7 +2,7 @@ Title: Python in browsers
 Date: 2013-12-12 21:05:00.002
 Category: blog
 Tags: web, python
-Slug: Python-in-browsers
+Slug: _python-in-browsers
 Authors: Steve Theodore
 Summary: A quick link to python-in-the-browser projects
 

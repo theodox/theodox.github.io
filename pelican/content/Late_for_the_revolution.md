@@ -2,7 +2,7 @@ Title: Late for the revolution
 Date: 2013-12-11 22:02:00.001
 Category: blog
 Tags: blogging, articles
-Slug: Late-for-the-revolution
+Slug: _late-for-the-revolution
 Authors: Steve Theodore
 Summary: An introduction to this blog
 

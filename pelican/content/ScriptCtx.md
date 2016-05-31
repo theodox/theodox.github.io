@@ -2,7 +2,7 @@ Title: ScriptCtx
 Date: 2015-03-14 11:53:00.002
 Category: blog
 Tags: 
-Slug: ScriptCtx
+Slug: _scriptctx
 Authors: Steve Theodore
 Summary: pending
 

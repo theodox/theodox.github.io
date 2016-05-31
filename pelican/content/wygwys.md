@@ -2,7 +2,7 @@ Title: WYG > WYS
 Date: 2014-11-01 11:00:00.000
 Category: blog
 Tags: blogging, markdown
-Slug: wygwys
+Slug: _wygwys
 Authors: Steve Theodore
 Summary: The first step on the long road to a streamlined, markdown based blogging platform...
 

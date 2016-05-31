@@ -2,7 +2,7 @@ Title: Maya callbacks cheat sheet
 Date: 2014-04-23 13:53:00.001
 Category: blog
 Tags: Maya, GUI, python, programming 
-Slug: Maya-callbacks-cheat-sheet
+Slug: _maya-callbacks-cheat-sheet
 Authors: Steve Theodore
 Summary: An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly.
 

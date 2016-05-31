@@ -2,7 +2,7 @@ Title: Published works
 Date: 2015-04-11 23:38:00.000
 Category: blog
 Tags: 
-Slug: Published-works
+Slug: _published-works
 Authors: Steve Theodore
 Summary: pending
 

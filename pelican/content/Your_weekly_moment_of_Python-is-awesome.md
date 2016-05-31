@@ -2,7 +2,7 @@ Title: Your weekly moment of Python-is-awesome
 Date: 2014-05-27 22:58:00.001
 Category: blog
 Tags: 
-Slug: Your-weekly-moment-of-Python-is-awesome
+Slug: _your-weekly-moment-of-python-is-awesome
 Authors: Steve Theodore
 Summary: pending
 

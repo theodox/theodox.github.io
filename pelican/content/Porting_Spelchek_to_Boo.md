@@ -2,7 +2,7 @@ Title: Porting Spelchek to Boo
 Date: 2015-06-06 22:13:00.000
 Category: blog
 Tags: boo, spelcheck
-Slug: Porting-Spelchek-to-Boo
+Slug: _porting-spelchek-to-boo
 Authors: Steve Theodore
 Summary: A port of the [Spelchek](https://github.com/theodox/spelchek) spell checker to Boo, just to prove a point.
 

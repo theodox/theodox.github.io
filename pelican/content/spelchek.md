@@ -2,7 +2,7 @@ Title: spelchek
 Date: 2015-05-16 17:45:00.000
 Category: blog
 Tags: , , , 
-Slug: spelchek
+Slug: _spelchek
 Authors: Steve Theodore
 Summary: pending
 

@@ -2,7 +2,7 @@ Title: Moonrise announcement
 Date: 2014-08-06 22:20:00.000
 Category: blog
 Tags: industry, games
-Slug: Moonrise-announcement
+Slug: _moonrise-announcement
 Authors: Steve Theodore
 Summary: The product announcement for Moonrise
 

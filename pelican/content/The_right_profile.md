@@ -2,7 +2,7 @@ Title: The right profile
 Date: 2015-04-18 22:16:00.000
 Category: blog
 Tags: python, programming, maya 
-Slug: The-right-profile
+Slug: _the-right-profile
 Authors: Steve Theodore
 Summary: A brief, gentle introduction to the uses and abuses of profiling in Maya Python
 
