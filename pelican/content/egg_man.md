@@ -1,12 +1,12 @@
 Title: Save The Environment 2: I am the .Egg Man
 Date: 2014-07-05 23:00:00.001
 Category: blog
-Tags: , , , , 
-Slug: _save_the_environment_2_i_am_the_egg_man
+Tags: maya, python, distribution, tools
+Slug: egg_man
 Authors: Steve Theodore
 Summary: pending
 
-In my last, bumper-sticker-laden post I offered to share a little bit about the way I pack up my tools for users.  This time I'll try to actually describe the process.  
+In my last, [bumper-sticker-laden post](save_the_environment.html) I offered to share a little bit about the way I pack up my tools for users.  This time I'll try to actually describe the process.  
   
 After a all the buildup, I wish I could make this sound more high tech and impressive. Basically, I just pack up what I have and send it all out to my users in a big ol' zip file.  The zip ends up on their Maya's PYTHONPATH, and gives them exactly the same stuff I had when I created the zip.  That's kind of it.  It's basically a simplified version of a [python egg](http://mrtopf.de/blog/en/a-small-introduction-to-python-eggs/); however since I'm distributing an entire ecosystem in one shot I've opted to do the packaging myself instead of relying on [setuptools](https://pypi.python.org/pypi/setuptools) and all of its complex dependency management arrangements.  
   
@@ -63,11 +63,8 @@ Most of this is what you'd expect: the .py files are modules, and the folders wi
   
 On my own machine, where I'm running from loose files, I add project to my Python path using the wonderful, and often overlooked standard library module site.  site is an alternative method of managing your Python search path - instead of appending paths onto sys.path, you can add directories using using [site.addsitedir()](https://docs.python.org/2/library/site.html).  The truly excellent feature of site, though, that it's data-driven: when you add a directory with site.addsitedir(), the module will search the folder for text files with the .pth extension and then add any directories specified there as well.   That UL_maya.pth file down near the bottom of the picture is my .pth file: it includes entries for my external modules so that they are automatically included when my project folder is added to the path.  
   
-Unfortunately, site does not know how to deal with pth files inside a zip file.  So, my startup code includes a little shim which duplicates the functionality of addsitedir. Luckily it's pretty simple:  
+Unfortunately, site does not know how to deal with pth files inside a zip file.  So, my startup code includes a little shim which duplicates the functionality of `addsitedir`. Luckily it's pretty simple:  
   
-  
-
-    
     
     """  
     ul.paths.py  
@@ -141,7 +138,7 @@ Unfortunately, site does not know how to deal with pth files inside a zip file. 
 
   
   
-This way, adding the whole environment just requires calling include_site_files(). Under the hood the Processor classes will read the .pth files and process them the same way site.addsitedir does: adding named folders to the python path, ignoring comments, and executing imports.  
+This way, adding the whole environment just requires calling `include_site_files()`. Under the hood the Processor classes will read the .pth files and process them the same way `site.addsitedir` does: adding named folders to the python path, ignoring comments, and executing imports.  
   
 I don't use that auto-import functionality right now but it would work nicely if you wanted to create a self-registering plugin system where each plugin was a zip of its own.  If you were feeling adventurous, you could bootstrap your whole Maya toolset by adding an import statement to the end of a .pth file in the zip.  As I said, that's not what I do right now -  I currently call my main bootstrap routine from userSetup.py,  since I'm habitually averse to relying the side effects of imports for important jobs.  
   
@@ -209,8 +206,9 @@ The zipped environment is created by a simple Python build program.  There's not
 One nice refinement that we discovered almost by accident is using the [py_compile ](https://docs.python.org/2/library/py_compile.html)module to pre-compile the whole shebang before packing.  Our system ships only pyc files instead of pys.  This speeds up load times and slims down the zip file by a noticeable amount. However the most important thing it does is make sure that every module - even those with no unit tests, which are alas too numerous - is at least minimally importable. py_compile will complain if it encounters a module with a syntax error that cannot be compiled. Over the years this has saved me countless small humiliations by making sure that stupid typos and oversights don't result in a busted Maya.  
   
   
- These days I use a little python program which polls my GitHub repositories for changes and tries to create a new build when a checkin is pushed to the master branch.  The server handles running multiple builds for different Maya versions: When Autodesk rev'ed the version of Python inside Maya, it meant that we needed different .pyc's for different versions of Maya. For most of the last several years, though,  I simply used a zip script from a command line or as an external tool in my IDE and that answered fine for most purposes.  Moving to a server is just a way of making it more painless for a team to do the right thing automatically instead of appointing one person as 'build master' and making them sync and push the button to start a build.  _Extra credit: Can you guess who the build master was, and why he decided to write the server? _  
-  
+ These days I use a little python program which polls my GitHub repositories for changes and tries to create a new build when a checkin is pushed to the master branch.  The server handles running multiple builds for different Maya versions: When Autodesk rev'ed the version of Python inside Maya, it meant that we needed different .pyc's for different versions of Maya. For most of the last several years, though,  I simply used a zip script from a command line or as an external tool in my IDE and that answered fine for most purposes.  Moving to a server is just a way of making it more painless for a team to do the right thing automatically instead of appointing one person as 'build master' and making them sync and push the button to start a build. 
+
+ >Extra credit: Can you guess who the build master was, and why he decided to write the server?   
   
 
 
@@ -234,7 +232,7 @@ The only complication I've run into is that a user (often, me) is may be running
 
 So, that's kind of it. It's not very sexy but it's been extremely useful for me over the last 4 years - the amount of mystery which this system removed from my life is uncountable.  Because the actual code I use is pretty tied up with work-specific problems, I have not ventured to make a cleaned up, genericised version for public consumption so far, though if there were a lot of interest I could probably whip up a cleanroom version.  
   
-Hope other folks find this one useful. I know it's certainly ~~accompanied ~~saved my bacon !  
+Hope other folks find this one useful. I know it's certainly ~~accompanied~~ saved my bacon !  
   
   
   

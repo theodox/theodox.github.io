@@ -2,7 +2,7 @@ Title: No Humans Involved (Classic CG)
 Date: 2014-01-17 10:00:00.000
 Category: blog
 Tags: cg, animation
-Slug: _no_humans_involved
+Slug: no_humans_involved_classic_cg
 Authors: Steve Theodore
 Summary: A classic of old-school procedural animation
 

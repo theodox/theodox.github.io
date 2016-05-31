@@ -2,28 +2,24 @@ Title: Read The Damn Ad!
 Date: 2014-08-01 11:30:00.000
 Category: articles
 Tags: industry, jobs
-Slug: _read_the_damn_ad_
+Slug: read_the_damn_ad_
 Authors: Steve Theodore
 Summary: This is an article I originally wrote for the late lamented [Game Developer Magazine](http://www.gamasutra.com/features/game-developer-magazine/) on the black art of  job hunting.  Hiring has been on my mind a lot lately and so I've had to revisit a lot of things I touched on here.  Although a lot has changed in the intervening decade, the brutal realities of the job market haven 't changed much -- except, perhaps, to get a tad more brutal as the pool of qualified candidates has grown faster than the games biz as a whole.   
-  
   
 
 
 >Dear Job Applicant,
-
 >Thank you for applying for the opening we advertised. While we specifically requested only applications from candidates having four or more years of industry experience, we understand that you might not have realized which industry we intended. However we are impressed by your entrepreneurial drive and are sure that the skills you learned behind the cash register at McDonalds can contribute greatly to our team environment.
-
 >We are somewhat concerned, however, that you may have mistaken our ad for one from another company. Since none of the four identical resumes and cover letters we received from you mentioned our company or which position you were applying for, we just wanted to contact you to be sure that you were, in fact, responding to one of our ads.  My assistant and I spent quite some time puzzling over this and were unable to reach a conclusion, so we thought it best to contact you and see if we could figure out what, exactly you intended. After all, we receive dozens of applications a week – what excuse could we have for giving each one less than our undivided attention? 
-
 >In any case, we also have a more personal motive for contacting you. We really wanted to thank you for introducing us to the fascinating world of post-industrial Thrashtronica – a musical style we had never even heard of around the office until we went out and bought a VHS player to view your samples. The nightmarish soundscape certainly taught us a few things about the meaningless void at the heart of modern capitalism! It's a good thing the turntable animations on your tape were 15 minutes long, so we were able to hear the entire piece.   
 
 
 Ahhh! It's spring, and the air is full of new life.  Everything old is new again -- particularly the soundtracks (and the appetizers) at those GDC parties. Everywhere you look, studios flush with greenlight funding are strutting their gorgeous plumage before a new crop of art-school grads, hoping to entice them into an intricate mating dance. Birds do, bees do it – even Hollywood TD's do – so let's do it: let's talk about job hunting. But rather than the looking at if from the perspective of the potential hire, let's stop and look at the hiring process from the other side of things – the way it looks from the other side.   
-s
+
 There's really only two things you need to remember when approaching preparing  job applications:
 
 
-## Rule #1:_ Hiring hurts_
+## Rule #1: _Hiring hurts_
 
 Hiring is a slow, expensive, and risky proposition.  
   

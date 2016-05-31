@@ -2,7 +2,7 @@ Title: For my homies
 Date: 2016-02-01 08:46:00.000
 Category: blog
 Tags: techart
-Slug: _for_my_homies
+Slug: for_my_homies
 Authors: Steve Theodore
 Summary: Tech art representin'
 

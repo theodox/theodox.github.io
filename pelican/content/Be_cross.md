@@ -2,7 +2,7 @@ Title: Be cross
 Date:  2017-01-01
 Category: unpublished
 Tags: math
-Slug: _be_cross
+Slug: be_cross
 Authors: Steve Theodore
 Summary: A return to math land, featuring the mysterious vector cross product
 

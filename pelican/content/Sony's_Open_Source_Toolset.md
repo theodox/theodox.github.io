@@ -1,17 +1,14 @@
 Title: Sony's Open Source Toolset
 Date: 2014-09-03 23:34:00.000
 Category: blog
-Tags: , , 
-Slug: _sony's_open_source_toolset
+Tags: tools, industry
+Slug: sony's_open_source_toolset
 Authors: Steve Theodore
 Summary: pending
 
 I noticed on [Gamasutra ](http://www.gamasutra.com/view/news/224682/Sony_releases_level_editor_thats_open_source_and_engineagnostic.php)(hat tip [+Jon Jones](https://plus.google.com/114297709081673565436) ) that Sony is open-sourcing its [Authoring Tools Framework](https://github.com/SonyWWS/ATF).    
-  
-
 
 [![](https://raw.githubusercontent.com/wiki/SonyWWS/ATF/images/LBP_PSP_2.png?raw=true)](https://raw.githubusercontent.com/wiki/SonyWWS/ATF/images/LBP_PSP_2.png?raw=true)
-
   
   
   

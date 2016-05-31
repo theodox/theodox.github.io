@@ -2,13 +2,13 @@ Title: Maya callbacks cheat sheet
 Date: 2014-04-23 13:53:00.001
 Category: blog
 Tags: Maya, GUI, python, programming 
-Slug: _maya_callbacks_cheat_sheet
+Slug: maya_callbacks_cheat_sheet
 Authors: Steve Theodore
 Summary: An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly.
 
-_Update 5/7/14: Added a note on closures and lambdas_  
+>Update 5/7/14: Added a note on closures and lambdas_  
   
-In [All Your Base Classes](http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html),  I suggested that we can do better than the standard callback mechanism for doing Maya event handling.  The limitations of the default method are something I've [complained about before](http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html), and if you follow these things on [TAO](http://tech-artists.org/forum/showthread.php?3292-Maya-python-UI-acessing-controls-from-external-functions) or CGTalk or [StackOverflow](http://stackoverflow.com/questions/3435128/creating-a-ui-in-Maya-using-python-scripting) it seems pretty clear that a lot of other people have problems with the standard Maya code flow too.  
+In [All Your Base Classes](all_your_base.html),  I suggested that we can do better than the standard callback mechanism for doing Maya event handling.  The limitations of the default method are something I've [complained about before](pity_for_the_outcast.html), and if you follow these things on [TAO](http://tech-artists.org/forum/showthread.php?3292-Maya-python-UI-acessing-controls-from-external-functions) or CGTalk or [StackOverflow](http://stackoverflow.com/questions/3435128/creating-a-ui-in-Maya-using-python-scripting) it seems pretty clear that a lot of other people have problems with the standard Maya code flow too.  
   
 I was planning on devoting the next big post to the event mechanism in [mGUI ](https://github.com/theodox/mGUI). However as I did the spadework for this post I decided it was better to split it up into two parts, since a lot of folks seem to be confused about the right way to manage basic Maya callbacks. Before moving fancy stuff, it's a good idea to make sure the basics are clear. Most vets will already know most of what I'm going over here, but I found the  time spent laying it out for myself a useful exercise  so I figured it would be worth sharing even if it's not revolutionary.  
 
@@ -23,7 +23,7 @@ So, let's start by clearing up something that even a lot of old-school Maya code
   
 In vanilla Maya, GUI components fire callbacks - that is to say that when Maya recognizes a user action like a button press or a text entry, it calls a function you've provided. There are two ways you can set this up.  The old-school MEL way is to use a string:  
     
-    
+    :::python
     my_button = cmds.button('hello', command = 'print "hello"')  
     
   
@@ -31,34 +31,35 @@ In the bad old days of MEL, this was usually fine since most procedures were dec
   
 Unfortunately, Python's stricter rules about scoping mean that you constantly run into problems with this strategy if you're not careful. For example, this straight python conversion of the Mel paradigm works fine:  
     
-      
-        def print_hello(_):  
-            print "hello"  
-      
-        my_w = cmds.window()  
-        my_col = cmds.columnLayout()  
-        my_button = cmds.button('hello', command = "print_hello()")  
-        cmds.showWindow(my_w)  
+    :::python
+    def print_hello(_):  
+        print "hello"  
     
+    my_w = cmds.window()  
+    my_col = cmds.columnLayout()  
+    my_button = cmds.button('hello', command = "print_hello()")  
+    cmds.showWindow(my_w)  
+
 
   
 But try this:  
 
+    :::python
+    def show_test_window():  
+        def print_hello_again(_):  
+            print "hello"  
       
-        def show_test_window():  
-            def print_hello_again(_):  
-                print "hello"  
-          
-            my_w = cmds.window()  
-            my_col = cmds.columnLayout()  
-            my_button = cmds.button('hello', command = "print_hello_again()")  
-            cmds.showWindow(my_w)  
-          
-        show_test_window()  
-    
+        my_w = cmds.window()  
+        my_col = cmds.columnLayout()  
+        my_button = cmds.button('hello', command = "print_hello_again()")  
+        cmds.showWindow(my_w)  
+      
+    show_test_window()  
+
 
 When you hit the button you'll be told  
 
+    :::python
     # Error: NameError: name 'print_hello_again' is not defined #
   
 
@@ -278,12 +279,11 @@ Now, even if you follow these rules,  its easy for your functional code and your
 ### Next Episode...
 
   
-Of course if you've been following the [mGUI](https://github.com/theodox/mGUI)series you'll know where I'm going. (If you haven't, you might want to check [here](http://techartsurvival.blogspot.com/2014/02/pity-for-outcast.html), [here ](http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html)and [here](http://techartsurvival.blogspot.com/2014/03/Maya-GUI-ii-all-your-base-classes-are.html) before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  
-    
+Of course if you've been following the [mGUI](https://github.com/theodox/mGUI)series you'll know where I'm going. (If you haven't, you might want to check [here](pity_for_the_outcast.html), [here ](rescuing_maya_gui_from_itself.html)and [here](all_your_base.html) before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  
     
     :::python
     import mGUI.GUI as mg
-
+    
     def make_box(*args, **kwargs):  
         H,W,D = kwargs['sender'].Tag  
         cmds.polyCube(h = H, d = D, w = W)  

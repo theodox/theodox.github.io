@@ -2,7 +2,7 @@ Title: Dot's all, folks
 Date: 2014-11-29 00:12:00.001
 Category: blog
 Tags: math, techart
-Slug: _dots_all_folks
+Slug: dots_all_folks
 Authors: Steve Theodore
 Summary: Some ways to use the vector dot product in TA programming
 

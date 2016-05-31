@@ -2,7 +2,7 @@ Title: A touch of minq
 Date: 2016-03-06 09:02:00.001
 Category: blog
 Tags: python, maya, programming, minq
-Slug: _a_touch_of_minq
+Slug: a_touch_of_minq
 Authors: Steve Theodore
 Summary: Introducing **Minq**, a query language for Maya scenes.
 
@@ -37,7 +37,7 @@ There are of course ways around these little gotchas - but given the number of t
 More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an _interesting_ job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want fixed.  
 
 
-## [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#minq-in-action)Minq in action
+##  Minq in action
 
 Hence, [minq](https://github.com/theodox/minq).   
 The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.  

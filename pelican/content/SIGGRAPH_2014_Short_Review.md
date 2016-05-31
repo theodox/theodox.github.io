@@ -1,8 +1,8 @@
 Title: SIGGRAPH 2014 Short Review
 Date: 2014-08-20 12:28:00.002
 Category: blog
-Tags: 
-Slug: _siggraph_2014_short_review
+Tags: siggraph, industry
+Slug: siggraph_2014_short_review
 Authors: Steve Theodore
 Summary: pending
 

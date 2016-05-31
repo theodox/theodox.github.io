@@ -2,7 +2,7 @@ Title: Dot Matrix
 Date: 2014-12-06 12:22:00.000
 Category: blog
 Tags: math
-Slug: _dot_matrix
+Slug: dot_matrix
 Authors: Steve Theodore
 Summary: Understanding the graphics matrix, with some help from dot products.
 

@@ -2,7 +2,7 @@ Title: Adventures in the 4th dimension
 Date: 2014-12-15 23:35:00.000
 Category: blog
 Tags: math
-Slug: _adventures_in_the_4th_dimension
+Slug: adventures_in_the_4th_dimension
 Authors: Steve Theodore
 Summary: Matrices and how they can be used to transform 3-d points
 

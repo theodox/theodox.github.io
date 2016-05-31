@@ -2,11 +2,11 @@ Title: Maya Bug Watch: API2 and GetPoints()
 Date: 2015-03-27 21:20:00.001
 Category: blog
 Tags: maya, bugs, python, api
-Slug: _api_2_getpoints_bug
+Slug: api_2_getpoints_bug
 Authors: Steve Theodore
 Summary: A very irritating bug in Maya Python API 2
 
-In general I’m more or less a [fan of Maya Python API 2.0](http://techartsurvival.blogspot.com/2014/12/all-we-are-saying-is-give-api-20-chance.html). It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.  
+In general I’m more or less a [fan of Maya Python API 2.0](api_2_chance.html). It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.  
 If you want to get the vertices of an object in the api, the usual formula is:  
 
   1. Get the dagPath of the object

@@ -2,7 +2,7 @@ Title: Return of the namedtuples
 Date: 2015-08-02 17:59:00.000
 Category: blog
 Tags: maya, python, programming
-Slug: _return_of_the_namedtuples
+Slug: return_of_the_namedtuples
 Authors: Steve Theodore
 Summary: A quick review of the Python `namedtuple` -- a great way to return complex data from your functions without needing complex custom classes.
 
@@ -15,6 +15,7 @@ I’m sure you’ve read or written code that looks like this:
     
 
 Here `some_function` must be using one of Python’s handiest features, the ability to return lists or tuples of different types in a single function. Python’s ability to return ‘whatever’ - a list, a tuple, or a single object – makes it easy to assemble a stream of data in one place and consume it in others wihout worrying about type declarations or creating a custom class to hold the results. Trying to create a similarly flexible system in, say, C# involves a lot of type-mongering. So it’s nice.  
+
 At least, it’s nice _at first_. Unfortunately it’s got some serious drawbacks that will become apparent after a while – outside the context of a single script or function, relying entirely on indices to keep things straight is dangerous. As so often in Pythonia, freedom and flexibility can come at the cost of chaos downstream if you’re not careful.  
   
 
@@ -45,10 +46,9 @@ This example is a perfect illustration unit tests are such a nice thing to have 
 even worse.  
 
 [![](http://images6.fanpop.com/image/photos/36000000/Harrison-in-Star-Wars-Empire-strikes-back-harrison-ford-36029606-3257-2231.jpg)](http://images6.fanpop.com/image/photos/36000000/Harrison-in-Star-Wars-Empire-strikes-back-harrison-ford-36029606-3257-2231.jpg)
+> Sometimes things get complicated
 
-_Sometimes things get complicated_
-
-# [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#return-classes-strike-back)Return classes strike back
+## Return classes strike back
 
 In most languages the way around this is to create a class that holds the results of something like `some_function`. A result class provides clear, named access to what’s going on:  
 
@@ -81,7 +81,7 @@ For many cases this is the right way to go. However it comes with some drawbacks
 
 First off – let’s be honest – there’s a lot of typing for something so dull. I always try to leave that out of the equation when I can - the time spent typing the code is such a tiny fraction of the time you’ll spend reading it that trying to save a few keystrokes is usually a Bad Idea (tm). However, typing 5 lines when you could just type a pair of bracket does feel like an imposition – particularly when the 5 lines are 100% boring boilerplate.  
 
-The second issue is that, being a class, `SomeFuncResult` is comparatively expensive: it costs a smidge more in both memory and processor time than just a list or a tuple of values. I’m ranking this behind the typing costs deliberately, because most of the time that increment of cost doesn’t matter at all: if you’re dealing with a few hundred or even a few thousand of them, at a time the costs for spinning up new instances of `SomeFuncResult` just to hold data are going to be invisible to users. However, if you are doing something more performance-intensive the costs of creating a full mutable object can be significant in large numbers. As always, [it’s wiser not to try to optimize until things are working](http://techartsurvival.blogspot.com/2015/04/the-right-profile.html) but this is still a consideration worth recalling.  
+The second issue is that, being a class, `SomeFuncResult` is comparatively expensive: it costs a smidge more in both memory and processor time than just a list or a tuple of values. I’m ranking this behind the typing costs deliberately, because most of the time that increment of cost doesn’t matter at all: if you’re dealing with a few hundred or even a few thousand of them, at a time the costs for spinning up new instances of `SomeFuncResult` just to hold data are going to be invisible to users. However, if you are doing something more performance-intensive the costs of creating a full mutable object can be significant in large numbers. As always, [it’s wiser not to try to optimize until things are working](the_right_profile.html) but this is still a consideration worth recalling.  
 
 The last issue (but probably the most important) is that `SomeFuncResult` can be changed in flight. Since it is a class, the data in a `SomeFuncResult` can be updated (for you CS types, it is _mutable_). This means some other piece of code that looks at the result object in between `some_function` and you might can decide to mess with the results. That can be a feature or a bug depending on how you want to code it – but since Python does not have a built-in mechanism for locking fields in an object, you’d have to put in extra work to make sure the results didn’t get changed by accident if keeping the data pristine was mission-critical. You can use the a property decorator to make a fake read only field:  
     
@@ -110,7 +110,7 @@ Alas, our 5 lines of boilerplate have now blossomed into 16. Our quest for clari
 
 [![](https://s-media-cache-ak0.pinimg.com/originals/ec/cf/c1/eccfc13e87cc987cbe29fadb248e3b6b.jpg)](https://s-media-cache-ak0.pinimg.com/originals/ec/cf/c1/eccfc13e87cc987cbe29fadb248e3b6b.jpg)
 
-## [obiter dicta](https://en.wikipedia.org/wiki/Obiter_dictum)
+## obiter dicta
   
 One common way to get around the hassles – or at least, they typing costs –of custom return objects is simply to use dictionaries instead. If you use the [perforce Python API](http://www.perforce.com/perforce/doc.current/user/p4pythonnotes.txt) you’ll be quite familiar with this strategy; instead of creating a class, you just return dictionaries with nice descriptive names   
 
@@ -128,12 +128,12 @@ Like a custom class this increases readability and clarity; it’s also future p
 
 Even better, dictionaries – unlike classes – are self-describing: in order to understand the contents of a custom result class like `SomeFuncResult` you’ll have to look at the source code, whereas you can see the contents of a result dictionary with a simple print statement. Dictionaries are slightly cheaper than classes (there is a [good workaround](http://stackoverflow.com/questions/1336791/dictionary-vs-object-which-is-more-efficient-and-why) to speed up classes, but it’s something you have to write and maintain). And, of course, dictionaries have minimal setup costs: they are boiler-plate free.  
 
-This doesn’t mean they are ideal for all circumstances, however.   
+This doesn’t mean they are ideal for all circumstances, however.
+
 The Achilles’ heel of using dictionaries is keys, which are likely to be strings. Unless you are very disciplined about using named constants for all your result dictionaries you’ll inevitably find that somebody somewhere has typed `attribite` with an  _i_ instead of a _u_ and suddenly perfectly valid, impeccably logical code is failing because nobody thought to look at the key names. Instead of typing lots of setup code once, you’ll be dribbling out square brackets and quotes till the end of time, with lots of little missteps and typos along the way. While that’s not an insurmoutable problem it’s another annoyance.  
 
 [![](http://assets7.thrillist.com/v1/image/1335116/size/tl-horizontal_main_2x/amazing-1983-return-of-the-jedi-photos-you-ve-never-seen)](http://assets7.thrillist.com/v1/image/1335116/size/tl-horizontal_main_2x/amazing-1983-return-of-the-jedi-photos-you-ve-never-seen)
-
-_Not so scary when you know the secret!_
+>Not so scary when you know the secret!
 
 # [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#return-of-the-namedtuples)Return of the namedtuples
 

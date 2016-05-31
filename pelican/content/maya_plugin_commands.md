@@ -2,7 +2,7 @@ Title: Laziness and cleanliness and MEL, Oh My.
 Date: 2014-10-26 00:18:00.000
 Category: blog
 Tags: maya, python, programming
-Slug: _maya_plugin_commands
+Slug: maya_plugin_commands
 Authors: Steve Theodore
 Summary: Don't use Mel.  But if you have to, do it like this: with a pythonic wrapper to clean up your strings
 
@@ -42,13 +42,12 @@ The rest of the relevant MEL syntax rules are pretty simple, with one exception 
 
 That first one may suprise you but it's true - and in our case it's extremely useful. If you're dubious, though, try this in your MEL listener:  
     
-    
     polyCube ("-name", "hello", "-width", "999");  
     
   
 Implementing these rules in a function turns out to be pretty simple.   
   
-    
+    :::python
     import maya.mel  
     def run_mel(cmd, *args, **kwargs):  
         # makes every value into a tuple or list so we can string them together easily  
@@ -71,7 +70,7 @@ Implementing these rules in a function turns out to be pretty simple.
   
 This function will correctly format a MEL call for almost all circumstances (see the note below for the exception).  For example the irritating FBX commands above become  
     
-    
+    :::python
     run_mel("FBXExportBakeComplexStart", v = start_frames[x])  
     run_mel("FBXExportBakeComplexEnd", v = end_frames[x])  
     run_mel("FBXExport", f = get_export_file(x) + ".fbx")  
@@ -80,7 +79,8 @@ That's a big improvement over all that string assembly (not leastaways because i
   
 Luckily that's quite easy to do. After all, the run_mel("command") part of this is the same except for the command names. So why not make a second function that makes functions with the right command names?  This is basically just a tweak on the way decorators work. For example:  
     
-    
+
+    :::python    
     def mel_cmd(cmd):  
         def wrap (*args, **kwargs):  
             return run_mel(cmd, *args, **kwargs)  
@@ -96,6 +96,7 @@ This takes a MEL command name ("cmd") and makes a new function which calls run_m
     
 And call them just like real Python:    
     
+    :::python
     FBXExport(f = "this_is_a_lot_nicer.fbx")  
     
  

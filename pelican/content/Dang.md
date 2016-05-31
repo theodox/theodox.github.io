@@ -2,7 +2,7 @@ Title: Dang
 Date: 2015-01-10 16:09:00.000
 Category: blog
 Tags: maya, bugs, techart
-Slug: _dang
+Slug: dang
 Authors: Steve Theodore
 Summary: An irritating behavior in `cmds.ls()` that can really ruin your day.
 

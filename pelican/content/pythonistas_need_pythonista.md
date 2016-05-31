@@ -2,13 +2,13 @@ Title: Pythonistas need Pythonista!
 Date: 2014-07-27 13:07:00.000
 Category: blog
 Tags: python, web
-Slug: _pythonista
+Slug: pythonista
 Authors: Steve Theodore
 Summary: [Pythonista](http://omz-software.com/pythonista/), a remarkably slick Python interpreter for iOS
 
 If you consider yourself a Pythonista, you've probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of [Pythonista](http://omz-software.com/pythonista/). It's not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial wig.  
 
-Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like [Codea](http://twolivesleft.com/Codea/). and manages to skirt Apple's rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the 'batteries' included are heavy hitters like _pil,_ _numpy _and _matplotlib, _along with a few cool little things like a text-to-speech module and tools for dealing with the iOS console.
+Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like [Codea](http://twolivesleft.com/Codea/). and manages to skirt Apple's rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the 'batteries' included are heavy hitters like `pil`,`numpy` and `matplotlib`, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS console.
 
 The most impressive inclusions are the `scene` and `ui` modules: custom modules devoted to iOS drawing and UI.  Ironically, it's easier to develop a GUI application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a UI builder tool similar to QT's interface builder (not nearly as deep or complex, of course, but iOS UI is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes `pil`, you can even do stuff like image processing:  
 

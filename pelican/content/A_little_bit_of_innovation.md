@@ -2,7 +2,7 @@ Title: A little bit of innovation
 Date: 2014-03-11 07:00:00.000
 Category: blog
 Tags: tools, modeling, modo
-Slug: _a_little_bit_of_innovation
+Slug: a_little_bit_of_innovation
 Authors: Steve Theodore
 Summary: A cool new modeling feature in Modo
 

@@ -6,7 +6,7 @@ Slug: _mighty_morphin_maya_module_manager
 Authors: Steve Theodore
 Summary: A GUI for managing Maya modules
 
-For folks who are interested in [fiddling with Maya modules](http://techartsurvival.blogspot.com/2014/01/mayas-mildy-magical-modules.html) as per the last post, I've tossed [a quickie class to manage Maya modules ](https://gist.github.com/theodox/8414494)onto [my Gist account](https://gist.github.com/theodox).  
+For folks who are interested in [fiddling with Maya modules](magical_modules.html) as per the last post, I've tossed [a quickie class to manage Maya modules ](https://gist.github.com/theodox/8414494)onto [my Gist account](https://gist.github.com/theodox).  
   
 This is a bare bones bit of code. The main class is the `ModuleManager`, which can find any `.mod` files on the MAYA_MODULE_PATH of the current Maya environment. It's primary use is to find and list all the modules; secondarily it can be used to toggle them on and off (by changing the leading + which Maya uses to id a module to a -, or vice-versa). It's pretty dumb (no accounting for file permissions, incorrectly formatted .mod files, etc) but it's handy for quickly testing out configs.  
   

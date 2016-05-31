@@ -2,7 +2,7 @@ Title: Handy link: Python string format cookbook
 Date: 2014-07-09 23:51:00.003
 Category: blog
 Tags: python, programming
-Slug: _python_str_format_cookbook
+Slug: python_str_format_cookbook
 Authors: Steve Theodore
 Summary: A great cheat-sheet for Maya string formatting
 

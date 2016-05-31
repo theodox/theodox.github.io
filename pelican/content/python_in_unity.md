@@ -2,11 +2,11 @@ Title: Embedding IronPython in Unity = Tech-art hog heaven
 Date: 2013-12-21 11:14:00.001
 Category: blog
 Tags: unity, python, programming, techart
-Slug: _python_in_unity
+Slug: python_in_unity
 Authors: Steve Theodore
 Summary: How to embed an IronPython intepreter into Unity editor tools.
 
-_Update 6/2/2015_ If you are relatively new to Unity, and you're here because you're looking for ways to work in Python rather than C#, you may also want to check out [this 2015 post](http://techartsurvival.blogspot.com/2015/05/boo-who.html) about Boo - the very obscure, but very Python-like language in Mono that lets you write Unity games with fast, compiled code by almost-Python syntax.
+>**Update 6/2/2015** If you are relatively new to Unity, and you're here because you're looking for ways to work in Python rather than C#, you may also want to check out [this 2015 post](boo-who.html) about Boo - the very obscure, but very Python-like language in Mono that lets you write Unity games with fast, compiled code by almost-Python syntax.  It's always been a part of Unity but a lot of people never knew it was there.
 
 You don't work long in games without griping about your engine, and I've got my share of complaints about Unity. But I have to admit that it's the best toy in the world for a classic tech-art geek personality. Unlike bigger, more powerful AAA engines, Unity lets you get in under the hood really quickly. The editor environment is extremely extensible - you can add not just dialogs and buttons but 3d widgets and [diegetic UI ](http://www.thewanderlust.net/blog/2010/03/29/user-interface-design-in-video-games/).   
   

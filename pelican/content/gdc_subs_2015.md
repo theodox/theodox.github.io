@@ -2,7 +2,7 @@ Title: It's that time again! GDC Call for submissions is open!
 Date: 2015-08-15 14:33:00.002
 Category: blog
 Tags: industry, gdc
-Slug: _gdc_subs_2015
+Slug: gdc_subs_2015
 Authors: Steve Theodore
 Summary: The GDC call for submissions 2015 is open
 

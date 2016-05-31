@@ -2,7 +2,7 @@ Title: I don't endorse this...
 Date: 2015-09-16 15:09:00.001
 Category: blog
 Tags: techart
-Slug: _dont_endorse
+Slug: dont_endorse
 Authors: Steve Theodore
 Summary: Ah, XKCD. Get out of my head, dammit.
 

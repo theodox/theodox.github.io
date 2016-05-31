@@ -2,7 +2,7 @@ Title: code wars
 Date: 2015-08-08 12:49:00.000
 Category: blog
 Tags: programming
-Slug: _code_wars
+Slug: code_wars
 Authors: Steve Theodore
 Summary: Code Wars, yet another programming dojo -- but a pretty good one
 

@@ -2,7 +2,7 @@ Title: Moonrise coming to Steam Early Access next week!
 Date: 2015-05-21 17:15:00.000
 Category: blog
 Tags: games, industry
-Slug: _moonrise_steam_early_access
+Slug: moonrise_steam_early_access
 Authors: Steve Theodore
 Summary: Moonrise coming to Steam early access
 

@@ -2,7 +2,7 @@ Title: Just Put One Foot In Front of the Other
 Date: 2015-01-31 22:56:00.002
 Category: articles
 Tags: animation, game developer
-Slug: _one_foot_in_front
+Slug: one_foot_in_front
 Authors: Steve Theodore
 Summary: An article about real-world character movement speeds: how they vary and how to mix and match them for better animations.
   

@@ -1,8 +1,8 @@
 Title: Sliders!
 Date: 2014-03-16 11:08:00.000
 Category: blog
-Tags: , , , , 
-Slug: _sliders_
+Tags: tools 
+Slug: sliders
 Authors: Steve Theodore
 Summary: pending
 
@@ -12,7 +12,7 @@ Although GDMag is no more, I still occasionally get interesting press releases f
 ---  
 Now with realistic back flab!  
   
-MakeHuman is a new open sourced parametric modeling / body morphing program written in Python.  The overall use case is similar to [Poser](http://poser.smithmicro.com/gallery.html) or [Daz3d](http://www.daz3d.com/).  It seems like it also incorporates some of the underlying ideas from the venerable [FaceGen](http://www.facegen.com/) \- particularly having a few high level sliders that correlate changes across many different aspects of a model.  
+MakeHuman is a new open sourced parametric modeling / body morphing program written in Python.  The overall use case is similar to [Poser](http://poser.smithmicro.com/gallery.html) or [Daz3d](http://www.daz3d.com/).  It seems like it also incorporates some of the underlying ideas from the venerable [FaceGen](http://www.facegen.com/) \- particularly having a few high level sliders that correlate changes across many different aspects of a model. 
   
 
 

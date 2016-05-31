@@ -2,14 +2,14 @@ Title: Porting Spelchek to Boo
 Date: 2015-06-06 22:13:00.000
 Category: blog
 Tags: boo, spelcheck
-Slug: _porting_spelchek_to_boo
+Slug: porting_spelchek_to_boo
 Authors: Steve Theodore
 Summary: A port of the [Spelchek](https://github.com/theodox/spelchek) spell checker to Boo, just to prove a point.
 
 
 What could be more ghostly than a _post mortem?_  
   
-If [my last post about Boo](http://techartsurvival.blogspot.com/2015/05/boo-who.html) piqued your interest, but you haven’t had time to do a deep dive into the language to see for yourself, I’ve posted a version of the [Spelchek](https://github.com/theodox/spelchek) Python spell checker module converted to Boo so you can see the similarities and differences between the two languages.   
+If [my last post about Boo](boo_who.html) piqued your interest, but you haven’t had time to do a deep dive into the language to see for yourself, I’ve posted a version of the [Spelchek](https://github.com/theodox/spelchek) Python spell checker module converted to Boo so you can see the similarities and differences between the two languages.   
 The original Python version is [here](https://github.com/theodox/spelchek/issues) and the Boo port is [here](https://github.com/theodox/BooSpell). As a good indication of what I’ve been saying about the economy of Boo syntax, the Boo version comes in at almost the same size as the Python original (5.05 kb for Boo and 4.95kb for Python) and pretty much the same number of lines – I haven’t done the excersize of converting it to C# for comparison but I’d guess the C# version would come in at about half again as much typing.  
 Looking at the code, significant chunks are almost identical: the logic is pretty much the same and the type annotations are the only real difference.   
 Thus  

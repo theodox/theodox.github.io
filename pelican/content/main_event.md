@@ -2,11 +2,11 @@ Title: The Main Event - event oriented programming in Maya
 Date: 2014-04-29 00:14:00.001
 Category: blog
 Tags: maya, python, mGui, programming
-Slug: _main_event
+Slug: main_event
 Authors: Steve Theodore
 Summary: Event oriented programming for python in general and for Maya GUI in particular
 
-The [Maya Callbacks Cheat Sheet](http://techartsurvival.blogspot.com/2014/04/maya-callbacks-cheat-sheet.html) post started out as an effort to explain the design the [event system](https://github.com/theodox/mGui/blob/master/mGui/events.py) in [mGui ](https://github.com/theodox/mGui)\- but it quickly turned into it's own thing as I realized that the vanilla Maya system remains confusing to lots of people.  With that background out of the way, I want to return to events proper, both to explain why they work the way the do in mGui and also how they can be useful for other projects as well (I use them all over the place in non-GUI contexts).  
+The [Maya Callbacks Cheat Sheet](maya_callbacks_cheat_sheet.html) post started out as an effort to explain the design the [event system](https://github.com/theodox/mGui/blob/master/mGui/events.py) in [mGui ](https://github.com/theodox/mGui)\- but it quickly turned into it's own thing as I realized that the vanilla Maya system remains confusing to lots of people.  With that background out of the way, I want to return to events proper, both to explain why they work the way the do in mGui and also how they can be useful for other projects as well (I use them all over the place in non-GUI contexts).  
   
 ...and, because it's got the word 'event' in it, I'm going to throw in a lot of irrelevant references as I can manage to **_The Crushah!_**  
   
@@ -70,23 +70,23 @@ Here's the important bit of the core code (the full thing, as always, is [up on 
 
     :::python
     class Event(object):
-
+    
        def __init__(self, **data):
             self._Handlers = set()
             '''Set list of handlers callables. Use a set to avoid multiple calls on one handler'''
             self.Data = data
             self.Data['event'] = self
-
+            
         def _add_handler(self, handler):
             """
             Add a handler callable. Raises a ValueError if the argument is not callable
             """
             if not callable(handler):
                 raise ValueError("%s is not callable", handler)
-
+                
             self._Handlers.add(get_weak_reference(handler))
             return self
-
+            
         def _remove_handler(self, handler):
             """
             Remove a handler. Ignores handlers that are not present.
@@ -95,7 +95,7 @@ Here's the important bit of the core code (the full thing, as always, is [up on 
             delenda = [h for h in self._Handlers if h == wr]
             self._Handlers = self._Handlers.difference(set(delenda))
             return self
-
+            
         def metadata(self, kwargs):
             """
             returns the me
@@ -104,12 +104,12 @@ Here's the important bit of the core code (the full thing, as always, is [up on 
             md.update(self.Data)
             md.update(kwargs)
             return md
-
+            
         def _fire(self, *args, **kwargs):
             """
             Call all handlers.  Any decayed references will be purged.
             """
-
+            
             delenda = []
             for handler in self._Handlers:
                 try:
@@ -117,13 +117,13 @@ Here's the important bit of the core code (the full thing, as always, is [up on 
                 except DeadReferenceError:
                     delenda.append(handler)
             self._Handlers = self._Handlers.difference(set(delenda))
-
+            
         def _handler_Count(self):
             """
             Returns the count of the _Handlers field
             """
             return len([i for i in self._Handlers])
-
+            
         # hook up the instance methods to the base methods
         # doing it this way allows you to override more neatly
         # in derived classes
@@ -143,12 +143,12 @@ While the description is a bit long winded, the use case is pretty straightforwa
     :::python
     from mGui.events import Event
     test_event = Event(name='test event')
-
+    
     def test_handler (*args, **kwargs):
         print args, kwargs
         
     test_event += test_handler # attach the handler
-
+    
     test_event()
     #>> () {'name': 'test event', 'event': <mGui.events.Event object at 0x000000002C7FEC88>}
     test_event(1,2,3)
@@ -195,7 +195,7 @@ At the risk of repeating myself, I just want to show how the Event pattern makes
             self.msg =  cmds.text('...')
             self.counter = cmds.text('0')
             self._counter = 0
-
+            
         def show(self):
             cmds.showWindow(self.window)
        
@@ -213,7 +213,7 @@ At the risk of repeating myself, I just want to show how the Event pattern makes
                cmds.refresh(force=True)
             # closing message
             cmds.text(self.msg, e=True, label="finished fancy tasks")
-
+            
     oc = OverCoupled()
     oc.show()
   
@@ -225,10 +225,10 @@ Most of all, imagine how irritating it is to write code that simultaneously does
     import mGui.gui as gui
     import maya.cmds as cmds
     import mGui.events as events
-
+    
     def move_down(*args, **kwargs):
         cmds.xform(kwargs['target'], t=(0,-10,0), r=True)
-
+        
     # make a window with buttons for each transform. Clicking buttons 
     # moves them down 10 units
     with gui.Window('main') as example:
@@ -237,7 +237,7 @@ Most of all, imagine how irritating it is to write code that simultaneously does
                 b = gui.Button('b_' + item, label = item)
                 b.command = events.Event(sender = b, target = item)
                 b.command += move_down
-
+                
     example.show()
 
   

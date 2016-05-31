@@ -1,17 +1,11 @@
 Title: Size is the enemy: an oldie but a goodie
 Date: 2014-09-01 22:39:00.000
 Category: blog
-Tags: , , 
-Slug: _size_is_the_enemy_an_oldie_but_a_goodie
+Tags: programming 
+Slug: size_is_the_enemy
 Authors: Steve Theodore
-Summary: pending
-
-While googling my way around some strategy issues lately I rediscovered [this 2007 post from Jeff Atwood](http://blog.codinghorror.com/size-is-the-enemy/) which neatly sums up a few important things that have been factoring very large in my thinking lately:  Plus, I've spent the last 4 days in the madness that is Pax (shout out to all the great folks who came by the booths, by the way!) so I'm a little grumpy.  
-  
-The reasons why are enumerated after the jump....  (Update 9/3) see below  
-  
-  
-
+Summary: While googling my way around some strategy issues lately I rediscovered [this 2007 post from Jeff Atwood](http://blog.codinghorror.com/size-is-the-enemy/) which neatly sums up a few important things that have been factoring very large in my thinking lately:  Plus, I've spent the last 4 days in the madness that is Pax (shout out to all the great folks who came by the booths, by the way!) so I'm a little grumpy.  And it led me to a list things that have been bugging me for a while.
+    
 
 ## #1: Maintain &gt; Build
 

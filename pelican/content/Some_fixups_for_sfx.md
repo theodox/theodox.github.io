@@ -1,8 +1,8 @@
 Title: Some fixups for sfx
 Date: 2016-01-29 00:52:00.001
 Category: blog
-Tags: , , , , 
-Slug: _some_fixups_for_sfx
+Tags: sfx, programming, maya 
+Slug: some_fixups_for_sfx
 Authors: Steve Theodore
 Summary: pending
 

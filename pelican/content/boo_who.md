@@ -2,7 +2,7 @@ Title: Boo Who?
 Date: 2015-05-31 22:02:00.000
 Category: blog
 Tags: programming, boo
-Slug: _boo_who
+Slug: boo_who
 Authors: Steve Theodore
 Summary: A quick introduction to Boo, a python-like language for the CLR
 

@@ -2,11 +2,11 @@ Title: Python in Unity  - minor correction
 Date: 2013-12-22 09:53:00.001
 Category: blog
 Tags: python, unity
-Slug: _python_in_unity_correction
+Slug: python_in_unity_correction
 Authors: Steve Theodore
 Summary: A quick update to earlier posts about using IronPython in Unity.
 
-Going over the last post about [Python + Unity](http://techartsurvival.blogspot.com/2013/12/embedding-ironpython-in-unity-tech-art.html), I did a clean install to make sure the steps I was describing were working correctly and it reminded me about an inportant bit I've left out: how to get the Python stdlib into your Unity IronPython  
+Going over the last post about [Python + Unity](python_in_unity.html), I did a clean install to make sure the steps I was describing were working correctly and it reminded me about an inportant bit I've left out: how to get the Python stdlib into your Unity IronPython  
   
 Because Microsoft was the sponsor of the original IronPython project, versions that Microsoft released (including the 2.6.2 that i linked to in the last post) **don't include the stdlib**, which comes with it's own license that clashes in some mysterious way with MS's licensing terms (even though both MS and the Python Foundation are giving the stuff away for free... _*_sigh*). So to dance around that, they did not include the stdlib -- the 'batteries included' -- with base install.  
   
@@ -17,8 +17,7 @@ The remedy is simple - grab a copy of the regular python stdlib from a python 2.
 ##  Caveat emptor
 
   
-  
-FWIW, this is a good place to point out that some small percentage of stdlib modules don't work under IronPython (an unfortunate example being the handy _csv_ module for reading comma-delimited data files).  AFAIK there is no authoritative list of which modules do and don't work under Ipy. The good news is that, for this application , there is almost always a dotnet native solution to use as an alternative without having to install anything else.  
+FWIW, this is a good place to point out that some small percentage of stdlib modules don't work under IronPython (an unfortunate example being the handy `csv` module for reading comma-delimited data files).  AFAIK there is no authoritative list of which modules do and don't work under Ipy. The good news is that, for this application , there is almost always a dotnet native solution to use as an alternative without having to install anything else.  
   
 
 

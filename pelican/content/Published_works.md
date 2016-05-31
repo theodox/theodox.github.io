@@ -1,14 +1,10 @@
 Title: Published works
 Date: 2015-04-11 23:38:00.000
-Category: blog
-Tags: 
-Slug: _published_works
+Category: articles
+Tags: articles
+Slug: published_works
 Authors: Steve Theodore
-Summary: pending
-
-This page collects links to my old Game Developer articles and other published works.  
-  
-  
+Summary: This page collects links to my old Game Developer articles and other published works.  
 
 
 ### Animation

@@ -2,13 +2,13 @@ Title: Markdown Wrapup
 Date: 2015-03-17 23:47:00.000
 Category: blog
 Tags: blogging, markdown
-Slug: _markdown_wrapup
+Slug: markdown_wrapup
 Authors: Steve Theodore
 Summary: An experiment with plain-text blogging in markdown.
 
-> Since this was written I've moved the whole blog to a [Pelican]() based static site generated entirely from Markdown. It's a vastly nicer way to work than the old Blogger editor!  I've left this along for historical reasons but as of 'today' (spring 2016) I'm all Pelican, all the time.
+> Since this was written I've moved the whole blog to a [Pelican](http://docs.getpelican.com) based static site generated entirely from Markdown. It's a vastly nicer way to work than the old Blogger editor!  I've left this along for historical reasons but as of 'today' (spring 2016) I'm all Pelican, all the time.
 
-A [while back](http://techartsurvival.blogspot.com/2014/11/wyg-wys.html) I blogged about how much I longed for a good [Markdown](http://daringfireball.net/projects/markdown/syntax) based blogging platform. Since a couple of people inquired about how that’s gone, I thought I’d mention my (meager) findings since then.  
+A [while back](wygwys.html) I blogged about how much I longed for a good [Markdown](http://daringfireball.net/projects/markdown/syntax) based blogging platform. Since a couple of people inquired about how that’s gone, I thought I’d mention my (meager) findings since then.  
   
 ## The options
   
@@ -24,7 +24,6 @@ There are a few markdown based blogging hosts out there. The one I looked at mos
 ![silverback](http://knolzone.com/wp-content/uploads/2014/03/silvrback.jpg)  
 
 #### Custom markdown
-    
 The last option would be trying to take control of the markdown to HTML conversion process and spit out a minimal set of HTML that would play nice with Blogger but need no hand-work to make it pretty (you’ll recall that I bitched about my earlier efforts getting bogged down in `<p/>` vs `<br/>` and other HTML nonsense I don’t want to think about. There are lots of Markdown generators out there at varying levels of sophistication, but I also don’t want to think too much about micromanaging those.
 
 After a few bouts of intense googling, I ended deciding to stick with Blogger for two reasons. First, I didn’t see an obvious way to port my old stuff – more than a hundred posts with all sorts of special formatting and so on – and I felt it would be bad for the site to be split across two hosts. Also, I worried about losing readers if I switched URLs (if I do this again, I’m going to set up a custom domain early so people know the site by a redirect I can switch at will!). I will admit that I also wondered if using Google for hosting has anything to do with search results - I’ve noticed that a significant portion of traffic comes through Google searches and I wonder if other hosts are quite as well covered by whatever magic algorithm Google uses.  
@@ -35,7 +34,7 @@ It took a bunch of fiddling to figure out how it works, but once I got over the 
 
 ---
 
-###  1. Install the MarkdownEditing and MarkdownPreview packages for Sublime Text.
+###  1\. Install the MarkdownEditing and MarkdownPreview packages for Sublime Text.
 
 This is pretty simple using Sublime’s excellent Package Manager, so I’ll skip the details **([here’s some help](http://www.granneman.com/webdev/editors/sublime-text/packages/how-to-install-and-use-package-control/) if you need it.)**  
 

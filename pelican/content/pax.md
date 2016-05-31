@@ -2,7 +2,7 @@ Title: Pax!
 Date: 2014-08-28 23:04:00.001
 Category: blog
 Tags: games, industry, moonrise
-Slug: _pax2014
+Slug: pax
 Authors: Steve Theodore
 Summary: Pax 2014 on the horizon!
 

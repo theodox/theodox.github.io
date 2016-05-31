@@ -2,7 +2,7 @@ Title: If your Maya Python API is crashing
 Date: 2014-03-18 00:38:00.001
 Category: blog
 Tags: maya, python, api
-Slug: _python_api_crash
+Slug: python_api_crash
 Authors: Steve Theodore
 Summary: A useful tidbit from Autodesk on how to avoid a common crash scenario in Maya python api 1.0
 

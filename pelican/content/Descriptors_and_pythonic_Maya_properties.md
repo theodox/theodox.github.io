@@ -2,7 +2,7 @@ Title: Descriptors and pythonic Maya properties
 Date: 2014-03-11 15:15:00.000
 Category: blog
 Tags: maya, python, gui, techart
-Slug: _descriptors_and_pythonic_maya_properties
+Slug: descriptors_and_pythonic_maya_properties
 Authors: Steve Theodore
 Summary: How to use descriptors for dot-style access to maya object properties instead of `cmds.getAttr()`
 

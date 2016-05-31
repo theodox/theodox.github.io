@@ -2,7 +2,7 @@ Title: Con Job
 Date: 2015-04-04 12:20:00.000
 Category: blog
 Tags: tools, programming, maya, techart
-Slug: _con_job
+Slug: con_job
 Authors: Steve Theodore
 Summary: How to be more productive with mayapy and a console program. 
 

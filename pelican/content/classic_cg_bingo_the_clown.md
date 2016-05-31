@@ -2,7 +2,7 @@ Title: Classic (?) CG: Bingo the Clown
 Date: 2014-04-04 10:00:00.000
 Category: blog
 Tags: classic cg
-Slug: _bingo_the_clown
+Slug: bingo_the_clown
 Authors: Steve Theodore
 Summary: Chris Landreth's emininently creepy CG short, "Bingo the Clown"
 

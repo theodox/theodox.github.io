@@ -1,8 +1,8 @@
 Title: Save the environment!
 Date: 2014-06-03 10:30:00.000
 Category: blog
-Tags: maya, python, distribution, programming
-Slug: _save_the_environment
+Tags: maya, python, distribution, programming, tools
+Slug: save_the_environment
 Authors: Steve Theodore
 Summary: A grumpy look at the state of python tools distribution
 

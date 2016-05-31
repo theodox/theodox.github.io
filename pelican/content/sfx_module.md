@@ -1,8 +1,8 @@
 Title: First module of the year!
 Date: 2016-01-13 23:35:00.000
 Category: blog
-Tags: maya, python, shaders, techart
-Slug: _sfx_module
+Tags: maya, python, shaders, techart, sfx
+Slug: sfx_module
 Authors: Steve Theodore
 Summary: Introducing SFX -- a python module for scripting Maya shaderFX shaders.
 

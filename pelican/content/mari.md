@@ -2,11 +2,11 @@ Title: New tools watch: MARI
 Date: 2014-03-25 09:30:00.000
 Category: blog
 Tags: tools, industry
-Slug: _mari
+Slug: mari
 Authors: Steve Theodore
-Summary: Mari, a high-end dedicated 3D paint program.
+Summary: Mari, a high-end dedicated 3D paint program. It's awesome, but pricey.
 
-Lately - particularly since the demise of the [late, lamented XSI](http://techartsurvival.blogspot.com/2014/03/sigh.html), I've been increasingly worried about getting too locked in to any one vendor for my tools.  I go way back with Photoshop - I once emailed a bug report directly to [John Knoll](http://en.wikipedia.org/wiki/John_Knoll) on my [Compuserve ](http://arstechnica.com/tech-policy/2009/07/goodbye-compuserve-we-thought-you-had-already-died/)(!!) account.  I was in the audience for the Maya launch at SIGGRAPH in, I think it was 1997.   
+Lately - particularly since the demise of the [late, lamented XSI](sigh.html), I've been increasingly worried about getting too locked in to any one vendor for my tools.  I go way back with Photoshop - I once emailed a bug report directly to [John Knoll](http://en.wikipedia.org/wiki/John_Knoll) on my [Compuserve ](http://arstechnica.com/tech-policy/2009/07/goodbye-compuserve-we-thought-you-had-already-died/)(!!) account.  I was in the audience for the Maya launch at SIGGRAPH in, I think it was 1997.   
   
 Jeez, I'm really fricking _old._ But I digress.  
   

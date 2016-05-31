@@ -2,7 +2,7 @@ Title: mGui updates
 Date: 2014-06-24 22:10:00.000
 Category: blog
 Tags: mGui, Maya
-Slug: _mgui_updates_1
+Slug: mgui_updates_1
 Authors: Steve Theodore
 Summary: Some new features for [mGui](https://github.com/theodox/mGui), including progress bars, menu loading from YAML files and scriptJobs
 

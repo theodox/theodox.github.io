@@ -2,7 +2,7 @@
 Date: 2014-03-04 21:12:00.000
 Category: blog
 Tags: industry, tools 
-Slug: _sigh
+Slug: sigh
 Authors: Steve Theodore
 Summary: The demise of XSI and the future of the art-tools business.
 

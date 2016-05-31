@@ -2,15 +2,14 @@ Title: Maya GUI II: All Your Base Classes Are Belong To Us
 Date: 2014-03-28 09:30:00.000
 Category: blog
 Tags: Maya, python, GUI, programming
-Slug: _all_your_base_classes
+Slug: all_your_base
 Authors: Steve Theodore
 Summary: Introducing `mGui`, a module for making Maya GUI coding more pythonic and less infuriating.
 
 > I've left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood -- but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the [mGui 2]() post for a more up-to-date view of the current mGui syntax
 
-**Updated 4/11/2015: fixing code samples that had gone missing thanks to Blogger templates....**  
 
-In [Rescuing Maya GUI From Itself](http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html) I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya GUI toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to [Thunderbirds](http://www.youtube.com/watch?v=BfIAKj3Gl1E). This time out I want to detail what a working implementation of the ideas I sketched out there looks like.  
+In [Rescuing Maya GUI From Itself](rescuing_maya_gui_from_itself.html) I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya GUI toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to [Thunderbirds](http://www.youtube.com/watch?v=BfIAKj3Gl1E). This time out I want to detail what a working implementation of the ideas I sketched out there looks like.  
 ![](http://fc06.deviantart.net/fs70/f/2010/282/6/a/all_your_base_by_ultimathegod-d30fu0f.jpg)  
 
 I think this time the irrelevant thematic gloss will come from [All Your Base Are Belong To Us](http://knowyourmeme.com/memes/all-your-base-are-belong-to-us) jokes. Because (a), we’re talking about base classes, (b) what could be more retro and 90’s than Maya’s GUI system, and (c) **For Great Justice, Make All Zig!**  
@@ -23,7 +22,7 @@ I’ve put my current stab at a comprehensive implementation up on Github, in th
 
 What we’re shooting for is a library that provides all of Maya;’s GUI widgets in a clean, pythonic way without making anybody learn too much new stuff. If all goes well, the result is a cleaned up and more efficient version of things most of us already know. You can also treat this an template for how you might want to to wrap other aspects of Maya – say, rendering or rigging – in cleaner code.  
 
-From last time, we know we can wrap a Maya GUI component in a class which uses [descriptors](http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb) to make conventional property access work. The main thing we’re going to be delivering in this installment is a slew of classes that have the right property descriptors to replicate the Maya GUI toolkit. We’ll be using the metaclass system we showed earlier to populate the classes (if none of this makes sense, you probably want to [hop back to the previous blog entry](http://techartsurvival.blogspot.com/2014/02/rescuing-Maya-GUI-from-itself.html) before following along).  
+From last time, we know we can wrap a Maya GUI component in a class which uses [descriptors](http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb) to make conventional property access work. The main thing we’re going to be delivering in this installment is a slew of classes that have the right property descriptors to replicate the Maya GUI toolkit. We’ll be using the metaclass system we showed earlier to populate the classes (if none of this makes sense, you probably want to [hop back to the previous blog entry](rescuing_maya_gui_from_itself.html) before following along).  
 To keep things simple and minimize the boilerplate, we’ll want to derive all of our concrete classes – the widgets and layouts and so on – from a single base. This helps the code simple and ensure that the features we add work the same way for the whole library. We’ll add a second class later to handle some details specific to layouts, but that will derive from the base class.  
 Before we look at the details of the base class, we should think a little more about the properties. In the last installment, we treated all properties the same way - as generic wrappers around Maya.cmds. In a production setting, though, we want to distinGUIsh between 3 types of properties:  
 
@@ -158,10 +157,10 @@ So with all those methods added the base Control class looks like this:
       
         NOTE this is not exactly identical to the code on github - more advanced stuff is removed to make the progression clearer  
         '''  
-
+        
         # what command do I call?
         CMD = cmds.control  
-
+        
         # these will be re-written by the metaclass as property descriptors 
         _ATTRIBS = ['annotation', 'backgroundColor', 'defineTemplate', 'docTag',  'enable', 'enableBackground', 'exists', 'fullPathName', 'height',  'manage', 'noBackground', 'numberOfPopupMenus', 'parent', 'popupMenuArray', 'preventOverride', 'useTemplate', 'visible', 'visibleChangeCommand', 'width']  
         _CALLBACKS = ['dragCallback', 'dropCallback', 'visibleChangeCommand']  
