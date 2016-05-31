@@ -427,8 +427,6 @@ Hopefully, keeps the learning curve short for new user. Its hard enough to pick 
 In the version up on Github (and in this example) I opted to use only the long name for the properties. This is definitely a matter of taste; I’m sure that many TAs out there are sufficiently familiar with the old Maya command flags that a howler like `cmds.rowLayout(nc=2, cw2=(50,100), ct2=('both', 5), bgc = (.8,.6,.6), cl2=("left", "right")` makes its meaning clear. for my part, though, the long names clarify the intent of the code enormously if you make a fairly small upfront investment in typing.   
 
 If you are of the opposite opinion, though, you can call the `generate_helpers` and `generate_controls` functions in mGUI.helpers.tools with `includeShortNames` set to true make your own wrappers with the short flags too.  
----
-
 ## What You Say!!!
 
 Now we’ve got a complete library of all the widgets. You can see the results in [controls.py](https://github.com/theodox/mGUI/blob/master/mGUI/core/controls.py) and [layouts.py](https://github.com/theodox/mGUI/blob/master/mGUI/core/layouts.py) on GitHub. (The base classes are also up there for your perusal in [the root of the core module](https://github.com/theodox/mGUI/blob/master/mGUI/core/__init__.py)). If all you want is to stop writing long commands every time you touch a GUI item, you’re done. You can write crisper layout code, tweak your properties, and so on with what we’ve covered so far. If you’re interested in making practical use of this setup – remember that WIP warning! – you should read the docs in the events.py module to make sure you know how to hook up callback events. I’ll cover that in more detail in the future.  
