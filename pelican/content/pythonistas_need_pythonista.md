@@ -2,7 +2,7 @@ Title: Pythonistas need Pythonista!
 Date: 2014-07-27 13:07:00.000
 Category: blog
 Tags: python, web
-Slug: _pythonista
+Slug: pythonista
 Authors: Steve Theodore
 Summary: [Pythonista](http://omz-software.com/pythonista/), a remarkably slick Python interpreter for iOS
 

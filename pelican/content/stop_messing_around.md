@@ -2,11 +2,11 @@ Title: Goddamit, stop messing around
 Date: 2015-04-26 11:38:00.000
 Category: blog
 Tags: programming, console
-Slug: _goddamit,-stop-messing-around
+Slug: stop_messing_around
 Authors: Steve Theodore
 Summary: A module for simple colored printing in a python terminal
 
-It was inevitable, after I started noodling around with [terminal colors in ConEmu](http://techartsurvival.blogspot.com/2015/04/blockquote-background-f9f9f9-border_12.html), that I’d waste an afternoon cooking up a way to color my Maya terminal sessions automatically.  
+It was inevitable, after I started noodling around with [terminal colors in ConEmu](eyeballs.html), that I’d waste an afternoon cooking up a way to color my Maya terminal sessions automatically.  
 
 The actual code is [up on GitHub](https://github.com/theodox/conemu) (under the usual MIT Open License - enjoy!).   
   
@@ -57,13 +57,13 @@ The module contains some helper classes if you want to make your own display mor
 
 The _`Terminal`_ class makes it less cumbersome to control the display. The main use is to color or highlight text. The 16 terminal colors are available as `Terminal.color[0]` through `Terminal.color[15]`, and you can highlight a piece of text like so:  
 
-    
+    :::python
     print "this is " + Terminal.color[10]("colored text")  
     
 
 The background colors are `Terminal.bg[0]` through `terminal.bg[5]` and work the same way:  
     
-    
+    :::python
     print Terminal.bg[2]("backgound text")  
     
 

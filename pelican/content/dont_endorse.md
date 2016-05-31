@@ -2,9 +2,9 @@ Title: I don't endorse this...
 Date: 2015-09-16 15:09:00.001
 Category: blog
 Tags: techart
-Slug: _i-don't-endorse-this_
+Slug: dont_endorse
 Authors: Steve Theodore
-Summary: Ah, XKCD. Get out of my mind, dammit.
+Summary: Ah, XKCD. Get out of my head, dammit.
 
 .. But I could not resist. The original title was _Automation comes from the Latin word meaning 'self', and 'mating', which means 'screwing_'
 

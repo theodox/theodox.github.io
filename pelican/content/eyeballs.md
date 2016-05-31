@@ -2,7 +2,7 @@ Title: Didn't need those eyeballs anyway!
 Date: 2015-04-12 10:21:00.000
 Category: blog
 Tags: programming
-Slug: didnt-need-those-eyeballs-anyway
+Slug: eyeballs
 Authors: Steve Theodore
 Summary: Colorizing your terminal text for fun and profit!
 

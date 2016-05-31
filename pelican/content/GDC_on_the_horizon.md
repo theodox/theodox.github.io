@@ -2,7 +2,7 @@ Title: GDC on the horizon
 Date: 2015-02-24 22:49:00.002
 Category: blog
 Tags: gdc, industry
-Slug: _gdc-on-the-horizon
+Slug: gdc-on-the-horizon
 Authors: Steve Theodore
 Summary: GDC talk coming up
 

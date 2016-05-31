@@ -2,7 +2,7 @@ Title: Grrrr..... Maya!!!
 Date: 2015-10-27 22:43:00.000
 Category: blog
 Tags: maya, bugs, programming,techart
-Slug: _maya-materials-bug
+Slug: grr_maya
 Authors: Steve Theodore
 Summary: A really annoying, and really old bug in Maya relating to materials.
 
