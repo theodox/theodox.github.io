@@ -44,7 +44,7 @@ The goal of minq is to provide a more concise and more readable way to find thin
 Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional means:  
 
     
-    
+    :::python
     def find_assemblies_that_drive_skins():  
         skinned = []  
         for asm in cmds.ls(assemblies=True) or []:  
@@ -60,7 +60,7 @@ Above all, though, you need to remember two little bits of Maya trivia to make s
 Here’s the minq equivalent to the previous function:  
 
     
-    
+    :::python    
     def drives_skin(some_object):  
         children = using(some_object).get(AllChildren)  
         skin_clusters = children.get(Future).only(SkinClusters)  
@@ -70,17 +70,19 @@ Here’s the minq equivalent to the previous function:
     
 
 It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the names:  
+
 1. `drives_skin()` takes a maya object  
 2. It gets all of that object’s children  
 3. It gets all of the future history of those children  
 4. It it filters down to only the skin clusters in that future history  
 5. it returns true if any skin clusters are present  
+
 The rest of it pretty self evident: `unskinned_assemblies` just collects all of the assemblies which pass `drives_skin()`. The _algorithm_ is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read -- otherwise it could all be done in a single expression.  
 A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to `ls` and `listRelatives`.  
+
 Here’s a couple of other examples to give you the flavor of what a minq query looks like:  
 
-    
-    
+    :::python    
     # get all mesh transforms in a scene  
     mesh_transforms =  Meshes().get(Parents)  
       

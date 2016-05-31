@@ -11,12 +11,9 @@ Doing all this math-related posting has reminded me of something I've been meani
 Maya's [python API 2.0,](http://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/index-html.html) first introduced in the 2013 version, got off to a rocky start. People complained about [missing functions](http://stackoverflow.com/questions/20232835/maya-python-api-2-0-has-no-mitdag-so-how-traverse-dag-graph) and [missing modules](http://jeremyyk.com/tutorials/maya-s-python-api-2-0-).  It uses (mostly) the same function and class names as the original OpenMaya Python, which is a recipe for confusion. The documentation is pretty confusing too, since it points at the original C++ docs and leaves it up to you to do much of the translation in your head.    However....  
   
   
-One thing that API 2 definitely does right is to eliminate the dreaded _[MScriptUtil](http://techartsurvival.blogspot.com/2014/03/if-your-maya-python-api-is-crashing.html), _with its ugly and confusing interface and all of the opportunities for failures that it includes.  I've been busy porting over a bunch of geometry utilities to the new API and I'm routinely finding that stuff like this:  
+One thing that API 2 definitely does right is to eliminate the dreaded [`MScriptUtil`](python_api_crash), with its ugly and confusing interface and all of the opportunities for failures that it includes.  I've been busy porting over a bunch of geometry utilities to the new API and I'm routinely finding that stuff like this:  
   
-  
-
-    
-    
+    :::python
     def APIVector( iterable, normal=False ):  
         '''  
         return an iterable as an OpenMaya MVector  
@@ -39,8 +36,7 @@ One thing that API 2 definitely does right is to eliminate the dreaded _[MScript
   
 Turns into to this:  
 
-    
-    
+    :::python
     def APIVector(*iterable, **kwargs):
     
     

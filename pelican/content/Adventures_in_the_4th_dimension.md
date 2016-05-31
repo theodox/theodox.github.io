@@ -6,19 +6,19 @@ Slug: adventures-in-the-4th-dimension
 Authors: Steve Theodore
 Summary: Matrices and how they can be used to transform 3-d points
 
-In [our last discussion of 3d math](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html), we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that **matrices are just a convention for applying dot products in series.** We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  
+In [our last discussion of 3d math](dot_matrix.html), we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that **matrices are just a convention for applying dot products in series.** We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  
   
 Naturally, any TA reading this will be knows there's more. We all know that the matrices we’re most familiar with — the transform matrices that drive animation and modeling — do more than rotate. So this this time out we’re going talk about how **translation** — spatial offsets — can be packed into matrices.  And we're going to do it in a truly brain bending way.  Sort of.  
 
 
-> _If none of this sounds familiar, you may want to return to the [previous post in the series](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html) before continuing._
+> _If none of this sounds familiar, you may want to return to the [previous post in the series](dot_matrix.html) before continuing._
 
   
 After all of the time we’ve spent with dot products in this series, one thing we should remember is that dots are **additive** — if you dot two vectors, you sum up all of the products. “Additive” is a nice quality to have if we’re thinking about adding translations to our matrices  It suggests that maybe we can use the additive-ness of dot products to teach our matrices how to do translations as well as rotations.  
   
-Multiplying a vector against a matrix, [you’ll recall](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html), is nothing more than stringing together a set of dot products between the vector and the columns of the matrix. So, putting together the fact that dots are additive and the fact that matrix multiplication uses dots, it seems logical that we can just stick our translation right onto the bottom of the matrix.  By dropping it down at the end of the matrix columns, we'll add it add it to our results. One important side effect that we’ll have to worry about is that this will break the pretty symmetry we noted last time whereby every matrix row is an axis in the matrix's local coordinate system.  However we’ll deal with that after we know it works.  
+Multiplying a vector against a matrix, [you’ll recall](dot_matrix.html), is nothing more than stringing together a set of dot products between the vector and the columns of the matrix. So, putting together the fact that dots are additive and the fact that matrix multiplication uses dots, it seems logical that we can just stick our translation right onto the bottom of the matrix.  By dropping it down at the end of the matrix columns, we'll add it add it to our results. One important side effect that we’ll have to worry about is that this will break the pretty symmetry we noted last time whereby every matrix row is an axis in the matrix's local coordinate system.  However we’ll deal with that after we know it works.  
   
-To keep things simple, let’s start with a rotate matrix that doesn’t do any, you know, _rotating_ — a matrix that works but leaves incoming data unchanged. That'll make it easier to see when our translations kick in. The correct math moniker for this do-nothing matrix is an _identity_ matrix (as in the otherwise-inexplicable _MakeIdentity_ command in Maya) and it’s just a set of rows that match the default XYZ axes:  
+To keep things simple, let’s start with a rotate matrix that doesn’t do any, you know, _rotating_ — a matrix that works but leaves incoming data unchanged. That'll make it easier to see when our translations kick in. The correct math moniker for this do-nothing matrix is an _identity_ matrix (as in the otherwise-inexplicable `MakeIdentity()` command in Maya) and it’s just a set of rows that match the default XYZ axes:  
 
 |   |   | 
 |---|---|---|    
@@ -44,13 +44,12 @@ Next, we’d like to add some extra information to this matrix to include a tran
 So now we’ve got a test matrix that should offset our initial value by  `[1,2,3]`. However, we immediately run into a problem: as we try to multiply our vector against this matrix. The columns now have 4 items but our vector only has 3. How can we sum up? Dot products require that both vectors being dotted have the same number of products, as you can see here:  
   
 
-    
-    
     [1,1,1] dot [1,0,0,1] = (1 * 1) + (1 * 0) + (1 * 0) + (??? * 1)   
     
 
   
 To make this work, we are going to need to extend our vector to grab the translation values from the new matrix row. It needs to become a 4-dimensional vector. _The fourth dimension! Trippy! Cue [theremin music](https://www.youtube.com/watch?v=4wQsWL-lMJw)...._  
+
 We've actually dimension jumped before, while working through rotation matrices. We could borrow the same tactic we used in the last post when we moved from a 2-D matrix to a 3-D matrix by just taking on a zero to our vector. This seems like a natural idea, since we know that the 2-D vector `[X,Y]` is equivalent to the 3-D vector `[X,Y,0]`. So let’s see what happens if we do the dot products:  
 
     
@@ -62,7 +61,8 @@ We've actually dimension jumped before, while working through rotation matrices.
   
 Not what we were hoping for: our result is still  `[1,1,1]`. What happened?  
   
-The extra zero has allowed us to __do __the dot product — but it's  also zeroing out the translation we are trying to add. Evidently zero is not what we want here (this is not just an misstep, though: we'll come back to those zeroes later).   
+The extra zero has allowed us to _do_ the dot product — but it's  also zeroing out the translation we are trying to add. Evidently zero is not what we want here (this is not just an misstep, though: we'll come back to those zeroes later).   
+
 For now, the fix is pretty obvious, even though it’s much less obvious how to what the fix is supposed to mean. If we turn that final zero into a one, we’ll get our translation added to the original value:  
     
     
@@ -79,10 +79,10 @@ Well, it’s nice to get the right result, but this still leaves us with a bit o
 
 ## X,Y,Z,WTH?
 
-You may remember from our [original discussion of dot products](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html) that _vector_ is actually a very general term, encompassing any bundle of numbers. In tech art we’re used to thinking of vectors as XYZ bundles in 3-D space, but a vector can just as easily be something else — such as your weekly Starbucks expenditure, which is how we started down this road in the first place. 3-D points can be represented by vectors — but so could any bundle of 3 numbers which formed part of a linear equation; say, the value of the dollar, the euro and the yen on a given day. Dot products and matrices work the same way regardless of the subject matter. So, one thing we know already is that all 3-D points are vectors, so to speak, but _not _all vectors are 3-D.  
+You may remember from our [original discussion of dot products](bagles_and_coffee.html) that _vector_ is actually a very general term, encompassing any bundle of numbers. In tech art we’re used to thinking of vectors as XYZ bundles in 3-D space, but a vector can just as easily be something else — such as your weekly Starbucks expenditure, which is how we started down this road in the first place. 3-D points can be represented by vectors — but so could any bundle of 3 numbers which formed part of a linear equation; say, the value of the dollar, the euro and the yen on a given day. Dot products and matrices work the same way regardless of the subject matter. So, one thing we know already is that all 3-D points are vectors, so to speak, but _not _all vectors are 3-D. 
+
 [![](http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg)](http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg)  
----  
-Not only did he pioneer analytical geometry, he seems to have invented the Mall Santa look too.  
+> Not only did he pioneer analytical geometry, he seems to have invented the Mall Santa look too.  
   
 The vectors we use in graphics, of course are usually [Euclidean vectors](https://www.princeton.edu/~achaney/tmve/wiki100k/docs/Euclidean_vector.html): a set of 3 numbers which represent a spatial offset in the X,Y and Z spatial dimensions. The word _vector_ comes from the Latin word for _one who carries_: the vector is the spatial difference between two positions. We get misled by the fact that programming languages usually use the _algebraic_ name vector (as “bundle of numbers”) for the data type we use to hold the _geometric_ Euclidean vector. _The fact that algebraic vectors and Euclidean vectors share the same noun while meaning different things is, to put it mildly, _annoying.  _With the goofy stuff we're getting in to, I personally would be happy to skip these minor surprises._  
 
@@ -95,14 +95,12 @@ On the other hand a Euclidean point _is _an actual location in space. The point 
 That's where our fourth coordinate comes in. The fourth coordinate in our example **tells us if we’re dealing with a Euclidean point or a Euclidean vector**; that is, if we are dealing with something that can be translated or not.  If the last coordinate is a **1**, the data is a **point **which can be transformed (moved, rotated and scaled). If the last coordinate is a **0**, the data is a **vector**, which can be rotated and scaled but not moved. The last number is known as the [homogeneous coordinate](http://en.wikipedia.org/wiki/Homogeneous_coordinates), although most people refer to it as the “W” component by analogy with X Y and Z.  _Although I kind of wish they had just wrapped it around back to A, or started at W, or something. XYZW? Like I said, I'd like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh well._  
 
 
-# [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#homegeneophobia)Homegeneophobia
-
-  
-
+## Homegeneophobia
 
 If you’re practically minded, all you _really _need to know today is that a W of 1 is a point and a W of 0 is a direction. If you are especially literal minded, in fact, this next bit may be a bit... bizarre. You can probably skip it without missing much practical information, but try to stick it out. It will give you an appreciation of the abstract beauty the underlies matrix math.  I'm going to try to explain of the ‘meaning’ of the W coordinate but take this with a grain of salt, since this one goes a bit beyond my limited mathematical imagination.  
 We've already suggested that the W component represents a 4th dimension.  While that's kind of hard to visualize, we can see the results by 'projecting' onto the XYZ space that we are used to. Got that? Just like we project a 3-D set of points onto the 2-D screen of our computers, we can project a 4-D quantity into 3 dimensions.  
 Another way to think about it is that an XYZW vector is _one point along a 4-dimensional line that intersects 3-space_.  In this image, engraver/ math whiz / literal Renaissance Man [Albrecht Durer](http://www.albrecht-durer.org/) is using a perspective scrim to do his life drawing: projecting a 3-D reality on the 2-D silk screen by keeping his eye in one location and then seeing how the 3-D lady lines up with his 2-D grid.  
+
 [![](http://relativity.net.au/gaming/java/images/DurerFrustum.png)](http://relativity.net.au/gaming/java/images/DurerFrustum.png)  
 ---  
 A decent analogy for projecting 4-D down to 3, here a 3-D world projected  down to 2:   
@@ -117,40 +115,34 @@ The point where our mystical 4-D vector intersects our plain old 3-D space corre
 A W value of 1 represents the projection of our 4-D vector onto boring old 3-D reality, sort of like the plane of the perspective scrim in the image above.  W values less than one approach the 'eye point', while values larger than 1 extend past the scrim into the scene.  To understand how the W changes the projected value in 3-D, imagine picking a point on Durer's 2-D screen and pushing back through the screen. As the distance (the W) increases, the projected point will get closer to the center of the screen.  In fact, this is plain old 1-point perspective in action:  A W approaches infinity, any coordinate translates into the perspective vanishing point, which in this case is the center of the scrim.  
   
 
-
 [![](http://www.robinurton.com/history/Renaissance/perspective.jpg)](http://www.robinurton.com/history/Renaissance/perspective.jpg)
-
-all lines converge at W=infinity, at least according to Piero Della Francesca
+> All lines converge at W=infinity, at least according to Piero Della Francesca
 
   
 If you’re still unable to wrap your brain around this - and I am not sure I really can, so don’t feel bad about it, you might find this YouTube from Jamie King helpful. You can relate it to the Durer image by imagining Jamie's example image is taken looking down on Durer's little perspective machine from above:  
   
-_Extra points for the gratuitous Bill and Ted reference, btw._  
+>Extra points for the gratuitous Bill and Ted reference, btw.
   
 This same analogy also explains, sort of, why W=0 vectors don’t move. As W increases, the points will converge on the center of his scrim, that is, the perspective vanishing point. On the other hand as W gets smaller they move away: the effect is like a camera zooming in:  everything on the image plane moves _away_ from the vanishing point. As W reaches zero the 'zoom' is now infinite: In math, all of your 4-D points would have become _impossible to convert back to 3-D_ because you'd be dividing their XYZ positions by zero.  It's sort of the inverse of a black hole: instead of all points collapsing down into a singularity, they are instead all smeared out infinitely -- which makes them effectively the same anyway. There's no difference between `[1,1,1,0]` and `[999,999,999,0]` in position, since they are both 'located' at  `[undefined,undefined,undefined]` in 3 dimensions.  
   
 Since movement has no meaning in this bizarro singularity world, translations don't do anything. But — brain bend alert —  rotations still work. Of course, we already know from our earlier experiments with W's set to zero: the dots against the first 3 rows of the 4X3 matrix haven't changed, but a W=0 input vector won't translate.  Put another way, since dot products are a way of projecting one vector on to another, projecting a any 4-D vector onto a different 4-D vector with a W of 0 will keep you right at the 'eye point' out of which all those 4-D rays are shooting, so you won't have any W-ness to project yourself out into the 3-D world.  
   
- It's simultaneously baffling and awe-inspring. Like _[Goat Simulator](http://www.goat-simulator.com/)._  
+It's simultaneously baffling and awe-inspring. Like _[Goat Simulator](http://www.goat-simulator.com/)._  
   
 If you've stuck it out this far, the whole visualization actually has one imporant side benefit. It explains the _other _reason we need homogeneous coordinates: they allow us to handle perspective projections and regular geometry using the same set of rules. W coordinates that aren’t 0’s or 1’s generally crop up only when you’re working with the perspective matrix of a camera or trying to transform points from world space to screen space. However that’s a matter for another time.   
   
 For now, however, I need to relax my frontal lobe.  
   
 
-
-  
-
-
 [![](http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg)](http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg)  
----  
-Why did they wear those hankies on their heads, anyway?  
+> Why did they wear those hankies on their heads, anyway?  
+
 Turning something nice and obvious like a 3-D point into an in infinite line in a dimension where parallel lines can intersect is just the sort of thing that gives mathematicians a bad name. Thankfully we don’t really need to understand all the metaphysics: we can just rely happily on the fact that this extra abstraction lets us handle translations using the same math we use for rotations. And we should be grateful that the kind of folks who do understand the way 4-dimensional vectors are projected into our 3-D world left us the 4X4 matrix which (despite this little exercise in gimcrackery) is a remarkably elegant and handy tool for practical purposes and can still be done with junior high school math skills.  
 
 
 > _Gottfried Chen’s blog also makes [an heroic attempt to explain this to mere mortals](http://deltaorange.com/2012/03/08/the-truth-behind-homogenous-coordinates). The great-grandaddy of all these discussions is Edwin Abbot’s classic novella (you read that right - it’s **fiction**) [Flatland](http://www.amazon.com/mn/search/?_encoding=UTF8&camp=1789&creative=390957&field-keywords=flatland&linkCode=ur2&tag=tecsurgui-20&url=search-alias%3Daps&linkId=AIHJQXYL5IWCSXN6)_
 
-# [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#homogeneous)Homogenius!
+## Homogenius!
 
 Alright, let's get our feet back on the ground (which involves setting our Z coordinate to 0 and our W coordinate to 1).  
   
@@ -178,13 +170,13 @@ Me, I need a good stiff drink.
 
 [![](http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif)](http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif)
 
-###  Posts in this series
+##  Posts in this series
 
-  * [Bagels and Coffee (intro to dot products)](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html)
-  * [Dots All Folks (dot product uses)](http://techartsurvival.blogspot.com/2014/11/dots-all-folks.html)
-  * [Dot Matrix (intro to matrices)](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html)
-  * [Adventures in the 4th Dimension (translation matrices)](http://techartsurvival.blogspot.com/2014/12/adventures-in-4th-dimension.html)
-  * [To Scale! (scale matrices)](http://techartsurvival.blogspot.com/2015/01/to-scale.html)
+  * [Bagels and Coffee (intro to dot products)](bagels_and_coffee.html)
+  * [Dots All Folks (dot product uses)](dots_all_folks.html)
+  * [Dot Matrix (intro to matrices)](dot_matrix.html)
+  * [Adventures in the 4th Dimension (translation matrices)](adventures-in-4th-dimension.html)
+  * [To Scale! (scale matrices)](to-scale.html)
 
 
 
