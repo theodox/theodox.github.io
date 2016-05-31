@@ -2,15 +2,15 @@ Title: Descriptors and pythonic Maya properties
 Date: 2014-03-11 15:15:00.000
 Category: blog
 Tags: maya, python, gui, techart
-Slug: _descriptors-and-pythonic-maya-properties
+Slug: descriptors-and-pythonic-maya-properties
 Authors: Steve Theodore
 Summary: How to use descriptors for dot-style access to maya object properties instead of `cmds.getAttr()`
 
-I'm still working on the followup to [Rescuing Maya GUI From Itself](http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html), but while I was at it this [StackOverflow question](http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super) made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like `pCube1.translation = (0,10,0)`. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. 
+I'm still working on the followup to [Rescuing Maya GUI From Itself](rescuing_maya_gui_from_itself.html), but while I was at it this [StackOverflow question](http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super) made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like `pCube1.translation = (0,10,0)`. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. 
 
 The goal is to be able to write something like
     
-    
+    :::python
     from xform import Xform  
     example = Xform('pCube1')  
     print example.translation  
@@ -18,9 +18,9 @@ The goal is to be able to write something like
     example.rotation = (0,40, 0)  
     
 
-The process s about as simple as it can get thanks to the magic of [descriptors](http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html). This example spotlights one advantage of descriptors over getter/setter property functions: by inheriting the two classes (`BBoxProperty` and `WorldXformProperty`) I can get 4 distinct behaviors (world and local, read-write and read-only) with very little code and no if-checks.
+The process is about as simple as it can get thanks to the magic of [descriptors](rescuing_maya_gui_from_itself.html). This example spotlights one advantage of descriptors over getter/setter property functions: by inheriting the two classes (`BBoxProperty` and `WorldXformProperty`) I can get 4 distinct behaviors (world and local, read-write and read-only) with very little code and no if-checks.
     
-    
+    :::python
     '''  
     xform.py  
       

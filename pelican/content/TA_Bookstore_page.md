@@ -1,8 +1,8 @@
 Title: TA Bookstore page
 Date: 2014-05-18 11:29:00.000
 Category: blog
-Tags: , 
-Slug: _ta-bookstore-page
+Tags: books, industry
+Slug: ta-bookstore-page
 Authors: Steve Theodore
 Summary: pending
 

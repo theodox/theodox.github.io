@@ -1,8 +1,8 @@
 Title: Classic CG:  La plus ca change
 Date: 2014-04-19 08:50:00.000
-Category: blog
+Category: unpublished
 Tags: classic cg
-Slug: _la-plus-ca-change
+Slug: la-plus-ca-change
 Authors: Steve Theodore
 Summary: An in-joke from the very earliest days of CG 
 

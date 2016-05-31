@@ -149,11 +149,11 @@ So that's the basic theory of the dot product. Of course what the ruthlessly pra
 
 ##  Posts in this series
 
-  * [Bagels and Coffee (intro to dot products)](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html)
-  * [Dots All Folks (dot product uses)](http://techartsurvival.blogspot.com/2014/11/dots-all-folks.html)
-  * [Dot Matrix (intro to matrices)](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html)
-  * [Adventures in the 4th Dimension (translation matrices)](http://techartsurvival.blogspot.com/2014/12/adventures-in-4th-dimension.html)
-  * [To Scale! (scale matrices)](http://techartsurvival.blogspot.com/2015/01/to-scale.html)
+  * [Bagels and Coffee (intro to dot products)](bagels_and_coffee.html)
+  * [Dots All Folks (dot product uses)](dots_all_folks.html)
+  * [Dot Matrix (intro to matrices)](dot_matrix.html)
+  * [Adventures in the 4th Dimension (translation matrices)](adventures-in-4th-dimension.html)
+  * [To Scale! (scale matrices)](to-scale.html)
 
   
 

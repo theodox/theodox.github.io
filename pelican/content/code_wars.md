@@ -2,7 +2,7 @@ Title: code wars
 Date: 2015-08-08 12:49:00.000
 Category: blog
 Tags: programming
-Slug: _code-wars
+Slug: code-wars
 Authors: Steve Theodore
 Summary: Code Wars, yet another programming dojo -- but a pretty good one
 
@@ -14,7 +14,6 @@ By a certain stroke of cosmic irony, it was just after I finished shoe-horning l
   
 Mostly I find that sort of thing pretty annoying – it’s a genre that all too easily degenerates into macho brogrammer chest-thumping. 90 percent of the code I see on those sites is so tightly knotted – in hopes of scoring fewest-number-of-lines bragging rights – that it’s useless for learning. I’m impressed as hell by this:  
 
-    
     
     f=lambda s:next((t,k)for t,k in map(lambda i:(s[:i],len(s)/i),range(1,len(s)+1))if t*k==s)  
     

@@ -173,7 +173,7 @@ That doesn’t appear to mean much beyond ‘WTH?’. However, when rearranged i
   
 Which means the the _persp_ camera in my Maya scene has an X axis pointing at `[0.707, 0.000,-0.707]`, a Y axis pointing at `[-0.331, 0.883,-0.331]` and a Z axis pointing at `[0.625, 0.468, 0.625]` (we’ll talk about the meaning of those zeros in the 4th column and the last row next time out). While it’s still a bit tough to visualize, it’s actually meaningful - not just some magic computer-y stuff you have to take on faith. 
 
-As a side benefit, the matrix-rows-are-local-axes scheme allows you to extract the cardinal axes of a matrix without doing anything fancier than grabbing a row. In the camera example, we can tell the camera is ‘aiming’ along `[-0.625, -0.468, -0.625]` (Maya cameras aim down their own negative Z axis, so I’ve just taken that third row and multiplied by -1). You could use use this to figure out if the camera "sees" something by dotting that vector against a vector from the camera's position to the target, as we discussed [last time](http://techartsurvival.blogspot.com/2014/11/dots-all-folks.html). Extracting local axes this way is the key to many common applications, such as look-at constraints and camera framing.  
+As a side benefit, the matrix-rows-are-local-axes scheme allows you to extract the cardinal axes of a matrix without doing anything fancier than grabbing a row. In the camera example, we can tell the camera is ‘aiming’ along `[-0.625, -0.468, -0.625]` (Maya cameras aim down their own negative Z axis, so I’ve just taken that third row and multiplied by -1). You could use use this to figure out if the camera "sees" something by dotting that vector against a vector from the camera's position to the target, as we discussed [last time](dots_all_folks.html). Extracting local axes this way is the key to many common applications, such as look-at constraints and camera framing.  
 
 Of course,anybody who knows any 3d graphics at all, of course, knows matrices are used for a lot more than just rotations, and that we’ve just scratched the surface. I’ve walked through the derivation this way for two reasons: first, to show how the matrix is really nothing more than **a convention for applying dot products in series.** Second, because I want to underline the importance of the fact that **matrix rows are axes of a local coordinate system**<sup>\*<.sup>. Next time out we’ll explain how matrices can also represent scale and translation, and how to put matrices together for even more matrix-y goodness.   
 * in a _row major _matrix, anyway.  And subject to some interesting qualifications we'll talk about in a later post....  
@@ -233,13 +233,15 @@ These 3X3 matrices will do 3-D rotations, but you'll rarely see them alone. In m
 
 Until then - keep dotting! And _[May the Schwartz Be With You!](http://www.avclub.com/article/and-now-theres-spaceballs-edition-episode-vii-trai-212450) (Dot Matrix sighting at 0:30)_  
 
-###  Posts in this series
+##  Posts in this series
 
-  * [Bagels and Coffee (intro to dot products)](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html)
-  * [Dots All Folks (dot product uses)](http://techartsurvival.blogspot.com/2014/11/dots-all-folks.html)
-  * [Dot Matrix (intro to matrices)](http://techartsurvival.blogspot.com/2014/12/dot-matrix.html)
-  * [Adventures in the 4th Dimension (translation matrices)](http://techartsurvival.blogspot.com/2014/12/adventures-in-4th-dimension.html)
-  * [To Scale! (scale matrices)](http://techartsurvival.blogspot.com/2015/01/to-scale.html)
+  * [Bagels and Coffee (intro to dot products)](bagels_and_coffee.html)
+  * [Dots All Folks (dot product uses)](dots_all_folks.html)
+  * [Dot Matrix (intro to matrices)](dot_matrix.html)
+  * [Adventures in the 4th Dimension (translation matrices)](adventures-in-4th-dimension.html)
+  * [To Scale! (scale matrices)](to-scale.html)
 
+  
+  
 
 

@@ -2,7 +2,7 @@ Title: Boo Who?
 Date: 2015-05-31 22:02:00.000
 Category: blog
 Tags: programming, boo
-Slug: _boo-who
+Slug: boo-who
 Authors: Steve Theodore
 Summary: A quick introduction to Boo, a python-like language for the CLR
 
@@ -19,6 +19,8 @@ The reason is pretty simple, as this graph explains:
 ![](http://blogs.unity3d.com/wp-content/uploads/2014/09/graph3.png)
 
 For a lot of Unity developers (99.56% of them, apparently) this is non-news; Boo never really garnered much of a following in the Unity community. For new developers and recent grads, C# is an easy and very well documented option; for former web debs moving to mobile apps, UnityScript feels JavaScript-y enough to ease into a new environment. Boo, on the other hand, never got much traction: it's got a small but passionate community but it never garnered enough momentum to break out of its niche. 
+
+> Update 5/2016:  Since this post was first written the Boo community has been picking up some steam and is actively aiming at a 1.0 release of the language. They can be found in the [Boo Languge Google Group](https://groups.google.com/forum/#!forum/boolang)
 
 ##Boo Hoo
 
@@ -111,13 +113,11 @@ Here's the aesthetic differences in a nutshell:
     
 
 I just can't shake the feeling that the first code is something I don't mind reading and writing while the latter is a chore. It's also a whopping 45% more typing for the same result. And that delta only gets bigger if you want to try something a little more complicated: Boo supports offers the same list comprehension syntax as Python, so you can write:
-    
-    
+     
         addresses = [(x,y) for x in range(3) for y in range(3)]  
     
 
-where in C# you'd either get 6 lines of for-loops and nested brackets, or you'd have to use Linq. Even in the most compact form I can manage it's still much wordier:
-    
+where in C# you'd either get 6 lines of for-loops and nested brackets, or you'd have to use Linq. Even in the most compact form I can manage it's still much wordier:  
     
             var xs = Enumerable.Range(0, 3).ToList();  
             var ys = Enumerable.Range(0, 3).ToList();  

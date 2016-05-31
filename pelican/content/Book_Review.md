@@ -2,7 +2,7 @@ Title: Book Review
 Date: 2015-05-06 22:38:00.001
 Category: blog
 Tags: programming, industry, books 
-Slug: _book-review
+Slug: book-review
 Authors: Steve Theodore
 Summary: A few programming books that are worth reading... unlike most programming books.
 
@@ -22,5 +22,5 @@ What got me thinking about tech books just now is the fact that I’ve recently 
 [Effective Python](http://amzn.to/1AGMvW1) does a great job of explaining and illustrating several features of the language which can be overlooked by folks coming from a scripting background rather than computer science. Many of the habits which separate the Python zen masters from the mere acolytes are explained neatly and clearly: the mysteries of the [yield keyword](http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python), the evils of the [mutable default argument](http://eli.thegreenplace.net/2009/01/16/python-insight-beware-of-mutable-default-values-for-arguments), and the unfathomable allure of [metaclasses](http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html) are all dealt with clearly and in ways that don’t make you feel like a chump. Even better, the information is presented with a usable, practical slant: it’s neither an abstract set of rules to memorize nor a comp-sci nerdout about language features. Instead the book presents enough information for you to make good strategic choices: Perennial python puyzzlers like “list comprehension or loop?”, “Is it okay to use Try…except…else?” and “When to use propertites vs descriptors vs plain old fields” are all addressed in a reasonable, non-dogmatic way.  
 So, I’ll definitely be adding that one to the new-hire reading list in the future. Recommended!  
 
-PS if you haven’t checked out the [Tech Art Bookstore](http://techartsurvival.blogspot.com/p/bookstore.html) in a while, I’ve added a bunch of new items over the last few months
+PS if you haven’t checked out the [Tech Art Bookstore](http://astore.amazon.com/tecsurgui-20) in a while, I’ve added a bunch of new items over the last few months
 

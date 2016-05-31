@@ -2,7 +2,7 @@ Title: Con Job
 Date: 2015-04-04 12:20:00.000
 Category: blog
 Tags: tools, programming, maya, techart
-Slug: _con-job
+Slug: con-job
 Authors: Steve Theodore
 Summary: How to be more productive with mayapy and a console program. 
 
@@ -14,10 +14,9 @@ All that said, the default mayapy experience is a bit too old-school if you’re
 
 However, it’s not too hard to put a much more pleasant face on mayapy and make it a really useful tool.  
 
-## [](https://www.blogger.com/blogger.g?blogID=3596910715538761404#con-ed)Con Ed
+##  Con Ed
 
 [![](http://www.top10films.co.uk/img/conair_cage.jpg)](http://www.top10films.co.uk/img/conair_cage.jpg)  
----  
 > obligatory "con" joke here.  
   
 The first thing to do is find a good _console program_. A console provides the window and display services for command-line programs; `CMD.exe` does the same thing, it just does it very _badly_. There are several good options depending on your taste (good roundup [here](http://www.nextofwindows.com/4-better-windows-console-tools-alternatives-to-windows-built-in-command-prompt/))). I’m going to walk through the setup for my favorite emulator, [ConEmu](http://conemu.github.io/), but the same ideas should adapt to the other emulators pretty simply.  
@@ -44,7 +43,7 @@ A palliative for OSX envy.
 
 ## Setup basics
 
-**Again, these instructions are for ConEmu – if you try this with a different console, add your experience in the comments for others!**  
+>Again, these instructions are for ConEmu – if you try this with a different console, add your experience in the comments for others!
 
 ConEmu is a great little tool, and it’s free, but it is a bit… overeager?… in its efforts to let you control everything. The interface is a bit old school, so it’s worth walking through the setup process step by step.  
 First you’ll want to download and install [ConEmu](http://conemu.github.io/) (the installation instructions are down at the botton of the linked page, and the setup is basically ‘unzip into a folder’).
@@ -74,13 +73,12 @@ If it doesn’t work, go back and make sure that you surrounded the path to mayp
 
 With just these options, you’ve got a working python intepreter, but it’s doesn’t have any maya-specific features. To get an actual maya session you could manually start a [maya standalone](http://techartsurvival.blogspot.com/2014/04/earth-calling-mayastandalone.html) by typing  
   
-    
+    :::python  
     import maya.standalone; maya.standalone.initialize()  
     
 
 at the prompt. This works, but it’s a bit tedious. You can automate the process in ConEmu by editing your task description: Go back to the task settings in ConEmu add this to your configuration:  
  
-    
     "%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe" -i -c "import maya.standalone; maya.standalone.initialize()"  
     
 
@@ -95,7 +93,7 @@ When you launch a new ConEmu session for your preset you’ll probably notice a 
 
 If your startup scripts do something dependent on the maya GUI you may get an error instead. The _Right Thing<sup>TM<sup>_ to do is to fix that: you don’t want GUI in your startup routine because it hampers your ability to do batch jobs or renders.   
 
-However as a stopgap measure you can [suppress your userSetup.py](http://techartsurvival.blogspot.com/2014/05/no-soup-for-you-usersetuppy.html) and load a completely vanilla Maya. This requires setting an environment variable called `MAYA_SKIP_USERSETUP_PY` to 0, which unfortunately is something ConEmu can’t do for you. However, you can work around that by creating a `.BAT` file that sets the environment before launching mayapy. The bat will look like this: 
+However as a stopgap measure you can [suppress your userSetup.py](no-soup-for-you.html) and load a completely vanilla Maya. This requires setting an environment variable called `MAYA_SKIP_USERSETUP_PY` to 0, which unfortunately is something ConEmu can’t do for you. However, you can work around that by creating a `.BAT` file that sets the environment before launching mayapy. The bat will look like this: 
     
     set MAYA_SKIP_USERSETUP_PY  = 1  
     "%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe" -i -c "import maya.standalone; maya.standalone.initialize()"  

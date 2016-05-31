@@ -1,14 +1,13 @@
 Title: Chromosaurus!
 Date: 2014-06-06 21:54:00.000
-Category: blog
+Category: unpublished
 Tags: classic cg
 Slug: _chromosaurus
 Authors: Steve Theodore
 Summary: An homage to Chromosaurus, a classic of early CG
 
 This 1985 short from Pacific Data Images ([the X chromosome in the DNA of Dreamworks Animation](http://en.wikipedia.org/wiki/Pacific_Data_Images)) was extremely popular in the late 80's / early 90's CG compilation VHS market, frequently accompanied by trippy electronica.   
-  
-*Missing video*
+
 
   
 Of special note: this is well before the the popularization of our mesh skinning techniques: all the moving parts are jointed, and the ripples in the tail are all damped sine waves instead of skeletal animation.  I'm pretty sure these aren't raytraced, it looks to me like a tweaked reflection map.  
