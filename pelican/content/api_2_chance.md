@@ -2,7 +2,7 @@ Title: All we are saying is give API 2.0 a chance
 Date: 2014-12-12 19:42:00.000
 Category: blog
 Tags: maya, python, programming 
-Slug: _api-2
+Slug: api_2_chance
 Authors: Steve Theodore
 Summary: Maya's api version 2.0 is finally coming of age
 

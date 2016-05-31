@@ -2,14 +2,13 @@ Title: 2015 Bug watch: ls()
 Date: 2014-09-04 12:15:00.001
 Category: blog
 Tags: maya, programming, bugs
-Slug: _2015-bug-ls
+Slug: 2015-bug-watch-ls
 Authors: Steve Theodore
 Summary: A nasty little changed in maya's `ls()` command for 2015
 
 For people switching to Maya 2015 here's an irritating bug in the 2015 Maya python layer.  
   
 In all Mayas before 2015 (as far as I can check, anyway), calling cmds.ls() with a string that was not a valid Maya object name was allowed. You could for example, call  
-    
     
     
     :::python  

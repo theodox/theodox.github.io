@@ -2,7 +2,7 @@ Title: Bagels and Coffee, or, the vector dot product and you
 Date: 2014-11-22 11:46:00.004
 Category: blog
 Tags: math
-Slug: _bagels_and_coffee
+Slug: bagels_and_coffee
 Authors: Steve Theodore
 Summary: An introduction to the vector dot product, and how it's used in computer graphics.
 

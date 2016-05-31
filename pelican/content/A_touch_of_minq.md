@@ -2,37 +2,36 @@ Title: A touch of minq
 Date: 2016-03-06 09:02:00.001
 Category: blog
 Tags: python, maya, programming, minq
-Slug: _a-touch-of-minq
+Slug: a-touch-of-minq
 Authors: Steve Theodore
 Summary: Introducing **Minq**, a query language for Maya scenes.
 
-If you’re a long-time reader, you may recall that i’m very ambivalent about [wrapper code](http://techartsurvival.blogspot.com/2015/07/blockquote-background-f9f9f9-border.html). I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual _job_.  
+If you’re a long-time reader, you may recall that i’m very ambivalent about [wrapper code](wraptastic). I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual _job_.  
 So, it’s with a little bit of trepidation that I’m sharing my latest library. **[Minq](https://github.com/theodox/minq)** bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.  
 Now, that isn’t a particularly interesting job most of the time, but it’s one we do a _lot_: a quick grep of my own codebase shows over 600 calls to `cmds.ls()`, `cmds.listRelatives()`, `cmds.listHistory` and `cmds.nodeType()` in various combinations: as far as I can tell, `ls()` is actually the single most common call I make.   
 Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of `ls()` calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like this?  
 
-    
-    
-        stuff = ['top', 'something_thats_not_transform']  
-        print cmds.ls(*stuff, type='transform')  
-        # [u'top']  
-      
-        stuff = []  
-        print cmds.ls(*stuff, type='transform')  
-        # [u'front', u'persp', u'side', u'top']  
-    
+    :::python
+    stuff = ['top', 'something_thats_not_transform']  
+    print cmds.ls(*stuff, type='transform')  
+    # [u'top']  
+  
+    stuff = []  
+    print cmds.ls(*stuff, type='transform')  
+    # [u'front', u'persp', u'side', u'top']  
+
 
 or this?  
 
     
-    
-        for item in cmds.ls(my_meshes, type='mesh'):  
-            print item  
-        # Error: 'NoneType' object is not iterable  
-        # Traceback (most recent call last):  
-        #   File "<maya console>", line 1, in <module>  
-        # TypeError: 'NoneType' object is not iterable #   
-    
+    :::python
+    for item in cmds.ls(my_meshes, type='mesh'):  
+        print item  
+    # Error: 'NoneType' object is not iterable  
+    # Traceback (most recent call last):  
+    #   File "<maya console>", line 1, in <module>  
+    # TypeError: 'NoneType' object is not iterable #   
+
 
 There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my `ls()` calls alone will produce at least 5 bugs.  
 More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an _interesting_ job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want fixed.  
