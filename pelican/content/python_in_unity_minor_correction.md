@@ -2,7 +2,7 @@ Title: Python in Unity  - minor correction
 Date: 2013-12-22 09:53:00.001
 Category: blog
 Tags: python, unity
-Slug: _python-in-unity-correction
+Slug: _python_in_unity_correction
 Authors: Steve Theodore
 Summary: A quick update to earlier posts about using IronPython in Unity.
 

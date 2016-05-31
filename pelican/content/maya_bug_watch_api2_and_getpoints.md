@@ -2,7 +2,7 @@ Title: Maya Bug Watch: API2 and GetPoints()
 Date: 2015-03-27 21:20:00.001
 Category: blog
 Tags: maya, bugs, python, api
-Slug: _api-2-getpoints-bug
+Slug: _api_2_getpoints_bug
 Authors: Steve Theodore
 Summary: A very irritating bug in Maya Python API 2
 

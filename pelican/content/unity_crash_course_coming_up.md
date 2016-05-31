@@ -2,7 +2,7 @@ Title: Unity crash course coming up...
 Date: 2014-01-10 09:21:00.001
 Category: blog
 Tags: 
-Slug: _unity-crash-course-coming-up_
+Slug: _unity_crash_course_coming_up_
 Authors: Steve Theodore
 Summary: pending
 

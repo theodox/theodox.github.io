@@ -2,7 +2,7 @@ Title: A PID controller for Unity
 Date: 2017-01-01
 Category: unpublished
 Tags: unity, programming
-Slug: unity-pid
+Slug: _unity_pid
 Authors: Steve Theodore
 Summary: A quick introduction to the Proportional-Integral-Differential controller with a Unity implementation
 

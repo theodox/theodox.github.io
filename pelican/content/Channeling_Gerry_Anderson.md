@@ -2,7 +2,7 @@ Title: Channeling Gerry Anderson
 Date: 2014-05-30 10:00:00.000
 Category: blog
 Tags: thunderbirds
-Slug: channeling-gerry-anderson
+Slug: _channeling_gerry_anderson
 Authors: Steve Theodore
 Summary: The world's greatest Thunderbirds imitator
 

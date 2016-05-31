@@ -2,7 +2,7 @@ Title: Dot Net is Open?
 Date: 2014-11-13 00:38:00.000
 Category: blog
 Tags: industry, programming
-Slug: dot_net_is_open
+Slug: _dot_net_is_open
 Authors: Steve Theodore
 Summary: Interesting news from the dotnet world, 
 

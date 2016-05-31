@@ -2,7 +2,7 @@ Title: Subjective truth
 Date: 2014-05-16 20:38:00.001
 Category: blog
 Tags: , , , 
-Slug: _subjective-truth
+Slug: _subjective_truth
 Authors: Steve Theodore
 Summary: pending
 

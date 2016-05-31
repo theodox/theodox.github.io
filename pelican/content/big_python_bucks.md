@@ -2,7 +2,7 @@ Title: Big (?) Python bucks!
 Date: 2014-11-16 21:43:00.001
 Category: blog
 Tags: industry, programming, python
-Slug: big-python-bucks
+Slug: _big_python_bucks
 Authors: Steve Theodore
 Summary: So wait, knowing Maya and Python is worth _less_ than knowing just Python?! I knew it.
 

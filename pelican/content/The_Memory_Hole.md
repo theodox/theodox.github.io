@@ -2,7 +2,7 @@ Title: The Memory Hole
 Date: 2016-02-06 19:50:00.001
 Category: blog
 Tags: , , , , 
-Slug: _the-memory-hole
+Slug: _the_memory_hole
 Authors: Steve Theodore
 Summary: pending
 

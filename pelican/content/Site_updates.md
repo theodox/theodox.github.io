@@ -2,7 +2,7 @@ Title: Site updates
 Date: 2015-03-14 11:43:00.001
 Category: blog
 Tags: , , 
-Slug: _site-updates
+Slug: _site_updates
 Authors: Steve Theodore
 Summary: pending
 

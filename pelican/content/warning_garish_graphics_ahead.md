@@ -2,7 +2,7 @@ Title: Warning: Garish graphics ahead!
 Date: 2014-04-12 17:59:00.002
 Category: blog
 Tags: maya, GUI
-Slug: _garish-graphics-ahead
+Slug: _garish_graphics_ahead
 Authors: Steve Theodore
 Summary: Getting more oomph out of your Maya GUI using the hidden power of HTML markup in Maya widgets!
 

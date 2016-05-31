@@ -2,7 +2,7 @@ Title: Mighty Morphin Module Manager Made Moreso
 Date: 2014-04-08 09:11:00.000
 Category: blog
 Tags: maya, modules, mGui 
-Slug: _mighty-morphin-module-manager-made-moreso
+Slug: _mighty_morphin_module_manager_made_moreso
 Authors: Steve Theodore
 Summary: An mGui port of the [Maya Module Manager]()
 

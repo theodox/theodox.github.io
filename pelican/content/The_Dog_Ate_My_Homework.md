@@ -2,7 +2,7 @@ Title: The Dog Ate My Homework
 Date: 2014-10-30 09:55:00.001
 Category: blog
 Tags: , , , , 
-Slug: _the-dog-ate-my-homework
+Slug: _the_dog_ate_my_homework
 Authors: Steve Theodore
 Summary: pending
 

@@ -2,7 +2,7 @@ Title: Back from GDC
 Date: 2014-03-22 23:02:00.002
 Category: blog
 Tags: gdc, industry
-Slug: gdc_2014
+Slug: _gdc_2014
 Authors: Steve Theodore
 Summary: GDC 2014 after-action report
 

@@ -2,7 +2,7 @@ Title: Maya GUI II: All Your Base Classes Are Belong To Us
 Date: 2014-03-28 09:30:00.000
 Category: blog
 Tags: Maya, python, GUI, programming
-Slug: _all-your-base-classes
+Slug: _all_your_base_classes
 Authors: Steve Theodore
 Summary: Introducing `mGui`, a module for making Maya GUI coding more pythonic and less infuriating.
 

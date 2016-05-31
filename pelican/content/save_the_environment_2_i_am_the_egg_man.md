@@ -2,7 +2,7 @@ Title: Save The Environment 2: I am the .Egg Man
 Date: 2014-07-05 23:00:00.001
 Category: blog
 Tags: , , , , 
-Slug: _save-the-environment-2_-i-am-the-_egg-man
+Slug: _save_the_environment_2_i_am_the_egg_man
 Authors: Steve Theodore
 Summary: pending
 

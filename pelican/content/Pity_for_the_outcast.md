@@ -2,7 +2,7 @@ Title: Pity for the outcast
 Date: 2014-02-16 18:30:00.000
 Category: blog
 Tags: maya, gui, python, programming, mGui
-Slug: _pity-for-the-outcast
+Slug: _pity_for_the_outcast
 Authors: Steve Theodore
 Summary: A litany of complaints about Maya GUI programming, with a teensy ray of hope
 

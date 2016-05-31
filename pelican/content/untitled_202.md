@@ -2,7 +2,7 @@ Title: CG Prehistory
 Date: 2013-12-29 14:17:00.003
 Category: blog
 Tags: cg
-Slug: _robert-abel-assoc
+Slug: _robert_abel_assoc
 Authors: Steve Theodore
 Summary: Oldest of old-school CG from Robert Abel and Associates.
 

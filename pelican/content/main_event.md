@@ -2,7 +2,7 @@ Title: The Main Event - event oriented programming in Maya
 Date: 2014-04-29 00:14:00.001
 Category: blog
 Tags: maya, python, mGui, programming
-Slug: _main-event
+Slug: _main_event
 Authors: Steve Theodore
 Summary: Event oriented programming for python in general and for Maya GUI in particular
 

@@ -2,7 +2,7 @@ Title: Moonrise Early Access is Live!
 Date: 2015-05-27 17:27:00.001
 Category: blog
 Tags: industry, moonrise
-Slug: _moonrise-early-access-is-live_
+Slug: _moonrise_early_access_is_live_
 Authors: Steve Theodore
 Summary: Moonrise is live on Steam!
 

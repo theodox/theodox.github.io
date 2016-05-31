@@ -2,7 +2,7 @@ Title: Binary bonanza!
 Date: 2014-06-26 20:21:00.000
 Category: blog
 Tags: maya, python
-Slug: binary-bonanza
+Slug: _binary_bonanza
 Authors: Steve Theodore
 Summary: Some useful links to pre-compiled python binaries for Maya
 

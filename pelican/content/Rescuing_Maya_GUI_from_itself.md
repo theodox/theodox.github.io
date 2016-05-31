@@ -2,7 +2,7 @@ Title: Rescuing Maya GUI from itself
 Date: 2014-02-23 10:22:00.000
 Category: blog
 Tags: maya, gui, python, mGui
-Slug: _rescuing-maya-gui-from-itself
+Slug: _rescuing_maya_gui_from_itself
 Authors: Steve Theodore
 Summary: Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans.  The first post in the [mGui](https://github.com/theodox/mGui) series.
 

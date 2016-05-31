@@ -2,7 +2,7 @@ Title: Markdown Wrapup
 Date: 2015-03-17 23:47:00.000
 Category: blog
 Tags: blogging, markdown
-Slug: _markdown-wrapup
+Slug: _markdown_wrapup
 Authors: Steve Theodore
 Summary: An experiment with plain-text blogging in markdown.
 

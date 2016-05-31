@@ -2,7 +2,7 @@ Title: RFC: how to do a 'community' book
 Date: 2014-01-02 09:41:00.001
 Category: blog
 Tags: 
-Slug: _rfc_-how-to-do-a-'community'-book
+Slug: _rfc_how_to_do_a_'community'_book
 Authors: Steve Theodore
 Summary: pending
 

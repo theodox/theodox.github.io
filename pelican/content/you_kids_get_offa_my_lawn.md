@@ -2,7 +2,7 @@ Title: You kids get offa my lawn!
 Date: 2015-03-16 19:05:00.003
 Category: blog
 Tags: , , , , 
-Slug: _you-kids-get-offa-my-lawn_
+Slug: _you_kids_get_offa_my_lawn_
 Authors: Steve Theodore
 Summary: pending
 

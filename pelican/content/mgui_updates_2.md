@@ -2,7 +2,7 @@ Title: mGui updates in the offing...
 Date: 2016-03-26 15:34:00.000
 Category: blog
 Tags: mGui
-Slug: _mgui-updates-2
+Slug: _mgui_updates_2
 Authors: Steve Theodore
 Summary: A sneek peek at some changes in the 2.0 version of [mGui](https://github.com/theodox/mGui)
 

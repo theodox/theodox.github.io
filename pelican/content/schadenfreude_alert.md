@@ -2,7 +2,7 @@ Title: Schadenfreude alert!
 Date: 2014-01-10 16:11:00.001
 Category: blog
 Tags: , , , 
-Slug: _schadenfreude-alert_
+Slug: _schadenfreude_alert_
 Authors: Steve Theodore
 Summary: pending
 

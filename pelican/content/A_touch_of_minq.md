@@ -2,7 +2,7 @@ Title: A touch of minq
 Date: 2016-03-06 09:02:00.001
 Category: blog
 Tags: python, maya, programming, minq
-Slug: a-touch-of-minq
+Slug: _a_touch_of_minq
 Authors: Steve Theodore
 Summary: Introducing **Minq**, a query language for Maya scenes.
 

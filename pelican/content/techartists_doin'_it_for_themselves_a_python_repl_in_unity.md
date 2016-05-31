@@ -2,7 +2,7 @@ Title: Techartists doin' it for themselves: A Python REPL in Unity
 Date: 2013-12-22 10:10:00.003
 Category: blog
 Tags: , , , 
-Slug: _techartists-doin'-it-for-themselves_-a-python-repl-in-unity
+Slug: _techartists_doin'_it_for_themselves_a_python_repl_in_unity
 Authors: Steve Theodore
 Summary: pending
 

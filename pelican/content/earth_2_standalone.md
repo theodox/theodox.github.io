@@ -2,7 +2,7 @@ Title: Earth calling maya.standalone!
 Date: 2014-04-05 11:17:00.000
 Category: blog
 Tags: maya, techart, standalone 
-Slug: earth-2-standalone
+Slug: _earth_2_standalone
 Authors: Steve Theodore
 Summary: Remote-controlling a maya standalone instance from a web browser with the [`standaloneRPC`](https://github.com/theodox/standaloneRPC) module.
 

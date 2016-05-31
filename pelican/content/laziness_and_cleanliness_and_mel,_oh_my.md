@@ -2,7 +2,7 @@ Title: Laziness and cleanliness and MEL, Oh My.
 Date: 2014-10-26 00:18:00.000
 Category: blog
 Tags: maya, python, programming
-Slug: _maya-plugin-commands
+Slug: _maya_plugin_commands
 Authors: Steve Theodore
 Summary: Don't use Mel.  But if you have to, do it like this: with a pythonic wrapper to clean up your strings
 

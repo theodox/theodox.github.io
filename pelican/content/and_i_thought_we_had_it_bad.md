@@ -2,7 +2,7 @@ Title: ...And I thought we had it bad...
 Date: 2013-12-12 20:37:00.000
 Category: blog
 Tags: python, programming, web
-Slug: and_i_thought_we_had_it_bad
+Slug: _and_i_thought_we_had_it_bad
 Authors: Steve Theodore
 Summary: A tech artist looks at web development, recoils in horror
 

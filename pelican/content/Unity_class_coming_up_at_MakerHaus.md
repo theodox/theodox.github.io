@@ -2,7 +2,7 @@ Title: Unity class coming up at MakerHaus
 Date: 2014-01-03 22:37:00.002
 Category: blog
 Tags: , 
-Slug: _unity-class-coming-up-at-makerhaus
+Slug: _unity_class_coming_up_at_makerhaus
 Authors: Steve Theodore
 Summary: pending
 

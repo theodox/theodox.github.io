@@ -2,7 +2,7 @@ Title: The sounds of (Python) Silence
 Date: 2014-01-02 10:45:00.000
 Category: blog
 Tags: programming, maya, python
-Slug: _sounds-of-silence
+Slug: _sounds_of_silence
 Authors: Steve Theodore
 Summary: pending
 

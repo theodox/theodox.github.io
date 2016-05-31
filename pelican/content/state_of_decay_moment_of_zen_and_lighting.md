@@ -2,7 +2,7 @@ Title: State of Decay moment of zen  (and lighting)
 Date: 2014-01-07 10:00:00.000
 Category: blog
 Tags: , , , 
-Slug: _state-of-decay-moment-of-zen--_and-lighting_
+Slug: _state_of_decay_moment_of_zen_and_lighting_
 Authors: Steve Theodore
 Summary: pending
 

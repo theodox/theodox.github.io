@@ -2,7 +2,7 @@ Title: The Conquest of Space
 Date: 2014-12-26 14:39:00.000
 Category: articles
 Tags: animation, rigging
-Slug: _the-conquest-of-space
+Slug: _the_conquest_of_space
 Authors: Steve Theodore
 Summary:  One of the hardest thing about working in our business is that the technology evolves faster than our means of talking about it. There are a lot of things which we learn in the course of our work that we have a hard time passing on, because the field is so small and so few of us have leisure to try to find ways to sum up all of the practical knowledge we pick up along the way. I originally wrote this for Game Developer in 2006, and it was always one of my favorite columns.  
 

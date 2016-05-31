@@ -2,7 +2,7 @@ Title: Roger Roger
 Date: 2014-04-17 22:17:00.001
 Category: blog
 Tags: maya, python
-Slug: _roger-roger
+Slug: _roger_roger
 Authors: Steve Theodore
 Summary: Introducing [standaloneRPC](https://github.com/theodox/standaloneRPC/tree/more-secure), a simple maya module for remotely controlling a maya standalone using JSON over http.
 

@@ -2,7 +2,7 @@ Title: Shameless plug time
 Date: 2014-02-16 12:08:00.000
 Category: blog
 Tags: , , , , 
-Slug: _shameless-plug-time
+Slug: _shameless_plug_time
 Authors: Steve Theodore
 Summary: pending
 

@@ -2,7 +2,7 @@ Title: No soup for you, userSetup.py
 Date: 2014-05-13 12:30:00.001
 Category: blog
 Tags: maya, python, tools
-Slug: no_soup_for_you
+Slug: _no_soup_for_you
 Authors: Steve Theodore
 Summary: How to bypass `userSetup.py` (or `userSetup.mel`, if you're really old school)
 

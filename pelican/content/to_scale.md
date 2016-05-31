@@ -2,7 +2,7 @@ Title: To Scale!
 Date: 2015-01-04 22:08:00.004
 Category: blog
 Tags: , , 
-Slug: _to-scale_
+Slug: _to_scale_
 Authors: Steve Theodore
 Summary: pending
 

@@ -2,7 +2,7 @@ Title: I think this does not count as a meme gif :)
 Date: 2014-06-14 12:34:00.003
 Category: blog
 Tags: techart
-Slug: not_a_meme_gif
+Slug: _not_a_meme_gif
 Authors: Steve Theodore
 Summary: Says it all
 

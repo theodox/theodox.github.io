@@ -2,7 +2,7 @@ Title: The little things
 Date: 2016-02-18 19:27:00.001
 Category: blog
 Tags: , , , 
-Slug: _the-little-things
+Slug: _the_little_things
 Authors: Steve Theodore
 Summary: pending
 

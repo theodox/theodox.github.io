@@ -2,7 +2,7 @@ Title: Rob G's Maya Python book is finally out
 Date: 2014-07-30 22:28:00.001
 Category: blog
 Tags: industry, maya, python
-Slug: _rob-g's-maya-python-book-is-finally-out
+Slug: _rob_g's_maya_python_book_is_finally_out
 Authors: Steve Theodore
 Summary: Rob's Maya Python book is on sale
 

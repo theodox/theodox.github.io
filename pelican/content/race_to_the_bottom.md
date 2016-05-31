@@ -2,7 +2,7 @@ Title: Race to the bottom?
 Date: 2015-01-26 00:04:00.002
 Category: blog
 Tags: industry
-Slug: _race-to-the-bottom
+Slug: _race_to_the_bottom
 Authors: Steve Theodore
 Summary: A gloomy note on the decline of 3-d artist salaries
 

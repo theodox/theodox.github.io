@@ -2,7 +2,7 @@ Title: Rob G's book is up for preorder on amazon
 Date: 2014-05-15 10:30:00.000
 Category: blog
 Tags: maya, python, industry 
-Slug: _rob-g's-book-is-up-for-preorder-on-amazon
+Slug: _rob_g's_book_is_up_for_preorder_on_amazon
 Authors: Steve Theodore
 Summary: Rob Galanakis' Maya Progrmming book is up for preorder
 

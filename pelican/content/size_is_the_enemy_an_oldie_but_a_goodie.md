@@ -2,7 +2,7 @@ Title: Size is the enemy: an oldie but a goodie
 Date: 2014-09-01 22:39:00.000
 Category: blog
 Tags: , , 
-Slug: _size-is-the-enemy_-an-oldie-but-a-goodie
+Slug: _size_is_the_enemy_an_oldie_but_a_goodie
 Authors: Steve Theodore
 Summary: pending
 

@@ -2,7 +2,7 @@ Title: The Dismal Science : Technical Debt For Technical Artists
 Date: 2014-10-05 22:45:00.000
 Category: blog
 Tags: techart, programming, industry
-Slug: _dismal-science
+Slug: _dismal_science
 Authors: Steve Theodore
 Summary: Technical debt for tech artists
 From the estimable [+Paul Vosper](https://plus.google.com/105359351421932966635)  an excellent discussion of [technical debt](https://medium.com/@joaomilho/festina-lente-e29070811b84): the long term costs you incur by prioritizing the here-and-now demands of everyday life over technical and architectural needs.

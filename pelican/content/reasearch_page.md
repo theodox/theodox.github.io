@@ -2,7 +2,7 @@ Title: Future Watch: Graphics & Animation Research
 Date: 2014-01-05 10:33:00.000
 Category: blog
 Tags: techart, industry, blog
-Slug: research_page
+Slug: _research_page
 Authors: Steve Theodore
 Summary: Announcing a new permalist page of interesting graphics and animation research
 

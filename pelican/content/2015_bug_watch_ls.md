@@ -2,7 +2,7 @@ Title: 2015 Bug watch: ls()
 Date: 2014-09-04 12:15:00.001
 Category: blog
 Tags: maya, programming, bugs
-Slug: 2015-bug-watch-ls
+Slug: _2015_bug_watch_ls
 Authors: Steve Theodore
 Summary: A nasty little changed in maya's `ls()` command for 2015
 

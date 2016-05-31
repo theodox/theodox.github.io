@@ -2,7 +2,7 @@ Title: Maya's (mildy) Magical Modules
 Date: 2014-01-12 17:45:00.000
 Category: blog
 Tags: Maya, python, modules, programming
-Slug: _maya-magical-modules
+Slug: _maya_magical_modules
 Authors: Steve Theodore
 Summary: An introduction to Maya's module system, a handy method for bundling and distributing tools non-invasively
 

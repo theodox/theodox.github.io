@@ -2,7 +2,7 @@ Title: Charcoal - it's smokin'!
 Date: 2015-10-06 22:40:00.000
 Category: blog
 Tags: maya, python, tools
-Slug: charcoal
+Slug: _charcoal
 Authors: Steve Theodore
 Summary: The Charcoal editor, an excellent drop-in replacement for Maya's script editor
 

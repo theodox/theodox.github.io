@@ -2,7 +2,7 @@ Title: Read The Damn Ad!
 Date: 2014-08-01 11:30:00.000
 Category: articles
 Tags: industry, jobs
-Slug: _read-the-damn-ad_
+Slug: _read_the_damn_ad_
 Authors: Steve Theodore
 Summary: This is an article I originally wrote for the late lamented [Game Developer Magazine](http://www.gamasutra.com/features/game-developer-magazine/) on the black art of  job hunting.  Hiring has been on my mind a lot lately and so I've had to revisit a lot of things I touched on here.  Although a lot has changed in the intervening decade, the brutal realities of the job market haven 't changed much -- except, perhaps, to get a tad more brutal as the pool of qualified candidates has grown faster than the games biz as a whole.   
   

@@ -2,7 +2,7 @@ Title: "Not Even God Can Change the Past"
 Date: 2014-01-06 10:02:38.415
 Category: blog
 Tags: cg
-Slug: kremlinology
+Slug: _kremlinology
 Authors: Steve Theodore
 Summary: A little Kremlinology from Pixar
 

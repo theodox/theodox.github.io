@@ -2,7 +2,7 @@ Title: Pipeline book out in Japan (!)
 Date: 2014-07-11 21:57:00.000
 Category: blog
 Tags: industry
-Slug: _pipeline-book-japan
+Slug: _pipeline_book_japan
 Authors: Steve Theodore
 Summary: [Production Pipeline Fundamentals](http://www.borndigital.co.jp/book/5160.html) is on sale in Japan!
 

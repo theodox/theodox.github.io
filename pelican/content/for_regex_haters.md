@@ -2,7 +2,7 @@ Title: (?:regex){1} (haterz)+
 Date: 2014-03-26 17:10:00.000
 Category: blog
 Tags: programming, python, regex
-Slug: for_regex_haters
+Slug: _for_regex_haters
 Authors: Steve Theodore
 Summary: A handy cheat-sheet site for python regexes.
 
