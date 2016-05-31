@@ -7,7 +7,7 @@ Authors: Steve Theodore
 Summary: Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans.  The first post in the [mGui](https://github.com/theodox/mGui) series.
 
 
-[Last time out](pity_for_the_outcast.htm) was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.
+[Last time out](pity_for_the_outcast.html) was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.
 
 ![](http://www.fanderson.org.uk/news/images3/darlingpuppet.jpg)
 

@@ -6,7 +6,7 @@ Slug: all_your_base
 Authors: Steve Theodore
 Summary: Introducing `mGui`, a module for making Maya GUI coding more pythonic and less infuriating.
 
-> I've left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood -- but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the [mGui 2]() post for a more up-to-date view of the current mGui syntax
+> I've left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood -- but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the [mGui updates](mGui_updates_2) post for a more up-to-date view of the current mGui syntax
 
 
 In [Rescuing Maya GUI From Itself](rescuing_maya_gui_from_itself.html) I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya GUI toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to [Thunderbirds](http://www.youtube.com/watch?v=BfIAKj3Gl1E). This time out I want to detail what a working implementation of the ideas I sketched out there looks like.  
