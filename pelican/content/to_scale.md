@@ -16,22 +16,28 @@ The 4x4 matrix encodes both rotations and scales very elegantly. If that matrix 
 Of course, we all know that transforms can also be scaled up or down. So what does that look like in matrix form?  
 
 Here’s our old friend the identity matrix:  
+
+  |  |  |  
+---|---|---|---
 1| 0| 0| 0  
----|---|---|---  
 0| 1| 0| 0  
 0| 0| 1| 0  
 0| 0| 0| 1  
   
 and a sample point:  
+  
+  |  |  |  
+---|---|---|---
 1| 1| 1| 1  
----|---|---|---  
   
 > If you're wondering why we need 4 points instead of three, you might want to check back after reviewing the last article in the series. 
 
 We want to figure out what to do to this matrix so that it returns points and vectors scaled: we’d like to turn our `[1,1,1]` into `[2,2,2]`  
 The natural first guess is just to scale up the whole thing by 2: in other words, we could try just changing the 1’s in our matrix to 2’s:  
+  
+  |  |  |  
+---|---|---|---
 2| 0| 0| 0  
----|---|---|---  
 0| 2| 0| 0  
 0| 0| 2| 0  
 0| 0| 0| 2  
@@ -53,13 +59,14 @@ So, the naive approach turns out to be wrong: _we can’t just scale up every nu
 The culprit is that very last 2: it’s scaling up the W of the output -- which is equivalent to scaling the actual 3-D point **down**. Scaling that last W component is _negating_ all of the other scales.  
   
 Of course, that suggests that if we just reset that last row, we'll get the result we expected:  
-  
-2| 0| 0| 0  
+
+  |  |  |    
 ---|---|---|---
+2| 0| 0| 0  
 0| 2| 0| 0  
 0| 0| 2| 0  
 0| 0| 0| 1  
-  
+
     
     [1,1,1,1] dot [2,0,0,0] = 2  
     [1,1,1,1] dot [0,2,0,0] = 2  
@@ -78,8 +85,9 @@ This is consistent with what we discovered last time while deriving the translat
 So, we know know how to apply a uniform scale to a matrix. If you keep that Max/Maya transform node in mind for just another moment, you can probably get a good intuition about what non-uniform scales will look like in matrix form. We know that applying a non-uniform scale to enlarges everything along the local axes of the node; we also know that the first three rows of our matrix correspond to the local axes of a transform. This suggests that we should be able to apply non-uniform scales by simply scaling those rows differently.  
 Here’s a matrix that scales up by 2 in the X axis, by 3 in Y, and by 4 in Z:  
   
+  |  |  |  
+---|---|---|---
 2| 0| 0| 0 
----|---|---|--- 
 0| 3| 0| 0  
 0| 0| 4| 0  
 0| 0| 0| 1  
@@ -92,14 +100,15 @@ And as you can see it scales our point as we'd like:
     [1,1,1,1] dot [0,0,0,1] = 1  
     
 
-  
-
 
 ## Scale and rotation 
 
 It’s probably a good idea to try this with a more complex matrix as well, just to prove out what happens when the matrix isn’t neatly lined up with the world. Here’s a matrix that rotates 45 degrees in X and 30 in Z   
+
+  
+  |  |  |  
+---|---|---|---
 .866| .5| 0| 0  
----|---|---|---  
 -.353| .612| .707| 0  
 .353| -.612| .707| 0  
 0| 0| 0| 1  

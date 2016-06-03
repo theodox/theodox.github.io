@@ -45,11 +45,10 @@ SOCIAL = (
 	)
 
 DEFAULT_PAGINATION = 8
+DEFAULT_HEADER_IMAGE = 'http://texturetaddka.com/wp-content/uploads/2011/09/DSC862.jpg'
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-THEME = "Flex"
-
-
+THEME = "Casper2Pelican"
 

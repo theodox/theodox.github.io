@@ -175,8 +175,9 @@ Which means the the _persp_ camera in my Maya scene has an X axis pointing at `[
 
 As a side benefit, the matrix-rows-are-local-axes scheme allows you to extract the cardinal axes of a matrix without doing anything fancier than grabbing a row. In the camera example, we can tell the camera is ‘aiming’ along `[-0.625, -0.468, -0.625]` (Maya cameras aim down their own negative Z axis, so I’ve just taken that third row and multiplied by -1). You could use use this to figure out if the camera "sees" something by dotting that vector against a vector from the camera's position to the target, as we discussed [last time](dots_all_folks.html). Extracting local axes this way is the key to many common applications, such as look-at constraints and camera framing.  
 
-Of course,anybody who knows any 3d graphics at all, of course, knows matrices are used for a lot more than just rotations, and that we’ve just scratched the surface. I’ve walked through the derivation this way for two reasons: first, to show how the matrix is really nothing more than **a convention for applying dot products in series.** Second, because I want to underline the importance of the fact that **matrix rows are axes of a local coordinate system**<sup>\*<.sup>. Next time out we’ll explain how matrices can also represent scale and translation, and how to put matrices together for even more matrix-y goodness.   
-* in a _row major _matrix, anyway.  And subject to some interesting qualifications we'll talk about in a later post....  
+Of course,anybody who knows any 3d graphics at all, of course, knows matrices are used for a lot more than just rotations, and that we’ve just scratched the surface. I’ve walked through the derivation this way for two reasons: first, to show how the matrix is really nothing more than **a convention for applying dot products in series.** Second, because I want to underline the importance of the fact that **matrix rows are axes of a local coordinate system**<sup>*</sup>. Next time out we’ll explain how matrices can also represent scale and translation, and how to put matrices together for even more matrix-y goodness.   
+
+> \* in a *row major* matrix, anyway.  And subject to some interesting qualifications we'll talk about in a later post....  
  
 ## PS: The Rotation Matrix Formula
 
