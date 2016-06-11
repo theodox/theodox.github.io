@@ -10,7 +10,6 @@ COPYRIGHT_YEAR = 2016
 PATH = 'content'
 
 TIMEZONE = 'US/Pacific'
-
 DEFAULT_LANG = u'en'
 
 ROBOTS = 'index, follow'
@@ -21,6 +20,9 @@ CATEGORY_FEED_ATOM = 'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = 'rss/%s.rss.xml'
+SLUGIFIY_SOURCE = 'basename'
+STATIC_PATHS = ['unity_course', 'cookbook']
+ARTICLE_EXLUDES = ['unity_course', 'cookbook']
 
 MAIN_MENU = True
 SINGLE_AUTHOR = True
