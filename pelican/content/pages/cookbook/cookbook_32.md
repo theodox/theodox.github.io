@@ -1,7 +1,8 @@
 Status: hidden
 Title: Character Rigger's Cookbook
-header_cover: cookbook/cookbook_header.jpg
-Slug: cookbook_32
-[![slide 32](https://dl.dropboxusercontent.com/u/2977490/presentations/cookbook/img32.jpg)](cookbook_33)
+header_cover: cookbook_header.jpg
+Slug: cookbook/cookbook_32
+
+![slide 32](https://dl.dropboxusercontent.com/u/2977490/presentations/cookbook/img32.jpg)](cookbook/cookbook_33)
 32 of 90
-_Click on the image for the [next slide](cookbook_33), or click [here for the previous one](cookbook_31)_
+_Click on the image for the [next slide](cookbook/cookbook_33), or click [here for the previous one](cookbook/cookbook_31)_

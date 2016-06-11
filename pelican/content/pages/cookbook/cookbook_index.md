@@ -1,7 +1,7 @@
 Title: Character Rigger's Cookbook
-Slug: cookbook
+Slug: cookbook/index
 Summary: Slides from the character riggers cookbook.
-header_cover: cookbook/cookbook_header.jpg
+header_cover: cookbook_header.jpg
 
 
 These are the slides for a 2-hour introductory rigging course I did at the [GameDevelopers Conference](http://gdconf.com) in 2006.  
