@@ -21,8 +21,7 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = 'rss/%s.rss.xml'
 SLUGIFIY_SOURCE = 'basename'
-STATIC_PATHS = ['unity_course', 'cookbook']
-ARTICLE_EXLUDES = ['unity_course', 'cookbook']
+STATIC_PATHS = ['unity_course', 'pages/cookbook']
 
 MAIN_MENU = True
 SINGLE_AUTHOR = True
