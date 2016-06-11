@@ -25,7 +25,7 @@ However today, I _**actually found one which works**_. At least, I haven’t fig
 
 Since I’ve tried to figure this one out on at least a hundred previous occasions, I am feeling unduly smug about this one.   
 
-*PS*, if you’re wondering why I care: this makes it really easy to do a simple install/uninstall of a [`userSetup.py` / `userSetup.zip` combo](egg-man.html) with no environment variables or special rules.   
+*PS*, if you’re wondering why I care: this makes it really easy to do a simple install/uninstall of a [`userSetup.py` / `userSetup.zip` combo](egg_man) with no environment variables or special rules.   
 
 **PPS**: _Take that, Maya!_
 

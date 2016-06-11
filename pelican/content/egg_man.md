@@ -4,9 +4,10 @@ Category: blog
 Tags: maya, python, distribution, tools
 Slug: egg_man
 Authors: Steve Theodore
-Summary: pending
+Summary: In my last, [bumper-sticker-laden post](save_the_environment) I offered to share a little bit about the way I pack up my tools for users.  This time I'll try to actually describe the process. ![](https://s-media-cache-ak0.pinimg.com/736x/28/f5/d8/28f5d8fdf2b0c820e8be553319dbdaec.jpg)
+header_cover: https://s-media-cache-ak0.pinimg.com/736x/28/f5/d8/28f5d8fdf2b0c820e8be553319dbdaec.jpg
 
-In my last, [bumper-sticker-laden post](save_the_environment.html) I offered to share a little bit about the way I pack up my tools for users.  This time I'll try to actually describe the process.  
+In my last, [bumper-sticker-laden post](save_the_environment) I offered to share a little bit about the way I pack up my tools for users.  This time I'll try to actually describe the process.  
   
 After a all the buildup, I wish I could make this sound more high tech and impressive. Basically, I just pack up what I have and send it all out to my users in a big ol' zip file.  The zip ends up on their Maya's PYTHONPATH, and gives them exactly the same stuff I had when I created the zip.  That's kind of it.  It's basically a simplified version of a [python egg](http://mrtopf.de/blog/en/a-small-introduction-to-python-eggs/); however since I'm distributing an entire ecosystem in one shot I've opted to do the packaging myself instead of relying on [setuptools](https://pypi.python.org/pypi/setuptools) and all of its complex dependency management arrangements.  
   
