@@ -9,16 +9,11 @@ Summary: How to present a high quality GDC talk for fun and profit!
 [![](http://www.gdconf.com/img/logos/download/gdc_logo.jpg)](http://www.gdconf.com/img/logos/download/gdc_logo.jpg)
 
   
-Tech artists are an important part of GDC: sharing knowledge, inspring people to work smarter, and teaching better ways to get things done are what we do all the time -- doing a talk is just taking your day job on the road. So hurry up and get those proposals together!   
-  
-After the jump I've reposted an article I did for _Game Developer _ back in 2008 which outlines some of the things I think make for a good GDC talk.  _Update: I added a longish list of stuff that has changed since the original 2008 article in the comments - in particular, don't forget to read the new submission guidelines and don't forget 25 minute talks if you're getting your feet wet_  
-  
-  
+>> Tech artists are an important part of GDC: sharing knowledge, inspring people to work smarter, and teaching better ways to get things done are what we do all the time -- doing a talk is just taking your day job on the road. This article originally appeared in for [Game Developer](http://www.gamasutra.com/topic/game-developer) back in 2008.  I've added notes inline to indicated things that have changed since the article first appeared. In particular, don't forget to read the new submission guidelines and don't forget 25 minute talks if you're getting your feet wet!   
 
 
 ## Why it matters
 
-  
 
 
 GDC is important because it is one of the few institutions devoted to spreading that knowledge around, instead of hoarding it. Older business has have professional schools and academic wings that help to keep them vibrant, and though we are gradually evolving these sorts of things as well we are still, on the whole we still have to do the spade work ourselves.
@@ -121,3 +116,4 @@ Well, the practical benefits for your career are obvious – if you make a name 
 
 Even with all purely personal benefits, pinning on the lav mic and facing the crowd is also a real service to the community.  Older professions have a pretty good sense of what it means to be a member of the club – if you’re a lawyer or an accountant, you have a pretty clear idea of how you can expect your work life career to go. In our young (not to say “infantile”) business those expectations are much more fluid and are still evolving . Stepping into the spotlight for a few minutes is helping to define those expectations for yourself and for your peers.  What does it mean to be a “game artist?” You’re helping us all to figure it out. If that comes with a tote bag, so much the better.
 
+>> Two big things have changed since 2008. The first, and maybe the most important for first time speakers, is the addition of 25 minute talks.  These smaller format talks are an excellent way to get your feet wet: the work load for a new presenter is lower and the review board is generally a little more willing to take a risk on a new speaker in the shorter time slot. If your topic won't fit into 25 minutes, the full hour is still an option, of course.  The second big change is that the admissions process is much more formal. Nowadays you'll be assigned a mentor from the advisory board who will work with you to get your presentation in shape. This is a somewhat more labor intensive process than it used to be: the entire presentation needs to be 'substantially complete' in the late fall to be greenlit for the show (which usually takes place in late February or early March). This frontloads a lot of work -- but it has also resulted in a much higher level of polish and better talks.

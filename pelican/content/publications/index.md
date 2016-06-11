@@ -9,6 +9,7 @@ Summary: This page collects links to my old Game Developer articles and other pu
 
 This page collects links to my old [Game Developer](http://www.gamasutra.com/topic/game-developer) articles and other published works.  
 
+[Submit!](submit): An overview of how to write a successful [GDC](http://gdconf.com) talk.
 
 ### Animation
 

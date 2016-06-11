@@ -4,7 +4,8 @@ Category: unpublished
 Tags: unity, programming
 Slug: unity_pid
 Authors: Steve Theodore
-Summary: A quick introduction to the Proportional-Integral-Differential controller with a Unity implementation
+Summary: A quick introduction to the Proportional-Integral-Differential controller with a Unity implementations
+status: hidden
 
 Outside of work I've been toying a lot with [BrickPi](http://www.dexterindustries.com/site/?product_cat=brickpi-lego-for-raspberry-pi), which allows a Raspberry Pi to control [Lego Mindstorms](http://www.lego.com/en-us/mindstorms/?domainredir=mindstorms.lego.com) sensors and motors.  One of the neatest ideas I stumbled on in my reading is the Proportional Integral Differential Controller, or 'PID' for short. It's a nifty idea with a lot of possible applications in games, particularly in animation.
 

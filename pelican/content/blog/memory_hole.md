@@ -4,7 +4,7 @@ Category: blog
 Tags: techart 
 Slug: memory_hole
 Authors: Steve Theodore
-Summary: pending
+Summary: An object lesson in why you need to write stuff down.
 
 We tend to be the kind of people who throw themselves into things – we live for the joy of problem solving. So when we’re really grappling with the intricacies of todays disaster, we immerse ourselves in it. We tear it apart and inspect all the little moving pieces till we understand it well enough to duct-tape it back together again.   
 

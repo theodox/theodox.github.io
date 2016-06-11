@@ -4,7 +4,8 @@ Category: unpublished
 Tags: math
 Slug: be_cross
 Authors: Steve Theodore
-Summary: A return to math land, featuring the mysterious vector cross product
+Summary: A return to math land, featuring the mysterious vector cross productS
+Status: hidden
 
 We've talked a lot about the dot product in this series, because in an very important way it's the foundation of linear algebra.  However we've neglected the dot product's less famous little brother, the cross product, which is an extremely useful tool for TA's. So let's remedy that injustice.  
 
