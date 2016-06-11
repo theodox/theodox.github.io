@@ -1,3 +1,6 @@
+Title: Course Description
+Slug: course/course-description
+
 Unity 3d is one of the most popular tools for game developers. It offers a rich set of features for 3D rendering, animation, physics, and web  features, and can publish games on PCs, consoles, websites and mobile  devices.
 
 This course is an introduction to Unity covering basic techniques for creating games in Unity.  The course will cover all the basic techniques needed to create games in Unity. We'll cover:
