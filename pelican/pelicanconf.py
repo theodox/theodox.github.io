@@ -24,8 +24,13 @@ AUTHOR_FEED_RSS = 'rss/%s.rss.xml'
 
 MAIN_MENU = True
 SINGLE_AUTHOR = True
+AMAZON_STORE = 'http://astore.amazon.com/tecsurgui-20'
+
 MENUITEMS = (
-		('book store', 'TA-Bookstore-page.html'),
+		('book store', AMAZON_STORE),
+        ('tags', 'tags.html'),
+        ('articles', 'articles.html'),
+        ('all posts', 'index.html')
 		)
 
 # Blogroll
@@ -49,5 +54,5 @@ DEFAULT_HEADER_IMAGE = 'http://texturetaddka.com/wp-content/uploads/2011/09/DSC8
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 
-THEME = "pelican-chunk"
+THEME = "pelican-clean-blog"
 
