@@ -2,7 +2,7 @@ Title: The Conquest of Space
 Date: 2014-12-26 14:39:00.000
 Category: articles
 Tags: animation, rigging
-Slug: conquest_space
+Slug: pub/conquest_space
 Authors: Steve Theodore
 Summary: How to think about coordinate spaces as a rigger
 header_cover: https://c1.staticflickr.com/7/6084/6114754795_5738231b9a_b.jpg

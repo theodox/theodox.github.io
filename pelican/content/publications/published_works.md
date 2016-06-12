@@ -1,8 +1,7 @@
 Title: Published works
 Date: 2015-04-11 23:38:00.000
 Category: articles
-Tags: 
-Slug: published_works
+Slug: pub/index
 Authors: Steve Theodore
 Summary: This page collects links to my old Game Developer articles and other published works.  
 

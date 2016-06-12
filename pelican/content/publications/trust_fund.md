@@ -2,7 +2,7 @@ Title: The Trust Fund
 Date: 2015-01-22 21:23:00.002
 Category: articles
 Tags: industry, games 
-Slug: the_trust_fund
+Slug: pub/the_trust_fund
 Authors: Steve Theodore
 Summary: A recent [discussion on TAO](http://tech-artists.org/forum/showthread.php?5243-Developing-Tools-for-your-pipeline-general-question) reminded me of this old GDMag column from 2010. Tech artists always have to fight to stay focused on the relationship at the heart of our business: no amount of technical wizardry matters if your artists aren't actually benefitting from what you do.   
   
