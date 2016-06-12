@@ -29,4 +29,4 @@ I'm currently the technical art director for Undead Labs (*State of Decay*).
  
 <div style='float: left; margin:10px'><a href="https://www.amazon.com/Production-Pipeline-Fundamentals-Film-Games/dp/0415812291/ref=as_li_ss_il?ie=UTF8&qid=1465705902&sr=8-1&keywords=production+pipeline+fundamentals+for+film+and+games&linkCode=li3&tag=tecsurgui-20&linkId=d3bd4fc1b0bfcf823dafb7ad5efc0a99" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=0415812291&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=tecsurgui-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&l=li3&o=1&a=0415812291" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div> I wrote the Pixel Pusher art column for Game Developer magazine from 2003 until the magazine ceased publishing in 2013.   I'm one the authors of [Production Pipeline Fundamentals for Film and Games](http://amzn.to/1YkJidv) from Focal Press. 
 
-<span class="social social-rss"></span>
+</br></br>

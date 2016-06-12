@@ -1,4 +1,4 @@
-Title: No soup for you, userSetup.py
+shTitle: No soup for you, userSetup.py
 Date: 2014-05-13 12:30:00.001
 Category: blog
 Tags: maya, python, tools
