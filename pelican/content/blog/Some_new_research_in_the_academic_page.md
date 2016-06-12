@@ -6,5 +6,5 @@ Slug: some_new_research_in_the_academic_page
 Authors: Steve Theodore
 Summary: pending
 
-Still cleaning up after the long blog silence (teaching that Unity class was fun -- but six games in five weeks plus a day job is _murder!_). So I should point out a couple of additions to the [Interesting Research ](pages/interesting_graphics_and_animation_research.html)page.
+Still cleaning up after the long blog silence (teaching that Unity class was fun -- but six games in five weeks plus a day job is _murder!_). So I should point out a couple of additions to the [Interesting Research ](pages/research)page.
 

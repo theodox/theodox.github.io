@@ -1,6 +1,5 @@
 Title: Read The Damn Ad!
 Date: 2014-08-01 11:30:00.000
-Category: articles
 Tags: industry, jobs
 Slug: pub/read_the_damn_ad
 Authors: Steve Theodore

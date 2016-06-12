@@ -1,6 +1,5 @@
 Title: Submit!
 Date: 2014-08-14 22:52:00.000
-Category: articles
 Tags: industry, GDC, articles
 Slug: pub/submit
 Authors: Steve Theodore

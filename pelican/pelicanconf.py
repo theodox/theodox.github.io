@@ -20,6 +20,8 @@ CATEGORY_FEED_ATOM = 'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 AUTHOR_FEED_RSS = 'rss/%s.rss.xml'
+
+
 SLUGIFIY_SOURCE = 'basename'
 STATIC_PATHS = ['pages/course', 'pages/cookbook']
 
@@ -27,18 +29,19 @@ MAIN_MENU = True
 SINGLE_AUTHOR = True
 AMAZON_STORE = 'http://astore.amazon.com/tecsurgui-20'
 
+DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_PAGES_ON_MENU = False
 MENUITEMS = (
-		('book store', AMAZON_STORE),
-        ('tags', 'tags.html'),
-        ('articles', 'articles.html'),
-        ('all posts', 'index.html')
+		('Tech-Art Book Store', AMAZON_STORE),
+        ('all posts', '/index'),
+        ('tags', '/tags'),
+        ('publications', '/pub'),
+        ('cookbook', '/pages/cookbook'),
 		)
 
 # Blogroll
-LINKS = (('home', 'index.html'),
-         ('Python.org', 'http://python.org/'),
-         ('Jinja2', 'http://jinja.pocoo.org/'),
-         ('You can modify those links in your config file', '#'),)
+LINKS = (('home', 'index.html'))
+
 
 # Social widget
 
@@ -46,7 +49,7 @@ SOCIAL = (
 	('linkedin', 'https://www.linkedin.com/in/stevetheodore'),
         ('github', 'https://github.com/theodox'),
 	('google', 'https://plus.google.com/u/0/+SteveTheodore480BC/posts'),
-	('stack-overflow', 'http://stackoverflow.com/users/1936075/theodox')
+	('stack-overflow', 'http://stackoverflow.com/users/1936075/theodox'),
 	)
 
 DEFAULT_PAGINATION = 8
@@ -57,3 +60,4 @@ RELATIVE_URLS = True
 
 THEME = "pelican-clean-blog"
 
+DELETE_OUTPUT_DIRECTORY = True

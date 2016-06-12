@@ -4,7 +4,8 @@ Category: blog
 Tags: games, graphics 
 Slug: subjective_truth
 Authors: Steve Theodore
-Summary: pending
+Summary: This video is proof that perceived reality is socially constructed. It will delight and inspire all the artists and designers on your team...  
+    
 
 This video is proof that perceived reality is socially constructed. It will delight and inspire all the artists and designers on your team...  
     

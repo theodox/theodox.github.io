@@ -1,8 +1,7 @@
 Title: The Player's Handbook
 Date: 2014-09-16 22:53:00.000
-Category: articles
 Tags: games, jobs, industry
-Slug: players_handbook
+Slug: pub/players_handbook
 Authors: Steve Theodore
 Summary:  In keeping with the other career articles I've been reposting, here's a favorite old piece from Game Developer about career arcs in games. 
 

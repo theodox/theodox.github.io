@@ -2,7 +2,7 @@ Title: Interesting graphics and animation research
 Date: 2016-03-06 11:40:00.000
 Category: pages
 Tags: cg, industry
-Slug: Interesting-graphics-and-animation-research
+Slug: research
 Authors: Steve Theodore
 Summary: A new permanent page of interesting academic research
 

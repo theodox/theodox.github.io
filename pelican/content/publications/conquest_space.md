@@ -1,6 +1,5 @@
 Title: The Conquest of Space
 Date: 2014-12-26 14:39:00.000
-Category: articles
 Tags: animation, rigging
 Slug: pub/conquest_space
 Authors: Steve Theodore

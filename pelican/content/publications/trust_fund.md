@@ -1,6 +1,5 @@
 Title: The Trust Fund
 Date: 2015-01-22 21:23:00.002
-Category: articles
 Tags: industry, games 
 Slug: pub/the_trust_fund
 Authors: Steve Theodore
