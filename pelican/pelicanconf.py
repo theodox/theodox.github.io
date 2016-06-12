@@ -15,15 +15,19 @@ DEFAULT_LANG = u'en'
 ROBOTS = 'index, follow'
 
 # Feed generation is usually not desired when developing
-FEED_ALL_ATOM = 'atom/%s_all.atom.xml'
-CATEGORY_FEED_ATOM = 'atom/%s.atom.xml'
+FEED_ALL_ATOM = 'feeds/atom.xml'
+CATEGORY_FEED_ATOM = None #'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
-AUTHOR_FEED_RSS = 'rss/%s.rss.xml'
+FEED_ALL_RSS = 'feeds/rss.xml'
 
 
 SLUGIFIY_SOURCE = 'basename'
-STATIC_PATHS = ['pages/course', 'pages/cookbook']
+
+ARTICLE_URL = '{date:%Y}/{slug}'
+ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
+
+STATIC_PATHS = ['pages/course', 'pages/cookbook', 'pages/publications']
 
 MAIN_MENU = True
 SINGLE_AUTHOR = True
@@ -32,12 +36,11 @@ AMAZON_STORE = 'http://astore.amazon.com/tecsurgui-20'
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = False
 MENUITEMS = (
-		('Tech-Art Book Store', AMAZON_STORE),
-        ('all posts', '/index'),
-        ('tags', '/tags'),
-        ('publications', '/pub'),
-        ('cookbook', '/pages/cookbook'),
-		)
+                ('About...', '/about'),
+        ('Publications', '/pages/pub'),
+        ('Tech-Art Book Store', AMAZON_STORE),
+        ('Cookbook', '/pages/cookbook')
+        )
 
 # Blogroll
 LINKS = (('home', 'index.html'))

@@ -1,7 +1,7 @@
 Title: Chromosaurus!
 Date: 2014-06-06 21:54:00.000
 Category: unpublished
-Tags: classic cg
+Tags: cg
 Slug: chromosaurus
 Authors: Steve Theodore
 Summary: An homage to Chromosaurus, a classic of early CG

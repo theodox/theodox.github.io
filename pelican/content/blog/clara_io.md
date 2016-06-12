@@ -1,7 +1,7 @@
 Title: First find of 2014: A Scriptable DCC app in the browser?!?!
 Date: 2014-01-03 22:04:00.002
 Category: blog
-Tags: tools, techart
+Tags: tools, techart, web
 Slug: clara_io
 Authors: Steve Theodore
 Summary: Clara.io -- a full 3d DCC app that runs in your browser!

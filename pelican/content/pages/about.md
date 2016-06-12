@@ -22,9 +22,11 @@ My first game job was building mechs and environments for FASA's MechCommander i
 <img src="https://upload.wikimedia.org/wikipedia/en/7/7f/State_of_decay_logo.jpg" class="img-rounded" alt="state of decay" width="144" height="256">
 
 
-In the subsequent decades(!) I've been very lucky to fall in with some great projects.  I was an artist and animator on Half-Life, Team Fortress Classic, Team Fortress 2 and Counter-Strike at Valve. I gradually moved from production art to focusing on tools and pipelines, first as the artist-in-residence for the Granny animation system, then as the technical art manager at Zipper Interactive (SOCOM 3 and SOCOM M.A.G.).  I was technical art director at Bungie (Halo 3 and Halo ODST). 
+In the subsequent decades(!) I've been very lucky to fall in with some great projects.  I was an artist and animator on *Half-Life, Team Fortress Classic, Team Fortress 2* and *Counter-Strike* at Valve. I gradually moved from production art to focusing on tools and pipelines, first as the artist-in-residence for the *Granny* animation system, then as the technical art manager at Zipper Interactive (*SOCOM 3* and *SOCOM M.A.G.*).  I was technical art director at Bungie (*Halo 3* and *Halo ODST*). 
 
-I'm currently the technical art director for Undead Labs (State of Decay).
+I'm currently the technical art director for Undead Labs (*State of Decay*).
 
-I wrote the Pixel Pusher art column for Game Developer magazine from 2003 until the magazine ceased publishing in 2013.   I'm one the authors of Production Pipeline Fundamentals for Film and Games from Focal Press.  
+ 
+<div style='float: left; margin:10px'><a href="https://www.amazon.com/Production-Pipeline-Fundamentals-Film-Games/dp/0415812291/ref=as_li_ss_il?ie=UTF8&qid=1465705902&sr=8-1&keywords=production+pipeline+fundamentals+for+film+and+games&linkCode=li3&tag=tecsurgui-20&linkId=d3bd4fc1b0bfcf823dafb7ad5efc0a99" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=0415812291&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=tecsurgui-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&l=li3&o=1&a=0415812291" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></div> I wrote the Pixel Pusher art column for Game Developer magazine from 2003 until the magazine ceased publishing in 2013.   I'm one the authors of [Production Pipeline Fundamentals for Film and Games](http://amzn.to/1YkJidv) from Focal Press. 
 
+<span class="social social-rss"></span>

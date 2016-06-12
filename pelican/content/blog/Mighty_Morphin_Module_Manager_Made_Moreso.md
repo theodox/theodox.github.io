@@ -6,7 +6,7 @@ Slug: mighty_morphin_module_manager_made_moreso
 Authors: Steve Theodore
 Summary: An mGui port of the [Maya Module Manager]()
 
-I've added a [port ](https://github.com/theodox/mhttps://github.com/theodox/mGui/blob/master/mGui/examples/modMgr.pyGui/blob/master/mGui/examples/modMgr.py)of the [Maya Module Manager I posted a while](mighty_morphin_maya_module_manager.html) back to the examples included with the [mGui maya GUI library. ](https://github.com/theodox/mGui) This was an exercise to see how much the neater and more concise I could make it using the library.  
+I've added a [port ](https://github.com/theodox/mhttps://github.com/theodox/mGui/blob/master/mGui/examples/modMgr.pyGui/blob/master/mGui/examples/modMgr.py)of the [Maya Module Manager I posted a while](mighty_morphin_maya_module_manager) back to the examples included with the [mGui maya GUI library. ](https://github.com/theodox/mGui) This was an exercise to see how much the neater and more concise I could make it using the library.  
   
 
 [![](http://1.bp.blogspot.com/-40t7CxBPtPo/Uz-BSayB96I/AAAAAAABICI/IW5w86cjuTA/s1600/modmgr.png)](http://1.bp.blogspot.com/-40t7CxBPtPo/Uz-BSayB96I/AAAAAAABICI/IW5w86cjuTA/s1600/modmgr.png)

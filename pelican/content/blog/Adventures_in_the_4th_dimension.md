@@ -6,12 +6,12 @@ Slug: adventures_in_the_4th_dimension
 Authors: Steve Theodore
 Summary: Matrices and how they can be used to transform 3-d points
 
-In [our last discussion of 3d math](dot_matrix.html), we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that **matrices are just a convention for applying dot products in series.** We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  
+In [our last discussion of 3d math](dot_matrix), we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that **matrices are just a convention for applying dot products in series.** We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  
   
 Naturally, any TA reading this will be knows there's more. We all know that the matrices we’re most familiar with — the transform matrices that drive animation and modeling — do more than rotate. So this this time out we’re going talk about how **translation** — spatial offsets — can be packed into matrices.  And we're going to do it in a truly brain bending way.  Sort of.  
 
 
-> _If none of this sounds familiar, you may want to return to the [previous post in the series](dot_matrix.html) before continuing._
+>> _If none of this sounds familiar, you may want to return to the [previous post in the series](dot_matrix) before continuing._
 
   
 After all of the time we’ve spent with dot products in this series, one thing we should remember is that dots are **additive** — if you dot two vectors, you sum up all of the products. “Additive” is a nice quality to have if we’re thinking about adding translations to our matrices  It suggests that maybe we can use the additive-ness of dot products to teach our matrices how to do translations as well as rotations.  
@@ -172,11 +172,11 @@ Me, I need a good stiff drink.
 
 ##  Posts in this series
 
-  * [Bagels and Coffee (intro to dot products)](bagels_and_coffee.html)
-  * [Dots All Folks (dot product uses)](dots_all_folks.html)
-  * [Dot Matrix (intro to matrices)](dot_matrix.html)
-  * [Adventures in the 4th Dimension (translation matrices)](adventures-in-4th-dimension.html)
-  * [To Scale! (scale matrices)](to-scale.html)
+  * [Bagels and Coffee (intro to dot products)](bagels_and_coffee)
+  * [Dots All Folks (dot product uses)](dots_all_folks)
+  * [Dot Matrix (intro to matrices)](dot_matrix)
+  * [Adventures in the 4th Dimension (translation matrices)](adventures-in-4th-dimension)
+  * [To Scale! (scale matrices)](to-scale)
 
 
 
