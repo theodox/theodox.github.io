@@ -21,7 +21,7 @@ TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 FEED_ALL_RSS = 'feeds/rss.xml'
 
-
+ADDTHIS_PUBID = 'ra-575daf41c4afb207'
 SLUGIFIY_SOURCE = 'basename'
 
 ARTICLE_URL = '{date:%Y}/{slug}'
