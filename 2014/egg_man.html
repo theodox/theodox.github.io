@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Save The Environment 2: I am the .Egg Man</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="In my last, bumper-sticker-laden post I offered to share a little bit about the way I pack up my tools for users. This time I'll try to ...">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="maya">
+        <meta name="tags" content="python">
+        <meta name="tags" content="distribution">
+        <meta name="tags" content="tools">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2014/egg_man">
+	<meta property="og:title" content="Save The Environment 2: I am the .Egg Man">
+	<meta property="article:published_time" content="2014-07-05 23:00:00.001000-07:00">
+            <meta property="og:description" content="In my last, bumper-sticker-laden post I offered to share a little bit about the way I pack up my tools for users. This time I'll try to ...">
+
+            <meta property="og:image" content="http://theodox.com/https://s-media-cache-ak0.pinimg.com/736x/28/f5/d8/28f5d8fdf2b0c820e8be553319dbdaec.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('https://s-media-cache-ak0.pinimg.com/736x/28/f5/d8/28f5d8fdf2b0c820e8be553319dbdaec.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Save The Environment 2: I am the .Egg Man</h1>
+                        <span class="meta">
+                            Sat 05 July 2014
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>In my last, <a href="save_the_environment">bumper-sticker-laden post</a> I offered to share a little bit about the way I pack up my tools for users.  This time I'll try to actually describe the process.  </p>
+<p>After a all the buildup, I wish I could make this sound more high tech and impressive. Basically, I just pack up what I have and send it all out to my users in a big ol' zip file.  The zip ends up on their Maya's PYTHONPATH, and gives them exactly the same stuff I had when I created the zip.  That's kind of it.  It's basically a simplified version of a <a href="http://mrtopf.de/blog/en/a-small-introduction-to-python-eggs/">python egg</a>; however since I'm distributing an entire ecosystem in one shot I've opted to do the packaging myself instead of relying on <a href="https://pypi.python.org/pypi/setuptools">setuptools</a> and all of its complex dependency management arrangements.  </p>
+<p>Simple as it is, this system has saved me a huge amount of time and energy over the last few years. It's been a long time since I've had to worry about a mysterious import failure or the wrong version of a module.  Simplicity and robustness are very important, especially in the foundation of a pipeline. Of course, they don't always make for the most engaging blog posts  But I'll do what I can, even if it means resorting to some pretty lame egg puns.  </p>
+<h2>You can't make an omelette without...</h2>
+<p>There actually are some details worth discussing, but before I get into them, I should talk about why this works for the special case of Maya tools - and why it might not work as well for other forms of application development.  </p>
+<p><a href="http://gabrielutasi.com/copyright/gabrielutasi/052307.egg.gif"><img alt="" src="http://gabrielutasi.com/copyright/gabrielutasi/052307.egg.gif" /></a></p>
+<p>My primary problem - the thing I worry most about - is <strong>making sure that all my users are running the same code at the same time</strong>.  Maya tools are hard enough - it's tough to really nail things down when your data structures are just lying around in the scene where users can poke at them.  Between that and the inexorable tick-tock of the game development  clock, I've gotten very resistant to  debugging problems I already solved a week or a month ago and which are only showing up because Jane/Joe Artist doesn't like downloading the latest tools.  </p>
+<p>Similarly, it needs to be <strong>hard for an end user to delete or mangle vital stuff</strong>.  I've had artists at a former company who decided to "speedup their startup time" by deleting the file that downloaded the latest tools - a fact which only came to light when their out-of-date data started bringing down nightly builds.  Most users have a few scripts or tools of their own, but I'm not keen on having unvetted stuff from the intenet being dumped into the same folder where all my tools live - there are lots of ways that can go wrong.  </p>
+<p>Another thing that's also important is that the system needs to be <strong>clean</strong>: it has to be easy to install and to uninstall, and easy for users to switch between toolsets.  I've got to support multiple teams in house and outsources and I don't want to worry about micromanaging hundreds of files on other people's disks.  </p>
+<p>The last  thing I need  to do is to keep this system <strong>independent of our internal source control</strong>. Source control's real job -- managing change over time -- is hard enough.  Using it as a cheapo distribution service is pushing it into a role it's not intended for.  For one thing, many users have reasons (sometimes good, sometimes bad) for opting out of the daily sync ritual.  I don't want my users dropping out of sync with the rest of the team on purpose or by accident -- but I'm also leery of forcing them to sync at a time they didn't choose, since I don't know what they're up to or what other people may have checked in.  Plus, we don't always give outsourcers direct access to source control and I don't want to have to maintain different systems in and out of house.  </p>
+<p>Besides,  I want to be able to use source control selfishly, to make my own job easier.  I want to track my development and have the ability to debug or roll back or branch as I need while working, without worrying that checking in the wrong file will bring my whole team to a halt.  I once had a team of 80 artists brought to a screeching halt by a guy who checked in a maxScript file that was auto-synced by everybody in the building. Unfortunately, he did it from a unicode text editor - and Max hates unicode in maxScript. The auto-sync, keep-everybody-current system gave everybody the crashing file straight from his incautious checkin -- and, of course, it broke their auto-syncing as well as killing their Maxes. Since then I've been pretty leery of using source control to get things into users' hands.  </p>
+<h2>How to lay an egg</h2>
+<p>It's the sum of all these considerations that gives rise to the method I use -- which is, as I said, just zipping up a complete environment and distributing that directly to users via a net share or an http server.  </p>
+<p>The zip comes with a userSetup.py that checks the shared drive for newer versions and grab it if needed and then adds the zip file to the user's PATH.  <em>Rocket Science FTW!</em>  </p>
+<p>This system satisfies most of my key concerns at a shot:  </p>
+<ul>
+<li>It's all one piece (well, two if you count _userSetup.py). _That means that every user has exactly the same code - and there are no out-of-date .pyc files lying in wait to confuse things.</li>
+<li>Keeping people up to date is automatic</li>
+<li>It can be delivered to a user's personal maya directory - no need to touch the base Maya install</li>
+<li>It's outside of source control</li>
+<li>It's easy to adapt for multiple projects.  userSetup can check an environment variable to decide between multiple zips, and the zips can coexist happily with each other.</li>
+<li>It's trivial to remove: there are no permanent alterations to the local filesystem or the maya installation.</li>
+</ul>
+<p>The most complicated bit - and "complicated" here is a pretty relative term - is making sure that the zip file is exactly equivalent to the folder structure I use when I'm developing. My project folder looks more or less like this:  </p>
+<p><a href="http://4.bp.blogspot.com/-1Z9srlWTbMA/U7YY-sLus2I/AAAAAAABIZI/7f4yysrcJA4/s1600/folders.png"><img alt="" src="http://4.bp.blogspot.com/-1Z9srlWTbMA/U7YY-sLus2I/AAAAAAABIZI/7f4yysrcJA4/s1600/folders.png" /></a></p>
+<p>Most of this is what you'd expect: the .py files are modules, and the folders with the little dots in them are python packages. As long as my project folder is on the Python path, these are all available for import in the usual way.  The mildly interesting bit are the folders highlighted in green; those are external modules like PyMySql and Perforce, which I keep separately so I can manage the legal mumbo-jumbo that comes with redistributing and licensing.  In this example 'external' is not a package (note the blue parent folder - my IDE paints them blue if they aren't on the python path) so none of these packages are going to be on the python path or available for import without a smidge of extra work.  </p>
+<p>On my own machine, where I'm running from loose files, I add project to my Python path using the wonderful, and often overlooked standard library module site.  site is an alternative method of managing your Python search path - instead of appending paths onto sys.path, you can add directories using using <a href="https://docs.python.org/2/library/site.html">site.addsitedir()</a>.  The truly excellent feature of site, though, that it's data-driven: when you add a directory with site.addsitedir(), the module will search the folder for text files with the .pth extension and then add any directories specified there as well.   That UL_maya.pth file down near the bottom of the picture is my .pth file: it includes entries for my external modules so that they are automatically included when my project folder is added to the path.  </p>
+<p>Unfortunately, site does not know how to deal with pth files inside a zip file.  So, my startup code includes a little shim which duplicates the functionality of <code>addsitedir</code>. Luckily it's pretty simple:  </p>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;  </span>
+<span class="sd">ul.paths.py</span>
+
+<span class="sd">mimics the site module: process .pth files identically for zip and loose file distributions  </span>
+<span class="sd">&quot;&quot;&quot;</span>  
+<span class="kn">import</span> <span class="nn">zipfile</span>  
+<span class="kn">import</span> <span class="nn">sys</span>  
+<span class="kn">import</span> <span class="nn">os</span>  
+<span class="kn">import</span> <span class="nn">logging</span>
+
+
+<span class="k">class</span> <span class="nc">SiteProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">contents</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pth_files</span><span class="p">():</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">yield</span>
+
+    <span class="nd">@staticmethod</span>  
+    <span class="k">def</span> <span class="nf">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>  
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>  
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>  
+                <span class="k">continue</span>  
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;import&quot;</span><span class="p">):</span>  
+                <span class="k">exec</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
+                <span class="k">continue</span>  
+            <span class="n">new_path</span> <span class="o">=</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>  
+                <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FolderSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">for</span> <span class="n">roots</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>  
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>  
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pth&quot;</span><span class="p">):</span>  
+                    <span class="n">clean_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">roots</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>  
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">clean_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>  
+                        <span class="k">yield</span> <span class="n">roots</span><span class="p">,</span> <span class="n">handle</span>
+
+
+<span class="k">class</span> <span class="nc">ZipSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="n">archive</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>  
+        <span class="n">all_names</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>  
+        <span class="n">all_names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  
+        <span class="n">pth_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">all_names</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pth&#39;</span><span class="p">)]</span>  
+        <span class="k">for</span> <span class="n">pthfile</span> <span class="ow">in</span> <span class="n">pth_list</span><span class="p">:</span>  
+            <span class="n">local_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pthfile</span><span class="p">)</span>  
+            <span class="n">contents</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pthfile</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span>  
+            <span class="k">yield</span> <span class="n">local_pth</span><span class="p">,</span> <span class="n">contents</span>
+
+
+<span class="k">def</span> <span class="nf">include_site_files</span><span class="p">(</span><span class="o">*</span><span class="n">roots</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;  </span>
+<span class="sd">    for every .pth file in or under each root, process the pth file  </span>
+<span class="sd">    in the same way as site.addsitedir()  </span>
+<span class="sd">    &quot;&quot;&quot;</span>  
+    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;bootstrap&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;path shim&quot;</span><span class="p">)</span>  
+    <span class="k">for</span> <span class="n">each_root</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">:</span>  
+        <span class="k">if</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">is_zipfile</span><span class="p">(</span><span class="n">each_root</span><span class="p">):</span>  
+            <span class="n">ZipSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>  
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="n">FolderSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+
+
+<p>This way, adding the whole environment just requires calling <code>include_site_files()</code>. Under the hood the Processor classes will read the .pth files and process them the same way <code>site.addsitedir</code> does: adding named folders to the python path, ignoring comments, and executing imports.  </p>
+<p>I don't use that auto-import functionality right now but it would work nicely if you wanted to create a self-registering plugin system where each plugin was a zip of its own.  If you were feeling adventurous, you could bootstrap your whole Maya toolset by adding an import statement to the end of a .pth file in the zip.  As I said, that's not what I do right now -  I currently call my main bootstrap routine from userSetup.py,  since I'm habitually averse to relying the side effects of imports for important jobs.  </p>
+<h2>If (eggs) in one_basket:</h2>
+<p><a href="http://stylebook-p.s3.amazonaws.com/prod/assets/5018bfdd15121/5018bfdd15121-large.jpg"><img alt="" src="http://stylebook-p.s3.amazonaws.com/prod/assets/5018bfdd15121/5018bfdd15121-large.jpg" /></a></p>
+<p>It's userSetup.py that provides the  actual link between the zip file and a running copy of Maya. I like to keep it as simple as I can, since it's the hardest part of the system to update.  All it really needs to do is download the latest zip file (from a shared network drive  or via http)  and shim it in with site.addsitedir.  Here's a very simple example:   </p>
+<div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">This is an example userSetup.py. It should be copied into  </span>
+<span class="sd">one of the  user&#39;s MAYA_SCRIPT_DIR folders (typically, the one for the   </span>
+<span class="sd">current version, like &#39;2014x64&#39;,  but it works in the generic one as well)  </span>
+<span class="sd">&#39;&#39;&#39;</span>  
+<span class="kn">import</span> <span class="nn">os</span>  
+<span class="kn">import</span> <span class="nn">site</span>  
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">ZIP_NAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;MAYA_ZIP&#39;</span><span class="p">,</span> <span class="s1">&#39;mayatools.zip&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">_startup_</span><span class="p">(</span><span class="n">_globals</span><span class="p">):</span>  
+    <span class="n">tools_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;MAYA_DEV&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>  
+    <span class="k">if</span> <span class="n">tools_root</span><span class="p">:</span>  
+         <span class="n">site</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">tools_root</span><span class="p">))</span>  
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="n">script_dirs</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MAYA_SCRIPT_PATH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>  
+        <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="n">script_dirs</span><span class="p">:</span>  
+            <span class="n">tools_root</span> <span class="o">=</span> <span class="nb">dir</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">ZIP_NAME</span>  
+            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tools_root</span><span class="p">):</span>  
+                <span class="n">site</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">tools_root</span><span class="p">)</span>  
+                <span class="k">break</span>  
+    <span class="kn">import</span> <span class="nn">ul.bootstrap</span> <span class="kn">as</span> <span class="nn">bootstrap</span>  
+    <span class="n">bootstrap</span><span class="o">.</span><span class="n">bootstrap</span><span class="p">(</span><span class="n">_globals</span><span class="p">)</span>
+
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  
+    <span class="n">_startup_</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>  
+    <span class="k">del</span> <span class="n">_startup_</span>
+</pre></div>
+
+
+<p>You'll note that nothing is really going on here: just download the zip, add it to the path, and call the bootstrap module. End of story.  </p>
+<p>This is because you want to keep all the real work inside your bootstrap module. If you try to do anything fancy in userSetup itself, you have to worry about version drift: what happens if the contractor machine in the corner gets turned on after a year of downtime, with a userSetup that's many versions behind?  Moreover, you have no way of preventing users from messing with userSetup for their own reasons: if the code is simple, it's much less likely to be broken by an adventurous artists.   </p>
+<p>The bootstrapper module itself is where all of the complex work takes place:  it knows how to unpack the binary resources like plugins or icons from the zip file if they have changed,  how to turn on persistent scriptJobs , and how to load menu items -- all the zillions of things you want to do when you set up you environment. Since it provides a single entry point, it's a great opportunity to put some order and discipline into your setup process: it's far safer than importing dozens of tools or modules in a long userSetup that's not versioned or updated centrally.  </p>
+<p>You might notice that all the information needed by userSetup is stashed into environment variables. That makes it easy to boot different environments by launching Maya with the right settings; it's easy to give the users batch files which launch the correct versions of the tools by just setting the variables correctly. This has the nice side effect of supporting nonstandard locations transparently - there's always that one artist who insists on keeping things on an X: drive to consider.  It's easy to see how this could be done with config files rather than env vars, the logic is so simple that the details hardly matter.  </p>
+<p>One evolutionary step forward I haven't used in production is to move the userSetup / zip pair to a <a href="http://techartsurvival.blogspot.com/2014/01/mayas-mildy-magical-modules.html">Maya module</a>.  That would allow for more complex arrangements such as a shared core environment with branch or project specific additions; it would also mean that toolset management would be done by enabling or disabling modules rather than swapping environment variables.  The main hassle would be the fact that a user could simultaneously enable more than one toolset and get random results, since you could never be sure which version of a given module you were getting. It might work better as an outsource-friendly mod than as a replacement for the variable-swapping setup.  </p>
+<h2>Hot times in the hen house</h2>
+<p>The zipped environment is created by a simple Python build program.  There's not much magic here either.  The build script runs unit tests and aborts the packaging process if they fail.  If the tests pass, the builder gets the latest versions of any external resources (like icons, or binary plugins), and strips out some stuff like unit tests that doesn't need to get to the users.   I add a little bit of metadata -- basically, a text file -- to the zip so I can quickly find out which distribution is running; this is a great way avoid those headsmacking "I fixed that bug a week ago, but user X hasn't restarted Maya in two weeks" mysteries.   </p>
+<p>One nice refinement that we discovered almost by accident is using the <a href="https://docs.python.org/2/library/py_compile.html">py_compile </a>module to pre-compile the whole shebang before packing.  Our system ships only pyc files instead of pys.  This speeds up load times and slims down the zip file by a noticeable amount. However the most important thing it does is make sure that every module - even those with no unit tests, which are alas too numerous - is at least minimally importable. py_compile will complain if it encounters a module with a syntax error that cannot be compiled. Over the years this has saved me countless small humiliations by making sure that stupid typos and oversights don't result in a busted Maya.  </p>
+<p>These days I use a little python program which polls my GitHub repositories for changes and tries to create a new build when a checkin is pushed to the master branch.  The server handles running multiple builds for different Maya versions: When Autodesk rev'ed the version of Python inside Maya, it meant that we needed different .pyc's for different versions of Maya. For most of the last several years, though,  I simply used a zip script from a command line or as an external tool in my IDE and that answered fine for most purposes.  Moving to a server is just a way of making it more painless for a team to do the right thing automatically instead of appointing one person as 'build master' and making them sync and push the button to start a build. </p>
+<blockquote>
+<p>Extra credit: Can you guess who the build master was, and why he decided to write the server?   </p>
+</blockquote>
+<h2>Hatchlings</h2>
+<p>One problem I don't have to solve for this application - but one which looms very large in the setuptools-distutils-easy_install end of Pythonland - is dealing with a diversity of OS's and hardware.  I'm happy not to try to deal with things like recompiling a slew of C extension modules for DEC-Alpha chips running OS/2 or whatever. I've only got Windows users currently (though pretty much everything I write works on OSX, since I often develop on my laptop).  This removes, for me, the primary appeal of the traditional python distribution pipeline, which is the option of automatically creating whatever esoteric binaries you need just by typing a few lines at the command prompt.  </p>
+<p>The price for not letting users compile on their machines is that I have to pre-package the right binaries. To the extent that I can, I end-run around the problem by using pure python modules in preference to binary alternatives, such as using <a href="https://github.com/PyMySQL/PyMySQL">PyMySql</a> in preference to MySQLdb, or elementTree instead of <a href="http://lxml.de/">lXml</a>. Inevitably, this does give away some performance (rarely so much that I'm bothered by it) but it hugely enhances portability.  The unavoidable exceptions are things like Maya plugins or the Perforce API, both very finicky about OS and bit-depth; these have to be distributed as part of my zip files and extracted at startup time.  The bootstrapper module includes a manifest which tells it which files to use for which Maya/OS/bit-depth combination, and uses that info to makes sure that things get delivered to the right place.   </p>
+<p>The only complication I've run into is that a user (often, me) is may be running multiple maya sessions, and a later one may want to unpack a new version of a binary plugin while an older session is still using a previous version. Unsurprisingly, you can't overwrite the old one since Maya is using it. I haven't quite figured out what to do in that situation, beyond displaying an error dialog and suggesting that the user restarts all of the Maya instances using the same plugin.  For the time being the overlap between tool changes and multiple Maya sessions is rare enough that I tolerate it. It would be possible to dump things into a temp directory in that case, but honestly it sounds like overkill even to me.  </p>
+<p><a href="http://stylebook-p.s3.amazonaws.com/prod/assets/4ff82077d338e/4ff82077d338e-large.jpg"><img alt="" src="http://stylebook-p.s3.amazonaws.com/prod/assets/4ff82077d338e/4ff82077d338e-large.jpg" /></a></p>
+<h2>Counting your chickens</h2>
+<p>So, that's kind of it. It's not very sexy but it's been extremely useful for me over the last 4 years - the amount of mystery which this system removed from my life is uncountable.  Because the actual code I use is pretty tied up with work-specific problems, I have not ventured to make a cleaned up, genericised version for public consumption so far, though if there were a lot of interest I could probably whip up a cleanroom version.  </p>
+<p>Hope other folks find this one useful. I know it's certainly ~~accompanied~~ saved my bacon !  </p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/distribution.html">distribution</a>, <a href="http://theodox.com/tag/tools.html">tools</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2014/egg_man';
+                var disqus_url = 'http://theodox.com/2014/egg_man';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

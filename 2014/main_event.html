@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>The Main Event - event oriented programming in Maya</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="Event oriented programming for python in general and for Maya GUI in particular">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="maya">
+        <meta name="tags" content="python">
+        <meta name="tags" content="mGui">
+        <meta name="tags" content="programming">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2014/main_event">
+	<meta property="og:title" content="The Main Event - event oriented programming in Maya">
+	<meta property="article:published_time" content="2014-04-29 00:14:00.001000-07:00">
+            <meta property="og:description" content="Event oriented programming for python in general and for Maya GUI in particular">
+
+            <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>The Main Event - event oriented programming in Maya</h1>
+                        <span class="meta">
+                            Tue 29 April 2014
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>The <a href="maya_callbacks_cheat_sheet.html">Maya Callbacks Cheat Sheet</a> post started out as an effort to explain the design the <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">event system</a> in <a href="https://github.com/theodox/mGui">mGui </a>- but it quickly turned into it's own thing as I realized that the vanilla Maya system remains confusing to lots of people.  With that background out of the way, I want to return to events proper, both to explain why they work the way the do in mGui and also how they can be useful for other projects as well (I use them all over the place in non-GUI contexts).  </p>
+<p>...and, because it's got the word 'event' in it, I'm going to throw in a lot of irrelevant references as I can manage to <strong><em>The Crushah!</em></strong>  </p>
+<p><a href="http://hot-breakfast.com/wp-content/uploads/2014/01/GHG-WB-Crusher.jpg"><img alt="" src="http://hot-breakfast.com/wp-content/uploads/2014/01/GHG-WB-Crusher.jpg" /></a></p>
+<h2>The Reining "Champeen"</h2>
+<p><a href="http://i3.ytimg.com/vi/n0lzjNzql5Y/mqdefault.jpg"><img alt="" src="http://i3.ytimg.com/vi/n0lzjNzql5Y/mqdefault.jpg" /></a>  </p>
+<blockquote>
+<p>It's a heavyweight programming paradigm!  </p>
+</blockquote>
+<p>The cheat sheet post showed that Maya callbacks are reasonably functional once you understand the underlying code scope rules. However they also shows some of the limitations of the default system:  </p>
+<h4>Awkward argument handling</h4>
+<p>In cases where you want to call a command with arguments or parameters, plain-old-Maya callbacks require you do fancy footwork with lambdas or partials to pass your arguments in correctly. It's not rocket science, but it is a pointless tax on what should be a trivial problem.  </p>
+<h4>Design time</h4>
+<p>GUI code is usually kind of fiddly to begin with, since you're often busy tweaking sizes, layouts and other graphical whatnots as you lay out the GUI (one of the big advantages of things like QT Designer is that they split this work out from the underlying code very neatly by turning all of that layout and presentation stuff into data).  You can see this particularly when you're trying to shoehorm all of the arguments and parameters for a command into the same line that also declares and styles a control: you get a long messy piece of junk with lots of nested parens that's hard to parse at a glance.   </p>
+<p>On a more strategic level, creating commands at the same time you create the visual layout for your controls tends to lock you into a monolithic style of coding. If you want to add new behaviors to a control contextually, you need to manage all of the state inside some other bit of code which not only knows how to do the new job,  it also needs to know enough about the original GUI layout that it can replace existing callback commands with new ones.   This means trivial tasks like highlighting a button when something is selected from a list get intertwined with complex code that does real work -- and, alas, that the two different sets of concerns get to share bugs.  </p>
+<h4>One shot</h4>
+<p>The last big drawback of the default Maya callback system is that each callback fires only one command.  This is not a big deal for things like buttons, but when you extend it to things like scriptJobs it can get messy very fast. Either you end up creating dozens of similar scriptJobs attached to the same trigger - in which case you  have to waste a lot of energy on managing them all -- or you have to create a complex uber-handler that jams a ton of (possibly unrelated) behaviors into a giant bucket-o-code.</p>
+<h2>And In Dis Corner..!</h2>
+<p><a href="http://img.rp.vhd.me/3147118_l2.jpg"><img alt="" src="http://img.rp.vhd.me/3147118_l2.jpg" /></a></p>
+<blockquote>
+<p>our plucky challenger  </p>
+</blockquote>
+<p>The mGui event system is intended to fight these problems and to promote cleaner, less coupled and more general code.  </p>
+<p>The main ideas is to create objects --<a href="https://github.com/theodox/mGui/blob/master/mGui/events.py"> the Event class</a>-- which store a list of functions (usually known as 'handlers') which they call when they are activated. Each Event can host any number of handlers, and the handlers can be added or removed from an event at any time.  The events can store information you know when they are created or pass information you only know when they fire, so you don't have to jump through hoops to provide relevant data to your handlers. Finally, the Events are smart enough not to complain when a handler disappears - if you're logging processed items to a window from a long running task and the user closes the window, the underlying code will still run without complaint.</p>
+<p>If you know your OOP history, this is obviously a shameless ripoff of the standard <a href="http://www.philipuren.com/serendipity/index.php?/archives/4-Simple-Observer-Pattern-in-Python.html">Observer Pattern</a>, -- although the implementation here owes more to <a href="http://msdn.microsoft.com/en-us/library/aa645739(v=vs.71).aspx">the way events are handled in C#</a>.   The main difference from the canonical implementation is that -- this being Python -- the handlers don't need to be classes, much less implementations of any particular base class; instead, the Event maintains a list of callables -- which can be functions, lambdas or callable classes -- and tries to fire them when it itself is triggered. Unlike the C# version of the same idea, there's no need for an elaborate menagerie of specially-typed handlers and data passing classes; instead, any function that accept <a href="http://freepythontips.wordpress.com/2013/08/04/args-and-kwargs-in-python-explained/">the plain-python open-ended <em>args, </em>*kwargs signature</a> can be a handler.</p>
+<p>Here's the important bit of the core code (the full thing, as always, is <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">up on github</a>) :</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Event</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="sd">&#39;&#39;&#39;Set list of handlers callables. Use a set to avoid multiple calls on one handler&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Data</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_add_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a handler callable. Raises a ValueError if the argument is not callable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not callable&quot;</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">get_weak_reference</span><span class="p">(</span><span class="n">handler</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_remove_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a handler. Ignores handlers that are not present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wr</span> <span class="o">=</span> <span class="n">get_weak_reference</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="n">delenda</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">wr</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">delenda</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the me</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Data</span><span class="p">)</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">md</span>
+
+    <span class="k">def</span> <span class="nf">_fire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call all handlers.  Any decayed references will be purged.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">delenda</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+            <span class="k">except</span> <span class="n">DeadReferenceError</span><span class="p">:</span>
+                <span class="n">delenda</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">delenda</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handler_Count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the count of the _Handlers field</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="p">])</span>
+
+    <span class="c1"># hook up the instance methods to the base methods</span>
+    <span class="c1"># doing it this way allows you to override more neatly</span>
+    <span class="c1"># in derived classes</span>
+    <span class="n">__call__</span> <span class="o">=</span> <span class="n">_fire</span>
+    <span class="n">__len__</span> <span class="o">=</span> <span class="n">_handler_Count</span>
+    <span class="n">__iadd__</span> <span class="o">=</span> <span class="n">_add_handler</span>
+    <span class="n">__isub__</span> <span class="o">=</span> <span class="n">_remove_handler</span>
+</pre></div>
+
+
+<p>As you can see, it's really quite simple: The handlers are maintained in set, so they can't accidentally be duplicated.  We override the <code>__iadd__</code> and  <code>__isub__</code> methods to provide a simple syntax for attaching and detaching handlers (shamelessly stolen from C#).  The core is the <code>__call__</code> method. which makes the Event object callable as if it were a function.  When the event is called, it fires all of the handlers with whatever arguments and keywords were passed in.  </p>
+<blockquote>
+<p>The only 'interesting' bit of code is the function WeakMethod in line 20 - it's not defined in this snippet; basically it's job is to make sure the Event object doesn't keep objects alive in memory when they should be de-referenced. <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">See the github</a> for details if you're interested.</p>
+</blockquote>
+<p>While the description is a bit long winded, the use case is pretty straightforward:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="n">test_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test event&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_handler</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+
+<span class="n">test_event</span> <span class="o">+=</span> <span class="n">test_handler</span> <span class="c1"># attach the handler</span>
+
+<span class="n">test_event</span><span class="p">()</span>
+<span class="c1">#&gt;&gt; () {&#39;name&#39;: &#39;test event&#39;, &#39;event&#39;: &lt;mGui.events.Event object at 0x000000002C7FEC88&gt;}</span>
+<span class="n">test_event</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1">#&gt;&gt; (1, 2, 3) {&#39;name&#39;: &#39;test event&#39;, &#39;event&#39;: &lt;mGui.events.Event object at 0x000000002C7FEC88&gt;}</span>
+<span class="n">test_event</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="c1">#&gt;&gt; () {&#39;msg&#39;: &#39;hello&#39;, &#39;name&#39;: &#39;test event&#39;, &#39;event&#39;: &lt;mGui.events.Event object at 0x000000002C7FEC88&gt;}</span>
+</pre></div>
+
+
+<p>Here <code>test_event</code>  is an <code>Event</code> object and <code>test_handler</code> is a handler function. Handlers are callables of any kind: functions, object methods, lamdas, or callable objects. The only requirement is that they accept the <code>*args, **kwargs</code> form of open-ended arguments -- you can do whatever you want with the args and kwargs inside a given handler, but they will be passed so you'll need to provide the right signature in your handler functions.  </p>
+<p>One of the trickiest bits of doing event-driven programming is providing the right context to your handler functions.  Different kinds of functional code will need different bits of information -- for example, you might fire an event when the user selects something in your scene.  One handler could highlight the selected item in a list, another could enable or disable some buttons, and a third could update present an appropriate dropdown list. Some of these operations will care about the selected objects, and some won't; some will care about other kinds of conditions (Is the window expanded? Is the user in 'advanced mode'?). To keep the code clean and provide handlers with the context they need to do their jobs, the Events need to be able to pass extra information; the <em>args, </em>*kwargs form makes it easy to provide the data you think appropriate.  </p>
+<p><a href="http://img.youtube.com/vi/msp7rGJ5l7c/0.jpg"><img alt="" src="http://img.youtube.com/vi/msp7rGJ5l7c/0.jpg" /></a></p>
+<h2>Extra! Extra! Read All About It!</h2>
+<p>Most of the time, the info you want to pass with your event is dynamic - you don't know what it will be until the tool is actually running. In this case, you can just pass arguments or keywords at call time as I did in the previous example. This really helps to make the callback mechanism more flexible, since the same Event can be triggered many tines for different circumstances without new code. For example, say you've got a long running process that's looping over a bunch of objects and doing something.  </p>
+<p>Sometimes, though, the data is constant. In that case you can build it into the Event object directly - in that last snippet you can see that <code>test_event</code> has been set up with a name at creation time and that name is passed along to all invocations of the event. The ability to add unique data to an event ,makes it simple to write general handlers that can deal with several types of  Events at once - for example, you might auto-generate a set of buttons each of which was tied to a particular object in your Maya scene and then pass the object names through button's Events. Something like this mGui example (though as I said at the outset, you can just use the events module without mGui if you want):  </p>
+<p>Any keywords you provide when creating an Event object will be stored and then passed as keywords when the event goes off. (You'll might have noticed in the previous example that Events automatically includes a reference to themselves in their keyword arguments; this can be handy for things like one-shot handlers that want to remove themselves from an  event after they fire)  A common idiom is to add a reference to the owning GUI object, so that there's no extra work needed to figure out, say, which checkbox just toggled it's state. In this example I've added added a reference to the buttons as 'sender' manually, but if I hadn't manually created the event and had just attached a handler to the default one that comes with the mGui button I'd also have gotten that for free.  </p>
+<p>One thing to point out here is that the Events can mix both styles - predefined keywords and keywords or arguments that are defined at runtime. The Events will overwrite any pre-defined keywords that are duplicated, which is a behavior to remember - it can be useful but might also cause some surprises if you're not expecting it.,  </p>
+<h2>The Final Round</h2>
+<h2><a href="http://i.ytimg.com/vi/M50wHftQax8/0.jpg"><img alt="" src="http://i.ytimg.com/vi/M50wHftQax8/0.jpg" /></a></h2>
+<p>that's gotta hurt  </p>
+<p>At the risk of repeating myself, I just want to show how the Event pattern makes it easier to achieve good, clean division between GUI code and functional code.  Here's the usual way you'd go about doing something like updating a GUI to reflect a long-running process:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="k">class</span> <span class="nc">OverCoupled</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span>  <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span>  <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">some_complex_function</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span>  <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">some_complex_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <span class="c1"># update the gui</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;doing something fancy&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">):</span>
+           <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+           <span class="c1"># redraw the label </span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span><span class="mi">1</span> 
+           <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">item</span> <span class="p">)</span>
+           <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">))</span>
+           <span class="n">cmds</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="c1"># closing message</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;finished fancy tasks&quot;</span><span class="p">)</span>
+
+<span class="n">oc</span> <span class="o">=</span> <span class="n">OverCoupled</span><span class="p">()</span>
+<span class="n">oc</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Now, you could say that doesn't look _too _bad - the class is making it easy to find the text you want to update and it's only a couple  of lines each time you do the update. But this example is trivial; imagine this was real world code where some_complex_function really was complex and had lots of branches or possible failure points.  What if you needed to hit not two, but five or six different GUI elements?  What if you wanted to add logging or email?  The maintenance would add up fast.  </p>
+<p>Most of all, imagine how irritating it is to write code that simultaneously does some complex task - requiring you to mentally follow along with the ins and outs of the procedure as you write or debug it - and then adding a bunch of fiddly gui code in-line with the tool work. It only gets worse if you want to refactor or re-use parts of some_complex_function, since you'll have to work around or excise the parts specific to this GUI It's a classic violation of <a href="http://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns</a>.  Here's the same code with events instead of inline GUI code:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mGui.gui</span> <span class="kn">as</span> <span class="nn">gui</span>
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+<span class="kn">import</span> <span class="nn">mGui.events</span> <span class="kn">as</span> <span class="nn">events</span>
+
+<span class="k">def</span> <span class="nf">move_down</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># make a window with buttons for each transform. Clicking buttons </span>
+<span class="c1"># moves them down 10 units</span>
+<span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">VerticalForm</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;b_&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">item</span><span class="p">)</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">sender</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">item</span><span class="p">)</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">move_down</span>
+
+<span class="n">example</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>As you can see the event-based version lets you cleanly separate out the functions from the UI. Moreover it would be a snap to make a headless version that ran with no GUI - and you could even add  logging to the console by attaching a simple handler function to the processor's <code>ItemProcessed</code> event. Abstracting  away the actual GUI code makes it easy to keep your code tidy and also lets you evolve your display mechanism without endangering your functional code. If you decide to swap in a messageLine for the the text widget -- or for that matter, if you print a line to the listener - it's all the same to the underlying code. This flexibility is exactly what <a href="http://pynash.org/2013/03/07/logging-intro.html">makes the native Python logging module so powerful</a>:  logging can write to text files, update databases, send emails or print console messages -- indeed, it can do all of those at once -- and the code that calls logging doesn't need to change one iota.</p>
+<h2>TKO!</h2>
+<p><a href="http://1.bp.blogspot.com/_4QlZmS5gO7s/SmaQEq6ewTI/AAAAAAAAARE/A5DKfeZ5Sz8/s320/BunnyHugged13.jpg"><img alt="" src="http://1.bp.blogspot.com/_4QlZmS5gO7s/SmaQEq6ewTI/AAAAAAAAARE/A5DKfeZ5Sz8/s320/BunnyHugged13.jpg" /></a></p>
+<p>So, that's the basic rationale for the event system in mGui. If you <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">check out the file on github</a> you'll see there's a bit more going under the hood - that's a matter for another time. Till then, keep those dukes up.  </p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/mgui.html">mGui</a>, <a href="http://theodox.com/tag/programming.html">programming</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2014/main_event';
+                var disqus_url = 'http://theodox.com/2014/main_event';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>The right profile</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="A brief, gentle introduction to the uses and abuses of profiling in Maya Python">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="python">
+        <meta name="tags" content="programming">
+        <meta name="tags" content="maya">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2015/the_right_profile">
+	<meta property="og:title" content="The right profile">
+	<meta property="article:published_time" content="2015-04-18 22:16:00-07:00">
+            <meta property="og:description" content="A brief, gentle introduction to the uses and abuses of profiling in Maya Python">
+
+            <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>The right profile</h1>
+                        <span class="meta">
+                            Sat 18 April 2015
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>Lately I was working in one of those relatively rare TA tasks where performance really mattered. I had to do a lot of geometry processing and the whole thing was as slow as molasses, despite all my best guesses about clever little tricks to speed things up. </p>
+<p>To break the logjam, I resorted to actual profiling, something I tend to avoid except in emergencies. </p>
+<p>Now, you might wonder why I say I avoid profiling. If you skip ahead and see the trick I used here, and all the fiddly little bits of detailed performance data it provides, you may be particularly curious why anybody would want to pass up on all this cool, authoritative data. The reason, however, is really simple: Good profiling is so powerful that it can be overly seductive. Once you can see right down to the millisecond how tiny tweaks affect your code, the temptation to start re-working everything to shave a little bit off here and there is hard to escape.</p>
+<p>If you're working on a game engine, constant reference to the profiler might make sense. In regular TA work, however, milliseconds rarely matter: all that counts is the user's perception of responsiveness. Your users will care about the difference between a .1 second tool and a 1 second tool, or that between a 1 second tool and a 10 second tool. They are unlikely to care about - or even notice - the difference between a 1.3 second tool and a 1.1 second tool. The time you spend grinding out those extra fractions of a second may just not be worth it. As Donald Knuth, one of the great-grandaddies of all programming put it:</p>
+<blockquote>
+<p>We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. </p>
+</blockquote>
+<p>So a word of warning before we proceed. Optimize late, only after you've got the problem solved and after you've got what seems like solid, working code that's just too slow. Stay focused on clarity, reliability and ease of maintenance first; only reach for the profiler in code where the perf has really become an issue. </p>
+<h2>Cheap-ass profiling</h2>
+<p>Python includes some excellent native profiling tools. The easiest one to use (and the one that's most handy for people working in Maya) is the <a href="https://docs.python.org/2/library/profile.html"><code>cProfile</code></a> module. It allows you to extract very detailed timing and call-count information from a run of a function. </p>
+<p>Here's a basic example of profile in action. We'll start of with a couple of simple functions. </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>  
+<span class="kn">import</span> <span class="nn">cProfile</span>
+
+
+<span class="k">def</span> <span class="nf">some_math</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">n</span> <span class="o">**</span> <span class="n">n</span>
+
+<span class="k">def</span> <span class="nf">slow</span><span class="p">():</span>  
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mo">01</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">do</span><span class="p">():</span>  
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>  
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>  
+        <span class="n">some_math</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>  
+        <span class="n">slow</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Then we'll call them using <code>cProfile.run()</code>. The run function takes a string which it will use <code>eval</code> to execute. So in our case:</p>
+<div class="highlight"><pre><span></span>cProfile.run(&#39;do()&#39;)
+</pre></div>
+
+
+<p>That will print out the following report, or something pretty like it:</p>
+<div class="highlight"><pre><span></span>     604 function calls in 2.096 seconds
+
+Ordered by: standard name
+
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)  
+    1    0.002    0.002    2.096    2.096 &lt;maya console&gt;:12(do)  
+  200    0.003    0.000    0.003    0.000 &lt;maya console&gt;:6(some_math)  
+  200    0.002    0.000    2.091    0.010 &lt;maya console&gt;:9(slow)  
+    1    0.000    0.000    2.096    2.096 &lt;string&gt;:1(&lt;module&gt;)  
+    1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}  
+    1    0.000    0.000    0.000    0.000 {range}  
+  200    2.089    0.010    2.089    0.010 {time.sleep}
+</pre></div>
+
+
+<p>The first line in the report prints out the total time, in this case a shade over 2 seconds. Each line in the report that follows lists the following information for a single function call (including nested calls)</p>
+<p><em>ncalls</em>
+    The number of times a given function was called during this run. If the function is recursive, this number may show up as two numbers separated by a a slash, where the first is the true number of total calls and second the number of direct, non-recursive calls. As you can see here <code>do()</code> itself was called only once, but the sub-functions <code>some_math()</code> and <code>slow()</code> were each called 200 times; <code>time.sleep()</code> was called 200 times as well since it was called by every iteration of <code>slow()</code>
+<em>tottime</em>
+    the total amount of time spent executing this function for the entire run. As you can see the call to <code>time.sleep</code> occupies the bulk of the time in this run. Not that this is the time it takes to process the function - <em>not</em> the real-world time it takes to run! So our <code>do()</code> function in the first line shows a <code>tottime</code> of .002 seconds even though it clearly took more than two seconds to run. 
+<em>percall</em>
+    The <em>average</em> time spent executing the function on this line, if it was executed multiple times. Like <code>tottime</code>, this measures processor time only and does not include things like network delays or (as in this case) thread sleeps.
+<em>cumtime</em>
+    this is the real world time needed to complete the call, or more precisely the total real world time spent on all of the calls (as you can see, it's the sleep call and <code>do()</code> which each take up about two seconds)
+<em>percall</em>
+    the second percall column is the amount of average amount of real-world time spent executing the function on this line.
+<em>filename</em>
+    this identifies the function and if possible the origin of the file where the function came from. Functions that originate in C or other extension modules will show up in curly braces.</p>
+<p>As you can see this is <em>incredibly</em> powerful right out of the box: it lets you see the relative importance of different functions to your overall perfomance and it effortlessly includes useful back-tracking information so you can find the offenders.</p>
+<h2>Record Keeping</h2>
+<p>If you want to keep a longer term record, you can dump the results of <code>cProfile.run()</code> to disk. In this form:</p>
+<div class="highlight"><pre><span></span>cProfile.run(&#39;do()&#39;, &quot;C:/do_stats.prf&quot;)
+</pre></div>
+
+
+<p>You'll get a dump of the performance data to disk instead of an on-screen printout. A minor irritant is the fact that the dumped stats are not the plain-text version of what you see when running the stats interactively: they are the pickled version of a <code>Stats</code> object: just opened in a text editor they are gibberish.</p>
+<p>To read them you need to import the <code>pstats</code> module and create a new <code>Stats</code> from the saved file. It's easy:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>  
+<span class="n">disk_stats</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s2">&quot;C:/do_stats.prf&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Calling the <code>print_stats</code> method of your new <code>Stats</code> object will print out the familiar report. You can also use the <code>sort_stats</code> method on the object to reorganize the results (by call count, say, or cumulative time). </p>
+<p>The details on the <code>Stats</code> object are <a href="https://docs.python.org/2/library/profile.html#pstats.Stats">in the docs</a></p>
+<h2>Caveats</h2>
+<p>I've already said that this kind of information can tempt you to cruise past to point of diminishing returns right on to squeezing-blood-from-a-stone-land. That said it's also worth noting that there is also bit of the Heisenberg uncertainty principle at work here: profiling slightly changes the performance characteristics of your code Game engine programmers or people who do embedded systems for guided missiles will care about that: you probably don't need to.</p>
+<p>In any case, approaching this kind of profiling with the wrong mindset will drive you crazy as you chase micro-second scale will-o-the-wisps. The numbers give a good general insight into the way your code is working, but don't accord them any larger importance just because they seem seem so official and computer-y. They are guidelines, not gospel.</p>
+<h2>Using the data</h2>
+<p>When you actually do start optimizing, what do you want to do with all those swanky numbers? The art of optimizing code is <em>waaaay</em> too deep to cover in a few paragraphs but there are a couple of rules of thumb that are handy to think about while learning how to read the profile results:</p>
+<h3>Call Counts Count</h3>
+<p>The first thing to look at is <em>not</em> the times: it's the call counts. </p>
+<p>If they seem wildly out of line, you may have inadvertently done something like call a more than you intended. If you have a script that does something to 500-vertex object but a particular vertex-oriented function shows up 2000 or 4000 times, that may mean you're approaching the data in an inefficient way. If it becomes something huge - like 250,000 calls - it sounds like you're doing an "all against all" or "n-squared" check: an algorithm that has to consider not just every vert, but every vertex-to-vertex relationship. These are generally something to avoid where possible, and the call count totals are a good way to spot cases where you've let one slip in by accident. </p>
+<blockquote>
+<p>The evils of 'n-squared' and so on are illustrated nicely <a href="http://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/">here</a>. You might also want to check out <a href="http://astore.amazon.com/tecsurgui-20/detail/1430232374">Python Algorithms</a> if you're really getting in to waters where this kind of thing matters!</p>
+</blockquote>
+<h3>Look for fat loops</h3>
+<p>The second thing too look at is the balance of times and call counts. The most performant code is a mix of infrequent big calls and high-frequency cheap ones. If your stats show a high call count and a high <code>cumtime</code> on the same line, that's a big red flag saying "investigate me!" As you can see in the report above, the real villains (<code>slow()</code> and in turn <code>time.sleep()</code>) are easily spotted by the combination of high call counts and high cumtime numbers.</p>
+<h3>Use builtins where possible</h3>
+<p>Next, you want to check the balance between your own code and built-ins or Maya API code, as indicated by the curly brackets around the function names in the last column. In general, API or built-in calls are going to be faster than anything you write yourself: doing things like a deriving the distance between two 3-D points will usually run about 8x faster in the API than it would in pure python. So, you'd like to see lots of those kinds of calls, particularly inside loops with high call counts. </p>
+<h3>High cumtimes</h3>
+<p>Only after you've sorted through the high call counts, and high call/cumtime combinations, and aggressive use of builtins do you want to start looking at high cumtimes on their own. Of course, you won't have a good idea when those high times are <em>justified</em> if you don't know how the code actually works, which is why you want to do your optimizing passes on code that is already legible and well organized. </p>
+<h2>Wrap</h2>
+<p>Naturally, these few notes just scratch the surface of how you optimize - this post is really about <em>profiling</em> rather than optimizing. I'm sure we'll hit that topinc some other day. In the meantime, it's worth spending some time mastering the slightly retro, programmer-esque interface of the cProfile module. Doug Hellman's <a href="http://pymotw.com/2/profile/"><em>Python Module Of the Week</em> article</a> on profiling is a good if you want to get beyond the basic report i'm using here. There's also a nice lightweight intro at <a href="http://www.blog.pythonlibrary.org/2014/03/20/python-102-how-to-profile-your-code/">Mouse vs Python</a>. The <a href="https://docs.python.org/2/library/profile.html#">docs</a> could be more friendly but they are authoritative.</p>
+<p>In the meantime, readers of a certain age will certainly remember who <em>really</em> had the right profile</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/maya.html">maya</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2015/the_right_profile';
+                var disqus_url = 'http://theodox.com/2015/the_right_profile';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Techartists doin' it for themselves: A Python REPL in Unity</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="A simple Python REPL inside the Unity Editor">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="unity">
+        <meta name="tags" content="python">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2013/unityrepl">
+	<meta property="og:title" content="Techartists doin' it for themselves: A Python REPL in Unity">
+	<meta property="article:published_time" content="2013-12-22 10:10:00.003000-08:00">
+            <meta property="og:description" content="A simple Python REPL inside the Unity Editor">
+
+            <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Techartists doin' it for themselves: A Python REPL in Unity</h1>
+                        <span class="meta">
+                            Sun 22 December 2013
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>Last time, I sketched out the basics of <a href="python_in_unity.html">embedding a Python intepreter into Unity.</a>   That's cool enough -- but unless you're so desperate for Python that you're willing to script your whole application inside of triple quotes it doesn't have a ton of immediate applications.  </p>
+<p>So, this time out I'll sketch out how to build a simple script editor inside of Unity (at the risk of repeating myself, I'll just say again that the extensibility of the Unity editor is an incredible aid to game developers of all stripes, and to tech artists in particular -- it's pretty amazing you can hack in something this complex without source code access or esoteric C++ chops.  </p>
+<h2>Prologomena</h2>
+<p>The basic strategy for this excersize is simply to create a Unity window with two panes - a 'history' pane  and a  'script' pane -- and before you ask, yes, it's just a ripoff of the Maya listener.   </p>
+<p>Before setting up the GUI, we need to cover the framework - the code that will keep the GUI stat and also set up the Python intepreter. In this example, you'll see a bunch of properties declared for the use of the GUI - notably <code>historyText</code> and <code>scriptText</code>, which hold the actual contents of the listener and the history pane.  The other notable feature is the same duo of <code>ScriptEngine</code>, and <code>ScriptScope</code> which we went over in the <a href="python_in_unity.html">last post</a>. </p>
+<blockquote>
+<p>If those terms don't mean anything to you you might want to follow that link before proceeding).  </p>
+</blockquote>
+<div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Modules</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">;</span>    
+ <span class="c1">// derive from EditorWindow for convenience, but this is just a fire-n-forget script    </span>
+ <span class="n">public</span> <span class="n">class</span> <span class="nl">ScriptExample</span> <span class="p">:</span> <span class="n">EditorWindow</span>    
+ <span class="p">{</span>    
+     <span class="c1">// class member properties  </span>
+     <span class="n">Vector2</span> <span class="n">historyScroll</span><span class="p">;</span>    
+     <span class="n">Vector2</span> <span class="n">scriptScroll</span><span class="p">;</span>    
+     <span class="kt">bool</span> <span class="n">showHistory</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>    
+     <span class="kt">int</span> <span class="n">historyPaneHeight</span> <span class="o">=</span> <span class="mi">192</span><span class="p">;</span>    
+     <span class="n">string</span> <span class="n">historyText</span> <span class="o">=</span> <span class="s">&quot;history&quot;</span><span class="p">;</span>    
+     <span class="n">string</span> <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;script&quot;</span><span class="p">;</span>    
+     <span class="n">string</span> <span class="n">lastResult</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+     <span class="n">TextEditor</span> <span class="n">TEditor</span><span class="p">;</span>    
+     <span class="n">GUIStyle</span> <span class="n">consoleStyle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GUIStyle</span> <span class="p">();</span>    
+     <span class="n">GUIStyle</span> <span class="n">historyStyle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GUIStyle</span> <span class="p">();</span>    
+     <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">ScriptEngine</span> <span class="n">ScriptEngine</span><span class="p">;</span>    
+     <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">ScriptScope</span> <span class="n">ScriptScope</span><span class="p">;</span>
+
+     <span class="c1">// initialization logic (it&#39;s Unity, so we don&#39;t do this in the constructor!  </span>
+     <span class="n">public</span> <span class="kt">void</span> <span class="nf">OnEnable</span> <span class="p">()</span>    
+     <span class="p">{</span>       
+         <span class="c1">// pure gui stuff  </span>
+         <span class="n">consoleStyle</span><span class="p">.</span><span class="n">normal</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">yellow</span><span class="p">;</span>    
+         <span class="n">consoleStyle</span><span class="p">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RectOffset</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>    
+         <span class="n">historyStyle</span><span class="p">.</span><span class="n">normal</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">;</span>    
+         <span class="n">historyStyle</span><span class="p">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RectOffset</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+         <span class="c1">// load up the hosting environment    </span>
+         <span class="n">ScriptEngine</span> <span class="o">=</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">Python</span><span class="p">.</span><span class="n">CreateEngine</span> <span class="p">();</span>    
+         <span class="n">ScriptScope</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScope</span> <span class="p">();</span>
+
+         <span class="c1">// load the assemblies for unity, using types    </span>
+         <span class="c1">// to resolve assemblies so we don&#39;t need to hard code paths    </span>
+         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">PythonFileIOModule</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
+         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">GameObject</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
+         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">Editor</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
+         <span class="n">string</span> <span class="n">dllpath</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">GetDirectoryName</span> <span class="p">(</span>    
+             <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">ScriptEngine</span><span class="p">)).</span><span class="n">Assembly</span><span class="p">.</span><span class="n">Location</span><span class="p">).</span><span class="n">Replace</span> <span class="p">(</span>    
+             <span class="s">&quot;</span><span class="se">\\</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>    
+         <span class="c1">// load needed modules and paths    </span>
+         <span class="n">StringBuilder</span> <span class="n">init</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuilder</span> <span class="p">();</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import sys&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendFormat</span> <span class="p">(</span><span class="s">&quot;sys.path.append(</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">dllpath</span> <span class="o">+</span> <span class="s">&quot;/Lib&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendFormat</span> <span class="p">(</span><span class="s">&quot;sys.path.append(</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">dllpath</span> <span class="o">+</span> <span class="s">&quot;/DLLs&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import UnityEngine as unity&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import UnityEditor as editor&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import StringIO&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;unity.Debug.Log(</span><span class="se">\&quot;</span><span class="s">Python console initialized</span><span class="se">\&quot;</span><span class="s">)&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">ScriptSource</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>    
+         <span class="n">ScriptSource</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+     <span class="p">}</span>
+
+    <span class="n">public</span>  <span class="kt">void</span> <span class="nf">OnGUI</span> <span class="p">(){}</span> <span class="c1">// see next code snippet  </span>
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>As in the last example you'll also not that we're manually setting up sys.path to point at the directory where IronPython is installed, with a little extra code to make it portable  (dotNet assemblies can tell you where they live on disk, so it's a cheap shortcut to find your install directory).   </p>
+<p>The only thing in here that is really 'architecturally' important its this line:  </p>
+<div class="highlight"><pre><span></span> <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>What's going on there is that we're replacing <code>sys.stdout</code> - which in ordinary Python points at the user's console - with a <a href="http://docs.python.org/2/library/stringio.html">StringIO </a>object.  StringIO mimicks a file -- and so does sys.stdout. By stuffing printbuffer in there we are hijacking any calls to print that you might make in a script so we can print them out in our UI.  This is trick should be familiar to tech artists who need <a href="http://www.drakeguan.org/blog/2009/02/How-to-make-Maya-output-all-messages-into-console-terminal/">to grab the Maya console for nefarious purposes.</a>  </p>
+<h2>Unity GUI - the good, the bad, and the ugly</h2>
+<p>Unity's GUI toolkit is notoriously wonky, and you'll see as we go along that much of the energy here is devoted to working around it's limitations.  While we can go pretty far just using the basics, the is a certain <a href="http://usersv2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldbergphotogal4155photo1695691461lr.jpg">Rube Goldberg</a> quality to what follows. You've been warned.  </p>
+<p>First let's just layout out the actual drawing call - the <code>OnGUI</code> method of our window:  </p>
+<div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Modules</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">;</span>    
+ <span class="c1">// derive from EditorWindow for convenience, but this is just a fire-n-forget script    </span>
+ <span class="n">public</span> <span class="n">class</span> <span class="nl">ScriptExample</span> <span class="p">:</span> <span class="n">EditorWindow</span>    
+ <span class="p">{</span>    
+    <span class="cm">/* snip... see previous example for the setup code... */</span>
+
+     <span class="n">public</span> <span class="kt">void</span> <span class="n">OnGUI</span> <span class="p">()</span>    
+     <span class="p">{</span>    
+         <span class="n">HackyTabSubstitute</span> <span class="p">();</span>  <span class="c1">// this is explained below...</span>
+
+         <span class="c1">// top pane with history    </span>
+         <span class="n">showHistory</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">Foldout</span> <span class="p">(</span><span class="n">showHistory</span><span class="p">,</span> <span class="s">&quot;History&quot;</span><span class="p">);</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">showHistory</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginVertical</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">Height</span> <span class="p">(</span><span class="n">historyPaneHeight</span><span class="p">));</span>    
+             <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Clear history&quot;</span><span class="p">))</span> <span class="p">{</span>    
+                 <span class="n">historyText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="p">}</span>    
+             <span class="n">historyScroll</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginScrollView</span> <span class="p">(</span><span class="n">historyScroll</span><span class="p">);</span>    
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">TextArea</span> <span class="p">(</span><span class="n">historyText</span><span class="p">,</span>     
+                 <span class="n">historyStyle</span><span class="p">,</span>     
+                 <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+                 <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>            
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndScrollView</span> <span class="p">();</span>    
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndVertical</span> <span class="p">();</span>    
+         <span class="p">}</span>    
+         <span class="c1">// draggable splitter    </span>
+         <span class="n">GUILayout</span><span class="p">.</span><span class="n">Box</span> <span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">Height</span> <span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>    
+         <span class="c1">//Lower pane for script editing    </span>
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginVertical</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>    
+         <span class="n">scriptScroll</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginScrollView</span> <span class="p">(</span><span class="n">scriptScroll</span><span class="p">);</span>    
+         <span class="n">GUI</span><span class="p">.</span><span class="n">SetNextControlName</span> <span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
+         <span class="c1">// note use of GUILayout NOT EditorGUILayout.    </span>
+         <span class="c1">// TextEditor is not accessible for EditorGUILayout!    </span>
+         <span class="n">scriptText</span> <span class="o">=</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">TextArea</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">,</span>     
+             <span class="n">consoleStyle</span><span class="p">,</span>    
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>            
+         <span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span> <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndScrollView</span> <span class="p">();</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginHorizontal</span> <span class="p">();</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="s">&quot;Clear&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span><span class="p">(</span><span class="nb">true</span><span class="p">)))</span>    
+         <span class="p">{</span>    
+             <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="n">GUI</span><span class="p">.</span><span class="n">FocusControl</span><span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Execute and clear&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">)))</span> <span class="p">{</span>    
+             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
+             <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="n">GUI</span><span class="p">.</span><span class="n">FocusControl</span><span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Execute&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">)))</span> <span class="p">{</span>    
+             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndHorizontal</span> <span class="p">();</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndVertical</span> <span class="p">();</span>        
+         <span class="c1">// mimic maya Ctrl+enter = execute    </span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">isKey</span> <span class="o">&amp;&amp;</span>    
+             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyCode</span><span class="p">.</span><span class="n">Return</span> <span class="o">&amp;&amp;</span>    
+             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EventType</span><span class="p">.</span><span class="n">KeyUp</span> <span class="o">&amp;&amp;</span>    
+             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">control</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="c1">// drag the splitter    </span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">isMouse</span> <span class="o">&amp;</span> <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EventType</span><span class="p">.</span><span class="n">mouseDrag</span><span class="p">)</span>    
+         <span class="p">{</span><span class="n">historyPaneHeight</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">mousePosition</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">28</span><span class="p">;</span>    
+             <span class="n">Repaint</span><span class="p">();</span>    
+         <span class="p">}</span>    
+     <span class="p">}</span>
+
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>If you're familiar with the dark arts of Unity GUI programming this should be pretty straight forward. If you're not, the key to understanding it is to remember that Unity uses what old-schooler's call <a href="http://lambda-the-ultimate.org/node/4561">Immediate mode GUI</a> , in which each control gets evaluated as it is declared .  There's a <a href="http://mollyrocket.com/forums/viewtopic.php?t=134">case to be made </a>that immediate mode is better for performance sensitive applications, but if you're used to the more typical (aka 'retained') mode GUIs in, for example, QT it's kind of an oddball way to write.   </p>
+<p>As each GUI element is drawn it reflects and then possibly updates the data that it relies on -- so, for example, we pass the string scriptText  to the GUI.TextArea that draws the script listener pane - and the results of any changes are immediately passed back into scriptText without the courtesy of a callback. This makes it tricky to manage complex state - as you run down the GUI draw, it's possible to hit a condition which changes a state and sends you back to the start! This makes it important to keep your state management code very clean and simple.  </p>
+<p>The one bit that may surprise people who do have some Unity experience its the line  </p>
+<div class="highlight"><pre><span></span><span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span>   
+                                                  <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The TextEditor class is an undocumented bit of Unity arcana - it is a wrapper on the code that actually handles things like typing, selecting or cutting and pasting into a Unity text field.  It has methods for things like setting the cursor location and executing copy-paste operations. Unfortunately, being undocumented, it's tricky to figure out what to do with it -- in this example I'm only using it to preserve the selection position when I do something crazy - as you'll see in a moment.  </p>
+<h2>Hacktastic</h2>
+<p>You probably noticed the enigmatic line  </p>
+<div class="highlight"><pre><span></span><span class="n">HackyTabSubstitute</span><span class="p">();</span>
+</pre></div>
+
+
+<p>which leads up to the tricky bit of this example  -- and the reason for my earlier hack disclaimer.  </p>
+<p>Tabs of course are the <a href="http://www.wisegeek.com/what-is-sine-qua-non.htm#didyouknowout">sine qua non</a> for Pythonistas.  Unfortunately Unity catches the tab key before you can grab it, so it's impossible to 'type' a tab into a Unity text field.  After banging my head against this for a while, I settled on a pathetic workaround: just cheat and use the tilde key, which is above the tab key on most keyboards and doesn't have semantic importance in Python. Our new friend <code>HackyTabSubsitute()</code> makes sure that each time the GUI is drawn we replace and  backtick characters with indents and any tildes (shift-backtick) with dedents.  You can see how we also preserve the cursor position  by use of the TextEditor.  </p>
+<div class="highlight"><pre><span></span><span class="c1">// use ` and ~ as substitutes for tab and un-tab  </span>
+<span class="n">private</span> <span class="kt">void</span> <span class="nf">HackyTabSubstitute</span> <span class="p">()</span> 
+<span class="p">{</span> 
+<span class="n">string</span> <span class="n">t</span> <span class="o">=</span> <span class="n">scriptText</span><span class="p">;</span> 
+<span class="n">string</span><span class="p">[]</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">scriptText</span><span class="p">.</span><span class="n">Split</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span> 
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lines</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+    <span class="p">{</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="sc">&#39;`&#39;</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
+        <span class="p">{</span> 
+        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">selectPos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> 
+        <span class="p">}</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">StartsWith</span> <span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">))</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Substring</span> <span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">selectPos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="p">}</span> 
+        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Replace</span> <span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> 
+        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Replace</span> <span class="p">(</span><span class="s">&quot;`&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> 
+    <span class="p">}</span> 
+    <span class="n">scriptText</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">Join</span> <span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="p">);</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="n">scriptText</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span> <span class="n">Repaint</span> <span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Assuming you can discipline yourself to use tilde instead of tab, this works like you'd expect, and it supports indents and dedents in any part of the line, which is handy for python edits.  </p>
+<h2>Running the script</h2>
+<p>As so often happens, it's the damn GUI which takes all the work. The actual point of this whole excersize is to let you type in some python and execute it. If you trigger an evaluation - with the buttons or with command + enter, you'll fire the Interpret function:  </p>
+<div class="highlight"><pre><span></span><span class="c1">// Pass the script text to the interpreter and display results    </span>
+ <span class="n">private</span> <span class="kt">void</span> <span class="nf">Intepret</span> <span class="p">(</span><span class="n">string</span> <span class="n">texttointerpret</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="n">object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>    
+     <span class="n">try</span> <span class="p">{</span>    
+         <span class="n">Undo</span><span class="p">.</span><span class="n">RegisterSceneUndo</span> <span class="p">(</span><span class="s">&quot;script&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">scriptSrc</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="n">texttointerpret</span><span class="p">);</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="n">texttointerpret</span><span class="p">;</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+     <span class="p">}</span>     
+     <span class="c1">// Log exceptions to the console too    </span>
+     <span class="n">catch</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>    
+         <span class="n">Debug</span><span class="p">.</span><span class="n">LogException</span> <span class="p">(</span><span class="n">e</span><span class="p">);</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;#  &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">Message</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+     <span class="p">}</span>     
+     <span class="n">finally</span> <span class="p">{</span>    
+         <span class="c1">// grab the printbuffer stringIO and get its contents    </span>
+         <span class="n">var</span> <span class="n">printbuffer</span> <span class="o">=</span> <span class="n">ScriptScope</span><span class="p">.</span><span class="n">GetVariable</span> <span class="p">(</span><span class="s">&quot;printbuffer&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">gv</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Operations</span><span class="p">.</span><span class="n">GetMember</span> <span class="p">(</span><span class="n">printbuffer</span><span class="p">,</span> <span class="s">&quot;getvalue&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">st</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Operations</span><span class="p">.</span><span class="n">Invoke</span> <span class="p">(</span><span class="n">gv</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">src</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>    
+         <span class="n">src</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">ToString</span> <span class="p">().</span><span class="n">Length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="n">foreach</span> <span class="p">(</span><span class="n">string</span> <span class="n">l</span> <span class="n">in</span> <span class="n">st</span><span class="p">.</span><span class="n">ToString</span><span class="p">().</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">))</span>    
+             <span class="p">{</span>    
+                 <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;  &quot;</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+             <span class="p">}</span>    
+             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="p">}</span>    
+         <span class="c1">// and print the last value for single-statement evals    </span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;#  **&quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">.</span><span class="n">ToString</span> <span class="p">()</span> <span class="o">+</span> <span class="s">&quot;**</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="p">}</span>    
+         <span class="kt">int</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">historyText</span><span class="p">.</span><span class="n">Split</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">).</span><span class="n">Length</span><span class="p">;</span>    
+         <span class="n">historyScroll</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">lines</span> <span class="o">*</span> <span class="mi">19</span><span class="p">);</span>                    
+         <span class="n">Repaint</span> <span class="p">();</span>    
+     <span class="p">}</span>    
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The heart of the whole business is just  </p>
+<div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>
+</pre></div>
+
+
+<p>which actually executes the contents of your script window.  As in Maya, we'll copy the evaluated text up to the history pane  (historyText += ,etc).  If the event of an exception, we print out the exception into the history window as well, and also push a Unity debug message in case you aren't looking at your console window when the problem arises.  Finally, we check to see if the printbuffer StringIO object has been written to duing the script execution  and copy it's contents to the history window too.   </p>
+<p><a href="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png"><img alt="" src="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png" /></a></p>
+<h2>V. 0.1</h2>
+<p>Before starting the first of this pair of posts I was mostly just musing on how TA-friendly Unity is.   Building out a complete script editor is a perfect example of TA feature creep in action.  </p>
+<p>If you implement a script editor using the hints here you'll quickly see what's not there things like cut and paste, syntax highlighting, execution of selected text only and support for external files, just to name a few things that would be worth having.  And I should mention that this is demo code, it's not the sort of thing I'd want to turn into a critical path tool without further work.   </p>
+<p>Even so, it's been a useful little project.  In this holiday season it's taught me to appreciate my blessings - like how many nice little touches you get with a modern text editor. I'm even feeling more charitable towards the Max and Maya script listeners, since I've walked a mile in their sad patheric old worn out shoes.   </p>
+<p>All that said though, it really is pretty fricking neat that you can add a completely new scripting language to the Unity editor in a couple of hours -- and save your self tons of future time by adding cheapo scripts to automate tedious tasks that aren't worth 200 lines of C# curly brackets.  </p>
+<p>At some point I'll address the most obvious failings - lack of cut-n-paste is the clear winner! - but first I want to see about implementing the console in a more flexible GUI - for example, I could pop up a WPF window, or maybe even something truly funky like an <a href="python_in_browsers.html">in-browser python console.</a>.  In the mean time, if anybody takes this further I'd love to hear about it.  </p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/unity.html">unity</a>, <a href="http://theodox.com/tag/python.html">python</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2013/unityrepl';
+                var disqus_url = 'http://theodox.com/2013/unityrepl';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Your weekly moment of Python-is-awesome</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="A trick that lets you load python modules directly over the web.">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="programming">
+        <meta name="tags" content="python">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2014/python_is_awesome">
+	<meta property="og:title" content="Your weekly moment of Python-is-awesome">
+	<meta property="article:published_time" content="2014-05-27 22:58:00.001000-07:00">
+            <meta property="og:description" content="A trick that lets you load python modules directly over the web.">
+
+            <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Your weekly moment of Python-is-awesome</h1>
+                        <span class="meta">
+                            Tue 27 May 2014
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>I stumbled across a cool little idea while working on a refactor of my python tools build system, and although it is not really ready for prime-time it's fun enough I had to share.  With a little bit of work you can <em>load Python modules directly over the web via http!</em>  How cool is that?  </p>
+<p>In the past I've always gave users a userSetup.py which automatically downloads a zip file containing all the rest of my code from a net share. While this works quite well, the userSetup file itself is a bit of a weak link. Although it changed pretty rarely, it was a bit more complex than I liked. In an ideal world, the user setup would be just a couple of lines, highly resistant to breakage and easy to leave untouched for months or years.  All the changeable stuff should happen off in the ether, so users always get the latest hotness.  </p>
+<p>While pondering how to improve this, I was trolling Doug Hellman's invaluable <a href="http://pymotw.com/2/">Python Module of the Week</a> site and stumbled onto his discussion of <a href="http://pymotw.com/2/sys/imports.html">custom Python module finders</a>. Basically, a module finder is a class which you can register with python to tell it how to look for modules. The key word there is 'how', not where' -- a module finder can do anything it wants to find or create a module, as long as it has returns an object with a load_module method that python can use to actually pop the code into sys.modules. It's particularly cool because the process is <em>completely transparent</em> to the calling code: if you call  </p>
+<p><code>import XXX</code>  </p>
+<p>you'll get XXX, even if your custom finder/loader had to generate it by consulting the _I Ching _and waiting for the right phase of the moon.  </p>
+<p>That sounds like fun (jeez, my sense of fun has gotten pretty esoteric). So, I hacked up a highly experimental example of a module loader that will look on the web for a python module being served up via http and import it as if it were local.  </p>
+<p>Here's the first bit, the module finder which is in charge of looking for the code when somebody says <code>import xxx</code>:  </p>
+<div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">web_shim.py</span>
+
+<span class="sd">Exposes a custom module loader and importer which allow for download, cache and  </span>
+<span class="sd">load of python modules stored on an HTTP server</span>
+
+<span class="sd">To activate, add the class to sys.path_hooks:</span>
+
+<span class="sd">    sys.path_hooks.append(WebFinder)  </span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">imp</span>  
+<span class="kn">import</span> <span class="nn">sys</span>  
+<span class="kn">import</span> <span class="nn">urllib2</span>  
+<span class="kn">import</span> <span class="nn">binascii</span>  
+<span class="kn">import</span> <span class="nn">os</span>  
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+
+<span class="k">class</span> <span class="nc">WebFinder</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    A custom module finder (background: http://pymotw.com/2/sys/imports.html)  </span>
+<span class="sd">    that will find and load modules via http connections, as long as the  </span>
+<span class="sd">    module file&#39;s parent http path is on the system path</span>
+
+<span class="sd">    The module file is downloaded to the users temp directory. When it changes, it  </span>
+<span class="sd">    will be replaced with the latest version from the server. Returns a WebLoader  </span>
+<span class="sd">    for the cached file.  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="n">CACHE_DIR</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">gettempdir</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path_entry</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="ow">not</span> <span class="s2">&quot;http&quot;</span> <span class="ow">in</span> <span class="n">path_entry</span><span class="p">:</span>  
+            <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">()</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">path_entry</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">CACHE_DIR</span><span class="p">)</span>  
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">find_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="bp">None</span><span class="p">):</span>  
+        <span class="n">expanded</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">,</span> <span class="n">fullname</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span><span class="p">))</span>  
+        <span class="k">try</span><span class="p">:</span>  
+            <span class="n">target_url</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">fullname</span> <span class="o">+</span> <span class="s2">&quot;.py&quot;</span><span class="p">)</span>  
+            <span class="bp">self</span><span class="o">.</span><span class="n">target_url</span> <span class="o">=</span> <span class="n">target_url</span>  
+            <span class="n">dl</span> <span class="o">=</span> <span class="n">urllib2</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">target_url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>  
+            <span class="n">crc</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">dl</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffffffff</span>  
+            <span class="n">old</span> <span class="o">=</span> <span class="mh">0xffffffff</span>  
+            <span class="k">try</span><span class="p">:</span>  
+                <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="s1">&#39;rt&#39;</span><span class="p">)</span>  
+                <span class="n">disk_date</span> <span class="o">=</span> <span class="n">handle</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>  
+                <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  
+                <span class="n">old</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">crc32</span><span class="p">(</span><span class="n">disk_date</span><span class="p">)</span> <span class="o">&amp;</span> <span class="mh">0xffffffff</span>  
+            <span class="k">except</span><span class="p">:</span>  
+                <span class="n">old</span> <span class="o">=</span> <span class="mh">0xffffffff</span>  
+            <span class="k">if</span> <span class="n">crc</span> <span class="o">!=</span> <span class="n">old</span><span class="p">:</span>  
+                <span class="n">handle</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">expanded</span><span class="p">,</span> <span class="s1">&#39;wt&#39;</span><span class="p">)</span>  
+                <span class="n">handle</span><span class="o">.</span><span class="n">writelines</span><span class="p">(</span><span class="n">dl</span><span class="p">)</span>  
+                <span class="n">handle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>  
+            <span class="k">return</span> <span class="n">WebLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_url</span><span class="p">,</span> <span class="n">expanded</span><span class="p">,</span> <span class="n">fullname</span><span class="p">)</span>  
+        <span class="k">except</span><span class="p">:</span>  
+            <span class="k">if</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">expanded</span><span class="p">)):</span>  
+                <span class="k">return</span> <span class="n">WebLoader</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">target_url</span><span class="p">,</span> <span class="n">expanded</span><span class="p">,</span> <span class="n">fullname</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The module finder's job is to be pointed at a path (in this case, 'self.url') If the path is not something this finder knows how to handle, it raises an ImportError. Otherwise, it sticks around until Python calls find_module with a module name, at which point it will return a module loader object (see below) or None if it doesn't know what to do.  </p>
+<p>In this case, we do everything as simply as possible. The finder only works on a path with 'http' in it (note that's not really the right way to check for a url! It's enough for proof of concept, though). The finder just fills out the path with the name of the module (plus ".py") and tries to download it into the user's temp directory. The business with the hex numbers is just a crc check to make sure that the downloaded module is the latest version. If this is the first time you've grabbed the file -- or if the code on the server has changed  -- the cached copy will be refreshed.  </p>
+<p>The second half of the operation is the WebLoader, which loads the cached module:  </p>
+<div class="highlight"><pre><span></span><span class="c1"># usess the same imports as WebFinder.py</span>
+
+<span class="k">class</span> <span class="nc">WebLoader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Import loader (see http://pymotw.com/2/sys/imports.html for background)  </span>
+<span class="sd">    which loads modules cached by a WebFinder using imp.load_source  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">filepath</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">url</span> <span class="o">=</span> <span class="n">url</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">file</span> <span class="o">=</span> <span class="n">filepath</span>  
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">load_module</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fullname</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="n">fullname</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">:</span>  
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="n">fullname</span><span class="p">]</span>  
+            <span class="k">return</span> <span class="n">mod</span>  
+            <span class="c1"># bail now so we don&#39;t mislead users  </span>
+            <span class="c1"># if mod was found somewhere else!  </span>
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="n">mod</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="n">imp</span><span class="o">.</span><span class="n">load_source</span><span class="p">(</span><span class="n">fullname</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span><span class="p">))</span>  
+            <span class="n">mod</span><span class="o">.</span><span class="n">__file__</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">file</span>  
+            <span class="n">mod</span><span class="o">.</span><span class="n">__name__</span> <span class="o">=</span> <span class="n">fullname</span>  
+            <span class="n">mod</span><span class="o">.</span><span class="n">__path__</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">url</span><span class="p">]</span>  
+            <span class="n">mod</span><span class="o">.</span><span class="n">__loader__</span> <span class="o">=</span> <span class="bp">self</span>  
+            <span class="n">mod</span><span class="o">.</span><span class="n">__package__</span> <span class="o">=</span> <span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">fullname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>  
+            <span class="k">return</span> <span class="n">mod</span>
+</pre></div>
+
+
+<p>A moduleloader can do all sorts of fancy things (the test code on PyMOTW, for example, loads a module from a python shelf database) but in this case I'm doing the simplest thing possible, which is to use imp.load_source on our cached python file. imp, if you're not familiar with it, is a super useful built-in module which provides access to most of the internals of python's import process). Actually using the code is the cool part. All you need to do is to register the finder with sys.path_hooks and then add the web server with your modules on in to your path:   </p>
+<div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">WebFinder</span><span class="p">)</span>  
+<span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;http://www.inference.phy.cam.ac.uk/mackay/python/compression/huffman&quot;</span><span class="p">)</span>
+
+<span class="c1"># with the url on the path, just use import  </span>
+<span class="kn">import</span> <span class="nn">Example</span>  
+<span class="k">print</span> <span class="n">Example</span><span class="o">.</span><span class="n">__path__</span>  
+<span class="c1">#[&#39;http://www.inference.phy.cam.ac.uk/mackay/python/compression/huffman/Example.py&#39;]</span>
+
+<span class="c1"># the module&#39;s __path__ will point at the url, but __file__ points at the cached  </span>
+<span class="c1"># file on disk</span>
+</pre></div>
+
+
+<p>This isn't really something I'd be comfortable using in production without more work.  There's no security and no authentication, so not only is your code up on the web for anybody to see, you're also executing code off the web with no idea what it will do. It would be OK for an intranet if you were pretty sure none of your coworkers fancies him/herself a master prankster, but I'd slather on the security before trying this over long distances!  </p>
+<p>Another obvious improvement would be to figure out a how to diff the local version of the file against the version on the http server without actually downloading the whole thing; that would be simple if the server could be asked for the CRC directly, but it would mean a tighter coupling between the finder and the server (which might be a good thing, security wise).  Another improvement might be to hack the loader so it force reloaded the module if the server version had changed, although that could have unintended side effects.</p>
+<p>The point, however -- assuming there is one --  is how freaking awesome python's infrastructure is. Live loading of code over the net, transparent to all your other code, in about 50 lines?  Hats off to Guido.   </p>
+<p><a href="http://www.wired.com/wp-content/uploads/blogs/wiredenterprise/wp-content/uploads/2012/06/beard-programmers-final-two.png"><img alt="" src="http://www.wired.com/wp-content/uploads/blogs/wiredenterprise/wp-content/uploads/2012/06/beard-programmers-final-two.png" /></a></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/python.html">python</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2014/python_is_awesome';
+                var disqus_url = 'http://theodox.com/2014/python_is_awesome';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

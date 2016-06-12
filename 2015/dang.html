@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Dang</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="An irritating behavior in cmds.ls() that can really ruin your day.">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="maya">
+        <meta name="tags" content="bugs">
+        <meta name="tags" content="techart">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2015/dang">
+	<meta property="og:title" content="Dang">
+	<meta property="article:published_time" content="2015-01-10 16:09:00-08:00">
+            <meta property="og:description" content="An irritating behavior in cmds.ls() that can really ruin your day.">
+
+            <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Dang</h1>
+                        <span class="meta">
+                            Sat 10 January 2015
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>You know the old saying, "you learn something new every day?" Well it's true. Usually, it's something like "I don't know where I left my keys," but sometimes you run into something that you realized you should have known all along and yet somehow it takes you by surprise.   </p>
+<p>Here's a little nugget that I stumbled onto today.  If you know Maya, you probably know that cmds.ls() with no arguments gives you a list of every entity in your current maya scene.  However if you pass in a list, ls() will filter it down.  It's very common to do something like</p>
+<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pCubeShape1&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;persp&#39;</span><span class="p">]</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;camera&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>as a cheap way of filtering a list of objects by type, or</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>to get long names and so on.  All pretty 101.</p>
+<p>Now, if you're an old Pythonista, you've probably tried it like this too:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and gotten the same result.  Usually, <strong>*args</strong> is a great help in writing simpler code, since you write functions that take an arbitrary number of arguments without forcing the callers to create lists or tuples. Your code can use loops or comprehensions knowing that the <strong>*args</strong> will be iterable even if it's empty:   </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">starargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">args</span><span class="p">):</span>  
+        <span class="k">print</span> <span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">item</span>
+
+
+<span class="n">starargs</span><span class="p">()</span> <span class="c1"># prints nothing</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>  
+<span class="c1"># 0  a</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>  
+<span class="c1"># 0  i  </span>
+<span class="c1"># 1  j  </span>
+<span class="c1"># 2 k</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>  
+<span class="c1"># 0    x  </span>
+<span class="c1"># 1    y  </span>
+<span class="c1"># 2    z</span>
+</pre></div>
+
+
+<p>Unfortunately this nice behavior can bite you if you use it with cmds.ls().  It's easy to miss the difference between</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and </p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+
+
+<p>especially because most functions will treat these interchangeably.  </p>
+<p>However (!) the <em>no arguments means list everything</em> behavior means that the first one returns and empty list, but the second returns <strong>a list of everything in Maya</strong>.  If you were using the ls() as a filter or a long-name-converter you are likely to be very surprised by the results. I was using it as part of a cleanup routine, and I suddenly discovered I was 'cleaning' everything in my scenes.   </p>
+<p>Like I said, you learn something new everyday -- in this case, new curse words!</p>
+<hr />
+<p>You can work around this behavior  simply enough by not passing *-formatted args to ls(), or at least by not doing so without checking if the argument is valid:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_xforms</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span> <span class="k">return</span> <span class="p">[]</span>  
+      <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Not an earth-shaking discovery, just another one of the many mysteries of the Maya.  </p>
+<p><a href="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg"><img alt="" src="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg" /></a></p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/bugs.html">bugs</a>, <a href="http://theodox.com/tag/techart.html">techart</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2015/dang';
+                var disqus_url = 'http://theodox.com/2015/dang';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

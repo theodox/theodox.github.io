@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Size is the enemy: an oldie but a goodie</title>
+
+            <link href="http://theodox.com/feeds/all.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/blog.atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Categories Atom Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="While googling my way around some strategy issues lately I rediscovered this 2007 post from Jeff Atwood which neatly sums up a few ...">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="programming">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="theodox.com">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2014/size_is_the_enemy">
+	<meta property="og:title" content="Size is the enemy: an oldie but a goodie">
+	<meta property="article:published_time" content="2014-09-01 22:39:00-07:00">
+            <meta property="og:description" content="While googling my way around some strategy issues lately I rediscovered this 2007 post from Jeff Atwood which neatly sums up a few ...">
+
+            <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Size is the enemy: an oldie but a goodie</h1>
+                        <span class="meta">
+                            Mon 01 September 2014
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <h2>#1: Maintain &gt; Build</h2>
+<p>Maintaining any codebase is way harder than making it. Waaaaaay harder.  </p>
+<p>I've been presiding over a rewrite of my own toolset - one that is only 2.5 years or so of my own work - and I'm amazed and appalled at how crufty it is. Lots of important things are held together with spit and bailing wire. Lots of trivial things are massively over-engineered. And -- though I pride myself on being good about code reuse, _there's-only-one-way-to-do-it, _and extending earlier solutions instead of reinventing things -- it's full of pointless duplication.   </p>
+<p>And even though it's 90% my own work it's full of conflicting style choices and paradigms.  I guess it shows I'm still learning, so I haven't gotten totally stale yet.  </p>
+<h2>#2: Dynamic &gt; Static</h2>
+<p>I've been looking a lot at possible language alternatives to Python for future tools. I love Python. I mean, in a totally unhealthy, creepy, even stalker-y way. But I don't like being to beholden to any one tech or approach. I'd love to get beyond Python's erratic distribution mechanisms, and Id' <em>really</em> like to get my hands on a decent GUI toolkit that didn't make me program C++ indirectly ( <a href="http://shoesrb.com/">Python Shoes</a>, where are you?)  </p>
+<p>So, while tinkering with <a href="http://boo.codehaus.org/">Boo</a>, <a href="http://cobra-language.com/">Cobra</a>, <a href="http://nimrod-lang.org/documentation.html">Nimrod </a>and a few other options I've been revisiting the old theological debate about dynamic vs static languages; working on <a href="http://moonrise-game.com/">Moonrise </a> (in Unity) has made me realise that C# was designed with the express intention of driving me insane. It seems routinely true that I write 4 times as many lines of C# as I do in Python. I'm sure I'm saving a few bugs because of all the clunky type management stuff, but I think I'd rather just fix the bugs than suffer through the oceans of boilerplate that C# induces.   </p>
+<p>To be fair, it's a little worse in Unity than in the rest of the world: you can do a lot to make C# suck less using attributes and reflection and other meta-techniques, but those are tougher to do in Unity's special flavor of C#.   </p>
+<p>Still, I think I've finally made up my mind on this one: I'd rather take the risks that come with dynamic code over the sheer, mind-numbing boredom that comes with obsessive type safety.  Especially in a world where overhauling and updating and refactoring code is the <em>real</em> work: building it is just the first chapter.  </p>
+<h2>#3 I hate curly braces.</h2>
+<p>I'm not even trying to deny it anymore. I hate the little bastards.  What a waste of space.  </p>
+<h2>#4  I'm Screwed</h2>
+<p>The interesting problem - if I end up just getting cozy with my prejudices and preferences - is now how to pick a decent dynamic environment for tools development while (A) not having the code base degenerate into mush and  (B) having decent GUI options.   And if at all possible, (C), no goddam curly brackets.  </p>
+<p>For most of my work - managing files, talking to databases, and dealing with data on disk performance is not really the most important problem: I tend to deal in minute-scale problems not hour-scale problems, so cutting them down by a factor of 5 is a nice plus rather than a live-or-die necessity.  While this means a bit more freedom, it also removes a sorting criterion from the problem.  </p>
+<p>The stinky part is that, for the given problem set there really is <strong>no obvious winner</strong>.  </p>
+<ul>
+<li>I could imagine that the combination of <a href="https://www.ruby-lang.org/en/">Ruby </a>and <a href="http://shoesrb.com/">Shoes</a> would be super productive, even though the Shoes GUI is pretty limited compared to QT or WPF.  I could probably tolerate those block ending markers in Ruby, and there is a good set of standard library code out there. The perf is not great but that's my least important problem. I don't think it's much easier to distribute Ruby apps to users than it is to do with Python, however.</li>
+<li>Nimrod looks like a cool little language, but has no equivalent of the Python standardlib.</li>
+<li>
+<p>Boo and Cobra both use the same CLR as C#, so theoretically you can use them to drive GUI apps with WPF or winforms, but that puts you right back into programming a clunky language through the medium of a nicer one: if I wanted that I'd stick with PyQT.  </p>
+</li>
+<li>
+<p>Javascript is actually super powerful, in the sense that has the same kind of high level fluidity that Python does. It's also got the best (or at least the most broadly available and flexible) GUI out there in the form of  HTML + CSS. Unfortunately it's got the security sandbox so you need a special infrastructure to do even really mundane stuff like trolling the files on a hard disk -- to say nothing of it's famously bad issues with local vs global variables and scoping.  <a href="http://coffeescript.org/">CoffeeScript</a> can eleminate a lot of the worst syntactic pain (and the blankety-blank curly brackets) but it's hard to maintain code which is written in one language but actually <em>run</em> in another: "compiles to Javascript" is pretty cool until you have to actually debug something which is only genetically related to the code you actually <em>wrote.<br />
+</em></p>
+</li>
+<li>
+<p>(update 9/3) You can do an HTML front end for a python app with the <a href="https://code.google.com/p/cefpython/">Chromium Embedded Framework for python</a>. That actually works pretty well, and lets you keep JS for the light weight UI manipulation while passing the heavy lifting off to Python fairly transparently. The only caveat: the day after I discovered this I went to work, installed the Maya 2015 trial -- and promptly found that <em>their</em> shiny new HTML gui front end had a Javascript error and did not work, thereby preventing me from logging iu to the trial. It's the new thing altight, but it's not quite there.  And It's still a 2-language solution, albeit a nice one.  </p>
+</li>
+<li>
+<p>(update 9/3):  For completeness sake I should mention the combination of Jytron and AWT or Swing. This works right out of the box - if you have Jython, you have a complete GUI toolkit with no downloads, installs or DLLs to manage. You can also <a href="http://stackoverflow.com/questions/16701979/packaging-a-jython-program-in-an-executable-jar">compiile Jython to executables</a>, buit it's not a completely transparent process and it seems a bit fiddly. Still, could be an optiom....  </p>
+</li>
+<li>
+<p>(ipdate 9/3)::  I've also been experimenting a lot with compiling IronPython to exes using the IL compiler that comes with IronPython. So far it actually looks pretty good: the exes are smaller than similar Py2Exes or PyInstaller projects and they seem to be less prone to obscure compilation problems too.... maybe some light at the end of the tunnel?</p>
+</li>
+</ul>
+<p>_<strong>TLDR: </strong> _There really is nothing that fills the niche of a powerful, flexible language with good GUI and distribution options right now.  Sigh.  </p>
+<p>Please, prove me wrong !</p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/programming.html">programming</a></p>
+        </div>
+
+<hr>
+<div class="sharing">
+</div>
+    <hr>
+
+        <div class="comments">
+            <h2>Comments !</h2>
+            <div id="disqus_thread"></div>
+            <script type="text/javascript">
+                var disqus_shortname = 'http://theodox.github.io';
+                var disqus_identifier = '2014/size_is_the_enemy';
+                var disqus_url = 'http://theodox.com/2014/size_is_the_enemy';
+                (function() {
+                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                    dsq.src = '//http://theodox.github.io.disqus.com/embed.js';
+                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+                })();
+            </script>
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+            </div>
+            <!---- right sidebar -->
+            <div class="col-lg-2 col-md-1">
+                <div class="vertical-spacer">
+                <h4>@social</h4>
+                    <ul class="list-inline text-center">
+                            <li>
+                                <a href="https://www.linkedin.com/in/stevetheodore">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://github.com/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http://stackoverflow.com/users/1936075/theodox">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-circle fa-stack-2x"></i>
+                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                </a>
+                            </li>
+                    </ul>
+                
+                </div>
+                <div class="vertical-spacer">
+                <h4>#tags</h4>
+                    <a href="/tags">tag list</a>
+                    
+                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+                </div>
+                 <div class="vertical-spacer">
+                <h4>archives</h4>
+                    <a href="/archives">site history</a>
+                </div> 
+                <div class="vertical-spacer">
+                <h4>feeds </h4>
+                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+                </div>   
+
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+<script type="text/javascript">
+    var disqus_shortname = 'http://theodox.github.io';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>
