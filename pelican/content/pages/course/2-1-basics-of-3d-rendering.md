@@ -1,4 +1,8 @@
-##How computers create 3d images
+Title: How computers create 3d images
+Slug: course/2-1-basics-of-3d-rendering
+Status: hidden
+header_cover: course_bg.jpg
+
 
 _You won't really need to do the 3d math yourself - the Unity engine does most of this for you. However it's a good idea to have a grasp of the basics before playing with the UI so you know what you understand the possibilities and limitations_
 

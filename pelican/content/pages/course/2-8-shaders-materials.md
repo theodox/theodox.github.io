@@ -1,4 +1,7 @@
-### Unity materials and shaders
+Title: Unity materials and shaders
+Slug: course/2-8-shaders-materials
+Status: hidden
+header_cover: course_bg.jpg
 
 Now that you've got a grasp of some of the building blocks of 3d graphics, we'll take a look at Unity shaders and materials.
 
@@ -34,5 +37,3 @@ In this image the blue light color would be RGB (0, 255, 0).  The cyan overlap b
 ### Shaders vs Materials
 
 A **Material** combines a choice of shader, textures, and parameter settings. Many materials may use the same shaders -- or (as in the example above) the same texture and different shaders. The material is the link between a particular shader, some settings, and one or more objects in your game.  Every material in the game imposes some extra costs when rendering: all things being equal, 10 objects with the same material will cost less to render than 10 objects which each had unique materials. In small scenes the difference is negligible; in larger scenes or on slower hardware the costs add up.  Often you can save memory (and extra material costs) by combining multiple different images into a single texture and material.
-
-

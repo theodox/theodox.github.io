@@ -1,4 +1,9 @@
+Title: Introduction to Game Development with Unity
+Slug: course/index
+header_cover: course_bg.jpg
 ![unity editor](http://gamedevlife.com/wp-content/uploads/2011/05/unity3d.jpg)
+
+>> This course was given in 2013, and some of the informatin is out of date.  If you spot things that have changed leave a comment on the page so I can at least flag it for future readers
 
 This is the wiki for the MakerHaus class __Introduction to Game Development With Unity__. This is a paper-free version of course notes along with links to important resources and downloadable content.
 

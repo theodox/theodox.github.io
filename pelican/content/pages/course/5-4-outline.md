@@ -1,3 +1,8 @@
+Title: 5-4-outline
+Slug: course/5-4-outline
+Status: hidden
+header_cover: course_bg.jpg
+
 * Game shell
   * States
   * = level
@@ -32,5 +37,3 @@
   * Suicidal objects
     * Don't use Destroy if you don't have to! 
     * Using coroutines to time out
-
-

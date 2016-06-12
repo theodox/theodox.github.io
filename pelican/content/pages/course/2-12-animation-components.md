@@ -1,4 +1,8 @@
-### Animation components
+Title: Animation components
+Slug: course/2-12-animation-components
+Status: hidden
+header_cover: course_bg.jpg
+
 
 * Animation clips are played by the _Animation_ component on game objects (the _Animator_ component is different!)
 * To make a clip available to a character it has to be added to the component

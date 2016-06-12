@@ -1,4 +1,7 @@
-### Reflectivity
+Title: Reflectivity
+Slug: course/2-6-reflectivity
+Status: hidden
+header_cover: course_bg.jpg
 
 Unity does not support 'real' reflections: You can't make a mirror or an ocean that actually calculates the correct reflections for other objects in the scene. Very few games, even on high end platforms, can afford the math needed to calculate reflections in real time. 
 

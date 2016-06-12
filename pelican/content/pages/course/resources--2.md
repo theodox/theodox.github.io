@@ -1,3 +1,8 @@
+Title: Resources
+Slug: course/resources--2
+Status: hidden
+header_cover: course_bg.jpg
+
 ##Links
 
 Unity provides lots if useful documentation on their website at [Unity3d.com](http://unity3d.com/learn).  
@@ -68,5 +73,4 @@ Turbosquid sells 3d models and textures of all varieties (and, unfortunately, qu
 
 For image editing, [Photoshop](http://www.photoshop.com/) is the professional tool of choice. However you can use any program that edits standard image formats -- look for software that can save files as .PNG, .TIF, or .TGA files. 
 
-If you want to do realistic graphics, [Crazybump](http://www.crazybump.com/) is a very handy tool for creating [normal maps](http://vimeo.com/6155447).  [Xnormal](http://www.xnormal.net/1.aspx) is another normal mapping tool, however it works by comparing the difference between high and low resolution versions of the same model. 
-
+If you want to do realistic graphics, [Crazybump](http://www.crazybump.com/) is a very handy tool for creating [normal maps](http://vimeo.com/6155447).  [Xnormal](http://www.xnormal.net/1.aspx) is another normal mapping tool, however it works by comparing the difference between high and low resolution versions of the same model.

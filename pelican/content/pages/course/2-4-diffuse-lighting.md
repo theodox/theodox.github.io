@@ -1,5 +1,8 @@
+Title: Diffuse illumination
+Slug: course/2-4-diffuse-lighting
+Status: hidden
+header_cover: course_bg.jpg
 
-### Diffuse illumination
 
 Lighting of matte surfaces is known as [diffuse illumination](glossary#diffuse):
 

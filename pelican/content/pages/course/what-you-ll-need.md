@@ -1,3 +1,8 @@
+Title: What You'll Need
+Slug: course/what-you-ll-need
+Status: hidden
+header_cover: course_bg.jpg
+
 Here's what you'll need to bring to class:
 
 ###Your own laptop.

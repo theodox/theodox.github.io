@@ -1,3 +1,8 @@
+Title: Week 3: Scripting
+Slug: course/week-3-scripting
+Status: hidden
+header_cover: course_bg.jpg
+
 This week is devoted to the basics of scripting using Unity.  Unity supports 3 different languages, but we're going to focus on the C# language which is the most popular scripting environment.  We've already looked at some scripts, this week we'll be writing our own.
 
 

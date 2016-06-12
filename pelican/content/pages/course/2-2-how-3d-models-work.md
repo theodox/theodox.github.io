@@ -1,4 +1,8 @@
-## How 3d Models work
+Title: How 3d Models work
+Slug: course/2-2-how-3d-models-work
+Status: hidden
+header_cover: course_bg.jpg
+
 
 Models are collections of [3D coordinates](glossary#coordinate) known as "[vertices](glossary#vertex)".  The vertices are grouped together into [triangles](glossary#triangle) (confusingly, they are sometimes known interchangeably as 'polygons' - strictly, a polygon is alway going to be made of triangles)
 

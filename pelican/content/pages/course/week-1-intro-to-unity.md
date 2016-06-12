@@ -1,4 +1,8 @@
-### Week 1: Introducing Unity ###
+Title: Week 1: Introducing Unity
+Slug: course/week-1-intro-to-unity
+Status: hidden
+header_cover: course_bg.jpg
+
 
 This week is devoted to familiarizing everyone with the basics of the Unity 3d Interface.  We'll start with a high level overview of how Unity does it's work using components, assets, and scripts.  We'll learn how to use the Unity editor itself, in particular:
 

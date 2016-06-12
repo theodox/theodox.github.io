@@ -1,3 +1,7 @@
+Title: Week 5: Put it all together
+Slug: course/week-5-putting-it-together
+Status: hidden
+header_cover: course_bg.jpg
 ### notes
 
 1. Game state
@@ -20,4 +24,3 @@
       2. repeat
       3. quit
    4. Closing
-

@@ -1,4 +1,7 @@
-### Lights
+Title: Lights
+Slug: course/2-9-lights
+Status: hidden
+header_cover: course_bg.jpg
 
 Unity lights are not physically simulated - the first thing you'll notice is that by default they don't cast shadows. On closer inspection you'll also see that they don't bounce: a bright light shining on a wall should diffuse some light over the area indirectly, but a Unity light does not.
 

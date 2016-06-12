@@ -1,4 +1,7 @@
-###Creating an animation
+Title: Creating an animation
+Slug: course/2-11-creating-an-animation
+Status: hidden
+header_cover: course_bg.jpg
 
 Animations are stored as Animation clips. Clips are assets on disk like textures or models. They are specific to individual assets, so you have to create animations with objects selected.
 

@@ -1,4 +1,7 @@
-### Week 2: 3D graphics and animation ###
+Title: Week 2: 3D graphics and animation 
+Slug: course/week-2-environments
+Status: hidden
+header_cover: course_bg.jpg
 
 This week we're going to focus on the basics of 3d rendering, animation and sound in Unity. 
 

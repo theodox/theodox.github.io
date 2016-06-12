@@ -1,5 +1,7 @@
-### Animation basics
-
+Title:  Animation basics
+Slug: course/2-10-animation-basics
+Status: hidden
+header_cover: course_bg.jpg
 
 From a purely *technical* perspective, computer animation is about controlling the change in numbers over time.  Unity does a pretty good job of letting you handle that aspect with a built in tool. That said, most of the animation in your game will be done in other software -- Unity is fine for animating individual objects or changing shaders, but it's not a character animation package on its own. 
 
@@ -29,6 +31,3 @@ The interpolation is controlled by setting *tangents* at the key frames. A tange
 To set the tangents for a key, you can right click on it in the animation window and choose a tangent type. If the tangents are editable they show up as handles like those in Photoshop.
 
 [next](2-11-creating-an-animation.md)
-
-
- 

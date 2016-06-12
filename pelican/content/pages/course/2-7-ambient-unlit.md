@@ -1,4 +1,7 @@
-### Ambient lighting
+Title: Ambient lighting
+Slug: course/2-7-ambient-unlit
+Status: hidden
+header_cover: course_bg.jpg
 
 The last major aspect of lighting (and artistically, the one that gets overlooked the most) is ambient lighting.  Unlike the other forms of illumination, ambient light is 'directionless'.  Graphically, it's a 'fill color' - it just gets added to the rendered image directly. Scenes with no ambient light seem very harsh and contrasty; scenes with too much ambient light look washed out and flat.  This image shows different levels of ambient light in the vertical direction and different amounts of diffuse light in the horizontal direction:
 

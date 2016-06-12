@@ -1,4 +1,7 @@
-### 3D Lighting 
+Title: 3D Lighting 
+Slug: course/2-3-3d-lighting
+Status: hidden
+header_cover: course_bg.jpg
 
 Lights are objects in the scene, with their own [transforms](glossary#transform). They can be attached to other objects (for example, headlights on a car).  The computer uses the position of the light and the [normals](glossary#normal) of the [meshes](glossary#mesh) in the scene to figure out how bright something is. 
 

@@ -1,3 +1,5 @@
+Status: hidden
+header_cover: course_bg.jpg
 Title: Course Description
 Slug: course/course-description
 

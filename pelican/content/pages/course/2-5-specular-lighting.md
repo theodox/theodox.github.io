@@ -1,4 +1,7 @@
-### Specular illumination
+Title: Specular illumination
+Slug: course/2-5-specular-lighting
+Status: hidden
+header_cover: course_bg.jpg
 
 Lighting of shiny surfaces is known as [specular illumination](glossary#specular)  
 

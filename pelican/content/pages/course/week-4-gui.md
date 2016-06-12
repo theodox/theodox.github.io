@@ -1,3 +1,7 @@
+Title: Week 4: User Interface
+Slug: course/week-4-gui
+Status: hidden
+header_cover: course_bg.jpg
 This week we'll go deeper into programming with two key topics for every game developer: 
 
 ###Input
