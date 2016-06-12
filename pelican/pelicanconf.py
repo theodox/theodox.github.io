@@ -32,6 +32,8 @@ STATIC_PATHS = ['pages/course', 'pages/cookbook', 'pages/publications']
 MAIN_MENU = True
 SINGLE_AUTHOR = True
 AMAZON_STORE = 'http://astore.amazon.com/tecsurgui-20'
+DISQUS_SITENAME = 'theodoxcom'
+
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = False
 MENUITEMS = (
@@ -62,5 +64,4 @@ RELATIVE_URLS = True
 COLOR_SCHEME_CSS = 'zenburn.css'
 
 THEME = "pelican-clean-blog"
-
 DELETE_OUTPUT_DIRECTORY = True
