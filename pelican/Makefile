@@ -24,6 +24,7 @@ CLOUDFILES_API_KEY=my_rackspace_api_key
 CLOUDFILES_CONTAINER=my_cloudfiles_container
 
 DROPBOX_DIR=~/Dropbox/Public/
+PUBLISH_DIR=~/pub/theodox.github.io
 
 GITHUB_PAGES_BRANCH=master
 
@@ -98,6 +99,9 @@ stopserver:
 
 publish:
 	$(PELICAN) $(INPUTDIR) -o $(OUTPUTDIR) -s $(PUBLISHCONF) $(PELICANOPTS)
+	cp -r $(OUTPUTDIR)/* $(PUBLISH_DIR)
+	python $(BASEDIR)/publish.py $(PUBLISH_DIR)
+
 
 ssh_upload: publish
 	scp -P $(SSH_PORT) -r $(OUTPUTDIR)/* $(SSH_USER)@$(SSH_HOST):$(SSH_TARGET_DIR)

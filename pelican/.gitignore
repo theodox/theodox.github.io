@@ -1,2 +1,4 @@
+output/*
+*.pid
 *.pyc
 
