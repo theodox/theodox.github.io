@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag python</title>
+        <title>Chimeras & Manticores - Tag python</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -74,7 +74,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#python</h1>
-                        <h3>41 items<h3>
+                        <h3>42 items<h3>
                     </div>
                 </div>
             </div>
@@ -86,12 +86,306 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
         <div class="post-preview">
+            <a href="http://theodox.com/2014/rescuing_maya_gui_from_itself" rel="bookmark" title="Permalink to Rescuing Maya GUI from itself">
+                <h2 class="post-title">
+                    Rescuing Maya GUI from itself
+                </h2>
+            </a>
+                <p><a href="pity_for_the_outcast.html">Last time out</a> was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.</p>
+<p><img alt="" src="http://www.fanderson.org.uk/news/images3/darlingpuppet.jpg" /></p>
+<p>And if you don't know what that picture is there, <a href="http://youtu.be/9XNWA_yZvWo&quot;">go here first</a> -- this tech-art stuff is not as important as a good understanding of <a href="&quot;http://en.wikipedia.org/wiki/Thunderbirds_(TV_series)">Thunderbirds!</a>).</p>
+<p>With that out of the way:</p>
+<p>Any good rescue mission starts with objectives. The three main drawbacks to coding in Maya GUI natively are <strong>nasty syntax</strong>, clunky <strong>event handling</strong>, and difficult <strong>management</strong>. In today's thrill-packed episode, we're going lay some foundations for tackling that old-school syntax and dragging Maya GUI kicking and screaming into the 21st century.</p>
+<h1>Under the surface</h1>
+<p><img alt="" src="http://www.foundation3d.com/forums/attachment.php?attachmentid=74848&amp;d=1410941489" /></p>
+<p>Composing a Maya GUI in code is annoying because the only way to access the properties of a Maya GUI node is via a command - there's no way to get at the properties directly without a lot of command mongering.</p>
+<p>Sure, the purist might say that alternatives are just <a href="http://www.javakey.net/1-java/92b15b2251bd8f85.htm">syntax sugar</a> -- but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.</p>
+<p>So, the first thing I'd like to ponder is how to cut out some of the crap. Not only will a decent wrapper be more pleasant to read and write - at some point in the future when we get to talk about styling controls, real property access will be a big help in keeping things tidy. Plus, by putting a wrapper around property access we'll have a built in hook for management and cleaning up event handling as well, even though that's a topic for a future post.</p>
+<p>The upshot of it all: we're stuck with the under-the-hood mechanism, but there's no reason we can't wrap it in something prettier. Consider this simple example:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="k">class</span> <span class="nc">ExampleButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="nd">@property</span>  
+    <span class="k">def</span> <span class="nf">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">example</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">btn</span> <span class="o">=</span> <span class="n">ExampleButton</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>  
+<span class="k">print</span> <span class="n">btn</span><span class="o">.</span><span class="n">Label</span>  
+<span class="c1"># hello world</span>
+</pre></div>
+
+
+<p>This is <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">plain-vanilla Python properties</a> in action. It's easy to extend it so you can set 'Label' also:</p>
+<div class="highlight"><pre><span></span>    <span class="nd">@Label.setter</span>  
+    <span class="k">def</span> <span class="nf">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
+
+<span class="c1"># add this to the example above:  </span>
+<span class="n">btn</span><span class="o">.</span><span class="n">Label</span> <span class="o">=</span> <span class="s2">&quot;Goodbye cruel world&quot;</span>
+</pre></div>
+
+
+<p><img alt="" src="http://1.bp.blogspot.com/-AOcq5Y6WCSA/UwLm4_AUSoI/AAAAAAABH7s/3FL8iI1r9TU/s1600/gbcw.png" /></p>
+<h1>Rescuing the rescuers</h1>
+<p>While this is a nice trick, it doesn't take long to figure out that replacing the whole Maya GUI library with this will take a lot of annoying, repetitive, and typo-prone code. <code>cmds.button</code> alone has 34(!) properties to manage, and real offenders like <code>rowLayout</code> have a lot more. Writing wrappers for all of these is a huge waste of valuable human brainpower</p>
+<p>Luckily, that's not the end. Property objects are really instances of <a href="http://docs.python.org/2/howto/descriptor.html">Python descriptors</a>, which means they are classes. And since they are classes, we have some more options for creating them.</p>
+<p><a href="http://docs.python.org/2/howto/descriptor.html">The official docs</a> on descriptors are kind of opaque, but the link I shared above to <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">Chris Beaumont's article on properties and descriptors</a> does a great job of explaining what they do: which is, in a nutshell, to provide property like services in the form of class-level objects. (Update: here's <a href="http://nedbatchelder.com/blog/201306/explaining_descriptors.html">great five minute video</a> too). Instead of defining methods and decorating them as we did above, you create a class which handles the function-to-property behavior (both getting and setting) and stick it directly into your own class namespace, the same way you would place a def or a constant (as an aside, this placement is why the CMD field in the example is a class field rather than a hard code or an instance property - it makes it easy for the descriptor to call the right cmds function and flags. We could make a separate class for <code>cmds.floatField</code>, for example, swapping out only the class level CMD parameter, and it would 'just work' the same way).</p>
+<p>The gotcha to bear in mind with descriptors is that they are separate objects that live in the class, <em>not</em> instance members You don't create them inside your <code>__init__</code>, you declare them in the class namespace. They don't belong to individual instances - that's why in the example below you'll notice that <em>self</em> refers to the descriptor itself, and not to the ExampleButton class (this is how each descriptor in the example below remembers how to format it's own call to the maya command under the hood). </p>
+<p>The "bad" part of that is that you the descriptor is ignorant of the class instance to which it is attached when you call it. Pyhton will pass the instance in to the descriptor, as you'll see in the example below. The good part, on the other hand, is that the descriptor itself can (if need be) have a memory of its own - that's why the descriptors in the next example can remember which flags to use when they call the underlying Maya GUI commands.</p>
+<p>While this sounds scary, it's mostly a minor mental adjustment - once you do a couple times it will be routine. And all the oddness is concentrated in the definition of the descriptor objects themselves - once the descriptor is actually declared, you access it just as if it were a conventional instance property and all is plain-jane <code>foo.bar = baz</code>.</p>
+<p>Here's the button example re-written with a couple of descriptors:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CtlProperty</span> <span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Property descriptor.  When applied to a Control-derived class, invokes the correct Maya command under the hood to get or set values  </span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>  
+        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">cmd</span><span class="p">),</span> <span class="s2">&quot;cmd flag must be a maya command for editing gui objects&quot;</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Command</span> <span class="o">=</span> <span class="n">cmd</span>
+
+    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        Class instance &lt;obj&gt; and its type &lt;objtype&gt; are passed in automatically.   </span>
+<span class="sd">        &lt;self&gt; is this descriptor object, NOT an owning class instance!  </span>
+<span class="sd">        &#39;&#39;&#39;</span>  
+        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Widget</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;Widget&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">:</span><span class="bp">True</span><span class="p">})</span>
+
+    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        Again, the owning instance is passed in as &lt;obj&gt; automatically  </span>
+<span class="sd">        &#39;&#39;&#39;</span>  
+        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Widget</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;Widget&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;e&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">:</span><span class="n">value</span><span class="p">})</span>
+
+<span class="k">class</span> <span class="nc">ExampleButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">Label</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>  
+    <span class="n">BackgroundColor</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="s1">&#39;bgc&#39;</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
+
+<span class="c1"># same example as before      </span>
+<span class="n">example</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">btn</span> <span class="o">=</span> <span class="n">ExampleButton</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>  
+<span class="n">btn</span><span class="o">.</span><span class="n">Label</span> <span class="o">=</span> <span class="s2">&quot;Thunderbirds are GO!&quot;</span>  
+<span class="n">btn</span><span class="o">.</span><span class="n">BackgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
+</pre></div>
+
+
+<p><img alt="" src="http://2.bp.blogspot.com/-nCT8aEzquIE/UwLr8_Ct6wI/AAAAAAABH78/wVp86oOdf24/s1600/t+are+g.png" /></p>
+<p>That's more like it - only two lines of data-driven code where we used to have six (well, not counting CtlProperty - but thats a one time cost to be spread out over scads of different GUI classes later). It's a lot easier to read and understand as well, and contains far fewer opportunities for typos.</p>
+<p>But… we're still talking 34 lines like that for <code>cmds.button</code>, and God knows how many for <code>cmds.rowColumLayout</code>. </p>
+<p><strong>Sigh.</strong></p>
+<h1>Act III</h1>
+<p><img alt="" src="http://www.clevescene.com/imager/thunderbirds-stiff-acting-all-around/b/original/1504418/2808/1875857.t.jpg" /></p>
+<p>No rescue drama is complete without a false climax, and this is ours. Despite the ominous music just before the commercial,. the situation is not really that bad. The last example shows that the problem is not really one of <em>code</em> any more, it's just <em>data</em>. Since descriptors are objects, you can crank them out like any other object: provide a list of the appropriate flags for a given class and you can crank out the correct descriptors, as they say, "<a href="https://www.youtube.com/watch?v=Z3qK8gT5LLg">automagically</a>."</p>
+<p><strong>As long as you promise not to use that stupid word around me.</strong></p>
+<p>Fortunately for our rescue team, Python treats classes the same way it treats anything else: as objects that can be created and maniuplated.</p>
+<p>If you use the Python builtin <code>type</code> on any Python class, you'll get back <br />
+<code>type 'type'</code>. In other words, a Python class definition is itself an instance of the class 'type'. How… <em>meta.</em></p>
+<p>The reason this matters to us is that we can fabricate classes the same way fabricate other kinds of Python things. You would not hesitate to crank out a list of strings assembled in code: there's no reason you can't do the same thing for descriptors! You could do this by hand, creating type instances and filling them out yourself: types take three arguments: a string name, a list of parent types, and dictionary of named fields and propertis. Thus:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>  
+    <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
+
+<span class="n">example</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s1">&#39;__init__&#39;</span><span class="p">:</span><span class="n">constructor</span> <span class="p">}</span> <span class="p">)</span>
+
+<span class="n">Test</span> <span class="o">=</span> <span class="n">example</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>  
+<span class="c1"># &lt;__main__.Example object at 0x00000000022D6198&gt;  </span>
+<span class="n">Test</span><span class="o">.</span><span class="n">Name</span>  
+<span class="c1"># Hello world</span>
+</pre></div>
+
+
+<p>However this would send you down a possible rabbit hole, since the idea we're really chasing is a way to mass produce classes to make UI coding easier and it would not be very easy if all of the classes had to be coded up in this clunky way. Luckily Python has an obscure but extremely powerful mechanism designed for just this sort of problem. Because, you know, it's the language of geniuses.</p>
+<p><img alt="" src="https://shapersofthe80s.files.wordpress.com/2011/01/thunderstampbrains.jpg" /></p>
+<h1>"Brains, Activate the Metaclass"</h1>
+<p>The helpful MacGuffin in this case it the <em><a href="http://docs.python.org/2/reference/datamodel.html#customizing-class-creation">Metaclass</a>.</em> Metaclasses have a reputation - not <em>entirely</em> undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."</p>
+<p>However, in our case we really can't solve the problem without some form of class factory. In particular, we need a way to bang out classes with the right collection of Descriptors to cover all of the zillions of flags in the Maya GUI system. So just this once we can put on the big blue glasses and lab coats and venture into the super secret lair of the mad metaclass scientists.</p>
+<p>The job of a metaclass is to customize the act of class creation. When a class is first defined, python will pass the type it creates (that same object we played with in the last example) to the metaclass for further manipulation. The <code>__new__</code> function of the metaclass will be called on the just-defined type, taking it name, parents and internal dictionary as arguments. The <code>__new__</code> can fiddle with any of these as it sees fit before passing it along for actual use.</p>
+<p>As you can imagine, this is a good time for PythonMan's Uncle Ben to remind us that 'with great power comes great responsibility' - it's easy to shoot yourself in the foot with a metaclass, since you can make changes to the runtime versions of your classes that will not be represented in your source files. Don't just run off and meta all over everything in sight. A minimalist approach is the best way to stay sane.</p>
+<p>But you'd probably like to see what this really looks like in practice. Here's an example.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Metaclass which creates CtlProperty  objects for maya gui proxies  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="n">CONTROL_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="s1">&#39;backgroundColor&#39;</span><span class="p">,</span> <span class="s1">&#39;defineTemplate&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;docTag&#39;</span><span class="p">,</span> <span class="s1">&#39;dragCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;dropCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;enable&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;enableBackground&#39;</span><span class="p">,</span>  <span class="s1">&#39;exists&#39;</span><span class="p">,</span> <span class="s1">&#39;fullPathName&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>    
+                <span class="s1">&#39;manage&#39;</span><span class="p">,</span> <span class="s1">&#39;noBackground&#39;</span><span class="p">,</span>  <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;preventOverride&#39;</span><span class="p">,</span> <span class="s1">&#39;useTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;visible&#39;</span><span class="p">,</span>   
+                <span class="s1">&#39;visibleChangeCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        __new__ is called then classes using this meta are defined.  It will add   </span>
+<span class="sd">        all of the items in CONTROL_ATTRIBS to the new class definition as   </span>
+<span class="sd">        CtlProperty descriptor objects using the CMD field (a maya.cmds command)   </span>
+<span class="sd">        provied in the outer class.  </span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="n">CMD</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">):</span>  
+            <span class="n">CMD</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">CMD</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ControlMeta</span><span class="o">.</span><span class="n">CONTROL_ATTRIBS</span><span class="p">:</span>  
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ControlMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The actual code is pretty simple. It takes the type object created by the 'real' class and grabs the contents of the CMD class field (remember that from the earlier examples?). Then it loops through its own list of command names and inserts them all into the new class as descriptors with the correct commands and the maya command that was stored in the command object. So our earlier button example becomes:</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">mb</span> <span class="o">=</span> <span class="n">MetaButton</span><span class="p">(</span><span class="s2">&quot;button1&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">mb</span><span class="o">.</span><span class="n">exists</span>  <span class="c1"># We never had to add this one!  </span>
+<span class="c1"># True  </span>
+<span class="k">print</span> <span class="n">mb</span><span class="o">.</span><span class="n">visible</span>  <span class="c1"># or this ! </span>
+<span class="c1"># True</span>
+</pre></div>
+
+
+<p>There is a minor problem with this very truncated example, however: there's no label or command in the the metaclass, so the MetaButton has no button specific properties - only the generic ones in our list (which I made by trolling the flags for <code>cmds.control</code>, the 'base class' of all Maya control commands).</p>
+<p>This is easily fixed by adding properties that are specific to buttons to a class field, and tweaking the metaclass to read and use them the same way it already uses the CMD class field. Like CMD, these are good class-level attributes since the collection of flags is shared by all buttons, fields or whatever.</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Metaclass which creates CtlProperty  objects for Control classes  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="n">CONTROL_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="s1">&#39;backgroundColor&#39;</span><span class="p">,</span> <span class="s1">&#39;defineTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;docTag&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;dragCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;dropCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;enable&#39;</span><span class="p">,</span> <span class="s1">&#39;enableBackground&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;exists&#39;</span><span class="p">,</span> <span class="s1">&#39;fullPathName&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>  <span class="s1">&#39;manage&#39;</span><span class="p">,</span> <span class="s1">&#39;noBackground&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">,</span> <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;preventOverride&#39;</span><span class="p">,</span>   
+                        <span class="s1">&#39;useTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;visible&#39;</span><span class="p">,</span> <span class="s1">&#39;visibleChangeCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
+
+
+    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+
+        <span class="n">CMD</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>  
+        <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_ATTRIBS&#39;</span><span class="p">,[])</span>  <span class="c1"># unique props from outer class</span>
+
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">):</span>  
+            <span class="n">CMD</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">CMD</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ControlMeta</span><span class="o">.</span><span class="n">CONTROL_ATTRIBS</span><span class="p">:</span>  
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
+
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_ATTRIBS</span><span class="p">:</span>   <span class="c1"># now add in the outer class&#39;s unique props too  </span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
+
+        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ControlMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
+    <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;command&#39;</span><span class="p">]</span>  <span class="c1"># button specific props  </span>
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">MetaFloatField</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">floatField</span>  
+    <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;editable&#39;</span><span class="p">,</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="s1">&#39;maxValue&#39;</span><span class="p">,</span><span class="s1">&#39;step&#39;</span><span class="p">,</span>  
+                <span class="s1">&#39;minValue&#39;</span><span class="p">,</span> <span class="s1">&#39;changeCommand&#39;</span><span class="p">,</span><span class="s1">&#39;dragCommand&#39;</span><span class="p">,</span><span class="s1">&#39;enterCommand&#39;</span><span class="p">,</span>  
+                <span class="s1">&#39;receiveFocusCommand&#39;</span><span class="p">]</span>  <span class="c1"># this one has a lot of properties</span>
+
+    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+
+
+<p>As you can see, extending the automatic analysis is easy now that we know the basic trick. Just add a semi-private class field with the class specific attributes, and away we go!</p>
+<h1>In our next exciting episode…</h1>
+<p>I think this pretty much demonstrates that overhauling the Maya GUI toolkit is possible. However, in its current state it's just a down-payment. </p>
+<p>The combination of descriptors and metaclasses is an incredibly powerful tool and it's not hard to see what comes next (it's also easy to imagine similar setups for other problems which suffer from ugly imperative syntax). Now that we have a method for cranking out control widget classes by the bucketload, filling out the class library itself is pretty simple. There are, though, a few tricks we can use to make it better and less manual, as well as making sure it is complete. So, in a future outing, we'll tackle a method for replicating the whole Maya command hierarchy in a more or less automatic way. </p>
+<p>If you want to roll your own lightwieght properties library, this should give you enough tools to work with. If you're more interested in actually doing GUI work without all the <code>cmds</code> crap, you should check out <a href="https://github.com/theodox/mGui">mGui</a>, which is a library based on exactly this metaclass strategy to make GUI code more declarative and less ugly.</p>
+<p>In the mean time,as we say at International Rescue Headquarters: <a href="http://www.funtrivia.com/askft/Question54024.html">F.A.B!</a></p>
+            <p class="post-meta">Posted by
+                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
+                 on Sun 23 February 2014
+            </p>
+<p>There are <a href="http://theodox.com/2014/rescuing_maya_gui_from_itself#disqus_thread">comments</a>.</p>        </div>
+        <div class="post-preview">
             <a href="http://theodox.com/2014/pity_for_the_outcast" rel="bookmark" title="Permalink to Pity for the outcast">
                 <h2 class="post-title">
                     Pity for the outcast
                 </h2>
             </a>
-                A litany of complaints about Maya GUI programming, with a teensy ray of hope
+                <p>I don't think it's too far over the top to say that everybody hates Maya's internal GUI system. It combines a very 1990's selection of widgets with a very 1970's coding style: it's a  1970's/1990's Frankenstein monster as horrifying as Ashton Kutcher in <em>That 70's Show.</em>  </p>
+<p><em><a href="http://www.mediabistro.com/prnewser/files/2013/11/cmKUTCHER_ARTICLE_narrowweb__300x3532.jpg"><img alt="" src="http://www.mediabistro.com/prnewser/files/2013/11/cmKUTCHER_ARTICLE_narrowweb__300x3532.jpg" /></a></em></p>
+<p>Not surprisingly a lot of TA's feel like they have to turn to PyQT if they want to deliver polished tools with a modern UI.  Unfortunately this is also less than ideal - while PyQT is a very powerful framework, it's got a very distinctive idiom of its own to learn, and moreover its hard to distribute since it depends on C++ dlls.  If you want to share a tool across studios or with outsourcers on a variety of boxes, OS'es and Maya versions it can become a Dantesque journey into DLL hell.  </p>
+<p>Because we do a lot of work with outsourcers, I've been looking into ways to render native Maya GUI a little less irritating. A quick review of my own pain-points in Maya GUI development showed me three main problems with the existing system    </p>
+<h2>Icky syntax</h2>
+<p>Default Maya GUI is purely imperative; while Maya creates an in-memory object for every widget you create, you can only interact through it with via commands: In the typical idiom you create a button:    </p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;big button&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>but your can only interact with it by calling more commands:   </p>
+<div class="highlight"><pre><span></span><span class="n">mybutton</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;big button&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">mybutton</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">mybutton</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Red button&#39;</span><span class="p">))</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">mybutton</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bgc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+
+<p>This gets old pretty fast.  It's particularly bad for GUI components like <em>formLayout</em>, which can easily require whopping big arguments like this:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span> <span class="n">form</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">attachForm</span><span class="o">=</span><span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="p">],</span> <span class="n">attachControl</span><span class="o">=</span><span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b2</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b2</span><span class="p">)],</span> <span class="n">attachPosition</span><span class="o">=</span><span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">75</span><span class="p">)],</span> <span class="n">attachNone</span><span class="o">=</span><span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+
+
+<p>Which is, frankly, stupid.  </p>
+<h2>Lousy event handling</h2>
+<p>Another big knock on Maya's native gui is it's lousy callback system. The python version is bolted on to the original, string based MEL version and confuses a lot of people with uncertain scoping and unclear syntax (Check out these threads on <a href="http://tech-artists.org/forum/showthread.php?3205-why-scriptJob-doesnt-work-in-case-of-attrControlGrp&amp;highlight=callback">Tech Artists.Org </a>and  <a href="http://stackoverflow.com/questions/21036620/executing-different-functions-based-on-options-selected">StackOverflow </a>for some examples of how people get lost) .  </p>
+<p>Even when default Maya GUI callbacks do fire, they don't usually indicated who fired them off. This means you need to capture any relevant information ahead of time and encode it into the callback. In lots of GUI systems, you could handle a raft of similar functions like this pseudocode:  </p>
+<div class="highlight"><pre><span></span><span class="n">button_codes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>  
+<span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">button_codes</span><span class="p">:</span>  
+    <span class="n">button</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">code</span><span class="p">,</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">apply_color</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">apply_color</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>  
+   <span class="n">target</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">constants</span><span class="p">[</span><span class="n">button</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span>
+</pre></div>
+
+
+<p>In Maya, on the other hand, you need to compose the callbacks with the right context when you create them using a <code>[functools.partial](http://docs.python.org/2/library/functools.html)</code> or a closure.  This makes coding up anything like dynamic model-view-controller UI into a real chore, and forces you to interleave your layout architecture and your data model in clumsy ways.  </p>
+<p>Moreover, Maya GUI callbacks are single-function calls. Its common in other frameworks -- for example in C#  -- to have <a href="http://msdn.microsoft.com/en-us/library/ms173175.aspx">multicast delegates</a> which can trigger multiple actions from a single callback. This makes for cleaner, more general code since you can split UI-only functionality ('highlight this button') from important stuff ('delete this model').  </p>
+<h2>No Hierarchy</h2>
+<p>It might not be strictly fair to say that Maya GUI has 'no hierarchy'; anybody who has ever mucked around with <code>cmds.setParent</code> or <code>cmds.lsUI</code> knows that the actual widgets are composed in a strict hierarchical tree; hence UI objects with names like<br />
+<code>window1|formLayout57|formLayout58|frameLayout38|columnLayout5|button5</code><br />
+The problem is that Maya doesn't manage this for you - you are responsible for capturing the pathname of every UI widget you create if you ever want to access it again, which imposes a useless maintenance tax on otherwise simple code. </p>
+<p>Moreover, the names aren't determninistic, thanks to Maya's rule against identical paths: that means you may want a button called 'Button', but it may decide to call itself 'Button1' or 'Button99' and there's nothing you can do about it. As if that weren't bad enough, the strongly imperative style of the Maya GUI code also requires manual management. If you declare a layout and start filling it up with widgets, you're also responsible deciding when a particular container is full. A missed <code>cmds.setParent</code> can easily screw up your visual layout or the ordering of a menus and it's possible to shoot yourself in the foot without any corresponding gain in power, productivity or even prettiness. This limitation is why Maya has to offer all those redundant command sets for multiple-column rows and grids. When a monstrosity like <code>cmds.rowLayout(nc=5, cw5=(100,100,50,50,80), ct5 =("left", "left", "both","both","right"))</code> is a <em>win</em> for code cleanliness and legibility you know something has gone horribly wrong. </p>
+<h2>So What?</h2>
+<p>All of that amounts to a long-winded way of restating the obvious: nobody likes coding in standard Maya GUI.  The question is, can something be done about it?</p>
+<p>Actually, quite a bit..  <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">Next time out</a> I'll talk about some practical ways to make Maya GUI coding... well, let's not say <em>"fun"</em>, lets run with another 90's retread:</p>
+<p><a href="http://www.kraigbrockschmidt.com/mm/images/Win95_Sucks_Less_T-Shirt.jpg"><img alt="" src="http://www.kraigbrockschmidt.com/mm/images/Win95_Sucks_Less_T-Shirt.jpg" /></a></p>
+<p>For 'Windows 95' substitute 'Maya GUI' and you've got the idea (For the origins of this authentic 2400-baud era meme, <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/08/24/10053386.aspx">click here</a>.) </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 16 February 2014
@@ -103,7 +397,86 @@
                     Talking to Photoshop via TCP
                 </h2>
             </a>
-                Simple Photoshop scripting via tcp/ip
+                <p>A recent <a href="http://tech-artists.org/forum/showthread.php?4481-Communicating-between-Photoshop-and-Maya-(Python)">thread on TAO</a> got me thinking about communicating with Photoshop from Python. In the past I've done this <a href="http://techarttiki.blogspot.com/2008/08/photoshop-scripting-with-python.html">Adam Plechter-style</a> using COM ( from both C# and Python) and it's worked for me, but I know some people have problems with COM for a variety of reasons relating to windows versions and DLL hell.  </p>
+<p>And using COM always makes me feel like Mr. Yuk.</p>
+<p><a href="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif"><img alt="" src="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif" /></a></p>
+<p>Since I had to learn a few JavaScript tricks back when I started <a href="and_i_thought_we_had_it_bad.html">looking into Python web development</a>, I thought it might be worth investigating what could be done to cut out COM.  It turns out that ExtendScript - the JavaScript flavor that comes with Adobe products (at least since CS 5, and I think earlier) includes a socket object which allows for TCP communication.  That's not kosher in 'real' browser based JS - but ExtendScript cheats a little (that's also why it allows you to do things like hit the local file system, another JS no-no).</p>
+<p>The<a href="https://wwwimages2.adobe.com/content/dam/Adobe/en/products/indesign/pdfs/JavaScriptToolsGuide_CS5.pdf"> Adobe docs</a> have an example (around page 196) which shows how you can implement a chat server or a web server running inside Photoshop. That might not be practical but it provides a simple framework you can hijack to turn Photoshop into a remote procedure call server.  Here's an example of a super-simple server that can be run inside Photoshop:</p>
+<div class="highlight"><pre><span></span><span class="c1">// requires photoshop CS5+</span>
+
+<span class="c1">// create a new socket</span>
+<span class="nx">conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Socket</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">keep_serving</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="c1">// sample functions. In a real application you&#39;d have handler functions that could accept  more complex inputs</span>
+<span class="kd">var</span> <span class="nx">alrt</span> <span class="o">=</span> <span class="nx">alert</span><span class="p">;</span>                                                                                           <span class="c1">// pop a dialog</span>
+<span class="kd">var</span> <span class="nx">newLayer</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">app</span><span class="p">.</span><span class="nx">activeDocument</span><span class="p">.</span><span class="nx">artLayers</span><span class="p">.</span><span class="nx">add</span><span class="p">();</span> <span class="p">};</span>      <span class="c1">// make a layer</span>
+<span class="kd">var</span> <span class="nx">stop</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">keep_serving</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="p">};</span>                                           <span class="c1">// stop the server</span>
+
+<span class="c1">// &#39;register&#39; the commands by putting them into a dictionary</span>
+<span class="kd">var</span> <span class="nx">known_cmds</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;alert&#39;</span><span class="o">:</span> <span class="nx">alrt</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="o">:</span> <span class="nx">stop</span><span class="p">,</span> <span class="s1">&#39;newLayer&#39;</span><span class="o">:</span> <span class="nx">newLayer</span> <span class="p">};</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">keep_serving</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">conn</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8789</span><span class="p">))</span>  <span class="c1">// ... you&#39;d probably want to make this configurable</span>
+    <span class="p">{</span>
+        <span class="c1">// wait forever for a connection</span>
+        <span class="kd">var</span> <span class="nx">incoming</span><span class="p">;</span>
+        <span class="k">do</span> <span class="nx">incoming</span> <span class="o">=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">poll</span><span class="p">();</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">incoming</span> <span class="o">==</span> <span class="kc">null</span><span class="p">);</span>
+
+        <span class="c1">// grab the next non-null communication</span>
+        <span class="nx">new_cmd</span> <span class="o">=</span> <span class="nx">incoming</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="c1">// split the incoming message into cmd on spaces (shell style)</span>
+            <span class="kd">var</span> <span class="nx">command_text</span> <span class="o">=</span> <span class="nx">new_cmd</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">new_cmd</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">command_text</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">999</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">requested</span> <span class="o">=</span> <span class="nx">known_cmds</span><span class="p">[</span><span class="nx">command_text</span><span class="p">];</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="nx">requested</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">result</span> <span class="o">=</span> <span class="nx">requested</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+                <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">result</span> <span class="o">+</span> <span class="s2">&quot;\nOK\n&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;unknown command\nFAIL\n&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">err</span> <span class="o">+</span> <span class="s2">&quot;FAIL\n&quot;</span><span class="p">);</span>
+            <span class="nx">incoming</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+            <span class="k">delete</span> <span class="nx">incoming</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="c1">// end if </span>
+<span class="p">}</span> <span class="c1">// -- end while</span>
+</pre></div>
+
+
+<p><em>Note: You'll need to save the file as a .JSX (not .JS!) for Photoshop to allow the ExtendScript functionality which makes the socket objects work.</em>  </p>
+<p>This example is very bare bones, but it is easy to extend - just create function objects and add them to <code>known_commands</code> dictionary and then send them over the socket. The way it's written here the commands and arguments are split on spaces (similar to the way a shell command works) -- if you need to get at them in your JS functions you can <a href="http://stackoverflow.com/a/2141530/1936075">get at them using the arguments() keyword:</a>.  For serious work I'd probably use the ExtendScript XML object and send the commands and responses as xml since that gets you out of having to worry about stuff like 'what if I want to send an argument with a space in it' -- however this purpose of this excersize is just to demonstrate what's possible.  </p>
+<p>I should note that while the server is running, Photoshop is locked into the wait loop so it will not be accessible interactively -- like a Maya running a long script, the main thread is just waiting for the script to continue. For the typical 'remote control' application that's what you'd expect, but it may not answer for all purposes - so be warned.  </p>
+<p>If you're trying to talk to Photoshop from Python, it's incredibly simple:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="n">HOST</span> <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">8789</span>
+
+<span class="k">def</span> <span class="nf">send_photoshop</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Expects a photoshop instance running a tcp server on HOST:PORT</span>
+<span class="sd">&#39;&#39;&#39;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span><span class="n">PORT</span><span class="p">))</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">r</span>
+
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;alert hello_from_python&quot;</span><span class="p">)</span>       <span class="c1">#show a dialog</span>
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;newLayer&quot;</span><span class="p">)</span>                      <span class="c1">#create a layer</span>
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>                          <span class="c1">#stop the server</span>
+</pre></div>
+
+
+<p>That's all there is to it - of course, the _real _problem is getting useful work done in the clunky Photoshop API -- but that's going to be the same no matter whether you talk to PS via COM or TCP/IP.  Anecdotally, I've heard the PS scripts are faster in JavaScript than when using COM or AppleTalk or VB, so perhaps this method will be competitive on speed as well.  For small tasks it's certainly a simpler and less irritating way to send a squirt to and from PS </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Wed 29 January 2014
@@ -115,7 +488,95 @@
                     Maya's (mildy) Magical Modules
                 </h2>
             </a>
-                An introduction to Maya's module system, a handy method for bundling and distributing tools non-invasively
+                <p>If you're doing tools work in Maya, you've probably seen a lot of ways of distributing scripts and tools. The most common, alas, is also the wonkiest - dumping a bunch of scripts into the users's script folder or maybe fiddling with Maya.env to point at a shared drive on the local network.     </p>
+<p>Eventually, you'll rum into situations where you can't just litter files all over your user's machine. Maybe you're supporting multiple projects in the studio and you need to have users hopping back and forth between toolsets. Maybe you're dealing with multiple versions of Maya and your tools have been forked into different environments. Maybe you're dealing with outsources who don't want to permanently alter their own environment just to get your tools for one project. Whatever the reason, someday you'll run into a situation where you want to be able to drop in a whole Maya toolset as a unit and to remove or disable it the same way.   </p>
+<p>Maya has always a had a facility called <strong>modules</strong>, can be useful for this purpose. It used to be used for things like  cloth sim or hair that were tacked on to the main package (back when hair was a $9,000 add-on!) .  Since then it's largely fallen out of favor, but it's never gone away -- and it has some useful properties that are great for tools distribution.  </p>
+<p>A module is really a sort of virtual file system.  Maya's most important folders are those for scripts, plugins, icons, and presets -- the same ones you typically see in your Maya user directory.  If you place a special text file in your module path, you can add to extra paths for Maya to search for scripts, plugins, icons and presets.   </p>
+<p>The big advantage of modules is the ability to manage complete set of files at once - scripts, plugins and so on can all be included (or excluded) from your Maya in a single place <em>Note to Autodesk - it would be very nice to give users a UI for this.  The 'Modules' setting in the preferences, confusingly, does not refer to _these _modules!</em>  Parts of a module can be kept independent of the user's private stock of scripts and tools. For outsourcers and contractors, in particular, the ability to completely uninstall a toolset you don't need anymore is a godsend.   </p>
+<p>Another handy feature of modules is that they can point Maya at shared network paths as well as paths on disk. This makes it far easier to keep a whole team on a common tool set by pointing a module script directory at a shared drive.  I'm not personally a big fan of the shared drive as a distribution method (more on that some other time) but it's fairly common and this makes it easy to establish and manage.  </p>
+<p>Finally modules do a little bit of automatic versioning. A module can specify different paths for different Maya versions, OS'es and processors.  This means a tool author can produce a single distribution for all customers and give them identical installation instructions without worrying too much about the details of the individual workstations on the receiving end.  You can pack up all of your distributions into a single zip file, and users merely unzip it into the modules folder of their local settings and the installation is done .  </p>
+<h3>Basic Setup</h3>
+<p>Modules are defined by a simple text file with a ".mod" extension.  Maya will look for module files in all the directories in the Maya_MODULE_PATH environment variable if you have it set, or in the modules directory of your Maya user directory (for example, in My Documents\Maya\modules). Here are the default locations where modules can be placed:  </p>
+<h4>Default for Windows</h4>
+<div class="highlight"><pre><span></span>&lt;user&gt;/My Documents/Maya/modules  
+C:/Program Files/Common Files/Autodesk Shared/Modules/Maya/  
+C:/Program Files/Common Files/Autodesk Shared/Modules/Maya/modules/
+</pre></div>
+
+
+<h4>Default for Mac OS X, Linux</h4>
+<div class="highlight"><pre><span></span><span class="p">$</span><span class="nv">Maya_APP_DIR</span><span class="x">/Maya//modules  </span>
+<span class="p">$</span><span class="nv">Maya_APP_DIR</span><span class="x">/Maya/modules  </span>
+<span class="x">/usr/autodesk/modules/Maya/  </span>
+<span class="x">/usr</span>
+</pre></div>
+
+
+<p>A module file is a plain text file. The official documentation for the format is <a href="http://docs.autodesk.com/MayaUL/2013/ENU/Maya-API-Documentation/index.html?url=files/GUID-9E096E39-AD0D-4E40-9B2A-9127A2CAD54B.htm,topicNumber=d30e30995">here</a> <em>(the 2012 version is <a href="http://download.autodesk.com/global/docs/Mayasdk2012/en_us/index.html">here</a>.  There are some pretty significant differences between 2012 and 2013+)!</em>.</p>
+<p>For the simple case a module file just looks like this:</p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 c:\path\to\moduleName
+</pre></div>
+
+
+<p>The module name is what shows up in the Maya UI, the 1.0 is a version number, and the path points Maya to the location of the module folder.  This example would point to a folder called "ModuleName". If that's all that goes in there, then Maya will look for scripts in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\scripts
+</pre></div>
+
+
+<p>icons in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\icons
+</pre></div>
+
+
+<p>and plugins in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\plug-ins
+</pre></div>
+
+
+<p>You can test this out by making the folder <code>c:\path\to\moduleName\scripts</code> and popping a <code>userSetup.py</code> ( or a <code>userSetup.mel</code>, if you're feeling old school) into it containing something like a <code>print("hello world")</code>. When you restart your Maya, you should see it printout in the Maya output window as Maya loads. It's the output window for Python because the script will execute <em>before</em> the Maya UI has loaded (something to keep in mind in your startup scripts!).  </p>
+<p>You can avoid hard coding the paths by using an alternate syntax in the mode file.  You have a can, for example, include an environment variable using <code>${variable}</code> in place of an absolute path. For example  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">PROJECT_LOC</span><span class="cp">}</span>\Mayatools
+</pre></div>
+
+
+<p>will point look for your module folder in the location defined by the environment variable named <strong>project_loc</strong>.  One side effect of this is that uou can put your modules into the modules folder (alongside your mod files) without having to hard-code paths:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName
+</pre></div>
+
+
+<p>You can even point your modules at a network share:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 \\net\shared\modules\moduleName
+</pre></div>
+
+
+<h3>Fancy stuff in 2013+</h3>
+<p>Sometimes setup requirements are more complex than dropping in a single folder (not a good idea if you can avoid it - but you know how it is...).  <strong>In 2013 and later,</strong>  you can use the module file to override particular paths and do some more flexible setup.  </p>
+<p>For example, in 2013+, you can also define the path relative to the module file location:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 ..\moduleName
+</pre></div>
+
+
+<p>should point at a folder <em>above</em> the directory where the module file is located. <strong>But  remember: 2013+ only!</strong> If you've looked at, for example, <a href="http://around-the-corner.typepad.com/adn/2012/07/distributing-files-on-Maya-Maya-modules.html">Cyrille Fauvel's post on modules</a> you'll see a bunch of advice that only works for 2013+.  Be aware :)  </p>
+<p>The other neat addition in 2013 is the ability to override specific sub-paths of the module. Thus  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName 
+scripts: //network/share/scripts
+</pre></div>
+
+
+<p>would point the scripts at the shared network scripts  drive, while leaving the plugins and icons folders in the module location.  </p>
+<p>2013+ also offers the ability to set environment variables from inside a module  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName 
+HAS_FANCY_2013_FEATURES=YES
+</pre></div>
+
+
+<p>Will set the environment variable <code>HAS_FANCY_2013_FEATURES</code> to 'yes' inside your Maya session. 2013 even has some funky syntax allowing you to append to existing variables and so on . There's no point in recapitulating it here, the <a href="http://docs.autodesk.com/MayaUL/2013/ENU/Maya-API-Documentation/index.html?url=files/GUID-9E096E39-AD0D-4E40-9B2A-9127A2CAD54B.htm,topicNumber=d30e30995">description in the docs</a> is a concise as I could do. My only commentary would be: <em>seriously, people? It's 2014 and still with the funky syntax crap?  I'm supposed to recognize that  _PATH += and PATH +:= bin _are different?</em>  </p>
+<p>Adding to paths can be extremely handy for some things, but unfortunately this won't solve a particularly thorny problem for tools teams, which is making sure that the OS can find binary dlls: if you have DLL dependencies in a binary plugin, its 'too late' to fix it by appending the DLL locations to the system path once Maya has loaded. Which stinks -- and is another reason to avoid binary plugins like the plague they are if at all possible.</p>
+<h3>One stop tool distribution... or not</h3>
+<p>For any busy TA, the business of distributing and maintaining toolsets on lots of other people's computers is a constant headache.  Modules can offer some significant assistance with this, since they allow you some control over Maya's search paths without requiring your to write code. It's a simple solution to the chicken-and-egg problem of getting Maya to do what you want before you've got tools loaded up to tell Maya what to do.  </p>
+<p>Modules, on their own, are not a complete solution to that problem.  But they are a help.  </p>
+<p>Modules basically just tell Maya to look in a few extra places for things like scripts or plugins - they don't automatically run startup code or do initialization, and they don't have much in the way of smarts -- they can't for example, allow you to quickly switch between two project-specific versions of your Maya tool set. You can install modules for toolsetA and toolsetB, but something smarter than a module file has to decide which one to pick on a given occasion (I'm going to talk about that problem in another post, but for now  However they do allow you to mix and match install locations, which is a big start; they also allow you to install outside the user's script folders, which is a key element in the good-fences-make-good-neighbors relationship between TA tools and the user's private Maya preferences.  Plus, they are explicit: you can look at the file and tell what its trying to do, which beats any number of magic naming and location rules.  </p>
+<p>At some point in the near future I'll try to post something on the second half of the distribution puzzle: running startup code cleanly and intelligently.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 12 January 2014
@@ -127,7 +588,76 @@
                     The sounds of (Python) Silence
                 </h2>
             </a>
-                A class for managing overly chatty Python modules
+                <p>After a long vacation with my children, I've been meditating on the virtues of silence.  </p>
+<p>Python is a glorious toybox bursting with fun gadgets to delight TA's near and far.  You can easily use it to stuff anything from database access to a serial port controller into your copy of Maya, which is a always fun (and occasionally useful).  However the <a href="http://www.youtube.com/watch?v=-mTUmczVdik">plethora</a> of Python libraries out there does bring with it a minor annoyance - if you grab something cool off <a href="https://pypi.python.org/pypi">the cheeseshop</a> you don't know exactly how the author wants to communicate with users.  All too often you incorporate something useful into your Maya and suddenly your users have endless reams of debug printouts in their script listener -- info that might make sense to a coder or a sysadmin but which is just noise (or worse, slightly scary) for your artists.  </p>
+<p>If you're suffering from overly verbose external modules, you can get a little peace and quiet with this little snippet. The Silencer class is just a simple <a href="http://docs.python.org/2.7/reference/datamodel.html#context-managers">context manager</a> that hijacks <em>sys.stdout</em> and <em>sys.stderr</em> into a pair of StringIO's that will just silently swallow any printouts that would otherwise go to the listener.   </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="k">class</span> <span class="nc">SilencedError</span> <span class="p">(</span> <span class="ne">Exception</span> <span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">Silencer</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    suppress stdout and stderr</span>
+
+<span class="sd">    stdout and stderr are redirected into StringIOs.  At exit their contents are dumped into the string fields &#39;out&#39; and &#39;error&#39;</span>
+
+<span class="sd">    Typically use this via the with statement:</span>
+
+<span class="sd">    For example::</span>
+
+<span class="sd">        with Silencer() as fred:</span>
+<span class="sd">            print stuff</span>
+<span class="sd">        result = fred.out</span>
+
+<span class="sd">    note that if you use a silencer to close down output from the logging module, you should call logging.shutdown() in the silencer with block</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="bp">True</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldstdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldstderr</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">enabled</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span> <span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oldstdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oldstderr</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_was_entered</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_was_entered</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_restore</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_was_entered</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oldstdout</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oldstderr</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span> <span class="p">):</span>
+        <span class="n">se</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">:</span>
+                <span class="n">se</span> <span class="o">=</span> <span class="n">SilencedError</span><span class="p">(</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span> <span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">se</span><span class="p">:</span> <span class="k">raise</span> <span class="n">se</span>
+</pre></div>
+
+
+<p>If you actually need to look at the spew you can just look at the contents of the <em>out</em> and <em>error</em> fields of the Silencer.   More commonly though you'll just want to wrap a particularly verbose bit of code in a <em>with... as</em> block to shut it up.  You'll also get the standard context manager behavior: an automatic restore in the event of an exception, etc.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 02 January 2014
@@ -139,7 +669,272 @@
                     Techartists doin' it for themselves: A Python REPL in Unity
                 </h2>
             </a>
-                A simple Python REPL inside the Unity Editor
+                <p>Last time, I sketched out the basics of <a href="python_in_unity.html">embedding a Python intepreter into Unity.</a>   That's cool enough -- but unless you're so desperate for Python that you're willing to script your whole application inside of triple quotes it doesn't have a ton of immediate applications.  </p>
+<p>So, this time out I'll sketch out how to build a simple script editor inside of Unity (at the risk of repeating myself, I'll just say again that the extensibility of the Unity editor is an incredible aid to game developers of all stripes, and to tech artists in particular -- it's pretty amazing you can hack in something this complex without source code access or esoteric C++ chops.  </p>
+<h2>Prologomena</h2>
+<p>The basic strategy for this excersize is simply to create a Unity window with two panes - a 'history' pane  and a  'script' pane -- and before you ask, yes, it's just a ripoff of the Maya listener.   </p>
+<p>Before setting up the GUI, we need to cover the framework - the code that will keep the GUI stat and also set up the Python intepreter. In this example, you'll see a bunch of properties declared for the use of the GUI - notably <code>historyText</code> and <code>scriptText</code>, which hold the actual contents of the listener and the history pane.  The other notable feature is the same duo of <code>ScriptEngine</code>, and <code>ScriptScope</code> which we went over in the <a href="python_in_unity.html">last post</a>. </p>
+<blockquote>
+<p>If those terms don't mean anything to you you might want to follow that link before proceeding).  </p>
+</blockquote>
+<div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Modules</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">;</span>    
+ <span class="c1">// derive from EditorWindow for convenience, but this is just a fire-n-forget script    </span>
+ <span class="n">public</span> <span class="n">class</span> <span class="nl">ScriptExample</span> <span class="p">:</span> <span class="n">EditorWindow</span>    
+ <span class="p">{</span>    
+     <span class="c1">// class member properties  </span>
+     <span class="n">Vector2</span> <span class="n">historyScroll</span><span class="p">;</span>    
+     <span class="n">Vector2</span> <span class="n">scriptScroll</span><span class="p">;</span>    
+     <span class="kt">bool</span> <span class="n">showHistory</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>    
+     <span class="kt">int</span> <span class="n">historyPaneHeight</span> <span class="o">=</span> <span class="mi">192</span><span class="p">;</span>    
+     <span class="n">string</span> <span class="n">historyText</span> <span class="o">=</span> <span class="s">&quot;history&quot;</span><span class="p">;</span>    
+     <span class="n">string</span> <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;script&quot;</span><span class="p">;</span>    
+     <span class="n">string</span> <span class="n">lastResult</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+     <span class="n">TextEditor</span> <span class="n">TEditor</span><span class="p">;</span>    
+     <span class="n">GUIStyle</span> <span class="n">consoleStyle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GUIStyle</span> <span class="p">();</span>    
+     <span class="n">GUIStyle</span> <span class="n">historyStyle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GUIStyle</span> <span class="p">();</span>    
+     <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">ScriptEngine</span> <span class="n">ScriptEngine</span><span class="p">;</span>    
+     <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">ScriptScope</span> <span class="n">ScriptScope</span><span class="p">;</span>
+
+     <span class="c1">// initialization logic (it&#39;s Unity, so we don&#39;t do this in the constructor!  </span>
+     <span class="n">public</span> <span class="kt">void</span> <span class="nf">OnEnable</span> <span class="p">()</span>    
+     <span class="p">{</span>       
+         <span class="c1">// pure gui stuff  </span>
+         <span class="n">consoleStyle</span><span class="p">.</span><span class="n">normal</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">yellow</span><span class="p">;</span>    
+         <span class="n">consoleStyle</span><span class="p">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RectOffset</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>    
+         <span class="n">historyStyle</span><span class="p">.</span><span class="n">normal</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">;</span>    
+         <span class="n">historyStyle</span><span class="p">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RectOffset</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
+
+         <span class="c1">// load up the hosting environment    </span>
+         <span class="n">ScriptEngine</span> <span class="o">=</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">Python</span><span class="p">.</span><span class="n">CreateEngine</span> <span class="p">();</span>    
+         <span class="n">ScriptScope</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScope</span> <span class="p">();</span>
+
+         <span class="c1">// load the assemblies for unity, using types    </span>
+         <span class="c1">// to resolve assemblies so we don&#39;t need to hard code paths    </span>
+         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">PythonFileIOModule</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
+         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">GameObject</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
+         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">Editor</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
+         <span class="n">string</span> <span class="n">dllpath</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">GetDirectoryName</span> <span class="p">(</span>    
+             <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">ScriptEngine</span><span class="p">)).</span><span class="n">Assembly</span><span class="p">.</span><span class="n">Location</span><span class="p">).</span><span class="n">Replace</span> <span class="p">(</span>    
+             <span class="s">&quot;</span><span class="se">\\</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>    
+         <span class="c1">// load needed modules and paths    </span>
+         <span class="n">StringBuilder</span> <span class="n">init</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuilder</span> <span class="p">();</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import sys&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendFormat</span> <span class="p">(</span><span class="s">&quot;sys.path.append(</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">dllpath</span> <span class="o">+</span> <span class="s">&quot;/Lib&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendFormat</span> <span class="p">(</span><span class="s">&quot;sys.path.append(</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">dllpath</span> <span class="o">+</span> <span class="s">&quot;/DLLs&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import UnityEngine as unity&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import UnityEditor as editor&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import StringIO&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;unity.Debug.Log(</span><span class="se">\&quot;</span><span class="s">Python console initialized</span><span class="se">\&quot;</span><span class="s">)&quot;</span><span class="p">);</span>    
+         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">ScriptSource</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>    
+         <span class="n">ScriptSource</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+     <span class="p">}</span>
+
+    <span class="n">public</span>  <span class="kt">void</span> <span class="nf">OnGUI</span> <span class="p">(){}</span> <span class="c1">// see next code snippet  </span>
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>As in the last example you'll also not that we're manually setting up sys.path to point at the directory where IronPython is installed, with a little extra code to make it portable  (dotNet assemblies can tell you where they live on disk, so it's a cheap shortcut to find your install directory).   </p>
+<p>The only thing in here that is really 'architecturally' important its this line:  </p>
+<div class="highlight"><pre><span></span> <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>What's going on there is that we're replacing <code>sys.stdout</code> - which in ordinary Python points at the user's console - with a <a href="http://docs.python.org/2/library/stringio.html">StringIO </a>object.  StringIO mimicks a file -- and so does sys.stdout. By stuffing printbuffer in there we are hijacking any calls to print that you might make in a script so we can print them out in our UI.  This is trick should be familiar to tech artists who need <a href="http://www.drakeguan.org/blog/2009/02/How-to-make-Maya-output-all-messages-into-console-terminal/">to grab the Maya console for nefarious purposes.</a>  </p>
+<h2>Unity GUI - the good, the bad, and the ugly</h2>
+<p>Unity's GUI toolkit is notoriously wonky, and you'll see as we go along that much of the energy here is devoted to working around it's limitations.  While we can go pretty far just using the basics, the is a certain <a href="http://usersv2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldbergphotogal4155photo1695691461lr.jpg">Rube Goldberg</a> quality to what follows. You've been warned.  </p>
+<p>First let's just layout out the actual drawing call - the <code>OnGUI</code> method of our window:  </p>
+<div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Modules</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">;</span>    
+ <span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">;</span>    
+ <span class="c1">// derive from EditorWindow for convenience, but this is just a fire-n-forget script    </span>
+ <span class="n">public</span> <span class="n">class</span> <span class="nl">ScriptExample</span> <span class="p">:</span> <span class="n">EditorWindow</span>    
+ <span class="p">{</span>    
+    <span class="cm">/* snip... see previous example for the setup code... */</span>
+
+     <span class="n">public</span> <span class="kt">void</span> <span class="n">OnGUI</span> <span class="p">()</span>    
+     <span class="p">{</span>    
+         <span class="n">HackyTabSubstitute</span> <span class="p">();</span>  <span class="c1">// this is explained below...</span>
+
+         <span class="c1">// top pane with history    </span>
+         <span class="n">showHistory</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">Foldout</span> <span class="p">(</span><span class="n">showHistory</span><span class="p">,</span> <span class="s">&quot;History&quot;</span><span class="p">);</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">showHistory</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginVertical</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">Height</span> <span class="p">(</span><span class="n">historyPaneHeight</span><span class="p">));</span>    
+             <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Clear history&quot;</span><span class="p">))</span> <span class="p">{</span>    
+                 <span class="n">historyText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="p">}</span>    
+             <span class="n">historyScroll</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginScrollView</span> <span class="p">(</span><span class="n">historyScroll</span><span class="p">);</span>    
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">TextArea</span> <span class="p">(</span><span class="n">historyText</span><span class="p">,</span>     
+                 <span class="n">historyStyle</span><span class="p">,</span>     
+                 <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+                 <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>            
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndScrollView</span> <span class="p">();</span>    
+             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndVertical</span> <span class="p">();</span>    
+         <span class="p">}</span>    
+         <span class="c1">// draggable splitter    </span>
+         <span class="n">GUILayout</span><span class="p">.</span><span class="n">Box</span> <span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">Height</span> <span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>    
+         <span class="c1">//Lower pane for script editing    </span>
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginVertical</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>    
+         <span class="n">scriptScroll</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginScrollView</span> <span class="p">(</span><span class="n">scriptScroll</span><span class="p">);</span>    
+         <span class="n">GUI</span><span class="p">.</span><span class="n">SetNextControlName</span> <span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
+         <span class="c1">// note use of GUILayout NOT EditorGUILayout.    </span>
+         <span class="c1">// TextEditor is not accessible for EditorGUILayout!    </span>
+         <span class="n">scriptText</span> <span class="o">=</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">TextArea</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">,</span>     
+             <span class="n">consoleStyle</span><span class="p">,</span>    
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
+             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>            
+         <span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span> <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndScrollView</span> <span class="p">();</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginHorizontal</span> <span class="p">();</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="s">&quot;Clear&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span><span class="p">(</span><span class="nb">true</span><span class="p">)))</span>    
+         <span class="p">{</span>    
+             <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="n">GUI</span><span class="p">.</span><span class="n">FocusControl</span><span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Execute and clear&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">)))</span> <span class="p">{</span>    
+             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
+             <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="n">GUI</span><span class="p">.</span><span class="n">FocusControl</span><span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Execute&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">)))</span> <span class="p">{</span>    
+             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndHorizontal</span> <span class="p">();</span>    
+         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndVertical</span> <span class="p">();</span>        
+         <span class="c1">// mimic maya Ctrl+enter = execute    </span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">isKey</span> <span class="o">&amp;&amp;</span>    
+             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyCode</span><span class="p">.</span><span class="n">Return</span> <span class="o">&amp;&amp;</span>    
+             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EventType</span><span class="p">.</span><span class="n">KeyUp</span> <span class="o">&amp;&amp;</span>    
+             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">control</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
+         <span class="p">}</span>    
+         <span class="c1">// drag the splitter    </span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">isMouse</span> <span class="o">&amp;</span> <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EventType</span><span class="p">.</span><span class="n">mouseDrag</span><span class="p">)</span>    
+         <span class="p">{</span><span class="n">historyPaneHeight</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">mousePosition</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">28</span><span class="p">;</span>    
+             <span class="n">Repaint</span><span class="p">();</span>    
+         <span class="p">}</span>    
+     <span class="p">}</span>
+
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>If you're familiar with the dark arts of Unity GUI programming this should be pretty straight forward. If you're not, the key to understanding it is to remember that Unity uses what old-schooler's call <a href="http://lambda-the-ultimate.org/node/4561">Immediate mode GUI</a> , in which each control gets evaluated as it is declared .  There's a <a href="http://mollyrocket.com/forums/viewtopic.php?t=134">case to be made </a>that immediate mode is better for performance sensitive applications, but if you're used to the more typical (aka 'retained') mode GUIs in, for example, QT it's kind of an oddball way to write.   </p>
+<p>As each GUI element is drawn it reflects and then possibly updates the data that it relies on -- so, for example, we pass the string scriptText  to the GUI.TextArea that draws the script listener pane - and the results of any changes are immediately passed back into scriptText without the courtesy of a callback. This makes it tricky to manage complex state - as you run down the GUI draw, it's possible to hit a condition which changes a state and sends you back to the start! This makes it important to keep your state management code very clean and simple.  </p>
+<p>The one bit that may surprise people who do have some Unity experience its the line  </p>
+<div class="highlight"><pre><span></span><span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span>   
+                                                  <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>
+</pre></div>
+
+
+<p>The TextEditor class is an undocumented bit of Unity arcana - it is a wrapper on the code that actually handles things like typing, selecting or cutting and pasting into a Unity text field.  It has methods for things like setting the cursor location and executing copy-paste operations. Unfortunately, being undocumented, it's tricky to figure out what to do with it -- in this example I'm only using it to preserve the selection position when I do something crazy - as you'll see in a moment.  </p>
+<h2>Hacktastic</h2>
+<p>You probably noticed the enigmatic line  </p>
+<div class="highlight"><pre><span></span><span class="n">HackyTabSubstitute</span><span class="p">();</span>
+</pre></div>
+
+
+<p>which leads up to the tricky bit of this example  -- and the reason for my earlier hack disclaimer.  </p>
+<p>Tabs of course are the <a href="http://www.wisegeek.com/what-is-sine-qua-non.htm#didyouknowout">sine qua non</a> for Pythonistas.  Unfortunately Unity catches the tab key before you can grab it, so it's impossible to 'type' a tab into a Unity text field.  After banging my head against this for a while, I settled on a pathetic workaround: just cheat and use the tilde key, which is above the tab key on most keyboards and doesn't have semantic importance in Python. Our new friend <code>HackyTabSubsitute()</code> makes sure that each time the GUI is drawn we replace and  backtick characters with indents and any tildes (shift-backtick) with dedents.  You can see how we also preserve the cursor position  by use of the TextEditor.  </p>
+<div class="highlight"><pre><span></span><span class="c1">// use ` and ~ as substitutes for tab and un-tab  </span>
+<span class="n">private</span> <span class="kt">void</span> <span class="nf">HackyTabSubstitute</span> <span class="p">()</span> 
+<span class="p">{</span> 
+<span class="n">string</span> <span class="n">t</span> <span class="o">=</span> <span class="n">scriptText</span><span class="p">;</span> 
+<span class="n">string</span><span class="p">[]</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">scriptText</span><span class="p">.</span><span class="n">Split</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span> 
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lines</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
+    <span class="p">{</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="sc">&#39;`&#39;</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
+        <span class="p">{</span> 
+        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">selectPos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> 
+        <span class="p">}</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
+        <span class="p">{</span> 
+        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">StartsWith</span> <span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">))</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Substring</span> <span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">selectPos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">4</span><span class="p">;</span>
+        <span class="p">}</span> 
+        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Replace</span> <span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> 
+        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Replace</span> <span class="p">(</span><span class="s">&quot;`&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> 
+    <span class="p">}</span> 
+    <span class="n">scriptText</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">Join</span> <span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="p">);</span> 
+    <span class="k">if</span> <span class="p">(</span><span class="n">scriptText</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span> <span class="n">Repaint</span> <span class="p">();</span> 
+<span class="p">}</span>
+</pre></div>
+
+
+<p>Assuming you can discipline yourself to use tilde instead of tab, this works like you'd expect, and it supports indents and dedents in any part of the line, which is handy for python edits.  </p>
+<h2>Running the script</h2>
+<p>As so often happens, it's the damn GUI which takes all the work. The actual point of this whole excersize is to let you type in some python and execute it. If you trigger an evaluation - with the buttons or with command + enter, you'll fire the Interpret function:  </p>
+<div class="highlight"><pre><span></span><span class="c1">// Pass the script text to the interpreter and display results    </span>
+ <span class="n">private</span> <span class="kt">void</span> <span class="nf">Intepret</span> <span class="p">(</span><span class="n">string</span> <span class="n">texttointerpret</span><span class="p">)</span>
+ <span class="p">{</span>
+     <span class="n">object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>    
+     <span class="n">try</span> <span class="p">{</span>    
+         <span class="n">Undo</span><span class="p">.</span><span class="n">RegisterSceneUndo</span> <span class="p">(</span><span class="s">&quot;script&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">scriptSrc</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="n">texttointerpret</span><span class="p">);</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="n">texttointerpret</span><span class="p">;</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+     <span class="p">}</span>     
+     <span class="c1">// Log exceptions to the console too    </span>
+     <span class="n">catch</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>    
+         <span class="n">Debug</span><span class="p">.</span><span class="n">LogException</span> <span class="p">(</span><span class="n">e</span><span class="p">);</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;#  &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">Message</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+     <span class="p">}</span>     
+     <span class="n">finally</span> <span class="p">{</span>    
+         <span class="c1">// grab the printbuffer stringIO and get its contents    </span>
+         <span class="n">var</span> <span class="n">printbuffer</span> <span class="o">=</span> <span class="n">ScriptScope</span><span class="p">.</span><span class="n">GetVariable</span> <span class="p">(</span><span class="s">&quot;printbuffer&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">gv</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Operations</span><span class="p">.</span><span class="n">GetMember</span> <span class="p">(</span><span class="n">printbuffer</span><span class="p">,</span> <span class="s">&quot;getvalue&quot;</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">st</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Operations</span><span class="p">.</span><span class="n">Invoke</span> <span class="p">(</span><span class="n">gv</span><span class="p">);</span>    
+         <span class="n">var</span> <span class="n">src</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>    
+         <span class="n">src</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+         <span class="k">if</span> <span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">ToString</span> <span class="p">().</span><span class="n">Length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
+             <span class="n">foreach</span> <span class="p">(</span><span class="n">string</span> <span class="n">l</span> <span class="n">in</span> <span class="n">st</span><span class="p">.</span><span class="n">ToString</span><span class="p">().</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">))</span>    
+             <span class="p">{</span>    
+                 <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;  &quot;</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+             <span class="p">}</span>    
+             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="p">}</span>    
+         <span class="c1">// and print the last value for single-statement evals    </span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>    
+             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;#  **&quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">.</span><span class="n">ToString</span> <span class="p">()</span> <span class="o">+</span> <span class="s">&quot;**</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
+         <span class="p">}</span>    
+         <span class="kt">int</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">historyText</span><span class="p">.</span><span class="n">Split</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">).</span><span class="n">Length</span><span class="p">;</span>    
+         <span class="n">historyScroll</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">lines</span> <span class="o">*</span> <span class="mi">19</span><span class="p">);</span>                    
+         <span class="n">Repaint</span> <span class="p">();</span>    
+     <span class="p">}</span>    
+     <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+
+<p>The heart of the whole business is just  </p>
+<div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>
+</pre></div>
+
+
+<p>which actually executes the contents of your script window.  As in Maya, we'll copy the evaluated text up to the history pane  (historyText += ,etc).  If the event of an exception, we print out the exception into the history window as well, and also push a Unity debug message in case you aren't looking at your console window when the problem arises.  Finally, we check to see if the printbuffer StringIO object has been written to duing the script execution  and copy it's contents to the history window too.   </p>
+<p><a href="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png"><img alt="" src="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png" /></a></p>
+<h2>V. 0.1</h2>
+<p>Before starting the first of this pair of posts I was mostly just musing on how TA-friendly Unity is.   Building out a complete script editor is a perfect example of TA feature creep in action.  </p>
+<p>If you implement a script editor using the hints here you'll quickly see what's not there things like cut and paste, syntax highlighting, execution of selected text only and support for external files, just to name a few things that would be worth having.  And I should mention that this is demo code, it's not the sort of thing I'd want to turn into a critical path tool without further work.   </p>
+<p>Even so, it's been a useful little project.  In this holiday season it's taught me to appreciate my blessings - like how many nice little touches you get with a modern text editor. I'm even feeling more charitable towards the Max and Maya script listeners, since I've walked a mile in their sad patheric old worn out shoes.   </p>
+<p>All that said though, it really is pretty fricking neat that you can add a completely new scripting language to the Unity editor in a couple of hours -- and save your self tons of future time by adding cheapo scripts to automate tedious tasks that aren't worth 200 lines of C# curly brackets.  </p>
+<p>At some point I'll address the most obvious failings - lack of cut-n-paste is the clear winner! - but first I want to see about implementing the console in a more flexible GUI - for example, I could pop up a WPF window, or maybe even something truly funky like an <a href="python_in_browsers.html">in-browser python console.</a>.  In the mean time, if anybody takes this further I'd love to hear about it.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 22 December 2013
@@ -151,7 +946,11 @@
                     Python in Unity  - minor correction
                 </h2>
             </a>
-                A quick update to earlier posts about using IronPython in Unity.
+                <p>Going over the last post about <a href="python_in_unity.html">Python + Unity</a>, I did a clean install to make sure the steps I was describing were working correctly and it reminded me about an inportant bit I've left out: how to get the Python stdlib into your Unity IronPython  </p>
+<p>Because Microsoft was the sponsor of the original IronPython project, versions that Microsoft released (including the 2.6.2 that i linked to in the last post) <strong>don't include the stdlib</strong>, which comes with it's own license that clashes in some mysterious way with MS's licensing terms (even though both MS and the Python Foundation are giving the stuff away for free... _<em>_sigh</em>). So to dance around that, they did not include the stdlib -- the 'batteries included' -- with base install.  </p>
+<p>The remedy is simple - grab a copy of the regular python stdlib from a python 2.6 series install and copy it into the /Lib folder next to the location of your IronPython DLL.  I found it simplest to grab the Python26.zip folder from my Maya install and to expand that into the folder.  I did leave the 3 or 4 files that IPy had installed there on its own intact, I believe -- on pure intuition -- that they are different from the corresponding files in the standard python lib.  </p>
+<h2>Caveat emptor</h2>
+<p>FWIW, this is a good place to point out that some small percentage of stdlib modules don't work under IronPython (an unfortunate example being the handy <code>csv</code> module for reading comma-delimited data files).  AFAIK there is no authoritative list of which modules do and don't work under Ipy. The good news is that, for this application , there is almost always a dotnet native solution to use as an alternative without having to install anything else.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 22 December 2013
@@ -163,24 +962,106 @@
                     Embedding IronPython in Unity = Tech-art hog heaven
                 </h2>
             </a>
-                How to embed an IronPython intepreter into Unity editor tools.
+                <blockquote>
+<p><strong>Update 6/2/2015</strong> If you are relatively new to Unity, and you're here because you're looking for ways to work in Python rather than C#, you may also want to check out <a href="boo-who.html">this 2015 post</a> about Boo - the very obscure, but very Python-like language in Mono that lets you write Unity games with fast, compiled code by almost-Python syntax.  It's always been a part of Unity but a lot of people never knew it was there.</p>
+</blockquote>
+<p>You don't work long in games without griping about your engine, and I've got my share of complaints about Unity. But I have to admit that it's the best toy in the world for a classic tech-art geek personality. Unlike bigger, more powerful AAA engines, Unity lets you get in under the hood really quickly. The editor environment is extremely extensible - you can add not just dialogs and buttons but 3d widgets and <a href="http://www.thewanderlust.net/blog/2010/03/29/user-interface-design-in-video-games/">diegetic UI </a>.   </p>
+<p>When I first got my hands on Unity I was a bit disappointed to note that, unlike Maya, it doesn't include a built in interactive console environment. The console is a wonderful thing for a TA - it's great for printing out data, lightweight automation of the "find everything in the scene named 'foo' and rename it to 'bar'" variety. So, I thought, is there some way to get this into Unity?  The fact that one could even ask it is a tribute to how flexible Unity is - and as it turned out it was not only possible, it wasn't too hard.  </p>
+<h2>You got Python in my Unity!</h2>
+<p>To start with a console needs some kind of scripting language. Not surprisingly, I wanted to see I could do it in Python. Fortunately, this is ridiculously easy thanks to <a href="http://ironpython.codeplex.com/">IronPython</a>, the dotnet flavor of Python.  IronPython  runs on dotnet, and so does Unity - so it's not tough to plug IronPython into Unity directly.  Here's how:  </p>
+<ol>
+<li>You need a verstion of IronPython that will run on Unity's version of <a href="http://www.mono-project.com/Main_Page">Mono </a>, which as of this writing (Unity 4.22 , late 2013) is version 2.6.  By a happy coincidence of naming, that points you at <a href="http://ironpython.codeplex.com/downloads/get/159511">IronPython 2.6.2</a>.  (I've tried later versions but without much luck).</li>
+<li>Locate the IronPython dlls and the IronPython stdlib in the zip file. You will need<br />
+    _
+        - IronPython.dll
+        - IronPython.Modules.dll
+        - Microsoft.Scripting.Core.dll
+        - Microsoft.Scripting.dll
+        - Microsoft.Scripting.Debugging.dll
+        - Microsoft.Scripting.ExtensionAttribute.dll
+        - Microsoft.Dynamic.dll</li>
+<li>If you want access to the Python stdlib, you'll also need to grab a copy of the python 2.6 /Lib folder -- this is <a href="http://techartsurvival.blogspot.com/2013/12/python-in-unity-minor-correction.html">not distributed with IronPython 2.6</a>.  I unzipped the Python26.zip file from my Maya bin directory into the /Lib folder, taking care to leave the handful of IronPython files already there</li>
+<li>Copy all of the above into an <strong>Editor/Plugins/Resources</strong> folder in Unity. If you're not sure what that means:<ul>
+<li>Naming a folder <em>Editor</em> tells Unity it only runs in the editor, not at runtime (IronPython <em>won't</em> run inside Unity on IOS devices, since those never run editor code). </li>
+<li>Naming it a folder <em>Plugins</em> tells Unity to load dlls from it</li>
+<li>Naming a folder <em>Resources</em> makes sure it loads before scripts are compiled
+For our application we need all three, hence "Editor/Plugins/Resources/..."  You can stick that whole thing into a top level folder for cleanliness if you want. Note the path names in this example:<br />
+<a href="http://3.bp.blogspot.com/-uHVdPvrDduM/Uq_uSf5ZxNI/AAAAAAAABO0/H0PMXUJlFso/s1600/layout.png"><img alt="" src="http://3.bp.blogspot.com/-uHVdPvrDduM/Uq_uSf5ZxNI/AAAAAAAABO0/H0PMXUJlFso/s640/layout.png" /></a></li>
+</ul>
+</li>
+<li>Restart Unity and open up MonoDevelop. If you check the Assembly-CSharp Editor info in the Solution panel you should see all of your IronPython DLL's are referenced therein:<br />
+<a href="http://3.bp.blogspot.com/-A_kG1rnuiuY/Uq_vrq1bXhI/AAAAAAAABPA/b9v7p3wxpfw/s1600/assembl.png"><img alt="" src="http://3.bp.blogspot.com/-A_kG1rnuiuY/Uq_vrq1bXhI/AAAAAAAABPA/b9v7p3wxpfw/s400/assembl.png" /></a></li>
+</ol>
+<p>Once you've verified that the DLL's are in place, its time to test them.  Hosting an IronPython session in another app is much simpler than it sounds. The best resource for how it works is <a href="http://www.voidspace.org.uk/ironpython/embedding.shtml">Michael Foord's Voidspace site</a> (his <a href="http://www.manning.com/foord/">book on IronPython</a> is a great resource if you plan on going far with this , btw) . However in overview the process is pretty simple:</p>
+<ol>
+<li>Create a [<code>Microsoft.Hosting.ScriptEngine</code>]((https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptEngine.cs). This is the actual Python interpreter.</li>
+<li>Create a  <a href="https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptScope.cs"><code>Microsoft.Hosting.ScriptScope</code></a> This corresponds to the global namespace of your interpreter - much like the interpeter namespace in Maya</li>
+<li>Create  a <a href="https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptSource.cs"><code>Microsoft.Hosting.ScriptSource</code></a> using some text you've entered or composed.</li>
+<li>Execute the script</li>
+<li>Rinse &amp; Repeat. You are in business!</li>
+</ol>
+<h2>Script hosting in practice</h2>
+<p>Here's an example .cs script that demostrates the process. Put it in an editor folder so that it can access the Unity Editor assembly (it's probably a good idea to keep it in the editor folder where you have your plugins/resources folder for cleanliness).   </p>
+<div class="highlight"><pre><span></span> using UnityEngine;    
+ using UnityEditor;    
+ using IronPython;    
+ using IronPython.Modules;    
+ using System.Text;    
+ // derive from EditorWindow for convenience, but this is just a fire-n-forget script    
+ public class ScriptExample : EditorWindow {    
+     [MenuItem(&quot;Python/HelloWorld&quot;)]    
+     public static void ScriptTest()    
+     {    
+         // create the engine    
+         var ScriptEngine = IronPython.Hosting.Python.CreateEngine();    
+         // and the scope (ie, the python namespace)    
+         var ScriptScope = ScriptEngine.CreateScope();    
+         // execute a string in the interpreter and grab the variable    
+         string example = &quot;output = &#39;hello world&#39;&quot;;    
+         var ScriptSource = ScriptEngine.CreateScriptSourceFromString(example);    
+         ScriptSource.Execute(ScriptScope);    
+         string came_from_script = ScriptScope.GetVariable&lt;string&gt;(&quot;output&quot;);    
+         // Should be what we put into &#39;output&#39; in the script.    
+         Debug.Log(came_from_script);                
+     }    
+ }
+</pre></div>
+
+
+<p>When it compiles you'll get a menu items that activates the script.  When you hit it you should get a debug printout in your console like so.  </p>
+<p><a href="http://4.bp.blogspot.com/-OHCa77GIxGA/UrEnF442YzI/AAAAAAAABPQ/nYBOKL4W1ZI/s1600/hello+world.jpg"><img alt="" src="http://4.bp.blogspot.com/-OHCa77GIxGA/UrEnF442YzI/AAAAAAAABPQ/nYBOKL4W1ZI/s1600/hello+world.jpg" /></a></p>
+<p>Like the Maya python interpreter, you need to import the appropriate names so that you can get to them in scripts (it's always rather boggled my mind that Maya's own interpreter requires you to import cmds or pymel <em>every single freakin' time</em>.  IronPython lets you import dotnet assemblies as if they were python modules, and since Unity and the Unity Editor are dotnet assemblies you can get access to the entire Unity environment just by importing them into your interpreter.   </p>
+<p>First, we need to load the assemblies to make them available to the intpereter itself.  In dotnet land that's done by loading an assembly.  Once an assembly is loaded, it can be imported using typical Python syntax  </p>
+<div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">MenuItem</span><span class="p">(</span><span class="s2">&quot;Python/HelloWorldRuntime&quot;</span><span class="p">)]</span>    
+ <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">UnityScriptTest</span><span class="p">()</span>    
+ <span class="p">{</span>    
+     <span class="o">//</span> <span class="n">create</span> <span class="n">the</span> <span class="n">engine</span> <span class="n">like</span> <span class="n">last</span> <span class="n">time</span>    
+     <span class="n">var</span> <span class="n">ScriptEngine</span> <span class="o">=</span> <span class="n">IronPython</span><span class="o">.</span><span class="n">Hosting</span><span class="o">.</span><span class="n">Python</span><span class="o">.</span><span class="n">CreateEngine</span><span class="p">();</span>    
+     <span class="n">var</span> <span class="n">ScriptScope</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">CreateScope</span><span class="p">();</span>    
+     <span class="o">//</span> <span class="n">load</span> <span class="n">the</span> <span class="n">assemblies</span> <span class="k">for</span> <span class="n">unity</span><span class="p">,</span> <span class="n">using</span> <span class="n">the</span> <span class="n">types</span> <span class="n">of</span> <span class="n">GameObject</span>    
+     <span class="o">//</span> <span class="ow">and</span> <span class="n">Editor</span> <span class="n">so</span> <span class="n">we</span> <span class="n">don</span><span class="s1">&#39;t have to hardcoded paths    </span>
+     <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">LoadAssembly</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">GameObject</span><span class="p">)</span><span class="o">.</span><span class="n">Assembly</span><span class="p">);</span>    
+     <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">LoadAssembly</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">Editor</span><span class="p">)</span><span class="o">.</span><span class="n">Assembly</span><span class="p">);</span>    
+     <span class="n">StringBuilder</span> <span class="n">example</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuilder</span><span class="p">();</span>    
+     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;import UnityEngine as unity&quot;</span><span class="p">);</span>    
+     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;import UnityEditor as editor&quot;</span><span class="p">);</span>    
+     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;unity.Debug.Log(</span><span class="se">\&quot;</span><span class="s2">hello from inside the editor</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">);</span>    
+     <span class="n">var</span> <span class="n">ScriptSource</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">CreateScriptSourceFromString</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">ToString</span><span class="p">());</span>    
+     <span class="n">ScriptSource</span><span class="o">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
+ <span class="p">}</span>
+</pre></div>
+
+
+<p>Running that one generates another console message - but this time from inside the script!  </p>
+<p><a href="http://3.bp.blogspot.com/-S6g8MqlQ4gg/UrEub33XuBI/AAAAAAAABPg/kJmAVPdZtAI/s1600/hello+2.png"><img alt="" src="http://3.bp.blogspot.com/-S6g8MqlQ4gg/UrEub33XuBI/AAAAAAAABPg/kJmAVPdZtAI/s1600/hello+2.png" /></a></p>
+<h2>Next time: building a console</h2>
+<p>That may not seem like much, but in reality it's a big deal. You've got a working script interpreter running in Unity now, with all the power of Python and access to the innards of the Unity environment.  What remains is to build a decent interactive environment. </p>
+<p>If you're content with something barebones, you can whip up a simple UI to allow you to type code into a text field and see the results in another text block.  That may be enough for some purposes (hell, half the 3d packages on the market do little more than that).  However a more featured editor is a little tougher and involves a  little hacking to work around the limitations of Unity's GUI text handling, which makes it a bit involved for a single post. I'll save that one for next time  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 21 December 2013
             </p>
 <p>There are <a href="http://theodox.com/2013/python_in_unity#disqus_thread">comments</a>.</p>        </div>
-        <div class="post-preview">
-            <a href="http://theodox.com/2013/python_in_browsers" rel="bookmark" title="Permalink to Python in browsers">
-                <h2 class="post-title">
-                    Python in browsers
-                </h2>
-            </a>
-                A quick link to python-in-the-browser projects
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 12 December 2013
-            </p>
-<p>There are <a href="http://theodox.com/2013/python_in_browsers#disqus_thread">comments</a>.</p>        </div>
 
     <hr>
     <!-- Pager -->

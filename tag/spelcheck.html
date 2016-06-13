@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag spelcheck</title>
+        <title>Chimeras & Manticores - Tag spelcheck</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,80 @@
                     Porting Spelchek to Boo
                 </h2>
             </a>
-                A port of the Spelchek spell checker to Boo, just to prove a point.
+                <p>What could be more ghostly than a <em>post mortem?</em>  </p>
+<p>If <a href="boo_who.html">my last post about Boo</a> piqued your interest, but you haven’t had time to do a deep dive into the language to see for yourself, I’ve posted a version of the <a href="https://github.com/theodox/spelchek">Spelchek</a> Python spell checker module converted to Boo so you can see the similarities and differences between the two languages. <br />
+The original Python version is <a href="https://github.com/theodox/spelchek/issues">here</a> and the Boo port is <a href="https://github.com/theodox/BooSpell">here</a>. As a good indication of what I’ve been saying about the economy of Boo syntax, the Boo version comes in at almost the same size as the Python original (5.05 kb for Boo and 4.95kb for Python) and pretty much the same number of lines – I haven’t done the excersize of converting it to C# for comparison but I’d guess the C# version would come in at about half again as much typing.<br />
+Looking at the code, significant chunks are almost identical: the logic is pretty much the same and the type annotations are the only real difference. <br />
+Thus  </p>
+<p>becomes   </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;  </span>
+<span class="sd">    Adds &lt;word&gt; to the dictionary with the specified priority (default is 4)  </span>
+<span class="sd">    &quot;&quot;&quot;</span>  
+    <span class="n">_DICTIONARY</span><span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">priority</span>
+</pre></div>
+
+
+<p>becomes</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">word</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">pri</span> <span class="k">as</span> <span class="n">int</span><span class="p">):</span>  
+<span class="s2">&quot;&quot;&quot;  </span>
+<span class="s2">Adds &lt;word&gt; to the dictionary with the specified priority.   </span>
+<span class="s2">&quot;&quot;&quot;</span>  
+    <span class="n">_DICTIONARY</span><span class="p">[</span><span class="n">word</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">pri</span>
+</pre></div>
+
+
+<p>which is pretty much identical.<br />
+The tricky bit of the conversion was the routine which generates possible variants of the word - it generates variants of a word by transposition and deletions. In Python:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">first_order_variants</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;  </span>
+<span class="sd">    return the obvious spelling variants of &lt;word&gt; with missing words, transpositions, or misplaced characters  </span>
+<span class="sd">    &quot;&quot;&quot;</span>  
+    <span class="n">splits</span> <span class="o">=</span> <span class="p">[(</span><span class="n">word</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>  
+    <span class="n">deletes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>  
+    <span class="n">transposes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>  
+    <span class="n">replaces</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>  
+    <span class="n">inserts</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span><span class="p">]</span>  
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">deletes</span> <span class="o">+</span> <span class="n">transposes</span> <span class="o">+</span> <span class="n">replaces</span> <span class="o">+</span> <span class="n">inserts</span><span class="p">)</span>
+</pre></div>
+
+
+<p>As you can see the first list comprehension, <code>splits</code>, generates a lists of pairs representing places where the word could be broken up, so that ‘cat’ produces <code>[("c","at"), ("ca", "t")]</code>. The other comprehensions use that list to try inserting, deleting or transposing letters to guess what the user might have really been typing.<br />
+In Boo, the tricky bit was getting the compiler to recognize that the <code>splits</code> list contained a pair of strings and that all the lists produced by it would also be lists of strings. Porting the python code directly wouldn’t work because Boo would see <code>splits</code> as a list of type <code>object</code> instead of deducing that it was a set of string pairs. <br />
+Here’s the Boo version, which as you can see is recognizably the same but is clunkier than the Python, due to the need for typing,   </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">first_order_variants</span><span class="p">(</span><span class="n">word</span> <span class="k">as</span> <span class="n">string</span><span class="p">):</span>  
+<span class="s2">&quot;&quot;&quot;  </span>
+<span class="s2">return the obvious spelling variants of &lt;word&gt; with missing words, transpositions, or misplaced characters  </span>
+<span class="s2">&quot;&quot;&quot;</span>  
+    <span class="n">_stringList</span> <span class="o">=</span> <span class="n">Boo</span><span class="p">.</span><span class="n">Lang</span><span class="p">.</span><span class="n">List</span><span class="p">[</span><span class="k">of</span> <span class="p">(</span><span class="n">string</span><span class="p">)]</span>  
+    <span class="n">_strings</span> <span class="o">=</span> <span class="n">Boo</span><span class="p">.</span><span class="n">Lang</span><span class="p">.</span><span class="n">List</span><span class="p">[</span><span class="k">of</span> <span class="n">string</span><span class="p">]</span>  
+    <span class="n">pair</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">i</span> <span class="k">as</span> <span class="n">int</span> <span class="o">|</span> <span class="p">(</span><span class="n">w</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="k">cast</span> <span class="n">string</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="k">cast</span> <span class="n">string</span><span class="p">)}</span>  
+    <span class="n">splits</span> <span class="o">=</span> <span class="n">_stringList</span><span class="p">((</span><span class="n">pair</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>  
+    <span class="n">deletes</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="n">b</span><span class="p">))</span>  
+    <span class="n">transposes</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))</span>  
+    <span class="n">replaces</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span> <span class="k">if</span> <span class="n">b</span><span class="p">))</span>  
+    <span class="n">inserts</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span><span class="p">))</span>
+
+    <span class="n">result</span> <span class="o">=</span> <span class="n">HashSet</span><span class="p">[</span><span class="k">of</span> <span class="n">string</span><span class="p">]()</span>  
+    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="p">(</span><span class="n">deletes</span><span class="p">,</span> <span class="n">transposes</span><span class="p">,</span> <span class="n">replaces</span><span class="p">,</span> <span class="n">inserts</span><span class="p">):</span>  
+        <span class="n">result</span><span class="p">.</span><span class="n">UnionWith</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+
+<p>To clean it up I added two ‘aliases’ up at the top, since the Boo syntax for declaring typed containers is hard to read (‘List[of string]’): so <code>_stringList</code> is a shortcut for ‘list of string arrays’ and <code>_strings</code> is a shortcut for ‘list of strings’.  </p>
+<p>The variable <code>pair</code> contains a lambda (ie, an inline function) using Boo’s idiosyncratic syntax: you could mentally rewrite it as  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pair</span><span class="p">(</span><span class="n">w</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">i</span> <span class="k">as</span> <span class="n">int</span><span class="p">)</span> <span class="k">of</span> <span class="p">(</span><span class="n">string</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="p">(</span><span class="n">w</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">w</span><span class="p">(</span><span class="n">i</span><span class="p">:))</span>
+</pre></div>
+
+
+<p>or in other words “give me a string and an integer, I’ll return a pair of strings split at the index you gave me.”  </p>
+<p>With those helpers in place the logic is identical, but it is harder to follow because of all the type-mongering. I’m pretty sure there are more elegant ways to do this withgout being so wordy, but I’m not an expert.   </p>
+<h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404&amp;bpli=1&amp;pli=1#so"></a>So…</h1>
+<p>The point of the experiment was to see how hard the Python to Boo translation would be. This is an application where types actually matter a good deal, since all my values are strings and I need to be able to do string operations like joins on them – if all I was doing as asking questions of them things would have been more Pythonic (though probably slower as well: one of the reasons we need those types is to get the compiler to help us speed the code up).   </p>
+<p>While this is hardly a demanding application, it is at least a proof-of-concept for the idea of prototyping in Python and then selectively porting to Boo isn’t completely nuts.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 06 June 2015

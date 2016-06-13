@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Articles by Steve Theodore</title>
+        <title>Chimeras & Manticores - Articles by Steve Theodore</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,9 +34,9 @@
         <![endif]-->
 
                     <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 
-    <meta property="og:title" content="theodox.com - Articles by Steve Theodore">
+    <meta property="og:title" content="Chimeras & Manticores - Articles by Steve Theodore">
     <meta property="og:type" content="profile">
     <meta property="profile:first_name" content="Steve">
     <meta property="profile:last_name" content="Theodore">
@@ -56,7 +56,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -97,7 +97,11 @@
                     Multiple MayaPy Management Mania
                 </h2>
             </a>
-                Introducing the 'MayaPyManager' class, for spinning up isolated MayaPy instances with their own environments and Maya versions
+                <p>Lately I've been re-factoring the build system I use to distribute my python tools to users.  The things which has been driving me crazy is the need to start supporting multiple versions of Maya at the same time.   </p>
+<p><a href="http://www.opensrs.com/images/wordpress/uploads/2007/04/email-service-1/it-worked-on-my-machine.jpg"><img alt="" src="http://www.opensrs.com/images/wordpress/uploads/2007/04/email-service-1/it-worked-on-my-machine.jpg" /></a></p>
+<p>Besides the general hassle involved, supporting multiple Maya versions and multiple projects at the same time is a nightmare for doing good testing and QA.  With so many different configurations it becomes increasingly easy for something to slip through the cracks.  You might have a bit of Python 2.7 syntax which you wrote in Maya 2014 sneaking into a tool used in Maya 2011. You might have tools that rely on an external dll that is correctly set up in your Maya 2011 tools but not in the outsourcer version of your 2012 setup.... The possibilities for shooting yourself in the foot are endless.  </p>
+<p>So, in an effort to clean this up, I've cooked up a simple module designed to create and run instances of MayaPy.exe with precise control over the paths and environment variables.  You can use it to run tests or automatic processes in isolation, knowing that only the paths and settings you're using will be live.  </p>
+<p>The actual code is not super complex -<a href="https://gist.github.com/theodox/2c712a91155c7e1c4c15">it's up on gitHub</a>, as usual free-to-use under the MIT license.  Comments / questions / feedback and especially bug fixes all welcome! </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 11 May 2014
@@ -109,7 +113,7 @@
                     The only meme I will ever post
                 </h2>
             </a>
-                I hate meme gifs. But this one sort of sums it up
+                <p><a href="https://lh5.googleusercontent.com/-3VltAqg2vaU/U2CQM7nRnsI/AAAAAAABIC4/JbGXg7-oy6U/s640/blogger-image--1968691607.jpg"><img alt="" src="https://lh5.googleusercontent.com/-3VltAqg2vaU/U2CQM7nRnsI/AAAAAAABIC4/JbGXg7-oy6U/s640/blogger-image--1968691607.jpg" /></a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 02 May 2014
@@ -121,7 +125,190 @@
                     The Main Event - event oriented programming in Maya
                 </h2>
             </a>
-                Event oriented programming for python in general and for Maya GUI in particular
+                <p>The <a href="maya_callbacks_cheat_sheet.html">Maya Callbacks Cheat Sheet</a> post started out as an effort to explain the design the <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">event system</a> in <a href="https://github.com/theodox/mGui">mGui </a>- but it quickly turned into it's own thing as I realized that the vanilla Maya system remains confusing to lots of people.  With that background out of the way, I want to return to events proper, both to explain why they work the way the do in mGui and also how they can be useful for other projects as well (I use them all over the place in non-GUI contexts).  </p>
+<p>...and, because it's got the word 'event' in it, I'm going to throw in a lot of irrelevant references as I can manage to <strong><em>The Crushah!</em></strong>  </p>
+<p><a href="http://hot-breakfast.com/wp-content/uploads/2014/01/GHG-WB-Crusher.jpg"><img alt="" src="http://hot-breakfast.com/wp-content/uploads/2014/01/GHG-WB-Crusher.jpg" /></a></p>
+<h2>The Reining "Champeen"</h2>
+<p><a href="http://i3.ytimg.com/vi/n0lzjNzql5Y/mqdefault.jpg"><img alt="" src="http://i3.ytimg.com/vi/n0lzjNzql5Y/mqdefault.jpg" /></a>  </p>
+<blockquote>
+<p>It's a heavyweight programming paradigm!  </p>
+</blockquote>
+<p>The cheat sheet post showed that Maya callbacks are reasonably functional once you understand the underlying code scope rules. However they also shows some of the limitations of the default system:  </p>
+<h4>Awkward argument handling</h4>
+<p>In cases where you want to call a command with arguments or parameters, plain-old-Maya callbacks require you do fancy footwork with lambdas or partials to pass your arguments in correctly. It's not rocket science, but it is a pointless tax on what should be a trivial problem.  </p>
+<h4>Design time</h4>
+<p>GUI code is usually kind of fiddly to begin with, since you're often busy tweaking sizes, layouts and other graphical whatnots as you lay out the GUI (one of the big advantages of things like QT Designer is that they split this work out from the underlying code very neatly by turning all of that layout and presentation stuff into data).  You can see this particularly when you're trying to shoehorm all of the arguments and parameters for a command into the same line that also declares and styles a control: you get a long messy piece of junk with lots of nested parens that's hard to parse at a glance.   </p>
+<p>On a more strategic level, creating commands at the same time you create the visual layout for your controls tends to lock you into a monolithic style of coding. If you want to add new behaviors to a control contextually, you need to manage all of the state inside some other bit of code which not only knows how to do the new job,  it also needs to know enough about the original GUI layout that it can replace existing callback commands with new ones.   This means trivial tasks like highlighting a button when something is selected from a list get intertwined with complex code that does real work -- and, alas, that the two different sets of concerns get to share bugs.  </p>
+<h4>One shot</h4>
+<p>The last big drawback of the default Maya callback system is that each callback fires only one command.  This is not a big deal for things like buttons, but when you extend it to things like scriptJobs it can get messy very fast. Either you end up creating dozens of similar scriptJobs attached to the same trigger - in which case you  have to waste a lot of energy on managing them all -- or you have to create a complex uber-handler that jams a ton of (possibly unrelated) behaviors into a giant bucket-o-code.</p>
+<h2>And In Dis Corner..!</h2>
+<p><a href="http://img.rp.vhd.me/3147118_l2.jpg"><img alt="" src="http://img.rp.vhd.me/3147118_l2.jpg" /></a></p>
+<blockquote>
+<p>our plucky challenger  </p>
+</blockquote>
+<p>The mGui event system is intended to fight these problems and to promote cleaner, less coupled and more general code.  </p>
+<p>The main ideas is to create objects --<a href="https://github.com/theodox/mGui/blob/master/mGui/events.py"> the Event class</a>-- which store a list of functions (usually known as 'handlers') which they call when they are activated. Each Event can host any number of handlers, and the handlers can be added or removed from an event at any time.  The events can store information you know when they are created or pass information you only know when they fire, so you don't have to jump through hoops to provide relevant data to your handlers. Finally, the Events are smart enough not to complain when a handler disappears - if you're logging processed items to a window from a long running task and the user closes the window, the underlying code will still run without complaint.</p>
+<p>If you know your OOP history, this is obviously a shameless ripoff of the standard <a href="http://www.philipuren.com/serendipity/index.php?/archives/4-Simple-Observer-Pattern-in-Python.html">Observer Pattern</a>, -- although the implementation here owes more to <a href="http://msdn.microsoft.com/en-us/library/aa645739(v=vs.71).aspx">the way events are handled in C#</a>.   The main difference from the canonical implementation is that -- this being Python -- the handlers don't need to be classes, much less implementations of any particular base class; instead, the Event maintains a list of callables -- which can be functions, lambdas or callable classes -- and tries to fire them when it itself is triggered. Unlike the C# version of the same idea, there's no need for an elaborate menagerie of specially-typed handlers and data passing classes; instead, any function that accept <a href="http://freepythontips.wordpress.com/2013/08/04/args-and-kwargs-in-python-explained/">the plain-python open-ended <em>args, </em>*kwargs signature</a> can be a handler.</p>
+<p>Here's the important bit of the core code (the full thing, as always, is <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">up on github</a>) :</p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Event</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+        <span class="sd">&#39;&#39;&#39;Set list of handlers callables. Use a set to avoid multiple calls on one handler&#39;&#39;&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Data</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">Data</span><span class="p">[</span><span class="s1">&#39;event&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_add_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Add a handler callable. Raises a ValueError if the argument is not callable</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">callable</span><span class="p">(</span><span class="n">handler</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2"> is not callable&quot;</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">get_weak_reference</span><span class="p">(</span><span class="n">handler</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">_remove_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Remove a handler. Ignores handlers that are not present.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">wr</span> <span class="o">=</span> <span class="n">get_weak_reference</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="n">delenda</span> <span class="o">=</span> <span class="p">[</span><span class="n">h</span> <span class="k">for</span> <span class="n">h</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="k">if</span> <span class="n">h</span> <span class="o">==</span> <span class="n">wr</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">delenda</span><span class="p">))</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        returns the me</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">md</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Data</span><span class="p">)</span>
+        <span class="n">md</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">md</span>
+
+    <span class="k">def</span> <span class="nf">_fire</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Call all handlers.  Any decayed references will be purged.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="n">delenda</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">handler</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="p">:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">handler</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">metadata</span><span class="p">(</span><span class="n">kwargs</span><span class="p">))</span>
+            <span class="k">except</span> <span class="n">DeadReferenceError</span><span class="p">:</span>
+                <span class="n">delenda</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="o">.</span><span class="n">difference</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">delenda</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_handler_Count</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Returns the count of the _Handlers field</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">([</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span><span class="p">])</span>
+
+    <span class="c1"># hook up the instance methods to the base methods</span>
+    <span class="c1"># doing it this way allows you to override more neatly</span>
+    <span class="c1"># in derived classes</span>
+    <span class="n">__call__</span> <span class="o">=</span> <span class="n">_fire</span>
+    <span class="n">__len__</span> <span class="o">=</span> <span class="n">_handler_Count</span>
+    <span class="n">__iadd__</span> <span class="o">=</span> <span class="n">_add_handler</span>
+    <span class="n">__isub__</span> <span class="o">=</span> <span class="n">_remove_handler</span>
+</pre></div>
+
+
+<p>As you can see, it's really quite simple: The handlers are maintained in set, so they can't accidentally be duplicated.  We override the <code>__iadd__</code> and  <code>__isub__</code> methods to provide a simple syntax for attaching and detaching handlers (shamelessly stolen from C#).  The core is the <code>__call__</code> method. which makes the Event object callable as if it were a function.  When the event is called, it fires all of the handlers with whatever arguments and keywords were passed in.  </p>
+<blockquote>
+<p>The only 'interesting' bit of code is the function WeakMethod in line 20 - it's not defined in this snippet; basically it's job is to make sure the Event object doesn't keep objects alive in memory when they should be de-referenced. <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">See the github</a> for details if you're interested.</p>
+</blockquote>
+<p>While the description is a bit long winded, the use case is pretty straightforward:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.events</span> <span class="kn">import</span> <span class="n">Event</span>
+<span class="n">test_event</span> <span class="o">=</span> <span class="n">Event</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s1">&#39;test event&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">test_handler</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwargs</span>
+
+<span class="n">test_event</span> <span class="o">+=</span> <span class="n">test_handler</span> <span class="c1"># attach the handler</span>
+
+<span class="n">test_event</span><span class="p">()</span>
+<span class="c1">#&gt;&gt; () {&#39;name&#39;: &#39;test event&#39;, &#39;event&#39;: &lt;mGui.events.Event object at 0x000000002C7FEC88&gt;}</span>
+<span class="n">test_event</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+<span class="c1">#&gt;&gt; (1, 2, 3) {&#39;name&#39;: &#39;test event&#39;, &#39;event&#39;: &lt;mGui.events.Event object at 0x000000002C7FEC88&gt;}</span>
+<span class="n">test_event</span><span class="p">(</span><span class="n">msg</span> <span class="o">=</span> <span class="s1">&#39;hello&#39;</span><span class="p">)</span>
+<span class="c1">#&gt;&gt; () {&#39;msg&#39;: &#39;hello&#39;, &#39;name&#39;: &#39;test event&#39;, &#39;event&#39;: &lt;mGui.events.Event object at 0x000000002C7FEC88&gt;}</span>
+</pre></div>
+
+
+<p>Here <code>test_event</code>  is an <code>Event</code> object and <code>test_handler</code> is a handler function. Handlers are callables of any kind: functions, object methods, lamdas, or callable objects. The only requirement is that they accept the <code>*args, **kwargs</code> form of open-ended arguments -- you can do whatever you want with the args and kwargs inside a given handler, but they will be passed so you'll need to provide the right signature in your handler functions.  </p>
+<p>One of the trickiest bits of doing event-driven programming is providing the right context to your handler functions.  Different kinds of functional code will need different bits of information -- for example, you might fire an event when the user selects something in your scene.  One handler could highlight the selected item in a list, another could enable or disable some buttons, and a third could update present an appropriate dropdown list. Some of these operations will care about the selected objects, and some won't; some will care about other kinds of conditions (Is the window expanded? Is the user in 'advanced mode'?). To keep the code clean and provide handlers with the context they need to do their jobs, the Events need to be able to pass extra information; the <em>args, </em>*kwargs form makes it easy to provide the data you think appropriate.  </p>
+<p><a href="http://img.youtube.com/vi/msp7rGJ5l7c/0.jpg"><img alt="" src="http://img.youtube.com/vi/msp7rGJ5l7c/0.jpg" /></a></p>
+<h2>Extra! Extra! Read All About It!</h2>
+<p>Most of the time, the info you want to pass with your event is dynamic - you don't know what it will be until the tool is actually running. In this case, you can just pass arguments or keywords at call time as I did in the previous example. This really helps to make the callback mechanism more flexible, since the same Event can be triggered many tines for different circumstances without new code. For example, say you've got a long running process that's looping over a bunch of objects and doing something.  </p>
+<p>Sometimes, though, the data is constant. In that case you can build it into the Event object directly - in that last snippet you can see that <code>test_event</code> has been set up with a name at creation time and that name is passed along to all invocations of the event. The ability to add unique data to an event ,makes it simple to write general handlers that can deal with several types of  Events at once - for example, you might auto-generate a set of buttons each of which was tied to a particular object in your Maya scene and then pass the object names through button's Events. Something like this mGui example (though as I said at the outset, you can just use the events module without mGui if you want):  </p>
+<p>Any keywords you provide when creating an Event object will be stored and then passed as keywords when the event goes off. (You'll might have noticed in the previous example that Events automatically includes a reference to themselves in their keyword arguments; this can be handy for things like one-shot handlers that want to remove themselves from an  event after they fire)  A common idiom is to add a reference to the owning GUI object, so that there's no extra work needed to figure out, say, which checkbox just toggled it's state. In this example I've added added a reference to the buttons as 'sender' manually, but if I hadn't manually created the event and had just attached a handler to the default one that comes with the mGui button I'd also have gotten that for free.  </p>
+<p>One thing to point out here is that the Events can mix both styles - predefined keywords and keywords or arguments that are defined at runtime. The Events will overwrite any pre-defined keywords that are duplicated, which is a behavior to remember - it can be useful but might also cause some surprises if you're not expecting it.,  </p>
+<h2>The Final Round</h2>
+<h2><a href="http://i.ytimg.com/vi/M50wHftQax8/0.jpg"><img alt="" src="http://i.ytimg.com/vi/M50wHftQax8/0.jpg" /></a></h2>
+<p>that's gotta hurt  </p>
+<p>At the risk of repeating myself, I just want to show how the Event pattern makes it easier to achieve good, clean division between GUI code and functional code.  Here's the usual way you'd go about doing something like updating a GUI to reflect a long-running process:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
+<span class="k">class</span> <span class="nc">OverCoupled</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span>  <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">col</span>  <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">some_complex_function</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">msg</span> <span class="o">=</span>  <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;...&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">counter</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="s1">&#39;0&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">some_complex_function</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>
+        <span class="c1"># update the gui</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;doing something fancy&quot;</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">):</span>
+           <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+           <span class="c1"># redraw the label </span>
+           <span class="bp">self</span><span class="o">.</span><span class="n">_counter</span> <span class="o">+=</span><span class="mi">1</span> 
+           <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">item</span> <span class="p">)</span>
+           <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">counter</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_counter</span><span class="p">))</span>
+           <span class="n">cmds</span><span class="o">.</span><span class="n">refresh</span><span class="p">(</span><span class="n">force</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="c1"># closing message</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">msg</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;finished fancy tasks&quot;</span><span class="p">)</span>
+
+<span class="n">oc</span> <span class="o">=</span> <span class="n">OverCoupled</span><span class="p">()</span>
+<span class="n">oc</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Now, you could say that doesn't look _too _bad - the class is making it easy to find the text you want to update and it's only a couple  of lines each time you do the update. But this example is trivial; imagine this was real world code where some_complex_function really was complex and had lots of branches or possible failure points.  What if you needed to hit not two, but five or six different GUI elements?  What if you wanted to add logging or email?  The maintenance would add up fast.  </p>
+<p>Most of all, imagine how irritating it is to write code that simultaneously does some complex task - requiring you to mentally follow along with the ins and outs of the procedure as you write or debug it - and then adding a bunch of fiddly gui code in-line with the tool work. It only gets worse if you want to refactor or re-use parts of some_complex_function, since you'll have to work around or excise the parts specific to this GUI It's a classic violation of <a href="http://effectivesoftwaredesign.com/2012/02/05/separation-of-concerns/">Separation of Concerns</a>.  Here's the same code with events instead of inline GUI code:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mGui.gui</span> <span class="kn">as</span> <span class="nn">gui</span>
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+<span class="kn">import</span> <span class="nn">mGui.events</span> <span class="kn">as</span> <span class="nn">events</span>
+
+<span class="k">def</span> <span class="nf">move_down</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">],</span> <span class="n">t</span><span class="o">=</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span><span class="mi">0</span><span class="p">),</span> <span class="n">r</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># make a window with buttons for each transform. Clicking buttons </span>
+<span class="c1"># moves them down 10 units</span>
+<span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">VerticalForm</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">):</span>
+            <span class="n">b</span> <span class="o">=</span> <span class="n">gui</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s1">&#39;b_&#39;</span> <span class="o">+</span> <span class="n">item</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">item</span><span class="p">)</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">=</span> <span class="n">events</span><span class="o">.</span><span class="n">Event</span><span class="p">(</span><span class="n">sender</span> <span class="o">=</span> <span class="n">b</span><span class="p">,</span> <span class="n">target</span> <span class="o">=</span> <span class="n">item</span><span class="p">)</span>
+            <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">move_down</span>
+
+<span class="n">example</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>As you can see the event-based version lets you cleanly separate out the functions from the UI. Moreover it would be a snap to make a headless version that ran with no GUI - and you could even add  logging to the console by attaching a simple handler function to the processor's <code>ItemProcessed</code> event. Abstracting  away the actual GUI code makes it easy to keep your code tidy and also lets you evolve your display mechanism without endangering your functional code. If you decide to swap in a messageLine for the the text widget -- or for that matter, if you print a line to the listener - it's all the same to the underlying code. This flexibility is exactly what <a href="http://pynash.org/2013/03/07/logging-intro.html">makes the native Python logging module so powerful</a>:  logging can write to text files, update databases, send emails or print console messages -- indeed, it can do all of those at once -- and the code that calls logging doesn't need to change one iota.</p>
+<h2>TKO!</h2>
+<p><a href="http://1.bp.blogspot.com/_4QlZmS5gO7s/SmaQEq6ewTI/AAAAAAAAARE/A5DKfeZ5Sz8/s320/BunnyHugged13.jpg"><img alt="" src="http://1.bp.blogspot.com/_4QlZmS5gO7s/SmaQEq6ewTI/AAAAAAAAARE/A5DKfeZ5Sz8/s320/BunnyHugged13.jpg" /></a></p>
+<p>So, that's the basic rationale for the event system in mGui. If you <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">check out the file on github</a> you'll see there's a bit more going under the hood - that's a matter for another time. Till then, keep those dukes up.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 29 April 2014
@@ -133,7 +320,250 @@
                     Maya callbacks cheat sheet
                 </h2>
             </a>
-                An overiew of how Maya GUI callbacks work, along with some recommendations for how to set them up neatly.
+                <blockquote>
+<p>Update 5/7/14: Added a note on closures and lambdas_  </p>
+</blockquote>
+<p>In <a href="all_your_base.html">All Your Base Classes</a>,  I suggested that we can do better than the standard callback mechanism for doing Maya event handling.  The limitations of the default method are something I've <a href="pity_for_the_outcast.html">complained about before</a>, and if you follow these things on <a href="http://tech-artists.org/forum/showthread.php?3292-Maya-python-UI-acessing-controls-from-external-functions">TAO</a> or CGTalk or <a href="http://stackoverflow.com/questions/3435128/creating-a-ui-in-Maya-using-python-scripting">StackOverflow</a> it seems pretty clear that a lot of other people have problems with the standard Maya code flow too.  </p>
+<p>I was planning on devoting the next big post to the event mechanism in <a href="https://github.com/theodox/mGUI">mGUI </a>. However as I did the spadework for this post I decided it was better to split it up into two parts, since a lot of folks seem to be confused about the right way to manage basic Maya callbacks. Before moving fancy stuff, it's a good idea to make sure the basics are clear. Most vets will already know most of what I'm going over here, but I found the  time spent laying it out for myself a useful exercise  so I figured it would be worth sharing even if it's not revolutionary.  </p>
+<h2>Unsolved Mysteries of the Maya.</h2>
+<p>So, let's start by clearing up something that even a lot of old-school Maya coders find a bit mysterious when building GUIs.  </p>
+<p><a href="http://epGUIdes.com/UnsolvedMysteries/cast.jpg"><img alt="" src="http://epGUIdes.com/UnsolvedMysteries/cast.jpg" /></a></p>
+<p>In vanilla Maya, GUI components fire callbacks - that is to say that when Maya recognizes a user action like a button press or a text entry, it calls a function you've provided. There are two ways you can set this up.  The old-school MEL way is to use a string:  </p>
+<div class="highlight"><pre><span></span><span class="n">my_button</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s1">&#39;print &quot;hello&quot;&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>In the bad old days of MEL, this was usually fine since most procedures were declared as globals and so they were available everywhere.  </p>
+<p>Unfortunately, Python's stricter rules about scoping mean that you constantly run into problems with this strategy if you're not careful. For example, this straight python conversion of the Mel paradigm works fine:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">print_hello</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+    <span class="k">print</span> <span class="s2">&quot;hello&quot;</span>
+
+<span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">my_col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">my_button</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;print_hello()&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>But try this:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_test_window</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">print_hello_again</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="k">print</span> <span class="s2">&quot;hello&quot;</span>
+
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">my_col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">my_button</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="s2">&quot;print_hello_again()&quot;</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+
+<span class="n">show_test_window</span><span class="p">()</span>
+</pre></div>
+
+
+<p>When you hit the button you'll be told  </p>
+<div class="highlight"><pre><span></span><span class="c1"># Error: NameError: name &#39;print_hello_again&#39; is not defined #</span>
+</pre></div>
+
+
+<p>That's because <code>print_hello_again</code> is defined in the scope of the <em>function</em>, not the scope of the Maya interpreter -- when the callback actually fires, the name is buried away inside of _show_test_window _and can't be found by Maya, at least not using the simple string name.</p>
+<blockquote>
+<p>That "_" in the functions, by the way, is the standard python symbol for "I have to have a variable here but I intend to ignore it" - it shows up in a lot of these GUI examples because many, though not all, Maya callbacks fire off an argument when they activate.   </p>
+</blockquote>
+<p>This happens all the time to people trying to port old MEL code to Python - snippets that work in the interpreter don't work when converted to functions or split between modules because the string callbacks only execute in the global scope. Luckily, once you realize that the "where is my function" problem is just basic scoping, it's easy to fix. You can forcibly capture the functions you want by just passing them directly to your GUI callbacks instead of using strings, thanks to the magic of python's <a href="http://python-history.blogspot.com/2009/02/first-class-everything.html">first class functions</a>.  You just need to pass the function itself - not a quoted string that looks like the function - to the callback, Thus the previous example becomes</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">show_test_window</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">print_hello_again</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="k">print</span> <span class="s2">&quot;hello&quot;</span>
+
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">my_col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">my_button</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="n">print_hello_again</span><span class="p">)</span>  
+    <span class="c1"># note: no quotes and no parens. </span>
+    <span class="c1"># You&#39;re passing the function as an object!  </span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+
+<span class="n">show_test_window</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Since you've got the callback in scope when you create the GUI, you're certain to have it when you need it (if by some accident it was out of scope at creation time you'd get an obvious error that you'd have to fix before moving on).  </p>
+<p>Clear, predictable scoping is why it's almost always the right decision to wrap your GUIs in classes. The class defines a predictable scope so you don't  have to worry about what's loaded or try to cram import statements into your callback functions.   Plus, classes include data storage, so you can keep your data nicely independent of your code. Suppose, for example, you needed to display a different set of greetings beyond the standard "hello world."  With a class you can defer the problem up to the moment of the actual button press with no fancy footwork or complex lambda management:  </p>
+<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">greeting</span><span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">greeting</span> <span class="o">=</span> <span class="n">greeting</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;hello&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">greet</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">show</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+            <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">greet</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">_</span><span class="p">):</span>  
+            <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">greeting</span>
+</pre></div>
+
+
+<p>Whatever is stuffed into the Greeter's <em>greeting</em> field will be printed out when the button get's pressed.  </p>
+<h2>Lambda Lambda Lambda</h2>
+<p>Of course, sometimes you don't need a full blown class for your callback functions; often you just want to do something simple that doesn't deserve a full function of it's own.  In cases like this, python provides a handy construct called a <em>lambda</em>, which is basically a one-line function.  A lambda looks like this:  </p>
+<div class="highlight"><pre><span></span><span class="n">multiply</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span> <span class="p">:</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+</pre></div>
+
+
+<p>which is exactly equivalent to:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">multiply</span> <span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">x</span> <span class="o">*</span> <span class="n">y</span>
+</pre></div>
+
+
+<p>In this example 'multiply' is just a plain old variable name. x and y are the input variables, and the expression to the right of the colon is what the lambda returns.  Lambdas can have any number of arguments, but they don't use the <em>args / </em>*kwargs variable argument syntax.   </p>
+<p>The main difference between  lambdas and functions  is that the body of a lambda is a single expression : you can't put flow control (such as loops) or statements which are not evaluable (such as 'print' ) into a lambda.  You can, however, call functions - even functions that return None.  </p>
+<p>Lambdas are a great way to  cook up throwaway functions. For example:  </p>
+<div class="highlight"><pre><span></span><span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+<span class="n">cmd</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;new_cube&#39;</span><span class="p">))</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>creates a window with a button which creates a cube when the button is pressed.  You'll probably note that in this case the argument to the lambda is ignored - that's because buttons always fire their callbacks with one argument so the lambda needs to accept one.</p>
+<blockquote>
+<p>In other examples, you'll recall, I use  a python convention of a single underscore as the 'ignore me' argument.</p>
+</blockquote>
+<p>The one thing that makes lambdas interesting (sometimes the '<em>may you live in interesting times</em>' sort of interesting) is that they are inside the scope of your functions - which means they can use <a href="http://www.shutupandship.com/2012/01/python-closures-explained.html">closures</a> to capture variables <em>before</em> they fire.  This can be useful if you want to set up a simple relationship without building a full-on class. This example sets the text of a text widget based on a value you pass it at startup, showing the way closures capture names:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">closure_example_window</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  
+    <span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">t</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;press the button&#39;</span><span class="p">)</span>  
+    <span class="n">cmd</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span>  <span class="n">c</span><span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">value</span><span class="p">))</span>  
+    <span class="c1"># captures the name of the text and the value passed in by the user  </span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>However, closures are automatically created by Python when a given scope is closed up - in this example, that would be at the end of the function. The values that are 'closed over' are determined when the function finishes.  Which is usually what you want... unless you're in the habit of re-using variable names:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">closure_example_surprise</span><span class="p">(</span><span class="n">value</span><span class="p">)</span>  
+    <span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">t</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;press the button&#39;</span><span class="p">)</span>  
+    <span class="n">cmd</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;cube&#39;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">t</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="n">value</span><span class="p">))</span>  
+    <span class="n">value</span> <span class="o">=</span> <span class="s1">&#39;gotcha!&#39;</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>When you run this one, the button ignores your value and prints <code>gotcha</code> instead of whatever value you passed in! That's because the closure will get its value when the function finishes in line 7, NOT when you first assign it in line 5. This little gotcha is usually a curiosity, but it makes life difficult if you want to, say, assign commands inside a loop. In a case like that you should use functions or callable objects (see below) in preference to lambdas. </p>
+<h2>Arguments for the prosecution</h2>
+<p>So, the "where the hell is my function" problem which tends to plague beginners is easy to solve once you look at it the right way.   </p>
+<p>However, right after you're comfortable with passing functions directly, you immediately realize that's not enough.  It's very common to have multiple GUI controls that do more or less the same thing with different settings such a set of buttons which make different sized objects.    </p>
+<p>Alas, while this is easy to understand, it's also kinda ugly to code.  </p>
+<p>For starters, you might try making lots of little functions:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Boxes</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">make_big_box</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_med_box</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">make_sm_box</span><span class="p">(</span><span class="n">_</span><span class="p">):</span>  
+        <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">make_sm_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">make_med_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">make_big_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Or you could do basically the same thing using lambdas to create temporary functions, which saves on the extra defs but tends to be illegible and tough to debug for complex commands :  </p>
+<div class="highlight"><pre><span></span>    def BoxLambdas():  
+        my_w = cmds.window()  
+        cmds.columnLayout()  
+        cmds.button(&quot;small box&quot;, c = lambda _: cmds.polyCube(d =2, w= 2 , h=2) )  
+        cmds.button(&quot;medium box&quot;,  c = lambda _: cmds.polyCube(d = 10 , w = 5 , h = 5) )  
+        cmds.button(&quot;large box&quot;, c = lambda _: cmds.polyCube(d = 10 , w = 10 , h = 10) )  
+        cmds.showWindow(my_w)
+</pre></div>
+
+
+<p><em>BTW There's that underscore again, in the lambdas, doing the same job: ignoring the callback argument from the buttons</em>.</p>
+<p>A third method is to use the Python built-in module <code>functools</code>. Functools offsers the <a href="https://docs.python.org/2/library/functools.html#functools.partial"><code>partial</code> object</a>, which "freezes" a command and a set of arguments into a callable package.   </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
+<span class="k">def</span> <span class="nf">FuncBoxes</span><span class="p">():</span>
+
+    <span class="c1"># note the comma - the command is an argument to partial!   </span>
+    <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
+    <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
+    <span class="n">big_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
+
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">small_box</span><span class="p">())</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span>  <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">med_box</span><span class="p">()</span> <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">_</span> <span class="p">:</span> <span class="n">big_box</span><span class="p">()</span>  <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Partials are handy for cleaning up the messes you'd get from trying to format a complex commands in-line in the middle of your GUI code. This example is a sort of worst case scenario, since Maya buttons always fire with a single argument and cmds.polyCube doesn't like that.  Here I used lambdas  to swallow the arguments (note the telltale underscores). More often you'll be calling your own functions and the syntax is much cleaner and easier to parse:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">functools</span> <span class="kn">import</span> <span class="n">partial</span>  
+<span class="k">def</span> <span class="nf">FuncBoxesClean</span><span class="p">():</span>  
+    <span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>    
+       <span class="c1"># swallow the argument but keep the keywords...</span>
+       <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="n">small_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>   <span class="n">d</span> <span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">2</span> <span class="p">)</span>  
+    <span class="n">med_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">5</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">5</span> <span class="p">)</span>  
+    <span class="n">big_box</span> <span class="o">=</span> <span class="n">partial</span><span class="p">(</span> <span class="n">make_box</span><span class="p">,</span>  <span class="n">d</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">,</span> <span class="n">h</span> <span class="o">=</span> <span class="mi">10</span> <span class="p">)</span>
+
+    <span class="n">my_w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;small box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span>  <span class="n">small_box</span><span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;medium box&quot;</span><span class="p">,</span>  <span class="n">c</span> <span class="o">=</span> <span class="n">med_box</span> <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;large box&quot;</span><span class="p">,</span> <span class="n">c</span> <span class="o">=</span> <span class="n">big_box</span>  <span class="p">)</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_w</span><span class="p">)</span>
+</pre></div>
+
+
+<p>That's far easier on the eyes and less of a nasty tax on future readers, but it requires a knowledge of how partials work.</p>
+<h2>Final Summation</h2>
+<p>So, here's a cheatsheet of the rules for hooking Maya event callbacks:  </p>
+<ol>
+<li>Don't use strings for python calls. <ol>
+<li>If you're calling MEL, OK: but don't use MEL anyway :)</li>
+</ol>
+</li>
+<li>Pass functions to your callback directly. No quotes, no parens.<ol>
+<li>If you have a scope problem, you'll see it when you create the GUI; usually you can solve it with an import</li>
+</ol>
+</li>
+<li>If you need to pass arguments to your function in the callback, you have options:<ol>
+<li>custom mini-functions are clear, but extra work</li>
+<li>lambdas are ugly, but workable</li>
+<li>partials - especially on top of your own functions - are clean </li>
+</ol>
+</li>
+</ol>
+<p>Now, even if you follow these rules,  its easy for your functional code and your GUI to get in each other's ways.  Creating a lot of throwaway functions is busywork, but formatting commands in-line inside GUI code is error prone and hard to read. Partials are nice for separating data from layout code, but usually come with annoying extra syntax to hide the callback arguments.  </p>
+<h3>Next Episode...</h3>
+<p>Of course if you've been following the <a href="https://github.com/theodox/mGUI">mGUI</a>series you'll know where I'm going. (If you haven't, you might want to check <a href="pity_for_the_outcast.html">here</a>, <a href="rescuing_maya_gui_from_itself.html">here </a>and <a href="all_your_base.html">here</a> before continuing).  Next time out I'lll take a look at how you could get to a cleaner separation of concerns like this:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">mGUI.GUI</span> <span class="kn">as</span> <span class="nn">mg</span>
+
+<span class="k">def</span> <span class="nf">make_box</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+    <span class="n">H</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">D</span> <span class="o">=</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;sender&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">Tag</span>  
+    <span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">(</span><span class="n">h</span> <span class="o">=</span> <span class="n">H</span><span class="p">,</span> <span class="n">d</span> <span class="o">=</span> <span class="n">D</span><span class="p">,</span> <span class="n">w</span> <span class="o">=</span> <span class="n">W</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">mGUIBoxes</span><span class="p">():</span>  
+    <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s2">&quot;boxes&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>  
+        <span class="k">with</span> <span class="n">mg</span><span class="o">.</span><span class="n">ColumnLayout</span><span class="p">(</span><span class="s2">&quot;col&quot;</span><span class="p">):</span>  
+            <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;sm&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;small boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">)</span> <span class="p">)</span>  
+            <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;med&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;medium boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span> <span class="p">)</span>  
+            <span class="n">mg</span><span class="o">.</span><span class="n">Button</span><span class="p">(</span><span class="s2">&quot;lrg&quot;</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;large boxes&quot;</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">)</span> <span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">window</span><span class="o">.</span><span class="n">col</span><span class="o">.</span><span class="n">Controls</span><span class="p">:</span>  
+        <span class="n">b</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">make_box</span>  
+    <span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Wed 23 April 2014
@@ -145,7 +575,8 @@
                     Roger Roger
                 </h2>
             </a>
-                Introducing standaloneRPC, a simple maya module for remotely controlling a maya standalone using JSON over http.
+                <p>If you've been playing with the <a href="http://techartsurvival.blogspot.com/2014/04/earth-calling-mayastandalone.html">stansdaloneRPC server</a>, I've <a href="https://github.com/theodox/standaloneRPC/tree/more-secure">added a new branch to the github</a> project that includes a minimal level of password security. It's <em>still</em> not the kind of security you want if this is to be exposed to the wicked world, but it should suffice to keep you free from teammates who want to prank you.  </p>
+<p>Comments / bug reports and pull request welcome!  If you use the github wiki to log an issue or ask a question, it's a good idea to put a comment here to make sure I see it.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 17 April 2014
@@ -157,7 +588,13 @@
                     Sweet Sumotori Dreams
                 </h2>
             </a>
-                pending
+                <p>I had no idea that the genius behind <a href="http://www.gravitysensation.com/sumotori/">Sumotori Dreams </a>is still making awesome procedural animation toys.   </p>
+<p><a href="http://www.gravitysensation.com/sumotori/kezd.jpg"><img alt="" src="http://www.gravitysensation.com/sumotori/kezd.jpg" /></a></p>
+<p>If you're not familiar with Sumotori Dreams, it's the funniest thing that ever happened to procedual animation.  Proof here (loud cackling and some profanity in the audio track, could not find any that did not have lots of hilarity and shouting):  </p>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/hOvq3-oG5BM" frameborder="0" allowfullscreen></iframe>
+
+<p>If you're at all interested in <a href="interesting_graphics_and_animation_research.html">procedural animation</a> - or have even a tiny sliver of a sense of humor - you should buy the <a href="https://itunes.apple.com/us/app/sumotori-dreams/id838455884?ls=1&amp;mt=8">iPhone app</a> the <a href="https://play.google.com/store/apps/details?id=com.gravitysensation.sumotori">android app</a>, or the <a href="http://www.gravitysensation.com/sumotori/Sumotori_Full___Setup.exe">PC version</a>.  This guys deserves our support!  </p>
+<p>On a related note, if you like this you may find <a href="http://aigamedev.com/open/access/overgrowth/">this talk from the developer of Overgrowth</a> interesting as well.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Mon 14 April 2014
@@ -169,7 +606,28 @@
                     Warning: Garish graphics ahead!
                 </h2>
             </a>
-                Getting more oomph out of your Maya GUI using the hidden power of HTML markup in Maya widgets!
+                <p>If you're tired of boring old light-grey-on-dark-grey text, you'l'l be pleased to know that the Maya text widget actually supports a surprising amount of HTML markup. Which means that instead of this:  </p>
+<p><a href="http://2.bp.blogspot.com/-9X5_YoY6aCo/U0nRf9WRIXI/AAAAAAABICg/l_tl1f_kKd4/s1600/boring.png"><img alt="" src="http://2.bp.blogspot.com/-9X5_YoY6aCo/U0nRf9WRIXI/AAAAAAABICg/l_tl1f_kKd4/s1600/boring.png" /></a></p>
+<p>You set peoples eyeballs on fire like this:  </p>
+<p><a href="http://2.bp.blogspot.com/-Eb4ElNfethw/U0nQ3Ses5aI/AAAAAAABICY/THb9sHzqWZ0/s1600/maya+gui+text.png"><img alt="" src="http://2.bp.blogspot.com/-Eb4ElNfethw/U0nQ3Ses5aI/AAAAAAABICY/THb9sHzqWZ0/s1600/maya+gui+text.png" /></a>  </p>
+<blockquote>
+<p>This is a single cmds.text object  with it's  label property set to an HTML string.     </p>
+</blockquote>
+<p>It turns out that cmds.text is actually a fairly full-featured HTML4 renderer! That means that you can create pretty complex layouts using many -- though not all -- of the same tools you'd use for laying out a web page.  You can style your text with different <a href="http://www.w3schools.com/css/css_font.asp">fonts</a>, sizes, colors, alignments and so on - you can even us CSS style sheets for consistency and flexibility.  </p>
+<p>More than that you can also include images, tables and layout divisions, which are great for formatting complex information.  No more printing out reports into dull old textScrollFields!  </p>
+<p>Best of all, it's trivial to do.  </p>
+<p>All you need to do is set the <code>label</code> property of a <code>cmds.text</code> object to a striing of valid HTML. By default your object inherits the standard maya background and foreground colors but you can override these in your HTML  You can even just compose your text in an HTML editor like DreamWeaver or Expression Blend; that how I did the example in the graphic above.  </p>
+<p>There are some limitations you need to be aware of.  The big ones seem to be:  </p>
+<ul>
+<li>It looks like <code>text</code> is the only control that supports this styling right now ( tested in Maya 2014).</li>
+<li>HTML/CSS controls for positioning text or divs don't seem to work. _Align _tags inside a span element do work, but <a href="http://www.w3schools.com/cssref/pr_class_float.asp">float </a>and <a href="http://www.w3schools.com/css/css_positioning.asp">positions</a> apparently do not.</li>
+<li>The renderer won't fetch images or other resources from a URL or relative paths.</li>
+<li>No JavaScripts - so no blinking texts or animated gifs.  I'm not sure that's a loss.</li>
+<li>No inputs such as buttons, checkboxes or text fields.</li>
+<li>Fonts seem to render smaller inside the Maya text than they do in a conventional browser. You can't specify text size in ems or percentages; pixel sizes seem to work fine, however.</li>
+</ul>
+<p>I'd assume that these limitation reflect the behavior of underlying QWidgets inside of Maya - if anybody has the real dope to supplement my guesswork, please chime in.   </p>
+<p>In the mean time, here's to the inevitable avalanche of eye-ripping garishness that is sure to result from this revelation. As for me, I'm off to go convert my whole toolset to <a href="http://bancomicsans.com/main/">Comic Sans!</a> </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 12 April 2014
@@ -181,7 +639,11 @@
                     Mighty Morphin Module Manager Made Moreso
                 </h2>
             </a>
-                An mGui port of the Maya Module Manager
+                <p>I've added a <a href="https://github.com/theodox/mhttps://github.com/theodox/mGui/blob/master/mGui/examples/modMgr.pyGui/blob/master/mGui/examples/modMgr.py">port </a>of the <a href="mighty_morphin_maya_module_manager">Maya Module Manager I posted a while</a> back to the examples included with the <a href="https://github.com/theodox/mGui">mGui maya GUI library. </a> This was an exercise to see how much the neater and more concise I could make it using the library.  </p>
+<p><a href="http://1.bp.blogspot.com/-40t7CxBPtPo/Uz-BSayB96I/AAAAAAABICI/IW5w86cjuTA/s1600/modmgr.png"><img alt="" src="http://1.bp.blogspot.com/-40t7CxBPtPo/Uz-BSayB96I/AAAAAAABICI/IW5w86cjuTA/s1600/modmgr.png" /></a></p>
+<p>Here's some interesting stats:  </p>
+<p>The original version was <strong>237</strong> lines of code, not counting the header comments. The mGui version was <strong>178</strong> without the header, so about <strong>25%</strong> shorter overall.  There are about 80 lines of unchanged, purely behind-the-scenes code which didn't change between versions, so the real savings is more like <strong>45%.</strong>  Plus, the original sample included some functions for formLayout wrangling  so real savings might be a little higher for more old-fashioned code.  </p>
+<p>Like I said <a href="all_your_base.html">last time</a>, the mGui package is still evolving so it's still very much in a "use at your own risk" state right now... That said, I'd love to get comments, feedback and suggestions.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 08 April 2014

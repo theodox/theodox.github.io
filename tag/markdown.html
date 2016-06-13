@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag markdown</title>
+        <title>Chimeras & Manticores - Tag markdown</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,9 @@
                     Bye-Bye Blogger Blues
                 </h2>
             </a>
-                The new Pelican-based blog is up! Please check it out and let me know how it's working!
+                <p>After a <a href="http://techartsurvival.blogspot.com/2016/04/blogger-blues.html">long pause</a> I've finally completed the move to a <a href="https://pages.github.com/">GitHub Pages</a> based blog created with <a href="http://getpelican.com">Pelican</a>. Converting old blogger files, a markdown based wiki, and a bunch of other random pages was quite and adventure, but it's more or less done now.  I'd appreciate it greatly if you let me know -- either via the comments or one of the social links that accompany each post -- if you find any bugs, dead links or missing images in the site so I can fix them up.</p>
+<p>At some point I'll post an overview of how it went, but after several weekends of manually fixing old links, fiddling with CSS, and hitting 'refresh' on my browser I need to get up and walk around a bit.</p>
+<p><img alt="" src="http://www.stageoflife.com/Portals/0/Blogging%20Resources/Blogging%20Cartoons/BloggingCartoon5.jpg" /></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 12 June 2016
@@ -103,7 +105,64 @@
                     Markdown Wrapup
                 </h2>
             </a>
-                An experiment with plain-text blogging in markdown.
+                <blockquote>
+<p>Since this was written I've moved the whole blog to a <a href="http://docs.getpelican.com">Pelican</a> based static site generated entirely from Markdown. It's a vastly nicer way to work than the old Blogger editor!  I've left this along for historical reasons but as of 'today' (spring 2016) I'm all Pelican, all the time.</p>
+</blockquote>
+<p>A <a href="wygwys.html">while back</a> I blogged about how much I longed for a good <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> based blogging platform. Since a couple of people inquired about how that’s gone, I thought I’d mention my (meager) findings since then.  </p>
+<h2>The options</h2>
+<p>There are several different ways you could get Markdown-based onto a blog:   </p>
+<h3>Static site generators</h3>
+<p>I looked at a number of static generators, like <a href="https://github.com/gollum/gollum/wiki">Gollum</a> from github and <a href="http://getnikola.com/blog/">Nikola</a>. Both of these were conceptually appealing, but suffered from similar issues, most notably the usual run of configuration and install issues the come with any web-world endeavor these days. I had a hell of time getting either one working install on the macbook I use for most of my writing and eventually decided that I wasn’t that interested in wrestling with those kind of things into the future. More importantly, I’m too busy to really admin my own server - I want a hosted service. If you’re more into running your own server – and you don’t mind sleuthing out things like getting the right Ruby package manager setup running – they could both work fine. </p>
+<h4>Markdown-based blogs</h4>
+<p>There are a few markdown based blogging hosts out there. The one I looked at most carefully was <a href="https://www.silvrback.com/">Silvrback</a>, and I enjoyed it a good deal. The writing was clean and simple and it came with a built-in syntax highlighting: the biggest damn hassle about all these posts has been getting the code samples into a reasonable format without hopping around between multiple sites and pasting a lot of esoteric formatting codes in HTML by hand. So, I had a good experience with Silvrback and I seriously considered switching. If you’re just getting started it’s definitely worth a look, particulary for technical blogs like this one.
+<img alt="silverback" src="http://knolzone.com/wp-content/uploads/2014/03/silvrback.jpg" />  </p>
+<h4>Custom markdown</h4>
+<p>The last option would be trying to take control of the markdown to HTML conversion process and spit out a minimal set of HTML that would play nice with Blogger but need no hand-work to make it pretty (you’ll recall that I bitched about my earlier efforts getting bogged down in <code>&lt;p/&gt;</code> vs <code>&lt;br/&gt;</code> and other HTML nonsense I don’t want to think about. There are lots of Markdown generators out there at varying levels of sophistication, but I also don’t want to think too much about micromanaging those.</p>
+<p>After a few bouts of intense googling, I ended deciding to stick with Blogger for two reasons. First, I didn’t see an obvious way to port my old stuff – more than a hundred posts with all sorts of special formatting and so on – and I felt it would be bad for the site to be split across two hosts. Also, I worried about losing readers if I switched URLs (if I do this again, I’m going to set up a custom domain early so people know the site by a redirect I can switch at will!). I will admit that I also wondered if using Google for hosting has anything to do with search results - I’ve noticed that a significant portion of traffic comes through Google searches and I wonder if other hosts are quite as well covered by whatever magic algorithm Google uses.<br />
+Sticking with Blogger for hosting means figuring out to reconcile my markdown text and Blogger’s style sheets. Luckily, it turns out that <a href="http://www.sublimetext.com/">Sublime Text</a> has a nicely configurable <a href="https://github.com/revolunet/sublimetext-markdown-preview">Markdown preview plugin</a>. I love Sublime anyway – it’s my go-to text editor for everything except heavy-duty C# and Python <strong>(VS and <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>, respectively, btw)</strong>.   </p>
+<p>In ordinary use, MarkdownPreview “bakes” your Markdown info nicely formatted HTML with all sorts of swanky CSS formatting – which is precisely what makes things hard for Blogger. With a little extra work, however, you can get it to produce a stripped-down HTML with the right tags and links but without all the extra CSS that conflicts with the Blogger template. <br />
+It took a bunch of fiddling to figure out how it works, but once I got over the n00bishness it turns out to be very simple. Here’s a step-by-step to setting it up for yourself.  </p>
+<hr />
+<h3>1. Install the MarkdownEditing and MarkdownPreview packages for Sublime Text.</h3>
+<p>This is pretty simple using Sublime’s excellent Package Manager, so I’ll skip the details <strong>(<a href="http://www.granneman.com/webdev/editors/sublime-text/packages/how-to-install-and-use-package-control/">here’s some help</a> if you need it.)</strong>  </p>
+<h3>2. Create a simplified HTML template</h3>
+<p>You want to make a simple HTML template that Sublime can render Markdown into. You can add some customisations if you like but the main business of the template is to prevent MarkdownPreview from filling in all of it’s own CSS styles.   </p>
+<p>Luckily, it’s easy to do this: if you don’t add a placeholder for the HTML <code>&lt;head&gt;</code> tag, MardownPreview can’t stick all the styles in there. This means you can force Sublime to give you a stripped-down output that won’t override your Blogger template.  </p>
+<p>If all you want to do is get uncluttered HTML, you can just use   </p>
+<div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">Body</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<p>as your template. That will let you past your Markdown HTML into blogger while keeping your Blogger theme intact.  </p>
+<p>Since I do a lot of code samnples in this blog, I opted to include a little bit of custom CSS to pretty it up. MarkdownPreview uses <a href="http://pygments.org/">Pygments</a> to generate highlighted code. Pygments marks up the html with a bunch of custom HTML classes for different language parts, and you just need to provide some CSS that will decorate those guys. There are plenty of examples that work with Pygments which you can cut-and-paste like <a href="https://github.com/richleland/pygments-css">this set from Rich Leland</a>.   </p>
+<p>For myself, I grabbed a free one that looked a lot like the highlighting style on Github – to keep my template simple I put it in a public folder on DropBox and used an HTML link to include it in the blog. <strong>Feel free to use it if you’d like, but don’t link to it: I may keep fiddling with it and you don’t want my changes!. You can also get it <a href="https://gist.github.com/theodox/4fefeb539f1d8ec341b0">here</a></strong>  </p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;head&gt;</span>  
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">title=</span><span class="s">&quot;github&quot;</span> <span class="na">href=</span><span class="s">&quot;https://dl.dropboxusercontent.com/u/2977490/github.css&quot;</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;/head&gt;</span>  
+<span class="cp">{{</span> <span class="nv">BODY</span> <span class="cp">}}</span>
+</pre></div>
+
+
+<p>The dropbox files contains the CSS styles for highlighting code, but none of the zillions of other styles that usually come out of the Markdown &gt; HTML translation. This way, my Blogger template will control the appearance of everything and keep the general style of the blog – but the code coming out of Markdown will be highlighted. Plus, I can tweak old entries by just changing the shared file. <strong>One caution: Blogger is finicky about which links it will allow in the head tag: I would rather have linked to the Gists or a CSS file on github, but wasn’t able to get that to work.</strong>  </p>
+<h3>3. Customize the MarkdownPreview package.</h3>
+<p>Open up the user settings for MarkdownPreview (<strong>Package Settings &gt; Markdown Preview &gt; Settings – User</strong>). This will be a blank file the first time you open it, but like all Sublime settings files it’s a JSON file. We just need to tell the MarkdownPreview plugin to use our template:  </p>
+<div class="highlight"><pre><span></span>{  
+    &quot;enable_highlight&quot; : true,  
+    &quot;enable_pygments&quot; : true,  
+    &quot;html_template&quot; : &quot;C:/path/to/blog_template.html&quot;,  
+    &quot;skip_default_stylesheet&quot;: true  
+}
+</pre></div>
+
+
+<p>The key thing values here are the <code>html_template</code>, which is the path to the template file from step 2, and <code>skip_default_stylesheet</code>, which tells MarkdownPreview not to insert all those other styles.   </p>
+<h3>4. Build your blog!</h3>
+<p>With the template and settings in place, create some Markdown. In Sublime, generating the HTML uses the same ‘build’ model as compiling code. So you first set the build system to Markdown (<strong>Tools &gt; Build System &gt; Markdown</strong>). Then you build it (<strong>CMD + B or Tools &gt; Build</strong>), which by default will create an HTML file alongside your markdown file. You can view the results in a browser directly or just open the HTML file in Sublime. <br />
+What you should have at this point is nicely formed HTML without tons of extra CSS (and, if you added code-highlight styles, some colorful highlited text as well). You can just cut the HTML and paste it straight into the HTML view in Blogger and you should have a perfect, Blogger friendly but Markdown-clean and easy blog entry. Once you’ve done the setup steps once, your only job is a single cut-and-paste (you can even configure MarkdownPreview to copy the HTML to the clipboard instead of writing to a file!).   </p>
+<hr />
+<h2>Wrapup</h2>
+<p>This is not the perfect blogging system, by a long shot – but it’s a whole lot better than Blogger’s slow GUI, and it offers flexible code highlighting for all of the languages that Pygments supports. Once all the spadework is done, posting is as simple as writing in Markdown, hitting the build button, then pasting into Blogger. So far I’m finding it a huge improvement.   </p>
+<p>But of course, TA’s are <em>never</em> satisfied so I bet this will come up again some other time…</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 17 March 2015
@@ -115,7 +174,47 @@
                     WYG > WYS
                 </h2>
             </a>
-                The first step on the long road to a streamlined, markdown based blogging platform...
+                <blockquote>
+<p>Update 4/4/2015:  I've got a much improved pipeline for markdown blogging using Sublime Text, as detailed <a href="markdown-wrapup.html">here</a>.  I'm also having a lot of luck with <a href="http://dynalon.github.io/mdwiki/#!index.md">MDWiki </a>for static sites on <a href="http://github.io/">github.io</a><br />
+Update 5/1/2016:  If you're reading this, I've finally transitioned over to all-markdown, all-the-time using <a href="http://docs.getpelican.com/en/3.6.3/index.html">Pelican</a></p>
+</blockquote>
+<p>First off, a confession. I’ve become a plaintext nazi. 30 years since I first hit <em>Ctrl+I</em> to italicise a piece of text, I’ve pretty much abandoned fancy-pants text edtors for the hardcore geek chic of plain text and <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>.  </p>
+<p>To be honest, this makes me uncomfortable, because plain-text-chauvinism is the techie equivalent of skinny jeans and ironical facial hair; it’s definitely a thing for the Cool Kids<sup>tm</sup>, a demographic which is not really my native habitat.  </p>
+<p>But I’m willing to be cool if that’s what it takes.  </p>
+<p><a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> is just a great tool for writing web or wiki content. If you spend a lot of time typing - particularly if you’re a TA who spends a lot of typing Python! – it becomes natural really quickly.<br />
+The great thing about markdown is that it’s not dependent on the vagaries of a particular editor or application. There’s no need to worry about the layout of the menus or the mnemonics of the hotkeys - you just type. You just tap away without taking your hands off the keyboard to hit special key combinations for formatting (eg <strong>bold</strong>, <em>italic</em>), so you go a lot faster. <br />
+In markdown, the emphasis is on the structure of what you’re writing instead of the presentation. You don’t format, you ‘mark up’ - that is you indicate what the job of a particular bit of text, is but you don’t describe it’s appearance. You can create headings, lists, block quotes, and even code snippets just using some simple conventions. Moreover the conventions are pretty readable in plain text. For example, you this little snippet of text  </p>
+<div class="highlight"><pre><span></span>heading  
+========  
+This is some plain text
+
+### subheading  
+    * list item  
+    * other list item
+</pre></div>
+
+
+<p>Produces this formatted output:  </p>
+<h1>heading</h1>
+<p>text goes here  </p>
+<h3>subheading</h3>
+<ul>
+<li>list item</li>
+<li>other list item</li>
+</ul>
+<p>The actual look of the output is going to be controlled down stream something else. Most markdown is processed into HTML using CSS to control things like fonts, line-spacing, and alignment.   </p>
+<p>I’ve found that markdown makes me a lot more productive than traditional WYSWIG editing. In part that’s because I can write markdown in a very stripped-down editor like <a href="http://www.sublimetext.com/">Sublime Text</a> on the PC or <a href="http://www.ulyssesapp.com/">Ulysses</a> on the Mac. These stripped-down editors are really qick and responsive, since they do so much next to nothing in the realm of document layout. Most important for me, they include far fewer distractions than Word or even Google Docs, so I can focus on the job at hand instead of fiddling around with styles and formatting.   </p>
+<p>In cases where the layout actually matters I can take the finished text and export it via HTML or PDF to a traditional layout program, but nowadays that almost never happens: I literally cannot remember the last time I worried about the layout of words and images on a printed page (which is a pretty odd reflection for me, since I only got into computers because of <a href="http://www.opticentre.net/FAQ/Desktop-publishing-%28DTP%29/History-of-Desktop-publishing/">desktop publishing</a>, back when that was a thing.). Some flavors of markdown include the ability to inline html directly in the text for special purposes - for example, I got the superscript after Cool Kids tm by typing  </p>
+<div class="highlight"><pre><span></span>Cool Kids <span class="nt">&lt;sup&gt;</span>tm<span class="nt">&lt;/sup&gt;</span>
+</pre></div>
+
+
+<p>99 times out of 100, however, this level of specificity isn’t important until the real work of writing is done and I’m just polishing up - I’m much happier focusing on the actual content and tweaking the visuals at the very last minute. That’s what a lifetime of game devlopment does to a person. </p>
+<p>Nowadays I do all my writing in plain text and markdown, with two exceptions. The wiki we use at work, <a href="https://www.atlassian.com/software/confluence?_mid=2c4fae43fb6d045f4fbe6afdba94a6fe&amp;gclid=Cj0KEQjwt7KiBRD9lOePpe_BhrgBEiQAHaS_19HAtXBp54afa2VUzVBDBXsvpGSZWav3m92wizJ8DZsaAtPB8P8HAQ">Confluence</a>, doesn’t support markdown and to be perfectly frank it drives me nuts: The editor feels sluggish and the workflow constantly distracts me from what I’m supposed to be actually writing. And, unfotunately, Blogger doesn’t support md either. Blogger is at least not quite as sluggish as Confluence, but it definitely feels like wearing a deep-sea diver suit compared to blazing away in a plain text editor with markdown.  </p>
+<p>Luckily I’ve found an option that at least looks pretty good. This post was written entirely in <a href="https://stackedit.io/">StackEdit</a>, a free online markdown editor which also allows publishing directly to Blogger. I followed <a href="http://www.g14n.info/2013/12/how-to-use-markdown-to-edit-blogger.html">these instructions</a> by Gianluca Casati which seem to work pretty well.   </p>
+<p>On the upside, this feels a lot more productive and focused than the usual Blogger writing process. In particular, it’s way easier to include short bits of code in markdown. Including code snippets into blogger, on the other hand, is a huge pain in the patootie; In the past I’ve used <a href="https://help.github.com/articles/about-gists/">Gists</a>, which are not to hard to embed and produce nicely highlighted code in lots of languages. For long format code it’s still a great tool. However it’s not ideal for small snippets of a few lines - there’s a lot of hopping around between editors and it’s very disjointed, which tends to get in the way of good flow when writing. For short jobs I will often just hand-edit the HTML produced by Blogger, which works but is, frankly, BS.   </p>
+<p>One the downside, the StackEdit &gt; markdown &gt; html &gt; Blogger pipeline is precisely the sort of jury-rigged song and dance that drives me crazy in my day job. Translations are rarely perfect in any case, and inserting three of them along the way to do a single job offends my sense of Pipeline Fu. I have yet to figure out how to tweak the final results to stay in line with the established style of the blog, and it’s particularly tough to tweak the final results directly in Blogger if I need to make a tweak. The last straw is blogger's maddening habit of replacing &lt;p&gt; tags with &lt;br/&gt; tags, even if you paste HTML right into the HTML editor.  It all feels a lot like a complex MEL pipeline. It works... but it feels wrong.  </p>
+<p>So, apologies for any wierd fomatting here - this is a very beta version of a new process. I’m still not satisfied that this is the ‘right’ way to write for the web (Santa, if you’re reading this, I’d <em>kill</em> for a good markdown blogging platform that also did Python syntax highlighting!).</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 01 November 2014

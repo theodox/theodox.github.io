@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag bugs</title>
+        <title>Chimeras & Manticores - Tag bugs</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,24 @@
                     Grrrr..... Maya!!!
                 </h2>
             </a>
-                A really annoying, and really old bug in Maya relating to materials.
+                <p>Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its over. </p>
+<p>Other kinds of pain aren't as sharp or as sudden... but they're chronic.  That persistent twinge in your lower back may not hurt as much as a twisted ankle - but it's going to be there forever (at least unless you get into Power Yoga, or so my wife claims).  </p>
+<p>Maya is old enough to have a few of those chronic pains, and I just ran in to one which -- once we debugged it and figured it out -- I realized has been a persistant irritant for at least the last decade; if my creaky old memory does not lie it's been a distinct pain in the butt since at least 2002 and it may very well go back all the way to Maya 1.0. </p>
+<p>In another context I might even have been able to diagnose it but instead we spent a ton of time and energy working around an unexpected behavior which is, in fact, purely standard Maya. It's <em>stupid</em> Maya, but it's standard too.  Maya, alas, is <strong>double plus ungood</strong> about mixing per-face and per-object material assignments. So, I figured I'd document this here for future sufferers: it might not ease the pain much, but at least you'll know you're not crazy.  </p>
+<p>The basic problem is that assigning materials to faces and to objects use slightly different mechanisms. If you check your hypergraph you'll see that per-face assignments connect to their shadingGroup nodes through the <code>compInstObjectGroups[]</code> attribute while object-level assigmemts go through the similar-but-not-identical <code>instObjectGroups</code> attribute (if you're looking for these in the docs, the component cone is inherited from the <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/geometryShape.html"><code>geometryShape</code></a> class and the object version comes from <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/dagNode.html"><code>dagNode</code></a>).  </p>
+<p>As long as you're working with one object at a time this isn't a problem. However, if you're duplicating or copy-pasting nodes, there's a gotcha:  If you ever try to merge meshes which have a mix of per-face and per-object assignments, Maya will magically "remember" old per-face assigments in the combined mesh.  If you're a masochist, here's the repro:  </p>
+<ol>
+<li>create a object, give it a couple of different materials on different faces</li>
+<li>duplicate it a couple of times</li>
+<li>assign a per-object material to the duplicates, overriding the original per-face assignments</li>
+<li>combine all the meshes.</li>
+<li><em>Et voîla!</em> The cloned meshes revert to their original assignments</li>
+</ol>
+<p><a href="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s1600/pasted_image_at_2015_10_23_05_32_pm_720.png"><img alt="" src="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s640/pasted_image_at_2015_10_23_05_32_pm_720.png" /></a></p>
+<p>What appears to happen is that those <code>compInstObjectGroups</code> connections are driven by hidden <code>groupID</code> nodes which don't get deleted when the per-face assignments are overridden by the per-object ones in step (3) .  They stick around even though they aren't being used, and when the mesh is combined they step right back into their original roles.  </p>
+<p>If you're doing this interactively it's an annoyance. If you're got tools that do things like auto-combine meshes to cut down on transform load in your game.... well, it's a source of some surprising bugs and equally surprising bursts of profanity.  But at least it'ss predictable.</p>
+<p>The workaround:  Before doing any mesh combination first delete the existing history then add something harmless to meshes you're about to combine. (I use a triangulate step, since this happens only at export time). That kills the rogue <code>groupID</code> nodes and keeps the combined mesh looking the way you intended.</p>
+<p>Sheesh. What a way to make a living.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 27 October 2015
@@ -103,7 +120,59 @@
                     Maya Bug Watch: API2 and GetPoints()
                 </h2>
             </a>
-                A very irritating bug in Maya Python API 2
+                <p>In general I’m more or less a <a href="api_2_chance.html">fan of Maya Python API 2.0</a>. It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.<br />
+If you want to get the vertices of an object in the api, the usual formula is:  </p>
+<ol>
+<li>Get the dagPath of the object</li>
+<li>Make an <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_fn_mesh_html">MFnMesh</a></li>
+<li>Call the ‘GetPoints’ method of your mesh</li>
+<li>Party on, dudes</li>
+</ol>
+<p>Something like this, which returns a list of <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_point_html">MPoint</a> objects for the verts in the mesh  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.api.OpenMaya</span> <span class="kn">as</span> <span class="nn">api</span>
+
+<span class="k">def</span> <span class="nf">get_verts</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>  
+    <span class="n">mobj</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">MGlobal</span><span class="o">.</span><span class="n">getSelectionListByName</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  
+    <span class="c1"># that&#39;s lazy, it assumes that the first child is the mesh shape.  </span>
+    <span class="c1"># in practice you need to be more careful...  </span>
+    <span class="n">mfn_mesh</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">MFnMesh</span><span class="p">(</span><span class="n">mobj</span><span class="p">)</span>  
+    <span class="n">vert_array</span> <span class="o">=</span> <span class="n">mfn_mesh</span><span class="o">.</span><span class="n">getPoints</span><span class="p">()</span>  
+    <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">vert_array</span><span class="p">]</span>
+</pre></div>
+
+
+<p>This works fine and dandy… except:  </p>
+<p><em><strong>If the mesh has 256 or more verts, the first vertex comes back as garbage</strong></em><br />
+Here’s an example, using the same function:  </p>
+<div class="highlight"><pre><span></span>mesh, _ = cmds.polyCube(sw = 1, sh= 1, sd = 1)  
+print get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(-0.50000000000009082, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(0.5, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.5, 0.5, 0.5, 1), maya.api.OpenMaya.MPoint(0.5, 0.5, 0.5, 1)]
+
+# this looks good... Here&#39;s the same thing for a 226 vert cube:  
+mesh, _ = cmds.polyCube(sw = 8, sh= 8, sd = 3)  
+print get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(-0.50000000000005185, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.375, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.25, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.125, -0.5, 0.5, 1)]
+
+# but up the vert count to 258:  
+mesh, _ = cmds.polyCube(sw = 8, sh= 8, sd = 4)  
+print get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(5.0277956463997711e-315, 5.0313386899592279e-315, 0.5, 1), maya.api.OpenMaya.MPoint(-0.375, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.25, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.125, -0.5, 0.5, 1)]
+
+# that first point is gibberish: python can&#39;t go to the -315th power!
+</pre></div>
+
+
+<p>I’ll leave it to wiser heads to figure out <em>why</em> it works out like this. My guess is that something is borked in pointer math going on inside the wrapper around <code>MfnMesh</code>, but I don’t know. Luckily, there’s a workaround: if you create <em>new</em> MPoints out of the items coming back from the <code>GetPoints()</code> call, you get good data. I’m not sure why but this should be so but it appears to be reliable on my machine (Windows 7, 64 bit maya 2015). Here’s the workaround:  </p>
+<div class="highlight"><pre><span></span>def safe_get_verts(mesh):  
+    mobj = api.MGlobal.getSelectionListByName(mesh).getDagPath(0)  
+    mfn_mesh =  api.MFnMesh(mobj)  
+    vert_array = mfn_mesh.getPoints()  
+    return [api.MPoint(i) for i in vert_array]  # creating new MPoints fixes the issue
+
+mesh, _ = cmds.polyCube(sw = 10, sh= 10, sd = 10)  
+print safe_get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(-0.5, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.40000000596046448, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.30000001192092896, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.20000001788139343, -0.5, 0.5, 1)]
+</pre></div>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 27 March 2015
@@ -115,7 +184,70 @@
                     Dang
                 </h2>
             </a>
-                An irritating behavior in cmds.ls() that can really ruin your day.
+                <p>You know the old saying, "you learn something new every day?" Well it's true. Usually, it's something like "I don't know where I left my keys," but sometimes you run into something that you realized you should have known all along and yet somehow it takes you by surprise.   </p>
+<p>Here's a little nugget that I stumbled onto today.  If you know Maya, you probably know that cmds.ls() with no arguments gives you a list of every entity in your current maya scene.  However if you pass in a list, ls() will filter it down.  It's very common to do something like</p>
+<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pCubeShape1&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;persp&#39;</span><span class="p">]</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;camera&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>as a cheap way of filtering a list of objects by type, or</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>to get long names and so on.  All pretty 101.</p>
+<p>Now, if you're an old Pythonista, you've probably tried it like this too:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and gotten the same result.  Usually, <strong>*args</strong> is a great help in writing simpler code, since you write functions that take an arbitrary number of arguments without forcing the callers to create lists or tuples. Your code can use loops or comprehensions knowing that the <strong>*args</strong> will be iterable even if it's empty:   </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">starargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">args</span><span class="p">):</span>  
+        <span class="k">print</span> <span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">item</span>
+
+
+<span class="n">starargs</span><span class="p">()</span> <span class="c1"># prints nothing</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>  
+<span class="c1"># 0  a</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>  
+<span class="c1"># 0  i  </span>
+<span class="c1"># 1  j  </span>
+<span class="c1"># 2 k</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>  
+<span class="c1"># 0    x  </span>
+<span class="c1"># 1    y  </span>
+<span class="c1"># 2    z</span>
+</pre></div>
+
+
+<p>Unfortunately this nice behavior can bite you if you use it with cmds.ls().  It's easy to miss the difference between</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and </p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+
+
+<p>especially because most functions will treat these interchangeably.  </p>
+<p>However (!) the <em>no arguments means list everything</em> behavior means that the first one returns and empty list, but the second returns <strong>a list of everything in Maya</strong>.  If you were using the ls() as a filter or a long-name-converter you are likely to be very surprised by the results. I was using it as part of a cleanup routine, and I suddenly discovered I was 'cleaning' everything in my scenes.   </p>
+<p>Like I said, you learn something new everyday -- in this case, new curse words!</p>
+<hr />
+<p>You can work around this behavior  simply enough by not passing *-formatted args to ls(), or at least by not doing so without checking if the argument is valid:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_xforms</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span> <span class="k">return</span> <span class="p">[]</span>  
+      <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Not an earth-shaking discovery, just another one of the many mysteries of the Maya.  </p>
+<p><a href="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg"><img alt="" src="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg" /></a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 10 January 2015
@@ -127,7 +259,52 @@
                     2015 Bug watch: ls()
                 </h2>
             </a>
-                A nasty little changed in maya's ls() command for 2015
+                <p>For people switching to Maya 2015 here's an irritating bug in the 2015 Maya python layer.  </p>
+<p>In all Mayas before 2015 (as far as I can check, anyway), calling cmds.ls() with a string that was not a valid Maya object name was allowed. You could for example, call  </p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and you'd get back an empty array. In 2015, however, it looks like they have changed the way maya.cmds is converting the string into a dag node reference; it you call the same thing in 2015 you'll get this instead:  </p>
+<div class="highlight"><pre><span></span><span class="c1"># Error: Syntax error: unexpected end @ at position 1 while parsing:  </span>
+<span class="c1"># ; ; @  </span>
+<span class="c1"># ; ; ^  </span>
+<span class="c1"># : @  </span>
+<span class="c1"># Traceback (most recent call last):  </span>
+<span class="c1"># ; File &quot;&quot;, line 1, in   </span>
+<span class="c1"># RuntimeError: Syntax error: unexpected end @ at position 1 while parsing:  </span>
+<span class="c1"># ; ; @  </span>
+<span class="c1"># ; ; ^  </span>
+<span class="c1"># : @ #</span>
+</pre></div>
+
+
+<p>This is a bit more serious than it seems at first glance, because ls is such a common command. Any ls operation which includes a string that starts with anything other than a letter or a number with raise an exception, so there are a lot of places which used to just chug along silently that are going to start raising exceptions.  </p>
+<p>My workaround is to patch cmds.ls on startup so that it safely renames any bad string before passing them to Maya.  I do this in my bootstrap routine so I don't have to chase down every occurrence of ls anywhere in my code  (1,001 of them, or so PyCharm tells me...).  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>  
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="n">VALID_OBJECT</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;^[|]?([^a-zA-Z_\?\*\:\|])|([^a-zA-Z0-9_\?\*\:\|\.\[\]])&quot;&quot;&quot;</span><span class="p">)</span>  
+<span class="n">as_u</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;addPrefix&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">safe_ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Patches maya 2015 cmds.ls so that it does not except when passed illegal name characters.  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>  
+        <span class="k">return</span> <span class="n">_BASE_LS</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>  
+       <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
+    <span class="n">test_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">VALID_OBJECT</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">as_u</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>  
+    <span class="k">return</span> <span class="n">_BASE_LS</span><span class="p">(</span><span class="n">test_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="n">gs</span><span class="p">)</span>
+
+<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span> <span class="o">=</span> <span class="n">safe_ls</span>
+</pre></div>
+
+
+<p>This makes sure that existing code works as it did before and I don't <em>think</em> it will break anything, since the invalid character strings were never going to be ls'ed into anything anyway.  Ordinarily I'm not a big fan of magical behind the scenes fixes but this is a pretty serious change to the behavior of ls which doesn't seem like an intentional upgrade so much as an oversight on Autodesk's part. So, at least until the old behavior comes back I'm gonna try it.  </p>
+<p><em><strong>Update:</strong> Hat tip to +Robert White for pointing out that the original regex I posted did not handle namespaces. Code above includes the fix.  Never would have figured it out without <a href="https://pythex.org/">Pythex!</a></em>  </p>
+<p><em><strong>Update 2:</strong> Updated the <code>safe_ls</code> procedure to handle more of the allowable syntax in older mayas</em>  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 04 September 2014
@@ -139,7 +316,31 @@
                     From the annals of bug subtlety
                 </h2>
             </a>
-                An object lesson in the way real bugs happen.
+                <p>From the annals of the truly screwed up comes an object lesson in why <strong>it's really nice to have a debugger</strong>.</p>
+<p>I'm porting a biggish python codebase to support multiple OSs  and maya versions.  As I move things around I try to use the opportunity to shore up test coverage.  And it always feels like the most boring chore imaginable, until something like this crops up.</p>
+<p>I've got an exporter framework that I share between projects and files, and I have to move it from Maya 2011-only to support multiple versions.  It's important code, so it's tested - but the test is really dumb: it creates a test scene, imports the test framework, and calls one function. </p>
+<p>But, for some reason, running the tests in 2014 never works - even though I can manually execute the exact steps in a regular copy of maya and all is well.</p>
+<p>So I threw it under the debugger -- <a href="http://www.jetbrains.com/pycharm/">_PyCharm FTW!__</a> -- and started stepping through. No dice, everything seemed OK but still the test failed: it could not find my test objects. Finally, in desperation, I started stepping though the test and issuing an ls() after every step... and I found that the break wasn't caused by running code - it was caused by importing my module.  I didn't call it - just <em>imported</em> it.  WTF?</p>
+<p>It turns out that <em>importing PyMel was wiping my test scene</em> in 2014! The tests all run under maya.standalone, and the bug only shows up there, which is why just doing it by hand in maya wasn't showing the same symptoms.</p>
+<p>Here's my repro case:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">polyCube</span><span class="p">()</span>
+<span class="c1"># [u&#39;pCube1&#39;, u&#39;polyCube1&#39;]</span>
+
+<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+<span class="c1"># [u&#39;front&#39;, u&#39;pCube1&#39;, u&#39;persp&#39;, u&#39;side&#39;, u&#39;top&#39;]</span>
+
+<span class="kn">import</span> <span class="nn">pymel.core</span> <span class="kn">as</span> <span class="nn">pm</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+<span class="c1"># [u&#39;front&#39;, u&#39;persp&#39;, u&#39;side&#39;, u&#39;top&#39;]</span>
+</pre></div>
+
+
+<p>This is a 100% repro in maya.standalone - but <em>not</em> in GUI maya, where the bug does not occur.</p>
+<p>Is this true for everybody else?  </p>
+<p>The workaround is to import pymel earlier so that the destruction doesn't affect anything important. </p>
+<p>But... <strong>ouch!</strong></p>
+<p><img alt="" src="http://i0.wp.com/www.therefinedgeek.com.au/wp-content/uploads/2013/09/Picard-Facepalm.jpg" />  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 20 June 2014

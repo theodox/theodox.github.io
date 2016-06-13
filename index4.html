@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com</title>
+        <title>Chimeras & Manticores - technical art, python, the games business, and obscurantism</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,7 +75,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>theodox.com</h1>
+                        <h1>Chimeras & Manticores</h1>
+                            <hr class="small">
+                            <span class="subheading">technical art, python, the games business, and obscurantism</span>
                     </div>
                 </div>
             </div>
@@ -92,7 +94,49 @@
                     Goddamit, stop messing around
                 </h2>
             </a>
-                A module for simple colored printing in a python terminal
+                <p>It was inevitable, after I started noodling around with <a href="eyeballs.html">terminal colors in ConEmu</a>, that I’d waste an afternoon cooking up a way to color my Maya terminal sessions automatically.  </p>
+<p>The actual code is <a href="https://github.com/theodox/conemu">up on GitHub</a> (under the usual MIT Open License - enjoy!).   </p>
+<p>As implemented, its a module you can activate simply by importing <code>conemu</code>. Ordinarily I don't like modules that 'do things' on import, but this one is such a special case that it seems justifiable. Importing the module will replace <code>sys.stdout</code>, <code>sys.stdin</code>, and <code>sys.display_hook</code> with ConEmu-specific classes that do a little color formatting to make it easier to work in <code>mayapy</code>.  If for some reason you want to disable it, calling <code>conemu.unset_terminal()</code> will restore the default terminal.  </p>
+<p>Here are the main features:  </p>
+<h4>Colored prompts and printouts</h4>
+<p><a href="http://3.bp.blogspot.com/-AvNLhOBExmw/VT0sX69KZ2I/AAAAAAABLvo/Znt5WQHspns/s1600/conemu_2_1.jpg"><img alt="" src="http://3.bp.blogspot.com/-AvNLhOBExmw/VT0sX69KZ2I/AAAAAAABLvo/Znt5WQHspns/s1600/conemu_2_1.jpg" /></a></p>
+<p>This helps de-emphasize the prompt, which is the least interesting but item on screen, and to emphasize command results or printouts</p>
+<h4>Unicode objects highlighted</h4>
+<p><a href="http://4.bp.blogspot.com/-ciIg7fGJIGw/VT0sxi0-F-I/AAAAAAABLvw/hlbGzLSFB5w/s1600/conemu_2_2.jpg"><img alt="" src="http://4.bp.blogspot.com/-ciIg7fGJIGw/VT0sxi0-F-I/AAAAAAABLvw/hlbGzLSFB5w/s1600/conemu_2_2.jpg" /></a></p>
+<p>Since all Maya objects returned by commands are printed as unicode string (like <code>u'pCube1'</code>, the terminal highlights unicode strings in a different color to make it easy to pick out Maya objects in return values. The annoying little <code>u</code> is also suppressed.  </p>
+<h4>Code objects highlighted</h4>
+<p><a href="http://1.bp.blogspot.com/--6vJNm-EdE8/VT0s-3SVHuI/AAAAAAABLv4/SRVJ-2ZCWMQ/s1600/conemu_2_3.jpg"><img alt="" src="http://1.bp.blogspot.com/--6vJNm-EdE8/VT0s-3SVHuI/AAAAAAABLv4/SRVJ-2ZCWMQ/s1600/conemu_2_3.jpg" /></a></p>
+<p>Code objects (classes, functions and so on) are highlighted separately  </p>
+<h4>Comment colors</h4>
+<p><a href="http://1.bp.blogspot.com/-hUxg4Dc96vc/VT0tN5TF79I/AAAAAAABLwA/vUtHyrpuaXo/s1600/conemu_2_4.jpg"><img alt="" src="http://1.bp.blogspot.com/-hUxg4Dc96vc/VT0tN5TF79I/AAAAAAABLwA/vUtHyrpuaXo/s1600/conemu_2_4.jpg" /></a></p>
+<p>Lines beginning with a <code>#</code> or a <code>/</code> will be highlighted differently, allowing you separate out ordinary command results from warnings and infos. <strong>In this version I have not isolated the path used by <code>cmds.warning</code>, which makes this less useful. Does anybody out there know which pipe that uses? It appears to bypass <code>sys.stdout.write()</code> and sys.stderr.write()</strong>   </p>
+<h4>Automatic prettyprint</h4>
+<p><a href="http://4.bp.blogspot.com/-ua1kHl9PyQA/VT0txVSoYJI/AAAAAAABLwI/gL5CZb0MMjk/s1600/conemu_2_5.jpg"><img alt="" src="http://4.bp.blogspot.com/-ua1kHl9PyQA/VT0txVSoYJI/AAAAAAABLwI/gL5CZb0MMjk/s1600/conemu_2_5.jpg" /></a></p>
+<p>If the result of a command is anything other than a string, it will be run through <a href="https://docs.python.org/2/library/pprint.html"><code>prettyprint</code> </a>so that it will be formatted in a slightly more legible manner. This is particularly handy for commands like <code>ls</code> or <code>listAttr</code> which produce a lot of results: <code>pprint</code> will arrange these vertically if they result would otherwise be wider than 80 characters.  </p>
+<h2>Utilities submodule</h2>
+<p>The module contains some helper classes if you want to make your own display more elaborate, or to mess with it interactively during a console session.  </p>
+<h4>Terminal class</h4>
+<p>The <em><code>Terminal</code></em> class makes it less cumbersome to control the display. The main use is to color or highlight text. The 16 terminal colors are available as <code>Terminal.color[0]</code> through <code>Terminal.color[15]</code>, and you can highlight a piece of text like so:  </p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;this is &quot;</span> <span class="o">+</span> <span class="n">Terminal</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">10</span><span class="p">](</span><span class="s2">&quot;colored text&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The background colors are <code>Terminal.bg[0]</code> through <code>terminal.bg[5]</code> and work the same way:  </p>
+<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">Terminal</span><span class="o">.</span><span class="n">bg</span><span class="p">[</span><span class="mi">2</span><span class="p">](</span><span class="s2">&quot;backgound text&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p><code>Terminal</code> also has a helper for setting, coloring, and unsetting prompt strings.  </p>
+<h4>Conemu: console control</h4>
+<p>The <em><code>Conemu</code></em> class includes some limited access to the more elaborate functions offered by ConEmu (The methods in <code>Terminal</code> might work in other ANSI terminals – I haven’t tried ! – but the ConEmu ones specific to ConEmu). The key methods are:  </p>
+<h5><code>ConEmu.alert(message)</code></h5>
+<p>Pops up a GUI confirm dialog with ‘message’ in it.</p>
+<h5><code>ConEmu.set_tab(message)</code></h5>
+<p>Sets the name of the current ConEmu tab to ‘message’.</p>
+<h5><code>ConEmu.set_title(message)</code></h5>
+<p>Sets the name of the current ConEmu window to ‘message’.</p>
+<h5><code>ConEmu.progress(active, progress)</code></h5>
+<p>if <code>active</code> is True, draw a progress indicator in the window task bar at <code>progress</code> percent. For example <code>ConEmu.progress(True, 50)</code> overlays a 50% progress bar on the ConEmu task bar icon. If <code>active</code> is false, the progress bar is hidden. This can be handy for long running batch items</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 26 April 2015
@@ -104,7 +148,106 @@
                     The right profile
                 </h2>
             </a>
-                A brief, gentle introduction to the uses and abuses of profiling in Maya Python
+                <p>Lately I was working in one of those relatively rare TA tasks where performance really mattered. I had to do a lot of geometry processing and the whole thing was as slow as molasses, despite all my best guesses about clever little tricks to speed things up. </p>
+<p>To break the logjam, I resorted to actual profiling, something I tend to avoid except in emergencies. </p>
+<p>Now, you might wonder why I say I avoid profiling. If you skip ahead and see the trick I used here, and all the fiddly little bits of detailed performance data it provides, you may be particularly curious why anybody would want to pass up on all this cool, authoritative data. The reason, however, is really simple: Good profiling is so powerful that it can be overly seductive. Once you can see right down to the millisecond how tiny tweaks affect your code, the temptation to start re-working everything to shave a little bit off here and there is hard to escape.</p>
+<p>If you're working on a game engine, constant reference to the profiler might make sense. In regular TA work, however, milliseconds rarely matter: all that counts is the user's perception of responsiveness. Your users will care about the difference between a .1 second tool and a 1 second tool, or that between a 1 second tool and a 10 second tool. They are unlikely to care about - or even notice - the difference between a 1.3 second tool and a 1.1 second tool. The time you spend grinding out those extra fractions of a second may just not be worth it. As Donald Knuth, one of the great-grandaddies of all programming put it:</p>
+<blockquote>
+<p>We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. </p>
+</blockquote>
+<p>So a word of warning before we proceed. Optimize late, only after you've got the problem solved and after you've got what seems like solid, working code that's just too slow. Stay focused on clarity, reliability and ease of maintenance first; only reach for the profiler in code where the perf has really become an issue. </p>
+<h2>Cheap-ass profiling</h2>
+<p>Python includes some excellent native profiling tools. The easiest one to use (and the one that's most handy for people working in Maya) is the <a href="https://docs.python.org/2/library/profile.html"><code>cProfile</code></a> module. It allows you to extract very detailed timing and call-count information from a run of a function. </p>
+<p>Here's a basic example of profile in action. We'll start of with a couple of simple functions. </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>  
+<span class="kn">import</span> <span class="nn">cProfile</span>
+
+
+<span class="k">def</span> <span class="nf">some_math</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">n</span> <span class="o">**</span> <span class="n">n</span>
+
+<span class="k">def</span> <span class="nf">slow</span><span class="p">():</span>  
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mo">01</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">do</span><span class="p">():</span>  
+    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>  
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>  
+        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>  
+        <span class="n">some_math</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>  
+        <span class="n">slow</span><span class="p">()</span>
+</pre></div>
+
+
+<p>Then we'll call them using <code>cProfile.run()</code>. The run function takes a string which it will use <code>eval</code> to execute. So in our case:</p>
+<div class="highlight"><pre><span></span>cProfile.run(&#39;do()&#39;)
+</pre></div>
+
+
+<p>That will print out the following report, or something pretty like it:</p>
+<div class="highlight"><pre><span></span>     604 function calls in 2.096 seconds
+
+Ordered by: standard name
+
+ncalls  tottime  percall  cumtime  percall filename:lineno(function)  
+    1    0.002    0.002    2.096    2.096 &lt;maya console&gt;:12(do)  
+  200    0.003    0.000    0.003    0.000 &lt;maya console&gt;:6(some_math)  
+  200    0.002    0.000    2.091    0.010 &lt;maya console&gt;:9(slow)  
+    1    0.000    0.000    2.096    2.096 &lt;string&gt;:1(&lt;module&gt;)  
+    1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}  
+    1    0.000    0.000    0.000    0.000 {range}  
+  200    2.089    0.010    2.089    0.010 {time.sleep}
+</pre></div>
+
+
+<p>The first line in the report prints out the total time, in this case a shade over 2 seconds. Each line in the report that follows lists the following information for a single function call (including nested calls)</p>
+<p><em>ncalls</em>
+    The number of times a given function was called during this run. If the function is recursive, this number may show up as two numbers separated by a a slash, where the first is the true number of total calls and second the number of direct, non-recursive calls. As you can see here <code>do()</code> itself was called only once, but the sub-functions <code>some_math()</code> and <code>slow()</code> were each called 200 times; <code>time.sleep()</code> was called 200 times as well since it was called by every iteration of <code>slow()</code>
+<em>tottime</em>
+    the total amount of time spent executing this function for the entire run. As you can see the call to <code>time.sleep</code> occupies the bulk of the time in this run. Not that this is the time it takes to process the function - <em>not</em> the real-world time it takes to run! So our <code>do()</code> function in the first line shows a <code>tottime</code> of .002 seconds even though it clearly took more than two seconds to run. 
+<em>percall</em>
+    The <em>average</em> time spent executing the function on this line, if it was executed multiple times. Like <code>tottime</code>, this measures processor time only and does not include things like network delays or (as in this case) thread sleeps.
+<em>cumtime</em>
+    this is the real world time needed to complete the call, or more precisely the total real world time spent on all of the calls (as you can see, it's the sleep call and <code>do()</code> which each take up about two seconds)
+<em>percall</em>
+    the second percall column is the amount of average amount of real-world time spent executing the function on this line.
+<em>filename</em>
+    this identifies the function and if possible the origin of the file where the function came from. Functions that originate in C or other extension modules will show up in curly braces.</p>
+<p>As you can see this is <em>incredibly</em> powerful right out of the box: it lets you see the relative importance of different functions to your overall perfomance and it effortlessly includes useful back-tracking information so you can find the offenders.</p>
+<h2>Record Keeping</h2>
+<p>If you want to keep a longer term record, you can dump the results of <code>cProfile.run()</code> to disk. In this form:</p>
+<div class="highlight"><pre><span></span>cProfile.run(&#39;do()&#39;, &quot;C:/do_stats.prf&quot;)
+</pre></div>
+
+
+<p>You'll get a dump of the performance data to disk instead of an on-screen printout. A minor irritant is the fact that the dumped stats are not the plain-text version of what you see when running the stats interactively: they are the pickled version of a <code>Stats</code> object: just opened in a text editor they are gibberish.</p>
+<p>To read them you need to import the <code>pstats</code> module and create a new <code>Stats</code> from the saved file. It's easy:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>  
+<span class="n">disk_stats</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s2">&quot;C:/do_stats.prf&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Calling the <code>print_stats</code> method of your new <code>Stats</code> object will print out the familiar report. You can also use the <code>sort_stats</code> method on the object to reorganize the results (by call count, say, or cumulative time). </p>
+<p>The details on the <code>Stats</code> object are <a href="https://docs.python.org/2/library/profile.html#pstats.Stats">in the docs</a></p>
+<h2>Caveats</h2>
+<p>I've already said that this kind of information can tempt you to cruise past to point of diminishing returns right on to squeezing-blood-from-a-stone-land. That said it's also worth noting that there is also bit of the Heisenberg uncertainty principle at work here: profiling slightly changes the performance characteristics of your code Game engine programmers or people who do embedded systems for guided missiles will care about that: you probably don't need to.</p>
+<p>In any case, approaching this kind of profiling with the wrong mindset will drive you crazy as you chase micro-second scale will-o-the-wisps. The numbers give a good general insight into the way your code is working, but don't accord them any larger importance just because they seem seem so official and computer-y. They are guidelines, not gospel.</p>
+<h2>Using the data</h2>
+<p>When you actually do start optimizing, what do you want to do with all those swanky numbers? The art of optimizing code is <em>waaaay</em> too deep to cover in a few paragraphs but there are a couple of rules of thumb that are handy to think about while learning how to read the profile results:</p>
+<h3>Call Counts Count</h3>
+<p>The first thing to look at is <em>not</em> the times: it's the call counts. </p>
+<p>If they seem wildly out of line, you may have inadvertently done something like call a more than you intended. If you have a script that does something to 500-vertex object but a particular vertex-oriented function shows up 2000 or 4000 times, that may mean you're approaching the data in an inefficient way. If it becomes something huge - like 250,000 calls - it sounds like you're doing an "all against all" or "n-squared" check: an algorithm that has to consider not just every vert, but every vertex-to-vertex relationship. These are generally something to avoid where possible, and the call count totals are a good way to spot cases where you've let one slip in by accident. </p>
+<blockquote>
+<p>The evils of 'n-squared' and so on are illustrated nicely <a href="http://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/">here</a>. You might also want to check out <a href="http://astore.amazon.com/tecsurgui-20/detail/1430232374">Python Algorithms</a> if you're really getting in to waters where this kind of thing matters!</p>
+</blockquote>
+<h3>Look for fat loops</h3>
+<p>The second thing too look at is the balance of times and call counts. The most performant code is a mix of infrequent big calls and high-frequency cheap ones. If your stats show a high call count and a high <code>cumtime</code> on the same line, that's a big red flag saying "investigate me!" As you can see in the report above, the real villains (<code>slow()</code> and in turn <code>time.sleep()</code>) are easily spotted by the combination of high call counts and high cumtime numbers.</p>
+<h3>Use builtins where possible</h3>
+<p>Next, you want to check the balance between your own code and built-ins or Maya API code, as indicated by the curly brackets around the function names in the last column. In general, API or built-in calls are going to be faster than anything you write yourself: doing things like a deriving the distance between two 3-D points will usually run about 8x faster in the API than it would in pure python. So, you'd like to see lots of those kinds of calls, particularly inside loops with high call counts. </p>
+<h3>High cumtimes</h3>
+<p>Only after you've sorted through the high call counts, and high call/cumtime combinations, and aggressive use of builtins do you want to start looking at high cumtimes on their own. Of course, you won't have a good idea when those high times are <em>justified</em> if you don't know how the code actually works, which is why you want to do your optimizing passes on code that is already legible and well organized. </p>
+<h2>Wrap</h2>
+<p>Naturally, these few notes just scratch the surface of how you optimize - this post is really about <em>profiling</em> rather than optimizing. I'm sure we'll hit that topinc some other day. In the meantime, it's worth spending some time mastering the slightly retro, programmer-esque interface of the cProfile module. Doug Hellman's <a href="http://pymotw.com/2/profile/"><em>Python Module Of the Week</em> article</a> on profiling is a good if you want to get beyond the basic report i'm using here. There's also a nice lightweight intro at <a href="http://www.blog.pythonlibrary.org/2014/03/20/python-102-how-to-profile-your-code/">Mouse vs Python</a>. The <a href="https://docs.python.org/2/library/profile.html#">docs</a> could be more friendly but they are authoritative.</p>
+<p>In the meantime, readers of a certain age will certainly remember who <em>really</em> had the right profile</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 18 April 2015
@@ -116,7 +259,49 @@
                     Didn't need those eyeballs anyway!
                 </h2>
             </a>
-                Colorizing your terminal text for fun and profit!
+                <p>OK, I admit this one is pretty much useless. But it’s still kind of cool :) </p>
+<p><a href="con_job.html">Just the other day</a> I discussed setting up <a href="http://conemu.github.io/">ConEmu</a> for use as a direct maya terminal. This is fun, but once you’ve got the console virus the next thing that happens is you start getting obsessed with stupid terminal formatting tricks. It’s almost as if going text modes sends you past the furthest apogee of spartan simplicity and starts you orbiting inevitably back towards GUI bells and whistles.   </p>
+<p>At least, I know that about 15 minutes after I posted that last one, I was trying to figure out how to get colored text into my maya terminal window.<br />
+It turns out it’s pretty easy. ConEmu supports <a href="http://wiki.bash-hackers.org/scripting/terminalcodes">ANSI escape codes</a>, those crazy 1970’s throwbacks that all the VIM kiddies use on their linux machines to make ugly termina color schemes:  </p>
+<p><img alt="" src="http://i.stack.imgur.com/79YI2.png" />  </p>
+<blockquote>
+<p>all this beauty... in <em>your</em> hands!  </p>
+</blockquote>
+<p>This means any string that gets printed to ConEmu’s screen, if it contains color codes, will be in color! You can change background colors, foreground colors, even add bold, dim or (God help us) <em>blinking</em> text to your printouts.<br />
+Here’s a quick way to test this out:  </p>
+<p>Start up a maya command shell in ConEmu (instructions <a href="con_job.html">here</a> if you missed them last time).<br />
+In your maya session, try this:      </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>  
+<span class="n">sys</span><span class="o">.</span><span class="n">ps1</span> <span class="o">=</span> <span class="s2">&quot;Maya&gt; &quot;</span>
+</pre></div>
+
+
+<p>This swaps in the custom prompt <code>Maya&gt;</code> for the generic <code>&gt;&gt;&gt;</code>.<br />
+<img alt="console_prompt" src="http://3.bp.blogspot.com/-mBMHF410Wy0/VSqmy2QJCEI/AAAAAAABLnw/qu1P2pz15Do/s1600/color_1.png" /><br />
+Now, let’s try to make it a bit cooler: try setting <code>sys.sp1</code> to this:  </p>
+<div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">ps1</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[38;5;2mMaya&gt;</span><span class="se">\033</span><span class="s2">[0m &quot;</span>
+</pre></div>
+
+
+<p><img alt="color_console" src="http://2.bp.blogspot.com/-2J0dLUc78MI/VSqmyxXLdsI/AAAAAAABLn0/4ERl34IdqTI/s1600/color_0.png" />  </p>
+<blockquote>
+<p>Whoa!  </p>
+</blockquote>
+<p>Here’s what the gobbledygook means: <br />
+<strong><code>\033</code></strong> is the ascii code for ‘escape’, which terminals use to indicate a non-printable character. The <strong>[number-m]</strong> sequences are displayc ommands which will affect the output. In this case we said “set the text mode to color index 2’ (probably green on your system), type out ‘Maya&gt; ‘, then revert to the default color”.  </p>
+<p>Here’s a few of the formatting codes that ConEmu supports:  </p>
+<ul>
+<li><code>**\033[0m**</code> resets all escapes and reverts to plain text.</li>
+<li><code>**\033[1m**</code> and <code>**\033[2m**</code> start or end <em>bold</em> text</li>
+<li><code>**\033[4m**</code> turns on ‘inverse’ mode, with foreground and background colors reversed</li>
+<li><code>**\033[2J**</code> clears the terminal screen and sets the prompt and cursor back to the top. You probably don’t want to use this as your prompt, since it clears the screen after every key press! However it can be useful for paging through long results, Unix-<code>more</code> style.</li>
+<li><code>**033[38;5;&lt;index&gt;m**</code> sets the text color to the color <code>&lt;index&gt;</code>. Colors are defined in the ConEmu settings dialog (<em>Features &gt; Colors</em>). There are 16 color; here you identify them by index number (Color #0 is the default background, color #15 is the default foreground) This allows you to swap schemes – several well known codiing color schemes such as Zeburn and Solarized are included in ConEmu.</li>
+<li><code>**033[48;5;&lt;index&gt;m**</code> sets the background color to the color <code>&lt;index&gt;</code>. The background colors are a bit hard to spot: if you check the colors dialog you’ll see a few items have two numbers next to them (such as ‘1/4’ or ‘3/5’). The second number is the background index. Yes, it’s wierd – it was the 70’s. What do you expect?</li>
+<li><code>**\033[39m**</code> resets any color settings.</li>
+</ul>
+<p>These codes work sort of like HTML tags; if you “open” one and don’t “close” it you’ll find it stays on, so while you’re experimenting you’ll probably experience a few odd color moments.   </p>
+<p>But still… how cool is that? Now if we could only get it to syntax highlight… or recognize maya objects in return values… hmm. Things to think about :)  </p>
+<p>The full list of escape codes supported by ConEmu is <a href="http://conemu.github.io/en/AnsiEscapeCodes.html">here</a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 12 April 2015
@@ -128,7 +313,78 @@
                     Con Job
                 </h2>
             </a>
-                How to be more productive with mayapy and a console program.
+                <p>If you do a lot of tools work in maya – particularly if you’re working one something that integrates with a whole studio toolset, instead of being a one-off script – you spend a lot of time restarting. I think I know every pixel of the last five Maya splash screens by heart at this point. A good knowledge of the python <code>[reload()](https://docs.python.org/2/library/functions.html#reload)</code> command can ease the pain a bit, but there are still a lot of times when you want to get in and out quickly and waiting for the GUI to spin up can be a real drag.  </p>
+<p>If this drives you nuts, <code>mayapy</code> -- the python interpreter that comes with Maya -- can be a huge time saver. There are a lot of cases where you can fire off a mayapy and run a few lines of code just to validate that things are working and you don’t need to watch as all the GUI widgets draw in. This is particularly handy if you do a lot of tools work or script development, but’s also a great environment for doing quickie batch work – opening a bunch of files to troll for out of date rigs, missing textures, and similar annoyances.<br />
+All that said, the default mayapy experience is a bit too old-school if you’re running on Windows, where the python shell runs inside the horrendous <code>CMD</code> prompt, the same one that makes using DOS so unpleasant. If you’re used to a nice IDE like <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> or a swanky text editor like <a href="http://www.sublimetext.com/3">Sublime</a>, the ugly fonts, the monochrome dullness, and above all the antediluvian lack of cut and paste are pretty offputting.  </p>
+<p>However, it’s not too hard to put a much more pleasant face on mayapy and make it a really useful tool.  </p>
+<h2>Con Ed</h2>
+<p><a href="http://www.top10films.co.uk/img/conair_cage.jpg"><img alt="" src="http://www.top10films.co.uk/img/conair_cage.jpg" /></a>  </p>
+<blockquote>
+<p>obligatory "con" joke here.  </p>
+</blockquote>
+<p>The first thing to do is find a good <em>console program</em>. A console provides the window and display services for command-line programs; <code>CMD.exe</code> does the same thing, it just does it very <em>badly</em>. There are several good options depending on your taste (good roundup <a href="http://www.nextofwindows.com/4-better-windows-console-tools-alternatives-to-windows-built-in-command-prompt/">here</a>)). I’m going to walk through the setup for my favorite emulator, <a href="http://conemu.github.io/">ConEmu</a>, but the same ideas should adapt to the other emulators pretty simply.<br />
+First, here’s a quick round up of what <a href="http://conemu.github.io/">ConEmu</a> is going to be doing for us and mayapay:  </p>
+<h4>Cut and paste</h4>
+<p><code>Ctrl+C</code>, <code>Ctrl+V</code>. Worth the price of admission all by itself!</p>
+<h4>Customizable fonts</h4>
+<p>A killer feature for those of us with old, weak eyes and/or aspirations to style</p>
+<h4>Command history</h4>
+<p>If you’re testing out a bit of syntax, or doing something that repetitive but not worth really automating you’ll get a lot of value out of the command history: you can use the up and down arrows to scroll through your recently issued commands and repeat them. Especially when you’re testing a script over and over this takes the bite out of those two or three lines of setup you need to enter again and again.</p>
+<h4>Startup options</h4>
+<p>We’ll want to pass a few flags and instructions to mayapy every time.</p>
+<h4>Multiple consoles in one window</h4>
+<p>ConEmu allows you to run different shells in different tabs. This can be invaluable if you’re doing things like checking the contents of multiple folders, but it’s also a great way to compare the results of your maya scripts side-by-side in two different sessions</p>
+<h4>Transparency</h4>
+<p>A palliative for OSX envy.</p>
+<h2>Setup basics</h2>
+<blockquote>
+<p>Again, these instructions are for ConEmu – if you try this with a different console, add your experience in the comments for others!</p>
+</blockquote>
+<p>ConEmu is a great little tool, and it’s free, but it is a bit… overeager?… in its efforts to let you control everything. The interface is a bit old school, so it’s worth walking through the setup process step by step.<br />
+First you’ll want to download and install <a href="http://conemu.github.io/">ConEmu</a> (the installation instructions are down at the botton of the linked page, and the setup is basically ‘unzip into a folder’).</p>
+<p>Once you’ve got ConEmu up and running, you’ll want to open the settings dialog and select the <em>Tasks</em> option from the tree list at left. This will show you a dialog like this:  </p>
+<p><a href="http://3.bp.blogspot.com/-w0mbodm7rfY/VSAucMI2xPI/AAAAAAABLnI/0y0424YSh94/s1600/conemu_1.jpg"><img alt="" src="http://3.bp.blogspot.com/-w0mbodm7rfY/VSAucMI2xPI/AAAAAAABLnI/0y0424YSh94/s1600/conemu_1.jpg" /></a>  </p>
+<blockquote>
+<p>Like I said, old school.</p>
+</blockquote>
+<p>For starters going to create a startup preset that launches mayapy. ConEmu calls these ‘tasks’. To create a new one, click that <code>+</code> botton under the list of predefined tasks. That will create a blank preset with a name like “Group #”, you can rename it by typing a better name in the text box just to the left of the word “Hotkey”.  </p>
+<p>The actual command you’ll type goes into the large text box on lower right. Just as test, enter the path to your mayapy <em>in quotes</em>, (usually it’s in <code>Program files\Autodesk\MayaXXXX\bin\mayapy.exe</code>) followed by a space and <code>-i</code>. The <code>-i</code> flag is important: it makes sure that mayaypy launches in interactive mode so you can actually use it – without the flag the application will launch and immediately quit! For maya 2015, for example, you can do:  </p>
+<div class="highlight"><pre><span></span>&quot;%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe&quot; -i
+</pre></div>
+
+
+<p>Test out this minimal version by saving the settings (the <em>Save Settings…</em>) button at lower right and making a new console using the green plus button at the upper right. Select the preset; if all goes right you’ll get a python prompt like this:  </p>
+<p><a href="http://4.bp.blogspot.com/-6SwtLYQpf7s/VSAuvIdPHDI/AAAAAAABLnQ/gtXK892tdFs/s1600/conemu_2.jpg"><img alt="" src="http://4.bp.blogspot.com/-6SwtLYQpf7s/VSAuvIdPHDI/AAAAAAABLnQ/gtXK892tdFs/s1600/conemu_2.jpg" /></a></p>
+<p>If it doesn’t work, go back and make sure that you surrounded the path to maypy.exe with quotes. <strong><code>&lt;insert rant about making an operating system with spaces in the paths that doesn't support spaces by default here!&gt;</code></strong>   </p>
+<h2>More cowbell</h2>
+<p>With just these options, you’ve got a working python intepreter, but it’s doesn’t have any maya-specific features. To get an actual maya session you could manually start a <a href="http://techartsurvival.blogspot.com/2014/04/earth-calling-mayastandalone.html">maya standalone</a> by typing  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.standalone</span><span class="p">;</span> <span class="n">maya</span><span class="o">.</span><span class="n">standalone</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
+</pre></div>
+
+
+<p>at the prompt. This works, but it’s a bit tedious. You can automate the process in ConEmu by editing your task description: Go back to the task settings in ConEmu add this to your configuration:  </p>
+<div class="highlight"><pre><span></span><span class="s2">&quot;%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe&quot;</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import maya.standalone; maya.standalone.initialize()&quot;</span>
+</pre></div>
+
+
+<p>making sure again to check your quotes.   </p>
+<p>When you launch a new ConEmu session for your preset you’ll probably notice a pause on startup: that’s Maya starting up in the backgrdound. If your maya loads tools or scripts at startup via <code>userSetup.py</code>, you may see printouts or debug information scroll by as well. You should now be working in a standalone session, so you should be able to try something like:  </p>
+<p><a href="http://3.bp.blogspot.com/-ncaJyLvqczY/VSAuvALxi_I/AAAAAAABLnU/64gr2WRWkdo/s1600/conemu3.jpg"><img alt="" src="http://3.bp.blogspot.com/-ncaJyLvqczY/VSAuvALxi_I/AAAAAAABLnU/64gr2WRWkdo/s1600/conemu3.jpg" /></a></p>
+<h2>Avoiding userSetup.py</h2>
+<p>If your startup scripts do something dependent on the maya GUI you may get an error instead. The <em>Right Thing<sup>TM<sup></em> to do is to fix that: you don’t want GUI in your startup routine because it hampers your ability to do batch jobs or renders.   </p>
+<p>However as a stopgap measure you can <a href="no-soup-for-you.html">suppress your userSetup.py</a> and load a completely vanilla Maya. This requires setting an environment variable called <code>MAYA_SKIP_USERSETUP_PY</code> to 0, which unfortunately is something ConEmu can’t do for you. However, you can work around that by creating a <code>.BAT</code> file that sets the environment before launching mayapy. The bat will look like this: </p>
+<div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">MAYA_SKIP_USERSETUP_PY</span>  <span class="o">=</span> <span class="mi">1</span>  
+<span class="s2">&quot;%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe&quot;</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import maya.standalone; maya.standalone.initialize()&quot;</span>
+
+<span class="nb">exit</span>
+</pre></div>
+
+
+<p>You can point your ConEmu task at the .BAT file instead of directly at mayapy and you should get a no-userSetup session.   </p>
+<p>This trick can also be used to launch mayapy with different environment variables – for example, I use to maintain different mayapy’s for different projects based on a set of project-specific env vars.  </p>
+<h2>Con Air</h2>
+<p>I’ve been using mayapy in the terminal window as a key part of my work for about a year now, and I’m sure I’ve saved many, many hours of waiting when I noodle on various bits of code, one-off batch tasks, and general noodling. In addition to speedier startup, running mayaPy in the console also gives you a more customizable view and command history, so it’s also a great replacement for many things you might otherwise want to do by starting up Maya and popping open the listener.  </p>
+<p>Of course, on the meta-meta-level it is a bit odd to by running a text only version of the most powerful graphics tool on the planet. But hey, that’s how we roll in techart land.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 04 April 2015
@@ -140,7 +396,59 @@
                     Maya Bug Watch: API2 and GetPoints()
                 </h2>
             </a>
-                A very irritating bug in Maya Python API 2
+                <p>In general I’m more or less a <a href="api_2_chance.html">fan of Maya Python API 2.0</a>. It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.<br />
+If you want to get the vertices of an object in the api, the usual formula is:  </p>
+<ol>
+<li>Get the dagPath of the object</li>
+<li>Make an <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_fn_mesh_html">MFnMesh</a></li>
+<li>Call the ‘GetPoints’ method of your mesh</li>
+<li>Party on, dudes</li>
+</ol>
+<p>Something like this, which returns a list of <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_point_html">MPoint</a> objects for the verts in the mesh  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.api.OpenMaya</span> <span class="kn">as</span> <span class="nn">api</span>
+
+<span class="k">def</span> <span class="nf">get_verts</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>  
+    <span class="n">mobj</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">MGlobal</span><span class="o">.</span><span class="n">getSelectionListByName</span><span class="p">(</span><span class="n">mesh</span><span class="p">)</span><span class="o">.</span><span class="n">getDagPath</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>  
+    <span class="c1"># that&#39;s lazy, it assumes that the first child is the mesh shape.  </span>
+    <span class="c1"># in practice you need to be more careful...  </span>
+    <span class="n">mfn_mesh</span> <span class="o">=</span>  <span class="n">api</span><span class="o">.</span><span class="n">MFnMesh</span><span class="p">(</span><span class="n">mobj</span><span class="p">)</span>  
+    <span class="n">vert_array</span> <span class="o">=</span> <span class="n">mfn_mesh</span><span class="o">.</span><span class="n">getPoints</span><span class="p">()</span>  
+    <span class="k">return</span> <span class="p">[</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">vert_array</span><span class="p">]</span>
+</pre></div>
+
+
+<p>This works fine and dandy… except:  </p>
+<p><em><strong>If the mesh has 256 or more verts, the first vertex comes back as garbage</strong></em><br />
+Here’s an example, using the same function:  </p>
+<div class="highlight"><pre><span></span>mesh, _ = cmds.polyCube(sw = 1, sh= 1, sd = 1)  
+print get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(-0.50000000000009082, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(0.5, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.5, 0.5, 0.5, 1), maya.api.OpenMaya.MPoint(0.5, 0.5, 0.5, 1)]
+
+# this looks good... Here&#39;s the same thing for a 226 vert cube:  
+mesh, _ = cmds.polyCube(sw = 8, sh= 8, sd = 3)  
+print get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(-0.50000000000005185, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.375, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.25, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.125, -0.5, 0.5, 1)]
+
+# but up the vert count to 258:  
+mesh, _ = cmds.polyCube(sw = 8, sh= 8, sd = 4)  
+print get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(5.0277956463997711e-315, 5.0313386899592279e-315, 0.5, 1), maya.api.OpenMaya.MPoint(-0.375, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.25, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.125, -0.5, 0.5, 1)]
+
+# that first point is gibberish: python can&#39;t go to the -315th power!
+</pre></div>
+
+
+<p>I’ll leave it to wiser heads to figure out <em>why</em> it works out like this. My guess is that something is borked in pointer math going on inside the wrapper around <code>MfnMesh</code>, but I don’t know. Luckily, there’s a workaround: if you create <em>new</em> MPoints out of the items coming back from the <code>GetPoints()</code> call, you get good data. I’m not sure why but this should be so but it appears to be reliable on my machine (Windows 7, 64 bit maya 2015). Here’s the workaround:  </p>
+<div class="highlight"><pre><span></span>def safe_get_verts(mesh):  
+    mobj = api.MGlobal.getSelectionListByName(mesh).getDagPath(0)  
+    mfn_mesh =  api.MFnMesh(mobj)  
+    vert_array = mfn_mesh.getPoints()  
+    return [api.MPoint(i) for i in vert_array]  # creating new MPoints fixes the issue
+
+mesh, _ = cmds.polyCube(sw = 10, sh= 10, sd = 10)  
+print safe_get_verts(mesh)[:4]  
+#&gt; [maya.api.OpenMaya.MPoint(-0.5, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.40000000596046448, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.30000001192092896, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.20000001788139343, -0.5, 0.5, 1)]
+</pre></div>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 27 March 2015
@@ -152,36 +460,96 @@
                     Markdown Wrapup
                 </h2>
             </a>
-                An experiment with plain-text blogging in markdown.
+                <blockquote>
+<p>Since this was written I've moved the whole blog to a <a href="http://docs.getpelican.com">Pelican</a> based static site generated entirely from Markdown. It's a vastly nicer way to work than the old Blogger editor!  I've left this along for historical reasons but as of 'today' (spring 2016) I'm all Pelican, all the time.</p>
+</blockquote>
+<p>A <a href="wygwys.html">while back</a> I blogged about how much I longed for a good <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> based blogging platform. Since a couple of people inquired about how that’s gone, I thought I’d mention my (meager) findings since then.  </p>
+<h2>The options</h2>
+<p>There are several different ways you could get Markdown-based onto a blog:   </p>
+<h3>Static site generators</h3>
+<p>I looked at a number of static generators, like <a href="https://github.com/gollum/gollum/wiki">Gollum</a> from github and <a href="http://getnikola.com/blog/">Nikola</a>. Both of these were conceptually appealing, but suffered from similar issues, most notably the usual run of configuration and install issues the come with any web-world endeavor these days. I had a hell of time getting either one working install on the macbook I use for most of my writing and eventually decided that I wasn’t that interested in wrestling with those kind of things into the future. More importantly, I’m too busy to really admin my own server - I want a hosted service. If you’re more into running your own server – and you don’t mind sleuthing out things like getting the right Ruby package manager setup running – they could both work fine. </p>
+<h4>Markdown-based blogs</h4>
+<p>There are a few markdown based blogging hosts out there. The one I looked at most carefully was <a href="https://www.silvrback.com/">Silvrback</a>, and I enjoyed it a good deal. The writing was clean and simple and it came with a built-in syntax highlighting: the biggest damn hassle about all these posts has been getting the code samples into a reasonable format without hopping around between multiple sites and pasting a lot of esoteric formatting codes in HTML by hand. So, I had a good experience with Silvrback and I seriously considered switching. If you’re just getting started it’s definitely worth a look, particulary for technical blogs like this one.
+<img alt="silverback" src="http://knolzone.com/wp-content/uploads/2014/03/silvrback.jpg" />  </p>
+<h4>Custom markdown</h4>
+<p>The last option would be trying to take control of the markdown to HTML conversion process and spit out a minimal set of HTML that would play nice with Blogger but need no hand-work to make it pretty (you’ll recall that I bitched about my earlier efforts getting bogged down in <code>&lt;p/&gt;</code> vs <code>&lt;br/&gt;</code> and other HTML nonsense I don’t want to think about. There are lots of Markdown generators out there at varying levels of sophistication, but I also don’t want to think too much about micromanaging those.</p>
+<p>After a few bouts of intense googling, I ended deciding to stick with Blogger for two reasons. First, I didn’t see an obvious way to port my old stuff – more than a hundred posts with all sorts of special formatting and so on – and I felt it would be bad for the site to be split across two hosts. Also, I worried about losing readers if I switched URLs (if I do this again, I’m going to set up a custom domain early so people know the site by a redirect I can switch at will!). I will admit that I also wondered if using Google for hosting has anything to do with search results - I’ve noticed that a significant portion of traffic comes through Google searches and I wonder if other hosts are quite as well covered by whatever magic algorithm Google uses.<br />
+Sticking with Blogger for hosting means figuring out to reconcile my markdown text and Blogger’s style sheets. Luckily, it turns out that <a href="http://www.sublimetext.com/">Sublime Text</a> has a nicely configurable <a href="https://github.com/revolunet/sublimetext-markdown-preview">Markdown preview plugin</a>. I love Sublime anyway – it’s my go-to text editor for everything except heavy-duty C# and Python <strong>(VS and <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>, respectively, btw)</strong>.   </p>
+<p>In ordinary use, MarkdownPreview “bakes” your Markdown info nicely formatted HTML with all sorts of swanky CSS formatting – which is precisely what makes things hard for Blogger. With a little extra work, however, you can get it to produce a stripped-down HTML with the right tags and links but without all the extra CSS that conflicts with the Blogger template. <br />
+It took a bunch of fiddling to figure out how it works, but once I got over the n00bishness it turns out to be very simple. Here’s a step-by-step to setting it up for yourself.  </p>
+<hr />
+<h3>1. Install the MarkdownEditing and MarkdownPreview packages for Sublime Text.</h3>
+<p>This is pretty simple using Sublime’s excellent Package Manager, so I’ll skip the details <strong>(<a href="http://www.granneman.com/webdev/editors/sublime-text/packages/how-to-install-and-use-package-control/">here’s some help</a> if you need it.)</strong>  </p>
+<h3>2. Create a simplified HTML template</h3>
+<p>You want to make a simple HTML template that Sublime can render Markdown into. You can add some customisations if you like but the main business of the template is to prevent MarkdownPreview from filling in all of it’s own CSS styles.   </p>
+<p>Luckily, it’s easy to do this: if you don’t add a placeholder for the HTML <code>&lt;head&gt;</code> tag, MardownPreview can’t stick all the styles in there. This means you can force Sublime to give you a stripped-down output that won’t override your Blogger template.  </p>
+<p>If all you want to do is get uncluttered HTML, you can just use   </p>
+<div class="highlight"><pre><span></span><span class="cp">{{</span> <span class="nv">Body</span> <span class="cp">}}</span><span class="x"></span>
+</pre></div>
+
+
+<p>as your template. That will let you past your Markdown HTML into blogger while keeping your Blogger theme intact.  </p>
+<p>Since I do a lot of code samnples in this blog, I opted to include a little bit of custom CSS to pretty it up. MarkdownPreview uses <a href="http://pygments.org/">Pygments</a> to generate highlighted code. Pygments marks up the html with a bunch of custom HTML classes for different language parts, and you just need to provide some CSS that will decorate those guys. There are plenty of examples that work with Pygments which you can cut-and-paste like <a href="https://github.com/richleland/pygments-css">this set from Rich Leland</a>.   </p>
+<p>For myself, I grabbed a free one that looked a lot like the highlighting style on Github – to keep my template simple I put it in a public folder on DropBox and used an HTML link to include it in the blog. <strong>Feel free to use it if you’d like, but don’t link to it: I may keep fiddling with it and you don’t want my changes!. You can also get it <a href="https://gist.github.com/theodox/4fefeb539f1d8ec341b0">here</a></strong>  </p>
+<div class="highlight"><pre><span></span><span class="nt">&lt;head&gt;</span>  
+<span class="nt">&lt;link</span> <span class="na">rel=</span><span class="s">&quot;stylesheet&quot;</span> <span class="na">title=</span><span class="s">&quot;github&quot;</span> <span class="na">href=</span><span class="s">&quot;https://dl.dropboxusercontent.com/u/2977490/github.css&quot;</span><span class="nt">&gt;</span>  
+<span class="nt">&lt;/head&gt;</span>  
+<span class="cp">{{</span> <span class="nv">BODY</span> <span class="cp">}}</span>
+</pre></div>
+
+
+<p>The dropbox files contains the CSS styles for highlighting code, but none of the zillions of other styles that usually come out of the Markdown &gt; HTML translation. This way, my Blogger template will control the appearance of everything and keep the general style of the blog – but the code coming out of Markdown will be highlighted. Plus, I can tweak old entries by just changing the shared file. <strong>One caution: Blogger is finicky about which links it will allow in the head tag: I would rather have linked to the Gists or a CSS file on github, but wasn’t able to get that to work.</strong>  </p>
+<h3>3. Customize the MarkdownPreview package.</h3>
+<p>Open up the user settings for MarkdownPreview (<strong>Package Settings &gt; Markdown Preview &gt; Settings – User</strong>). This will be a blank file the first time you open it, but like all Sublime settings files it’s a JSON file. We just need to tell the MarkdownPreview plugin to use our template:  </p>
+<div class="highlight"><pre><span></span>{  
+    &quot;enable_highlight&quot; : true,  
+    &quot;enable_pygments&quot; : true,  
+    &quot;html_template&quot; : &quot;C:/path/to/blog_template.html&quot;,  
+    &quot;skip_default_stylesheet&quot;: true  
+}
+</pre></div>
+
+
+<p>The key thing values here are the <code>html_template</code>, which is the path to the template file from step 2, and <code>skip_default_stylesheet</code>, which tells MarkdownPreview not to insert all those other styles.   </p>
+<h3>4. Build your blog!</h3>
+<p>With the template and settings in place, create some Markdown. In Sublime, generating the HTML uses the same ‘build’ model as compiling code. So you first set the build system to Markdown (<strong>Tools &gt; Build System &gt; Markdown</strong>). Then you build it (<strong>CMD + B or Tools &gt; Build</strong>), which by default will create an HTML file alongside your markdown file. You can view the results in a browser directly or just open the HTML file in Sublime. <br />
+What you should have at this point is nicely formed HTML without tons of extra CSS (and, if you added code-highlight styles, some colorful highlited text as well). You can just cut the HTML and paste it straight into the HTML view in Blogger and you should have a perfect, Blogger friendly but Markdown-clean and easy blog entry. Once you’ve done the setup steps once, your only job is a single cut-and-paste (you can even configure MarkdownPreview to copy the HTML to the clipboard instead of writing to a file!).   </p>
+<hr />
+<h2>Wrapup</h2>
+<p>This is not the perfect blogging system, by a long shot – but it’s a whole lot better than Blogger’s slow GUI, and it offers flexible code highlighting for all of the languages that Pygments supports. Once all the spadework is done, posting is as simple as writing in Markdown, hitting the build button, then pasting into Blogger. So far I’m finding it a huge improvement.   </p>
+<p>But of course, TA’s are <em>never</em> satisfied so I bet this will come up again some other time…</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 17 March 2015
             </p>
 <p>There are <a href="http://theodox.com/2015/markdown_wrapup#disqus_thread">comments</a>.</p>        </div>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/you_kids_get_offa_my_lawn" rel="bookmark" title="Permalink to You kids get offa my lawn!">
-                <h2 class="post-title">
-                    You kids get offa my lawn!
-                </h2>
-            </a>
-                A GDC panel on ageism
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Mon 16 March 2015
-            </p>
-<p>There are <a href="http://theodox.com/2015/you_kids_get_offa_my_lawn#disqus_thread">comments</a>.</p>        </div>
-        <div class="post-preview">
             <a href="http://theodox.com/2015/site_updates" rel="bookmark" title="Permalink to Site updates">
                 <h2 class="post-title">
                     Site updates
                 </h2>
             </a>
-                pending
+                <p>I've finally gotten around to re-hosting the slides from the <a href="http://theodox.github.io/#!cookbook/index.md">Character Rigger's Cookbook</a> talk.  You can also get the <a href="http://www.gdcvault.com/search.php#&amp;category=free&amp;firstfocus=&amp;keyword=character+rigging%2Bbest%2Bpractices&amp;conference_id=">original audio on the GDC Vault</a>.  </p>
+<p><a href="https://dl.dropboxusercontent.com/u/2977490/presentations/cookbook/img5.jpg"><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/presentations/cookbook/img5.jpg" /></a></p>
+<p>For the tiny handfull of you how were using my Unity course notes, I'm in the process of moving them to a new host.  So the old link at <em>theodox.com</em> is no longer correct (if you follow it you'll get a work-in-progress page; I'm experimenting with a cool new <a href="http://dynalon.github.io/mdwiki/#!index.md">markdown based wiki</a> that is much nicer than the old one at <a href="http://tryscribble.com/">tryscribble.com</a>, but I have yet to make 'real' pages).  I'll announce it here when they go live again.  </p>
+<p>While moving things around I also added redirect so you can find this blog at <a href="http://blog.theodox.com/">blog.theodox.com</a> as well as the usual blogspot link. </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 14 March 2015
             </p>
 <p>There are <a href="http://theodox.com/2015/site_updates#disqus_thread">comments</a>.</p>        </div>
+        <div class="post-preview">
+            <a href="http://theodox.com/2015/gdc_on_the_horizon" rel="bookmark" title="Permalink to GDC on the horizon">
+                <h2 class="post-title">
+                    GDC on the horizon
+                </h2>
+            </a>
+                <p>For folks who'll be attending <a href="http://www.gdconf.com/">GDC</a> this year, I'll be doing a talk on <strong>Technical Art for Art Directors </strong> at the <a href="http://schedule.gdconf.com/session/art-direction-bootcamp-technical-art-direction">Art Director's bootcamp</a> on Monday at 2:15.  Hope to see some of you there!  </p>
+            <p class="post-meta">Posted by
+                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
+                 on Tue 24 February 2015
+            </p>
+<p>There are <a href="http://theodox.com/2015/gdc_on_the_horizon#disqus_thread">comments</a>.</p>        </div>
 
     <hr>
     <!-- Pager -->

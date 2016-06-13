@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag modules</title>
+        <title>Chimeras & Manticores - Tag modules</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,11 @@
                     Mighty Morphin Module Manager Made Moreso
                 </h2>
             </a>
-                An mGui port of the Maya Module Manager
+                <p>I've added a <a href="https://github.com/theodox/mhttps://github.com/theodox/mGui/blob/master/mGui/examples/modMgr.pyGui/blob/master/mGui/examples/modMgr.py">port </a>of the <a href="mighty_morphin_maya_module_manager">Maya Module Manager I posted a while</a> back to the examples included with the <a href="https://github.com/theodox/mGui">mGui maya GUI library. </a> This was an exercise to see how much the neater and more concise I could make it using the library.  </p>
+<p><a href="http://1.bp.blogspot.com/-40t7CxBPtPo/Uz-BSayB96I/AAAAAAABICI/IW5w86cjuTA/s1600/modmgr.png"><img alt="" src="http://1.bp.blogspot.com/-40t7CxBPtPo/Uz-BSayB96I/AAAAAAABICI/IW5w86cjuTA/s1600/modmgr.png" /></a></p>
+<p>Here's some interesting stats:  </p>
+<p>The original version was <strong>237</strong> lines of code, not counting the header comments. The mGui version was <strong>178</strong> without the header, so about <strong>25%</strong> shorter overall.  There are about 80 lines of unchanged, purely behind-the-scenes code which didn't change between versions, so the real savings is more like <strong>45%.</strong>  Plus, the original sample included some functions for formLayout wrangling  so real savings might be a little higher for more old-fashioned code.  </p>
+<p>Like I said <a href="all_your_base.html">last time</a>, the mGui package is still evolving so it's still very much in a "use at your own risk" state right now... That said, I'd love to get comments, feedback and suggestions.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 08 April 2014
@@ -103,7 +107,12 @@
                     Mighty Morphin Maya Module Manager
                 </h2>
             </a>
-                A GUI for managing Maya modules
+                <p>For folks who are interested in <a href="magical_modules.html">fiddling with Maya modules</a> as per the last post, I've tossed <a href="https://gist.github.com/theodox/8414494">a quickie class to manage Maya modules </a>onto <a href="https://gist.github.com/theodox">my Gist account</a>.  </p>
+<p>This is a bare bones bit of code. The main class is the <code>ModuleManager</code>, which can find any <code>.mod</code> files on the MAYA_MODULE_PATH of the current Maya environment. It's primary use is to find and list all the modules; secondarily it can be used to toggle them on and off (by changing the leading + which Maya uses to id a module to a -, or vice-versa). It's pretty dumb (no accounting for file permissions, incorrectly formatted .mod files, etc) but it's handy for quickly testing out configs.  </p>
+<p>Also included is a GUI class, <code>ModuleManagerDialog</code>, which finds provides a simple GUI for listing, enabling, and disabling .mod files. Again, pretty simple stuff, but people may find it useful.  </p>
+<p><a href="http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s1600/modmgr.png"><img alt="" src="http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s400/modmgr.png" /></a></p>
+<p>As will all code I put up here, it's MIT licensed. Use away with attribution - and if you have any bug fixes, let me know and we'll fix the Gist version.  </p>
+<p><strong>PS</strong>, hat tip to the gang at <a href="http://tech-artists.org/">TAO </a> for the idea of using a context manager to get out of all those stupid <em>setParent("..")</em> calls in Maya GUI work. I could not find the original post where somebody mentioned it - but whoever you are, sir or madam, thank you ever so much.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 16 January 2014
@@ -115,7 +124,95 @@
                     Maya's (mildy) Magical Modules
                 </h2>
             </a>
-                An introduction to Maya's module system, a handy method for bundling and distributing tools non-invasively
+                <p>If you're doing tools work in Maya, you've probably seen a lot of ways of distributing scripts and tools. The most common, alas, is also the wonkiest - dumping a bunch of scripts into the users's script folder or maybe fiddling with Maya.env to point at a shared drive on the local network.     </p>
+<p>Eventually, you'll rum into situations where you can't just litter files all over your user's machine. Maybe you're supporting multiple projects in the studio and you need to have users hopping back and forth between toolsets. Maybe you're dealing with multiple versions of Maya and your tools have been forked into different environments. Maybe you're dealing with outsources who don't want to permanently alter their own environment just to get your tools for one project. Whatever the reason, someday you'll run into a situation where you want to be able to drop in a whole Maya toolset as a unit and to remove or disable it the same way.   </p>
+<p>Maya has always a had a facility called <strong>modules</strong>, can be useful for this purpose. It used to be used for things like  cloth sim or hair that were tacked on to the main package (back when hair was a $9,000 add-on!) .  Since then it's largely fallen out of favor, but it's never gone away -- and it has some useful properties that are great for tools distribution.  </p>
+<p>A module is really a sort of virtual file system.  Maya's most important folders are those for scripts, plugins, icons, and presets -- the same ones you typically see in your Maya user directory.  If you place a special text file in your module path, you can add to extra paths for Maya to search for scripts, plugins, icons and presets.   </p>
+<p>The big advantage of modules is the ability to manage complete set of files at once - scripts, plugins and so on can all be included (or excluded) from your Maya in a single place <em>Note to Autodesk - it would be very nice to give users a UI for this.  The 'Modules' setting in the preferences, confusingly, does not refer to _these _modules!</em>  Parts of a module can be kept independent of the user's private stock of scripts and tools. For outsourcers and contractors, in particular, the ability to completely uninstall a toolset you don't need anymore is a godsend.   </p>
+<p>Another handy feature of modules is that they can point Maya at shared network paths as well as paths on disk. This makes it far easier to keep a whole team on a common tool set by pointing a module script directory at a shared drive.  I'm not personally a big fan of the shared drive as a distribution method (more on that some other time) but it's fairly common and this makes it easy to establish and manage.  </p>
+<p>Finally modules do a little bit of automatic versioning. A module can specify different paths for different Maya versions, OS'es and processors.  This means a tool author can produce a single distribution for all customers and give them identical installation instructions without worrying too much about the details of the individual workstations on the receiving end.  You can pack up all of your distributions into a single zip file, and users merely unzip it into the modules folder of their local settings and the installation is done .  </p>
+<h3>Basic Setup</h3>
+<p>Modules are defined by a simple text file with a ".mod" extension.  Maya will look for module files in all the directories in the Maya_MODULE_PATH environment variable if you have it set, or in the modules directory of your Maya user directory (for example, in My Documents\Maya\modules). Here are the default locations where modules can be placed:  </p>
+<h4>Default for Windows</h4>
+<div class="highlight"><pre><span></span>&lt;user&gt;/My Documents/Maya/modules  
+C:/Program Files/Common Files/Autodesk Shared/Modules/Maya/  
+C:/Program Files/Common Files/Autodesk Shared/Modules/Maya/modules/
+</pre></div>
+
+
+<h4>Default for Mac OS X, Linux</h4>
+<div class="highlight"><pre><span></span><span class="p">$</span><span class="nv">Maya_APP_DIR</span><span class="x">/Maya//modules  </span>
+<span class="p">$</span><span class="nv">Maya_APP_DIR</span><span class="x">/Maya/modules  </span>
+<span class="x">/usr/autodesk/modules/Maya/  </span>
+<span class="x">/usr</span>
+</pre></div>
+
+
+<p>A module file is a plain text file. The official documentation for the format is <a href="http://docs.autodesk.com/MayaUL/2013/ENU/Maya-API-Documentation/index.html?url=files/GUID-9E096E39-AD0D-4E40-9B2A-9127A2CAD54B.htm,topicNumber=d30e30995">here</a> <em>(the 2012 version is <a href="http://download.autodesk.com/global/docs/Mayasdk2012/en_us/index.html">here</a>.  There are some pretty significant differences between 2012 and 2013+)!</em>.</p>
+<p>For the simple case a module file just looks like this:</p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 c:\path\to\moduleName
+</pre></div>
+
+
+<p>The module name is what shows up in the Maya UI, the 1.0 is a version number, and the path points Maya to the location of the module folder.  This example would point to a folder called "ModuleName". If that's all that goes in there, then Maya will look for scripts in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\scripts
+</pre></div>
+
+
+<p>icons in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\icons
+</pre></div>
+
+
+<p>and plugins in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\plug-ins
+</pre></div>
+
+
+<p>You can test this out by making the folder <code>c:\path\to\moduleName\scripts</code> and popping a <code>userSetup.py</code> ( or a <code>userSetup.mel</code>, if you're feeling old school) into it containing something like a <code>print("hello world")</code>. When you restart your Maya, you should see it printout in the Maya output window as Maya loads. It's the output window for Python because the script will execute <em>before</em> the Maya UI has loaded (something to keep in mind in your startup scripts!).  </p>
+<p>You can avoid hard coding the paths by using an alternate syntax in the mode file.  You have a can, for example, include an environment variable using <code>${variable}</code> in place of an absolute path. For example  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">PROJECT_LOC</span><span class="cp">}</span>\Mayatools
+</pre></div>
+
+
+<p>will point look for your module folder in the location defined by the environment variable named <strong>project_loc</strong>.  One side effect of this is that uou can put your modules into the modules folder (alongside your mod files) without having to hard-code paths:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName
+</pre></div>
+
+
+<p>You can even point your modules at a network share:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 \\net\shared\modules\moduleName
+</pre></div>
+
+
+<h3>Fancy stuff in 2013+</h3>
+<p>Sometimes setup requirements are more complex than dropping in a single folder (not a good idea if you can avoid it - but you know how it is...).  <strong>In 2013 and later,</strong>  you can use the module file to override particular paths and do some more flexible setup.  </p>
+<p>For example, in 2013+, you can also define the path relative to the module file location:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 ..\moduleName
+</pre></div>
+
+
+<p>should point at a folder <em>above</em> the directory where the module file is located. <strong>But  remember: 2013+ only!</strong> If you've looked at, for example, <a href="http://around-the-corner.typepad.com/adn/2012/07/distributing-files-on-Maya-Maya-modules.html">Cyrille Fauvel's post on modules</a> you'll see a bunch of advice that only works for 2013+.  Be aware :)  </p>
+<p>The other neat addition in 2013 is the ability to override specific sub-paths of the module. Thus  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName 
+scripts: //network/share/scripts
+</pre></div>
+
+
+<p>would point the scripts at the shared network scripts  drive, while leaving the plugins and icons folders in the module location.  </p>
+<p>2013+ also offers the ability to set environment variables from inside a module  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName 
+HAS_FANCY_2013_FEATURES=YES
+</pre></div>
+
+
+<p>Will set the environment variable <code>HAS_FANCY_2013_FEATURES</code> to 'yes' inside your Maya session. 2013 even has some funky syntax allowing you to append to existing variables and so on . There's no point in recapitulating it here, the <a href="http://docs.autodesk.com/MayaUL/2013/ENU/Maya-API-Documentation/index.html?url=files/GUID-9E096E39-AD0D-4E40-9B2A-9127A2CAD54B.htm,topicNumber=d30e30995">description in the docs</a> is a concise as I could do. My only commentary would be: <em>seriously, people? It's 2014 and still with the funky syntax crap?  I'm supposed to recognize that  _PATH += and PATH +:= bin _are different?</em>  </p>
+<p>Adding to paths can be extremely handy for some things, but unfortunately this won't solve a particularly thorny problem for tools teams, which is making sure that the OS can find binary dlls: if you have DLL dependencies in a binary plugin, its 'too late' to fix it by appending the DLL locations to the system path once Maya has loaded. Which stinks -- and is another reason to avoid binary plugins like the plague they are if at all possible.</p>
+<h3>One stop tool distribution... or not</h3>
+<p>For any busy TA, the business of distributing and maintaining toolsets on lots of other people's computers is a constant headache.  Modules can offer some significant assistance with this, since they allow you some control over Maya's search paths without requiring your to write code. It's a simple solution to the chicken-and-egg problem of getting Maya to do what you want before you've got tools loaded up to tell Maya what to do.  </p>
+<p>Modules, on their own, are not a complete solution to that problem.  But they are a help.  </p>
+<p>Modules basically just tell Maya to look in a few extra places for things like scripts or plugins - they don't automatically run startup code or do initialization, and they don't have much in the way of smarts -- they can't for example, allow you to quickly switch between two project-specific versions of your Maya tool set. You can install modules for toolsetA and toolsetB, but something smarter than a module file has to decide which one to pick on a given occasion (I'm going to talk about that problem in another post, but for now  However they do allow you to mix and match install locations, which is a big start; they also allow you to install outside the user's script folders, which is a key element in the good-fences-make-good-neighbors relationship between TA tools and the user's private Maya preferences.  Plus, they are explicit: you can look at the file and tell what its trying to do, which beats any number of magic naming and location rules.  </p>
+<p>At some point in the near future I'll try to post something on the second half of the distribution puzzle: running startup code cleanly and intelligently.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 12 January 2014

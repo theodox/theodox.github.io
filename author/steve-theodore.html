@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Articles by Steve Theodore</title>
+        <title>Chimeras & Manticores - Articles by Steve Theodore</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,9 +34,9 @@
         <![endif]-->
 
                     <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 
-    <meta property="og:title" content="theodox.com - Articles by Steve Theodore">
+    <meta property="og:title" content="Chimeras & Manticores - Articles by Steve Theodore">
     <meta property="og:type" content="profile">
     <meta property="profile:first_name" content="Steve">
     <meta property="profile:last_name" content="Theodore">
@@ -56,7 +56,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -97,7 +97,9 @@
                     Bye-Bye Blogger Blues
                 </h2>
             </a>
-                The new Pelican-based blog is up! Please check it out and let me know how it's working!
+                <p>After a <a href="http://techartsurvival.blogspot.com/2016/04/blogger-blues.html">long pause</a> I've finally completed the move to a <a href="https://pages.github.com/">GitHub Pages</a> based blog created with <a href="http://getpelican.com">Pelican</a>. Converting old blogger files, a markdown based wiki, and a bunch of other random pages was quite and adventure, but it's more or less done now.  I'd appreciate it greatly if you let me know -- either via the comments or one of the social links that accompany each post -- if you find any bugs, dead links or missing images in the site so I can fix them up.</p>
+<p>At some point I'll post an overview of how it went, but after several weekends of manually fixing old links, fiddling with CSS, and hitting 'refresh' on my browser I need to get up and walk around a bit.</p>
+<p><img alt="" src="http://www.stageoflife.com/Portals/0/Blogging%20Resources/Blogging%20Cartoons/BloggingCartoon5.jpg" /></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 12 June 2016
@@ -109,7 +111,47 @@
                     mGui updates in the offing...
                 </h2>
             </a>
-                A sneek peek at some changes in the 2.0 version of mGui
+                <p>For those of you who've been using <a href="https://github.com/theodox/mGui">mGui</a> to speed up and simplify your Maya gui coding, there are some interesting changes on the horizon. Although I'm not entirely ready to release the changes I have in mind they are mostly sitting in <a href="https://github.com/theodox/mGui/tree/remove_keys">their own branch in the Github repo</a>. </p>
+<p>The upcoming version introduces some new idioms - in particular, it gets rid of the need for explicitly setting keys on new controls to get access to nested properties. In the first version of mGui you'd write something like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
+    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
+        <span class="n">Text</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
+        <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">(</span><span class="s1">&#39;lister&#39;</span> <span class="p">)</span><span class="o">.</span><span class="n">Collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>    
+        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">):</span>  
+            <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
+            <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>With the new refactor that looks like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
+    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
+        <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
+        <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>  
+        <span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>    
+        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>  
+            <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
+            <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The big advantage here is that those local variables are not scoped exclusively to the layout context managers where they live, which makes it easy to control when and where you hook up your event handlers: In the above example you could defer all the bindings and event handlers to the end of the script like this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
+    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
+        <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
+        <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>  
+        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>  
+            <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
+            <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>  
+<span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>  
+<span class="n">refresh</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">refresh_def</span>  
+<span class="n">close</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">close_def</span>
+</pre></div>
+
+
+<p>So far I'm really liking the new idiom, particularly eliminating the extra quotes and redundant <code>None</code> keys. However this is a minorly breaking change: in some cases, old code which relied on the key value to name and also label a control at the same time will when the keys become redundant. Moreover I bit the bullet and started to refactor the entire mGui module to use correct pep-8 naming conventions - in particular, member variables are <em>no longer capitalized</em>. So if you have code outside of mGui this will introduce some issues. When I converted my own code, most of the changes could be done with a regular expression but there were a few danglers.</p>
+<p>I think the changes are worth the effort, but I'd be really interested in hearing from users before trying to bring the new mGui branch back into the main line. It should actually be possible to write a script that fixes most existing code automatically, that's something we could refine collaboratively.Please let me know in the comments or by opening an issue on the GitHub site if you have comments or plans. </p>
+<p>As always, bug fixes and pull requests always entertained!</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 26 March 2016
@@ -121,7 +163,14 @@
                     Another Year, Another GDC...
                 </h2>
             </a>
-                GDC 2016 after-action report
+                <p>It doesn’t take much super-secret industry-insider special knowledge to know that the big story this year was VR, VR and more VR – if the you had somehow managed to miss out on the pre-show hype the giant black Oculus booth looming like the Death Star right over the entrance to the expo floor told pretty much the whole story in one glance.   </p>
+<p><a href="https://gdc.tech.ubm.com/eventAssets/gameev_2016_151009160527/image/gdc16_logo-color.png"><img alt="" src="https://gdc.tech.ubm.com/eventAssets/gameev_2016_151009160527/image/gdc16_logo-color.png" /></a></p>
+<p>It is, however, interesting to note how cynical we’ve become as an industry about tech bubbles: from MMOs to Facebook games to In-app purchases and 3-D TVs, we’ve all lived through so many Next Big Things that we habitually reserve judgement – even on things like the latest crop of VR gear which sets our little nerdly hearts a-fluttering. I had a lot of conversations with people on the general theme of <em>“wow, that’s cool. In three years most of them will be out of business, though.”</em> – even with people in the VR business itself.   </p>
+<p>Personally, I think VR is going to survive but I don’t think it’ll be the kind of world-changing, ubiquitous tech that the broadband internet and handhelds have turned out to be. It’s an awesome geek toy and the gateway to many interesting and novel experiences. I see it sort of like that kayak in the garage: a cool thing that gets dusted off a few times a year but not a regular part of daily life, and never going to buffed up to the high consumerist gloss of an iPhone. Maybe in another decade, but for now it’s a really cool niche product. I hope all that crazy money sloshing around in VR land fuels some general purpose innovation : in particular, I hope that VR’s need for screaming framerates in two renders at once may make hardware that is more performant overall and also for split-screen friendly deferred rendering.</p>
+<p>In the actual, as opposed to the virtual, world the highlight of the show for me is always the TA roundtables. It’s such a great resource for the community, and a chance for folks who often live a bit outside the main stream of their development teams to get together with people who share their unique and esoteric pain. Those three roundtables are the only room full of people who will chuckle at jokes about MaxScript and who truly appreciate the hopeless pathos of sending emails about proper check-in procedures to a team of artists. As always, hats off to <a href="https://plus.google.com/116461271591099938175">+Jeff Hanna</a>  for running the roundtables and also the TA Bootcamp, which I had to miss this year but sounded really good. I’m anxiously awaiting the release of the talks I missed on the <a href="http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art">GDC Vault</a>.  </p>
+<p>In these annual roundups I usually try to note the size and intensity of the job market. This year was kind of difficult to gauge. The big mega-booths from mega-teams were largely absent this year: I didn’t see many of the long lines of students queuing up to show their portfolios to Blizzard, Bungie, or 343. On the other hand the general commercial tempo seemed pretty up beat. I think this reflects the general trend away from big, highly institutionalized teams and toward smaller, more agile (but also more fragile) groupings: the job market is more fragmented but not necessarily smaller than in years gone by. I could be wrong about that one, though – this might just be a mid-console-cycle lull.  </p>
+<p>To all the folks I saw down at the show – it was awesome! To those who didn’t make it this year – don’t miss it next time!  </p>
+<p>PS - one important thing that came out of the round table is that more and more people are signing up to the <a href="http://tech-artists.org/forum/showthread.php?5748-Tech-Artists-Org-is-now-on-Slack!">Tech artists slack channel</a>.  If you're not already a member, follow that link to sign up.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 20 March 2016
@@ -133,7 +182,94 @@
                     A touch of minq
                 </h2>
             </a>
-                Introducing Minq, a query language for Maya scenes.
+                <p>If you’re a long-time reader, you may recall that i’m very ambivalent about <a href="wraptastic.html">wrapper code</a>. I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.<br />
+So, it’s with a little bit of trepidation that I’m sharing my latest library. <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.<br />
+Now, that isn’t a particularly interesting job most of the time, but it’s one we do a <em>lot</em>: a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code> and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make. <br />
+Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like this?  </p>
+<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;something_thats_not_transform&#39;</span><span class="p">]</span>  
+<span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
+<span class="c1"># [u&#39;top&#39;]</span>
+
+<span class="n">stuff</span> <span class="o">=</span> <span class="p">[]</span>  
+<span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
+<span class="c1"># [u&#39;front&#39;, u&#39;persp&#39;, u&#39;side&#39;, u&#39;top&#39;]</span>
+</pre></div>
+
+
+<p>or this?  </p>
+<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">my_meshes</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">):</span>  
+    <span class="k">print</span> <span class="n">item</span>  
+<span class="c1"># Error: &#39;NoneType&#39; object is not iterable  </span>
+<span class="c1"># Traceback (most recent call last):  </span>
+<span class="c1">#   File &quot;&lt;maya console&gt;&quot;, line 1, in &lt;module&gt;  </span>
+<span class="c1"># TypeError: &#39;NoneType&#39; object is not iterable #</span>
+</pre></div>
+
+
+<p>There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my <code>ls()</code> calls alone will produce at least 5 bugs.<br />
+More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want fixed.  </p>
+<h2>Minq in action</h2>
+<p>Hence, <a href="https://github.com/theodox/minq">minq</a>. <br />
+The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.<br />
+Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional means:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_assemblies_that_drive_skins</span><span class="p">():</span>  
+    <span class="n">skinned</span> <span class="o">=</span> <span class="p">[]</span>  
+    <span class="k">for</span> <span class="n">asm</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">assemblies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>  
+        <span class="n">children</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">asm</span><span class="p">,</span> <span class="n">ad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>  
+        <span class="n">history</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">future</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+        <span class="k">if</span> <span class="n">history</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;skinCluster&#39;</span><span class="p">):</span>  
+            <span class="n">skinned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asm</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="n">skinned</span>
+</pre></div>
+
+
+<p>You’ll notice the littering of <code>or []</code> to make sure we don’t get errors for failed queries. We have to create two temporary variables (<code>childen</code> and <code>history</code>) in order to store the intermediate results. And, obviously, we’re 3 layers deep when we get to the actual work item. <br />
+Above all, though, you need to remember two little bits of Maya trivia to make sense of this code: that <code>cmds.ls(asm=True)</code> means ‘give me the assemblies’ and that <code>listRelatives(ad=True)</code> gives you the children of an object. These are, of course, very clear to Maya vets – but there are over 50 flags in <code>ls()</code> and more than a dozen in <code>listRelatives()</code> . I’ve been working in Maya for 20 years and I still need to look up most of them. You pass those flags to Maya as strings which won’t get evaluated until runtime – and it’s possible to mistype them and not even know because <code>ls()</code>, in particular, makes wierd tweaky decisions about how to interpret conflicting flags.<br />
+Here’s the minq equivalent to the previous function:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drives_skin</span><span class="p">(</span><span class="n">some_object</span><span class="p">):</span>  
+    <span class="n">children</span> <span class="o">=</span> <span class="n">using</span><span class="p">(</span><span class="n">some_object</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AllChildren</span><span class="p">)</span>  
+    <span class="n">skin_clusters</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">SkinClusters</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">skin_clusters</span><span class="p">)</span>
+
+<span class="n">unskinned_assemblies</span> <span class="o">=</span> <span class="n">Assemblies</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drives_skin</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the names:  </p>
+<ol>
+<li><code>drives_skin()</code> takes a maya object  </li>
+<li>It gets all of that object’s children  </li>
+<li>It gets all of the future history of those children  </li>
+<li>It it filters down to only the skin clusters in that future history  </li>
+<li>it returns true if any skin clusters are present  </li>
+</ol>
+<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read -- otherwise it could all be done in a single expression.<br />
+A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to <code>ls</code> and <code>listRelatives</code>.  </p>
+<p>Here’s a couple of other examples to give you the flavor of what a minq query looks like:  </p>
+<div class="highlight"><pre><span></span><span class="c1"># get all mesh transforms in a scene  </span>
+<span class="n">mesh_transforms</span> <span class="o">=</span>  <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span>
+
+<span class="c1"># find stub joints  </span>
+<span class="k">def</span> <span class="nf">is_stub</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span> <span class="p">(</span><span class="n">using</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Children</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">Transforms</span><span class="p">))</span>  
+<span class="n">stubs</span> <span class="o">=</span> <span class="n">Joints</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_stub</span><span class="p">)</span>
+
+<span class="c1"># filtering by type, by name, and with functions  </span>
+<span class="n">cube_creator_nodes</span> <span class="o">=</span> <span class="n">PolyCreators</span><span class="p">()</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="s1">&#39;polyCube&#39;</span><span class="p">)</span>  
+<span class="n">used_to_be_cubes</span> <span class="o">=</span> <span class="n">cube_creator_nodes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">Meshes</span><span class="p">)</span>  
+<span class="n">has_8_verts</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyEvaluate</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span>  
+<span class="n">still_are_cubes</span> <span class="o">=</span> <span class="n">used_to_be_cubes</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">has_8_verts</span><span class="p">)</span>
+
+<span class="c1"># adding, subtracting or intersecting queries</span>
+
+<span class="n">too_high</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>  
+<span class="n">too_low</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
+
+<span class="n">middle_xforms</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">too_high</span> <span class="o">+</span> <span class="n">too_low</span><span class="p">)</span>
+</pre></div>
+
+
+<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual MIT, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and style. </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 06 March 2016
@@ -145,7 +281,8 @@
                     Technical Art for Art Directors
                 </h2>
             </a>
-                My 2015 GDC talk, Technical Art For Art Directors.
+                <p>I noticed that my 2015 GDC talk, <a href="http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art">Technical Art For Art Directors</a>,  is currently up on the GDC Vault and is not behind the paywall.  If you've been struggling to explain what you do, you might find this one useful:  </p>
+<p><a href="https://3.bp.blogspot.com/-NznutU-ZoJA/Vtt0XRPAm0I/AAAAAAABNYc/YkgrX_U8iCc/s1600/ta-ad.jpg"><img alt="" src="https://3.bp.blogspot.com/-NznutU-ZoJA/Vtt0XRPAm0I/AAAAAAABNYc/YkgrX_U8iCc/s640/ta-ad.jpg" /></a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 05 March 2016
@@ -157,7 +294,19 @@
                     The little things
                 </h2>
             </a>
-                After a decade, victory over over userSetup.py is within our grasp
+                <p>It’s the little things that really matter in life.  </p>
+<p><a href="http://www.tshirtbordello.com/images/rule-32-enjoy-little-things-s3.jpg"><img alt="" src="http://www.tshirtbordello.com/images/rule-32-enjoy-little-things-s3.jpg" /></a></p>
+<p>If you’ve ever spent any time wrestling with Maya distribution, you’ve probably noticed that <code>userSetup.py</code> executes in an odd fashion: it’s not a module that gets imported, it’s basically a series of statements that get executed when Maya fires up. </p>
+<p>Unfortunately that also means that most of the usual strategies you’d use in python to find out <em>where</em>, exactly, you are running from is problematic. The usual python tricks like <code>__file__</code> don’t work; and most of the time asking for <code>os.getcwd()</code> will point at your Maya program directory. Usually you end up running around looking at all the directories where Maya might be stashing a <code>userSetup</code> and trying to figure out which one is the one you are in`. It’s ugly.  </p>
+<p>However today, I <em><strong>actually found one which works</strong></em>. At least, I haven’t figured out how to break it yet.  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">inspect</span>  
+<span class="n">USER_SETUP_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Since I’ve tried to figure this one out on at least a hundred previous occasions, I am feeling unduly smug about this one.   </p>
+<p><em>PS</em>, if you’re wondering why I care: this makes it really easy to do a simple install/uninstall of a <a href="egg_man"><code>userSetup.py</code> / <code>userSetup.zip</code> combo</a> with no environment variables or special rules.   </p>
+<p><strong>PPS</strong>: <em>Take that, Maya!</em></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 18 February 2016
@@ -169,7 +318,16 @@
                     The Memory Hole
                 </h2>
             </a>
-                An object lesson in why you need to write stuff down.
+                <p>We tend to be the kind of people who throw themselves into things – we live for the joy of problem solving. So when we’re really grappling with the intricacies of todays disaster, we immerse ourselves in it. We tear it apart and inspect all the little moving pieces till we understand it well enough to duct-tape it back together again.   </p>
+<p><a href="http://www.ocinside.de/media/uploads/less_memory_4.jpg"><img alt="" src="http://www.ocinside.de/media/uploads/less_memory_4.jpg" /></a></p>
+<p>Along the way, that attention to detail and mastery of nuance tends to make us think we know it all. But – a shock, I know – we don’t. More to the point, we might now it all <em>for the moment</em>. But we’ll dump that knowledge to make sure we have room for our encyclopedic knowledge of tomorrow’s problem. And next week’s. And next months.  </p>
+<p>In short, we’re constantly flushing our caches. Unless you’re stuck in a rut, doing the same thing every day, you’re constantly learning new little things for your current problem and silently shelving the knowledge you aquired for your last.  </p>
+<p>This is one reason why good code comments are so important. Sure, comments rot just like code. But a couple of well-placed notes about how and why the code looks the way it does can save future you a lot of time when many layers of memory recycling have left you completeley oblivious about what the hell past you was up to. I can easily think of a couple of embarrassing occasions where I’ve literally chased my own tail – done something non-obvious because of a wierd maya bug, then come back six month later to ‘clean up’ my ‘ugly code’ and of course hit the exact same bug again.   </p>
+<p>Of course, good comments don’t have to have high literary quality, they don’t need to cover every variable and for loop, and they certainly don’t need to be overwhelming: what they should be is notes to future-self that will help him or her revive all the fading memories which seem so obvious today but which will be utterly erased before the next season of <em>Silicon Valley</em> is released.<br />
+Which brings me, by a <em>very</em> roundabout route, to what I actually set out to talk about: a perfect case in point. I was noodling around with a system that needed to fire events for maya attribute changes: basically, a way to make <code>attributeChanged</code> scriptJobs that were easy to start, stop and restart. So I did a little googling and…   </p>
+<p>Yep. I’d already written it. I’d even <a href="https://github.com/theodox/attributeEvents">put it up on Github</a>.  </p>
+<p>In my defense, I realized in retrospect that I had cancelled the project at work that made it necessary the first time: I did the work on the system, got it ready to go, and then decided that there was a simpler way to solve the problem without all those attribute-change scripts anyway. Nonetheless it’s a perfect illustration of how thoroughly one’s short-term memory cache gets flushed – and of the importance of leaving good comments. At least when I found the damn thing the readme that Github makes you put up reminded me how it was supposed to work (as an aside, it’s a great reason for putting your stuff up on GitHub or similar forums: knowing that other people will be looking at it forces you to clean up and document more than you would if you just decided to shelve a project). </p>
+<p>So there you have it: an object lesson in the importance of clarity in tools development <em>and</em> a free module for messing around with AttributeChange scriptJobs!</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 06 February 2016
@@ -181,7 +339,8 @@
                     For my homies
                 </h2>
             </a>
-                Tech art representin'
+                <p><a href="http://3.bp.blogspot.com/-RZtbJhpL0Ds/Vq-LmkPaLjI/AAAAAAABNSk/i2R7KWtnOi4/s1600/Slack%2Bfor%2BiOS%2BUpload.png.jpeg"><img alt="" src="http://3.bp.blogspot.com/-RZtbJhpL0Ds/Vq-LmkPaLjI/AAAAAAABNSk/i2R7KWtnOi4/s640/Slack%2Bfor%2BiOS%2BUpload.png.jpeg" /></a></p>
+<p>Hat tip: Matt Heiniger</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Mon 01 February 2016

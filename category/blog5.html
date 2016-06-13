@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Articles in the blog category</title>
+        <title>Chimeras & Manticores - Articles in the blog category</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,18 @@
                     What The...?
                 </h2>
             </a>
-                A nice little trick for filtering components in Maya using cmds.ls()
+                <p>Like many Maya heads I have long wrestled with the problem of filtering lists to get what I'm interested in.  You're probably familiar with the use of  the <strong>type</strong> flag in cmds.ls() to filter on types: for example this will give you only the transforms in your current selection:</p>
+<div class="highlight"><pre><span></span>cmds.ls(sl=True, type = &#39;transform&#39;)
+</pre></div>
+
+
+<p>This works for any node type (the list is quite long: it's basically the whole maya node class hierarchy) and is a handy way to find only once class of objects.  However there's no equivalent command for components: so if you've got a mixed list of objects and components it's hard to extract just the components without resorting to cumbersome string processing.</p>
+<p>However I just found a partial workaround today that helps with component selections.  For some reason known only to <a href="https://en.wikipedia.org/wiki/Xibalba">Xibalba</a>,  Maya 2014+ seems to treat faces, edges and vertices as if they were nodes of a "float3" type (uv's are "float2"s) .  This means you can get the components from a mixed selection with:</p>
+<div class="highlight"><pre><span></span>cmds.ls(sl=True, type = &#39;float3&#39;)
+</pre></div>
+
+
+<p>Not the most earth-shattering discovery of the 21st century, but handy nonetheless.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 05 February 2015
@@ -103,7 +114,9 @@
                     Race to the bottom?
                 </h2>
             </a>
-                A gloomy note on the decline of 3-d artist salaries
+                <p>I'm notorious for issuing gloomy pronouncements at GDC and elsewhere about the long term decline in artist pay.  I often point out that my starting salary in 1995 was about what an 6-year veteran makes today.  Maybe I'm just trying to scare the fainthearted out of the business and drive prices back up.  </p>
+<p>Still, my complaints are nothing compared to what's been going in the VFX industry.  The latest victim is <a href="http://www.cartoonbrew.com/business/breaking-dreamworks-animation-will-shut-down-pdidreamworks-studio-over-500-jobs-will-be-eliminated-108161.html">PDI</a>, which will be laying off 500 people.  While games has had it's ups and downs the last few years, VFX has had a brutal time with lots of closures and disruptions.   </p>
+<p>In that connection I came across <a href="https://vfxsoldier.wordpress.com/">VFXSoldier </a>, a site which has been fighting for more unionization in the VFX world.  While I'm deeply ambivalent about unionizing in CG -- I don't know if it's really <em>possible,</em> much less if it's a good idea -- but it's certainly not something to dismiss without thinking about and it is hard to see how it could make life worse for the poor VFX folks.  It's a worthwhile read just to see how the other half lives. I'm curious to hear what others think.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Mon 26 January 2015
@@ -115,7 +128,70 @@
                     Dang
                 </h2>
             </a>
-                An irritating behavior in cmds.ls() that can really ruin your day.
+                <p>You know the old saying, "you learn something new every day?" Well it's true. Usually, it's something like "I don't know where I left my keys," but sometimes you run into something that you realized you should have known all along and yet somehow it takes you by surprise.   </p>
+<p>Here's a little nugget that I stumbled onto today.  If you know Maya, you probably know that cmds.ls() with no arguments gives you a list of every entity in your current maya scene.  However if you pass in a list, ls() will filter it down.  It's very common to do something like</p>
+<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pCubeShape1&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;persp&#39;</span><span class="p">]</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;camera&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>as a cheap way of filtering a list of objects by type, or</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>to get long names and so on.  All pretty 101.</p>
+<p>Now, if you're an old Pythonista, you've probably tried it like this too:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and gotten the same result.  Usually, <strong>*args</strong> is a great help in writing simpler code, since you write functions that take an arbitrary number of arguments without forcing the callers to create lists or tuples. Your code can use loops or comprehensions knowing that the <strong>*args</strong> will be iterable even if it's empty:   </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">starargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
+    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">args</span><span class="p">):</span>  
+        <span class="k">print</span> <span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">item</span>
+
+
+<span class="n">starargs</span><span class="p">()</span> <span class="c1"># prints nothing</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>  
+<span class="c1"># 0  a</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>  
+<span class="c1"># 0  i  </span>
+<span class="c1"># 1  j  </span>
+<span class="c1"># 2 k</span>
+
+<span class="n">starargs</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>  
+<span class="c1"># 0    x  </span>
+<span class="c1"># 1    y  </span>
+<span class="c1"># 2    z</span>
+</pre></div>
+
+
+<p>Unfortunately this nice behavior can bite you if you use it with cmds.ls().  It's easy to miss the difference between</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+
+
+<p>and </p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">)</span>
+</pre></div>
+
+
+<p>especially because most functions will treat these interchangeably.  </p>
+<p>However (!) the <em>no arguments means list everything</em> behavior means that the first one returns and empty list, but the second returns <strong>a list of everything in Maya</strong>.  If you were using the ls() as a filter or a long-name-converter you are likely to be very surprised by the results. I was using it as part of a cleanup routine, and I suddenly discovered I was 'cleaning' everything in my scenes.   </p>
+<p>Like I said, you learn something new everyday -- in this case, new curse words!</p>
+<hr />
+<p>You can work around this behavior  simply enough by not passing *-formatted args to ls(), or at least by not doing so without checking if the argument is valid:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_xforms</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span> <span class="k">return</span> <span class="p">[]</span>  
+      <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Not an earth-shaking discovery, just another one of the many mysteries of the Maya.  </p>
+<p><a href="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg"><img alt="" src="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg" /></a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 10 January 2015
@@ -127,7 +203,331 @@
                     To Scale!
                 </h2>
             </a>
-                The math review continues with a thrilling look at scale matrices!
+                <p>In our <a href="adventures_in_4th_dimension.html">last visit to 3-d math land</a>, we moved from the 2x2 and 3x3 matrices we used to learn how matrices function to the full 4x4 matrix that we all know and love to hate from 3d applications. This time I’d like to add support for scaling to our matrices so we can round out the ways matrices work.   </p>
+<blockquote>
+<p>This might be a good time to back and breeze throught the <a href="adventures_in_4th_dimension.html">last installment in our math series</a> if you’re a little fuzzy on how 4X4 matrices work, or just rusty after the holidays.</p>
+</blockquote>
+<p>The 4x4 matrix encodes both rotations and scales very elegantly. If that matrix represented a transfrom, the first three rows of the matrix would be correspond to the local coordinates of the transform, while the fourth row is the 3-D point where the origin of the transform sits (if you’re wondering where things like the pivot offset or maya’s joint orient come from, those are actually a series of matrices that are multiplied together: the <a href="http://download.autodesk.com/us/maya/2009help/CommandsPython/xform.html">maya docs</a> go into much more detail.).  </p>
+<p>Of course, we all know that transforms can also be scaled up or down. So what does that look like in matrix form?  </p>
+<p>Here’s our old friend the identity matrix:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>and a sample point:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>If you're wondering why we need 4 points instead of three, you might want to check back after reviewing the last article in the series. </p>
+</blockquote>
+<p>We want to figure out what to do to this matrix so that it returns points and vectors scaled: we’d like to turn our <code>[1,1,1]</code> into <code>[2,2,2]</code><br />
+The natural first guess is just to scale up the whole thing by 2: in other words, we could try just changing the 1’s in our matrix to 2’s:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Easy - but let's do the math just to be sure:  </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
+[1,1,1,1] dot [0,2,0,0] = 2  
+[1,1,1,1] dot [0,0,2,0] = 2  
+[1,1,1,1] dot [0,0,0,2] = 2
+</pre></div>
+
+
+<p>This looks right at first, but there’s a problem. If you cast your mind back to the <a href="adventures_in_4th_dimension.html">brain bending vortex</a> of <a href="http://deltaorange.com/2012/03/08/the-truth-behind-homogenous-coordinates/">homogeneous coordinates</a>, you’ll remember that the point <code>[2,2,2,2]</code> is actually quite different from <code>[2,2,2,1]</code>: in fact, it’s the same as [1,1,1,1] , since homogenous coordinates are divided by their last (W) coordinate when turned into plain old 3-D points. </p>
+<p>So, the naive approach turns out to be wrong: <em>we can’t just scale up every number in the matrix</em>!  </p>
+<p>The culprit is that very last 2: it’s scaling up the W of the output -- which is equivalent to scaling the actual 3-D point <strong>down</strong>. Scaling that last W component is <em>negating</em> all of the other scales.  </p>
+<p>Of course, that suggests that if we just reset that last row, we'll get the result we expected:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
+[1,1,1,1] dot [0,2,0,0] = 2  
+[1,1,1,1] dot [0,0,2,0] = 2  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<p>If you take off your math hat momentarily, and resume your usual TA hat for a moment, you can we have to treat that last row differently from the others. Scaling a transform node up or down may move the children, but the origin of the transform isn’t changing. Scaling doesn’t need to touch that last matrix row, any more than the rotation does.  </p>
+<p>This is consistent with what we discovered last time while deriving the translation matrix: that last row is a slightly different beast than the others and gets handled separately. The upshot is quite simple: <strong>scale information in your matrix is encoded only in the upper left-hand 3x3 subsection.</strong> It doesn’t affect the last row in any way.  </p>
+<h2>Uniformity</h2>
+<p>So, we know know how to apply a uniform scale to a matrix. If you keep that Max/Maya transform node in mind for just another moment, you can probably get a good intuition about what non-uniform scales will look like in matrix form. We know that applying a non-uniform scale to enlarges everything along the local axes of the node; we also know that the first three rows of our matrix correspond to the local axes of a transform. This suggests that we should be able to apply non-uniform scales by simply scaling those rows differently.<br />
+Here’s a matrix that scales up by 2 in the X axis, by 3 in Y, and by 4 in Z:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>And as you can see it scales our point as we'd like:   </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
+[1,1,1,1] dot [0,2,0,0] = 3  
+[1,1,1,1] dot [0,0,2,0] = 4  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<h2>Scale and rotation</h2>
+<p>It’s probably a good idea to try this with a more complex matrix as well, just to prove out what happens when the matrix isn’t neatly lined up with the world. Here’s a matrix that rotates 45 degrees in X and 30 in Z   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.866</td>
+<td>.5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>-.353</td>
+<td>.612</td>
+<td>.707</td>
+<td>0</td>
+</tr>
+<tr>
+<td>.353</td>
+<td>-.612</td>
+<td>.707</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>You can check back to our discussion of <a href="dot_matrix.html">rotation matrices</a> to see the pattern behind those numbers</p>
+</blockquote>
+<p>Our test point becomes       </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [.866,-.353,.353,0] = .866  
+[1,1,1,1] dot [.5, .612,-.612, 0] = .5  
+[1,1,1,1] dot [0,.707,.707,0] = 1.414  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<p>or <code>[.866, .5, .1.414]</code> (I’ve done a little rounding for readability).  To make this a little less abstract, heres' a unit cube in Maya with that matrix applied:  </p>
+<p><a href="http://4.bp.blogspot.com/-3MHZFxXQeMY/VKohUK39ItI/AAAAAAABLgQ/VSQCT-mKkns/s1600/45_30.png"><img alt="" src="http://4.bp.blogspot.com/-3MHZFxXQeMY/VKohUK39ItI/AAAAAAABLgQ/VSQCT-mKkns/s1600/45_30.png" /></a></p>
+<p>Since those first three rows represent the local axes of our transform, we have to multiply the whole row in order to apply a local scale. If we wanted to scale this matrix up by 2 along it’s local X, we’d get  </p>
+<table>
+<thead>
+<tr>
+<th>1.732</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.353</td>
+<td>-.612</td>
+<td>.707</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>(note how both .866 and .5 are doubled). Our new dots become:  </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [1.732,-.353,.353,0] = 1.732  
+[1,1,1,1] dot [1, .612,-.612, 0] = 1  
+[1,1,1,1] dot [0, .707, .707, 0] = 1.414  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<p>You can see how the X and Y dimensions have both scaled up, since the original X axis is pointing partially into world X and world Y. Here’s the same transformation in Maya for comparison - you can see that the orientation is preserved but the unit cube is scaled double along it's local X axis.  </p>
+<p><a href="http://1.bp.blogspot.com/-xQrr4BXBAI0/VKolH8cyJcI/AAAAAAABLgY/TDc1GUziqRo/s1600/scaled_and_rotated.png"><img alt="" src="http://1.bp.blogspot.com/-xQrr4BXBAI0/VKolH8cyJcI/AAAAAAABLgY/TDc1GUziqRo/s1600/scaled_and_rotated.png" /></a></p>
+<p>This demonstrates how you apply non-uniform scales: by scaling the contents of your X, Y or Z rows of your matrix.  You'll notice that we had to scale the entire row to get the correct results.   </p>
+<p>One important side-effect of this strategy is that not all of your row vectors will be normalized: if the matrix is scaled the vectors will have unpredictable lengths.  If you are using the matrix rows as vectors (for example, in a look-at equation) you'll have to remember to re-normalized them or you'll get wonky results.   </p>
+<p>On the other hand, the length of your row vectors actually encodes the local scales of your matrix. The local X scale of your matrix is the length of the first row, the local Y is the length of the second, and the local Z scale is the length of the third row.  </p>
+<p>In the examples above you can see that the rows of our (2,3,4) scale matrix are 2, 3 and 4 respectively  This is also true for the last example, despite the rotations. In case you’ve forgotten the formula, the length of a vector is the <a href="http://www.netcomuk.co.uk/~jenolive/vect5.html">square root of the sum of it’s squared contents</a>, or in more readable form:  </p>
+<div class="highlight"><pre><span></span>def vector_length(v):  
+   square_length = [i * i for i in v]  
+   return math.sqrt(sum(square_length))
+</pre></div>
+
+
+<blockquote>
+<p>As you can see the vector length formula works for any length vector: Just add up the squares and take the square roots! A useful trick for many applications, though is not to bother getting square roots unless you need them: for example, if you want to sort vectors by length, you can just collect the sum of the component squares without getting the roots: the ordering is the same, but you don't have to do a bunch of expensive square roots since you only care about relative lenghts, not absolutes.</p>
+</blockquote>
+<p>With that in mind, the lenght of the X row of our tilted-and-scaled matrix is   </p>
+<div class="highlight"><pre><span></span>sqrt ( 1.732**2 + 1**2 + 0**2 )
+</pre></div>
+
+
+<p>in other words 2, as expected (with allowance for my rounding, anyway).  </p>
+<p>This is a particularly neat trick -- as always, working through my stuff has left me in awe of the geniuses who devised this system! -- because the scales are embedded in the matrix and easily recovered even though they don't show up as single numbers.  </p>
+<p>Pretty slick, huh?  But it also explains why you frequently get objects in Max and Maya reporting themselves with scale values that seem off, like 3.99999997 or the like:  that's floating point error accumulating in the calculation of the length of those row vectors.   </p>
+<h2>Next up</h2>
+<p>Scaling, it turns out, is quite pleasantly simple after the mad 4-D adventures involved in adding translation. It remains happily parked in the upper-left-hand corner of the matrix, doing its thing in a predictable way.  </p>
+<p>Next time out we’ll take a look at shears - a way to skew a matrix which usually happens by accident but which is sometimes useful to know about. In the meantime, Happy New Year and keep on dotting!  </p>
+<h2>Posts in this series</h2>
+<ul>
+<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot products)</a></li>
+<li><a href="dots_all_folks.html">Dots All Folks (dot product uses)</a></li>
+<li><a href="dot_matrix.html">Dot Matrix (intro to matrices)</a></li>
+<li><a href="adventures_in_4th_dimension.html">Adventures in the 4th Dimension (translation matrices)</a></li>
+<li><a href="to_scale.html">To Scale! (scale matrices)</a></li>
+</ul>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 04 January 2015
@@ -139,7 +539,12 @@
                     Comments requested
                 </h2>
             </a>
-                seeking input for an upcoming talk on technical art at GDC
+                <p>I'm working a talk for <a href="http://www.gdconf.com/">GDC</a> , tentatively entitled "<em>Technical</em> Art Director? What the heck does that mean?"  </p>
+<p>I'd love to hear thoughts from all you industry types on what the role means. That could be what you think it means for your company, or what you think it means when other people hear it, or what you think it ought to mean. </p>
+<p>Good anecdotes are particularly appreciated and may be shamelessly stolen :)</p>
+<p>So please comment below and let me know what you think while I'm trying to figure out what I think...  </p>
+<p>PS for future readers coming here via Google or whatnot, <a href="submit.html">this link goes to my perennial <em>how to write  a GDC talk</em> post</a>. Physician, heal thyself!</p>
+<p><strong>Update</strong>: <a href="http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art">Here is the talk as it was finally delivered</a> at GDC 2015.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 21 December 2014
@@ -151,7 +556,172 @@
                     Adventures in the 4th dimension
                 </h2>
             </a>
-                Matrices and how they can be used to transform 3-d points
+                <p>In <a href="dot_matrix">our last discussion of 3d math</a>, we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that <strong>matrices are just a convention for applying dot products in series.</strong> We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three dimensions.  </p>
+<p>Naturally, any TA reading this will be knows there's more. We all know that the matrices we’re most familiar with — the transform matrices that drive animation and modeling — do more than rotate. So this this time out we’re going talk about how <strong>translation</strong> — spatial offsets — can be packed into matrices.  And we're going to do it in a truly brain bending way.  Sort of.  </p>
+<blockquote>
+<blockquote>
+<p><em>If none of this sounds familiar, you may want to return to the <a href="dot_matrix">previous post in the series</a> before continuing.</em></p>
+</blockquote>
+</blockquote>
+<p>After all of the time we’ve spent with dot products in this series, one thing we should remember is that dots are <strong>additive</strong> — if you dot two vectors, you sum up all of the products. “Additive” is a nice quality to have if we’re thinking about adding translations to our matrices  It suggests that maybe we can use the additive-ness of dot products to teach our matrices how to do translations as well as rotations.  </p>
+<p>Multiplying a vector against a matrix, <a href="dot_matrix.html">you’ll recall</a>, is nothing more than stringing together a set of dot products between the vector and the columns of the matrix. So, putting together the fact that dots are additive and the fact that matrix multiplication uses dots, it seems logical that we can just stick our translation right onto the bottom of the matrix.  By dropping it down at the end of the matrix columns, we'll add it add it to our results. One important side effect that we’ll have to worry about is that this will break the pretty symmetry we noted last time whereby every matrix row is an axis in the matrix's local coordinate system.  However we’ll deal with that after we know it works.  </p>
+<p>To keep things simple, let’s start with a rotate matrix that doesn’t do any, you know, <em>rotating</em> — a matrix that works but leaves incoming data unchanged. That'll make it easier to see when our translations kick in. The correct math moniker for this do-nothing matrix is an <em>identity</em> matrix (as in the otherwise-inexplicable <code>MakeIdentity()</code> command in Maya) and it’s just a set of rows that match the default XYZ axes:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>I won’t bother with the math here, but if your work it out for yourself you’ll quickly see that dotting the columns of this matrix in turn against any vector returns the original vector unchanged.   </p>
+<p>Next, we’d like to add some extra information to this matrix to include a translation. Since we know our dots are going down the columns, if we tack on an extra row we should be getting a new value added to the output: hopefully, the translation we want. Adding an extra row for translation gives us a 4X3 matrix like this (with an example translation of <code>[1,2,3]</code> :  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+<tr>
+<td>1</td>
+<td>2</td>
+<td>3</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p><em>For future reference, matrices are usually described as ‘rows by columns’; in the last article we derived our matrix first as a 2X2 then as a 3X3 matrx. Most transformation matrices in 3d software are 4X4, for reasons that will become apparent shortly, but Max users will find this 4X3 format familiar — Maxscript makes extensive use of 4x3 matrices for object transforms.</em></p>
+</blockquote>
+<p>So now we’ve got a test matrix that should offset our initial value by  <code>[1,2,3]</code>. However, we immediately run into a problem: as we try to multiply our vector against this matrix. The columns now have 4 items but our vector only has 3. How can we sum up? Dot products require that both vectors being dotted have the same number of products, as you can see here:  </p>
+<div class="highlight"><pre><span></span>[1,1,1] dot [1,0,0,1] = (1 * 1) + (1 * 0) + (1 * 0) + (??? * 1)
+</pre></div>
+
+
+<p>To make this work, we are going to need to extend our vector to grab the translation values from the new matrix row. It needs to become a 4-dimensional vector. <em>The fourth dimension! Trippy! Cue <a href="https://www.youtube.com/watch?v=4wQsWL-lMJw">theremin music</a>....</em>  </p>
+<p>We've actually dimension jumped before, while working through rotation matrices. We could borrow the same tactic we used in the last post when we moved from a 2-D matrix to a 3-D matrix by just taking on a zero to our vector. This seems like a natural idea, since we know that the 2-D vector <code>[X,Y]</code> is equivalent to the 3-D vector <code>[X,Y,0]</code>. So let’s see what happens if we do the dot products:  </p>
+<div class="highlight"><pre><span></span>[1,1,1,0] dot [1,0,0,1] = (1 * 1) + (1 * 0) + (1 * 0) + (0 * 1) = 1  
+[1,1,1,0] dot [0,1,0,2] = (1 * 0) + (1 * 1) + (1 * 0) + (0 * 2) = 1  
+[1,1,1,0] dot [0,0,1,3] = (1 * 0) + (1 * 0) + (1 * 1) + (0 * 3) = 1
+</pre></div>
+
+
+<p>Not what we were hoping for: our result is still  <code>[1,1,1]</code>. What happened?  </p>
+<p>The extra zero has allowed us to <em>do</em> the dot product — but it's  also zeroing out the translation we are trying to add. Evidently zero is not what we want here (this is not just an misstep, though: we'll come back to those zeroes later).   </p>
+<p>For now, the fix is pretty obvious, even though it’s much less obvious how to what the fix is supposed to mean. If we turn that final zero into a one, we’ll get our translation added to the original value:  </p>
+<div class="highlight"><pre><span></span>1,1,1,1 dot 1,0,0,1 = (1 * 1) + (1 * 0) + (1 * 0) + (1 * 1) = 2  
+1,1,1,1 dot 0,1,0,2 = (1 * 0) + (1 * 1) + (1 * 0) + (1 * 2) = 3  
+1,1,1,1 dot 0,0,1,3 = (1 * 0) + (1 * 0) + (1 * 1) + (1 * 3) = 4
+</pre></div>
+
+
+<p>There, at last, is the translation we are looking for; our vector <code>[1,1,1,1]</code>has become <code>[2,3,4]</code>, reflecting the offset in the last row of the matrix.  </p>
+<p>Well, it’s nice to get the right result, but this still leaves us with a bit of a conundrum.  I know what [2,3,4] means. But what the heck is that last coordinate doing there? Did we just make it up?  </p>
+<h2>X,Y,Z,WTH?</h2>
+<p>You may remember from our <a href="bagles_and_coffee.html">original discussion of dot products</a> that <em>vector</em> is actually a very general term, encompassing any bundle of numbers. In tech art we’re used to thinking of vectors as XYZ bundles in 3-D space, but a vector can just as easily be something else — such as your weekly Starbucks expenditure, which is how we started down this road in the first place. 3-D points can be represented by vectors — but so could any bundle of 3 numbers which formed part of a linear equation; say, the value of the dollar, the euro and the yen on a given day. Dot products and matrices work the same way regardless of the subject matter. So, one thing we know already is that all 3-D points are vectors, so to speak, but _not _all vectors are 3-D. </p>
+<p><a href="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg"><img alt="" src="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg" /></a>  </p>
+<blockquote>
+<p>Not only did he pioneer analytical geometry, he seems to have invented the Mall Santa look too.  </p>
+</blockquote>
+<p>The vectors we use in graphics, of course are usually <a href="https://www.princeton.edu/~achaney/tmve/wiki100k/docs/Euclidean_vector.html">Euclidean vectors</a>: a set of 3 numbers which represent a spatial offset in the X,Y and Z spatial dimensions. The word <em>vector</em> comes from the Latin word for <em>one who carries</em>: the vector is the spatial difference between two positions. We get misled by the fact that programming languages usually use the <em>algebraic</em> name vector (as “bundle of numbers”) for the data type we use to hold the <em>geometric</em> Euclidean vector. <em>The fact that algebraic vectors and Euclidean vectors share the same noun while meaning different things is, to put it mildly, _annoying.  _With the goofy stuff we're getting in to, I personally would be happy to skip these minor surprises.</em>  </p>
+<p>To understand what that weird extra number, however, we have to add in a third concept: the Euclidean <strong>point</strong>._ _Which is also frequently represented in code by something called "vector" but which is represents a different idea. Sigh. We will have to distinguish between two things which look similar when written down or stored as vectors in computer memory but which actually _mean _two different things. Up till now we've talked about vectors and points as if they were interchangeable, but to make the translation matrix work we need to differentiate them.  </p>
+<p>The default Euclidean vector is a purely relative quantity. It represents a <em><strong>change</strong></em> in position. That's why the vector that gets you from <code>[0,0,0]</code> to <code>[1,1,1]</code> and the vector that gets you from <code>[8,8,8]</code> to <code>[9,9,9]</code> are the same: the vector proper has no location of it's own. You can think of it as a surface normal, which tells you which way a surface is facing without telling you anything about where the surface actually <em>is</em>, or the direction of a directional light which illuminates along a direction and which doesn't actually reside anywhere in 3-D space.  </p>
+<p>On the other hand a Euclidean point _is _an actual location in space. The point <code>[1,1,1]</code> is just that : the location <code>[1,1,1]</code>. it has no 'facing' or 'direction' the way a surface normal does - and it's not the same as any other 3-D point. It's an _address, _while a regular vector is an offset.  </p>
+<p>That's where our fourth coordinate comes in. The fourth coordinate in our example <strong>tells us if we’re dealing with a Euclidean point or a Euclidean vector</strong>; that is, if we are dealing with something that can be translated or not.  If the last coordinate is a <strong>1</strong>, the data is a <strong>point </strong>which can be transformed (moved, rotated and scaled). If the last coordinate is a <strong>0</strong>, the data is a <strong>vector</strong>, which can be rotated and scaled but not moved. The last number is known as the <a href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous coordinate</a>, although most people refer to it as the “W” component by analogy with X Y and Z.  <em>Although I kind of wish they had just wrapped it around back to A, or started at W, or something. XYZW? Like I said, I'd like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh well.</em>  </p>
+<h2>Homegeneophobia</h2>
+<p>If you’re practically minded, all you <em>really _need to know today is that a W of 1 is a point and a W of 0 is a direction. If you are especially literal minded, in fact, this next bit may be a bit... bizarre. You can probably skip it without missing much practical information, but try to stick it out. It will give you an appreciation of the abstract beauty the underlies matrix math.  I'm going to try to explain of the ‘meaning’ of the W coordinate but take this with a grain of salt, since this one goes a bit beyond my limited mathematical imagination.<br />
+We've already suggested that the W component represents a 4th dimension.  While that's kind of hard to visualize, we can see the results by 'projecting' onto the XYZ space that we are used to. Got that? Just like we project a 3-D set of points onto the 2-D screen of our computers, we can project a 4-D quantity into 3 dimensions.<br />
+Another way to think about it is that an XYZW vector is _one point along a 4-dimensional line that intersects 3-space</em>.  In this image, engraver/ math whiz / literal Renaissance Man <a href="http://www.albrecht-durer.org/">Albrecht Durer</a> is using a perspective scrim to do his life drawing: projecting a 3-D reality on the 2-D silk screen by keeping his eye in one location and then seeing how the 3-D lady lines up with his 2-D grid.  </p>
+<h2><a href="http://relativity.net.au/gaming/java/images/DurerFrustum.png"><img alt="" src="http://relativity.net.au/gaming/java/images/DurerFrustum.png" /></a></h2>
+<p>A decent analogy for projecting 4-D down to 3, here a 3-D world projected  down to 2:   </p>
+<p>In this word, each 2-D point on the scrim corresponds to a 3-D line running from Durer's eye through the plane of the scrim and beyond.  In a matrix, each 3-D point is on a similar line that runs into the fourth dimension.  While it's hard to visualize, it's mathematically consistent - which is why the mathematicians like it.  </p>
+<p>How cool – or confusing – is that?    </p>
+<p>The point where our mystical 4-D vector intersects our plain old 3-D space corresponds to the point where Durer's eyeline passes through the scrim.  In our case, the point is  <code>[X,Y,Z]</code> divided by <code>W</code>. One side effect of this is that there are many different 4-D points that correspond to the same 3-D point: <code>[1,1,1,1]</code>, <code>[2,2,2,2]</code> and <code>[-1,-1,-1,-1]</code> all represent the same point.  In the illustration above, you can see how each of the orange lines hits one _point _in 2-D, but that the point lies on a 3-D _line. _Going from 4-D space down to 3-D works the same way - except that the extra dimension is brain-bendingly hard to visualize.  </p>
+<p>A W value of 1 represents the projection of our 4-D vector onto boring old 3-D reality, sort of like the plane of the perspective scrim in the image above.  W values less than one approach the 'eye point', while values larger than 1 extend past the scrim into the scene.  To understand how the W changes the projected value in 3-D, imagine picking a point on Durer's 2-D screen and pushing back through the screen. As the distance (the W) increases, the projected point will get closer to the center of the screen.  In fact, this is plain old 1-point perspective in action:  A W approaches infinity, any coordinate translates into the perspective vanishing point, which in this case is the center of the scrim.  </p>
+<p><a href="http://www.robinurton.com/history/Renaissance/perspective.jpg"><img alt="" src="http://www.robinurton.com/history/Renaissance/perspective.jpg" /></a></p>
+<blockquote>
+<p>All lines converge at W=infinity, at least according to Piero Della Francesca</p>
+</blockquote>
+<p>If you’re still unable to wrap your brain around this - and I am not sure I really can, so don’t feel bad about it, you might find this YouTube from Jamie King helpful. You can relate it to the Durer image by imagining Jamie's example image is taken looking down on Durer's little perspective machine from above:  </p>
+<blockquote>
+<p>Extra points for the gratuitous Bill and Ted reference, btw.</p>
+</blockquote>
+<p>This same analogy also explains, sort of, why W=0 vectors don’t move. As W increases, the points will converge on the center of his scrim, that is, the perspective vanishing point. On the other hand as W gets smaller they move away: the effect is like a camera zooming in:  everything on the image plane moves <em>away</em> from the vanishing point. As W reaches zero the 'zoom' is now infinite: In math, all of your 4-D points would have become <em>impossible to convert back to 3-D</em> because you'd be dividing their XYZ positions by zero.  It's sort of the inverse of a black hole: instead of all points collapsing down into a singularity, they are instead all smeared out infinitely -- which makes them effectively the same anyway. There's no difference between <code>[1,1,1,0]</code> and <code>[999,999,999,0]</code> in position, since they are both 'located' at  <code>[undefined,undefined,undefined]</code> in 3 dimensions.  </p>
+<p>Since movement has no meaning in this bizarro singularity world, translations don't do anything. But — brain bend alert —  rotations still work. Of course, we already know from our earlier experiments with W's set to zero: the dots against the first 3 rows of the 4X3 matrix haven't changed, but a W=0 input vector won't translate.  Put another way, since dot products are a way of projecting one vector on to another, projecting a any 4-D vector onto a different 4-D vector with a W of 0 will keep you right at the 'eye point' out of which all those 4-D rays are shooting, so you won't have any W-ness to project yourself out into the 3-D world.  </p>
+<p>It's simultaneously baffling and awe-inspring. Like <em><a href="http://www.goat-simulator.com/">Goat Simulator</a>.</em>  </p>
+<p>If you've stuck it out this far, the whole visualization actually has one imporant side benefit. It explains the _other _reason we need homogeneous coordinates: they allow us to handle perspective projections and regular geometry using the same set of rules. W coordinates that aren’t 0’s or 1’s generally crop up only when you’re working with the perspective matrix of a camera or trying to transform points from world space to screen space. However that’s a matter for another time.   </p>
+<p>For now, however, I need to relax my frontal lobe.  </p>
+<p><a href="http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg"><img alt="" src="http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg" /></a>  </p>
+<blockquote>
+<p>Why did they wear those hankies on their heads, anyway?  </p>
+</blockquote>
+<p>Turning something nice and obvious like a 3-D point into an in infinite line in a dimension where parallel lines can intersect is just the sort of thing that gives mathematicians a bad name. Thankfully we don’t really need to understand all the metaphysics: we can just rely happily on the fact that this extra abstraction lets us handle translations using the same math we use for rotations. And we should be grateful that the kind of folks who do understand the way 4-dimensional vectors are projected into our 3-D world left us the 4X4 matrix which (despite this little exercise in gimcrackery) is a remarkably elegant and handy tool for practical purposes and can still be done with junior high school math skills.  </p>
+<blockquote>
+<p><em>Gottfried Chen’s blog also makes <a href="http://deltaorange.com/2012/03/08/the-truth-behind-homogenous-coordinates">an heroic attempt to explain this to mere mortals</a>. The great-grandaddy of all these discussions is Edwin Abbot’s classic novella (you read that right - it’s <strong>fiction</strong>) <a href="http://www.amazon.com/mn/search/?_encoding=UTF8&amp;camp=1789&amp;creative=390957&amp;field-keywords=flatland&amp;linkCode=ur2&amp;tag=tecsurgui-20&amp;url=search-alias%3Daps&amp;linkId=AIHJQXYL5IWCSXN6">Flatland</a></em></p>
+</blockquote>
+<h2>Homogenius!</h2>
+<p>Alright, let's get our feet back on the ground (which involves setting our Z coordinate to 0 and our W coordinate to 1).  </p>
+<p>If you just skipped over the mental gymnastics above —or if you just need to be brought back down to earth — let’s remind ourselves where we are:<br />
+We've got a nice, easy to manage system for packing spatial translations and rotations into a single operation, in the form of the 4X3 matrix. By adding a W coordinate — the ~~<em>mysterious</em>~~ homogeneous coordinate – to the end of our original vector, we have gained the ability to do translations. We've also shown how we can toggle back and forth between rotation-only vector operations and rotate-and-translate point operations by changing the W coordinate from 0 to 1.<br />
+There is one little flaw to this nifty system, however: it’s lossy. Our 4-part vectors let us distinguish between points and pure vectors, but our 4x3 matrix is only giving us back 3 components not 4. This is fine if all we want is the points, but it’s throwing away information we might need to keep if, for example, if we wanted to multiply a point by several matrices in series. <br />
+If we want to get a 4—way vector back from the matrix we are going to need an extra column. Luckily, we know what we want from that extra column — we just need to preserve that W value and nothing else. So how do we get there?<br />
+We already know from <a href="http://techartsurvival.blogspot.com/2014/12/dot-matrix.html">last time</a> that the first 3 rows of our matrix are supposed to be the axes of the coordinate system which our matrix defines. By definition, an axis can’t move: it’s a direction, not a position. That suggests that it’s going turn into a vector with a W of 0 when we expand it into the next column. After all, you can’t <em>move</em> the X axis or the Y axis: no matter how you rotate it around it is only an <em>axis</em> if it passes through origin. The last row, on the other hand, is a <em>translation</em>: it is actually intended to enforce a change of location: In other words, it’s a <em>point</em> with a W value of 1, rather than a vector with a W of 0.<br />
+In other words our 4x3 matrix turns into a 4 x 4 matrix that looks like this:<br />
+1| 0| 0| 0<br />
+---|---|---|---<br />
+0| 1| 0| 0<br />
+0| 0| 1| 0<br />
+0| 0| 0| 1  </p>
+<p>The first 3 rows are the vectors defining our coordinate system and the last row is a point defining the spatial offset. Any TA should be able to visualize this as transform node — a group, a joint, a null or whatever you prefer — aligned so that it’s axes line up with the first 3 rows and it’s origin sits at the XYZ position of the fourth row.   </p>
+<p>The nice bit is that, despite all the 4-dimensional mumbo-jumbo this 4X4 matrix (just like the 3X3 and 4X3 versions we’ve touched on before) is <strong>still just a plain old set of dot products</strong> when you clear away all the verbiage, special typography and extra dimensions. Dot your 4-D point or vector against the columns of this 4-D matrix and you’ll get back a rotated vector, just like we did when learning how matrices work. If your incoming W is set to 0, you’ll get just a rotation; if it’s set to 1, you’ll get a rotation and a translation at the same time. With plain old bagels-and-coffee math. <br />
+Petty slick, huh? <br />
+So, after a consciousness-expanding (and headache-inducing) journey into other dimensions, we’ve finally sort of arrived at the full 4X4 matrix that powers every graphics application under the sun. And, amazingly enough, we’ve just scratched the surface (<em>What is the surface of a 4-D object anyway? My brain hurts.</em>)<br />
+Next time out we’ll talk about how a 4x4 matrix can encode scale as well, which luckily is a little less Timothy Leary than what we’ve already gone through.  Until then here's an animated gif of a 4-dimensional cube (which in this case is a 2-D projection of the 3-D physical extrusion of the 4-D object.... piece of cake!)  </p>
+<p>Me, I need a good stiff drink.  </p>
+<p><a href="http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif"><img alt="" src="http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif" /></a></p>
+<h2>Posts in this series</h2>
+<ul>
+<li><a href="bagels_and_coffee">Bagels and Coffee (intro to dot products)</a></li>
+<li><a href="dots_all_folks">Dots All Folks (dot product uses)</a></li>
+<li><a href="dot_matrix">Dot Matrix (intro to matrices)</a></li>
+<li><a href="adventures-in-4th-dimension">Adventures in the 4th Dimension (translation matrices)</a></li>
+<li><a href="to-scale">To Scale! (scale matrices)</a></li>
+</ul>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Mon 15 December 2014
@@ -163,7 +733,51 @@
                     All we are saying is give API 2.0 a chance
                 </h2>
             </a>
-                Maya's api version 2.0 is finally coming of age
+                <p>Doing all this math-related posting has reminded me of something I've been meaning to write up:  </p>
+<p>Maya's <a href="http://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/index-html.html">python API 2.0,</a> first introduced in the 2013 version, got off to a rocky start. People complained about <a href="http://stackoverflow.com/questions/20232835/maya-python-api-2-0-has-no-mitdag-so-how-traverse-dag-graph">missing functions</a> and <a href="http://jeremyyk.com/tutorials/maya-s-python-api-2-0-">missing modules</a>.  It uses (mostly) the same function and class names as the original OpenMaya Python, which is a recipe for confusion. The documentation is pretty confusing too, since it points at the original C++ docs and leaves it up to you to do much of the translation in your head.    However....  </p>
+<p>One thing that API 2 definitely does right is to eliminate the dreaded <a href="python_api_crash"><code>MScriptUtil</code></a>, with its ugly and confusing interface and all of the opportunities for failures that it includes.  I've been busy porting over a bunch of geometry utilities to the new API and I'm routinely finding that stuff like this:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">APIVector</span><span class="p">(</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">False</span> <span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    return an iterable as an OpenMaya MVector</span>
+
+<span class="sd">    if iterable is an openMaya MVector, returns untouched  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MVector</span> <span class="p">):</span>  
+        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">iterable</span>  
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span> <span class="n">iterable</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;argument to APIVector must have 3 entries&quot;</span>  
+        <span class="n">v_util</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MScriptUtil</span><span class="p">()</span>  
+        <span class="n">it</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="n">copy</span><span class="p">(</span> <span class="n">iterable</span> <span class="p">)</span> <span class="p">)</span>  
+        <span class="n">v_util</span><span class="o">.</span><span class="n">createFromDouble</span><span class="p">(</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>  
+        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span> <span class="n">v_util</span><span class="o">.</span><span class="n">asDoublePtr</span><span class="p">()</span> <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">normal</span><span class="p">:</span>  
+        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">o_vector</span><span class="o">.</span><span class="n">normal</span> <span class="p">()</span>  
+    <span class="k">return</span> <span class="n">o_vector</span>
+</pre></div>
+
+
+<p>Turns into to this:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">APIVector</span><span class="p">(</span><span class="o">*</span><span class="n">iterable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  
+    <span class="k">try</span><span class="p">:</span>  
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>  
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>  
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
+    <span class="k">finally</span><span class="p">:</span>  
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>  
+            <span class="n">result</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>  
+        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+
+<p>In other words, one reasonable line for 4 icky ones.  </p>
+<p>Plus, the new versions are generally more pythonic - the API 2 version of <code>MVector</code>, for example supports both dot-access, bracket access, and iteration over the vector components (though, annoyingly, <em>not</em> slicing).  </p>
+<p>It's certainly not all perfect. You do have to be very careful about mixing API 1 and API 2 code in the same functions - even though they are both wrapping the same C++ underpinnings they are are mutually incompatible.  Some things are still cumbersome -- converting strings to MSelectionList items to MObjects to MFNs is still a waste of good brain cells -- but it's a step in the right direction. I'll post more as I know more.  </p>
+<p>By the way, I spent several minutes surfing around for a funny image to wrap up on, I even did a meme-generator.com thing with The Most Interesting Man In The World saying something dismissive about MScriptUtil.  And then I thought... "What's the point."  </p>
+<p>See? Progress <em>is</em> possible.   Or maybe I'm just getting old. In Internet Years I'm already like 7,303.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 12 December 2014
@@ -175,7 +789,295 @@
                     Dot Matrix
                 </h2>
             </a>
-                Understanding the graphics matrix, with some help from dot products.
+                <p>We started our math review with a look at the <a href="http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html">dot product</a>, and started out by showing how dots work in a minimalist way. This time out we’ll do the same thing the most basic component of 3d math - the matrix.</p>
+<p><a href="http://images.macworld.com/images/news/graphics/150845-apple_imagewriter_original.jpg"><img alt="" src="http://images.macworld.com/images/news/graphics/150845-apple_imagewriter_original.jpg" /></a>  </p>
+<blockquote>
+<p>There was a time when this was 'computer graphics'  </p>
+</blockquote>
+<p>Once you start looking closely, you'/ll find that  dot product and a matrix actually have a lot in common. As an older gentleman once told me when I proudly showed hin a 72 dpi dithered picture printed on my 1986 vintage Apple 2, <em>"Wait a minute... it's all just.... dots?"</em>  </p>
+<p>In fact, matrix multiplication really is done just using dot products, as we’ll see shortly.  However, matrices are more complicated, both in concept and execution. For that reason we'll devote this post through how matrices work in the simplest possible way, so that it’s easy to see both the how and why of what they do. This post will be primarily about the most minimal example of how a matrix functions. I’ll do it in 2-d to keep the math a bit less wordy, though  the same thing works in 3 or even more dimensions. I’ll also be sticking to a simple rotate-only matrix to start with so the workings are simple - I’ll add in translations and scales next time out to keep the focus on the basics.  </p>
+<h2>First things first</h2>
+<p>So, starting with the bare minimum, let’s suppose we've got a simple unit-length vector <code>[1,0]</code> and we’d like to figure out how to rotate it. Rotating that unit vector 45 degrees should end up as <code>[.707, .707], as you can see below:</code>  </p>
+<p><a href="http://freespace.virgin.net/hugo.elias/routines/rotate01.gif"><img alt="" src="http://freespace.virgin.net/hugo.elias/routines/rotate01.gif" /></a>  </p>
+<blockquote>
+<p>We're trying to figure out an operation that will give these values as we rotate from [1,0] to [0,1]    </p>
+</blockquote>
+<p><em>(If the numbers seem surprising, you might want to hop back to the discussion of the unit circle  in our earlier <a href="http://we%27re%20trying%20to%20figure%20out%20an%20operation%20that%20will%20give%20these%20values%20as%20we%20rotate%20from%20[1%2C0]%20to%20[0%2C1]/">discussion of dot products</a>.)</em>  </p>
+<p>The question is, what kind of operations do we need to do to perform that rotation? What tools do we have to make it work - and, even more importantly, to make it work for any vector and not just this one example?  </p>
+<p>First, just to clear the decks, let's check off things that <em>wont’</em> work.  </p>
+<p>We can see that difference between the first vector and the second is <code>[-.293, .707]</code> – but it’s pretty obvious that simple addition is not the same thing as performing a rotation. If you’re not convinced, just note that adding the same vector again will get you <code>[.121, 1.414]</code> rather than the expected <code>[0,1]</code>.   </p>
+<p>Plain old multiplication doesn't work  either - there is no number we can multiply against the original <code>[1,0]</code> that will get a non-zero result in the Y component.  </p>
+<p>So what can we do?  Fortunately, our old friend the <a href="http://techartsurvival.blogspot.com/2014/11/dots-all-folks.html">dot product </a>comes to the rescue. If you recall how we introduced dots, you should remember that one of the uses of the dot product is to project one vector on to another.  </p>
+<p><a href="http://gregegan.customer.netspace.net.au/ORTHOGONAL/02/004.png"><img alt="" src="http://gregegan.customer.netspace.net.au/ORTHOGONAL/02/004.png" /></a></p>
+<p>So suppose what would happen if we tried to project our first vector onto another vector that looked like a rotated coordinate system. In other words, we could hold our original vector constant and ‘rotate’ the X-axis counterclockwise by 45 degrees. It’s a theory-of-relativity kind of thing: rotating our vector N degrees clockwise and rotating the world N degrees counter-clockwise are the same thing. </p>
+<p>By projecting our X-axis against the rotated vector, though, we get the X component we want from a 45 degree angle:<br />
+<a href="http://2.bp.blogspot.com/-qbl5CZAwTN8/VH9FE9epOoI/AAAAAAABLZA/ZXbLLOU2qTU/s1600/rotate%2Bcoordfs.png"><img alt="" src="http://2.bp.blogspot.com/-qbl5CZAwTN8/VH9FE9epOoI/AAAAAAABLZA/ZXbLLOU2qTU/s1600/rotate%2Bcoordfs.png" /></a>   </p>
+<blockquote>
+<p>Rotating a vector (left) is the same as counter-rotating the coordinate system (right)  </p>
+</blockquote>
+<p>We can use the <a href="https://www.blogger.com/link">unit circle</a> (or the chart of angle values above) to figure out what the right vector for the counter rotated X-axis is. In the rotated-X-axis world we will be dotting <code>[1,0]</code> against the vector <code>[.707, -.707]</code>.  Drawing on what know from <a href="http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html">last time</a>, we know that   </p>
+<div class="highlight"><pre><span></span>dot ([1,0], [.707, -.707])
+</pre></div>
+
+
+<p>equals  </p>
+<div class="highlight"><pre><span></span>(1 * .707) + (0 * -.707) = .707
+</pre></div>
+
+
+<p>That operation gives us a good X-component - it represents how much of the original X is left when projected onto an X axis that has been rotated. If we do it again - remember, we’re trying to get a repeatable operation - we get  </p>
+<div class="highlight"><pre><span></span>dot ([.707, .707], [.707, -.707])
+</pre></div>
+
+
+<p>equals  </p>
+<div class="highlight"><pre><span></span>(.707 * .707) + (.707 * -.707) = 0
+</pre></div>
+
+
+<p>Which is what we want for the X component after two rotations. This dot product thing seems to be paying off (<strong>and I should know – I’ve been milking it for posts for a while</strong>).  </p>
+<p>Of course, this only gives us half of the rotated vector! However, analogy suggests that we can get the Y component of the vector by projecting onto a rotated Y axis, just as we did for the X. The Y axis, rotated clockwise 45 degrees, is <code>[.707, .707]</code>. Dotting against our original vector gives us  </p>
+<div class="highlight"><pre><span></span>dot ([1,0], [.707, .707])
+</pre></div>
+
+
+<p>in other words  </p>
+<div class="highlight"><pre><span></span>(1 * .707) + (0 * .707) = .707
+</pre></div>
+
+
+<p>which is the Y component we want after one application. The same operation on the rotated vector gives us  </p>
+<div class="highlight"><pre><span></span>dot ([.707, .707], [.707, .707])
+</pre></div>
+
+
+<p>namely  </p>
+<div class="highlight"><pre><span></span>(.707 * .707) + (.707 * .707) = 1
+</pre></div>
+
+
+<p>Again, this gives us the Y value we expect for a 90 degree rotation.   </p>
+<p><a href="http://basementrejects.com/wp-content/uploads/2011/11/the-matrix-billboard.jpg"><img alt="" src="http://basementrejects.com/wp-content/uploads/2011/11/the-matrix-billboard.jpg" /></a>  </p>
+<blockquote>
+<p>An example matrix showing a 90 degree rotation  </p>
+</blockquote>
+<h2>Dots to Matrix</h2>
+<p>So, that shows <strong>we can rotate a vector by using two dot products</strong>: dot the X component of the vector against a counter-rotated X axis and the Y component of the vector against a counter-rotated Y axis, and you get the rotated result. <em>(Remember, the axes are rotated against the rotation you’re actually applying, because you want the projection of the rotated vector and you’re moving the universe instead of the data, Einstein-style).</em>  </p>
+<p>Now that we know how it works, it would be nice to have a simple way of saying “just do that two-dot thing” - in other words, we'd like to define an operation that will apply the two dot products at the same time, giving us the rotation we're after. And that’s all that the matrix - the mysterious whatchamacallit at the heart of 3-D math – really boils down to this:  it’s simply a convention for saying <strong>“make a new vector out of these dot products”.</strong>  </p>
+<p><a href="http://www.papercraftsquare.com/wp-content/uploads/2014/09/Spaceballs-Dot-Matrix-Cube-Craft-Paper-Toy.jpg"><img alt="" src="http://www.papercraftsquare.com/wp-content/uploads/2014/09/Spaceballs-Dot-Matrix-Cube-Craft-Paper-Toy.jpg" /></a>  </p>
+<blockquote>
+<p>I kind of hate the internet... but  I must admit, the mere existence of a <em>pepakura</em> Minecraft character for Dot Matrix from <a href="http://www.imdb.com/title/tt0094012/">Spaceballs </a>warms my heart.  </p>
+</blockquote>
+<p>So here's the notation that is commonly used for saying "make a new vector out of dot products." We can re-write the whole mess above very simply as  </p>
+<div class="highlight"><pre><span></span>[1,0] * [  .707,  .707]  
+        [ -.707,  .707]
+</pre></div>
+
+
+<p>Where the first column of the matrix is the X-axis of our counter-rotated coordinate system and the second column is the Y-axis of the same. It's just a convention for saying:  </p>
+<div class="highlight"><pre><span></span>x = [1,0] dot [ .707, -.707]  
+y = [1,0] dot [ .707,  .707]
+</pre></div>
+
+
+<p>which is exactly the same thing we took a couple of paragraphs above to explain in words.  </p>
+<p>So in the end it’s amazingly – almost embarrassingly – simple: you <em><strong>dot your vector against each of the columns in the matrix in turn</strong></em> and voila! you’ve got a new vector which applies the matrix transform. The big, scary matrix monster turns out not to be so scary - once you pull off this mask it turns out to be nothing but Old Man Dot Product in disguise!  </p>
+<p><a href="http://static.tvtropes.org/pmwiki/pub/images/rsz_1meddlingkids_1686.jpg"><img alt="" src="http://static.tvtropes.org/pmwiki/pub/images/rsz_1meddlingkids_1686.jpg" /></a>  </p>
+<blockquote>
+<p>It would have worked, too, if it wasn't for you meddling kids!  </p>
+</blockquote>
+<p>In this example we’re only covering rotations : scales and translations we’ll touch on in a later outing -- however they work the same way. Translation and scale are encoded into matrices a bit differently - but the mechanics are identical: <strong>Just dot the vector against each column in the matrix and you have your transformation.</strong>  </p>
+<p>The big takeaway from this exercise is that the basic math is the same and it requires no skills you didn’t learn by seventh grade (or at least the first post in this series).  Matrices just aren't that hard once you know what they are actually doing.  </p>
+<p>As I've said several times, all of this power is really based on simple math (addition and multiplication) disciplined by conventions such as normalized vectors in dot products or the row-column arrangement I’ve shown here. A convention, however, is to some degree arbitrary. In matrices, for example, you could get the same results by representing what I’ve written as rows to be columns and vice versa, and then dotting your vectors against the rows rather than the columns. The arrangement I’ve use here is known as ‘<em>row major</em>’, and the alternate arrangement is ‘<em>column major</em>’. You can usually recognize row-major systems because row-major operations tend to be written as "vector times matrix" where column major operations are usually written "matrix times vector."  The actual math is the same, apart from the convention used to write it down.</p>
+<p>The choice between row-major and column-major matrices is  typically made for you by the the environment you’re working in, so you will rarely have to worry about it. Still, we will revisit this in future discussion of matrices.  I'll be using row-major throughout to keep things consistent, and also because that is how Maya - my usual go-to app - is organized.</p>
+<h2>Matrix Fun</h2>
+<p>Working through this stuff one piece at a time should give even the most hardened and results oriented TA an dim appreciation for what the mathematicians mean by ‘elegance’. Here’s what’s so beautiful about this setup: Written out the way we've done it, the rows of the matrix correspond to the coordinate system you’d get by applying the matrix. Thus, after a 45 degree rotation your X-axis is now pointing at <code>[.707, .707]</code> and your Y is now pointing at <code>[-.707, .707].</code>So far we've stuck to 2-D examples, but the same is true in higher dimensions as well: the 4x4 matrices that we use everywhere in graphics, the local coordinate system is encoded the same way.<br />
+This is almost perfect in it’s elegance. Consider this little piece of gibberish from Maya:  </p>
+<div class="highlight"><pre><span></span>cmds.xform(&#39;persp&#39;, q=True, m=True)  
+[0.7071067811865475,  
+ -2.7755575615628907e-17,  
+ -0.7071067811865476,  
+ 0.0,  
+ -0.3312945782245394,  
+ 0.8834522085987726,  
+ -0.3312945782245393,  
+ 0.0,  
+ 0.6246950475544245,  
+ 0.46852128566581774,  
+ 0.6246950475544244,  
+ 0.0,  
+ 240.0,  
+ 180.0,  
+ 240.0,  
+ 1.0] #
+</pre></div>
+
+
+<p>That doesn’t appear to mean much beyond ‘WTH?’. However, when rearranged into a matrix (and truncated to fewer digits for legibility), it’s:  </p>
+<div class="highlight"><pre><span></span>[ 0.707, 0.000,-0.707, 0.000]  
+[-0.331, 0.883,-0.331, 0.000]  
+[ 0.625, 0.468, 0.625, 0.000]  
+[ 240.0, 180.0, 240.0, 1.000]
+</pre></div>
+
+
+<p>Which means the the <em>persp</em> camera in my Maya scene has an X axis pointing at <code>[0.707, 0.000,-0.707]</code>, a Y axis pointing at <code>[-0.331, 0.883,-0.331]</code> and a Z axis pointing at <code>[0.625, 0.468, 0.625]</code> (we’ll talk about the meaning of those zeros in the 4th column and the last row next time out). While it’s still a bit tough to visualize, it’s actually meaningful - not just some magic computer-y stuff you have to take on faith. </p>
+<p>As a side benefit, the matrix-rows-are-local-axes scheme allows you to extract the cardinal axes of a matrix without doing anything fancier than grabbing a row. In the camera example, we can tell the camera is ‘aiming’ along <code>[-0.625, -0.468, -0.625]</code> (Maya cameras aim down their own negative Z axis, so I’ve just taken that third row and multiplied by -1). You could use use this to figure out if the camera "sees" something by dotting that vector against a vector from the camera's position to the target, as we discussed <a href="dots_all_folks.html">last time</a>. Extracting local axes this way is the key to many common applications, such as look-at constraints and camera framing.  </p>
+<p>Of course,anybody who knows any 3d graphics at all, of course, knows matrices are used for a lot more than just rotations, and that we’ve just scratched the surface. I’ve walked through the derivation this way for two reasons: first, to show how the matrix is really nothing more than <strong>a convention for applying dot products in series.</strong> Second, because I want to underline the importance of the fact that <strong>matrix rows are axes of a local coordinate system</strong><sup>*</sup>. Next time out we’ll explain how matrices can also represent scale and translation, and how to put matrices together for even more matrix-y goodness.   </p>
+<blockquote>
+<p>* in a <em>row major</em> matrix, anyway.  And subject to some interesting qualifications we'll talk about in a later post....  </p>
+</blockquote>
+<h2>PS: The Rotation Matrix Formula</h2>
+<p>There's one last topic to cover on rotation matrices: how to apply a generic rotation for any value and not just our 45 degree example. Keeping in mind what we've learned -- that the rows (of our <em>row major</em> matrix, anyway) are the axes of the rotated coordinate system --  The 2-D example we've used all along generalizes very easily.  The unit circle tells us that the X and Y axes of a rotated coordinate system will look like this (where X is the first row and Y is the second)  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cos(theta)</td>
+<td>sin(theta)</td>
+</tr>
+<tr>
+<td>-sin(theta)</td>
+<td>cos(theta)</td>
+</tr>
+</tbody>
+</table>
+<p>The cosine / sin in the first row takes the X and Y values from the unit circle, where the X axis is [1,0] and the Y axis is [0,1] You can check those values for a 0 rotation, and you'll see how that lines up with the default X and Y axes:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Using the same formula for a  30 degree rotation would give us  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.866</td>
+<td>.5</td>
+</tr>
+<tr>
+<td>-.5</td>
+<td>.866</td>
+</tr>
+</tbody>
+</table>
+<p>since the cosine of 30 degrees is .866 and the sine is .5.  This also shows how that  negative sine works: the Y axis starts rotating backwards into negative-X as the coordinate system rotates counter-clockwise).   </p>
+<p>Although we haven't covered 3-D rotations this time out, it's not hard to see how this 2-D XY rotation should be the same thing as a rotation around the Z axis in 3 dimensions. A row-major Z rotation matrix looks like this:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cos(theta)</td>
+<td>sin(theta)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>-sin(theta)</td>
+<td>cos(theta)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>This makes perfect sense when you remember that the rows of the matrix correspond to the axes of the rotated coordinate system in the matrix: in this example the X and Y axes are being rotated on the XY plane, but the Z axis still points straight at <code>[0,0,1]</code> and neither X nor Y is rotating into the Z at all (hence the zeros tacked on to the first two rows).<br />
+Knowing that, it makes sense that an X rotation matrix -- with the X axis held constant and Y and Z rotating on the YZ plane -- looks like this:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>cos(theta)</td>
+<td>sin(theta)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>-sin(theta)</td>
+<td>cos(theta)</td>
+</tr>
+</tbody>
+</table>
+<p>The Y rotation matrix is a bit trickier. We know that the Y axis will be <code>[0,1,0]</code>, but the sin-cos rotations have to be split among the X and Z axes like this so that the rotation is limited to the XZ plane:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>cos(theta)</td>
+<td>0</td>
+<td>-sin(theta)</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>sin(theta)</td>
+<td>0</td>
+<td>cos(theta)</td>
+</tr>
+</tbody>
+</table>
+<p>These 3X3 matrices will do 3-D rotations, but you'll rarely see them alone. In most practical uses these matrices will be embedded into a 4X4 transformation matrix (for reasons we'll be talking about in a future post) but they will work the same way (for example, you can see them quite clearly in the <a href="http://download.autodesk.com/us/maya/2011help/CommandsPython/xform.html">list of matrixes that accompanies the Maya xform command</a>.  Next time out we'll talk about why these 3X3 matrixes turn into 4X4's and how that difference is key to including translations as well as rotations. </p>
+<p>Until then - keep dotting! And <em><a href="http://www.avclub.com/article/and-now-theres-spaceballs-edition-episode-vii-trai-212450">May the Schwartz Be With You!</a> (Dot Matrix sighting at 0:30)</em>  </p>
+<h2>Posts in this series</h2>
+<ul>
+<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot products)</a></li>
+<li><a href="dots_all_folks.html">Dots All Folks (dot product uses)</a></li>
+<li><a href="dot_matrix.html">Dot Matrix (intro to matrices)</a></li>
+<li><a href="adventures-in-4th-dimension.html">Adventures in the 4th Dimension (translation matrices)</a></li>
+<li><a href="to-scale.html">To Scale! (scale matrices)</a></li>
+</ul>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 06 December 2014

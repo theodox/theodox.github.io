@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag techart</title>
+        <title>Chimeras & Manticores - Tag techart</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,161 @@
                     Dot's all, folks
                 </h2>
             </a>
-                Some ways to use the vector dot product in TA programming
+                <p>Last time out I went on (probably a bit too long) on the virtues of the dot product - the operation which takes two lists of numbers and multiplies them to create a single product. The highlight of the whole thing was the <em>cosine dot product</em> - the handy fact that the dot product of two normalized vectors is the cosine of the angle between them.  </p>
+<p>Now that the theory is out of the way, it’s time to highlight some of the zillions of applications for this handy little operation.  </p>
+<blockquote>
+<p>If none of this sounds familiar you might want to <a href="bagels_and_coffee.html">revisit the first post in the series</a> before continuing.   </p>
+</blockquote>
+<p>The dot product is incredibly useful for a TA for two reasons. First, dots allow you to <em>convert between geometric measures and angles</em> without the need for matrices or complex formulae. Second, dots provide an efficient way to <em>project one vector on to another</em>, allowing you to measure distances and quantities relative to an arbitrary axis or vector - a great tool for anything from color conversions in a pixel shader to measuring motion in a complex rig.<br />
+Before getting down to cases, a quick reminder of one important side fact we pointed out last time. A cosine dot product can only tell you <em>how different</em> the angle between two vectors is - <strong>not</strong> what rotations would transform one vector into the other. If you try out this example you’ll see that the dot of <code>[1,0,0]</code> against both <code>[.5, .866, 0]</code> and <code>[.5, -.866, 0]</code> is .5, which (if you remember your sines and cosines) means the relative angle is 30 degrees. However one of those two vectors is clockwise from <code>[1,0,0]</code> and the other is counter-clockwise from it. The dot, by itself, can’t tell you which one is which. <em>Don’t forget that bit!</em></p>
+<blockquote>
+<p>As I mentioned in the last article, the math for dots is trivially simple. Maxscript <a href="http://www.scriptspot.com/bobo/mel2mxs/arithmetic.htm">includes vector math functions</a> by default, as does MEL, but vanilla maya.cmds does not. If you want to experiment with examples mentioned here in Maya python, you can import <code>pymel.core.datataypes</code> and use the <code>Vector</code>. I’ve also put a <a href="https://github.com/theodox/vector">simple vector module up on Github</a> that works in <code>Maya.cmds</code>. I’ll be using that for these examples but translating between MXS, Pymel, and cmds should be a no-brainer.</p>
+</blockquote>
+<h2>Rigging</h2>
+<p>One of the most common tasks in rigging is wrangling information into the correct frame of reference.This is particularly tough when dealing with angular data, since angles are often presented in the form of Euler angles whose numeric values can vary unpredictably and which are therefore hard to use in expressions or code. Here are a few examples of how dot’s can help riggers get angular information while avoiding the Euler blues  </p>
+<h4>The Bends</h4>
+<p>Dot’s are an excellent way to measure the extension of a limb, without relying on an Euler value which might be affected by local axis orientations, joint orients, or rotated local axes. Here’s an example that gets a reliable value for the extension of an arm (note: this is vanilla maya, you could do it more succintly with Pymel but it’s a better illustration to do it from scratch)  </p>
+<div class="highlight"><pre><span></span><span class="n">shoulder_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;r_shoulder&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="n">elbow_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;r_elbow&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="n">wrist_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;r_wrist&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="n">bicep_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">elbow_pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">shoulder_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
+<span class="n">forearm_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">wrist_pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">elbow_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
+<span class="n">elbow_bend</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">bicep_vector</span><span class="p">,</span> <span class="n">forearm_vector</span><span class="p">)</span>
+</pre></div>
+
+
+<p>then <code>arm_extension</code> will be 1 at full extension and 0 when the arm is bent back completely on itself (<em>ouch!</em>). You can map use this extension value to drive muscle deformations, blendshapes, or other behaviors without worrying about th underlying Euler values or converting from angles to linear ranges.  </p>
+<h4>Leaning In</h4>
+<p>It’s often useful to have a general idea what a character’s whole body is doing, rather than focusing entirely on individual joint positions and orientations. For example, you might want to have rig behaviors turn on when a character is ‘upright’ and off when it it is ‘prone’, or vice-versa. Figuring out the gross orientation is often hard because there are so many bones cooperating to produce the visual effect – and because different animators may use different controls in different ways: animator A may prefer to put all of the big rotations onto a center-of-gravity control while animator B does everything on the pelvis.  </p>
+<p>Dots are great for extracting pose info from the world space position of key bones instead of trying to intuit them from rotation values. For example:  </p>
+<div class="highlight"><pre><span></span><span class="n">head_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="n">pelvis_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;pelvis&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="c1"># how upright is the character’s body?  </span>
+<span class="n">body_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">head_pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">pelvis_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
+<span class="n">upright</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">body_vector</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># for a y-up world</span>
+</pre></div>
+
+
+<p>Here upright will be close to 1 for an upstanding character, close to 0 for a prone character, and close to -1 for an upside down character (eg, during a handstand). This version tracks the pelvis-to-head vector so it will respond to things like a hunched-over spine; but one of the nice side effects of vector math it that you can easily ‘weight’ different elements as you put together your vectors. For example:  </p>
+<div class="highlight"><pre><span></span><span class="n">chest_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;spine_3&#39;</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+<span class="n">head_and_chest</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">chest_pos</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">head_pos</span><span class="p">))</span>  <span class="o">/</span> <span class="mf">3.0</span>  
+<span class="n">body_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">head_and_chest</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">pelvis_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
+<span class="n">upright</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">body_vector</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+
+<p>would include bias the uprightness vector towards ‘spine_3’, diminishing the influence of the head on the final results.  </p>
+<h4>Looky here</h4>
+<p>You don’t always have to use positions to drive dot-product calculations. You can always get the local orientation of a transform by looking at it’s matrix (the exact reason for this will be shown in a later posting, for now take it on faith). This allows you to see how closely a given object is oriented towards a given vector.   </p>
+<p>For example, something like this will help you figure out if a character’s body is oriented in roughly the same direction as the character’s root bone:  </p>
+<div class="highlight"><pre><span></span><span class="c1"># assuming that the bones are constructed with positive z as &#39;forward&#39;  </span>
+<span class="n">world_forward</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="s2">&quot;.worldMatrix&quot;</span><span class="p">)[</span><span class="mi">8</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>  
+<span class="n">root_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">))</span>  
+<span class="n">pelvis_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;pelvis&#39;</span><span class="p">))</span>  
+<span class="n">shoulders_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;spine_3&#39;</span><span class="p">))</span>  
+<span class="n">head_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">))</span>  
+<span class="c1"># get a weighted average of the pelvis, shoulder and head directions  </span>
+<span class="n">composite</span> <span class="o">=</span> <span class="p">((</span><span class="n">pelvis_forward</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">shoulders_forward</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">head_forward</span><span class="p">)</span> <span class="o">/</span> <span class="mf">5.0</span>  
+<span class="c1"># flatten the composite and root vectors into 2 dimensions:  </span>
+<span class="n">composite</span> <span class="o">=</span> <span class="n">composite</span> <span class="o">*</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
+<span class="n">root_forward</span> <span class="o">=</span> <span class="n">root_forward</span> <span class="o">*</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
+<span class="n">orientation</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">composite</span><span class="o">.</span><span class="n">normalized</span><span class="p">(),</span> <span class="p">(</span><span class="n">root_forward</span><span class="o">.</span><span class="n">normalized</span><span class="p">())</span>
+</pre></div>
+
+
+<p>A value of 1 would have the character facing precisely along the same direction as it’s root bone in 2D. This kind of thing is especially useful when you’re trying to manage a lot of animations which need to begin and end in similar poses - you can quickly check the overall posture of a lot of characters without too much detailed analysis to spot problems before going in and looking at the troublesome ones for hand fixing.  </p>
+<h2>shaders</h2>
+<p>Even more than rigging, shader authoring frequently involves a return to the math fundamentals. The most familiar example of the dot product in shader writing is the <a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404">Lambert rendering equation</a> which we discussed in the last post. However, you can get a variety of other handy effects from the dot inb shaders. The key is to find the right set of vectors to work with. <br />
+For example, if you dot a surface normal against the vector along which the camera is looking, the result will tell you how directly surface is facing the camera. This allows you to create a <a href="http://kylehalladay.com/blog/tutorial/2014/02/18/Fresnel-Shaders-From-The-Ground-Up.html">fresnel</a> or edge-highlighting effect.   </p>
+<p>Here’s a snippet of a very minimal Unity shader that illustrates the principle:</p>
+<div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">surf</span> <span class="p">(</span><span class="n">Input</span> <span class="n">IN</span><span class="p">,</span> <span class="n">inout</span> <span class="n">SurfaceOutput</span> <span class="n">o</span><span class="p">)</span> <span class="p">{</span>  
+        <span class="o">//</span> <span class="n">a</span> <span class="n">hacky</span> <span class="n">way</span> <span class="n">to</span> <span class="n">get</span> <span class="n">the</span> <span class="n">camera</span> <span class="n">vector</span><span class="err">…</span>  
+        <span class="n">float3</span> <span class="n">cam_vect</span> <span class="o">=</span> <span class="n">UNITY_MATRIX_IT_MV</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>  
+        <span class="nb">float</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">dot</span><span class="p">(</span> <span class="n">cam_vect</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">Normal</span><span class="p">);</span>  
+        <span class="n">o</span><span class="o">.</span><span class="n">Albedo</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="nb">pow</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">FresnelPower</span><span class="p">)</span> <span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">);</span>  
+        <span class="n">o</span><span class="o">.</span><span class="n">Alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  
+        <span class="p">}</span>
+</pre></div>
+
+
+<p>The only thing worth noting here is the way the result value is being inverted: we want the result number to be close to 1 at the horizon and close to zero where the camera normal and the surface normal are aligned, which is the reverse of what the dot would normally give us. By raising the result value to a higher or lower power (using <code>pow</code>) we can sharpen or soften the effect; since it the result value should always be 1 or lower a higher power will result in a smaller result value and thus a tighter highlight as you can see in the images.  </p>
+<p><a href="http://4.bp.blogspot.com/-CPrevKORkfE/VHl_alL2OkI/AAAAAAABLWg/N9jWYdWum-4/s1600/fresnel.jpg"><img alt="" src="http://4.bp.blogspot.com/-CPrevKORkfE/VHl_alL2OkI/AAAAAAABLWg/N9jWYdWum-4/s1600/fresnel.jpg" /></a>    </p>
+<blockquote>
+<p>The dotting the camera vector against the surface normal produces an edge highlight fresnel-style effect.   </p>
+</blockquote>
+<p>The size of the effect can be tweaked by raising the dot product value to a higher or lower power.  </p>
+<p>You can re-map that dot product in other ways as well. The popular Team Fortress 2 shader, for example, takes the dot between the light and the surface normal - which, of course, will range in value from -1 to 1 - and re-maps it onto the range 0 to 1 so it can be used to lookup a color value from a texture. That’s how the game achieves it’s distinctive ‘wrap-around’ lighting:  </p>
+<p><img alt="" src="http://www.maginot.eu/space/mgto/projects/mods/tf2_lightwarp/mgto_lightwarp_mod.jpg" /> </p>
+<blockquote>
+<p>The Team Fortress shader uses a shifted dot-product to look up lighting values from a hand-authored color ramp, creatng a distinctive illustrational look. </p>
+</blockquote>
+<p>Both of those uses use the ‘cosine falloff’ intepretation of the dot product, that is, they represent angular differences. However dots have another mathematical meaning: they represent the projection of one vector onto another. One really cool aspect the projective use of the dot is that the logic works in color spaces as well as physical space. For example, a shader writer of can get the luminance of a pixel elegantly like this:  </p>
+<div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">luma</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="n">float3</span><span class="p">(</span><span class="mf">0.2126</span><span class="p">,</span> <span class="mf">0.7152</span><span class="p">,</span> <span class="mf">0.0722</span><span class="p">),</span> <span class="n">pixel_color</span><span class="p">);</span>
+</pre></div>
+
+
+<p>Which is essentially projecting the color onto a ‘luminance vector’ dominated by green (numbers derived from <a href="https://en.wikipedia.org/wiki/Relative_luminance">this</a>) You could use the same trick to identify ‘warm’ colors by dotting against a warm rgb value like (.707, .707, 0) - high dot values will be warm and low dot values will be cool. It takes some meditation to really grok what’s going on (try parsing what’s happening in <a href="http://makc3d.wordpress.com/2011/04/06/matching-colors-in-rgb/">this example</a>!) but dots can be a very handy trick for navigating color space as well as 3-d space.<br />
+Shader writers have one more sneaky use for dots - they can be a cheap substitute for selection functions. Shader authors often have to pack data into vectors for efficiency, but accessing one component of a vector would need an expensive if-then branch in theshader. Dots, however, can let you pick one component out of your vector without using branches. Since the dot of any vector composed of all zeros is of course zero. If one component is a one and the rest are zeros, the result will be the corresponding component of the other vector. Thus:  </p>
+<div class="highlight"><pre><span></span><span class="n">float3</span> <span class="n">y</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>  
+<span class="n">float3</span> <span class="n">x</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>  
+<span class="n">float3</span> <span class="n">val</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.866</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  
+<span class="c1">// dot(x,val) == val.x = .5;  </span>
+<span class="c1">// dot(y,val) == val.y = .866;</span>
+</pre></div>
+
+
+<p>This is more compiler friendly than inserting a branch into the shader code to conditionally pick one component or another. I’ve found it especially useful in Unity, where ShaderLab limits your ability to pass custom data types to shaders and it’s often necessary to pack data into vectors or matrices just to get it from the game to the shader.  </p>
+<h2>tools</h2>
+<p>It’s easy to see who the kinds of tricks we’ve already laid out for shaders and rigging generalize for tool writing. The dot of a surface normal and a vector is a great proxy for whether or not the a surface is facing something, dots are great for analyzing geometry. For example, A tree-and-rock scattering script can dot the normal of a terrain against gravity to figure out which slopes are too steep for trees, or which areas are bottomland where there ought to be lots of bushes. A terrain editing tool could against a sun vector to identify exposed areas where the grass is yellowed and shady spots where it’s lush and green.   </p>
+<p>As with rigging , the dot also provides a way to check relative orientations. For example, you might need to know if an object has been where another object can ‘see’ it. If you dot a reference vector - such the object’s local X or Z axs - against the vector to a target, you can figure out if the target is ‘ahead’ or ‘behind’ the reference object. For example this function would tell you if the target was within some angle of the forward axis of the observer:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">target_visible</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">cone</span><span class="o">-</span><span class="n">angle</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="n">_</span><span class="p">):</span>  
+    <span class="sd">&quot;&quot;&quot;Is target within &lt;coneangle&gt; when viewed on references&#39; local Z axis?&quot;&quot;&quot;</span>  
+    <span class="n">reference</span><span class="o">-</span><span class="n">vector</span> <span class="o">=</span>  <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">reference</span> <span class="o">+</span> <span class="s2">&quot;.worldMatrix&quot;</span><span class="p">)[</span><span class="mi">8</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>  
+    <span class="n">target_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+    <span class="n">reference</span><span class="o">-</span><span class="n">pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
+    <span class="n">target</span><span class="o">-</span><span class="n">vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">target</span><span class="o">-</span><span class="n">pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span> <span class="n">reference</span><span class="o">-</span><span class="n">pos</span><span class="p">))</span>  
+    <span class="k">return</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">vector</span><span class="o">.</span><span class="n">normalized</span><span class="p">(),</span> <span class="n">reference</span><span class="o">-</span><span class="n">vector</span><span class="o">.</span><span class="n">normalized</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="n">cone</span><span class="o">-</span><span class="n">angle</span>
+</pre></div>
+
+
+<p>You could restrict that to one or two axes using the same trick in the rigging example, or use the full cone angle as done here.  </p>
+<blockquote>
+<p>As an aside, this brings up the issue of converting between dots and angles. Since the geometric dot product (as always, assuming you’ve got normalized vectors) is a cosine, you can convert it to an angle by using the arc-cosine function (<code>acos</code> in Python and most other languages) like so:</p>
+</blockquote>
+<div class="highlight"><pre><span></span><span class="n">cosine</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  
+<span class="n">angle_in_radians</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">cosine</span><span class="p">)</span>  
+<span class="n">angle_in_degrees</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">angle_in_radians</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The projective function of dots is also useful in tools. For example, you can use a dot to clamp a line to the position of the mouse, even if the line is constrained so that the mouse doesn’t physically rest on the line:  </p>
+<div class="highlight"><pre><span></span><span class="n">line_vector</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mf">.707</span><span class="p">,</span> <span class="mf">.707</span><span class="p">)</span>  <span class="err">#</span> <span class="n">a</span> <span class="mi">45</span> <span class="n">degree</span> <span class="n">line</span>  
+<span class="n">line_origin</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>    <span class="err">#</span> <span class="n">start</span> <span class="n">drawing</span> <span class="n">at</span> <span class="n">pixel</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>  
+<span class="k">while</span> <span class="p">(</span><span class="n">mouse</span><span class="p">.</span><span class="n">down</span><span class="p">())</span><span class="o">:</span>  
+    <span class="n">line_end</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="n">mouse</span><span class="p">.</span><span class="n">position</span><span class="p">)</span> <span class="o">-</span> <span class="n">line_origin</span><span class="p">,</span> <span class="n">line_vector</span><span class="p">)</span>  
+    <span class="n">draw_line</span> <span class="p">(</span><span class="n">line_origin</span><span class="p">,</span> <span class="n">line_origin</span> <span class="o">+</span> <span class="n">line_end</span><span class="p">)</span>
+</pre></div>
+
+
+<h2>Further reading</h2>
+<p>If this one whetted your appetite and you need to know more, here’s a few links I found handy while reading up:  </p>
+<ul>
+<li><a href="http://www.chrisevans3d.com/pub/_blog/maya-python-vector-math-primer/">Chris Evans’ vector math tutorial</a></li>
+<li>A <a href="http://mathinsight.org/dot_product">page on projective dot products</a>, along with an applet that helps you visualize how the projection works</li>
+<li><a href="http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-2/">This post from Wolfire</a>, developers of <a href="http://www.wolfire.com/overgrowth">Overgrowth</a> includes some nice examples of how dots are used in AI and game code (plus a peek at some other concepts I’ll be covering later in this series)</li>
+<li><strong>Update</strong>: <a href="https://plus.google.com/105359351421932966635">+Paul Vosper</a>  put me on to the excellent <a href="http://scratchapixel.com/">Scratchapixel.com</a></li>
+</ul>
+<p>I'll be back on the math trail again as soon as I emerge from my <a href="http://www.webmd.com/food-recipes/features/the-truth-about-tryptophan">mythical tryptophan coma.</a>  </p>
+<h2>Posts in this series</h2>
+<ul>
+<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot products)</a></li>
+<li><a href="dots_all_folks.html">Dots All Folks (dot product uses)</a></li>
+<li><a href="dot_matrix.html">Dot Matrix (intro to matrices)</a></li>
+<li><a href="adventures-in-4th-dimension.html">Adventures in the 4th Dimension (translation matrices)</a></li>
+<li><a href="to-scale.html">To Scale! (scale matrices)</a></li>
+</ul>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 29 November 2014
@@ -103,7 +257,7 @@
                     I think this does not count as a meme gif :)
                 </h2>
             </a>
-                Says it all
+                <p><a href="http://ft.trillian.im/358c43ab64c4c31c809b49887dda431711fc5c26/6q3MtgQ520CBZbqz6G6Sum7r2HTDr.jpg"><img alt="" src="http://ft.trillian.im/358c43ab64c4c31c809b49887dda431711fc5c26/6q3MtgQ520CBZbqz6G6Sum7r2HTDr.jpg" /></a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 14 June 2014
@@ -115,7 +269,33 @@
                     Earth calling maya.standalone!
                 </h2>
             </a>
-                Remote-controlling a maya standalone instance from a web browser with the standaloneRPC module.
+                <p>Somebody over on <a href="http://tech-artists.org">Tech-artists.org</a> was <a href="http://tech-artists.org/forum/showthread.php?4642-Python-Maya-Open-commandPort-for-Mayapy&amp;p=24225#post24225">asking about how to control a maya.standalone instance remotely</a>.  In ordinary Maya you could use the commandPort, but the commandPort doesn't exist when running under standalone - apparently it's part of the GUI layer which is not present in batch mode.  </p>
+<p>So, I whipped up an uber-simple JSON-RPC-like server to run in a maya standalone and accept remote commands. In response to some queries I've polished it up and <a href="https://github.com/theodox/standaloneRPC">put it onto GitHub</a>.  </p>
+<p>It's an ultra-simple setup. Running the module as a script form mayapy.exe starts a server:      </p>
+<div class="highlight"><pre><span></span>    mayapy.exe   path/to/standaloneRPC.py
+</pre></div>
+
+
+<p>To connect to it from another environment, you import the module, format the command you want to send, and shoot it across to the server. Commands return a JSON-encoded dictionary. When you make a successful command, the return object will include a field called 'results' containg a json-encoded version of the results:       </p>
+<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="n">CMD</span><span class="p">(</span><span class="s1">&#39;cmds.ls&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
+<span class="k">print</span> <span class="n">send_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>  
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="n">success</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">result</span><span class="p">:[</span><span class="s1">u&#39;persp&#39;</span><span class="p">,</span> <span class="s1">u&#39;top&#39;</span><span class="p">,</span> <span class="s1">u&#39;side&#39;</span><span class="p">,</span> <span class="s1">u&#39;front&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<p>For failed queries, the result includes the exception and a traceback string:</p>
+<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="n">CMD</span><span class="p">(</span><span class="s1">&#39;cmds.fred&#39;</span><span class="p">)</span>  <span class="c1"># nonexistent command  </span>
+<span class="k">print</span> <span class="n">send_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>  
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s2">&quot;exception&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>   
+     <span class="s2">&quot;traceback&quot;</span><span class="p">:</span> <span class="s2">&quot;Traceback (most recent call last)... #SNIP#&quot;</span><span class="p">,</span>  
+     <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>   
+     <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="s2">&quot;[]&quot;</span><span class="p">,</span>   
+     <span class="s2">&quot;kwargs&quot;</span><span class="p">:</span> <span class="s2">&quot;{}&quot;</span><span class="p">,</span>   
+     <span class="s2">&quot;cmd_name&quot;</span><span class="p">:</span> <span class="s2">&quot;cmds.fred&quot;</span><span class="p">}</span>
+</pre></div>
+
+
+<p>It's a single file for easy drop. Please, <strong>please</strong> read the notes - the module includes no effort at authentication or security, so it exposes any machine running it to anyone who knows its there. Don't let a machine running this be visible to the internet! </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 05 April 2014
@@ -127,7 +307,8 @@
                     Morph targets revisited
                 </h2>
             </a>
-                Chronosculpt - a tool for Zbrush-like painting of dense polymodels
+                <p>Here's an interesting demo vid from NewTek, spotlighting a new time-based sculpting workflow: in essence, an animatable Zbrush that let you retouch big simulation cache files.  It's easy to see how this could spark a renaissance in vertex animation.....  </p>
+<p>More details <a href="https://www.lightwave3d.com/chronosculpt/">on the NewTek website</a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 14 March 2014
@@ -139,7 +320,133 @@
                     Descriptors and pythonic Maya properties
                 </h2>
             </a>
-                How to use descriptors for dot-style access to maya object properties instead of cmds.getAttr()
+                <p>I'm still working on the followup to <a href="rescuing_maya_gui_from_itself.html">Rescuing Maya GUI From Itself</a>, but while I was at it this <a href="http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super">StackOverflow question</a> made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like <code>pCube1.translation = (0,10,0)</code>. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. </p>
+<p>The goal is to be able to write something like</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xform</span> <span class="kn">import</span> <span class="n">Xform</span>  
+<span class="n">example</span> <span class="o">=</span> <span class="n">Xform</span><span class="p">(</span><span class="s1">&#39;pCube1&#39;</span><span class="p">)</span>  
+<span class="k">print</span> <span class="n">example</span><span class="o">.</span><span class="n">translation</span>  
+<span class="c1"># [0,0,0]  </span>
+<span class="n">example</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The process is about as simple as it can get thanks to the magic of <a href="rescuing_maya_gui_from_itself.html">descriptors</a>. This example spotlights one advantage of descriptors over getter/setter property functions: by inheriting the two classes (<code>BBoxProperty</code> and <code>WorldXformProperty</code>) I can get 4 distinct behaviors (world and local, read-write and read-only) with very little code and no if-checks.</p>
+<div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">xform.py</span>
+
+<span class="sd">Exposes the xform class: a simple way to set maya position, rotation and similar properties with point notation.</span>
+
+<span class="sd">(c) 2014 Steve Theodore.  Distributed under the MIT License (http://opensource.org/licenses/MIT)  </span>
+<span class="sd">TLDR: Use, change and share, please retain this copyright notice.  </span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="k">class</span> <span class="nc">XformProperty</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>  
+    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Descriptor that allows for get-set access of transform properties  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">flag</span> <span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">flag</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
+
+
+    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span> <span class="p">):</span>  
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_q_args</span> <span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span> <span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">WorldXformProperty</span><span class="p">(</span> <span class="n">XformProperty</span> <span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Get-set property in world space  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">flag</span> <span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">_q_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;ws&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">flag</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ws&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>
+
+<span class="k">class</span> <span class="nc">BBoxProperty</span> <span class="p">(</span> <span class="n">XformProperty</span> <span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Read only property for bounding boxes  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>  
+        <span class="k">raise</span> <span class="ne">RuntimeError</span> <span class="p">(</span> <span class="s2">&quot;bounding box is a read-only property!&quot;</span> <span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">WorldBBoxProperty</span> <span class="p">(</span> <span class="n">WorldXformProperty</span><span class="p">,</span> <span class="n">BBoxProperty</span> <span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Read only property for bounding boxes  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">Xform</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    Thin wrapper providing point-notation access to transform attributes</span>
+
+<span class="sd">       example = Xform(&#39;pCube1&#39;)  </span>
+<span class="sd">       # |pCube1  </span>
+<span class="sd">       example.translation   </span>
+<span class="sd">       # [0,0,0]  </span>
+<span class="sd">       example.translation = [0,10,0]</span>
+
+<span class="sd">    For most purposes Xforms are just Maya unicode object names.  Note this does  </span>
+<span class="sd">    NOT track name changes automatically. You can, however, use &#39;rename&#39;:  </span>
+<span class="sd">       example = Xform(&#39;pCube1&#39;)  </span>
+<span class="sd">       example.rename(&#39;fred&#39;)  </span>
+<span class="sd">       print example.Object  </span>
+<span class="sd">       # |fred</span>
+
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span> <span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Object</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="n">obj</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="bp">True</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>  
+        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">Object</span> <span class="p">)</span>  <span class="c1"># so that the command will work on the string name of the object</span>
+
+    <span class="c1"># property descriptors  These are descriptors so they live at the class level,  </span>
+    <span class="c1"># not inside __init__!</span>
+
+    <span class="n">translation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;translation&#39;</span> <span class="p">)</span>  
+    <span class="n">rotation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;rotation&#39;</span> <span class="p">)</span>  
+    <span class="n">scale</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;scale&#39;</span> <span class="p">)</span>  
+    <span class="n">pivots</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;pivots&#39;</span> <span class="p">)</span>
+
+    <span class="n">world_translation</span> <span class="o">=</span> <span class="n">WorldXformProperty</span><span class="p">(</span> <span class="s1">&#39;translation&#39;</span> <span class="p">)</span>  
+    <span class="n">world_rotation</span> <span class="o">=</span> <span class="n">WorldXformProperty</span><span class="p">(</span> <span class="s1">&#39;rotation&#39;</span> <span class="p">)</span>  
+    <span class="n">world_pivots</span> <span class="o">=</span> <span class="n">WorldXformProperty</span><span class="p">(</span> <span class="s1">&#39;pivots&#39;</span> <span class="p">)</span>  
+    <span class="c1"># maya does not allow &#39;world scale&#39; - it&#39;s dependent on the parent scale</span>
+
+    <span class="c1"># always local  </span>
+    <span class="n">scaleTranslation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;scaleTranslation&#39;</span> <span class="p">)</span>  
+    <span class="n">rotateTranslation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;rotateTranslation&#39;</span> <span class="p">)</span>
+
+    <span class="n">boundingBox</span> <span class="o">=</span> <span class="n">BBoxProperty</span><span class="p">(</span> <span class="s1">&#39;boundingBox&#39;</span> <span class="p">)</span>  
+    <span class="n">world_boundingBox</span> <span class="o">=</span> <span class="n">WorldBBoxProperty</span><span class="p">(</span> <span class="s1">&#39;boundingBox&#39;</span> <span class="p">)</span>
+
+
+    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">new_name</span> <span class="p">):</span>  
+        <span class="bp">self</span><span class="o">.</span><span class="n">Object</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">new_name</span> <span class="p">),</span> <span class="n">l</span><span class="o">=</span><span class="bp">True</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+    <span class="nd">@classmethod</span>  
+    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span> <span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>  
+        <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">        Returns a list of Xforms, using the same arguments and flags as the default ls command  </span>
+<span class="sd">        &#39;&#39;&#39;</span>  
+        <span class="k">try</span><span class="p">:</span>  
+            <span class="n">nodes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="o">*</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span> <span class="p">)</span>  
+            <span class="k">return</span> <span class="nb">map</span> <span class="p">(</span> <span class="n">Xform</span><span class="p">,</span> <span class="n">nodes</span> <span class="p">)</span>  
+        <span class="k">except</span><span class="p">:</span>  
+            <span class="k">return</span> <span class="p">[]</span>
+</pre></div>
+
+
+<p>You may note the absence of a <code>__metaclass__</code>. In this case, with only a single class, a meta would be an unnecessary complication. Meanwhile the <a href="https://github.com/theodox/mGui">code for MayaGUI itself is up on GitHub</a>. Comments and/or contributions welcome!</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 11 March 2014
@@ -151,7 +458,8 @@
                     Future Watch: Graphics & Animation Research
                 </h2>
             </a>
-                Announcing a new permalist page of interesting graphics and animation research
+                <p>I've added a permanent <a href="pages/research">page to keep track of interesting academic research</a>. It's over in the sidebar.  If you're at all into animation, download the videos or the ppt of the <a href="http://grail.cs.washington.edu/projects/animal-morphology/s2009/">paper on gait optimization</a>. It's fun -- unless you're an animator, in which case it's a bit scary.   </p>
+<p>The list is a bit skimpy atm, I'll post updates as it expands.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 05 January 2014
@@ -163,7 +471,21 @@
                     First find of 2014: A Scriptable DCC app in the browser?!?!
                 </h2>
             </a>
-                Clara.io -- a full 3d DCC app that runs in your browser!
+                <p>Just stumbled across this link to <a href="http://clara.io/">clara.io</a>, which is an in-browser 3D editor from Ecocortex, one of the vendors behind the <a href="https://code.google.com/p/alembic/">Alembic file format</a>. It's a 3d modeler that runs in a browser.  And it's free.  </p>
+<p>Sheesh.  </p>
+<p><a href="http://3.bp.blogspot.com/-YigSyxvbhNw/Usbzp7a29GI/AAAAAAAABYc/M06nOJapj_Q/s1600/claraio.png"><img alt="" src="http://3.bp.blogspot.com/-YigSyxvbhNw/Usbzp7a29GI/AAAAAAAABYc/M06nOJapj_Q/s1600/claraio.png" /></a>  </p>
+<blockquote>
+<p>And look at the bottom - a script console!  </p>
+</blockquote>
+<p>I'm not entirely sure what to make of this, beyond <a href="http://www.youtube.com/watch?v=acYDNlMYAaI"><em>totally wicked</em></a>.  I'm not going to try to review clara here - I just found it today, after all, but it's such an interesting find that I can't help but comment.  </p>
+<p>The UI is a riff on familiar ideas, so it's easy to pick up for any TA, or for that matter anybody with more than a passing familiarity with the usual suspects. It doesn't break any new ground in productivity or ease of use - but that doesn't bother me in this context. Like the dog that walks on it's hind legs, it's not done perfectly but one is surprised to see it_ <em>done at all.  This is, after all running _in a browser.</em> Yikes.  </p>
+<p>The app is still kind of wet behind the ears - it feels a trifle slow (some kinds of UI operations seem to trigger a perceptible refresh in all of the 3d views, for example). There are host of poly modeling tools -- notably booleans -- that Max/Maya users will miss pretty quickly.  All that said - the idea of running a zero-configuration, instantly deployable app from anywhere -- a tool you could be sure was the same for your outsources in Bangkok and on your own desktop <em>right now</em> -- along with inherent cloud data management?  The ability to run remote commands via web push commands, so you could set up a That is beyond just a curiosity. This app doesn't suddenly obsolete Max or Maya or XSI, but it might be the first rumblings of a big change in how things get done.  As a side benefit, it's got a several different file IO options and could perhaps make as decent waystation for people crossing product boundaries.  </p>
+<p>The TA who immediately asks "what scripting language" will be pleased to note that there's a script console down at the bottom; unsurprisingly for a web app the scripting language is JavaScript.  JS may not be my favorite language -- not by a long shot! -- but it's the natural language of the web. Most importantly, the scripting system makes it fairly easy to extend the application by writing your own plugins: this example on their website shows <a href="http://clara.io/learn/sdk/creating-commands">how to make an OBJ importer</a>.   </p>
+<p>Most important of all, though -- did I mention this? -- it's a browser app. Which means you can so things like this:   </p>
+<iframe width="660" height="370" src="https://www.youtube.com/embed/r0hrE8fSU08" frameborder="0" allowfullscreen></iframe>
+
+<p>Which, you must admit, scores pretty well on the Gee-Whiz scale for a freakin browser app.</p>
+<p>Overall, this is a really excellent developmnt. The 3d market has been painfully sluggish for a decade now - we've got better bells and whistles but on the whole we still work in 2014 more or less the away we worked in 2004.  We need new companies with fresh ideas to shake up this market.  We also need to <a href="and-i-thought-we-had-it-bad.html">embrace web development as a part of how we build tools</a>.  This is a big step in the right direction and we should do what we can to help it along.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 03 January 2014
@@ -175,7 +497,8 @@
                     Production Pipeline Fundamentals for Film and Games
                 </h2>
             </a>
-                The pipeline book is out on Amazon!
+                <p>The book I worked on last year is up for pre-order on Amazon! It was a long haul - congrats to Renee and all the other authors who helped get this giant zeppelin filled with hot air! </p>
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=tecsurgui-20&marketplace=amazon&region=US&placement=0415812291&asins=0415812291&linkId=6b3df4689659a59d96ef9bea8a29450c&show_border=true&link_opens_in_new_window=true"></iframe>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 22 December 2013

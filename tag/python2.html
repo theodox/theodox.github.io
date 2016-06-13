@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag python</title>
+        <title>Chimeras & Manticores - Tag python</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -74,7 +74,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#python</h1>
-                        <h3>41 items<h3>
+                        <h3>42 items<h3>
                     </div>
                 </div>
             </div>
@@ -91,7 +91,18 @@
                     What The...?
                 </h2>
             </a>
-                A nice little trick for filtering components in Maya using cmds.ls()
+                <p>Like many Maya heads I have long wrestled with the problem of filtering lists to get what I'm interested in.  You're probably familiar with the use of  the <strong>type</strong> flag in cmds.ls() to filter on types: for example this will give you only the transforms in your current selection:</p>
+<div class="highlight"><pre><span></span>cmds.ls(sl=True, type = &#39;transform&#39;)
+</pre></div>
+
+
+<p>This works for any node type (the list is quite long: it's basically the whole maya node class hierarchy) and is a handy way to find only once class of objects.  However there's no equivalent command for components: so if you've got a mixed list of objects and components it's hard to extract just the components without resorting to cumbersome string processing.</p>
+<p>However I just found a partial workaround today that helps with component selections.  For some reason known only to <a href="https://en.wikipedia.org/wiki/Xibalba">Xibalba</a>,  Maya 2014+ seems to treat faces, edges and vertices as if they were nodes of a "float3" type (uv's are "float2"s) .  This means you can get the components from a mixed selection with:</p>
+<div class="highlight"><pre><span></span>cmds.ls(sl=True, type = &#39;float3&#39;)
+</pre></div>
+
+
+<p>Not the most earth-shattering discovery of the 21st century, but handy nonetheless.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 05 February 2015
@@ -103,7 +114,51 @@
                     All we are saying is give API 2.0 a chance
                 </h2>
             </a>
-                Maya's api version 2.0 is finally coming of age
+                <p>Doing all this math-related posting has reminded me of something I've been meaning to write up:  </p>
+<p>Maya's <a href="http://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/index-html.html">python API 2.0,</a> first introduced in the 2013 version, got off to a rocky start. People complained about <a href="http://stackoverflow.com/questions/20232835/maya-python-api-2-0-has-no-mitdag-so-how-traverse-dag-graph">missing functions</a> and <a href="http://jeremyyk.com/tutorials/maya-s-python-api-2-0-">missing modules</a>.  It uses (mostly) the same function and class names as the original OpenMaya Python, which is a recipe for confusion. The documentation is pretty confusing too, since it points at the original C++ docs and leaves it up to you to do much of the translation in your head.    However....  </p>
+<p>One thing that API 2 definitely does right is to eliminate the dreaded <a href="python_api_crash"><code>MScriptUtil</code></a>, with its ugly and confusing interface and all of the opportunities for failures that it includes.  I've been busy porting over a bunch of geometry utilities to the new API and I'm routinely finding that stuff like this:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">APIVector</span><span class="p">(</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">False</span> <span class="p">):</span>  
+    <span class="sd">&#39;&#39;&#39;  </span>
+<span class="sd">    return an iterable as an OpenMaya MVector</span>
+
+<span class="sd">    if iterable is an openMaya MVector, returns untouched  </span>
+<span class="sd">    &#39;&#39;&#39;</span>  
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MVector</span> <span class="p">):</span>  
+        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">iterable</span>  
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span> <span class="n">iterable</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;argument to APIVector must have 3 entries&quot;</span>  
+        <span class="n">v_util</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MScriptUtil</span><span class="p">()</span>  
+        <span class="n">it</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="n">copy</span><span class="p">(</span> <span class="n">iterable</span> <span class="p">)</span> <span class="p">)</span>  
+        <span class="n">v_util</span><span class="o">.</span><span class="n">createFromDouble</span><span class="p">(</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>  
+        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span> <span class="n">v_util</span><span class="o">.</span><span class="n">asDoublePtr</span><span class="p">()</span> <span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">normal</span><span class="p">:</span>  
+        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">o_vector</span><span class="o">.</span><span class="n">normal</span> <span class="p">()</span>  
+    <span class="k">return</span> <span class="n">o_vector</span>
+</pre></div>
+
+
+<p>Turns into to this:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">APIVector</span><span class="p">(</span><span class="o">*</span><span class="n">iterable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+
+
+    <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  
+    <span class="k">try</span><span class="p">:</span>  
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>  
+    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>  
+        <span class="n">result</span> <span class="o">=</span> <span class="n">api2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
+    <span class="k">finally</span><span class="p">:</span>  
+        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>  
+            <span class="n">result</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>  
+        <span class="k">return</span> <span class="n">result</span>
+</pre></div>
+
+
+<p>In other words, one reasonable line for 4 icky ones.  </p>
+<p>Plus, the new versions are generally more pythonic - the API 2 version of <code>MVector</code>, for example supports both dot-access, bracket access, and iteration over the vector components (though, annoyingly, <em>not</em> slicing).  </p>
+<p>It's certainly not all perfect. You do have to be very careful about mixing API 1 and API 2 code in the same functions - even though they are both wrapping the same C++ underpinnings they are are mutually incompatible.  Some things are still cumbersome -- converting strings to MSelectionList items to MObjects to MFNs is still a waste of good brain cells -- but it's a step in the right direction. I'll post more as I know more.  </p>
+<p>By the way, I spent several minutes surfing around for a funny image to wrap up on, I even did a meme-generator.com thing with The Most Interesting Man In The World saying something dismissive about MScriptUtil.  And then I thought... "What's the point."  </p>
+<p>See? Progress <em>is</em> possible.   Or maybe I'm just getting old. In Internet Years I'm already like 7,303.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 12 December 2014
@@ -115,7 +170,8 @@
                     Big (?) Python bucks!
                 </h2>
             </a>
-                So wait, knowing Maya and Python is worth less than knowing just Python?! I knew it.
+                <p>I've frequently commented in the past on the <a href="http://www.gamasutra.com/view/news/221533/Game_Developer_Salary_Survey_2014_The_results_are_in.php">Game Developers Salary Survey</a>.  For you Pythonistas out there, there's some nice data (amateur grade, but still pretty good) to be found at the <a href="http://nbviewer.ipython.org/github/agilevic/pystreet/blob/master/notebooks/PyStreet%20Python%20Developer%20Salary%20Survey%20Results.ipynb">Python Developer Salary Survey</a>.  No mention of what you get for knowing Max / Maya, however, but by crunching the numbers I'd guess it <em>subtracts</em> about $30k per year.   </p>
+<p>Or maybe that's just because we're all lousy programmers.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 16 November 2014
@@ -127,7 +183,168 @@
                     The Dog Ate My Homework
                 </h2>
             </a>
-                a cheap-ass way to specialize Maya unit tests for different Maya versions.
+                <p>I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth sharing.  </p>
+<p>We run all of our various Maya tools through a single build system which runs unit tests and compiles code for our different targets (currently Maya 2011 and 2015). Ordinarily, since I’m very allergic to using binaries when I don’t have to, this multi-maya setup doesn’t cause us a lot of headaches. I have a little extractor routine which unzips the few binaries we do distribute in the right places, and all the rest of the code is blissfully unaware of which Maya version it’s running (with the exception of the nasty <a href="http://techartsurvival.blogspot.com/2014/09/2015-bug-watch-ls.html">ls bug I mentioned a few weeks ago</a>.)  </p>
+<p><a href="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg"><img alt="" src="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg" /></a></p>
+<p>Last week, however, we added a new tool and accompanying test suite to the toolkit. It works fine in 2015 (where we do all of our actual development right now), but crashes in 2011. After a bit of head-scratching we eventually realized that this one was absurdly simple: the test uses a saved Maya so that it can work with known, valid data. Of course the file was saved from Maya 2015, so when the Maya 2011 version of the tests tries to run boot up, it falls over because 2011 won’t read a 2015 file.<br />
+Or, as the checkin comment has it, “Doh!”  </p>
+<h2>Test cancelled!</h2>
+<p>The obvious fix is just to skip the test in Maya 2011 - a test that can never pass is hardly generating much useful information, and the likelihood that our small pool of 2011 customers actually need this tool is low anyway. Skipping a test is easy enough if you’re running the tests manually in an IDE – but a lot more complex if you’re got a build server that’s trying to auto-detect the tests. Plus, designing a system that makes it <em>too</em> easy to skip tests is a Bad Thingtm; - you generally want all of your tests running all the time, since “I’ll re-enable that test after I deal with this problem” is right up there with “the check is in the mail” and “it’s not you, it’s me” in the probity department. <br />
+So, the goal is to allow us to conditionally disable tests based on a hard constraint - in this case, when they are running on an inappropriate version of Maya - without compromising the tests as a whole . Secondarily it would be nice to do this without any kind of central registry file - we’d really just like the tests to just run, except when they <em>can’t</em>.  </p>
+<p><a href="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg"><img alt="" src="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg" /></a></p>
+<p>Now, typically a test runner will detect tests by looking for classes that derive from <a href="https://docs.python.org/2/library/unittest.html">unittest.TestCase</a>. The easiest way to skip the test, therefore, is simply not to define it at all - if the test runner doesn’t see the class when it imports your test modules, we’ll be fine. <em>Note: this strategy won’t work if you have some kind of hand-rolled test harness that finds tests by string parsing file contents or something like that! However, you probably want to be doing the standard thing anyway… As they say in Python land, <a href="http://legacy.python.org/dev/peps/pep-0020/">“There should be one– and preferably only one –obvious way to do it.”</a></em>  </p>
+<p>In C++ or C# you could do this with a “preprocessor directive”, aka a “#define” - a conditional check that runs at compile time to include or exclude certain parts of a file.   </p>
+<p>In Python we don’t even need that: you can just inline the check in your file and it will execute when the module is imported. Here’s a simple example which conditionally use Raymond Hettinger’s <a href="https://pypi.python.org/pypi/ordereddict">ordereddict module</a> in Python 2.6 and the equivalent built-in version in Python 2.7:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>  
+    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>  
+<span class="k">else</span><span class="p">:</span>  
+    <span class="kn">from</span> <span class="nn">ordereddict</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
+</pre></div>
+
+
+<p>_(If you are total #IFDEF addict there is also the <a href="http://stackoverflow.com/questions/482014/how-would-you-do-the-equivalent-of-preprocessor-directives-in-python">pypredef module</a>. Not my cup of tea, but the author does make some good points about the utility of his approach). _  </p>
+<p>The inline approach works fine in small amounts, but it’s aesthetically unappealing - it forces a bunch of module-level definitions away from the left margin, visually demoting them from important names to generic code blocks. More importantly, it’s easy to mess up: a misplaced indentation can radically change the contents of your file, and even though I’m a big fan of indentations over cur lies, I miss my indents with depressing regularity.  </p>
+<p>Fortunately, Python has an elegantly succinct way of annotating code for higher-level purposes without messing up the visual cleanliness and logical flow: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">decorators</a>. Decorators are handy here for two reasons: first off, they express your intent very clearly by telling future readers something unambiguous about the structure of your code. Secondly, they can execute code (even fairly complex code, though frankly it’s a bad idea for what I’m describing here!) without compromising the layout and readability of your module.<br />
+The particularly nice thing about decorators in this case is that the way decorators work in any case is a natural match for the problem we have.   </p>
+<h2>The substitute teacher</h2>
+<p>A decorator is just a function (or a callable class) which takes another function or class as an argument. When Python finds a decorated function or class, it calls the decorator function and passes the target – that is, the decorated bit of code – as an argument Whatever comes out of the decorator function is then swapped in for the original code. <br />
+Here’s a simple example, using functions for simplicity:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
+        <span class="k">def</span> <span class="nf">replacement_func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>  
+        <span class="c1"># this function replaces the original  </span>
+        <span class="c1"># it only knows what the original does  </span>
+        <span class="c1"># because that was passed in when the  </span>
+        <span class="c1"># decorator was called....  </span>
+        <span class="k">print</span> <span class="s2">&quot;calling original&quot;</span>  
+        <span class="n">result</span> <span class="o">=</span> <span class="n">original_func</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  
+        <span class="k">print</span> <span class="s2">&quot;original says : &quot;</span><span class="p">,</span> <span class="n">result</span>  
+        <span class="k">return</span> <span class="n">result</span>  
+    <span class="k">return</span> <span class="n">replacement_func</span>   
+    <span class="c1"># return our new replacement function  </span>
+    <span class="c1"># but bind it to the name of the original</span>
+
+<span class="nd">@decorated</span>  
+<span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>  
+   <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+<span class="n">example</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>  
+<span class="c1"># calling original  </span>
+<span class="c1"># original says : 3  </span>
+<span class="k">print</span> <span class="n">example</span><span class="p">:</span>  
+<span class="c1"># 3</span>
+</pre></div>
+
+
+<p>The decorator can completely replace the original code if it wants to:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
+   <span class="k">def</span> <span class="nf">completely_different</span><span class="p">():</span>  
+       <span class="k">return</span> <span class="s2">&quot;and now for something completely different&quot;</span>
+
+<span class="nd">@override</span>  
+<span class="k">def</span> <span class="nf">parrot</span><span class="p">():</span>  
+    <span class="k">return</span> <span class="s2">&quot;I’d like to make a complaint about a parrot&quot;</span>
+
+<span class="k">print</span> <span class="n">parrot</span><span class="p">()</span>  
+<span class="c1"># and now for something completely different</span>
+</pre></div>
+
+
+<p>Or, it could leave it untouched too:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">untouched</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
+    <span class="k">return</span> <span class="n">original_func</span>
+
+<span class="nd">@untouched</span>  
+<span class="k">def</span> <span class="nf">spam</span><span class="p">():</span>  
+    <span class="k">return</span> <span class="s2">&quot;spam!&quot;</span>
+
+<span class="k">print</span> <span class="n">spam</span><span class="p">()</span>  
+<span class="c1">#spam!</span>
+</pre></div>
+
+
+<p>The essential thing here is that the decorator sort of like one of those elves who swap out children for changelings. Officially nothing has changed - the name you defined in the un-decorated code is right there - but under the hood it may be different.  </p>
+<p><a href="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg"><img alt="" src="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg" /></a></p>
+<h2>Mandatory testing</h2>
+<p>Once you understand the decorator-as-changeling idea, it becomes pretty easy to see how the decorator can allow code swaps based on some condition. You might, for example, try to patch around a function which returns an empty list in Maya 2014, but <a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404">crashes in Maya 2015</a>(link):  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">safe_2015</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>  
+        <span class="c1"># wrap it for safety in 2015  </span>
+        <span class="k">def</span> <span class="nf">safe</span>\<span class="n">_ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+            <span class="k">try</span><span class="p">:</span>  
+                <span class="k">return</span> <span class="n">original_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
+            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>  
+                <span class="k">return</span> <span class="p">[]()</span>  
+        <span class="k">return</span> <span class="n">safe_ls</span>  
+    <span class="k">else</span><span class="p">:</span>  
+        <span class="c1"># send it back unchanged in non-2015  </span>
+        <span class="k">return</span> <span class="n">original_func</span>
+
+<span class="nd">@safe_2015</span>    
+<span class="k">def</span> <span class="nf">do_something</span><span class="p">():</span>  
+   \<span class="c1">#....</span>
+</pre></div>
+
+
+<blockquote>
+<p>Disclaimer: I wouldn’t use this code in practice! It’s a good example of the principle, but not a wise way to patch around the 2015 ls bug.  </p>
+</blockquote>
+<p>Returning at long last to the problem of suppressing tests: we just need to harness the power of decorators to replace the class definition of our test classes with something else that won’t get run by our test suite. And, luckily, that’s really easy to do since we don’t have to return anything:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Only2015</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>  
+    <span class="k">if</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>  
+            <span class="k">return</span> <span class="n">original</span> <span class="c1"># untouched!  </span>
+        <span class="k">else</span><span class="p">:</span>  
+            <span class="k">return</span> <span class="nb">object</span> <span class="c1"># the decorated class is now just object</span>
+</pre></div>
+
+
+<p>So if your do something like this in your tests:  </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">TestCase</span>  
+<span class="kn">import</span> <span class="nn">maya.standalone</span>  
+<span class="k">try</span><span class="p">:</span>  
+    <span class="n">maya</span><span class="o">.</span><span class="n">standalone</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>  
+<span class="k">except</span><span class="p">:</span>  
+    <span class="k">pass</span>
+
+
+<span class="nd">@Only2015</span>  
+<span class="k">class</span> <span class="nc">Test2015Only</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">test_its_2015</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">assert</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">TestOtherVersions</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">test_any_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">assert</span> <span class="s1">&#39;20&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>As you’d expect, both of these test will run and pass when run on a Maya 2015 python. However, under any other version of Maya the file really looks like this:  </p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">TestCase</span>  
+    <span class="kn">import</span> <span class="nn">maya.standalone</span>  
+    <span class="k">try</span><span class="p">:</span>  
+        <span class="n">maya</span><span class="o">.</span><span class="n">standalone</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>  
+    <span class="k">except</span><span class="p">:</span>  
+        <span class="k">pass</span>
+
+<span class="c1"># in 2014 &lt;, this TestCase class has been replaced by a dumb object() class  </span>
+<span class="k">class</span> <span class="nc">Test2015Only</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
+    <span class="k">pass</span>
+
+
+<span class="k">class</span> <span class="nc">TestOtherVersions</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">test</span>\<span class="n">_any</span>\<span class="n">_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+        <span class="k">assert</span> <span class="s1">&#39;20&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Because <code>Test2015Only()</code> is now an <code>object()</code> instead of a <code>TestCase()</code>, the test runner doesn’t even see it and doesn’t try to run it.  </p>
+<h2>Makeup work</h2>
+<p>This is a lovely example of why Python can be so much fun. The language has the magical ability to extend itself on the fly - in this case, change the meaning of whole blocks of otherwise conventional code - but at the same time it offers simple, conservative mechanisms that keep that process for degenerating into mere anarchy (or, worse, into <em><a href="http://qph.is.quoracdn.net/main-qimg-eb6eb210fd4116ef10fee083428ed482?convert_to_webp=true">JavaScript</a></em>).  </p>
+<p>This particular gimmick was a great way to clean up our messy test set. Predictably, about 30 seconds I verified that it worked I was starting to brainstorm all sorts of cool new uses for this tactic.   </p>
+<p>A few more minutes of reflection, however, brought me to see that this kind of trick should be reserved for special occasions. The ability to swap the contents of a name based on runtime condition is definitely cool - but it’s hardly a good practice for readability and maintenance down the road. It happens to be a nice fit for this problem because a test is never going to be used by anything other than the test suite. Trying the same thing with, say, a geometry library that gets imported all over the place would be a nightmare to debug.  </p>
+<p>Magic is wonderful but, best used <em>sparingly</em>.  </p>
+<p><a href="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg"><img alt="" src="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg" /></a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 30 October 2014
@@ -139,7 +356,100 @@
                     Laziness and cleanliness and MEL, Oh My.
                 </h2>
             </a>
-                Don't use Mel. But if you have to, do it like this: with a pythonic wrapper to clean up your strings
+                <p>The other day I was following a <a href="http://tech-artists.org/forum/showthread.php?5077-FBX-Exporting-from-Maya">thread on Tech-Artists</a> which reminded me of one of those little Maya things that doesn't really matter, but which drives me bonkers: busted front ends for Maya plugins.  </p>
+<p>When a developer makes a plugin for Maya, they can create new Mel commands as well as new nodes. The new commands will ultimately use the same basic strategy to parse their incoming arguments: Maya will give them an <a href="http://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-list-html.html">MArgList</a> object and they will have to parse out what that means. If the plugin uses an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-syntax-html.html">MSyntax</a> and an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-parser-html.html">MArgParser</a> to pull the values out then the plugin will behave just like the functions in maya.cmds.  Flags and arguments will be checked the same way that we're used to in the rest of Maya Python.  </p>
+<p>Unfortunately, there's no law that says the plugin has to do it 'correctly'.  There are more than a few plugins that don't use the standard MSyntax/MArgParser combo and just pull values out of the argument list directly.  The most notorious offender is the FBX Plugin, which generates a ton of commands which all fail to use the standard parsing mechanism.  And, of course, there are also bits of MEL lying around from other sources as well that are a bit painful to call from Python, That's why you see tons of hairy beasts like this:      </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.mel</span> <span class="kn">as</span> <span class="nn">mel</span>  
+<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexStart -v &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_frames</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>  
+<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexEnd -v &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">end_frames</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>  
+<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExport -f </span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">get_export_file</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.fbx</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>While this is workable, it's fragile: composing strings inline inside a function call is an invitation to bugs like forgetting an escaped quote (tell me you'd notice that last escape in the final line if it was borked!) or a bit of significant whitespace. It's also harder to meta-program anything that's written like this - you can't create a dictionary of options or a variable length list of arguments when you call the function. Last - but not least, at least not for lousy typists like myself - you can't rely on autocompletion in your IDE to make things quicker and less error prone.  </p>
+<p>In cases like this it's handy to be able to fall back on a wrapper that will feed the plugin a correctly formatted MEL-style argument but which looks and codes like regular Maya Python. Luckily, you can usually rely on the MEL syntax, even when the plugin's argument parsing is as Python-unfriendly as the FBX plugins: If the MEL version doesn't work either, the whole thing isn't worth rescuing ! -- but if it does then you can Python-ify the front end with a little bit of Python magic to make sure the arguments are passed correctly.  </p>
+<p>One thing we can do to make this a simple job is to use what's known as <em>MEL function syntax</em>.  This is a little-used MEL behavior that lets you call MEL more or less like a traditional computer function, rather than the shell-style script format you usually see. Function syntax uses parentheses and a comma-delimited list of arguments rather than white space. It means that these two calls are identical:  </p>
+<div class="highlight"><pre><span></span>spaceLocator -p 1 2 3 -n &quot;fred&quot;;  
+spaceLocator(&quot;-p&quot;, &quot;1&quot;, &quot;2&quot;,  &quot;3&quot;,  &quot;-n&quot;,  &quot;fred&quot;);
+</pre></div>
+
+
+<p>While you probably don't want to type that second one, it's a lot easier to manage if you're trying to turn a bunch of flags and arguments into a MEL command string.  What we'll be doing is creating a function that generates argument strings in the function syntax style and then passes them to MEL for you, allowing you to use the familiar cmds-style arguments and keywords instead of doing all the string assembly in-line with your other code.  </p>
+<p>The rest of the relevant MEL syntax rules are pretty simple, with one exception we'll touch on later:  </p>
+<ul>
+<li><em>Everything</em> is a string!</li>
+<li>Flags are preceded by a dash</li>
+<li>Flags come first</li>
+<li>Non-flag arguments follow flags</li>
+<li>Multipart values are just a series of single values</li>
+</ul>
+<p>That first one may suprise you but it's true - and in our case it's extremely useful. If you're dubious, though, try this in your MEL listener:  </p>
+<div class="highlight"><pre><span></span>polyCube (&quot;-name&quot;, &quot;hello&quot;, &quot;-width&quot;, &quot;999&quot;);
+</pre></div>
+
+
+<p>Implementing these rules in a function turns out to be pretty simple.   </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.mel</span>  
+<span class="k">def</span> <span class="nf">run_mel</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+    <span class="c1"># makes every value into a tuple or list so we can string them together easily  </span>
+    <span class="n">unpack</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">v</span><span class="p">,)</span>  
+    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>  
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>   
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span> <span class="p">(</span><span class="s2">&quot;-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>  
+        <span class="c1"># if the flag value is True of False, skip it   </span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span> <span class="o">**</span><span class="ow">in</span> <span class="p">(</span><span class="o">**</span><span class="bp">True</span><span class="o">**</span><span class="p">,</span> <span class="o">**</span><span class="bp">False</span><span class="o">**</span><span class="p">)</span><span class="o">**</span><span class="p">:</span>  
+            <span class="n">output</span><span class="o">.</span><span class="n">extend</span> <span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+
+    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>  
+        <span class="n">output</span><span class="o">.</span><span class="n">append</span> <span class="p">(</span><span class="n">arg</span><span class="p">)</span>
+
+    <span class="n">quoted</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">:</span> <span class="s1">&#39;&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">maya</span><span class="o">.</span><span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">quoted</span><span class="p">,</span> <span class="n">output</span><span class="p">))))</span>
+</pre></div>
+
+
+<p>This function will correctly format a MEL call for almost all circumstances (see the note below for the exception).  For example the irritating FBX commands above become  </p>
+<div class="highlight"><pre><span></span><span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexStart&quot;</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">start_frames</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  
+<span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexEnd&quot;</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">end_frames</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  
+<span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExport&quot;</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">get_export_file</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.fbx&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>That's a big improvement over all that string assembly (not leastaways because it pushes all the string nonsense into one place where it's easy to find and fix bugs!)   However it's still a bit ugly. Wouldn't it be cleaner and more readable to nudge these guys another step towards looking like real Python?  </p>
+<p>Luckily that's quite easy to do. After all, the run_mel("command") part of this is the same except for the command names. So why not make a second function that makes functions with the right command names?  This is basically just a tweak on the way decorators work. For example:  </p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mel_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">wrap</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+        <span class="k">return</span> <span class="n">run_mel</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
+    <span class="k">return</span> <span class="n">wrap</span>
+</pre></div>
+
+
+<p>This takes a MEL command name ("cmd") and makes a new function which calls run_mel using that command. So you can create objects which look and work like Python commands but do all the nasty mel stuff under the hood like this:  </p>
+<div class="highlight"><pre><span></span>FBXExport = mel_cmd(&quot;FBXExport&quot;)      
+FBXExportBakeComplexStart = mel_cmd(&quot;FBXExportBakeComplexStart&quot;)  
+FBXExportBakeComplexEnd = mel_cmd(&quot;FBXExportBakeComplexEnd&quot;)
+</pre></div>
+
+
+<p>And call them just like real Python:    </p>
+<div class="highlight"><pre><span></span><span class="n">FBXExport</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="s2">&quot;this_is_a_lot_nicer.fbx&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>All this might seem like a bit of extra work -- and it is, though its not much more work than all those laboriously hand-stitched string concatenations you'd have to do otherwise.</p>
+<p>More importantly, this actually is a case where code cleanliness is next to Godliness: keeping rogue MEL from invading your python code is a big boon to long term maintenance.  String assembly is notoriously bug prone: it's way too easy to miss a closing quote, or to append something that's not a string and bring the whole rickety edifice crashing down.  Moreover, exposing all of that stringy stuff to other code makes it impossible to do clever python tricks like passing keyword arguments as dictionaries.  So in this case, a little upfront work is definitely worth it.  </p>
+<p>Plus, if you're lazy like me you can import these functions in a module and they'll autocomplete. Fat Fingers FTW!   </p>
+<p>So, if you find this useful, the complete code is <a href="https://gist.github.com/theodox/9a2e2b92867fa82ea328">up on Github.</a>  </p>
+<h3>Note</h3>
+<p>If you're a real mel-head you may have noticed one limitation in the <code>run_mel()</code>implementation above.  MEL allows multi-use flags, for commands like  </p>
+<div class="highlight"><pre><span></span>ls -type transform -type camera
+</pre></div>
+
+
+<p>However the function here doesn't try to figure format arguments that way. In part because it's a relatively rare feature in MEL, but mostly because it doesn't occur in the places I've needed to wrap MEL commands.  It would not be hard to extend the function so you could annotate some flags as being multi-use - if you give it a whirl let me know and I'll post it for others to see.  </p>
+<h3>Bonus Round</h3>
+<p>The <a href="https://gist.github.com/theodox/2b83b1c47a18448d3cbf">Github also has another module</a> which uses the same basic idea (but a slightly different code structure) to wrap that stupid FBX plugin.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 26 October 2014
@@ -151,7 +461,8 @@
                     Rob G's Maya Python book is finally out
                 </h2>
             </a>
-                Rob's Maya Python book is on sale
+                <p>I see Rob Galanakis's new book is finally available for realz on Amazon.   </p>
+<p>I've added it -- and a few more new  books -- to the <a href="http://astore.amazon.com/tecsurgui-20">Techart bookstore page</a> too!  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Wed 30 July 2014
@@ -163,7 +474,13 @@
                     Pythonistas need Pythonista!
                 </h2>
             </a>
-                Pythonista, a remarkably slick Python interpreter for iOS
+                <p>If you consider yourself a Pythonista, you've probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It's not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial wig.  </p>
+<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple's rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the 'batteries' included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS console.</p>
+<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and UI.  Ironically, it's easier to develop a GUI application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a UI builder tool similar to QT's interface builder (not nearly as deep or complex, of course, but iOS UI is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image processing:  </p>
+<p><a href="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg"><img alt="" src="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg" /></a></p>
+<p>Pythonista's main limitation is that it's not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren't available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here's a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies -- such as the perforce api -- are off-limits; I'm not sure it it would be possible to use .pyd's that were properly compiled for iOS or if the security sandbox won't allow arbitrary binary code at all.  </p>
+<p>All in all, it's pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team .  </p>
+<p>All in all, pretty cool for $6.99!</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 27 July 2014
@@ -175,7 +492,8 @@
                     Handy link: Python string format cookbook
                 </h2>
             </a>
-                A great cheat-sheet for Maya string formatting
+                <p>If you're like me and addicted to using the old-school percent-symbol based string format, the newer bracket-based formatting is probably a bit mysterious. The <a href="https://docs.python.org/2/library/string.html#format-specification-mini-language">python docs</a> certainly don't help, they seem to be written for C programmers on meth (a help document entitled 'string format specification mini language' does not scream 'usability' to me, at any rate).  </p>
+<p>So, many props to Marcus Kazmierczak for his handy <a href="http://mkaz.com/2012/10/10/python-string-format/">Python String Formatting Cookbook</a> page. It's already saved me a ton of profanity. Here's to elevating the discourse of the internet!</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Wed 09 July 2014

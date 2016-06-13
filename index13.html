@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com</title>
+        <title>Chimeras & Manticores - technical art, python, the games business, and obscurantism</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -75,7 +75,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
-                        <h1>theodox.com</h1>
+                        <h1>Chimeras & Manticores</h1>
+                            <hr class="small">
+                            <span class="subheading">technical art, python, the games business, and obscurantism</span>
                     </div>
                 </div>
             </div>
@@ -92,7 +94,7 @@
                     Some new research in the academic page
                 </h2>
             </a>
-                pending
+                <p>Still cleaning up after the long blog silence (teaching that Unity class was fun -- but six games in five weeks plus a day job is <em>murder!</em>). So I should point out a couple of additions to the <a href="pages/research">Interesting Research </a>page.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 20 February 2014
@@ -104,7 +106,54 @@
                     Pity for the outcast
                 </h2>
             </a>
-                A litany of complaints about Maya GUI programming, with a teensy ray of hope
+                <p>I don't think it's too far over the top to say that everybody hates Maya's internal GUI system. It combines a very 1990's selection of widgets with a very 1970's coding style: it's a  1970's/1990's Frankenstein monster as horrifying as Ashton Kutcher in <em>That 70's Show.</em>  </p>
+<p><em><a href="http://www.mediabistro.com/prnewser/files/2013/11/cmKUTCHER_ARTICLE_narrowweb__300x3532.jpg"><img alt="" src="http://www.mediabistro.com/prnewser/files/2013/11/cmKUTCHER_ARTICLE_narrowweb__300x3532.jpg" /></a></em></p>
+<p>Not surprisingly a lot of TA's feel like they have to turn to PyQT if they want to deliver polished tools with a modern UI.  Unfortunately this is also less than ideal - while PyQT is a very powerful framework, it's got a very distinctive idiom of its own to learn, and moreover its hard to distribute since it depends on C++ dlls.  If you want to share a tool across studios or with outsourcers on a variety of boxes, OS'es and Maya versions it can become a Dantesque journey into DLL hell.  </p>
+<p>Because we do a lot of work with outsourcers, I've been looking into ways to render native Maya GUI a little less irritating. A quick review of my own pain-points in Maya GUI development showed me three main problems with the existing system    </p>
+<h2>Icky syntax</h2>
+<p>Default Maya GUI is purely imperative; while Maya creates an in-memory object for every widget you create, you can only interact through it with via commands: In the typical idiom you create a button:    </p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;big button&quot;</span><span class="p">);</span>
+</pre></div>
+
+
+<p>but your can only interact with it by calling more commands:   </p>
+<div class="highlight"><pre><span></span><span class="n">mybutton</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;big button&quot;</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">mybutton</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="mi">128</span><span class="p">)</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">mybutton</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Red button&#39;</span><span class="p">))</span>  
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">mybutton</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">bgc</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">))</span>
+</pre></div>
+
+
+<p>This gets old pretty fast.  It's particularly bad for GUI components like <em>formLayout</em>, which can easily require whopping big arguments like this:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span> <span class="n">form</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">attachForm</span><span class="o">=</span><span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span> <span class="p">],</span> <span class="n">attachControl</span><span class="o">=</span><span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b2</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="n">b2</span><span class="p">)],</span> <span class="n">attachPosition</span><span class="o">=</span><span class="p">[(</span><span class="n">b1</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">75</span><span class="p">),</span> <span class="p">(</span><span class="n">column</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">75</span><span class="p">)],</span> <span class="n">attachNone</span><span class="o">=</span><span class="p">(</span><span class="n">b2</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">)</span> <span class="p">)</span>
+</pre></div>
+
+
+<p>Which is, frankly, stupid.  </p>
+<h2>Lousy event handling</h2>
+<p>Another big knock on Maya's native gui is it's lousy callback system. The python version is bolted on to the original, string based MEL version and confuses a lot of people with uncertain scoping and unclear syntax (Check out these threads on <a href="http://tech-artists.org/forum/showthread.php?3205-why-scriptJob-doesnt-work-in-case-of-attrControlGrp&amp;highlight=callback">Tech Artists.Org </a>and  <a href="http://stackoverflow.com/questions/21036620/executing-different-functions-based-on-options-selected">StackOverflow </a>for some examples of how people get lost) .  </p>
+<p>Even when default Maya GUI callbacks do fire, they don't usually indicated who fired them off. This means you need to capture any relevant information ahead of time and encode it into the callback. In lots of GUI systems, you could handle a raft of similar functions like this pseudocode:  </p>
+<div class="highlight"><pre><span></span><span class="n">button_codes</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;red&#39;</span><span class="p">,</span> <span class="s1">&#39;green&#39;</span><span class="p">,</span> <span class="s1">&#39;blue&#39;</span><span class="p">]</span>  
+<span class="k">for</span> <span class="n">code</span> <span class="ow">in</span> <span class="n">button_codes</span><span class="p">:</span>  
+    <span class="n">button</span><span class="p">(</span><span class="n">code</span><span class="p">,</span> <span class="n">tag</span> <span class="o">=</span> <span class="n">code</span><span class="p">,</span> <span class="n">handler</span> <span class="o">=</span> <span class="n">apply_color</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">apply_color</span><span class="p">(</span><span class="n">button</span><span class="p">):</span>  
+   <span class="n">target</span><span class="o">.</span><span class="n">color</span> <span class="o">=</span> <span class="n">constants</span><span class="p">[</span><span class="n">button</span><span class="o">.</span><span class="n">tag</span><span class="p">]</span>
+</pre></div>
+
+
+<p>In Maya, on the other hand, you need to compose the callbacks with the right context when you create them using a <code>[functools.partial](http://docs.python.org/2/library/functools.html)</code> or a closure.  This makes coding up anything like dynamic model-view-controller UI into a real chore, and forces you to interleave your layout architecture and your data model in clumsy ways.  </p>
+<p>Moreover, Maya GUI callbacks are single-function calls. Its common in other frameworks -- for example in C#  -- to have <a href="http://msdn.microsoft.com/en-us/library/ms173175.aspx">multicast delegates</a> which can trigger multiple actions from a single callback. This makes for cleaner, more general code since you can split UI-only functionality ('highlight this button') from important stuff ('delete this model').  </p>
+<h2>No Hierarchy</h2>
+<p>It might not be strictly fair to say that Maya GUI has 'no hierarchy'; anybody who has ever mucked around with <code>cmds.setParent</code> or <code>cmds.lsUI</code> knows that the actual widgets are composed in a strict hierarchical tree; hence UI objects with names like<br />
+<code>window1|formLayout57|formLayout58|frameLayout38|columnLayout5|button5</code><br />
+The problem is that Maya doesn't manage this for you - you are responsible for capturing the pathname of every UI widget you create if you ever want to access it again, which imposes a useless maintenance tax on otherwise simple code. </p>
+<p>Moreover, the names aren't determninistic, thanks to Maya's rule against identical paths: that means you may want a button called 'Button', but it may decide to call itself 'Button1' or 'Button99' and there's nothing you can do about it. As if that weren't bad enough, the strongly imperative style of the Maya GUI code also requires manual management. If you declare a layout and start filling it up with widgets, you're also responsible deciding when a particular container is full. A missed <code>cmds.setParent</code> can easily screw up your visual layout or the ordering of a menus and it's possible to shoot yourself in the foot without any corresponding gain in power, productivity or even prettiness. This limitation is why Maya has to offer all those redundant command sets for multiple-column rows and grids. When a monstrosity like <code>cmds.rowLayout(nc=5, cw5=(100,100,50,50,80), ct5 =("left", "left", "both","both","right"))</code> is a <em>win</em> for code cleanliness and legibility you know something has gone horribly wrong. </p>
+<h2>So What?</h2>
+<p>All of that amounts to a long-winded way of restating the obvious: nobody likes coding in standard Maya GUI.  The question is, can something be done about it?</p>
+<p>Actually, quite a bit..  <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">Next time out</a> I'll talk about some practical ways to make Maya GUI coding... well, let's not say <em>"fun"</em>, lets run with another 90's retread:</p>
+<p><a href="http://www.kraigbrockschmidt.com/mm/images/Win95_Sucks_Less_T-Shirt.jpg"><img alt="" src="http://www.kraigbrockschmidt.com/mm/images/Win95_Sucks_Less_T-Shirt.jpg" /></a></p>
+<p>For 'Windows 95' substitute 'Maya GUI' and you've got the idea (For the origins of this authentic 2400-baud era meme, <a href="http://blogs.msdn.com/b/oldnewthing/archive/2010/08/24/10053386.aspx">click here</a>.) </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 16 February 2014
@@ -116,7 +165,9 @@
                     Shameless plug time
                 </h2>
             </a>
-                pending
+                <p>The <a href="http://amzn.to/25UIFta">book I worked on </a>is finally available for ordering on Amazon!  </p>
+<p><a href="https://www.amazon.com/Production-Pipeline-Fundamentals-Film-Games/dp/0415812291/ref=as_li_ss_il?ie=UTF8&ref_=as_sl_pc_as_ss_li_til&linkCode=li3&tag=tecsurgui-20&linkId=bdb3e87f528b3c603a7f3c47a216fb9b" target="_blank"><img border="0" src="//ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&ASIN=0415812291&Format=_SL250_&ID=AsinImage&MarketPlace=US&ServiceVersion=20070822&WS=1&tag=tecsurgui-20" ></a><img src="//ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&l=li3&o=1&a=0415812291" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" /></p>
+<p>I'm pleased and of course also nervous.  If you like it, please be sure to leave a positive review on Amazon - I'm told it makes a big difference.  I don't actually make any money from this one (such is modern publishing, alas) but I do have another book under way and it'll be much easier to get that published if this one does well and is well reviewed.   </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 16 February 2014
@@ -128,7 +179,86 @@
                     Talking to Photoshop via TCP
                 </h2>
             </a>
-                Simple Photoshop scripting via tcp/ip
+                <p>A recent <a href="http://tech-artists.org/forum/showthread.php?4481-Communicating-between-Photoshop-and-Maya-(Python)">thread on TAO</a> got me thinking about communicating with Photoshop from Python. In the past I've done this <a href="http://techarttiki.blogspot.com/2008/08/photoshop-scripting-with-python.html">Adam Plechter-style</a> using COM ( from both C# and Python) and it's worked for me, but I know some people have problems with COM for a variety of reasons relating to windows versions and DLL hell.  </p>
+<p>And using COM always makes me feel like Mr. Yuk.</p>
+<p><a href="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif"><img alt="" src="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif" /></a></p>
+<p>Since I had to learn a few JavaScript tricks back when I started <a href="and_i_thought_we_had_it_bad.html">looking into Python web development</a>, I thought it might be worth investigating what could be done to cut out COM.  It turns out that ExtendScript - the JavaScript flavor that comes with Adobe products (at least since CS 5, and I think earlier) includes a socket object which allows for TCP communication.  That's not kosher in 'real' browser based JS - but ExtendScript cheats a little (that's also why it allows you to do things like hit the local file system, another JS no-no).</p>
+<p>The<a href="https://wwwimages2.adobe.com/content/dam/Adobe/en/products/indesign/pdfs/JavaScriptToolsGuide_CS5.pdf"> Adobe docs</a> have an example (around page 196) which shows how you can implement a chat server or a web server running inside Photoshop. That might not be practical but it provides a simple framework you can hijack to turn Photoshop into a remote procedure call server.  Here's an example of a super-simple server that can be run inside Photoshop:</p>
+<div class="highlight"><pre><span></span><span class="c1">// requires photoshop CS5+</span>
+
+<span class="c1">// create a new socket</span>
+<span class="nx">conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Socket</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">keep_serving</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="c1">// sample functions. In a real application you&#39;d have handler functions that could accept  more complex inputs</span>
+<span class="kd">var</span> <span class="nx">alrt</span> <span class="o">=</span> <span class="nx">alert</span><span class="p">;</span>                                                                                           <span class="c1">// pop a dialog</span>
+<span class="kd">var</span> <span class="nx">newLayer</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">app</span><span class="p">.</span><span class="nx">activeDocument</span><span class="p">.</span><span class="nx">artLayers</span><span class="p">.</span><span class="nx">add</span><span class="p">();</span> <span class="p">};</span>      <span class="c1">// make a layer</span>
+<span class="kd">var</span> <span class="nx">stop</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">keep_serving</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="p">};</span>                                           <span class="c1">// stop the server</span>
+
+<span class="c1">// &#39;register&#39; the commands by putting them into a dictionary</span>
+<span class="kd">var</span> <span class="nx">known_cmds</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;alert&#39;</span><span class="o">:</span> <span class="nx">alrt</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="o">:</span> <span class="nx">stop</span><span class="p">,</span> <span class="s1">&#39;newLayer&#39;</span><span class="o">:</span> <span class="nx">newLayer</span> <span class="p">};</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">keep_serving</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">conn</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8789</span><span class="p">))</span>  <span class="c1">// ... you&#39;d probably want to make this configurable</span>
+    <span class="p">{</span>
+        <span class="c1">// wait forever for a connection</span>
+        <span class="kd">var</span> <span class="nx">incoming</span><span class="p">;</span>
+        <span class="k">do</span> <span class="nx">incoming</span> <span class="o">=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">poll</span><span class="p">();</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">incoming</span> <span class="o">==</span> <span class="kc">null</span><span class="p">);</span>
+
+        <span class="c1">// grab the next non-null communication</span>
+        <span class="nx">new_cmd</span> <span class="o">=</span> <span class="nx">incoming</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="c1">// split the incoming message into cmd on spaces (shell style)</span>
+            <span class="kd">var</span> <span class="nx">command_text</span> <span class="o">=</span> <span class="nx">new_cmd</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">new_cmd</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">command_text</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">999</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">requested</span> <span class="o">=</span> <span class="nx">known_cmds</span><span class="p">[</span><span class="nx">command_text</span><span class="p">];</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="nx">requested</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">result</span> <span class="o">=</span> <span class="nx">requested</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+                <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">result</span> <span class="o">+</span> <span class="s2">&quot;\nOK\n&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;unknown command\nFAIL\n&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">err</span> <span class="o">+</span> <span class="s2">&quot;FAIL\n&quot;</span><span class="p">);</span>
+            <span class="nx">incoming</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+            <span class="k">delete</span> <span class="nx">incoming</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="c1">// end if </span>
+<span class="p">}</span> <span class="c1">// -- end while</span>
+</pre></div>
+
+
+<p><em>Note: You'll need to save the file as a .JSX (not .JS!) for Photoshop to allow the ExtendScript functionality which makes the socket objects work.</em>  </p>
+<p>This example is very bare bones, but it is easy to extend - just create function objects and add them to <code>known_commands</code> dictionary and then send them over the socket. The way it's written here the commands and arguments are split on spaces (similar to the way a shell command works) -- if you need to get at them in your JS functions you can <a href="http://stackoverflow.com/a/2141530/1936075">get at them using the arguments() keyword:</a>.  For serious work I'd probably use the ExtendScript XML object and send the commands and responses as xml since that gets you out of having to worry about stuff like 'what if I want to send an argument with a space in it' -- however this purpose of this excersize is just to demonstrate what's possible.  </p>
+<p>I should note that while the server is running, Photoshop is locked into the wait loop so it will not be accessible interactively -- like a Maya running a long script, the main thread is just waiting for the script to continue. For the typical 'remote control' application that's what you'd expect, but it may not answer for all purposes - so be warned.  </p>
+<p>If you're trying to talk to Photoshop from Python, it's incredibly simple:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="n">HOST</span> <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">8789</span>
+
+<span class="k">def</span> <span class="nf">send_photoshop</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Expects a photoshop instance running a tcp server on HOST:PORT</span>
+<span class="sd">&#39;&#39;&#39;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span><span class="n">PORT</span><span class="p">))</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">r</span>
+
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;alert hello_from_python&quot;</span><span class="p">)</span>       <span class="c1">#show a dialog</span>
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;newLayer&quot;</span><span class="p">)</span>                      <span class="c1">#create a layer</span>
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>                          <span class="c1">#stop the server</span>
+</pre></div>
+
+
+<p>That's all there is to it - of course, the _real _problem is getting useful work done in the clunky Photoshop API -- but that's going to be the same no matter whether you talk to PS via COM or TCP/IP.  Anecdotally, I've heard the PS scripts are faster in JavaScript than when using COM or AppleTalk or VB, so perhaps this method will be competitive on speed as well.  For small tasks it's certainly a simpler and less irritating way to send a squirt to and from PS </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Wed 29 January 2014
@@ -140,7 +270,7 @@
                     No Humans Involved (Classic CG)
                 </h2>
             </a>
-                A classic of old-school procedural animation
+                <p>Saw a <a href="http://www.staff.science.uu.nl/~geijt101/papers/SA2013/">great paper</a> in <a href="https://plus.google.com/116275833090172173559">+Robert Butterworth</a> 's feed which reminded me of this classic SIGGRAPH presentation from 1994 - one of the all time greats in procedural animation.  None of the motion in this was animated by hand :)   </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 17 January 2014
@@ -152,7 +282,12 @@
                     Mighty Morphin Maya Module Manager
                 </h2>
             </a>
-                A GUI for managing Maya modules
+                <p>For folks who are interested in <a href="magical_modules.html">fiddling with Maya modules</a> as per the last post, I've tossed <a href="https://gist.github.com/theodox/8414494">a quickie class to manage Maya modules </a>onto <a href="https://gist.github.com/theodox">my Gist account</a>.  </p>
+<p>This is a bare bones bit of code. The main class is the <code>ModuleManager</code>, which can find any <code>.mod</code> files on the MAYA_MODULE_PATH of the current Maya environment. It's primary use is to find and list all the modules; secondarily it can be used to toggle them on and off (by changing the leading + which Maya uses to id a module to a -, or vice-versa). It's pretty dumb (no accounting for file permissions, incorrectly formatted .mod files, etc) but it's handy for quickly testing out configs.  </p>
+<p>Also included is a GUI class, <code>ModuleManagerDialog</code>, which finds provides a simple GUI for listing, enabling, and disabling .mod files. Again, pretty simple stuff, but people may find it useful.  </p>
+<p><a href="http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s1600/modmgr.png"><img alt="" src="http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s400/modmgr.png" /></a></p>
+<p>As will all code I put up here, it's MIT licensed. Use away with attribution - and if you have any bug fixes, let me know and we'll fix the Gist version.  </p>
+<p><strong>PS</strong>, hat tip to the gang at <a href="http://tech-artists.org/">TAO </a> for the idea of using a context manager to get out of all those stupid <em>setParent("..")</em> calls in Maya GUI work. I could not find the original post where somebody mentioned it - but whoever you are, sir or madam, thank you ever so much.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 16 January 2014
@@ -164,7 +299,95 @@
                     Maya's (mildy) Magical Modules
                 </h2>
             </a>
-                An introduction to Maya's module system, a handy method for bundling and distributing tools non-invasively
+                <p>If you're doing tools work in Maya, you've probably seen a lot of ways of distributing scripts and tools. The most common, alas, is also the wonkiest - dumping a bunch of scripts into the users's script folder or maybe fiddling with Maya.env to point at a shared drive on the local network.     </p>
+<p>Eventually, you'll rum into situations where you can't just litter files all over your user's machine. Maybe you're supporting multiple projects in the studio and you need to have users hopping back and forth between toolsets. Maybe you're dealing with multiple versions of Maya and your tools have been forked into different environments. Maybe you're dealing with outsources who don't want to permanently alter their own environment just to get your tools for one project. Whatever the reason, someday you'll run into a situation where you want to be able to drop in a whole Maya toolset as a unit and to remove or disable it the same way.   </p>
+<p>Maya has always a had a facility called <strong>modules</strong>, can be useful for this purpose. It used to be used for things like  cloth sim or hair that were tacked on to the main package (back when hair was a $9,000 add-on!) .  Since then it's largely fallen out of favor, but it's never gone away -- and it has some useful properties that are great for tools distribution.  </p>
+<p>A module is really a sort of virtual file system.  Maya's most important folders are those for scripts, plugins, icons, and presets -- the same ones you typically see in your Maya user directory.  If you place a special text file in your module path, you can add to extra paths for Maya to search for scripts, plugins, icons and presets.   </p>
+<p>The big advantage of modules is the ability to manage complete set of files at once - scripts, plugins and so on can all be included (or excluded) from your Maya in a single place <em>Note to Autodesk - it would be very nice to give users a UI for this.  The 'Modules' setting in the preferences, confusingly, does not refer to _these _modules!</em>  Parts of a module can be kept independent of the user's private stock of scripts and tools. For outsourcers and contractors, in particular, the ability to completely uninstall a toolset you don't need anymore is a godsend.   </p>
+<p>Another handy feature of modules is that they can point Maya at shared network paths as well as paths on disk. This makes it far easier to keep a whole team on a common tool set by pointing a module script directory at a shared drive.  I'm not personally a big fan of the shared drive as a distribution method (more on that some other time) but it's fairly common and this makes it easy to establish and manage.  </p>
+<p>Finally modules do a little bit of automatic versioning. A module can specify different paths for different Maya versions, OS'es and processors.  This means a tool author can produce a single distribution for all customers and give them identical installation instructions without worrying too much about the details of the individual workstations on the receiving end.  You can pack up all of your distributions into a single zip file, and users merely unzip it into the modules folder of their local settings and the installation is done .  </p>
+<h3>Basic Setup</h3>
+<p>Modules are defined by a simple text file with a ".mod" extension.  Maya will look for module files in all the directories in the Maya_MODULE_PATH environment variable if you have it set, or in the modules directory of your Maya user directory (for example, in My Documents\Maya\modules). Here are the default locations where modules can be placed:  </p>
+<h4>Default for Windows</h4>
+<div class="highlight"><pre><span></span>&lt;user&gt;/My Documents/Maya/modules  
+C:/Program Files/Common Files/Autodesk Shared/Modules/Maya/  
+C:/Program Files/Common Files/Autodesk Shared/Modules/Maya/modules/
+</pre></div>
+
+
+<h4>Default for Mac OS X, Linux</h4>
+<div class="highlight"><pre><span></span><span class="p">$</span><span class="nv">Maya_APP_DIR</span><span class="x">/Maya//modules  </span>
+<span class="p">$</span><span class="nv">Maya_APP_DIR</span><span class="x">/Maya/modules  </span>
+<span class="x">/usr/autodesk/modules/Maya/  </span>
+<span class="x">/usr</span>
+</pre></div>
+
+
+<p>A module file is a plain text file. The official documentation for the format is <a href="http://docs.autodesk.com/MayaUL/2013/ENU/Maya-API-Documentation/index.html?url=files/GUID-9E096E39-AD0D-4E40-9B2A-9127A2CAD54B.htm,topicNumber=d30e30995">here</a> <em>(the 2012 version is <a href="http://download.autodesk.com/global/docs/Mayasdk2012/en_us/index.html">here</a>.  There are some pretty significant differences between 2012 and 2013+)!</em>.</p>
+<p>For the simple case a module file just looks like this:</p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 c:\path\to\moduleName
+</pre></div>
+
+
+<p>The module name is what shows up in the Maya UI, the 1.0 is a version number, and the path points Maya to the location of the module folder.  This example would point to a folder called "ModuleName". If that's all that goes in there, then Maya will look for scripts in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\scripts
+</pre></div>
+
+
+<p>icons in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\icons
+</pre></div>
+
+
+<p>and plugins in  </p>
+<div class="highlight"><pre><span></span>c:\path\to\moduleName\plug-ins
+</pre></div>
+
+
+<p>You can test this out by making the folder <code>c:\path\to\moduleName\scripts</code> and popping a <code>userSetup.py</code> ( or a <code>userSetup.mel</code>, if you're feeling old school) into it containing something like a <code>print("hello world")</code>. When you restart your Maya, you should see it printout in the Maya output window as Maya loads. It's the output window for Python because the script will execute <em>before</em> the Maya UI has loaded (something to keep in mind in your startup scripts!).  </p>
+<p>You can avoid hard coding the paths by using an alternate syntax in the mode file.  You have a can, for example, include an environment variable using <code>${variable}</code> in place of an absolute path. For example  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">PROJECT_LOC</span><span class="cp">}</span>\Mayatools
+</pre></div>
+
+
+<p>will point look for your module folder in the location defined by the environment variable named <strong>project_loc</strong>.  One side effect of this is that uou can put your modules into the modules folder (alongside your mod files) without having to hard-code paths:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName
+</pre></div>
+
+
+<p>You can even point your modules at a network share:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 \\net\shared\modules\moduleName
+</pre></div>
+
+
+<h3>Fancy stuff in 2013+</h3>
+<p>Sometimes setup requirements are more complex than dropping in a single folder (not a good idea if you can avoid it - but you know how it is...).  <strong>In 2013 and later,</strong>  you can use the module file to override particular paths and do some more flexible setup.  </p>
+<p>For example, in 2013+, you can also define the path relative to the module file location:  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 ..\moduleName
+</pre></div>
+
+
+<p>should point at a folder <em>above</em> the directory where the module file is located. <strong>But  remember: 2013+ only!</strong> If you've looked at, for example, <a href="http://around-the-corner.typepad.com/adn/2012/07/distributing-files-on-Maya-Maya-modules.html">Cyrille Fauvel's post on modules</a> you'll see a bunch of advice that only works for 2013+.  Be aware :)  </p>
+<p>The other neat addition in 2013 is the ability to override specific sub-paths of the module. Thus  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName 
+scripts: //network/share/scripts
+</pre></div>
+
+
+<p>would point the scripts at the shared network scripts  drive, while leaving the plugins and icons folders in the module location.  </p>
+<p>2013+ also offers the ability to set environment variables from inside a module  </p>
+<div class="highlight"><pre><span></span>+ moduleName 1.0 <span class="cp">${</span><span class="n">Maya_MODULE_PATH</span><span class="cp">}</span>\moduleName 
+HAS_FANCY_2013_FEATURES=YES
+</pre></div>
+
+
+<p>Will set the environment variable <code>HAS_FANCY_2013_FEATURES</code> to 'yes' inside your Maya session. 2013 even has some funky syntax allowing you to append to existing variables and so on . There's no point in recapitulating it here, the <a href="http://docs.autodesk.com/MayaUL/2013/ENU/Maya-API-Documentation/index.html?url=files/GUID-9E096E39-AD0D-4E40-9B2A-9127A2CAD54B.htm,topicNumber=d30e30995">description in the docs</a> is a concise as I could do. My only commentary would be: <em>seriously, people? It's 2014 and still with the funky syntax crap?  I'm supposed to recognize that  _PATH += and PATH +:= bin _are different?</em>  </p>
+<p>Adding to paths can be extremely handy for some things, but unfortunately this won't solve a particularly thorny problem for tools teams, which is making sure that the OS can find binary dlls: if you have DLL dependencies in a binary plugin, its 'too late' to fix it by appending the DLL locations to the system path once Maya has loaded. Which stinks -- and is another reason to avoid binary plugins like the plague they are if at all possible.</p>
+<h3>One stop tool distribution... or not</h3>
+<p>For any busy TA, the business of distributing and maintaining toolsets on lots of other people's computers is a constant headache.  Modules can offer some significant assistance with this, since they allow you some control over Maya's search paths without requiring your to write code. It's a simple solution to the chicken-and-egg problem of getting Maya to do what you want before you've got tools loaded up to tell Maya what to do.  </p>
+<p>Modules, on their own, are not a complete solution to that problem.  But they are a help.  </p>
+<p>Modules basically just tell Maya to look in a few extra places for things like scripts or plugins - they don't automatically run startup code or do initialization, and they don't have much in the way of smarts -- they can't for example, allow you to quickly switch between two project-specific versions of your Maya tool set. You can install modules for toolsetA and toolsetB, but something smarter than a module file has to decide which one to pick on a given occasion (I'm going to talk about that problem in another post, but for now  However they do allow you to mix and match install locations, which is a big start; they also allow you to install outside the user's script folders, which is a key element in the good-fences-make-good-neighbors relationship between TA tools and the user's private Maya preferences.  Plus, they are explicit: you can look at the file and tell what its trying to do, which beats any number of magic naming and location rules.  </p>
+<p>At some point in the near future I'll try to post something on the second half of the distribution puzzle: running startup code cleanly and intelligently.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 12 January 2014
@@ -176,7 +399,10 @@
                     Schadenfreude alert!
                 </h2>
             </a>
-                pending
+                <p>What does it say when a book titled <a href="http://www.amazon.com/JavaScript-Good-Parts-Douglas-Crockford/dp/0596517742">Javascript:The Good Parts</a> has a final chapter, "Beautiful Features", that's 3 pages long.  </p>
+<p><img alt="" src="http://nelsonwells.net/wp-content/uploads/2011/06/javascript_good_and_bad_parts.jpg" /></p>
+<p>And is followed by a 7 page appendix titled "Awful Parts".  </p>
+<p>And another 7 page appendix titled "Bad Parts".  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 10 January 2014

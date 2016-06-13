@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag standalone</title>
+        <title>Chimeras & Manticores - Tag standalone</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,33 @@
                     Earth calling maya.standalone!
                 </h2>
             </a>
-                Remote-controlling a maya standalone instance from a web browser with the standaloneRPC module.
+                <p>Somebody over on <a href="http://tech-artists.org">Tech-artists.org</a> was <a href="http://tech-artists.org/forum/showthread.php?4642-Python-Maya-Open-commandPort-for-Mayapy&amp;p=24225#post24225">asking about how to control a maya.standalone instance remotely</a>.  In ordinary Maya you could use the commandPort, but the commandPort doesn't exist when running under standalone - apparently it's part of the GUI layer which is not present in batch mode.  </p>
+<p>So, I whipped up an uber-simple JSON-RPC-like server to run in a maya standalone and accept remote commands. In response to some queries I've polished it up and <a href="https://github.com/theodox/standaloneRPC">put it onto GitHub</a>.  </p>
+<p>It's an ultra-simple setup. Running the module as a script form mayapy.exe starts a server:      </p>
+<div class="highlight"><pre><span></span>    mayapy.exe   path/to/standaloneRPC.py
+</pre></div>
+
+
+<p>To connect to it from another environment, you import the module, format the command you want to send, and shoot it across to the server. Commands return a JSON-encoded dictionary. When you make a successful command, the return object will include a field called 'results' containg a json-encoded version of the results:       </p>
+<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="n">CMD</span><span class="p">(</span><span class="s1">&#39;cmds.ls&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
+<span class="k">print</span> <span class="n">send_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>  
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="n">success</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">result</span><span class="p">:[</span><span class="s1">u&#39;persp&#39;</span><span class="p">,</span> <span class="s1">u&#39;top&#39;</span><span class="p">,</span> <span class="s1">u&#39;side&#39;</span><span class="p">,</span> <span class="s1">u&#39;front&#39;</span><span class="p">}</span>
+</pre></div>
+
+
+<p>For failed queries, the result includes the exception and a traceback string:</p>
+<div class="highlight"><pre><span></span><span class="n">cmd</span> <span class="o">=</span> <span class="n">CMD</span><span class="p">(</span><span class="s1">&#39;cmds.fred&#39;</span><span class="p">)</span>  <span class="c1"># nonexistent command  </span>
+<span class="k">print</span> <span class="n">send_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>  
+<span class="o">&gt;&gt;&gt;</span> <span class="p">{</span><span class="s2">&quot;exception&quot;</span><span class="p">:</span> <span class="s2">&quot;&quot;</span><span class="p">,</span>   
+     <span class="s2">&quot;traceback&quot;</span><span class="p">:</span> <span class="s2">&quot;Traceback (most recent call last)... #SNIP#&quot;</span><span class="p">,</span>  
+     <span class="s2">&quot;success&quot;</span><span class="p">:</span> <span class="n">false</span><span class="p">,</span>   
+     <span class="s2">&quot;args&quot;</span><span class="p">:</span> <span class="s2">&quot;[]&quot;</span><span class="p">,</span>   
+     <span class="s2">&quot;kwargs&quot;</span><span class="p">:</span> <span class="s2">&quot;{}&quot;</span><span class="p">,</span>   
+     <span class="s2">&quot;cmd_name&quot;</span><span class="p">:</span> <span class="s2">&quot;cmds.fred&quot;</span><span class="p">}</span>
+</pre></div>
+
+
+<p>It's a single file for easy drop. Please, <strong>please</strong> read the notes - the module includes no effort at authentication or security, so it exposes any machine running it to anyone who knows its there. Don't let a machine running this be visible to the internet! </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sat 05 April 2014

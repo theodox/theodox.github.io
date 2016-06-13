@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Articles by Steve Theodore</title>
+        <title>Chimeras & Manticores - Articles by Steve Theodore</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,9 +34,9 @@
         <![endif]-->
 
                     <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 
-    <meta property="og:title" content="theodox.com - Articles by Steve Theodore">
+    <meta property="og:title" content="Chimeras & Manticores - Articles by Steve Theodore">
     <meta property="og:type" content="profile">
     <meta property="profile:first_name" content="Steve">
     <meta property="profile:last_name" content="Theodore">
@@ -56,7 +56,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -97,7 +97,17 @@
                     State of Decay moment of zen  (and lighting)
                 </h2>
             </a>
-                A moment of State of Decay zen
+                <p><a href="http://1.bp.blogspot.com/-Y1CcBO5iyig/UsujMjcxTRI/AAAAAAAAPCc/dIyL6T-pZQY/s1600/home_07.png"><img alt="" src="http://1.bp.blogspot.com/-Y1CcBO5iyig/UsujMjcxTRI/AAAAAAAAPCc/dIyL6T-pZQY/s1600/home_07.png" /></a>  </p>
+<blockquote>
+<p>Pastor Will found the Super Fudge Chunk.    </p>
+</blockquote>
+<p>The whole scene (except for that one spot of sunlight and the window) is lit entirely by ambient lighting with some vertex lighting and (small) point lights in the windows. What a nightmare - whatever we do in the next game, it won't be this!  </p>
+<p>There's no lightmapping, thanks to a 24 hour continuous time of day cycle.  The houses could also be placed at any orientation, so the vertex lighting has to be pretty gentle - we shot basically ran a very smoothed out hemsipherical dome light outside the house, once with Final Gather and once with a dome of stochastically placed Maya point lights to create the illusion of darker interiors and lighter areas near windows). The final gather provided some bounce light look and the point lights provided a smooth gradient; blending the two helped eliminate hard artifacts and cut down on the frequency since we didn't want real shadows which would be wrong as the sun moved.   We also ran a similar omnidirectional vert light pass on all the props to add depth to things like cabinets and shelving. I also did a little tool to try to do some vertex decimation on the lit meshes -- we tended to subdivide the big planar areas heavily before lighting and then trim down verts which didn't hold much light or shading information (again, the smoother interior gradients helped a lot on memory here).   </p>
+<p>A handy trick - thanks to a suggestion from <a href="https://plus.google.com/113049613359148049737">+Wolfgang Engel</a>  - was small point lights in the windows and doors to add a boost to exterior areas and to make it look as if the characters move from light to shadow, which isn't really true.  These had to be very small - much smaller than I wanted - to keep the overdraw costs low in the Crytek deferred renderer. Every house had a handful of somewhat larger lights right near the floor. They watched the sun direction and lit up when the room was facing the sun to provide the illusion of bounce lighting (this wasn't really checking the sun, it was checking the orientation of the light (and the house) against a precalculated table of sun positions and elevations so you could figure out how bright a given vector should be at a given time. Would have been much nicer to really sample the sun , but the perf environment was brutal  </p>
+<p>The ambient lighting comes from an HDR cube map -  only one per building, alas, and they didn't orient with the placement.  In the end I hand painted abstract ones.  The 'faces' of the cube are color biased to help pick out the planes of the architecture so it doesn't all collapse into mono-color mush.   </p>
+<p>Thank God for screen space ambient occlusion, which adds a lot of edge definition.   </p>
+<p>And for Super Fudge Chunk.  </p>
+<p>PS: Who has seen the bug where Pastor Will flips out on somebody back at base and threatens to "Cut you like a prison bitch"?  We heard about it from a tester and unanimously voted it "Won't Fix".  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Tue 07 January 2014
@@ -109,7 +119,9 @@
                     "Not Even God Can Change the Past"
                 </h2>
             </a>
-                A little Kremlinology from Pixar
+                <p>But evidently Jon Lassiter can..  If you remember the very early days of CG this image might seem a little surprising.</p>
+<p><img alt="" src="http://www.pixartalk.com/wp-content/uploads/2009/06/miami.jpg" /></p>
+<p>More about the decision to alter it <a href="http://www.pixartalk.com/shorts/knick-knack">here</a></p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Mon 06 January 2014
@@ -121,7 +133,8 @@
                     Future Watch: Graphics & Animation Research
                 </h2>
             </a>
-                Announcing a new permalist page of interesting graphics and animation research
+                <p>I've added a permanent <a href="pages/research">page to keep track of interesting academic research</a>. It's over in the sidebar.  If you're at all into animation, download the videos or the ppt of the <a href="http://grail.cs.washington.edu/projects/animal-morphology/s2009/">paper on gait optimization</a>. It's fun -- unless you're an animator, in which case it's a bit scary.   </p>
+<p>The list is a bit skimpy atm, I'll post updates as it expands.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 05 January 2014
@@ -133,7 +146,21 @@
                     First find of 2014: A Scriptable DCC app in the browser?!?!
                 </h2>
             </a>
-                Clara.io -- a full 3d DCC app that runs in your browser!
+                <p>Just stumbled across this link to <a href="http://clara.io/">clara.io</a>, which is an in-browser 3D editor from Ecocortex, one of the vendors behind the <a href="https://code.google.com/p/alembic/">Alembic file format</a>. It's a 3d modeler that runs in a browser.  And it's free.  </p>
+<p>Sheesh.  </p>
+<p><a href="http://3.bp.blogspot.com/-YigSyxvbhNw/Usbzp7a29GI/AAAAAAAABYc/M06nOJapj_Q/s1600/claraio.png"><img alt="" src="http://3.bp.blogspot.com/-YigSyxvbhNw/Usbzp7a29GI/AAAAAAAABYc/M06nOJapj_Q/s1600/claraio.png" /></a>  </p>
+<blockquote>
+<p>And look at the bottom - a script console!  </p>
+</blockquote>
+<p>I'm not entirely sure what to make of this, beyond <a href="http://www.youtube.com/watch?v=acYDNlMYAaI"><em>totally wicked</em></a>.  I'm not going to try to review clara here - I just found it today, after all, but it's such an interesting find that I can't help but comment.  </p>
+<p>The UI is a riff on familiar ideas, so it's easy to pick up for any TA, or for that matter anybody with more than a passing familiarity with the usual suspects. It doesn't break any new ground in productivity or ease of use - but that doesn't bother me in this context. Like the dog that walks on it's hind legs, it's not done perfectly but one is surprised to see it_ <em>done at all.  This is, after all running _in a browser.</em> Yikes.  </p>
+<p>The app is still kind of wet behind the ears - it feels a trifle slow (some kinds of UI operations seem to trigger a perceptible refresh in all of the 3d views, for example). There are host of poly modeling tools -- notably booleans -- that Max/Maya users will miss pretty quickly.  All that said - the idea of running a zero-configuration, instantly deployable app from anywhere -- a tool you could be sure was the same for your outsources in Bangkok and on your own desktop <em>right now</em> -- along with inherent cloud data management?  The ability to run remote commands via web push commands, so you could set up a That is beyond just a curiosity. This app doesn't suddenly obsolete Max or Maya or XSI, but it might be the first rumblings of a big change in how things get done.  As a side benefit, it's got a several different file IO options and could perhaps make as decent waystation for people crossing product boundaries.  </p>
+<p>The TA who immediately asks "what scripting language" will be pleased to note that there's a script console down at the bottom; unsurprisingly for a web app the scripting language is JavaScript.  JS may not be my favorite language -- not by a long shot! -- but it's the natural language of the web. Most importantly, the scripting system makes it fairly easy to extend the application by writing your own plugins: this example on their website shows <a href="http://clara.io/learn/sdk/creating-commands">how to make an OBJ importer</a>.   </p>
+<p>Most important of all, though -- did I mention this? -- it's a browser app. Which means you can so things like this:   </p>
+<iframe width="660" height="370" src="https://www.youtube.com/embed/r0hrE8fSU08" frameborder="0" allowfullscreen></iframe>
+
+<p>Which, you must admit, scores pretty well on the Gee-Whiz scale for a freakin browser app.</p>
+<p>Overall, this is a really excellent developmnt. The 3d market has been painfully sluggish for a decade now - we've got better bells and whistles but on the whole we still work in 2014 more or less the away we worked in 2004.  We need new companies with fresh ideas to shake up this market.  We also need to <a href="and-i-thought-we-had-it-bad.html">embrace web development as a part of how we build tools</a>.  This is a big step in the right direction and we should do what we can to help it along.</p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Fri 03 January 2014
@@ -145,7 +172,76 @@
                     The sounds of (Python) Silence
                 </h2>
             </a>
-                A class for managing overly chatty Python modules
+                <p>After a long vacation with my children, I've been meditating on the virtues of silence.  </p>
+<p>Python is a glorious toybox bursting with fun gadgets to delight TA's near and far.  You can easily use it to stuff anything from database access to a serial port controller into your copy of Maya, which is a always fun (and occasionally useful).  However the <a href="http://www.youtube.com/watch?v=-mTUmczVdik">plethora</a> of Python libraries out there does bring with it a minor annoyance - if you grab something cool off <a href="https://pypi.python.org/pypi">the cheeseshop</a> you don't know exactly how the author wants to communicate with users.  All too often you incorporate something useful into your Maya and suddenly your users have endless reams of debug printouts in their script listener -- info that might make sense to a coder or a sysadmin but which is just noise (or worse, slightly scary) for your artists.  </p>
+<p>If you're suffering from overly verbose external modules, you can get a little peace and quiet with this little snippet. The Silencer class is just a simple <a href="http://docs.python.org/2.7/reference/datamodel.html#context-managers">context manager</a> that hijacks <em>sys.stdout</em> and <em>sys.stderr</em> into a pair of StringIO's that will just silently swallow any printouts that would otherwise go to the listener.   </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="k">class</span> <span class="nc">SilencedError</span> <span class="p">(</span> <span class="ne">Exception</span> <span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">class</span> <span class="nc">Silencer</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>
+    <span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">    suppress stdout and stderr</span>
+
+<span class="sd">    stdout and stderr are redirected into StringIOs.  At exit their contents are dumped into the string fields &#39;out&#39; and &#39;error&#39;</span>
+
+<span class="sd">    Typically use this via the with statement:</span>
+
+<span class="sd">    For example::</span>
+
+<span class="sd">        with Silencer() as fred:</span>
+<span class="sd">            print stuff</span>
+<span class="sd">        result = fred.out</span>
+
+<span class="sd">    note that if you use a silencer to close down output from the logging module, you should call logging.shutdown() in the silencer with block</span>
+<span class="sd">    &#39;&#39;&#39;</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">enabled</span><span class="o">=</span><span class="bp">True</span> <span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldstdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">oldstderr</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">err</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="n">enabled</span>
+
+    <span class="k">def</span> <span class="nf">__enter__</span> <span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">enabled</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oldstdout</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">oldstderr</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_was_entered</span> <span class="o">=</span> <span class="bp">True</span>
+            <span class="k">return</span> <span class="bp">self</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_was_entered</span> <span class="o">=</span> <span class="bp">False</span>
+
+    <span class="k">def</span> <span class="nf">_restore</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_was_entered</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">out</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">err</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stdout</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oldstdout</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">stderr</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">oldstderr</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_outhandle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_errhandle</span> <span class="o">=</span> <span class="bp">None</span>
+
+    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span> <span class="p">):</span>
+        <span class="n">se</span> <span class="o">=</span> <span class="bp">None</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="k">if</span> <span class="nb">type</span><span class="p">:</span>
+                <span class="n">se</span> <span class="o">=</span> <span class="n">SilencedError</span><span class="p">(</span> <span class="nb">type</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">tb</span> <span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">finally</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_restore</span><span class="p">()</span>
+            <span class="k">if</span> <span class="n">se</span><span class="p">:</span> <span class="k">raise</span> <span class="n">se</span>
+</pre></div>
+
+
+<p>If you actually need to look at the spew you can just look at the contents of the <em>out</em> and <em>error</em> fields of the Silencer.   More commonly though you'll just want to wrap a particularly verbose bit of code in a <em>with... as</em> block to shut it up.  You'll also get the standard context manager behavior: an automatic restore in the event of an exception, etc.  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 02 January 2014
@@ -157,7 +253,9 @@
                     RFC: how to do a 'community' book
                 </h2>
             </a>
-                pending
+                <p>As I mentioned a while ago, the book I <a href="http://www.amazon.com/gp/product/0415812291/ref=s9_simh_gw_p14_d6_i1?pf_rd_m=ATVPDKIKX0DER&amp;pf_rd_s=center-2&amp;pf_rd_r=0PR9CNMVMXW53TJDCGKP&amp;pf_rd_t=101&amp;pf_rd_p=1688200382&amp;pf_rd_i=507846">worked on last year is almost out</a>.  That one was group project - there were about a dozen of contributing sections and data, and then Renee came in and cleaned it up into plain English.  I think that works well for overview books, but I'd like to do another one with a stronger point of view and narrower focus -- there are things you can say effectively in your own voice that are hard to pull off in the third person.  </p>
+<p>On the other hand, in any technical field like this there's also a big range of options - no matter how much you've been around, there are always weird corner cases and oddball gotchas that other people have to live with even though you've never even heard of them.  I'd love to figure out a way to get the whole TA crowd involved in making the next book better and more comprehensive.   </p>
+<p>Has anybody got a good model for how to involve a big internet community into the evolution of a book?  </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Thu 02 January 2014
@@ -169,7 +267,8 @@
                     CG Prehistory
                 </h2>
             </a>
-                Oldest of old-school CG from Robert Abel and Associates.
+                <p>Still on holiday blogging wise, as we ponder the year gone by, give a thought to these ancient nuggets from <a href="http://design.osu.edu/carlson/history/tree/abel.html">Robert Abel</a>, back from when I was still in high school :)  Back when being a 'technical artist' probably meant 'being the guy who can hand adjust the laser in the slide-rendering machine that produces our graphics on film'  </p>
+<iframe width="420" height="315" src="https://www.youtube.com/embed/Wx1dTGvfqak" frameborder="0" allowfullscreen></iframe>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 29 December 2013
@@ -181,7 +280,8 @@
                     Production Pipeline Fundamentals for Film and Games
                 </h2>
             </a>
-                The pipeline book is out on Amazon!
+                <p>The book I worked on last year is up for pre-order on Amazon! It was a long haul - congrats to Renee and all the other authors who helped get this giant zeppelin filled with hot air! </p>
+<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="//ws-na.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=US&source=ss&ref=as_ss_li_til&ad_type=product_link&tracking_id=tecsurgui-20&marketplace=amazon&region=US&placement=0415812291&asins=0415812291&linkId=6b3df4689659a59d96ef9bea8a29450c&show_border=true&link_opens_in_new_window=true"></iframe>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Sun 22 December 2013

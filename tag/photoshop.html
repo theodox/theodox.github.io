@@ -7,10 +7,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>theodox.com - Tag photoshop</title>
+        <title>Chimeras & Manticores - Tag photoshop</title>
 
-            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="theodox.com Full Atom Feed" />
-            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="theodox.com Full RSS Feed" />
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
         <!-- Bootstrap Core CSS -->
         <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
 
@@ -34,7 +34,7 @@
         <![endif]-->
 
                 <meta property="og:locale" content="">
-		<meta property="og:site_name" content="theodox.com">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="http://theodox.com/">theodox.com</a>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -91,7 +91,86 @@
                     Talking to Photoshop via TCP
                 </h2>
             </a>
-                Simple Photoshop scripting via tcp/ip
+                <p>A recent <a href="http://tech-artists.org/forum/showthread.php?4481-Communicating-between-Photoshop-and-Maya-(Python)">thread on TAO</a> got me thinking about communicating with Photoshop from Python. In the past I've done this <a href="http://techarttiki.blogspot.com/2008/08/photoshop-scripting-with-python.html">Adam Plechter-style</a> using COM ( from both C# and Python) and it's worked for me, but I know some people have problems with COM for a variety of reasons relating to windows versions and DLL hell.  </p>
+<p>And using COM always makes me feel like Mr. Yuk.</p>
+<p><a href="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif"><img alt="" src="http://www.calebsimpson.com/wp-content/uploads/2013/11/YuckFace.gif" /></a></p>
+<p>Since I had to learn a few JavaScript tricks back when I started <a href="and_i_thought_we_had_it_bad.html">looking into Python web development</a>, I thought it might be worth investigating what could be done to cut out COM.  It turns out that ExtendScript - the JavaScript flavor that comes with Adobe products (at least since CS 5, and I think earlier) includes a socket object which allows for TCP communication.  That's not kosher in 'real' browser based JS - but ExtendScript cheats a little (that's also why it allows you to do things like hit the local file system, another JS no-no).</p>
+<p>The<a href="https://wwwimages2.adobe.com/content/dam/Adobe/en/products/indesign/pdfs/JavaScriptToolsGuide_CS5.pdf"> Adobe docs</a> have an example (around page 196) which shows how you can implement a chat server or a web server running inside Photoshop. That might not be practical but it provides a simple framework you can hijack to turn Photoshop into a remote procedure call server.  Here's an example of a super-simple server that can be run inside Photoshop:</p>
+<div class="highlight"><pre><span></span><span class="c1">// requires photoshop CS5+</span>
+
+<span class="c1">// create a new socket</span>
+<span class="nx">conn</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">Socket</span><span class="p">();</span>
+
+<span class="kd">var</span> <span class="nx">keep_serving</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="c1">// sample functions. In a real application you&#39;d have handler functions that could accept  more complex inputs</span>
+<span class="kd">var</span> <span class="nx">alrt</span> <span class="o">=</span> <span class="nx">alert</span><span class="p">;</span>                                                                                           <span class="c1">// pop a dialog</span>
+<span class="kd">var</span> <span class="nx">newLayer</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">app</span><span class="p">.</span><span class="nx">activeDocument</span><span class="p">.</span><span class="nx">artLayers</span><span class="p">.</span><span class="nx">add</span><span class="p">();</span> <span class="p">};</span>      <span class="c1">// make a layer</span>
+<span class="kd">var</span> <span class="nx">stop</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span> <span class="nx">keep_serving</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span> <span class="p">};</span>                                           <span class="c1">// stop the server</span>
+
+<span class="c1">// &#39;register&#39; the commands by putting them into a dictionary</span>
+<span class="kd">var</span> <span class="nx">known_cmds</span> <span class="o">=</span> <span class="p">{</span> <span class="s1">&#39;alert&#39;</span><span class="o">:</span> <span class="nx">alrt</span><span class="p">,</span> <span class="s1">&#39;stop&#39;</span><span class="o">:</span> <span class="nx">stop</span><span class="p">,</span> <span class="s1">&#39;newLayer&#39;</span><span class="o">:</span> <span class="nx">newLayer</span> <span class="p">};</span>
+
+<span class="k">while</span> <span class="p">(</span><span class="nx">keep_serving</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">if</span> <span class="p">(</span><span class="nx">conn</span><span class="p">.</span><span class="nx">listen</span><span class="p">(</span><span class="mi">8789</span><span class="p">))</span>  <span class="c1">// ... you&#39;d probably want to make this configurable</span>
+    <span class="p">{</span>
+        <span class="c1">// wait forever for a connection</span>
+        <span class="kd">var</span> <span class="nx">incoming</span><span class="p">;</span>
+        <span class="k">do</span> <span class="nx">incoming</span> <span class="o">=</span> <span class="nx">conn</span><span class="p">.</span><span class="nx">poll</span><span class="p">();</span>
+        <span class="k">while</span> <span class="p">(</span><span class="nx">incoming</span> <span class="o">==</span> <span class="kc">null</span><span class="p">);</span>
+
+        <span class="c1">// grab the next non-null communication</span>
+        <span class="nx">new_cmd</span> <span class="o">=</span> <span class="nx">incoming</span><span class="p">.</span><span class="nx">read</span><span class="p">();</span>
+        <span class="k">try</span> <span class="p">{</span>
+            <span class="c1">// split the incoming message into cmd on spaces (shell style)</span>
+            <span class="kd">var</span> <span class="nx">command_text</span> <span class="o">=</span> <span class="nx">new_cmd</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">args</span> <span class="o">=</span> <span class="nx">new_cmd</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="nx">command_text</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">999</span><span class="p">).</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">);</span>
+            <span class="kd">var</span> <span class="nx">requested</span> <span class="o">=</span> <span class="nx">known_cmds</span><span class="p">[</span><span class="nx">command_text</span><span class="p">];</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="kc">null</span> <span class="o">!=</span> <span class="nx">requested</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nx">result</span> <span class="o">=</span> <span class="nx">requested</span><span class="p">(</span><span class="nx">args</span><span class="p">);</span>
+                <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">result</span> <span class="o">+</span> <span class="s2">&quot;\nOK\n&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+            <span class="k">else</span> <span class="p">{</span>
+                <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="s2">&quot;unknown command\nFAIL\n&quot;</span><span class="p">);</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+        <span class="k">catch</span> <span class="p">(</span><span class="nx">err</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">incoming</span><span class="p">.</span><span class="nx">writeln</span><span class="p">(</span><span class="nx">err</span> <span class="o">+</span> <span class="s2">&quot;FAIL\n&quot;</span><span class="p">);</span>
+            <span class="nx">incoming</span><span class="p">.</span><span class="nx">close</span><span class="p">();</span>
+            <span class="k">delete</span> <span class="nx">incoming</span><span class="p">;</span>
+        <span class="p">}</span>
+    <span class="p">}</span> <span class="c1">// end if </span>
+<span class="p">}</span> <span class="c1">// -- end while</span>
+</pre></div>
+
+
+<p><em>Note: You'll need to save the file as a .JSX (not .JS!) for Photoshop to allow the ExtendScript functionality which makes the socket objects work.</em>  </p>
+<p>This example is very bare bones, but it is easy to extend - just create function objects and add them to <code>known_commands</code> dictionary and then send them over the socket. The way it's written here the commands and arguments are split on spaces (similar to the way a shell command works) -- if you need to get at them in your JS functions you can <a href="http://stackoverflow.com/a/2141530/1936075">get at them using the arguments() keyword:</a>.  For serious work I'd probably use the ExtendScript XML object and send the commands and responses as xml since that gets you out of having to worry about stuff like 'what if I want to send an argument with a space in it' -- however this purpose of this excersize is just to demonstrate what's possible.  </p>
+<p>I should note that while the server is running, Photoshop is locked into the wait loop so it will not be accessible interactively -- like a Maya running a long script, the main thread is just waiting for the script to continue. For the typical 'remote control' application that's what you'd expect, but it may not answer for all purposes - so be warned.  </p>
+<p>If you're trying to talk to Photoshop from Python, it's incredibly simple:  </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">socket</span>
+<span class="n">HOST</span> <span class="o">=</span> <span class="s1">&#39;127.0.0.1&#39;</span>
+<span class="n">PORT</span> <span class="o">=</span> <span class="mi">8789</span>
+
+<span class="k">def</span> <span class="nf">send_photoshop</span><span class="p">(</span><span class="n">msg</span><span class="p">):</span>
+<span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">Expects a photoshop instance running a tcp server on HOST:PORT</span>
+<span class="sd">&#39;&#39;&#39;</span>
+    <span class="n">conn</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">HOST</span><span class="p">,</span><span class="n">PORT</span><span class="p">))</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+    <span class="n">conn</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="n">r</span>
+
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;alert hello_from_python&quot;</span><span class="p">)</span>       <span class="c1">#show a dialog</span>
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;newLayer&quot;</span><span class="p">)</span>                      <span class="c1">#create a layer</span>
+<span class="n">send_photoshop</span><span class="p">(</span><span class="s2">&quot;stop&quot;</span><span class="p">)</span>                          <span class="c1">#stop the server</span>
+</pre></div>
+
+
+<p>That's all there is to it - of course, the _real _problem is getting useful work done in the clunky Photoshop API -- but that's going to be the same no matter whether you talk to PS via COM or TCP/IP.  Anecdotally, I've heard the PS scripts are faster in JavaScript than when using COM or AppleTalk or VB, so perhaps this method will be competitive on speed as well.  For small tasks it's certainly a simpler and less irritating way to send a squirt to and from PS </p>
             <p class="post-meta">Posted by
                     <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
                  on Wed 29 January 2014
