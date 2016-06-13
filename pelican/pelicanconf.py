@@ -3,7 +3,8 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Steve Theodore'
-SITENAME = u'theodox.com'
+SITENAME = u'Chimeras & Manticores'
+SITESUBTITLE = 'technical art, python, the games business, and obscurantism'
 SITEURL = 'http://blog.theodox.com'
 COPYRIGHT_YEAR = 2016
 
@@ -20,7 +21,6 @@ CATEGORY_FEED_ATOM = None #'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 FEED_ALL_RSS = 'feeds/rss.xml'
-
 ADDTHIS_PUBID = 'ra-575daf41c4afb207'
 SLUGIFIY_SOURCE = 'basename'
 

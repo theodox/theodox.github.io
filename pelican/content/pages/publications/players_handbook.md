@@ -4,22 +4,22 @@ Tags: games, jobs, industry
 Category: publications
 Slug: /pub/players_handbook
 Authors: Steve Theodore
-Summary:  In keeping with the other career articles I've been reposting, here's a favorite old piece from Game Developer about career arcs in games. 
+Summary: Careers in the games industry
+>> In keeping with the other career articles I've been reposting, here's a favorite old piece from Game Developer about career arcs in games. 
 
->The illustrations are from the absolutely priceless [Old School FRP Tumblr](http://oldschoolfrp.tumblr.com/), which is a treasure trove of 1980's era RPG artwork that any gamer ought to check out. [Know your history](http://grognardia.blogspot.com/)!  
+>>The illustrations are from the absolutely priceless [Old School FRP Tumblr](http://oldschoolfrp.tumblr.com/), which is a treasure trove of 1980's era RPG artwork that any gamer ought to check out. [Know your history](http://grognardia.blogspot.com/)!  
 
 
 [![](http://1.bp.blogspot.com/-P9XxysKumkE/VBkeTkKo6hI/AAAAAAABIfk/Gj0q3gmxXFU/s1600/wiz.jpg)](http://1.bp.blogspot.com/-P9XxysKumkE/VBkeTkKo6hI/AAAAAAABIfk/Gj0q3gmxXFU/s1600/wiz.jpg)
 
   
   
-_**Congratulations!**  By purchasing **The Games Industry™**you’ve entered a universe of fantastic adventure! Players in **The Games Industry™** collaborate to create exciting new worlds, a form of collaborative story-telling that combines the ancient arts of the bards with the most up-to-date developments in rules complexity, arcane technicalities, and perverse randomness.  Hopefully, your new purchase will keep you occupied for many years – growing in power, battling monsters, and accumulating treasure. You are guaranteed many a sleepless night in the company of your fellow players. Welcome!_  
+**Congratulations!**  By purchasing **The Games Industry™**you’ve entered a universe of fantastic adventure! Players in **The Games Industry™** collaborate to create exciting new worlds, a form of collaborative story-telling that combines the ancient arts of the bards with the most up-to-date developments in rules complexity, arcane technicalities, and perverse randomness.  Hopefully, your new purchase will keep you occupied for many years – growing in power, battling monsters, and accumulating treasure. You are guaranteed many a sleepless night in the company of your fellow players. Welcome!
   
 
 
 [![](http://i273.photobucket.com/albums/jj239/silverleaf1982/Generator/PlayersHandbook.jpg)](http://i273.photobucket.com/albums/jj239/silverleaf1982/Generator/PlayersHandbook.jpg)
   
-
 The first step for new players in **The Games Industry**™ is to create a _character_. In **The Games Industry,**™  your character represents you – he or she forms your alter ego.  Some players choose a character exactly like themselves, while others prefer to play a very different role in **The Games Industry™**  than they do in real life. Whichever path you choose, be aware that picking a character is of the utmost importance to your career in **The Games Industry™.   **Other players and the many monsters you encounter in the game will react to you based on which character you play  \-- or which one they believe you are playing. Be sure to choose one that works well with your instincts and goals. It’s critical to be aware of the strengths and limitations of the different types of characters you encounter if you want to succeed in the game.  
   
 
@@ -148,5 +148,5 @@ Particularly in the six months or so before shipping.
   
 
 
-_Disclaimer: New players should note this set does not include everything you need to play. You’ll also need the following: A copy of Photoshop, proof of citizenship or an H-1 B visa, the **Employees Handbook** (2d edition rules), Red Bull Energy Drink, a free Nvidia T-shirt, and internet access.  **The Games Industry**™ features an ever-expanding  list of accessories and expansion kits.  See your local game store for details._
+>Disclaimer: New players should note this set does not include everything you need to play. You’ll also need the following: A copy of Photoshop, proof of citizenship or an H-1 B visa, the **Employees Handbook** (2d edition rules), Red Bull Energy Drink, a free Nvidia T-shirt, and internet access.  **The Games Industry**™ features an ever-expanding  list of accessories and expansion kits.  See your local game store for details.
 

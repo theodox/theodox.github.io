@@ -29,6 +29,7 @@ This page collects links to my old [Game Developer](http://www.gamasutra.com/top
   
 [Read The Damn Ad: ](read_the_damn_ad)Advice on parsing the want ads when looking for a job in game art.    
 
+[Never Hire Anyone Over 30: ](never_hire)A rumination on ageism in the games industry, which has only gotten wierder since this was written.
 
 ### Tech Art
 

@@ -1,24 +1,20 @@
-Title: The Game Artists Resume Guide (Revisited)
+Title: The Game Artists Resume Guide
 Date: 2014-09-05 11:00:00.000
 Tags: games, industry, jobs
 Category: publications
 Slug: /pub/game_artists_resume_guide
 Authors: Steve Theodore
-Summary: I noticed that my recent repost of the old job hunting guide, [Read  The Damn Ad](read_the_damn_ad) has quickly amassed a lot of views and links. In the interest of completeness, therefore, I thought I'd also repost the bookending article (also from Game Developer)  on the nuts and bolts of applying for a job.     
-  
-  
-_Note: I've left the original article as is for historical reasons, but annotations in orange are updated advice or notes on how things have changed since 2006_  
-  
+Summary: A job hunter's guide for game artists
 
+>>I noticed that my recent repost of the old job hunting guide, [Read  The Damn Ad](read_the_damn_ad) has quickly amassed a lot of views and links. In the interest of completeness, therefore, I thought I'd also repost the bookending article (also from Game Developer)  on the nuts and bolts of applying for a job.     
+
+>>I've left the original article as is for historical reasons, but I've added some advice and notes on how things have changed since 2006
+  
 
 Your resume is is not just a neutral transcript of your past career – it's a precious opportunity to get the full attention of the person who can hire you.  In the business world the rule of thumb is that the resume gets just under  20 seconds of the reader's undivided attention. That is your window for positioning yourself clearly in the reader's mind – and as you can imagine there's not a lot of room for subtlety. A resume bears more resemblance to tightly targeted ad campaign than it does to a biography.
 
-  
 
-
-## Customize!
-
-  
+## Customize!  
 
 
 The real difference between successful and unsuccessful resumes isn’t the presentation: it’s the content. 
@@ -26,7 +22,7 @@ The real difference between successful and unsuccessful resumes isn’t the pres
   
 
 
-However, as we stressed in [Read The Damn Ad](http://techartsurvival.blogspot.com/2014/08/read-damn-ad.html), most companies are looking to fill specific slots.  Most of the time and energy in resume creation, therefore, goes into fine-tuning the resume for each specific application. You resume has to tell a story that underlines your fitness for the job on offer. A level designer job, for example, could be described to emphasize its 3-d modelling aspect, game design skills, or the production pipeline management issues. Which description you choose depends on the  job you are seeking. It's unfortunately true that groping for multiple ways to describe your past achievements can become pretty tiresome. After a few applications, though, you'll build up a library of targeted resumes that can be recycled for similar jobs with very little effort.
+However, as we stressed in [Read The Damn Ad](read_the_damn_ad), most companies are looking to fill specific slots.  Most of the time and energy in resume creation, therefore, goes into fine-tuning the resume for each specific application. You resume has to tell a story that underlines your fitness for the job on offer. A level designer job, for example, could be described to emphasize its 3-d modelling aspect, game design skills, or the production pipeline management issues. Which description you choose depends on the  job you are seeking. It's unfortunately true that groping for multiple ways to describe your past achievements can become pretty tiresome. After a few applications, though, you'll build up a library of targeted resumes that can be recycled for similar jobs with very little effort.
 
   
 
@@ -41,17 +37,17 @@ Targeting your resume works best if you learn to read job ads very closely. They
   
 
 
-**Engulfing Arts Inc., Los Diablos CA. **
-
-**Environment Artist**  
-We are seeking an environmental artist for a multi-platform game. The artist will use 3DStudio Max to  build and texture architectural, and natural models for a fantasy adventure game with cartoon-style art direction. 2-3 years experience in 3Ds Max and 2 years game experience required.  Ability to work well in a team environment under short deadlines a must. Preference given to candidates with strong organic modeling and texturing skills.
+> **Engulfing Arts Inc., Los Diablos CA. **
+> 
+> **Environment Artist**  
+> We are seeking an environmental artist for a multi-platform game. The artist will use 3DStudio Max to  build and texture architectural, and natural models for a fantasy adventure game with cartoon-style art direction. 2-3 years experience in 3Ds Max and 2 years game experience required.  Ability to work well in a team environment under short deadlines a must. Preference given to candidates with strong organic modeling and texturing skills.
 
   
 
 
 The main point, of course,  is clear: the opening is for an artist with some experience doing cartoon style environments who can handle organic modeling.   
   
-But what _other _clues can you infer from the wording of the ad?  
+But what _other_ clues can you infer from the wording of the ad?  
   
 Because the job is designated as "artist", and the ad makes no mention of game design skills, it's a good guess that the team uses a split art/design pipeline, so that the game design skills implied in a job like "level designer" aren't going to be a priority. A line like "Ability to work well in a team environment" might be pure boilerplate – but it might also mean that previous team-members have had trouble taking direction (it may also mean the company uses a top-down, centralised organization). Finally the description clearly states that the team lumps modeling and texturing together, so it's a good guess that a the job will go to someone who can both model and paint textures. 
 
@@ -63,7 +59,7 @@ With this information in hand, you should re-work your basic resume skeleton to 
   
 
 
-Objective:  Seeking a position where I can use my experience modeling and texturing with 3D Studio on a team building an expressive fantasy world. 
+>Objective:  Seeking a position where I can use my experience modeling and texturing with 3D Studio on a team building an expressive fantasy world. 
 
   
 
@@ -89,11 +85,11 @@ As an artist, you’re not completely bound by the draconian rules of a standard
   
 
 
-Since this was written in 2006, [LinkedIn ](https://www.linkedin.com/nhome/)has become an extremely important aspect of the hiring process.  It's a kind of permanent resume, available to recruiters and possible employers - and also to your coworkers.  It's a good idea to maintain your Linked-In page on a regular basis before you're actively looking for work. In the first place, you may attract attention from potential employers, recruiters or, best of all, old colleagues who are looking to fill a slot informally without a full blown job search.  If you've pondered the lessons of the companion article, you'll know that last one is by far the most important aspect of the whole thing.  
+>>Since this was written in 2006, [LinkedIn ](https://www.linkedin.com/nhome/)has become an extremely important aspect of the hiring process.  It's a kind of permanent resume, available to recruiters and possible employers - and also to your coworkers.  It's a good idea to maintain your Linked-In page on a regular basis before you're actively looking for work. In the first place, you may attract attention from potential employers, recruiters or, best of all, old colleagues who are looking to fill a slot informally without a full blown job search.  If you've pondered the lessons of the companion article, you'll know that last one is by far the most important aspect of the whole thing.  
   
-Doing your maintenance on a regular basis is also a good idea because a sudden burst of Linked-In postings is a good indication that somebody is feeling restless. If you tweak a line here or there every few months it's just part of the (semi-)social media white noise. If you do a huge update right around the time you get turned down for a promotion you may be attracting the wrong kind of attention.  
+>>Doing your maintenance on a regular basis is also a good idea because a sudden burst of Linked-In postings is a good indication that somebody is feeling restless. If you tweak a line here or there every few months it's just part of the (semi-)social media white noise. If you do a huge update right around the time you get turned down for a promotion you may be attracting the wrong kind of attention.  
   
-LinkedIn does pose some interesting problems as a way of describing yourself to potential employers. For one thing, it's generic: you can't cherrypick or massage things the way you can in a targeted resume. Luckily you're not bound by strict formatting requirements of a resume either, so you can be more general than you would be when applying for a formal position and you can include links to more targeted portfolios and demos.  
+>>LinkedIn does pose some interesting problems as a way of describing yourself to potential employers. For one thing, it's generic: you can't cherrypick or massage things the way you can in a targeted resume. Luckily you're not bound by strict formatting requirements of a resume either, so you can be more general than you would be when applying for a formal position and you can include links to more targeted portfolios and demos.  
 
 ## The Demo
 
@@ -162,42 +158,36 @@ As you'll see, a lot has happened in this area since the original article was wr
 
 Distributing work is somewhat tricky, because its difficult to know what hardware and software your work will be viewed on. The only hard and fast rule is **pay strict attention to any submission guidelines **that come with the job ads – don’t send a CD to a company that asks for VHS tapes, or vice versa!   
   
-VHS? What's VHS?
+>>VHS? What's VHS?  This was a looong time ago...
 
   
-
-
-It’s a ~~good idea~~ critical to have a well designed, responsive **web page. **The ability to click through from a resume email directly to the samples is a useful convenience that will endear you to the reviewer. Plus the ease of annotating allows you to include notes with your images easily and painlessly.  
+It’s a ~good idea~ critical to have a well designed, responsive **web page.** The ability to click through from a resume email directly to the samples is a useful convenience that will endear you to the reviewer. Plus the ease of annotating allows you to include notes with your images easily and painlessly.  
   
 As with the resume, don’t knock yourself out on the graphic design of your site unless you’re really trying to showcase your design skills – and certainly don’t take any risks with the navigation or scripts that might leave a visitor stranded and annoyed. It’s also best to keep Flash or Shockwave components to a minimum unless you’re a web specialist and can be confident that your site works well on all browsers and platforms. Vanilla HTML may not be thrilling, but it will be accessible to almost anyone with a computer. The big drawback to using a website as primary vehicle for your portfolio is that bandwidth and storage costs may make it hard to showcase animations, turntables or 3-d models. Anything that takes more than a few seconds to download is in danger of being skipped by the busy screener.   
   
-It's pretty astonishing how old fashioned that paragraph seems in light of the last seven or eight years of web history. Nowadays it's easy to find sites to host high quality video and big images with minimal latency.  Of course, today's reviewers and screeners are also much more savvy web consumers: they've been exposed to a lot of very sophisticated and subtle web design and they will be much more critical of the nuances of your presentation than might have been the case back in the day. This puts more stress on your presentation skills - even though there's no reason to assume that every 3-D modeler is also a web designer it's a common perception among less artsy folks who may be the first to check out your work.    
-  
-If you don't fancy yourself a web designer, shop around for a site which is image-friendly, stylish, and  doesn't compete with your artwork.  You don't even need to shell out for a custom site hosting arrangements, there are plenty of free make-your-own-site and blogging services that can be used for portfolio hosting.  Sites like [Behance](https://www.behance.net/about) and [CarbonMade](https://carbonmade.com/) are specifically designed for portfolio hosting and generally help to showcase your work rather than competing with it.  
-  
-If you're a 3D artist you have also got a very compelling new tool in the form of Unity.  A simple Unity demo app (either downloadable or hosted using the Unity web player) can be a far more effective sales tool than folder of stills: you can not only showcase your modelling skills but many nuances of shading and texturing are much more obvious with a turntable or a walkaround camera than they are in a static shot.
+>> It's pretty astonishing how old fashioned that paragraph seems in light of the last seven or eight years of web history. Nowadays it's easy to find sites to host high quality video and big images with minimal latency.  Of course, today's reviewers and screeners are also much more savvy web consumers: they've been exposed to a lot of very sophisticated and subtle web design and they will be much more critical of the nuances of your presentation than might have been the case back in the day. This puts more stress on your presentation skills - even though there's no reason to assume that every 3-D modeler is also a web designer it's a common perception among less artsy folks who may be the first to check out your work.    
+>> If you don't fancy yourself a web designer, shop around for a site which is image-friendly, stylish, and  doesn't compete with your artwork.  You don't even need to shell out for a custom site hosting arrangements, there are plenty of free make-your-own-site and blogging services that can be used for portfolio hosting.  Sites like [Behance](https://www.behance.net/about) and [CarbonMade](https://carbonmade.com/) are specifically designed for portfolio hosting and generally help to showcase your work rather than competing with it. [SquareSpace](https://www.squarespace.com) is another  popular portfolio host.  
+>>If you're a 3D artist you have also got a very compelling new tool in the form of Unity.  A simple Unity demo app (either downloadable or hosted using the Unity web player) can be a far more effective sales tool than folder of stills: you can not only showcase your modelling skills but many nuances of shading and texturing are much more obvious with a turntable or a walkaround camera than they are in a static shot.
 
   
 
 
- **CD-Roms **are cheap to make and easy to mail. They excel distributing large files (for example game levels and 3-d model source files). You can also use them to distribute images either as individual files or a self-contained HTML website. If you use standard image formats (such as JPEG) and HTML or plain text notes, you can burn your CD as ISO-9660 format to make it work on Macs, PCs and Linux. Unfortunately animation and video files which depend on downloadable codecs or rely on system resources can easily cause trouble between different OS’s. MPEG-1 (VCD) and MPEG-2 (DVD) formats are cross platform, but not trivial to author – if you create a VCD or DVD format reel be sure to test it on both computers and consumer DVD players!   
+**CD-Roms **are cheap to make and easy to mail. They excel distributing large files (for example game levels and 3-d model source files). You can also use them to distribute images either as individual files or a self-contained HTML website. If you use standard image formats (such as JPEG) and HTML or plain text notes, you can burn your CD as ISO-9660 format to make it work on Macs, PCs and Linux. Unfortunately animation and video files which depend on downloadable codecs or rely on system resources can easily cause trouble between different OS’s. MPEG-1 (VCD) and MPEG-2 (DVD) formats are cross platform, but not trivial to author – if you create a VCD or DVD format reel be sure to test it on both computers and consumer DVD players!   
   
-Nowadays, If you do have to bring physical media - say, extra ammo for your interview, or a quick demo while you're hitting a job fair booth at GDC - use a flash drive (bring multiples in case somebody asks to keep it!).  Laptops are of course a great demo medium, but for hands on demos a tablet can be more effective: even though the screen is smaller the tactile nature of tablet navigation and the ease of zooming in on a detail make for a much more intimate experience.  Keep an eye out for image or portfolio hosting sites that work well and smoothly with your tablet when you're shopping for a place to host your stuff.
+>>Nowadays, If you do have to bring physical media - say, extra ammo for your interview, or a quick demo while you're hitting a job fair booth at GDC - use a flash drive (bring multiples in case somebody asks to keep it!).  Laptops are of course a great demo medium, but for hands on demos a tablet can be more effective: even though the screen is smaller the tactile nature of tablet navigation and the ease of zooming in on a detail make for a much more intimate experience.  Keep an eye out for image or portfolio hosting sites that work well and smoothly with your tablet when you're shopping for a place to host your stuff.
 
   
 
 
-~~For this reason you may prefer to deliver motion materials (especially animations, but also game footage and turntables) on **VHS tape**. Until fairly a few years ago VHS was the standard way to distribute demo material, and many companies still demand VHS as the only submission format. It’s is a reliable way to distribute motion media, but it’s a poor way to demonstrate stills, detailed textures, or model wireframes. It’s also unfortunately true that sending a VHS tape to a company without a VCR is a waste of time and postage.~~  
+<strike>For this reason you may prefer to deliver motion materials (especially animations, but also game footage and turntables) on **VHS tape**. Until fairly a few years ago VHS was the standard way to distribute demo material, and many companies still demand VHS as the only submission format. It’s is a reliable way to distribute motion media, but it’s a poor way to demonstrate stills, detailed textures, or model wireframes. It’s also unfortunately true that sending a VHS tape to a company without a VCR is a waste of time and postage.</strike>  
   
-It's kind of sad that I am actually embarrassed to have written about VHS tape in 2006. I mean, it was a long time ago, right? Not my fault! I liked Betamax better anyway.  
+>>It's kind of sad that I am actually embarrassed to have written about VHS tape in 2006. I mean, it was a long time ago, right? Not my fault! I liked Betamax better anyway.  
   
 
 
 ## Wrapup
 
   
-
-
 That pretty much concludes our tour through the battle-scarred wastes of the job search. It might seem like this is a lot to go through for a simple job application, but almost every rule we’ve laid out can be reduced to two simple ideas.  
   
 
@@ -207,9 +197,7 @@ That pretty much concludes our tour through the battle-scarred wastes of the job
 
 If you remember those two points, the rest follows logically. There’s no question it can be a lot of work – but if you buckle down to the hard work of job-hunting, you’ll be  at a real job a lot faster than the applicants who skimp on it. 
 
-  
-
-
+>> This stuff? It's eternal.
   
 
 

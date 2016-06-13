@@ -104,258 +104,31 @@ Here are some reasonable real world numbers from a variety of sources. As always
   
 
 
-_Ground Speed_
-
-_(meters/ sec)_
-
-| 
-
-Ground speed (miles/hr)
-
-| 
-
-Stride Length (meters)
-
-| 
-
-Cadence
-
-(steps/min)
-
+Ground Speed (meter/sec) |  Ground speed (mph)|  Stride Length (meters)| Cadence (steps/min)  | Frames (30hz) |  
+---|---|---|---|---|---|---    
+1  m/s | 2.23 mph |  1.2m |  100 | 36 |  Deliberate walk  
+1.5 m/s | 3.35 mph | 1.5m | 120 | 30 |  “average” walk  
+2.5 m/s | 5.59 mph | 2 m | 150 | 24 | Brisk stride  
+1.6 m/s | 3.71 mph | 1.33m | 150 | 24 | Slow jog    
+2.7 m/s | 6.03 mph | 1.8 | 180 | 20 | Easy jog  
+4.5m/s | 10.06 mph | 2.7m | 200 | 18 | Distance runner    
+11.2 m/s | 25.05 mph | 4.8 m | 280 | 13 | Sprinter  
   
-
-
-| 
-
-Frames
-
-(30 hz)
-
-| 
-
-  
-  
-  
----|---|---|---|---|---  
-  
-1  m/s
-
-| 
-
-2.23 mph
-
-| 
-
- 1.2 m
-
-| 
-
-100
-
-| 
-
-36
-
-| 
-
-Deliberate walk  
-  
-1.5 m/s
-
-| 
-
-3.35 mph
-
-| 
-
-1.5
-
-| 
-
-120
-
-| 
-
-30
-
-| 
-
-“average” walk  
-  
-2.5 m/s
-
-| 
-
-5.59 mph
-
-| 
-
-2 m
-
-| 
-
-150
-
-| 
-
-24
-
-| 
-
-Brisk stride  
-  
-1.6 m/s
-
-| 
-
-3.71 mph
-
-| 
-
-1.33
-
-| 
-
-150
-
-| 
-
-24
-
-| 
-
-Slow jog  
-  
-2.7 m/s
-
-| 
-
-6.03 mph
-
-| 
-
-1.8 m
-
-| 
-
-180
-
-| 
-
-20
-
-| 
-
-Easy jog  
-  
-4.5m/s
-
-| 
-
-10.06 mph
-
-| 
-
-2.7m
-
-| 
-
-200
-
-| 
-
-18
-
-| 
-
-Distance runner  
-  
-11.2 m/s
-
-| 
-
-25.05 mph
-
-| 
-
-4.8 m
-
-| 
-
-280
-
-| 
-
-13
-
-| 
-
-Sprinter  
-  
-  
-
-
-               
 
 For comparison, here's a few game numbers.  You see why I said designers tend to ask for unrealistic speeds.  Athletes and very nervous people can hit many of these numbers -- briefly -- but most of them can't peg a quickscoped headshot at the same time.  
   
 
 
-Game
-
-| 
-
-Player run speed  
-  
----|---  
-  
-Max Payne
-
-| 
-
-5.5 m/s  
-  
-Jak And Daxter
-
-| 
-
-6.6 m/s  
-  
-Halo
-
-| 
-
-6.86 m/s  
-  
-God of War
-
-| 
-
-7.5 m/s  
-  
-Unreal Tournament 2004
-
-| 
-
-8.8 m/s  
-  
-Quake Wars : Enemy Territory
-
-| 
-
-8.94 m/s  
-  
-Serious Sam
-
-| 
-
-12.5 m/s  
-  
-Quake4
-
-| 
-
-15.25 m/s  
+Game | | Player run speed  
+-----|--|---    
+Max Payne | | 5.5 m/s  
+Jak And Daxter |  |  6.6 m/s  
+Halo |  | 6.86 m/s  
+God of War | | 7.5 m/s  
+Unreal Tournament | &nbsp;&nbsp;&nbsp; | 8.8 m/s  
+Quake Wars | | 8.94 m/s  
+Serious Sam | | 12.5 m/s  
+Quake4 | | 15.25 m/s  
   
   
 
