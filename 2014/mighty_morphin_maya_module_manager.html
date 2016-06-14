@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Mighty Morphin Maya Module Manager</title>
+        <title>Mighty Morphin Maya Module&nbsp;Manager</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A GUI for managing Maya modules">
+        <meta name="description" content="A GUI for managing Maya modules">
 
         <meta name="author" content="Steve Theodore">
 
@@ -48,9 +50,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/mighty_morphin_maya_module_manager">
-	<meta property="og:title" content="Mighty Morphin Maya Module Manager">
+	<meta property="og:title" content="Mighty Morphin Maya Module&nbsp;Manager">
 	<meta property="article:published_time" content="2014-01-16 01:17:00.001000-08:00">
-            <meta property="og:description" content="A GUI for managing Maya modules">
+            <meta property="og:description" content="A GUI for managing Maya modules">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Mighty Morphin Maya Module Manager</h1>
+                        <h1>Mighty Morphin Maya Module&nbsp;Manager</h1>
                         <span class="meta">
                             Thu 16 January 2014
                         </span>
@@ -109,18 +111,18 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>For folks who are interested in <a href="magical_modules.html">fiddling with Maya modules</a> as per the last post, I've tossed <a href="https://gist.github.com/theodox/8414494">a quickie class to manage Maya modules </a>onto <a href="https://gist.github.com/theodox">my Gist account</a>.  </p>
-<p>This is a bare bones bit of code. The main class is the <code>ModuleManager</code>, which can find any <code>.mod</code> files on the MAYA_MODULE_PATH of the current Maya environment. It's primary use is to find and list all the modules; secondarily it can be used to toggle them on and off (by changing the leading + which Maya uses to id a module to a -, or vice-versa). It's pretty dumb (no accounting for file permissions, incorrectly formatted .mod files, etc) but it's handy for quickly testing out configs.  </p>
-<p>Also included is a GUI class, <code>ModuleManagerDialog</code>, which finds provides a simple GUI for listing, enabling, and disabling .mod files. Again, pretty simple stuff, but people may find it useful.  </p>
+        <p>For folks who are interested in <a href="magical_modules.html">fiddling with Maya modules</a> as per the last post, I&#8217;ve tossed <a href="https://gist.github.com/theodox/8414494">a quickie class to manage Maya modules </a>onto <a href="https://gist.github.com/theodox">my Gist account</a>.  </p>
+<p>This is a bare bones bit of code. The main class is the <code>ModuleManager</code>, which can find any <code>.mod</code> files on the MAYA_MODULE_PATH of the current Maya environment. It&#8217;s primary use is to find and list all the modules; secondarily it can be used to toggle them on and off (by changing the leading + which Maya uses to id a module to a -, or vice-versa). It&#8217;s pretty dumb (no accounting for file permissions, incorrectly formatted .mod files, etc) but it&#8217;s handy for quickly testing out&nbsp;configs.  </p>
+<p>Also included is a <span class="caps">GUI</span> class, <code>ModuleManagerDialog</code>, which finds provides a simple <span class="caps">GUI</span> for listing, enabling, and disabling .mod files. Again, pretty simple stuff, but people may find it&nbsp;useful.  </p>
 <p><a href="http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s1600/modmgr.png"><img alt="" src="http://4.bp.blogspot.com/-WyKmQOSze2g/Uted0a8FJFI/AAAAAAAA_xo/4pP_U9LJPJ8/s400/modmgr.png" /></a></p>
-<p>As will all code I put up here, it's MIT licensed. Use away with attribution - and if you have any bug fixes, let me know and we'll fix the Gist version.  </p>
-<p><strong>PS</strong>, hat tip to the gang at <a href="http://tech-artists.org/">TAO </a> for the idea of using a context manager to get out of all those stupid <em>setParent("..")</em> calls in Maya GUI work. I could not find the original post where somebody mentioned it - but whoever you are, sir or madam, thank you ever so much.  </p>
+<p>As will all code I put up here, it&#8217;s <span class="caps">MIT</span> licensed. Use away with attribution - and if you have any bug fixes, let me know and we&#8217;ll fix the Gist&nbsp;version.  </p>
+<p><strong><span class="caps">PS</span></strong>, hat tip to the gang at <a href="http://tech-artists.org/"><span class="caps">TAO</span> </a> for the idea of using a context manager to get out of all those stupid <em>setParent(&#8220;..&#8221;)</em> calls in Maya <span class="caps">GUI</span> work. I could not find the original post where somebody mentioned it - but whoever you are, sir or madam, thank you ever so&nbsp;much.  </p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/maya.html">Maya</a>, <a href="http://theodox.com/tag/modules.html">modules</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -140,126 +142,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/mighty_morphin_maya_module_manager';
-                var disqus_url = 'http://theodox.com/2014/mighty_morphin_maya_module_manager';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/mighty_morphin_maya_module_manager';
+            var disqus_url = 'http://theodox.com/2014/mighty_morphin_maya_module_manager';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -88,614 +90,126 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2013/unityrepl" rel="bookmark" title="Permalink to Techartists doin' it for themselves: A Python REPL in Unity">
+            <a href="http://theodox.com/2013/book_is_out" rel="bookmark" title="Permalink to Production Pipeline Fundamentals for Film and Games">
                 <h2 class="post-title">
-                    Techartists doin' it for themselves: A Python REPL in Unity
+                    Production Pipeline Fundamentals for Film and&nbsp;Games
                 </h2>
             </a>
-                <p>Last time, I sketched out the basics of <a href="python_in_unity.html">embedding a Python intepreter into Unity.</a>   That's cool enough -- but unless you're so desperate for Python that you're willing to script your whole application inside of triple quotes it doesn't have a ton of immediate applications.  </p>
-<p>So, this time out I'll sketch out how to build a simple script editor inside of Unity (at the risk of repeating myself, I'll just say again that the extensibility of the Unity editor is an incredible aid to game developers of all stripes, and to tech artists in particular -- it's pretty amazing you can hack in something this complex without source code access or esoteric C++ chops.  </p>
-<h2>Prologomena</h2>
-<p>The basic strategy for this excersize is simply to create a Unity window with two panes - a 'history' pane  and a  'script' pane -- and before you ask, yes, it's just a ripoff of the Maya listener.   </p>
-<p>Before setting up the GUI, we need to cover the framework - the code that will keep the GUI stat and also set up the Python intepreter. In this example, you'll see a bunch of properties declared for the use of the GUI - notably <code>historyText</code> and <code>scriptText</code>, which hold the actual contents of the listener and the history pane.  The other notable feature is the same duo of <code>ScriptEngine</code>, and <code>ScriptScope</code> which we went over in the <a href="python_in_unity.html">last post</a>. </p>
-<blockquote>
-<p>If those terms don't mean anything to you you might want to follow that link before proceeding).  </p>
-</blockquote>
-<div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Modules</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">;</span>    
- <span class="c1">// derive from EditorWindow for convenience, but this is just a fire-n-forget script    </span>
- <span class="n">public</span> <span class="n">class</span> <span class="nl">ScriptExample</span> <span class="p">:</span> <span class="n">EditorWindow</span>    
- <span class="p">{</span>    
-     <span class="c1">// class member properties  </span>
-     <span class="n">Vector2</span> <span class="n">historyScroll</span><span class="p">;</span>    
-     <span class="n">Vector2</span> <span class="n">scriptScroll</span><span class="p">;</span>    
-     <span class="kt">bool</span> <span class="n">showHistory</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>    
-     <span class="kt">int</span> <span class="n">historyPaneHeight</span> <span class="o">=</span> <span class="mi">192</span><span class="p">;</span>    
-     <span class="n">string</span> <span class="n">historyText</span> <span class="o">=</span> <span class="s">&quot;history&quot;</span><span class="p">;</span>    
-     <span class="n">string</span> <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;script&quot;</span><span class="p">;</span>    
-     <span class="n">string</span> <span class="n">lastResult</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
-     <span class="n">TextEditor</span> <span class="n">TEditor</span><span class="p">;</span>    
-     <span class="n">GUIStyle</span> <span class="n">consoleStyle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GUIStyle</span> <span class="p">();</span>    
-     <span class="n">GUIStyle</span> <span class="n">historyStyle</span> <span class="o">=</span> <span class="n">new</span> <span class="n">GUIStyle</span> <span class="p">();</span>    
-     <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">ScriptEngine</span> <span class="n">ScriptEngine</span><span class="p">;</span>    
-     <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">ScriptScope</span> <span class="n">ScriptScope</span><span class="p">;</span>
-
-     <span class="c1">// initialization logic (it&#39;s Unity, so we don&#39;t do this in the constructor!  </span>
-     <span class="n">public</span> <span class="kt">void</span> <span class="nf">OnEnable</span> <span class="p">()</span>    
-     <span class="p">{</span>       
-         <span class="c1">// pure gui stuff  </span>
-         <span class="n">consoleStyle</span><span class="p">.</span><span class="n">normal</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">yellow</span><span class="p">;</span>    
-         <span class="n">consoleStyle</span><span class="p">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RectOffset</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>    
-         <span class="n">historyStyle</span><span class="p">.</span><span class="n">normal</span><span class="p">.</span><span class="n">textColor</span> <span class="o">=</span> <span class="n">Color</span><span class="p">.</span><span class="n">white</span><span class="p">;</span>    
-         <span class="n">historyStyle</span><span class="p">.</span><span class="n">margin</span> <span class="o">=</span> <span class="n">new</span> <span class="n">RectOffset</span> <span class="p">(</span><span class="mi">20</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">);</span>
-
-         <span class="c1">// load up the hosting environment    </span>
-         <span class="n">ScriptEngine</span> <span class="o">=</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Hosting</span><span class="p">.</span><span class="n">Python</span><span class="p">.</span><span class="n">CreateEngine</span> <span class="p">();</span>    
-         <span class="n">ScriptScope</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScope</span> <span class="p">();</span>
-
-         <span class="c1">// load the assemblies for unity, using types    </span>
-         <span class="c1">// to resolve assemblies so we don&#39;t need to hard code paths    </span>
-         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">PythonFileIOModule</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
-         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">GameObject</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
-         <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Runtime</span><span class="p">.</span><span class="n">LoadAssembly</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">Editor</span><span class="p">).</span><span class="n">Assembly</span><span class="p">);</span>    
-         <span class="n">string</span> <span class="n">dllpath</span> <span class="o">=</span> <span class="n">System</span><span class="p">.</span><span class="n">IO</span><span class="p">.</span><span class="n">Path</span><span class="p">.</span><span class="n">GetDirectoryName</span> <span class="p">(</span>    
-             <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">ScriptEngine</span><span class="p">)).</span><span class="n">Assembly</span><span class="p">.</span><span class="n">Location</span><span class="p">).</span><span class="n">Replace</span> <span class="p">(</span>    
-             <span class="s">&quot;</span><span class="se">\\</span><span class="s">&quot;</span><span class="p">,</span> <span class="s">&quot;/&quot;</span><span class="p">);</span>    
-         <span class="c1">// load needed modules and paths    </span>
-         <span class="n">StringBuilder</span> <span class="n">init</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuilder</span> <span class="p">();</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import sys&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendFormat</span> <span class="p">(</span><span class="s">&quot;sys.path.append(</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">dllpath</span> <span class="o">+</span> <span class="s">&quot;/Lib&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendFormat</span> <span class="p">(</span><span class="s">&quot;sys.path.append(</span><span class="se">\&quot;</span><span class="s">{0}</span><span class="se">\&quot;</span><span class="s">)</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">dllpath</span> <span class="o">+</span> <span class="s">&quot;/DLLs&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import UnityEngine as unity&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import UnityEditor as editor&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;import StringIO&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;unity.Debug.Log(</span><span class="se">\&quot;</span><span class="s">Python console initialized</span><span class="se">\&quot;</span><span class="s">)&quot;</span><span class="p">);</span>    
-         <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>    
-         <span class="n">var</span> <span class="n">ScriptSource</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="n">init</span><span class="p">.</span><span class="n">ToString</span> <span class="p">());</span>    
-         <span class="n">ScriptSource</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
-     <span class="p">}</span>
-
-    <span class="n">public</span>  <span class="kt">void</span> <span class="nf">OnGUI</span> <span class="p">(){}</span> <span class="c1">// see next code snippet  </span>
- <span class="p">}</span>
-</pre></div>
-
-
-<p>As in the last example you'll also not that we're manually setting up sys.path to point at the directory where IronPython is installed, with a little extra code to make it portable  (dotNet assemblies can tell you where they live on disk, so it's a cheap shortcut to find your install directory).   </p>
-<p>The only thing in here that is really 'architecturally' important its this line:  </p>
-<div class="highlight"><pre><span></span> <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>
-</pre></div>
-
-
-<p>What's going on there is that we're replacing <code>sys.stdout</code> - which in ordinary Python points at the user's console - with a <a href="http://docs.python.org/2/library/stringio.html">StringIO </a>object.  StringIO mimicks a file -- and so does sys.stdout. By stuffing printbuffer in there we are hijacking any calls to print that you might make in a script so we can print them out in our UI.  This is trick should be familiar to tech artists who need <a href="http://www.drakeguan.org/blog/2009/02/How-to-make-Maya-output-all-messages-into-console-terminal/">to grab the Maya console for nefarious purposes.</a>  </p>
-<h2>Unity GUI - the good, the bad, and the ugly</h2>
-<p>Unity's GUI toolkit is notoriously wonky, and you'll see as we go along that much of the energy here is devoted to working around it's limitations.  While we can go pretty far just using the basics, the is a certain <a href="http://usersv2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldbergphotogal4155photo1695691461lr.jpg">Rube Goldberg</a> quality to what follows. You've been warned.  </p>
-<p>First let's just layout out the actual drawing call - the <code>OnGUI</code> method of our window:  </p>
-<div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">IronPython</span><span class="p">.</span><span class="n">Modules</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Text</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">System</span><span class="p">.</span><span class="n">Collections</span><span class="p">.</span><span class="n">Generic</span><span class="p">;</span>    
- <span class="n">using</span> <span class="n">Microsoft</span><span class="p">.</span><span class="n">Scripting</span><span class="p">.</span><span class="n">Hosting</span><span class="p">;</span>    
- <span class="c1">// derive from EditorWindow for convenience, but this is just a fire-n-forget script    </span>
- <span class="n">public</span> <span class="n">class</span> <span class="nl">ScriptExample</span> <span class="p">:</span> <span class="n">EditorWindow</span>    
- <span class="p">{</span>    
-    <span class="cm">/* snip... see previous example for the setup code... */</span>
-
-     <span class="n">public</span> <span class="kt">void</span> <span class="n">OnGUI</span> <span class="p">()</span>    
-     <span class="p">{</span>    
-         <span class="n">HackyTabSubstitute</span> <span class="p">();</span>  <span class="c1">// this is explained below...</span>
-
-         <span class="c1">// top pane with history    </span>
-         <span class="n">showHistory</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">Foldout</span> <span class="p">(</span><span class="n">showHistory</span><span class="p">,</span> <span class="s">&quot;History&quot;</span><span class="p">);</span>    
-         <span class="k">if</span> <span class="p">(</span><span class="n">showHistory</span><span class="p">)</span> <span class="p">{</span>    
-             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginVertical</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
-             <span class="n">GUILayout</span><span class="p">.</span><span class="n">Height</span> <span class="p">(</span><span class="n">historyPaneHeight</span><span class="p">));</span>    
-             <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Clear history&quot;</span><span class="p">))</span> <span class="p">{</span>    
-                 <span class="n">historyText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
-             <span class="p">}</span>    
-             <span class="n">historyScroll</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginScrollView</span> <span class="p">(</span><span class="n">historyScroll</span><span class="p">);</span>    
-             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">TextArea</span> <span class="p">(</span><span class="n">historyText</span><span class="p">,</span>     
-                 <span class="n">historyStyle</span><span class="p">,</span>     
-                 <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
-                 <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>            
-             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndScrollView</span> <span class="p">();</span>    
-             <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndVertical</span> <span class="p">();</span>    
-         <span class="p">}</span>    
-         <span class="c1">// draggable splitter    </span>
-         <span class="n">GUILayout</span><span class="p">.</span><span class="n">Box</span> <span class="p">(</span><span class="s">&quot;&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">Height</span> <span class="p">(</span><span class="mi">8</span><span class="p">),</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>    
-         <span class="c1">//Lower pane for script editing    </span>
-         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginVertical</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
-             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>    
-         <span class="n">scriptScroll</span> <span class="o">=</span> <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginScrollView</span> <span class="p">(</span><span class="n">scriptScroll</span><span class="p">);</span>    
-         <span class="n">GUI</span><span class="p">.</span><span class="n">SetNextControlName</span> <span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
-         <span class="c1">// note use of GUILayout NOT EditorGUILayout.    </span>
-         <span class="c1">// TextEditor is not accessible for EditorGUILayout!    </span>
-         <span class="n">scriptText</span> <span class="o">=</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">TextArea</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">,</span>     
-             <span class="n">consoleStyle</span><span class="p">,</span>    
-             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">),</span>     
-             <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandHeight</span> <span class="p">(</span><span class="nb">true</span><span class="p">));</span>            
-         <span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span> <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>    
-         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndScrollView</span> <span class="p">();</span>    
-         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">BeginHorizontal</span> <span class="p">();</span>    
-         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span><span class="p">(</span><span class="s">&quot;Clear&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span><span class="p">(</span><span class="nb">true</span><span class="p">)))</span>    
-         <span class="p">{</span>    
-             <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
-             <span class="n">GUI</span><span class="p">.</span><span class="n">FocusControl</span><span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
-         <span class="p">}</span>    
-         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Execute and clear&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">)))</span> <span class="p">{</span>    
-             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
-             <span class="n">scriptText</span> <span class="o">=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
-             <span class="n">GUI</span><span class="p">.</span><span class="n">FocusControl</span><span class="p">(</span><span class="s">&quot;scriptpane&quot;</span><span class="p">);</span>    
-         <span class="p">}</span>    
-         <span class="k">if</span> <span class="p">(</span><span class="n">GUILayout</span><span class="p">.</span><span class="n">Button</span> <span class="p">(</span><span class="s">&quot;Execute&quot;</span><span class="p">,</span> <span class="n">GUILayout</span><span class="p">.</span><span class="n">ExpandWidth</span> <span class="p">(</span><span class="nb">true</span><span class="p">)))</span> <span class="p">{</span>    
-             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
-         <span class="p">}</span>    
-         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndHorizontal</span> <span class="p">();</span>    
-         <span class="n">EditorGUILayout</span><span class="p">.</span><span class="n">EndVertical</span> <span class="p">();</span>        
-         <span class="c1">// mimic maya Ctrl+enter = execute    </span>
-         <span class="k">if</span> <span class="p">(</span><span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">isKey</span> <span class="o">&amp;&amp;</span>    
-             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">keyCode</span> <span class="o">==</span> <span class="n">KeyCode</span><span class="p">.</span><span class="n">Return</span> <span class="o">&amp;&amp;</span>    
-             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EventType</span><span class="p">.</span><span class="n">KeyUp</span> <span class="o">&amp;&amp;</span>    
-             <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">control</span><span class="p">)</span> <span class="p">{</span>    
-             <span class="n">Intepret</span> <span class="p">(</span><span class="n">scriptText</span><span class="p">);</span>    
-         <span class="p">}</span>    
-         <span class="c1">// drag the splitter    </span>
-         <span class="k">if</span> <span class="p">(</span><span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">isMouse</span> <span class="o">&amp;</span> <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">type</span> <span class="o">==</span> <span class="n">EventType</span><span class="p">.</span><span class="n">mouseDrag</span><span class="p">)</span>    
-         <span class="p">{</span><span class="n">historyPaneHeight</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span> <span class="n">Event</span><span class="p">.</span><span class="n">current</span><span class="p">.</span><span class="n">mousePosition</span><span class="p">.</span><span class="n">y</span> <span class="o">-</span> <span class="mi">28</span><span class="p">;</span>    
-             <span class="n">Repaint</span><span class="p">();</span>    
-         <span class="p">}</span>    
-     <span class="p">}</span>
-
- <span class="p">}</span>
-</pre></div>
-
-
-<p>If you're familiar with the dark arts of Unity GUI programming this should be pretty straight forward. If you're not, the key to understanding it is to remember that Unity uses what old-schooler's call <a href="http://lambda-the-ultimate.org/node/4561">Immediate mode GUI</a> , in which each control gets evaluated as it is declared .  There's a <a href="http://mollyrocket.com/forums/viewtopic.php?t=134">case to be made </a>that immediate mode is better for performance sensitive applications, but if you're used to the more typical (aka 'retained') mode GUIs in, for example, QT it's kind of an oddball way to write.   </p>
-<p>As each GUI element is drawn it reflects and then possibly updates the data that it relies on -- so, for example, we pass the string scriptText  to the GUI.TextArea that draws the script listener pane - and the results of any changes are immediately passed back into scriptText without the courtesy of a callback. This makes it tricky to manage complex state - as you run down the GUI draw, it's possible to hit a condition which changes a state and sends you back to the start! This makes it important to keep your state management code very clean and simple.  </p>
-<p>The one bit that may surprise people who do have some Unity experience its the line  </p>
-<div class="highlight"><pre><span></span><span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span>   
-                                                  <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>
-</pre></div>
-
-
-<p>The TextEditor class is an undocumented bit of Unity arcana - it is a wrapper on the code that actually handles things like typing, selecting or cutting and pasting into a Unity text field.  It has methods for things like setting the cursor location and executing copy-paste operations. Unfortunately, being undocumented, it's tricky to figure out what to do with it -- in this example I'm only using it to preserve the selection position when I do something crazy - as you'll see in a moment.  </p>
-<h2>Hacktastic</h2>
-<p>You probably noticed the enigmatic line  </p>
-<div class="highlight"><pre><span></span><span class="n">HackyTabSubstitute</span><span class="p">();</span>
-</pre></div>
-
-
-<p>which leads up to the tricky bit of this example  -- and the reason for my earlier hack disclaimer.  </p>
-<p>Tabs of course are the <a href="http://www.wisegeek.com/what-is-sine-qua-non.htm#didyouknowout">sine qua non</a> for Pythonistas.  Unfortunately Unity catches the tab key before you can grab it, so it's impossible to 'type' a tab into a Unity text field.  After banging my head against this for a while, I settled on a pathetic workaround: just cheat and use the tilde key, which is above the tab key on most keyboards and doesn't have semantic importance in Python. Our new friend <code>HackyTabSubsitute()</code> makes sure that each time the GUI is drawn we replace and  backtick characters with indents and any tildes (shift-backtick) with dedents.  You can see how we also preserve the cursor position  by use of the TextEditor.  </p>
-<div class="highlight"><pre><span></span><span class="c1">// use ` and ~ as substitutes for tab and un-tab  </span>
-<span class="n">private</span> <span class="kt">void</span> <span class="nf">HackyTabSubstitute</span> <span class="p">()</span> 
-<span class="p">{</span> 
-<span class="n">string</span> <span class="n">t</span> <span class="o">=</span> <span class="n">scriptText</span><span class="p">;</span> 
-<span class="n">string</span><span class="p">[]</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">scriptText</span><span class="p">.</span><span class="n">Split</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">);</span> 
-<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">lines</span><span class="p">.</span><span class="n">Length</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> 
-    <span class="p">{</span> 
-        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="sc">&#39;`&#39;</span><span class="p">)</span> <span class="o">&amp;</span><span class="n">gt</span><span class="p">;</span><span class="o">=</span> <span class="mi">0</span><span class="p">)</span> 
-        <span class="p">{</span> 
-        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">selectPos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">+</span> <span class="mi">3</span><span class="p">;</span> 
-        <span class="p">}</span> 
-        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">IndexOf</span> <span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">)</span>
-        <span class="p">{</span> 
-        <span class="k">if</span> <span class="p">(</span><span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">StartsWith</span> <span class="p">(</span><span class="s">&quot; &quot;</span><span class="p">))</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Substring</span> <span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">selectPos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">=</span> <span class="n">TEditor</span><span class="p">.</span><span class="n">pos</span> <span class="o">-</span> <span class="mi">4</span><span class="p">;</span>
-        <span class="p">}</span> 
-        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Replace</span> <span class="p">(</span><span class="s">&quot;~&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> 
-        <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">lines</span> <span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">Replace</span> <span class="p">(</span><span class="s">&quot;`&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">);</span> 
-    <span class="p">}</span> 
-    <span class="n">scriptText</span> <span class="o">=</span> <span class="n">string</span><span class="p">.</span><span class="n">Join</span> <span class="p">(</span><span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">,</span> <span class="n">lines</span><span class="p">);</span> 
-    <span class="k">if</span> <span class="p">(</span><span class="n">scriptText</span> <span class="o">!=</span> <span class="n">t</span><span class="p">)</span> <span class="n">Repaint</span> <span class="p">();</span> 
-<span class="p">}</span>
-</pre></div>
-
-
-<p>Assuming you can discipline yourself to use tilde instead of tab, this works like you'd expect, and it supports indents and dedents in any part of the line, which is handy for python edits.  </p>
-<h2>Running the script</h2>
-<p>As so often happens, it's the damn GUI which takes all the work. The actual point of this whole excersize is to let you type in some python and execute it. If you trigger an evaluation - with the buttons or with command + enter, you'll fire the Interpret function:  </p>
-<div class="highlight"><pre><span></span><span class="c1">// Pass the script text to the interpreter and display results    </span>
- <span class="n">private</span> <span class="kt">void</span> <span class="nf">Intepret</span> <span class="p">(</span><span class="n">string</span> <span class="n">texttointerpret</span><span class="p">)</span>
- <span class="p">{</span>
-     <span class="n">object</span> <span class="n">result</span> <span class="o">=</span> <span class="n">null</span><span class="p">;</span>    
-     <span class="n">try</span> <span class="p">{</span>    
-         <span class="n">Undo</span><span class="p">.</span><span class="n">RegisterSceneUndo</span> <span class="p">(</span><span class="s">&quot;script&quot;</span><span class="p">);</span>    
-         <span class="n">var</span> <span class="n">scriptSrc</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="n">texttointerpret</span><span class="p">);</span>    
-         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-         <span class="n">historyText</span> <span class="o">+=</span> <span class="n">texttointerpret</span><span class="p">;</span>    
-         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-         <span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
-     <span class="p">}</span>     
-     <span class="c1">// Log exceptions to the console too    </span>
-     <span class="n">catch</span> <span class="p">(</span><span class="n">System</span><span class="p">.</span><span class="n">Exception</span> <span class="n">e</span><span class="p">)</span> <span class="p">{</span>    
-         <span class="n">Debug</span><span class="p">.</span><span class="n">LogException</span> <span class="p">(</span><span class="n">e</span><span class="p">);</span>    
-         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-         <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;#  &quot;</span> <span class="o">+</span> <span class="n">e</span><span class="p">.</span><span class="n">Message</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-     <span class="p">}</span>     
-     <span class="n">finally</span> <span class="p">{</span>    
-         <span class="c1">// grab the printbuffer stringIO and get its contents    </span>
-         <span class="n">var</span> <span class="n">printbuffer</span> <span class="o">=</span> <span class="n">ScriptScope</span><span class="p">.</span><span class="n">GetVariable</span> <span class="p">(</span><span class="s">&quot;printbuffer&quot;</span><span class="p">);</span>    
-         <span class="n">var</span> <span class="n">gv</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Operations</span><span class="p">.</span><span class="n">GetMember</span> <span class="p">(</span><span class="n">printbuffer</span><span class="p">,</span> <span class="s">&quot;getvalue&quot;</span><span class="p">);</span>    
-         <span class="n">var</span> <span class="n">st</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">Operations</span><span class="p">.</span><span class="n">Invoke</span> <span class="p">(</span><span class="n">gv</span><span class="p">);</span>    
-         <span class="n">var</span> <span class="n">src</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="p">.</span><span class="n">CreateScriptSourceFromString</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>    
-         <span class="n">src</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
-         <span class="k">if</span> <span class="p">(</span><span class="n">st</span><span class="p">.</span><span class="n">ToString</span> <span class="p">().</span><span class="n">Length</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>    
-             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;&quot;</span><span class="p">;</span>    
-             <span class="n">foreach</span> <span class="p">(</span><span class="n">string</span> <span class="n">l</span> <span class="n">in</span> <span class="n">st</span><span class="p">.</span><span class="n">ToString</span><span class="p">().</span><span class="n">Split</span><span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">))</span>    
-             <span class="p">{</span>    
-                 <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;  &quot;</span> <span class="o">+</span> <span class="n">l</span> <span class="o">+</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-             <span class="p">}</span>    
-             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-         <span class="p">}</span>    
-         <span class="c1">// and print the last value for single-statement evals    </span>
-         <span class="k">if</span> <span class="p">(</span><span class="n">result</span> <span class="o">!=</span> <span class="n">null</span><span class="p">)</span> <span class="p">{</span>    
-             <span class="n">historyText</span> <span class="o">+=</span> <span class="s">&quot;#  **&quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">.</span><span class="n">ToString</span> <span class="p">()</span> <span class="o">+</span> <span class="s">&quot;**</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>    
-         <span class="p">}</span>    
-         <span class="kt">int</span> <span class="n">lines</span> <span class="o">=</span> <span class="n">historyText</span><span class="p">.</span><span class="n">Split</span> <span class="p">(</span><span class="sc">&#39;\n&#39;</span><span class="p">).</span><span class="n">Length</span><span class="p">;</span>    
-         <span class="n">historyScroll</span><span class="p">.</span><span class="n">y</span> <span class="o">+=</span> <span class="p">(</span><span class="n">lines</span> <span class="o">*</span> <span class="mi">19</span><span class="p">);</span>                    
-         <span class="n">Repaint</span> <span class="p">();</span>    
-     <span class="p">}</span>    
-     <span class="p">}</span>
-<span class="p">}</span>
-</pre></div>
-
-
-<p>The heart of the whole business is just  </p>
-<div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>
-</pre></div>
-
-
-<p>which actually executes the contents of your script window.  As in Maya, we'll copy the evaluated text up to the history pane  (historyText += ,etc).  If the event of an exception, we print out the exception into the history window as well, and also push a Unity debug message in case you aren't looking at your console window when the problem arises.  Finally, we check to see if the printbuffer StringIO object has been written to duing the script execution  and copy it's contents to the history window too.   </p>
-<p><a href="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png"><img alt="" src="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png" /></a></p>
-<h2>V. 0.1</h2>
-<p>Before starting the first of this pair of posts I was mostly just musing on how TA-friendly Unity is.   Building out a complete script editor is a perfect example of TA feature creep in action.  </p>
-<p>If you implement a script editor using the hints here you'll quickly see what's not there things like cut and paste, syntax highlighting, execution of selected text only and support for external files, just to name a few things that would be worth having.  And I should mention that this is demo code, it's not the sort of thing I'd want to turn into a critical path tool without further work.   </p>
-<p>Even so, it's been a useful little project.  In this holiday season it's taught me to appreciate my blessings - like how many nice little touches you get with a modern text editor. I'm even feeling more charitable towards the Max and Maya script listeners, since I've walked a mile in their sad patheric old worn out shoes.   </p>
-<p>All that said though, it really is pretty fricking neat that you can add a completely new scripting language to the Unity editor in a couple of hours -- and save your self tons of future time by adding cheapo scripts to automate tedious tasks that aren't worth 200 lines of C# curly brackets.  </p>
-<p>At some point I'll address the most obvious failings - lack of cut-n-paste is the clear winner! - but first I want to see about implementing the console in a more flexible GUI - for example, I could pop up a WPF window, or maybe even something truly funky like an <a href="python_in_browsers.html">in-browser python console.</a>.  In the mean time, if anybody takes this further I'd love to hear about it.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 22 December 2013
+            <p class="post-meta">Sun 22 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/unityrepl#disqus_thread">comments</a>.</p>        </div>
+                The pipeline book is out on Amazon!
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/book_is_out#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/python_in_unity_correction" rel="bookmark" title="Permalink to Python in Unity - minor correction">
+            <a href="http://theodox.com/2013/unityrepl" rel="bookmark" title="Permalink to Techartists doin’ it for themselves: A Python REPL in Unity">
                 <h2 class="post-title">
-                    Python in Unity  - minor correction
+                    Techartists doin&#8217; it for themselves: A Python <span class="caps">REPL</span> in&nbsp;Unity
                 </h2>
             </a>
-                <p>Going over the last post about <a href="python_in_unity.html">Python + Unity</a>, I did a clean install to make sure the steps I was describing were working correctly and it reminded me about an inportant bit I've left out: how to get the Python stdlib into your Unity IronPython  </p>
-<p>Because Microsoft was the sponsor of the original IronPython project, versions that Microsoft released (including the 2.6.2 that i linked to in the last post) <strong>don't include the stdlib</strong>, which comes with it's own license that clashes in some mysterious way with MS's licensing terms (even though both MS and the Python Foundation are giving the stuff away for free... _<em>_sigh</em>). So to dance around that, they did not include the stdlib -- the 'batteries included' -- with base install.  </p>
-<p>The remedy is simple - grab a copy of the regular python stdlib from a python 2.6 series install and copy it into the /Lib folder next to the location of your IronPython DLL.  I found it simplest to grab the Python26.zip folder from my Maya install and to expand that into the folder.  I did leave the 3 or 4 files that IPy had installed there on its own intact, I believe -- on pure intuition -- that they are different from the corresponding files in the standard python lib.  </p>
-<h2>Caveat emptor</h2>
-<p>FWIW, this is a good place to point out that some small percentage of stdlib modules don't work under IronPython (an unfortunate example being the handy <code>csv</code> module for reading comma-delimited data files).  AFAIK there is no authoritative list of which modules do and don't work under Ipy. The good news is that, for this application , there is almost always a dotnet native solution to use as an alternative without having to install anything else.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 22 December 2013
+            <p class="post-meta">Sun 22 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/python_in_unity_correction#disqus_thread">comments</a>.</p>        </div>
+                A simple Python REPL inside the Unity Editor
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/unityrepl#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/python_in_unity" rel="bookmark" title="Permalink to Embedding IronPython in Unity = Tech-art hog heaven">
+            <a href="http://theodox.com/2013/python_in_unity_correction" rel="bookmark" title="Permalink to Python in Unity - minor correction">
                 <h2 class="post-title">
-                    Embedding IronPython in Unity = Tech-art hog heaven
+                    Python in Unity  - minor&nbsp;correction
                 </h2>
             </a>
-                <blockquote>
-<p><strong>Update 6/2/2015</strong> If you are relatively new to Unity, and you're here because you're looking for ways to work in Python rather than C#, you may also want to check out <a href="boo-who.html">this 2015 post</a> about Boo - the very obscure, but very Python-like language in Mono that lets you write Unity games with fast, compiled code by almost-Python syntax.  It's always been a part of Unity but a lot of people never knew it was there.</p>
-</blockquote>
-<p>You don't work long in games without griping about your engine, and I've got my share of complaints about Unity. But I have to admit that it's the best toy in the world for a classic tech-art geek personality. Unlike bigger, more powerful AAA engines, Unity lets you get in under the hood really quickly. The editor environment is extremely extensible - you can add not just dialogs and buttons but 3d widgets and <a href="http://www.thewanderlust.net/blog/2010/03/29/user-interface-design-in-video-games/">diegetic UI </a>.   </p>
-<p>When I first got my hands on Unity I was a bit disappointed to note that, unlike Maya, it doesn't include a built in interactive console environment. The console is a wonderful thing for a TA - it's great for printing out data, lightweight automation of the "find everything in the scene named 'foo' and rename it to 'bar'" variety. So, I thought, is there some way to get this into Unity?  The fact that one could even ask it is a tribute to how flexible Unity is - and as it turned out it was not only possible, it wasn't too hard.  </p>
-<h2>You got Python in my Unity!</h2>
-<p>To start with a console needs some kind of scripting language. Not surprisingly, I wanted to see I could do it in Python. Fortunately, this is ridiculously easy thanks to <a href="http://ironpython.codeplex.com/">IronPython</a>, the dotnet flavor of Python.  IronPython  runs on dotnet, and so does Unity - so it's not tough to plug IronPython into Unity directly.  Here's how:  </p>
-<ol>
-<li>You need a verstion of IronPython that will run on Unity's version of <a href="http://www.mono-project.com/Main_Page">Mono </a>, which as of this writing (Unity 4.22 , late 2013) is version 2.6.  By a happy coincidence of naming, that points you at <a href="http://ironpython.codeplex.com/downloads/get/159511">IronPython 2.6.2</a>.  (I've tried later versions but without much luck).</li>
-<li>Locate the IronPython dlls and the IronPython stdlib in the zip file. You will need<br />
-    _
-        - IronPython.dll
-        - IronPython.Modules.dll
-        - Microsoft.Scripting.Core.dll
-        - Microsoft.Scripting.dll
-        - Microsoft.Scripting.Debugging.dll
-        - Microsoft.Scripting.ExtensionAttribute.dll
-        - Microsoft.Dynamic.dll</li>
-<li>If you want access to the Python stdlib, you'll also need to grab a copy of the python 2.6 /Lib folder -- this is <a href="http://techartsurvival.blogspot.com/2013/12/python-in-unity-minor-correction.html">not distributed with IronPython 2.6</a>.  I unzipped the Python26.zip file from my Maya bin directory into the /Lib folder, taking care to leave the handful of IronPython files already there</li>
-<li>Copy all of the above into an <strong>Editor/Plugins/Resources</strong> folder in Unity. If you're not sure what that means:<ul>
-<li>Naming a folder <em>Editor</em> tells Unity it only runs in the editor, not at runtime (IronPython <em>won't</em> run inside Unity on IOS devices, since those never run editor code). </li>
-<li>Naming it a folder <em>Plugins</em> tells Unity to load dlls from it</li>
-<li>Naming a folder <em>Resources</em> makes sure it loads before scripts are compiled
-For our application we need all three, hence "Editor/Plugins/Resources/..."  You can stick that whole thing into a top level folder for cleanliness if you want. Note the path names in this example:<br />
-<a href="http://3.bp.blogspot.com/-uHVdPvrDduM/Uq_uSf5ZxNI/AAAAAAAABO0/H0PMXUJlFso/s1600/layout.png"><img alt="" src="http://3.bp.blogspot.com/-uHVdPvrDduM/Uq_uSf5ZxNI/AAAAAAAABO0/H0PMXUJlFso/s640/layout.png" /></a></li>
-</ul>
-</li>
-<li>Restart Unity and open up MonoDevelop. If you check the Assembly-CSharp Editor info in the Solution panel you should see all of your IronPython DLL's are referenced therein:<br />
-<a href="http://3.bp.blogspot.com/-A_kG1rnuiuY/Uq_vrq1bXhI/AAAAAAAABPA/b9v7p3wxpfw/s1600/assembl.png"><img alt="" src="http://3.bp.blogspot.com/-A_kG1rnuiuY/Uq_vrq1bXhI/AAAAAAAABPA/b9v7p3wxpfw/s400/assembl.png" /></a></li>
-</ol>
-<p>Once you've verified that the DLL's are in place, its time to test them.  Hosting an IronPython session in another app is much simpler than it sounds. The best resource for how it works is <a href="http://www.voidspace.org.uk/ironpython/embedding.shtml">Michael Foord's Voidspace site</a> (his <a href="http://www.manning.com/foord/">book on IronPython</a> is a great resource if you plan on going far with this , btw) . However in overview the process is pretty simple:</p>
-<ol>
-<li>Create a [<code>Microsoft.Hosting.ScriptEngine</code>]((https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptEngine.cs). This is the actual Python interpreter.</li>
-<li>Create a  <a href="https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptScope.cs"><code>Microsoft.Hosting.ScriptScope</code></a> This corresponds to the global namespace of your interpreter - much like the interpeter namespace in Maya</li>
-<li>Create  a <a href="https://github.com/IronLanguages/main/blob/master/Runtime/Microsoft.Scripting/Hosting/ScriptSource.cs"><code>Microsoft.Hosting.ScriptSource</code></a> using some text you've entered or composed.</li>
-<li>Execute the script</li>
-<li>Rinse &amp; Repeat. You are in business!</li>
-</ol>
-<h2>Script hosting in practice</h2>
-<p>Here's an example .cs script that demostrates the process. Put it in an editor folder so that it can access the Unity Editor assembly (it's probably a good idea to keep it in the editor folder where you have your plugins/resources folder for cleanliness).   </p>
-<div class="highlight"><pre><span></span> using UnityEngine;    
- using UnityEditor;    
- using IronPython;    
- using IronPython.Modules;    
- using System.Text;    
- // derive from EditorWindow for convenience, but this is just a fire-n-forget script    
- public class ScriptExample : EditorWindow {    
-     [MenuItem(&quot;Python/HelloWorld&quot;)]    
-     public static void ScriptTest()    
-     {    
-         // create the engine    
-         var ScriptEngine = IronPython.Hosting.Python.CreateEngine();    
-         // and the scope (ie, the python namespace)    
-         var ScriptScope = ScriptEngine.CreateScope();    
-         // execute a string in the interpreter and grab the variable    
-         string example = &quot;output = &#39;hello world&#39;&quot;;    
-         var ScriptSource = ScriptEngine.CreateScriptSourceFromString(example);    
-         ScriptSource.Execute(ScriptScope);    
-         string came_from_script = ScriptScope.GetVariable&lt;string&gt;(&quot;output&quot;);    
-         // Should be what we put into &#39;output&#39; in the script.    
-         Debug.Log(came_from_script);                
-     }    
- }
-</pre></div>
-
-
-<p>When it compiles you'll get a menu items that activates the script.  When you hit it you should get a debug printout in your console like so.  </p>
-<p><a href="http://4.bp.blogspot.com/-OHCa77GIxGA/UrEnF442YzI/AAAAAAAABPQ/nYBOKL4W1ZI/s1600/hello+world.jpg"><img alt="" src="http://4.bp.blogspot.com/-OHCa77GIxGA/UrEnF442YzI/AAAAAAAABPQ/nYBOKL4W1ZI/s1600/hello+world.jpg" /></a></p>
-<p>Like the Maya python interpreter, you need to import the appropriate names so that you can get to them in scripts (it's always rather boggled my mind that Maya's own interpreter requires you to import cmds or pymel <em>every single freakin' time</em>.  IronPython lets you import dotnet assemblies as if they were python modules, and since Unity and the Unity Editor are dotnet assemblies you can get access to the entire Unity environment just by importing them into your interpreter.   </p>
-<p>First, we need to load the assemblies to make them available to the intpereter itself.  In dotnet land that's done by loading an assembly.  Once an assembly is loaded, it can be imported using typical Python syntax  </p>
-<div class="highlight"><pre><span></span> <span class="p">[</span><span class="n">MenuItem</span><span class="p">(</span><span class="s2">&quot;Python/HelloWorldRuntime&quot;</span><span class="p">)]</span>    
- <span class="n">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">UnityScriptTest</span><span class="p">()</span>    
- <span class="p">{</span>    
-     <span class="o">//</span> <span class="n">create</span> <span class="n">the</span> <span class="n">engine</span> <span class="n">like</span> <span class="n">last</span> <span class="n">time</span>    
-     <span class="n">var</span> <span class="n">ScriptEngine</span> <span class="o">=</span> <span class="n">IronPython</span><span class="o">.</span><span class="n">Hosting</span><span class="o">.</span><span class="n">Python</span><span class="o">.</span><span class="n">CreateEngine</span><span class="p">();</span>    
-     <span class="n">var</span> <span class="n">ScriptScope</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">CreateScope</span><span class="p">();</span>    
-     <span class="o">//</span> <span class="n">load</span> <span class="n">the</span> <span class="n">assemblies</span> <span class="k">for</span> <span class="n">unity</span><span class="p">,</span> <span class="n">using</span> <span class="n">the</span> <span class="n">types</span> <span class="n">of</span> <span class="n">GameObject</span>    
-     <span class="o">//</span> <span class="ow">and</span> <span class="n">Editor</span> <span class="n">so</span> <span class="n">we</span> <span class="n">don</span><span class="s1">&#39;t have to hardcoded paths    </span>
-     <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">LoadAssembly</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">GameObject</span><span class="p">)</span><span class="o">.</span><span class="n">Assembly</span><span class="p">);</span>    
-     <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">Runtime</span><span class="o">.</span><span class="n">LoadAssembly</span><span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">Editor</span><span class="p">)</span><span class="o">.</span><span class="n">Assembly</span><span class="p">);</span>    
-     <span class="n">StringBuilder</span> <span class="n">example</span> <span class="o">=</span> <span class="n">new</span> <span class="n">StringBuilder</span><span class="p">();</span>    
-     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;import UnityEngine as unity&quot;</span><span class="p">);</span>    
-     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;import UnityEditor as editor&quot;</span><span class="p">);</span>    
-     <span class="n">example</span><span class="o">.</span><span class="n">AppendLine</span><span class="p">(</span><span class="s2">&quot;unity.Debug.Log(</span><span class="se">\&quot;</span><span class="s2">hello from inside the editor</span><span class="se">\&quot;</span><span class="s2">)&quot;</span><span class="p">);</span>    
-     <span class="n">var</span> <span class="n">ScriptSource</span> <span class="o">=</span> <span class="n">ScriptEngine</span><span class="o">.</span><span class="n">CreateScriptSourceFromString</span><span class="p">(</span><span class="n">example</span><span class="o">.</span><span class="n">ToString</span><span class="p">());</span>    
-     <span class="n">ScriptSource</span><span class="o">.</span><span class="n">Execute</span><span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>    
- <span class="p">}</span>
-</pre></div>
-
-
-<p>Running that one generates another console message - but this time from inside the script!  </p>
-<p><a href="http://3.bp.blogspot.com/-S6g8MqlQ4gg/UrEub33XuBI/AAAAAAAABPg/kJmAVPdZtAI/s1600/hello+2.png"><img alt="" src="http://3.bp.blogspot.com/-S6g8MqlQ4gg/UrEub33XuBI/AAAAAAAABPg/kJmAVPdZtAI/s1600/hello+2.png" /></a></p>
-<h2>Next time: building a console</h2>
-<p>That may not seem like much, but in reality it's a big deal. You've got a working script interpreter running in Unity now, with all the power of Python and access to the innards of the Unity environment.  What remains is to build a decent interactive environment. </p>
-<p>If you're content with something barebones, you can whip up a simple UI to allow you to type code into a text field and see the results in another text block.  That may be enough for some purposes (hell, half the 3d packages on the market do little more than that).  However a more featured editor is a little tougher and involves a  little hacking to work around the limitations of Unity's GUI text handling, which makes it a bit involved for a single post. I'll save that one for next time  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 21 December 2013
+            <p class="post-meta">Sun 22 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/python_in_unity#disqus_thread">comments</a>.</p>        </div>
+                A quick update to earlier posts about using IronPython in Unity.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/python_in_unity_correction#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/enter_the_chimaera" rel="bookmark" title="Permalink to Enter, the Chimaera">
+            <a href="http://theodox.com/2013/python_in_unity" rel="bookmark" title="Permalink to Embedding IronPython in Unity = Tech-art hog heaven">
                 <h2 class="post-title">
-                    Enter, the Chimaera
+                    Embedding IronPython in Unity = Tech-art hog&nbsp;heaven
                 </h2>
             </a>
-                <p>In addition to grinding my way through the innards of Maya, I spent a large part of my (sadly wasted) youth in graduate school studying ancient history with a sideline in the Italian Renaissance.   Even though  I don't get to use much of this information on a regular basis, I do occasionally get nostalgic for the random bits of weird and wonderful information you can only find in the dim recesses of a big research university library.  </p>
-<p>One of the greatest treasures in my personal museum of useless information is the genre of <em>Wunderzeichenbücher</em>. The German means "wonder sign books," and it refers to 16th and 17th century genre of illustrated guide to fantastic creatures and strange occurrences. The Wonder Books are a fascinating mix of early scientific investigations, second hand traveller's tales, and just plain wacky stuff that is hard to explain as anything other than as the Renaissance equivalent of a<a href="http://www.somethingawful.com/photoshop-phriday/2013/"> SomethingAwful Photoshop Friday</a>.   </p>
-<p><a href="http://1.bp.blogspot.com/-zwUK0t-L-mQ/Tp0qaWbmRYI/AAAAAAAAAHY/lEMSFM2qNmw/s1600/blemmyes.jpg"><img alt="" src="http://1.bp.blogspot.com/-zwUK0t-L-mQ/Tp0qaWbmRYI/AAAAAAAAAHY/lEMSFM2qNmw/s1600/blemmyes.jpg" /></a></p>
-<p>My particular favorite is the _<a href="http://bibliodyssey.blogspot.com/2011/07/monstrorum-historia.html">Monstrorum Historia</a> _ (1642) of <a href="http://www.strangescience.net/aldrovandi.htm">Aldovandrus</a>, which is chock full of amazing woodcut drawings of every kind of crazy hybrid creature the Renaissance could dream up, from chimaeras to <a href="http://4.bp.blogspot.com/_GirmG839K7I/TSxxTE_lu0I/AAAAAAAAAG0/plmT3p6rMkQ/s320/Opinicus.gif">hippogriffs</a> to <a href="http://upload.wikimedia.org/wikipedia/commons/c/c8/Nuremberg_chronicles_-_Strange_People_-_Umbrella_Foot_(XIIr).jpg">monopods</a> and <a href="https://www.google.com/search?q=blemmyes">blemmyes</a>.  </p>
-<p>Besides the awesome graphics (how's <em>that</em> for retro, pixel kiddies!)  I've always found these images compelling because Tech Art is the domain of crazy hybrids.  We're artist/programmers, animator/logicians,  scultpor/scripters and graphics-nerd/visionaries. So adding dogs heads or chicken feet to our other attributes doesn't seem like too big a stretch.  </p>
-<p>So, with that an excuse I give you the Chimaera, my personal totem animal  </p>
-<p><a href="http://farm7.staticflickr.com/6007/5929662311_1a53d72f4b.jpg"><img alt="" src="http://farm7.staticflickr.com/6007/5929662311_1a53d72f4b.jpg" /></a></p>
-<p>As an aside I will point out that this one is not exactly pulled out of some Renaissance dude's <em>posteriore.</em> The artist must have seen this amazing Etruscan bronze:  </p>
-<p><a href="http://media-2.web.britannica.com/eb-media/90/28190-004-6970B6F6.jpg"><img alt="" src="http://media-2.web.britannica.com/eb-media/90/28190-004-6970B6F6.jpg" /></a></p>
-<p>You can even see how the woodcut artist included the stump of the tail. When the 2000 year original was dug up in 1553 the tail was missing.  It was restored in the 1800s.  Bug fix! </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 13 December 2013
+            <p class="post-meta">Sat 21 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/enter_the_chimaera#disqus_thread">comments</a>.</p>        </div>
+                How to embed an IronPython intepreter into Unity editor tools.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/python_in_unity#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/python_in_browsers" rel="bookmark" title="Permalink to Python in browsers">
+            <a href="http://theodox.com/2013/enter_the_chimaera" rel="bookmark" title="Permalink to Enter, the Chimaera">
                 <h2 class="post-title">
-                    Python in browsers
+                    Enter, the&nbsp;Chimaera
                 </h2>
             </a>
-                <p>In case folks are wondering about the tantalizing prospect of running python in browser (as an alternative to or escape from JavaScript) <a href="http://stromberg.dnsalias.org/~strombrg/pybrowser/python-browser.html">this is a great roundup </a>of where things sit as of now (late 2013).</p>
-<blockquote>
-<p>Note: as of today (2016)the new hotness on the horizon is <a href="https://hacks.mozilla.org/2015/12/compiling-to-webassembly-its-happening/">WebAssembly</a> This is almost sure to make for interestng python-in-the-browser developments in the next year or so</p>
-</blockquote>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 12 December 2013
+            <p class="post-meta">Fri 13 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/python_in_browsers#disqus_thread">comments</a>.</p>        </div>
+                a meditation on Renaissance woodcuts — seriously! — and technical art.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/enter_the_chimaera#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad" rel="bookmark" title="Permalink to ...And I thought we had it bad...">
+            <a href="http://theodox.com/2013/python_in_browsers" rel="bookmark" title="Permalink to Python in browsers">
                 <h2 class="post-title">
-                    ...And I thought we had it bad...
+                    Python in&nbsp;browsers
                 </h2>
             </a>
-                <p>Bitching about all the random stuff you have to wire together is the key rituals of the tech-art faith.  You inherit all sorts of crazy decisions from Max, Maya, plugin authors, game engine teams, and random tools you find lying around and then some how have to lash it all together into a <a href="http://www.rubegoldberg.com/gallery#">Rube Goldberg contraption</a> that (hopefully) hides the wackiness from your users  </p>
-<p><a href="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2001285523_lr.jpg"><img alt="" src="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2001285523_lr.jpg" /></a></p>
-<p>Of course, this is a huge pain in the butt  </p>
-<p><a href="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_1673126806_lr.jpg"><img alt="" src="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_1673126806_lr.jpg" /></a></p>
-<p>But I never realized that we have it _easy. _Until I sat down to write a web app.  </p>
-<p>After lots of fruitless searching for commercial asset management system that would help us manage versions, review status and so on for our assets I finally broke down and decided to write my own. While <a href="http://www.shotgunsoftware.com/">Shotgun</a> has gotten much slicker over the last year and <a href="http://www.southpawtech.com/">Tactic</a> is both open-source and Python-based, neither works well with Perforce (Tactic has been promising P4 integration for over a year, with no public release that I've been able to find) and both are very heavy on the kind of features you need to handle a huge Hollywood-style team with hundreds of Anonymous Drones.  Our tiny team doesn't need pretty gantt charts and time-stamped hourly activity reports.  </p>
-<p><a href="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2039295957_lr.jpg"><img alt="" src="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2039295957_lr.jpg" /></a></p>
-<h2>Web Dev 0.1B</h2>
-<p>The basic plan of attack is quite simple. Luckily the problem that usually damns these kinds of setups -- making sure that the database and the game are actually in sync on things like, say, texture size or polycount -- isn't a big problem since all of that is, blessedly, available in Unity with minimal work. The real goal of this system is to make sure people know what's placeholder art, what's work in progress, what has bugs, and so on..  To that, I've got a MySQL database sitting in our data center and some tools in the Unity editor that can collect and forward info to the database.  In Unity I've also hacked the editor so that the current status of the asset is displayed over the asset thumbnail in the project view so the users can see where they stand without going out to another tool.  </p>
-<p>I love Unity to death, but even I can't convince myself to like Unity's built in procedural GUI language; it's clunky and formulaic -- and because it's orientation is so procedural it is extremely slow for anything with lots of controls.  Big Data -- spreadsheets, long lists, or fancy MVVM views are just not happening in the Unity Editor UI layer.  So -- to return at long last to the original seed of this post - I decided to write a web app to provide the producers and artists with the kind of overview data they'd need to see how things were progressing all across the project, rather than just the status of individual assets.  </p>
-<h2>The Devil You Know</h2>
-<p>I did a bunch of research trying to figure out how to do this without having to start a whole new career as a web developer. In all honesty I was mostly hoping to avoid having to escape from the comfy confines of Python and C# (I can't really call SQL 'comfy' but at least it's <em>familiar</em>).  In particular my limited experiments with JavaScript (the real kind, not the beefed up Unity version) have been so uniformly unpleasant that I was desperate to avoid tangling with it at all costs.  I played with browser Pythons such as <a href="http://www.brython.info/">Brython</a> , <a href="http://www.skulpt.org/">Skulpt</a>, and the <a href="http://jimmy.schementi.com/2010/03/pycon-2010-python-in-browser.html">IronPython DLR host</a>.  There's also projects like <a href="http://pyjs.org/">PyJS </a>and <a href="https://bitbucket.org/pyjeon/rapydscript">RapydScript</a>, which compile Python (or in the case of RapydScript a 'pythonalike') to Javascript.   </p>
-<p>All of which are really cool - but none of which are tightly integrated into the bewildering complexity of modern web development. If all I wanted to do was <em>program_in the browser, I could stick with Python, take the speed hit and be done.  After more obsessive reading, however, I sadly concluded that the HTML-verse too crazy a place for any tacked-on, ex-post-facto solution -- even one as fricking cool as a complete Python interpreter written in Javascript.  The real hard part is not the programming, which is mostly UI level stuff -- hide this! highlight that! -- it's controlling the infinite number of stylistic choices that are involved in designing a functional and attractive layout in HTML.  The more I looked at it the more I felt like I needed to follow the herd and do what the 'real' web developers do -- which means not only learning HTML itself, but also CSS -- the language that defines style sheets for different graphic elements -- a language which is not the same as HTML - or the same as Javascript. ( Remember I said tech artists have it pretty good compared to web programmers? Imagine having to learn Mel, Python and Maxscript _all at the same time</em> just to get started as a TA.  There but for the grace...)  </p>
-<p>This could be worse. Thank heavens a friend at work pointed me at <a href="http://getbootstrap.com/">Bootstrap</a>, which is Twitter's clean and relatively simple to learn web gui framework. It lets you create nicely formatted modern looking pages without knowing too much about what really goes on in the tangled jungle of curly braces that define your CSS.  It still takes some doing to handle the GUI glue "do this when I push the button" stuff but its less annoying than, say, QT or WPF.  </p>
-<p>It's still incredibly annoying to write scads of parentheses and curlies for even the most trivial task  </p>
-<p><code>numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code><br />
-<code>evens = [x for x in numbers if x % 2 == 0]</code>  </p>
-<p>Is aesthetically and morally superior to<br />
-<code>``numbers=[1,2,3,4,5,6,7,8,9,10];  
-evens=new Array;  
-var _$tmp1_data=_$pyva_iter(numbers);</code><br />
-<code>var _$tmp2_len=_$tmp1_data.length;</code><br />
-<code>for(var _$tmp3_index=0;_$tmp3_index&lt;_$tmp2_len;_$tmp3_index++)</code><br />
-<code>{</code><br />
-<code>x=_$tmp1_data[_$tmp3_index];  
-    if((_.isEqual((x % 2),0)))</code><br />
-<code>{  
-        evens.append(x);</code><br />
-<code>}  
-     }</code><br />
-<code></code>But on the other hand you get lots of nice graphical goodies to soften the pain. I'm experimenting with <a href="http://coffeescript.org/">CoffeeScript</a>, which has Pythonic brevity and clarity -- but it's not Python and if you go in thinking it is (as I have on a few occasions) you'll get your knickers in a twist.   </p>
-<h2>The backside</h2>
-<p>Fortunately, the server side code is actually much less of a hassle than I had feared. Given the nature of the problem -- selecting and filtering data from a database and then spitting it out to users -- the natural choice for me was <a href="https://www.djangoproject.com/">Django</a>, which has several advantages:  </p>
-<ol>
-<li>A great object-relational mapper (ie, you get to program with nice objects instead of gnarly SQL queries, cursors, and rows</li>
-<li>A decent templating language. When I wrote the first Python build server for <a href="http://undeadlabs.com/">the lab</a> I did this all by myself with string.Template, and it was a pain in the pants.</li>
-<li>Hardly a curly bracket in sight</li>
-<li>Lots of documentation and tutorials on the web, which is comforting for the terrified novice (= me).</li>
-</ol>
-<p>After all of the consternation I went to researching web client stuff, this was a snap choice. And then the fun began.  </p>
-<p>The server is going to be running on a Mac (the tech art mac that we use for builds) so it will be ready to migrate to a Linux host later.  No problem, I use a mac laptop and do a fair amount of python on the mac already.,  So we want to install Django on the mac.  </p>
-<p>We need to install easy-setup (not sure why that doesn't come with the default mac python install)<br />
-....So we can install pip<br />
-.......So we can install Django<br />
-...... which needs MySQLdb<br />
-.......... which needs MySQL<br />
-..............which <a href="http://stackoverflow.com/questions/1448429/how-to-install-mysqldb-python-data-access-library-to-mysql-on-mac-os-x">doesn't install correctly on OSX the way it is supposed to</a><br />
-.................so we need to install a Ruby package manager that can install MySql and MysqlDb<br />
-....................so we install <a href="http://brew.sh/">Homebrew</a><br />
-.........................which needs Xcode<br />
-............................which requires you to accept the Xcode license after updates<br />
-..............................and then to install the Xcode commmand line tools<br />
-...........................so we can properly rebuild and install MySQL<br />
-........................so we can install MySQLdb<br />
-.....................so we can point Django at MySQL  </p>
-<p>_Eh voila! _We're done!  It's a good thing Mac's are the elegant operating system for people who don't go in for all that techie stuff.  </p>
-<p>Evidently. though,  this sort of thing is just business as usual for the real web developers. I guess I'll stop bitching about Autodesk's lousy license manager from now on.  The theme of this project is learning to appreciate just how good we've got it :)  </p>
-<p>So, with all that done, I grabbed a trial of <a href="http://www.jetbrains.com/pycharm/">PyCharm </a>. As an IDE I find it a bit clunky, but it's got good Django integration. Off to the races  </p>
-<h2>SQLitis</h2>
-<p><em>In this next bit I'm going to touch lightly on how Django does and doesn't make it easy to work with a database using familiar python techniques. The TL;DR is that it works pretty well, with gotchas. If you're unfamiliar with SQL terminology, databases, etc, you may want skim (and if you're an expert, you'll probably roll your eyes).  This isn't a how-to or tutorial - there are <a href="http://gettingstartedwithdjango.com/">great ones</a> out there.  It's just a quick glance at something that many TA's may find useful in coming years.</em>  </p>
-<p>The nice part of the Django workflow is that you can get Django to generate your data models for you by analysing your existing database.  Running  </p>
-<p><code>python django-admin.py inspectdb</code>  </p>
-<p>On your database will spit out the Python class definitions for your data models to stdout, where you can cut and paste them into your code.  I already had a decent database schema (I took most of my n00b lumps with that sort of thing building a bug tracking database for <a href="http://undeadlabs.com/about-state-of-decay/">SOD</a>) and getting the object models built took about half an hour from 'starting to look at the docs' to 'done'. The little GUI that PyCharm gives you for django-admin is particularly helpful here.  </p>
-<p>There are a couple of hitches.   </p>
-<p>Django could be smarter about tables which don't use numerical ID columns as their primary keys -- which bugs my inner <a href="https://www.simple-talk.com/sql/t-sql-programming/a-tale-of-identifiers/">Joe Celko</a> -- and I ended up having to add numeric ID columns to some of my tables in order to placate Django. Evidently there are ways to get in under the hood an tweak the actual sql that is emitted from your models to get around this but I've got other things to worry about.   </p>
-<p>It's also a bit tricky to get exactly the info you want.  For simple queries of the _get everything in this table named 'foo' _ variety Django works fine.  You can even do <a href="http://www.w3resource.com/sql/joins/using-a-where-cluase-to-join-two-tables-related-by-a-single-column-primary-key-or-foriegn-key-pair.php">SQL joins</a>, where you create a new pseudo table by picking entries from a set of tables with common keys - in Django you can trace back through a chain or table to table relationships just by following a  set of properties on your data objects.  In my case I have a table of assets (which describes the assets' names, location, and so on) and another table of asset types which is basically an Enum describing all the asset types - models, textures, animations and whatnot.  In SQL you'd connect them up using a <a href="http://www.w3schools.com/sql/sql_foreignkey.asp">foreign key </a>  to make sure that all the links were valid, and then use a JOIN statement to produce a combined result.  For example I have two tables somewhat like this:  </p>
-<h4>Assets table</h4>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Asset</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Thumbnail</td>
-<td>Image</td>
-</tr>
-<tr>
-<td>Path</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>Int</td>
-</tr>
-</tbody>
-</table>
-<h4>Asset type table</h4>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ID</td>
-<td>Int</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>String</td>
-</tr>
-</tbody>
-</table>
-<p>And if I want to grab a combined view that shows the assets along with their types I might do something like  </p>
-<div class="highlight"><pre><span></span>SELECT assets.asset, assets.path, asset_types.name  
-FROM assets  
-INNER JOIN asset_types  
-ON asset_types.id = assets.type
-</pre></div>
-
-
-<p>Which seems kind of funky and 1970's to read, but it's a very powerful technique - this would give back all of the assets and their types without any tedious loop writing on the receiving end.  Django handles this for you nicely in its object model: as long as I made sure to let Django know that the 'type' I want comes from the asset types table and the 'asset' comes from the assets table, I can just grab it with  </p>
-<div class="highlight"><pre><span></span>asset_list = Assets.objects.all()  # collect all the assets  
-for each_asset in asset_list:  
-  print asset.type.name
-</pre></div>
-
-
-<p>This is fine and dandy for many cases, but it does have some pitfalls. One of the great things about joins is that you can use them to substitute for conventional if-then logic. For example, in my case the I have a table of 'history' entries, which record changes in status (say from 'ready for review' to 'approved') along with times, dates and comments so we can see when things were OK'd for use in the game.  To get the current status of the object  I join the history table to itself:  </p>
-<div class="highlight"><pre><span></span>SELECT  
-h1.idhistory, h1.asset, h1.changed  
-FROM (history h1 left join history h2  
-      ON  
-     (h1.asset = h2.asset and  h2.changed &gt; h1.changed)  
-     )  
-      WHERE isnull(h2.asset)  
-ORDER BY h1.asset
-</pre></div>
-
-
-<p>The LEFT JOIN tries to run all combinations of dates in h2 against matching assets/date combinations in h1.  In all but one cases these will succeed (since the last date will be larger than all but the latest date). By looking for the failed join (with "isnull (h2.assets)") we can grab the latest entry.  This seems like a lot of work but it's way faster than a conventional loop-through-them-all-and-pick-the-latest-one approach; plus it is done in the server, in highly optimized C code, instead of on the client in (slow) Python.  </p>
-<p>Unfortunately this is a tricky one to get right with Django - at least, in my current (4 days and counting) aquaintance with Django.  I ended up having to work around it by creating a SQL view - basically a stored query - and grabbing just the id's of the history entries I wanted from their, and then doing a separate query to get the 'real' assets using the object technique I outlined earlier. Works fine but it is two server hits where one would do. C'est la vie.  </p>
-<h2>Last words</h2>
-<p>So, it's been a mixed bag getting this thing off the ground.  Django is pretty cool - one of the nice things about working with web tech is that itt has several orders of magnitude more users than typical TA tech - the  speed with which things evolve in this space is pretty dizzying if you're used to the typical lackadaisical pace of tech advances from ADSK.  Web tools are clearly going to be a Big Thing in the coming years - the ease of distribution and graphical panache you can get makes the old school batch-file and script world seem pretty pokey.  On the other hand, web tech  really is a Rube Goldberg machine - it's made up of technologies that have vastly outgrown their original purposes, and is plagued by competing vendors and developer faddism.  Javascript is icky, and the idea of having to learn at least 3 different languages ( JS, CSS, and HTML) just to get anything done is pretty irritating.  </p>
-<p>Fortunately the core of the TA personality is pure stubbornness.  We have our jobs because we don't like to rest until we figure out what the hell is going on. It's a very, very valuable trait to have if you're getting into web tools :)  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 12 December 2013
+            <p class="post-meta">Thu 12 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad#disqus_thread">comments</a>.</p>        </div>
+                A quick link to python-in-the-browser projects
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/python_in_browsers#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/late_for_the_revolution" rel="bookmark" title="Permalink to Late for the revolution">
+            <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad" rel="bookmark" title="Permalink to …And I thought we had it bad…">
                 <h2 class="post-title">
-                    Late for the revolution
+                    &#8230;And I thought we had it&nbsp;bad&#8230;
                 </h2>
             </a>
-                <p>Since the demise of the late, lamented <a href="http://www.gdcvault.com/gdmag">Game Developer Magazine</a>, I've been wondering if it's time to find some other writing outlet. Most of my spare writing energy for last year was consumed by shipping <a href="http://undeadlabs.com/about-state-of-decay/">State Of Decay</a> and working on a book project for Focal Press.  </p>
-<p>Now that both of those are safely in the past I'm going to spend a few weeks noodling on this to see if it's congenial.  I'm working on another book outline at the moment, and as topics of interest come up - or as I need to think out loud about them - i'll try floating them here to see how they look in print.  I also plan on ruminating on knotty tech-art questions, programming problems, and maybe throwing in the occasional classical allusion to make myself look smart.  </p>
-<p>No cat pictures though.  Not my bag.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 11 December 2013
+            <p class="post-meta">Thu 12 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/late_for_the_revolution#disqus_thread">comments</a>.</p>        </div>
+                A tech artist looks at web development, recoils in horror
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2013/late_for_the_revolution" rel="bookmark" title="Permalink to Late for the revolution">
+                <h2 class="post-title">
+                    Late for the&nbsp;revolution
+                </h2>
+            </a>
+            <p class="post-meta">Wed 11 December 2013
+            </p>
+                An introduction to this blog
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/late_for_the_revolution#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -708,107 +222,119 @@ ORDER BY h1.asset
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

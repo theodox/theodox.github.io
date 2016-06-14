@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Rescuing Maya GUI from itself</title>
+        <title>Rescuing Maya <span class="caps">GUI</span> from&nbsp;itself</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -50,7 +52,7 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/rescuing_maya_gui_from_itself">
-	<meta property="og:title" content="Rescuing Maya GUI from itself">
+	<meta property="og:title" content="Rescuing Maya <span class="caps">GUI</span> from&nbsp;itself">
 	<meta property="article:published_time" content="2014-02-23 10:22:00-08:00">
             <meta property="og:description" content="Using metaclasses and a little bit of under-the-hood trickery to write Maya GUIs that can be ready by ordinary humans. The first post in ...">
 
@@ -94,7 +96,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Rescuing Maya GUI from itself</h1>
+                        <h1>Rescuing Maya <span class="caps">GUI</span> from&nbsp;itself</h1>
                         <span class="meta">
                             Sun 23 February 2014
                         </span>
@@ -111,17 +113,17 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p><a href="pity_for_the_outcast.html">Last time out</a> was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.</p>
+        <p><a href="pity_for_the_outcast.html">Last time out</a> was devoted to a subject most <span class="caps">TA</span>&#8217;s already know: the shortcomings of Maya&#8217;s native <span class="caps">GUI</span>. This time we&#8217;re going to start looking at ways to rescue Maya from&nbsp;itself.</p>
 <p><img alt="" src="http://www.fanderson.org.uk/news/images3/darlingpuppet.jpg" /></p>
-<p>And if you don't know what that picture is there, <a href="http://youtu.be/9XNWA_yZvWo&quot;">go here first</a> -- this tech-art stuff is not as important as a good understanding of <a href="&quot;http://en.wikipedia.org/wiki/Thunderbirds_(TV_series)">Thunderbirds!</a>).</p>
-<p>With that out of the way:</p>
-<p>Any good rescue mission starts with objectives. The three main drawbacks to coding in Maya GUI natively are <strong>nasty syntax</strong>, clunky <strong>event handling</strong>, and difficult <strong>management</strong>. In today's thrill-packed episode, we're going lay some foundations for tackling that old-school syntax and dragging Maya GUI kicking and screaming into the 21st century.</p>
-<h1>Under the surface</h1>
+<p>And if you don&#8217;t know what that picture is there, <a href="http://youtu.be/9XNWA_yZvWo&quot;">go here first</a> &#8212; this tech-art stuff is not as important as a good understanding of <a href="&quot;http://en.wikipedia.org/wiki/Thunderbirds_(TV_series)">Thunderbirds!</a>).</p>
+<p>With that out of the&nbsp;way:</p>
+<p>Any good rescue mission starts with objectives. The three main drawbacks to coding in Maya <span class="caps">GUI</span> natively are <strong>nasty syntax</strong>, clunky <strong>event handling</strong>, and difficult <strong>management</strong>. In today&#8217;s thrill-packed episode, we&#8217;re going lay some foundations for tackling that old-school syntax and dragging Maya <span class="caps">GUI</span> kicking and screaming into the 21st&nbsp;century.</p>
+<h1>Under the&nbsp;surface</h1>
 <p><img alt="" src="http://www.foundation3d.com/forums/attachment.php?attachmentid=74848&amp;d=1410941489" /></p>
-<p>Composing a Maya GUI in code is annoying because the only way to access the properties of a Maya GUI node is via a command - there's no way to get at the properties directly without a lot of command mongering.</p>
-<p>Sure, the purist might say that alternatives are just <a href="http://www.javakey.net/1-java/92b15b2251bd8f85.htm">syntax sugar</a> -- but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.</p>
-<p>So, the first thing I'd like to ponder is how to cut out some of the crap. Not only will a decent wrapper be more pleasant to read and write - at some point in the future when we get to talk about styling controls, real property access will be a big help in keeping things tidy. Plus, by putting a wrapper around property access we'll have a built in hook for management and cleaning up event handling as well, even though that's a topic for a future post.</p>
-<p>The upshot of it all: we're stuck with the under-the-hood mechanism, but there's no reason we can't wrap it in something prettier. Consider this simple example:</p>
+<p>Composing a Maya <span class="caps">GUI</span> in code is annoying because the only way to access the properties of a Maya <span class="caps">GUI</span> node is via a command - there&#8217;s no way to get at the properties directly without a lot of command&nbsp;mongering.</p>
+<p>Sure, the purist might say that alternatives are just <a href="http://www.javakey.net/1-java/92b15b2251bd8f85.htm">syntax sugar</a> &#8212; but Maya <span class="caps">GUI</span>&#8217;s drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don&#8217;t bother to learn what native <span class="caps">GUI</span> can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph&#8217;s worth of&nbsp;typing.</p>
+<p>So, the first thing I&#8217;d like to ponder is how to cut out some of the crap. Not only will a decent wrapper be more pleasant to read and write - at some point in the future when we get to talk about styling controls, real property access will be a big help in keeping things tidy. Plus, by putting a wrapper around property access we&#8217;ll have a built in hook for management and cleaning up event handling as well, even though that&#8217;s a topic for a future&nbsp;post.</p>
+<p>The upshot of it all: we&#8217;re stuck with the under-the-hood mechanism, but there&#8217;s no reason we can&#8217;t wrap it in something prettier. Consider this simple&nbsp;example:</p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
 
 <span class="k">class</span> <span class="nc">ExampleButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
@@ -143,7 +145,7 @@
 </pre></div>
 
 
-<p>This is <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">plain-vanilla Python properties</a> in action. It's easy to extend it so you can set 'Label' also:</p>
+<p>This is <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">plain-vanilla Python properties</a> in action. It&#8217;s easy to extend it so you can set &#8216;Label&#8217;&nbsp;also:</p>
 <div class="highlight"><pre><span></span>    <span class="nd">@Label.setter</span>  
     <span class="k">def</span> <span class="nf">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
@@ -154,14 +156,14 @@
 
 
 <p><img alt="" src="http://1.bp.blogspot.com/-AOcq5Y6WCSA/UwLm4_AUSoI/AAAAAAABH7s/3FL8iI1r9TU/s1600/gbcw.png" /></p>
-<h1>Rescuing the rescuers</h1>
-<p>While this is a nice trick, it doesn't take long to figure out that replacing the whole Maya GUI library with this will take a lot of annoying, repetitive, and typo-prone code. <code>cmds.button</code> alone has 34(!) properties to manage, and real offenders like <code>rowLayout</code> have a lot more. Writing wrappers for all of these is a huge waste of valuable human brainpower</p>
-<p>Luckily, that's not the end. Property objects are really instances of <a href="http://docs.python.org/2/howto/descriptor.html">Python descriptors</a>, which means they are classes. And since they are classes, we have some more options for creating them.</p>
-<p><a href="http://docs.python.org/2/howto/descriptor.html">The official docs</a> on descriptors are kind of opaque, but the link I shared above to <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">Chris Beaumont's article on properties and descriptors</a> does a great job of explaining what they do: which is, in a nutshell, to provide property like services in the form of class-level objects. (Update: here's <a href="http://nedbatchelder.com/blog/201306/explaining_descriptors.html">great five minute video</a> too). Instead of defining methods and decorating them as we did above, you create a class which handles the function-to-property behavior (both getting and setting) and stick it directly into your own class namespace, the same way you would place a def or a constant (as an aside, this placement is why the CMD field in the example is a class field rather than a hard code or an instance property - it makes it easy for the descriptor to call the right cmds function and flags. We could make a separate class for <code>cmds.floatField</code>, for example, swapping out only the class level CMD parameter, and it would 'just work' the same way).</p>
-<p>The gotcha to bear in mind with descriptors is that they are separate objects that live in the class, <em>not</em> instance members You don't create them inside your <code>__init__</code>, you declare them in the class namespace. They don't belong to individual instances - that's why in the example below you'll notice that <em>self</em> refers to the descriptor itself, and not to the ExampleButton class (this is how each descriptor in the example below remembers how to format it's own call to the maya command under the hood). </p>
-<p>The "bad" part of that is that you the descriptor is ignorant of the class instance to which it is attached when you call it. Pyhton will pass the instance in to the descriptor, as you'll see in the example below. The good part, on the other hand, is that the descriptor itself can (if need be) have a memory of its own - that's why the descriptors in the next example can remember which flags to use when they call the underlying Maya GUI commands.</p>
-<p>While this sounds scary, it's mostly a minor mental adjustment - once you do a couple times it will be routine. And all the oddness is concentrated in the definition of the descriptor objects themselves - once the descriptor is actually declared, you access it just as if it were a conventional instance property and all is plain-jane <code>foo.bar = baz</code>.</p>
-<p>Here's the button example re-written with a couple of descriptors:</p>
+<h1>Rescuing the&nbsp;rescuers</h1>
+<p>While this is a nice trick, it doesn&#8217;t take long to figure out that replacing the whole Maya <span class="caps">GUI</span> library with this will take a lot of annoying, repetitive, and typo-prone code. <code>cmds.button</code> alone has 34(!) properties to manage, and real offenders like <code>rowLayout</code> have a lot more. Writing wrappers for all of these is a huge waste of valuable human&nbsp;brainpower</p>
+<p>Luckily, that&#8217;s not the end. Property objects are really instances of <a href="http://docs.python.org/2/howto/descriptor.html">Python descriptors</a>, which means they are classes. And since they are classes, we have some more options for creating&nbsp;them.</p>
+<p><a href="http://docs.python.org/2/howto/descriptor.html">The official docs</a> on descriptors are kind of opaque, but the link I shared above to <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">Chris Beaumont&#8217;s article on properties and descriptors</a> does a great job of explaining what they do: which is, in a nutshell, to provide property like services in the form of class-level objects. (Update: here&#8217;s <a href="http://nedbatchelder.com/blog/201306/explaining_descriptors.html">great five minute video</a> too). Instead of defining methods and decorating them as we did above, you create a class which handles the function-to-property behavior (both getting and setting) and stick it directly into your own class namespace, the same way you would place a def or a constant (as an aside, this placement is why the <span class="caps">CMD</span> field in the example is a class field rather than a hard code or an instance property - it makes it easy for the descriptor to call the right cmds function and flags. We could make a separate class for <code>cmds.floatField</code>, for example, swapping out only the class level <span class="caps">CMD</span> parameter, and it would &#8216;just work&#8217; the same&nbsp;way).</p>
+<p>The gotcha to bear in mind with descriptors is that they are separate objects that live in the class, <em>not</em> instance members You don&#8217;t create them inside your <code>__init__</code>, you declare them in the class namespace. They don&#8217;t belong to individual instances - that&#8217;s why in the example below you&#8217;ll notice that <em>self</em> refers to the descriptor itself, and not to the ExampleButton class (this is how each descriptor in the example below remembers how to format it&#8217;s own call to the maya command under the&nbsp;hood). </p>
+<p>The &#8220;bad&#8221; part of that is that you the descriptor is ignorant of the class instance to which it is attached when you call it. Pyhton will pass the instance in to the descriptor, as you&#8217;ll see in the example below. The good part, on the other hand, is that the descriptor itself can (if need be) have a memory of its own - that&#8217;s why the descriptors in the next example can remember which flags to use when they call the underlying Maya <span class="caps">GUI</span>&nbsp;commands.</p>
+<p>While this sounds scary, it&#8217;s mostly a minor mental adjustment - once you do a couple times it will be routine. And all the oddness is concentrated in the definition of the descriptor objects themselves - once the descriptor is actually declared, you access it just as if it were a conventional instance property and all is plain-jane <code>foo.bar = baz</code>.</p>
+<p>Here&#8217;s the button example re-written with a couple of&nbsp;descriptors:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CtlProperty</span> <span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
     <span class="sd">&#39;&#39;&#39;  </span>
 <span class="sd">    Property descriptor.  When applied to a Control-derived class, invokes the correct Maya command under the hood to get or set values  </span>
@@ -207,17 +209,17 @@
 
 
 <p><img alt="" src="http://2.bp.blogspot.com/-nCT8aEzquIE/UwLr8_Ct6wI/AAAAAAABH78/wVp86oOdf24/s1600/t+are+g.png" /></p>
-<p>That's more like it - only two lines of data-driven code where we used to have six (well, not counting CtlProperty - but thats a one time cost to be spread out over scads of different GUI classes later). It's a lot easier to read and understand as well, and contains far fewer opportunities for typos.</p>
-<p>But… we're still talking 34 lines like that for <code>cmds.button</code>, and God knows how many for <code>cmds.rowColumLayout</code>. </p>
+<p>That&#8217;s more like it - only two lines of data-driven code where we used to have six (well, not counting CtlProperty - but thats a one time cost to be spread out over scads of different <span class="caps">GUI</span> classes later). It&#8217;s a lot easier to read and understand as well, and contains far fewer opportunities for&nbsp;typos.</p>
+<p>But… we&#8217;re still talking 34 lines like that for <code>cmds.button</code>, and God knows how many for <code>cmds.rowColumLayout</code>. </p>
 <p><strong>Sigh.</strong></p>
-<h1>Act III</h1>
+<h1>Act <span class="caps">III</span></h1>
 <p><img alt="" src="http://www.clevescene.com/imager/thunderbirds-stiff-acting-all-around/b/original/1504418/2808/1875857.t.jpg" /></p>
-<p>No rescue drama is complete without a false climax, and this is ours. Despite the ominous music just before the commercial,. the situation is not really that bad. The last example shows that the problem is not really one of <em>code</em> any more, it's just <em>data</em>. Since descriptors are objects, you can crank them out like any other object: provide a list of the appropriate flags for a given class and you can crank out the correct descriptors, as they say, "<a href="https://www.youtube.com/watch?v=Z3qK8gT5LLg">automagically</a>."</p>
-<p><strong>As long as you promise not to use that stupid word around me.</strong></p>
-<p>Fortunately for our rescue team, Python treats classes the same way it treats anything else: as objects that can be created and maniuplated.</p>
-<p>If you use the Python builtin <code>type</code> on any Python class, you'll get back <br />
-<code>type 'type'</code>. In other words, a Python class definition is itself an instance of the class 'type'. How… <em>meta.</em></p>
-<p>The reason this matters to us is that we can fabricate classes the same way fabricate other kinds of Python things. You would not hesitate to crank out a list of strings assembled in code: there's no reason you can't do the same thing for descriptors! You could do this by hand, creating type instances and filling them out yourself: types take three arguments: a string name, a list of parent types, and dictionary of named fields and propertis. Thus:</p>
+<p>No rescue drama is complete without a false climax, and this is ours. Despite the ominous music just before the commercial,. the situation is not really that bad. The last example shows that the problem is not really one of <em>code</em> any more, it&#8217;s just <em>data</em>. Since descriptors are objects, you can crank them out like any other object: provide a list of the appropriate flags for a given class and you can crank out the correct descriptors, as they say, &#8220;<a href="https://www.youtube.com/watch?v=Z3qK8gT5LLg">automagically</a>.&#8221;</p>
+<p><strong>As long as you promise not to use that stupid word around&nbsp;me.</strong></p>
+<p>Fortunately for our rescue team, Python treats classes the same way it treats anything else: as objects that can be created and&nbsp;maniuplated.</p>
+<p>If you use the Python builtin <code>type</code> on any Python class, you&#8217;ll get back <br />
+<code>type 'type'</code>. In other words, a Python class definition is itself an instance of the class &#8216;type&#8217;. How… <em>meta.</em></p>
+<p>The reason this matters to us is that we can fabricate classes the same way fabricate other kinds of Python things. You would not hesitate to crank out a list of strings assembled in code: there&#8217;s no reason you can&#8217;t do the same thing for descriptors! You could do this by hand, creating type instances and filling them out yourself: types take three arguments: a string name, a list of parent types, and dictionary of named fields and propertis.&nbsp;Thus:</p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>  
     <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
 
@@ -230,14 +232,14 @@
 </pre></div>
 
 
-<p>However this would send you down a possible rabbit hole, since the idea we're really chasing is a way to mass produce classes to make UI coding easier and it would not be very easy if all of the classes had to be coded up in this clunky way. Luckily Python has an obscure but extremely powerful mechanism designed for just this sort of problem. Because, you know, it's the language of geniuses.</p>
+<p>However this would send you down a possible rabbit hole, since the idea we&#8217;re really chasing is a way to mass produce classes to make <span class="caps">UI</span> coding easier and it would not be very easy if all of the classes had to be coded up in this clunky way. Luckily Python has an obscure but extremely powerful mechanism designed for just this sort of problem. Because, you know, it&#8217;s the language of&nbsp;geniuses.</p>
 <p><img alt="" src="https://shapersofthe80s.files.wordpress.com/2011/01/thunderstampbrains.jpg" /></p>
-<h1>"Brains, Activate the Metaclass"</h1>
-<p>The helpful MacGuffin in this case it the <em><a href="http://docs.python.org/2/reference/datamodel.html#customizing-class-creation">Metaclass</a>.</em> Metaclasses have a reputation - not <em>entirely</em> undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."</p>
-<p>However, in our case we really can't solve the problem without some form of class factory. In particular, we need a way to bang out classes with the right collection of Descriptors to cover all of the zillions of flags in the Maya GUI system. So just this once we can put on the big blue glasses and lab coats and venture into the super secret lair of the mad metaclass scientists.</p>
-<p>The job of a metaclass is to customize the act of class creation. When a class is first defined, python will pass the type it creates (that same object we played with in the last example) to the metaclass for further manipulation. The <code>__new__</code> function of the metaclass will be called on the just-defined type, taking it name, parents and internal dictionary as arguments. The <code>__new__</code> can fiddle with any of these as it sees fit before passing it along for actual use.</p>
-<p>As you can imagine, this is a good time for PythonMan's Uncle Ben to remind us that 'with great power comes great responsibility' - it's easy to shoot yourself in the foot with a metaclass, since you can make changes to the runtime versions of your classes that will not be represented in your source files. Don't just run off and meta all over everything in sight. A minimalist approach is the best way to stay sane.</p>
-<p>But you'd probably like to see what this really looks like in practice. Here's an example.</p>
+<h1><span class="dquo">&#8220;</span>Brains, Activate the&nbsp;Metaclass&#8221;</h1>
+<p>The helpful MacGuffin in this case it the <em><a href="http://docs.python.org/2/reference/datamodel.html#customizing-class-creation">Metaclass</a>.</em> Metaclasses have a reputation - not <em>entirely</em> undeserved - as deep voodoo. The most commonly circulated quote about them is that &#8220;If you can solve the problem without a metaclass, you&nbsp;should.&#8221;</p>
+<p>However, in our case we really can&#8217;t solve the problem without some form of class factory. In particular, we need a way to bang out classes with the right collection of Descriptors to cover all of the zillions of flags in the Maya <span class="caps">GUI</span> system. So just this once we can put on the big blue glasses and lab coats and venture into the super secret lair of the mad metaclass&nbsp;scientists.</p>
+<p>The job of a metaclass is to customize the act of class creation. When a class is first defined, python will pass the type it creates (that same object we played with in the last example) to the metaclass for further manipulation. The <code>__new__</code> function of the metaclass will be called on the just-defined type, taking it name, parents and internal dictionary as arguments. The <code>__new__</code> can fiddle with any of these as it sees fit before passing it along for actual&nbsp;use.</p>
+<p>As you can imagine, this is a good time for PythonMan&#8217;s Uncle Ben to remind us that &#8216;with great power comes great responsibility&#8217; - it&#8217;s easy to shoot yourself in the foot with a metaclass, since you can make changes to the runtime versions of your classes that will not be represented in your source files. Don&#8217;t just run off and meta all over everything in sight. A minimalist approach is the best way to stay&nbsp;sane.</p>
+<p>But you&#8217;d probably like to see what this really looks like in practice. Here&#8217;s an&nbsp;example.</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
     <span class="sd">&#39;&#39;&#39;  </span>
 <span class="sd">    Metaclass which creates CtlProperty  objects for maya gui proxies  </span>
@@ -269,7 +271,7 @@
 </pre></div>
 
 
-<p>The actual code is pretty simple. It takes the type object created by the 'real' class and grabs the contents of the CMD class field (remember that from the earlier examples?). Then it loops through its own list of command names and inserts them all into the new class as descriptors with the correct commands and the maya command that was stored in the command object. So our earlier button example becomes:</p>
+<p>The actual code is pretty simple. It takes the type object created by the &#8216;real&#8217; class and grabs the contents of the <span class="caps">CMD</span> class field (remember that from the earlier examples?). Then it loops through its own list of command names and inserts them all into the new class as descriptors with the correct commands and the maya command that was stored in the command object. So our earlier button example&nbsp;becomes:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
     <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
     <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
@@ -290,8 +292,8 @@
 </pre></div>
 
 
-<p>There is a minor problem with this very truncated example, however: there's no label or command in the the metaclass, so the MetaButton has no button specific properties - only the generic ones in our list (which I made by trolling the flags for <code>cmds.control</code>, the 'base class' of all Maya control commands).</p>
-<p>This is easily fixed by adding properties that are specific to buttons to a class field, and tweaking the metaclass to read and use them the same way it already uses the CMD class field. Like CMD, these are good class-level attributes since the collection of flags is shared by all buttons, fields or whatever.</p>
+<p>There is a minor problem with this very truncated example, however: there&#8217;s no label or command in the the metaclass, so the MetaButton has no button specific properties - only the generic ones in our list (which I made by trolling the flags for <code>cmds.control</code>, the &#8216;base class&#8217; of all Maya control&nbsp;commands).</p>
+<p>This is easily fixed by adding properties that are specific to buttons to a class field, and tweaking the metaclass to read and use them the same way it already uses the <span class="caps">CMD</span> class field. Like <span class="caps">CMD</span>, these are good class-level attributes since the collection of flags is shared by all buttons, fields or&nbsp;whatever.</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
     <span class="sd">&#39;&#39;&#39;  </span>
 <span class="sd">    Metaclass which creates CtlProperty  objects for Control classes  </span>
@@ -341,18 +343,18 @@
 </pre></div>
 
 
-<p>As you can see, extending the automatic analysis is easy now that we know the basic trick. Just add a semi-private class field with the class specific attributes, and away we go!</p>
-<h1>In our next exciting episode…</h1>
-<p>I think this pretty much demonstrates that overhauling the Maya GUI toolkit is possible. However, in its current state it's just a down-payment. </p>
-<p>The combination of descriptors and metaclasses is an incredibly powerful tool and it's not hard to see what comes next (it's also easy to imagine similar setups for other problems which suffer from ugly imperative syntax). Now that we have a method for cranking out control widget classes by the bucketload, filling out the class library itself is pretty simple. There are, though, a few tricks we can use to make it better and less manual, as well as making sure it is complete. So, in a future outing, we'll tackle a method for replicating the whole Maya command hierarchy in a more or less automatic way. </p>
-<p>If you want to roll your own lightwieght properties library, this should give you enough tools to work with. If you're more interested in actually doing GUI work without all the <code>cmds</code> crap, you should check out <a href="https://github.com/theodox/mGui">mGui</a>, which is a library based on exactly this metaclass strategy to make GUI code more declarative and less ugly.</p>
-<p>In the mean time,as we say at International Rescue Headquarters: <a href="http://www.funtrivia.com/askft/Question54024.html">F.A.B!</a></p>
+<p>As you can see, extending the automatic analysis is easy now that we know the basic trick. Just add a semi-private class field with the class specific attributes, and away we&nbsp;go!</p>
+<h1>In our next exciting&nbsp;episode…</h1>
+<p>I think this pretty much demonstrates that overhauling the Maya <span class="caps">GUI</span> toolkit is possible. However, in its current state it&#8217;s just a&nbsp;down-payment. </p>
+<p>The combination of descriptors and metaclasses is an incredibly powerful tool and it&#8217;s not hard to see what comes next (it&#8217;s also easy to imagine similar setups for other problems which suffer from ugly imperative syntax). Now that we have a method for cranking out control widget classes by the bucketload, filling out the class library itself is pretty simple. There are, though, a few tricks we can use to make it better and less manual, as well as making sure it is complete. So, in a future outing, we&#8217;ll tackle a method for replicating the whole Maya command hierarchy in a more or less automatic&nbsp;way. </p>
+<p>If you want to roll your own lightwieght properties library, this should give you enough tools to work with. If you&#8217;re more interested in actually doing <span class="caps">GUI</span> work without all the <code>cmds</code> crap, you should check out <a href="https://github.com/theodox/mGui">mGui</a>, which is a library based on exactly this metaclass strategy to make <span class="caps">GUI</span> code more declarative and less&nbsp;ugly.</p>
+<p>In the mean time,as we say at International Rescue Headquarters: <a href="http://www.funtrivia.com/askft/Question54024.html"><span class="caps">F.A.</span>B!</a></p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/gui.html">gui</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/mgui.html">mGui</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -372,126 +374,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/rescuing_maya_gui_from_itself';
-                var disqus_url = 'http://theodox.com/2014/rescuing_maya_gui_from_itself';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/rescuing_maya_gui_from_itself';
+            var disqus_url = 'http://theodox.com/2014/rescuing_maya_gui_from_itself';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

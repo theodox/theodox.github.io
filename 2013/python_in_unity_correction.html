@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Python in Unity  - minor correction</title>
+        <title>Python in Unity  - minor&nbsp;correction</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A quick update to earlier posts about using IronPython in Unity.">
+        <meta name="description" content="A quick update to earlier posts about using IronPython in Unity.">
 
         <meta name="author" content="Steve Theodore">
 
@@ -48,9 +50,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2013/python_in_unity_correction">
-	<meta property="og:title" content="Python in Unity  - minor correction">
+	<meta property="og:title" content="Python in Unity  - minor&nbsp;correction">
 	<meta property="article:published_time" content="2013-12-22 09:53:00.001000-08:00">
-            <meta property="og:description" content="A quick update to earlier posts about using IronPython in Unity.">
+            <meta property="og:description" content="A quick update to earlier posts about using IronPython in Unity.">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Python in Unity  - minor correction</h1>
+                        <h1>Python in Unity  - minor&nbsp;correction</h1>
                         <span class="meta">
                             Sun 22 December 2013
                         </span>
@@ -109,17 +111,17 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>Going over the last post about <a href="python_in_unity.html">Python + Unity</a>, I did a clean install to make sure the steps I was describing were working correctly and it reminded me about an inportant bit I've left out: how to get the Python stdlib into your Unity IronPython  </p>
-<p>Because Microsoft was the sponsor of the original IronPython project, versions that Microsoft released (including the 2.6.2 that i linked to in the last post) <strong>don't include the stdlib</strong>, which comes with it's own license that clashes in some mysterious way with MS's licensing terms (even though both MS and the Python Foundation are giving the stuff away for free... _<em>_sigh</em>). So to dance around that, they did not include the stdlib -- the 'batteries included' -- with base install.  </p>
-<p>The remedy is simple - grab a copy of the regular python stdlib from a python 2.6 series install and copy it into the /Lib folder next to the location of your IronPython DLL.  I found it simplest to grab the Python26.zip folder from my Maya install and to expand that into the folder.  I did leave the 3 or 4 files that IPy had installed there on its own intact, I believe -- on pure intuition -- that they are different from the corresponding files in the standard python lib.  </p>
-<h2>Caveat emptor</h2>
-<p>FWIW, this is a good place to point out that some small percentage of stdlib modules don't work under IronPython (an unfortunate example being the handy <code>csv</code> module for reading comma-delimited data files).  AFAIK there is no authoritative list of which modules do and don't work under Ipy. The good news is that, for this application , there is almost always a dotnet native solution to use as an alternative without having to install anything else.  </p>
+        <p>Going over the last post about <a href="python_in_unity.html">Python + Unity</a>, I did a clean install to make sure the steps I was describing were working correctly and it reminded me about an inportant bit I&#8217;ve left out: how to get the Python stdlib into your Unity&nbsp;IronPython  </p>
+<p>Because Microsoft was the sponsor of the original IronPython project, versions that Microsoft released (including the 2.6.2 that i linked to in the last post) <strong>don&#8217;t include the stdlib</strong>, which comes with it&#8217;s own license that clashes in some mysterious way with <span class="caps">MS</span>&#8217;s licensing terms (even though both <span class="caps">MS</span> and the Python Foundation are giving the stuff away for free&#8230; _<em>_sigh</em>). So to dance around that, they did not include the stdlib &#8212; the &#8216;batteries included&#8217; &#8212; with base&nbsp;install.  </p>
+<p>The remedy is simple - grab a copy of the regular python stdlib from a python 2.6 series install and copy it into the /Lib folder next to the location of your IronPython <span class="caps">DLL</span>.  I found it simplest to grab the Python26.zip folder from my Maya install and to expand that into the folder.  I did leave the 3 or 4 files that IPy had installed there on its own intact, I believe &#8212; on pure intuition &#8212; that they are different from the corresponding files in the standard python&nbsp;lib.  </p>
+<h2>Caveat&nbsp;emptor</h2>
+<p><span class="caps">FWIW</span>, this is a good place to point out that some small percentage of stdlib modules don&#8217;t work under IronPython (an unfortunate example being the handy <code>csv</code> module for reading comma-delimited data files).  <span class="caps">AFAIK</span> there is no authoritative list of which modules do and don&#8217;t work under Ipy. The good news is that, for this application , there is almost always a dotnet native solution to use as an alternative without having to install anything&nbsp;else.  </p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/unity.html">unity</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -139,126 +141,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2013/python_in_unity_correction';
-                var disqus_url = 'http://theodox.com/2013/python_in_unity_correction';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2013/python_in_unity_correction';
+            var disqus_url = 'http://theodox.com/2013/python_in_unity_correction';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

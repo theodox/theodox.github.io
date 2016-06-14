@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Excersize 2</title>
+        <title>Excersize&nbsp;2</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -74,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Excersize 2</h1>
+                        <h1>Excersize&nbsp;2</h1>
                     </div>
                 </div>
             </div>
@@ -86,174 +88,186 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article>
-        <h3>Prepare the scene.</h3>
+        <h3>Prepare the&nbsp;scene.</h3>
 <ul>
 <li>
 <p>Import the Dalek.unityPackage from <a href="https://dl.dropboxusercontent.com/u/2977490/unity%40makerhaus/week%202/dalek.unitypackage">here</a>;</p>
 </li>
 <li>
-<p>Start a new scene in Unity <strong>File &gt;&gt; New Scene (Ctrl+N)</strong></p>
+<p>Start a new scene in Unity <strong>File &gt;&gt; New Scene&nbsp;(Ctrl+N)</strong></p>
 </li>
-<li>Go the the <strong>Assets/dalek/unfinished</strong> folder.  If you have a fairly beefy computer, you can drop the model called <em>expensive</em> into the scene.  Medium machines can use <em>Dalek_LOD_1</em> and slower machines can use <em>Dalek_LOD_2</em>.  ("LOD" is the usual game term for 'Level of Detail' - 0 is the most detailed and expensive model, 1 is less so, and so on).  Place the model in your scene.</li>
+<li>Go the the <strong>Assets/dalek/unfinished</strong> folder.  If you have a fairly beefy computer, you can drop the model called <em>expensive</em> into the scene.  Medium machines can use <em>Dalek_LOD_1</em> and slower machines can use <em>Dalek_LOD_2</em>.  (&#8220;<span class="caps">LOD</span>&#8221; is the usual game term for &#8216;Level of Detail&#8217; - 0 is the most detailed and expensive model, 1 is less so, and so on).  Place the model in your&nbsp;scene.</li>
 </ul>
 <hr />
-<h3>Simple lighting.</h3>
+<h3>Simple&nbsp;lighting.</h3>
 <ul>
 <li>Add a directional light <strong>GameObject &gt;&gt; Create Other &gt;&gt; Directional light</strong>.  </li>
-<li>Make sure you're using the light view in the Scene window: the light icon to the right of "RGB" should be checked.</li>
+<li>Make sure you&#8217;re using the light view in the Scene window: the light icon to the right of &#8220;<span class="caps">RGB</span>&#8221; should be&nbsp;checked.</li>
 <li>Aim it at the Dalek using the Rotate tool (<strong>R key</strong>)</li>
-<li>Give it a slight color tint. Yellow (255, 255, 220) is a decent starting point, but it's your choice.</li>
+<li>Give it a slight color tint. Yellow (255, 255, 220) is a decent starting point, but it&#8217;s your&nbsp;choice.</li>
 <li>Add a point light <strong>GameObject &gt;&gt; Create Other &gt;&gt; Point Light</strong>,</li>
-<li>Give the point light a contrasting color to the directional (If you have a yellow directional, try blue, for example)</li>
-<li>Move the light so that it illuminates the opposite side of the dalek from the main light</li>
+<li>Give the point light a contrasting color to the directional (If you have a yellow directional, try blue, for&nbsp;example)</li>
+<li>Move the light so that it illuminates the opposite side of the dalek from the main&nbsp;light</li>
 <li>Adjust the ambient light to get a feel for how it works.  <strong>Edit &gt;&gt; Render Settings</strong>. </li>
-<li>Add a couple of cubes and cylinders to the scene. They always start with a default white shader, so they make a good lighting reference to help you figure out how much of what you're seeing is coming from lights and how much comes from materials.  If the cubes are whited out, your lights are probably too hot; if they are very dark, you need more light.</li>
+<li>Add a couple of cubes and cylinders to the scene. They always start with a default white shader, so they make a good lighting reference to help you figure out how much of what you&#8217;re seeing is coming from lights and how much comes from materials.  If the cubes are whited out, your lights are probably too hot; if they are very dark, you need more&nbsp;light.</li>
 </ul>
 <hr />
-<h3>Diffuse vs specular shading</h3>
+<h3>Diffuse vs specular&nbsp;shading</h3>
 <ul>
-<li>Tumble the view around. You'll notice that the lighting should not change no matter how you view the scene.</li>
-<li>Select the dalek. Find the "Skin" material in the inspector.  Set the Skin material's shader to <em>Specular</em></li>
-<li>Turn the diffuse illumination down to nothing by setting the <strong>Main Color</strong> to black.  Tumble the view around and see how the highlights behave.</li>
-<li>Play with the shininess control to see how that changes the size of the highlight.  </li>
-<li>Move the point light around and observe how the highlights travel.  Do the same with the directional light and note the difference in behavior</li>
+<li>Tumble the view around. You&#8217;ll notice that the lighting should not change no matter how you view the&nbsp;scene.</li>
+<li>Select the dalek. Find the &#8220;Skin&#8221; material in the inspector.  Set the Skin material&#8217;s shader to <em>Specular</em></li>
+<li>Turn the diffuse illumination down to nothing by setting the <strong>Main Color</strong> to black.  Tumble the view around and see how the highlights&nbsp;behave.</li>
+<li>Play with the shininess control to see how that changes the size of the&nbsp;highlight.  </li>
+<li>Move the point light around and observe how the highlights travel.  Do the same with the directional light and note the difference in&nbsp;behavior</li>
 </ul>
 <hr />
-<h3>Adding textures</h3>
+<h3>Adding&nbsp;textures</h3>
 <ul>
-<li>Add the texture <strong>Assets/dalek/textures/dalek_skin</strong> to the Base Color texture of the material (drag the texture onto the swatch or use the 'select' button). You won't see a change on the model if your diffuse value is still set to black</li>
-<li>Set the main color to white. You'll see the base texture now.</li>
-<li>Experiment with the balance between the brightness of the main texture and the specular color. Try a dull greenish color for the main texture and orange for the specular to get a gold effect. Play with the shininess value to get a good metallic look.</li>
-<li>Now try for a red or blue plastic look - a very white highlight, a high shininess value,  and a saturated mid-value main color.</li>
+<li>Add the texture <strong>Assets/dalek/textures/dalek_skin</strong> to the Base Color texture of the material (drag the texture onto the swatch or use the &#8216;select&#8217; button). You won&#8217;t see a change on the model if your diffuse value is still set to&nbsp;black</li>
+<li>Set the main color to white. You&#8217;ll see the base texture&nbsp;now.</li>
+<li>Experiment with the balance between the brightness of the main texture and the specular color. Try a dull greenish color for the main texture and orange for the specular to get a gold effect. Play with the shininess value to get a good metallic&nbsp;look.</li>
+<li>Now try for a red or blue plastic look - a very white highlight, a high shininess value,  and a saturated mid-value main&nbsp;color.</li>
 </ul>
 <hr />
-<h3>Contrasting materials</h3>
+<h3>Contrasting&nbsp;materials</h3>
 <ul>
 <li>The shininess of your specular materials works better when contrasted against the matte behavior.  Find the <em>rubber</em> material: you can select it from the dalek models inspector or by looking for it in <strong>Assets/dalek/unfinished/materials</strong>.</li>
-<li>Add the same <strong>dalek_skin</strong> texture to the rubber material you did to the dalek skin.</li>
-<li>Use the main color swatch to take out the yellow, by tinting the texture blueish.  A value of about (75,85,125) will turn the texture matte gray.</li>
-<li>Tumble the view and move the lights, note how the contrast between the matte rubber and shiny body emphasizes the differences</li>
+<li>Add the same <strong>dalek_skin</strong> texture to the rubber material you did to the dalek&nbsp;skin.</li>
+<li>Use the main color swatch to take out the yellow, by tinting the texture blueish.  A value of about (75,85,125) will turn the texture matte&nbsp;gray.</li>
+<li>Tumble the view and move the lights, note how the contrast between the matte rubber and shiny body emphasizes the&nbsp;differences</li>
 </ul>
 <hr />
-<h3>Reflective materials.</h3>
+<h3>Reflective&nbsp;materials.</h3>
 <ul>
-<li>Now grab the <em>steel</em> material. You can find it by selecting one of the dalek's guns directly, or in the <strong>Assets/dalek/unfinished/materials</strong> folder</li>
-<li>Set the shader type to <strong>Reflective &gt;&gt; Difuse</strong> in the shader dropdown.</li>
-<li>Turn the main color to black so you can focus on the reflection effect.</li>
-<li>You'll see two texture slots. Add <strong>Assets/dalek/textures/reflection map</strong> to the <em>Reflection Cubemap</em> slot.</li>
-<li>Note the chrome appearance of the metal pieces - how the bottoms are dark and the upward facing surfaces are shiny. If you change your viewpoint you can see the texture change. The effect is similar to a specular highlight but it includes lots of smaller details as well.</li>
-<li>Note that this purely reflective shader <em>ignores</em> all the lights. Reflection maps often look odd on large moving objects, since they don't move themselves.</li>
-<li>Adjust the main and reflective colors to get a good chrome look that's not too shiny compared to the rest of the scene.</li>
+<li>Now grab the <em>steel</em> material. You can find it by selecting one of the dalek&#8217;s guns directly, or in the <strong>Assets/dalek/unfinished/materials</strong>&nbsp;folder</li>
+<li>Set the shader type to <strong>Reflective &gt;&gt; Difuse</strong> in the shader&nbsp;dropdown.</li>
+<li>Turn the main color to black so you can focus on the reflection&nbsp;effect.</li>
+<li>You&#8217;ll see two texture slots. Add <strong>Assets/dalek/textures/reflection map</strong> to the <em>Reflection Cubemap</em>&nbsp;slot.</li>
+<li>Note the chrome appearance of the metal pieces - how the bottoms are dark and the upward facing surfaces are shiny. If you change your viewpoint you can see the texture change. The effect is similar to a specular highlight but it includes lots of smaller details as&nbsp;well.</li>
+<li>Note that this purely reflective shader <em>ignores</em> all the lights. Reflection maps often look odd on large moving objects, since they don&#8217;t move&nbsp;themselves.</li>
+<li>Adjust the main and reflective colors to get a good chrome look that&#8217;s not too shiny compared to the rest of the&nbsp;scene.</li>
 </ul>
 <hr />
-<h3>Play time</h3>
+<h3>Play&nbsp;time</h3>
 <ul>
-<li>Take a few minutes to set up the rest of you dalek's textures and materials (if you need inspiration try <a href="http://hashtagstudios.tv/wp-content/uploads/2013/02/hybrid-coloured-daleks-1440x900.jpg">here</a>, <a href="http://media.creativebloq.futurecdn.net/sites/creativebloq.com/files/images/2013/03/dalek1.jpg">here</a>  or <a href="http://static1.wikia.nocookie.net/__cb20100519091761/tardis/images/a/ab/Daleks.jpg">here</a>)</li>
+<li>Take a few minutes to set up the rest of you dalek&#8217;s textures and materials (if you need inspiration try <a href="http://hashtagstudios.tv/wp-content/uploads/2013/02/hybrid-coloured-daleks-1440x900.jpg">here</a>, <a href="http://media.creativebloq.futurecdn.net/sites/creativebloq.com/files/images/2013/03/dalek1.jpg">here</a>  or <a href="http://static1.wikia.nocookie.net/__cb20100519091761/tardis/images/a/ab/Daleks.jpg">here</a>)</li>
 </ul>
     </article>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

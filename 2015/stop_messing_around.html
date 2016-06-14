@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Goddamit, stop messing around</title>
+        <title>Goddamit, stop messing&nbsp;around</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A module for simple colored printing in a python terminal">
+        <meta name="description" content="A module for simple colored printing in a python terminal">
 
         <meta name="author" content="Steve Theodore">
 
@@ -48,9 +50,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2015/stop_messing_around">
-	<meta property="og:title" content="Goddamit, stop messing around">
+	<meta property="og:title" content="Goddamit, stop messing&nbsp;around">
 	<meta property="article:published_time" content="2015-04-26 11:38:00-07:00">
-            <meta property="og:description" content="A module for simple colored printing in a python terminal">
+            <meta property="og:description" content="A module for simple colored printing in a python terminal">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Goddamit, stop messing around</h1>
+                        <h1>Goddamit, stop messing&nbsp;around</h1>
                         <span class="meta">
                             Sun 26 April 2015
                         </span>
@@ -109,55 +111,55 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>It was inevitable, after I started noodling around with <a href="eyeballs.html">terminal colors in ConEmu</a>, that I’d waste an afternoon cooking up a way to color my Maya terminal sessions automatically.  </p>
-<p>The actual code is <a href="https://github.com/theodox/conemu">up on GitHub</a> (under the usual MIT Open License - enjoy!).   </p>
-<p>As implemented, its a module you can activate simply by importing <code>conemu</code>. Ordinarily I don't like modules that 'do things' on import, but this one is such a special case that it seems justifiable. Importing the module will replace <code>sys.stdout</code>, <code>sys.stdin</code>, and <code>sys.display_hook</code> with ConEmu-specific classes that do a little color formatting to make it easier to work in <code>mayapy</code>.  If for some reason you want to disable it, calling <code>conemu.unset_terminal()</code> will restore the default terminal.  </p>
-<p>Here are the main features:  </p>
-<h4>Colored prompts and printouts</h4>
+        <p>It was inevitable, after I started noodling around with <a href="eyeballs.html">terminal colors in ConEmu</a>, that I’d waste an afternoon cooking up a way to color my Maya terminal sessions&nbsp;automatically.  </p>
+<p>The actual code is <a href="https://github.com/theodox/conemu">up on GitHub</a> (under the usual <span class="caps">MIT</span> Open License -&nbsp;enjoy!).   </p>
+<p>As implemented, its a module you can activate simply by importing <code>conemu</code>. Ordinarily I don&#8217;t like modules that &#8216;do things&#8217; on import, but this one is such a special case that it seems justifiable. Importing the module will replace <code>sys.stdout</code>, <code>sys.stdin</code>, and <code>sys.display_hook</code> with ConEmu-specific classes that do a little color formatting to make it easier to work in <code>mayapy</code>.  If for some reason you want to disable it, calling <code>conemu.unset_terminal()</code> will restore the default&nbsp;terminal.  </p>
+<p>Here are the main&nbsp;features:  </p>
+<h4>Colored prompts and&nbsp;printouts</h4>
 <p><a href="http://3.bp.blogspot.com/-AvNLhOBExmw/VT0sX69KZ2I/AAAAAAABLvo/Znt5WQHspns/s1600/conemu_2_1.jpg"><img alt="" src="http://3.bp.blogspot.com/-AvNLhOBExmw/VT0sX69KZ2I/AAAAAAABLvo/Znt5WQHspns/s1600/conemu_2_1.jpg" /></a></p>
-<p>This helps de-emphasize the prompt, which is the least interesting but item on screen, and to emphasize command results or printouts</p>
-<h4>Unicode objects highlighted</h4>
+<p>This helps de-emphasize the prompt, which is the least interesting but item on screen, and to emphasize command results or&nbsp;printouts</p>
+<h4>Unicode objects&nbsp;highlighted</h4>
 <p><a href="http://4.bp.blogspot.com/-ciIg7fGJIGw/VT0sxi0-F-I/AAAAAAABLvw/hlbGzLSFB5w/s1600/conemu_2_2.jpg"><img alt="" src="http://4.bp.blogspot.com/-ciIg7fGJIGw/VT0sxi0-F-I/AAAAAAABLvw/hlbGzLSFB5w/s1600/conemu_2_2.jpg" /></a></p>
-<p>Since all Maya objects returned by commands are printed as unicode string (like <code>u'pCube1'</code>, the terminal highlights unicode strings in a different color to make it easy to pick out Maya objects in return values. The annoying little <code>u</code> is also suppressed.  </p>
-<h4>Code objects highlighted</h4>
+<p>Since all Maya objects returned by commands are printed as unicode string (like <code>u'pCube1'</code>, the terminal highlights unicode strings in a different color to make it easy to pick out Maya objects in return values. The annoying little <code>u</code> is also&nbsp;suppressed.  </p>
+<h4>Code objects&nbsp;highlighted</h4>
 <p><a href="http://1.bp.blogspot.com/--6vJNm-EdE8/VT0s-3SVHuI/AAAAAAABLv4/SRVJ-2ZCWMQ/s1600/conemu_2_3.jpg"><img alt="" src="http://1.bp.blogspot.com/--6vJNm-EdE8/VT0s-3SVHuI/AAAAAAABLv4/SRVJ-2ZCWMQ/s1600/conemu_2_3.jpg" /></a></p>
-<p>Code objects (classes, functions and so on) are highlighted separately  </p>
-<h4>Comment colors</h4>
+<p>Code objects (classes, functions and so on) are highlighted&nbsp;separately  </p>
+<h4>Comment&nbsp;colors</h4>
 <p><a href="http://1.bp.blogspot.com/-hUxg4Dc96vc/VT0tN5TF79I/AAAAAAABLwA/vUtHyrpuaXo/s1600/conemu_2_4.jpg"><img alt="" src="http://1.bp.blogspot.com/-hUxg4Dc96vc/VT0tN5TF79I/AAAAAAABLwA/vUtHyrpuaXo/s1600/conemu_2_4.jpg" /></a></p>
-<p>Lines beginning with a <code>#</code> or a <code>/</code> will be highlighted differently, allowing you separate out ordinary command results from warnings and infos. <strong>In this version I have not isolated the path used by <code>cmds.warning</code>, which makes this less useful. Does anybody out there know which pipe that uses? It appears to bypass <code>sys.stdout.write()</code> and sys.stderr.write()</strong>   </p>
-<h4>Automatic prettyprint</h4>
+<p>Lines beginning with a <code>#</code> or a <code>/</code> will be highlighted differently, allowing you separate out ordinary command results from warnings and infos. <strong>In this version I have not isolated the path used by <code>cmds.warning</code>, which makes this less useful. Does anybody out there know which pipe that uses? It appears to bypass <code>sys.stdout.write()</code> and&nbsp;sys.stderr.write()</strong>   </p>
+<h4>Automatic&nbsp;prettyprint</h4>
 <p><a href="http://4.bp.blogspot.com/-ua1kHl9PyQA/VT0txVSoYJI/AAAAAAABLwI/gL5CZb0MMjk/s1600/conemu_2_5.jpg"><img alt="" src="http://4.bp.blogspot.com/-ua1kHl9PyQA/VT0txVSoYJI/AAAAAAABLwI/gL5CZb0MMjk/s1600/conemu_2_5.jpg" /></a></p>
-<p>If the result of a command is anything other than a string, it will be run through <a href="https://docs.python.org/2/library/pprint.html"><code>prettyprint</code> </a>so that it will be formatted in a slightly more legible manner. This is particularly handy for commands like <code>ls</code> or <code>listAttr</code> which produce a lot of results: <code>pprint</code> will arrange these vertically if they result would otherwise be wider than 80 characters.  </p>
-<h2>Utilities submodule</h2>
-<p>The module contains some helper classes if you want to make your own display more elaborate, or to mess with it interactively during a console session.  </p>
-<h4>Terminal class</h4>
-<p>The <em><code>Terminal</code></em> class makes it less cumbersome to control the display. The main use is to color or highlight text. The 16 terminal colors are available as <code>Terminal.color[0]</code> through <code>Terminal.color[15]</code>, and you can highlight a piece of text like so:  </p>
+<p>If the result of a command is anything other than a string, it will be run through <a href="https://docs.python.org/2/library/pprint.html"><code>prettyprint</code> </a>so that it will be formatted in a slightly more legible manner. This is particularly handy for commands like <code>ls</code> or <code>listAttr</code> which produce a lot of results: <code>pprint</code> will arrange these vertically if they result would otherwise be wider than 80&nbsp;characters.  </p>
+<h2>Utilities&nbsp;submodule</h2>
+<p>The module contains some helper classes if you want to make your own display more elaborate, or to mess with it interactively during a console&nbsp;session.  </p>
+<h4>Terminal&nbsp;class</h4>
+<p>The <em><code>Terminal</code></em> class makes it less cumbersome to control the display. The main use is to color or highlight text. The 16 terminal colors are available as <code>Terminal.color[0]</code> through <code>Terminal.color[15]</code>, and you can highlight a piece of text like&nbsp;so:  </p>
 <div class="highlight"><pre><span></span><span class="k">print</span> <span class="s2">&quot;this is &quot;</span> <span class="o">+</span> <span class="n">Terminal</span><span class="o">.</span><span class="n">color</span><span class="p">[</span><span class="mi">10</span><span class="p">](</span><span class="s2">&quot;colored text&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>The background colors are <code>Terminal.bg[0]</code> through <code>terminal.bg[5]</code> and work the same way:  </p>
+<p>The background colors are <code>Terminal.bg[0]</code> through <code>terminal.bg[5]</code> and work the same&nbsp;way:  </p>
 <div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">Terminal</span><span class="o">.</span><span class="n">bg</span><span class="p">[</span><span class="mi">2</span><span class="p">](</span><span class="s2">&quot;backgound text&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p><code>Terminal</code> also has a helper for setting, coloring, and unsetting prompt strings.  </p>
-<h4>Conemu: console control</h4>
-<p>The <em><code>Conemu</code></em> class includes some limited access to the more elaborate functions offered by ConEmu (The methods in <code>Terminal</code> might work in other ANSI terminals – I haven’t tried ! – but the ConEmu ones specific to ConEmu). The key methods are:  </p>
+<p><code>Terminal</code> also has a helper for setting, coloring, and unsetting prompt&nbsp;strings.  </p>
+<h4>Conemu: console&nbsp;control</h4>
+<p>The <em><code>Conemu</code></em> class includes some limited access to the more elaborate functions offered by ConEmu (The methods in <code>Terminal</code> might work in other <span class="caps">ANSI</span> terminals – I haven’t tried ! – but the ConEmu ones specific to ConEmu). The key methods&nbsp;are:  </p>
 <h5><code>ConEmu.alert(message)</code></h5>
-<p>Pops up a GUI confirm dialog with ‘message’ in it.</p>
+<p>Pops up a <span class="caps">GUI</span> confirm dialog with ‘message’ in&nbsp;it.</p>
 <h5><code>ConEmu.set_tab(message)</code></h5>
-<p>Sets the name of the current ConEmu tab to ‘message’.</p>
+<p>Sets the name of the current ConEmu tab to&nbsp;‘message’.</p>
 <h5><code>ConEmu.set_title(message)</code></h5>
-<p>Sets the name of the current ConEmu window to ‘message’.</p>
+<p>Sets the name of the current ConEmu window to&nbsp;‘message’.</p>
 <h5><code>ConEmu.progress(active, progress)</code></h5>
-<p>if <code>active</code> is True, draw a progress indicator in the window task bar at <code>progress</code> percent. For example <code>ConEmu.progress(True, 50)</code> overlays a 50% progress bar on the ConEmu task bar icon. If <code>active</code> is false, the progress bar is hidden. This can be handy for long running batch items</p>
+<p>if <code>active</code> is True, draw a progress indicator in the window task bar at <code>progress</code> percent. For example <code>ConEmu.progress(True, 50)</code> overlays a 50% progress bar on the ConEmu task bar icon. If <code>active</code> is false, the progress bar is hidden. This can be handy for long running batch&nbsp;items</p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/console.html">console</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -177,126 +179,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2015/stop_messing_around';
-                var disqus_url = 'http://theodox.com/2015/stop_messing_around';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2015/stop_messing_around';
+            var disqus_url = 'http://theodox.com/2015/stop_messing_around';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

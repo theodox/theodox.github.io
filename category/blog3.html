@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,531 +87,126 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+        <div class="post-preview">
+            <a href="http://theodox.com/2015/return_of_the_namedtuples" rel="bookmark" title="Permalink to Return of the namedtuples">
+                <h2 class="post-title">
+                    Return of the&nbsp;namedtuples
+                </h2>
+            </a>
+            <p class="post-meta">Sun 02 August 2015
+            </p>
+                A quick review of the Python namedtuple — a great way to return complex data from your functions without needing complex custom classes.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/return_of_the_namedtuples#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2015/wraptastic" rel="bookmark" title="Permalink to Wraptastic!">
                 <h2 class="post-title">
                     Wraptastic!
                 </h2>
             </a>
-                <h2>The wrap up</h2>
-<p>The beauty of working with code, even really simple code, is that you can build your own little universe out of bits and pieces contributed by thousands of other people – all without paying a dime or even asking them for help. From sharing a script off of CreativeCrash to downloading a huge open-source behemoth like Apache, any reasonably plucky individual can today make stuff that actually involves the work of thousands of anonymous others. It’s really quite a remarkable evolution in human history that so many people voluntarily give away their work for nothing, and (whatever else you can say about the internet era) it’s something to be proud of participatng in.  </p>
-<p>On the other hand…   </p>
-<p>Well, Say you are an Amish farmer and all your neighbors showed up to help you raise your barn, you’d certainly be grateful. But you might still be pretty annoyed if Hans from next door hung your barn doors so they stuck in the summer heat. Maybe old Hans worries more about keeping the barn warm than you do, so he prefers a tight seal: but that’s small comfort when you’re heaving on that handle in a muggy Pennsylvania morning.<br />
-<img alt="barn raising" src="http://notonbluray.com/blog/wp-content/uploads/2014/04/Witness-barn-raising-scene-Bluray-screenshot-3.png" />  </p>
-<p>The internet abounds in excellent – and, amazingly, free – tools to help make your life easier. But they all started life as tools to make somebody else’s life easier. If your needs don’t line up perfectly with the needs of the original author, you’re likely to get a little <em><a href="http://www.dict.cc/deutsch-englisch/gereizt.html">gereizt</a></em>.  </p>
-<p>The fact is that nobody writes all their own stuff: we all use other people’s code all the time (and, as sharing becomes more and more ingrained in coding, that’s only going to increase). All that sharing means that we constantly have to work with libraries and APIs that are useful and free and for which we know we should be grateful… but – like that sticky barn door – they drive us absolutely bonkers.  </p>
-<h2>Wrap up</h2>
-<p>Not surprisingly, almost everybody ends up writing <em>wrappers</em>: code to help ease those nice-but-imperferct tools and API into a something that feels a little more natural. If you spend a lot of time on <a href="http://tech-artists.org/">TAO</a> or coding forums where people swap tips and advertise their wares you’ll see a huge variety of wrappers for all sorts of tasks: indeed, the wrappers often seem to outnumber the actual functional bits. Whether you call the job making things ‘more pythonic’ or ‘more functional’ or ‘cleaner’, its something we all feel compelled to do (and to <a href="https://github.com/theodox/mGui">share</a>) from time to time.<br />
-It’s also easy to get cynical about wrappers. You see so many – and so many of them just taste-driven syntactic variations on each other – that veteran coders often reflexively shrug and ignore them. This is particularly true in Python land, where the malleability of the language encourages a certain degree of experimentation and re-casting. Because you <em>can</em> adapt Python to suit your tastes, the temptation to do so even when it’s not actually getting you much beyond style points is hard to resist. <br />
-The net result of all this customization and adaptation is messier than Christmas morning: wrappers everywhere. Whatever simplifications each individual wrapper gives you, the aggregate effect of so many different extra layers is overwhelming. At several times in the last decade I’ve sworn off wrappers and vowed to stick with vanilla python, straight-up maya.cmds and simple, linear code. A good code archaeologist could troll through my history and find several repeated periods of growth and die-offs in the wrapper ecosystem, like fossils trapped in shale.<br />
-<img alt="where's pymel?" src="http://www.lparchaeology.com/prescot/images/156.jpg" /><br />
-<em>Where's pymel in there?</em>  </p>
-<h2>Wraptors</h2>
-<p>Wrappers, though, never really die off like the dinosaurs: they, in fact, more persistent as the cockroaches. And there’s a lesson in that. <br />
-Consider a classic case of wrapper-iteis: a system for <a href="rescuing_maya_gui_from_itself.html">making maya GUI less of a pain</a>. Everybody writes that one at some point in their TA career (I’ve done it 4 times to my certain knowledge, not counting one-offs and half-assed, abandonware). When somebody feels compelled to spruce something up that much it’s a sign. <br />
-Sure, most gui wrappers are just a reaction to the clunky, wordy way that Maya expects us to pop up a window or make a button. And sure, most of those wrappers (some of my own, I hasten to add) really aren’t much better: they’re just shortcuts that cut down on the carpal-tunnel of <code>cmds.textField(fieldname, q=True, text=True)</code>.   </p>
-<p>Sure, saving keystrokes is nice, but over the life of a piece of code the time spent typing is a tiny fraction of that spent reading, debugging and refactoring: that you could (and probably should) just bit the bullet on. But so many persistent, repeated efforts to fix a problemare a symptom that something worse than wordiness is the problem. Wrapper-itis really runs rampant when the toolkit that is simply not adequate to the job at hand. If you have to spend a lot of time thinking about the implementation details <em>instead</em> of the problem you really want to solve you’re not just wasting keystrokes: you’re wasting precious thought and time.  </p>
-<p>So I’ve been trying to soften my anti-wrapper stance. Sometimes it’s better to actually solve a recurring problem instead of papering it over; sometimes it’s worth taking the time to be in a position to write the code you <em>need</em> to write instead of the code you’re <em>forced</em> to write. Sometimes.<br />
-Which of course raises the question of how you can identify those situations and distinguish between a real need for better abstractions and a plain old peevish desire to avoid boilerplate.   </p>
-<h2>Wraptitude</h2>
-<p>The prime way to distinguish between a ‘wrappable’ problem and a purely syntactic one is to consider the needs of the person who’ll be picking through your code after you’be been run over by a bus.   </p>
-<p><img alt="" src="http://i.ytimg.com/vi/y_PrZ-J7D3k/maxresdefault.jpg" />  </p>
-<p>When your replacement comes to look at your code, will they see something that seems to clearly express the problems you were trying to solve? Or just code that clearly expresses your preferences for a particular set of formatting options and code idioms?  </p>
-<p>Here’s a little bit of code that reads some information from a database in order to add some ‘credits’ to a time account:   </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replenish</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>  
-    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>  
-        <span class="k">return</span> <span class="bp">False</span>
-
-    <span class="k">with</span> <span class="n">connect_db</span><span class="p">()</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>  
-        <span class="n">repl</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT replenished FROM users WHERE name LIKE ? AND DATE (replenished) &lt;  DATE (&#39;now&#39;)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="p">,))</span>  
-        <span class="n">recent</span> <span class="o">=</span> <span class="n">repl</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">recent</span><span class="p">:</span>  
-            <span class="n">daynum</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT strftime (&#39;%w&#39;, &#39;now&#39;)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>  
-            <span class="n">daynum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">daynum</span><span class="p">)</span>  
-            <span class="n">repl_amount</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>  
-                <span class="s2">&quot;SELECT sun, mon, tues, weds, thurs, fri, sat FROM replenish WHERE users_name LIKE ?&quot;</span><span class="p">,</span> <span class="p">(</span> <span class="n">user</span><span class="p">,))</span>  
-            <span class="n">refresh</span> <span class="o">=</span> <span class="n">repl_amount</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="n">daynum</span><span class="p">]</span>  
-            <span class="n">cap_amount</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT cap, balance FROM users WHERE name LIKE ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="p">,))</span>  
-            <span class="n">cap</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">cap_amount</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>  
-            <span class="n">new_balance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cap</span><span class="p">,</span> <span class="n">refresh</span> <span class="o">+</span> <span class="n">balance</span><span class="p">)</span>
-
-            <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE users SET balance = ? , replenished = DATE(&#39;now&#39;) WHERE name LIKE ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">new_balance</span><span class="p">,</span> <span class="n">user</span><span class="p">))</span>  
-        <span class="n">log</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="s2">&quot;replenished with </span><span class="si">%i</span><span class="s2"> credits&quot;</span> <span class="o">%</span> <span class="n">new_balance</span><span class="p">)</span>
-</pre></div>
-
-
-<p>the basic logic is pretty simple. Stripped all the fluff, you merely need to:  </p>
-<ul>
-<li>connect to the database</li>
-<li>ask the database the last time the user was topped off</li>
-<li>if the user hasn’t been replenished today, get the amount due</li>
-<li>add the amount to the user’s account</li>
-</ul>
-<p>That’s just four basic ideas. but it takes more than 20 lines to express them. <br />
-Far worse, the key logical linkages of the operation are implied, not stated.For the code to make real sense you need to know or deduce that the <em>users</em> table has a field called <em>replenished</em> which stores the last day when the user was topped off; that the ‘replenish’ table has seven fields containing the top-off numbers, arranged Sunday throguh Saturday; and that the user table stores both the maximum number of credits to store and the current balance of credits. The implementation of our simple, 4-step idea only makes sense with all of that special knowledge. It’s further obscured by time saving shortcuts, like using the actual column index in a database table to check today’s value. That may save a couple of lines but it renders the code even harder to parse. And, of course, there are syntax quirks big and small, particularly relating to the creation and formatting of the SQL. <br />
-This code works fine; it’s even fairly economical and readable for what it does (for a given value ‘economical’) But it’s not the kind of thing you’d ever want to <em>inherit</em>; it makes sense to me, because I wrote it and I remember (at least today) what I was thinking about when I did. But some future inheritor (heck, even me a year from now) will have to think long and hard about what really ought to be a simple process. The whole thing is bogged down in implementation details that <em>obscure the intent</em> of what’s going on. Really good code often reads almost like pseudo-code. This does not.<br />
-To illustrate what a good wrapper can do, here’s the same code using an ‘<a href="https://en.wikipedia.org/wiki/Object-relational_mapping">object relational mapper</a>‘ called <a href="https://github.com/coleifer/peewee">peewee</a>: it’s a wrapper around the SQL backend that map database operations onto classes and allows you to focus on the logic instead of the mechanics:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replenish</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>  
-    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>  
-        <span class="k">return</span>  
-    <span class="k">with</span> <span class="n">connect_db</span><span class="p">()</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>  
-        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  
-        <span class="n">today_name</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A&quot;</span><span class="p">)</span>
-
-        <span class="n">updatable_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">replenished</span>  <span class="o">&lt;</span> <span class="n">today</span><span class="p">)</span>  
-        <span class="n">today_update</span> <span class="o">=</span> <span class="n">Replenish</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">user</span><span class="p">,</span> <span class="n">today_name</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">updatable_user</span> <span class="ow">and</span>  <span class="n">today_update</span><span class="p">:</span>  
-            <span class="n">refresh</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">today_update</span><span class="p">,</span> <span class="n">today_name</span><span class="p">)</span>  
-            <span class="n">new_balance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">updatable_user</span><span class="o">.</span><span class="n">cap</span><span class="p">,</span> <span class="n">refresh</span> <span class="o">+</span> <span class="n">updatable_user</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>  
-            <span class="n">updatable_user</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">new_balance</span>  
-            <span class="n">Log</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span> <span class="n">user</span><span class="p">,</span>  <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;replenished with </span><span class="si">%i</span><span class="s2"> credits&quot;</span> <span class="o">%</span> <span class="n">new_balance</span><span class="p">)</span>
-</pre></div>
-
-
-<p>That’s a significantly cleaner bit of code to read. It still requires some outside knowledge but the intention is much more clearly expressed and the message isn’t drowned out in quotes and parens. An ‘offscreen’ benefit, given the way peewee is structured, is that backtracking to the <code>User</code> and <code>Replenish</code> classes would tell the rest of the story pretty straightforwardly without a ton of comments. Only a handful of lines are needed to munge data into the right forms, and the code almost <em>reads</em> like the summary. <br />
-That’s a good example of how wrappers can help: saving keystrokes is nice but clarifying the real <em>meaning</em> of the code is priceless.  </p>
-<h2>Wrapola</h2>
-<p>Well, maybe not exactly price-<em>less</em>. All wrapper code comes with a cost: there are new rules to learn and, probably, new bugs to encounter. If the wrapper uses odd conventions, unusual data formats or is simply slower than hand rolled code it may still be a bad bargain. Nonetheless, this example shows wrappers can be more than just a protest against awkward syntax and API’s that don’t match your taste. Ultimately wrappers are a perfect microcosm of what all coding is about: the search for a clearer understanding of the problem you’re trying to solve. <br />
-So if you’re thinking about writing a wrapper, ask yourself this: does the code you want to write teach you something about the problem your solving? Or does it just save you a few keystrokes? Typing is a pain, but you’ll spend a lot more tine looking at your code than you ever will typing it. So don’t focus on just counting lines or syntax: focus on whether the wrapper helps you understand the problem better. If the wrapped code reads like a description of your thought process, you’re on the right track. If it’s just getting you back to <a href="http://www.twitch.tv/undeadlabs">that TwitchTV stream</a> on your second monitor a few minutes earlier it might not be worth your time.  </p>
-<h2>PS</h2>
-<p>I used an ORM for my example because it provides such a powerful example of code that’s not bogged down in syntactic complexities. There is, however, a classic internet flame war about ORMs that I’m glossing over, with nerd rage aplenty for friends and foes of ORMs. Background <a href="http://martinfowler.com/bliki/OrmHate.html">here</a> if you care. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 12 July 2015
+            <p class="post-meta">Sun 12 July 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/wraptastic#disqus_thread">comments</a>.</p>        </div>
+                When is it time to write a wrapper?
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/wraptastic#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/porting_spelchek_to_boo" rel="bookmark" title="Permalink to Porting Spelchek to Boo">
+            <a href="http://theodox.com/2015/porting_spelchek_to_boo" rel="bookmark" title="Permalink to Porting Spelchek to Boo">
                 <h2 class="post-title">
-                    Porting Spelchek to Boo
+                    Porting Spelchek to&nbsp;Boo
                 </h2>
             </a>
-                <p>What could be more ghostly than a <em>post mortem?</em>  </p>
-<p>If <a href="boo_who.html">my last post about Boo</a> piqued your interest, but you haven’t had time to do a deep dive into the language to see for yourself, I’ve posted a version of the <a href="https://github.com/theodox/spelchek">Spelchek</a> Python spell checker module converted to Boo so you can see the similarities and differences between the two languages. <br />
-The original Python version is <a href="https://github.com/theodox/spelchek/issues">here</a> and the Boo port is <a href="https://github.com/theodox/BooSpell">here</a>. As a good indication of what I’ve been saying about the economy of Boo syntax, the Boo version comes in at almost the same size as the Python original (5.05 kb for Boo and 4.95kb for Python) and pretty much the same number of lines – I haven’t done the excersize of converting it to C# for comparison but I’d guess the C# version would come in at about half again as much typing.<br />
-Looking at the code, significant chunks are almost identical: the logic is pretty much the same and the type annotations are the only real difference. <br />
-Thus  </p>
-<p>becomes   </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">priority</span><span class="o">=</span><span class="mi">4</span><span class="p">):</span>  
-    <span class="sd">&quot;&quot;&quot;  </span>
-<span class="sd">    Adds &lt;word&gt; to the dictionary with the specified priority (default is 4)  </span>
-<span class="sd">    &quot;&quot;&quot;</span>  
-    <span class="n">_DICTIONARY</span><span class="p">[</span><span class="n">word</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()]</span> <span class="o">=</span> <span class="n">priority</span>
-</pre></div>
-
-
-<p>becomes</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">add</span><span class="p">(</span><span class="n">word</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">pri</span> <span class="k">as</span> <span class="n">int</span><span class="p">):</span>  
-<span class="s2">&quot;&quot;&quot;  </span>
-<span class="s2">Adds &lt;word&gt; to the dictionary with the specified priority.   </span>
-<span class="s2">&quot;&quot;&quot;</span>  
-    <span class="n">_DICTIONARY</span><span class="p">[</span><span class="n">word</span><span class="p">.</span><span class="n">ToLower</span><span class="p">()]</span> <span class="o">=</span> <span class="n">pri</span>
-</pre></div>
-
-
-<p>which is pretty much identical.<br />
-The tricky bit of the conversion was the routine which generates possible variants of the word - it generates variants of a word by transposition and deletions. In Python:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">first_order_variants</span><span class="p">(</span><span class="n">word</span><span class="p">):</span>  
-    <span class="sd">&quot;&quot;&quot;  </span>
-<span class="sd">    return the obvious spelling variants of &lt;word&gt; with missing words, transpositions, or misplaced characters  </span>
-<span class="sd">    &quot;&quot;&quot;</span>  
-    <span class="n">splits</span> <span class="o">=</span> <span class="p">[(</span><span class="n">word</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">word</span><span class="p">[</span><span class="n">i</span><span class="p">:])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)]</span>  
-    <span class="n">deletes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>  
-    <span class="n">transposes</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">]</span>  
-    <span class="n">replaces</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span> <span class="k">if</span> <span class="n">b</span><span class="p">]</span>  
-    <span class="n">inserts</span> <span class="o">=</span> <span class="p">[</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span><span class="p">]</span>  
-    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">deletes</span> <span class="o">+</span> <span class="n">transposes</span> <span class="o">+</span> <span class="n">replaces</span> <span class="o">+</span> <span class="n">inserts</span><span class="p">)</span>
-</pre></div>
-
-
-<p>As you can see the first list comprehension, <code>splits</code>, generates a lists of pairs representing places where the word could be broken up, so that ‘cat’ produces <code>[("c","at"), ("ca", "t")]</code>. The other comprehensions use that list to try inserting, deleting or transposing letters to guess what the user might have really been typing.<br />
-In Boo, the tricky bit was getting the compiler to recognize that the <code>splits</code> list contained a pair of strings and that all the lists produced by it would also be lists of strings. Porting the python code directly wouldn’t work because Boo would see <code>splits</code> as a list of type <code>object</code> instead of deducing that it was a set of string pairs. <br />
-Here’s the Boo version, which as you can see is recognizably the same but is clunkier than the Python, due to the need for typing,   </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">first_order_variants</span><span class="p">(</span><span class="n">word</span> <span class="k">as</span> <span class="n">string</span><span class="p">):</span>  
-<span class="s2">&quot;&quot;&quot;  </span>
-<span class="s2">return the obvious spelling variants of &lt;word&gt; with missing words, transpositions, or misplaced characters  </span>
-<span class="s2">&quot;&quot;&quot;</span>  
-    <span class="n">_stringList</span> <span class="o">=</span> <span class="n">Boo</span><span class="p">.</span><span class="n">Lang</span><span class="p">.</span><span class="n">List</span><span class="p">[</span><span class="k">of</span> <span class="p">(</span><span class="n">string</span><span class="p">)]</span>  
-    <span class="n">_strings</span> <span class="o">=</span> <span class="n">Boo</span><span class="p">.</span><span class="n">Lang</span><span class="p">.</span><span class="n">List</span><span class="p">[</span><span class="k">of</span> <span class="n">string</span><span class="p">]</span>  
-    <span class="n">pair</span> <span class="o">=</span> <span class="p">{</span><span class="n">w</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">i</span> <span class="k">as</span> <span class="n">int</span> <span class="o">|</span> <span class="p">(</span><span class="n">w</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span> <span class="k">cast</span> <span class="n">string</span><span class="p">,</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">:]</span> <span class="k">cast</span> <span class="n">string</span><span class="p">)}</span>  
-    <span class="n">splits</span> <span class="o">=</span> <span class="n">_stringList</span><span class="p">((</span><span class="n">pair</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">i</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">word</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)))</span>  
-    <span class="n">deletes</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="n">b</span><span class="p">))</span>  
-    <span class="n">transposes</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">))</span>  
-    <span class="n">replaces</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span> <span class="k">if</span> <span class="n">b</span><span class="p">))</span>  
-    <span class="n">inserts</span>  <span class="o">=</span> <span class="n">_strings</span><span class="p">((</span><span class="n">a</span> <span class="o">+</span> <span class="n">c</span> <span class="o">+</span> <span class="n">b</span> <span class="k">for</span> <span class="n">a</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">b</span> <span class="k">as</span> <span class="n">string</span> <span class="ow">in</span> <span class="n">splits</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">_ALPHABET</span><span class="p">))</span>
-
-    <span class="n">result</span> <span class="o">=</span> <span class="n">HashSet</span><span class="p">[</span><span class="k">of</span> <span class="n">string</span><span class="p">]()</span>  
-    <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="p">(</span><span class="n">deletes</span><span class="p">,</span> <span class="n">transposes</span><span class="p">,</span> <span class="n">replaces</span><span class="p">,</span> <span class="n">inserts</span><span class="p">):</span>  
-        <span class="n">result</span><span class="p">.</span><span class="n">UnionWith</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-
-<p>To clean it up I added two ‘aliases’ up at the top, since the Boo syntax for declaring typed containers is hard to read (‘List[of string]’): so <code>_stringList</code> is a shortcut for ‘list of string arrays’ and <code>_strings</code> is a shortcut for ‘list of strings’.  </p>
-<p>The variable <code>pair</code> contains a lambda (ie, an inline function) using Boo’s idiosyncratic syntax: you could mentally rewrite it as  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">pair</span><span class="p">(</span><span class="n">w</span> <span class="k">as</span> <span class="n">string</span><span class="p">,</span> <span class="n">i</span> <span class="k">as</span> <span class="n">int</span><span class="p">)</span> <span class="k">of</span> <span class="p">(</span><span class="n">string</span><span class="p">):</span>  
-    <span class="k">return</span> <span class="p">(</span><span class="n">w</span><span class="p">[:</span><span class="n">i</span><span class="p">],</span> <span class="n">w</span><span class="p">(</span><span class="n">i</span><span class="p">:))</span>
-</pre></div>
-
-
-<p>or in other words “give me a string and an integer, I’ll return a pair of strings split at the index you gave me.”  </p>
-<p>With those helpers in place the logic is identical, but it is harder to follow because of all the type-mongering. I’m pretty sure there are more elegant ways to do this withgout being so wordy, but I’m not an expert.   </p>
-<h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404&amp;bpli=1&amp;pli=1#so"></a>So…</h1>
-<p>The point of the experiment was to see how hard the Python to Boo translation would be. This is an application where types actually matter a good deal, since all my values are strings and I need to be able to do string operations like joins on them – if all I was doing as asking questions of them things would have been more Pythonic (though probably slower as well: one of the reasons we need those types is to get the compiler to help us speed the code up).   </p>
-<p>While this is hardly a demanding application, it is at least a proof-of-concept for the idea of prototyping in Python and then selectively porting to Boo isn’t completely nuts.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 06 June 2015
+            <p class="post-meta">Sat 06 June 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/porting_spelchek_to_boo#disqus_thread">comments</a>.</p>        </div>
+                A port of the Spelchek spell checker to Boo, just to prove a point.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/porting_spelchek_to_boo#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/boo_who" rel="bookmark" title="Permalink to Boo Who?">
+            <a href="http://theodox.com/2015/boo_who" rel="bookmark" title="Permalink to Boo Who?">
                 <h2 class="post-title">
-                    Boo Who?
+                    Boo&nbsp;Who?
                 </h2>
             </a>
-                <h2>Boo!</h2>
-<p>Did I scare you?</p>
-<p><a href="http://1.bp.blogspot.com/-OFk47U8-b9E/VWvmUwg7gII/AAAAAAABL6E/61gYBKYRRN4/s1600/medium.png"><img alt="" src="http://1.bp.blogspot.com/-OFk47U8-b9E/VWvmUwg7gII/AAAAAAABL6E/61gYBKYRRN4/s400/medium.png" /></a></p>
-<p>Evidently somebody's scared: the <a href="https://github.com/bamboo/boo/wiki">Boo language</a>, which has been a part of Unity for several years, is going to be removed from the Unity documentation in favor of C#. </p>
-<p>The reason is pretty simple, as this graph explains:</p>
-<p><img alt="" src="http://blogs.unity3d.com/wp-content/uploads/2014/09/graph3.png" /></p>
-<p>For a lot of Unity developers (99.56% of them, apparently) this is non-news; Boo never really garnered much of a following in the Unity community. For new developers and recent grads, C# is an easy and very well documented option; for former web debs moving to mobile apps, UnityScript feels JavaScript-y enough to ease into a new environment. Boo, on the other hand, never got much traction: it's got a small but passionate community but it never garnered enough momentum to break out of its niche. </p>
-<blockquote>
-<p>Update 5/2016:  Since this post was first written the Boo community has been picking up some steam and is actively aiming at a 1.0 release of the language. They can be found in the <a href="https://groups.google.com/forum/#!forum/boolang">Boo Languge Google Group</a></p>
-</blockquote>
-<h2>Boo Hoo</h2>
-<p>Now, I'm kind of a sucker for hopeless causes, so almost inevitably this news inclined me to revisit Boo, which I've toyed with a few times but never really tried to learn. I had to write a lot of C# for <a href="http://store.steampowered.com/app/351040/">Moonrise</a> and it made me long for the clarity and concision of Python. Even though C# is a perfectly capable language with lots of modern features (closures, firest class functions, etc) it's still very chatty. The tantalizing promise of Boo - not completely fulfilled, but pretty close, is that it combines both: the performance, runtime type safety, and intimate access to Unity that C# offers in a language not deformed by punctuation and rendered ridiculous by overly wordy syntax.</p>
-<p>Here's the aesthetic differences in a nutshell:</p>
-<h2>Boo</h2>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">UnityEngine</span>
-
-<span class="k">class</span> <span class="nc">JumpingMovementController</span><span class="p">(</span><span class="n">MonoBehaviour</span><span class="p">):</span>
-
- <span class="n">_HORIZ</span> <span class="o">=</span> <span class="s1">&#39;Horizontal&#39;</span>  
- <span class="n">_VERT</span> <span class="o">=</span> <span class="s1">&#39;Vertical&#39;</span>  
- <span class="n">_JUMP</span> <span class="o">=</span> <span class="s1">&#39;Jump&#39;</span>  
- <span class="n">_Momentum</span> <span class="o">=</span> <span class="mf">0.0</span>  
- <span class="n">_Gravity</span> <span class="o">=</span> <span class="mf">2.0</span>  
- <span class="n">public</span> <span class="n">_Speed</span> <span class="o">=</span> <span class="mf">1.0</span>  
- <span class="n">public</span> <span class="n">_JumpSpeed</span> <span class="o">=</span> <span class="mf">1.5</span>
-
- <span class="k">def</span> <span class="nf">Update</span><span class="p">():</span>   
-  <span class="n">frame_speed</span> <span class="o">=</span> <span class="n">_Speed</span> <span class="o">*</span> <span class="n">Time</span><span class="o">.</span><span class="n">deltaTime</span>
-
-  <span class="k">if</span> <span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>  
-   <span class="n">_Momentum</span> <span class="o">+=</span> <span class="n">Input</span><span class="o">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="n">_JUMP</span><span class="p">)</span> <span class="o">*</span> <span class="n">_JumpSpeed</span>
-
-  <span class="n">up</span> <span class="o">=</span>  <span class="n">_Momentum</span> <span class="o">*</span> <span class="n">Time</span><span class="o">.</span><span class="n">deltaTime</span>  
-  <span class="n">left_right</span> <span class="o">=</span> <span class="n">Input</span><span class="o">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="n">_HORIZ</span><span class="p">)</span> <span class="o">*</span> <span class="n">frame_speed</span>  
-  <span class="n">forward_back</span> <span class="o">=</span> <span class="n">Input</span><span class="o">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="n">_VERT</span><span class="p">)</span> <span class="o">*</span> <span class="n">frame_speed</span>  
-  <span class="n">transform</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="n">left_right</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">forward_back</span><span class="p">),</span> <span class="n">Space</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span>
-
- <span class="k">def</span> <span class="nf">LateUpdate</span><span class="p">():</span>  
-  <span class="k">if</span> <span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  
-   <span class="n">_Momentum</span> <span class="o">-=</span> <span class="n">_Gravity</span> <span class="o">*</span> <span class="n">Time</span><span class="o">.</span><span class="n">deltaTime</span><span class="p">;</span>  
-  <span class="k">else</span><span class="p">:</span>  
-   <span class="n">_Momentum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
-   <span class="n">vp</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>  
-   <span class="n">transform</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">vp</span>
-</pre></div>
-
-
-<h2>C\</h2>
-<div class="highlight"><pre><span></span>using UnityEngine;  
-using System;
-
-public class JumpingMovementController(MonoBehaviour)  
-{
-
-    const static string _HORIZ = &quot;Horizontal&quot;;  
-    const static string _VERT = &quot;Vertical&quot;;  
-    const static string _JUMP = &quot;Jump&quot;;  
-    var _Momentum = 0.0f;  
-    var _Gravity = 2.0f;  
-    public var _Speed = 1.0f;  
-    public var _JumpSpeed = 1.5f;
-
-
-    void Update()  
-    {  
-        var frame_speed = _Speed * Time.deltaTime
-
-        if (transform.position.y == 0)   
-        {  
-            _Momentum += Input.GetAxis(_JUMP) * _JumpSpeed;  
-        }
-
-        var up =  _Momentum * Time.deltaTime;  
-        var left_right = Input.GetAxis(_HORIZ) * frame_speed;  
-        var forward_back = Input.GetAxis(_VERT) * frame_speed;  
-        transform.Translate(new (Vector3(left_right, up, forward_back)), Space.Self);  
-    }
-
-    void LateUpdate()  
-    {  
-        if (transform.position.y &gt; 0)   
-        {  
-            _Momentum -= _Gravity * Time.deltaTime;  
-        }  
-        else   
-        {  
-            _Momentum = 0;  
-            vp = new Vector3(transform.position.x, 0, transform.position.z);  
-            transform.position = vp;  
-        }  
-    }  
-}
-</pre></div>
-
-
-<p>I just can't shake the feeling that the first code is something I don't mind reading and writing while the latter is a chore. It's also a whopping 45% more typing for the same result. And that delta only gets bigger if you want to try something a little more complicated: Boo supports offers the same list comprehension syntax as Python, so you can write:</p>
-<div class="highlight"><pre><span></span>    addresses = [(x,y) for x in range(3) for y in range(3)]
-</pre></div>
-
-
-<p>where in C# you'd either get 6 lines of for-loops and nested brackets, or you'd have to use Linq. Even in the most compact form I can manage it's still much wordier:  </p>
-<div class="highlight"><pre><span></span>        var xs = Enumerable.Range(0, 3).ToList();  
-        var ys = Enumerable.Range(0, 3).ToList();  
-        var addresses = (from x in xs  
-                         from y in ys  
-                         select new Tuple&lt;int,int&gt;(x, y)).ToList();
-</pre></div>
-
-
-<p>to get to the same place. </p>
-<h2>Why Boother?</h2>
-<p>A hardcore programmer might object that this is "all just syntax". That's true - but since my everyday experience of working with a language is about 90% syntax I don't feel like it's fair to dismiss that concern as if it were irrelevant. That said, it can't be denied that modern C# 4 includes many language constructs that earlier versions of the language lacked: things like <code>var</code> inferred variables, lambdas, closures, and named default arguments. These things all help make the code less chatty and more legilble: If you're a <em>good</em> C# programmer you can write very terse, expressive code that's not absurdly wordy. </p>
-<p>Apart from those stupid curly brackets.</p>
-<p>On the other hand, the "culture" of the language was set in place before those kinds of features were added. The C# ethos definitely prefers the verbose to the understated, the extremely explicit to the implied.This isn't a terrible decision - like Java, it's a language designed to be used by huge teams of enterprise programmers working on titanic projects where only a few people see the whole project scope and most coders are locked away in cubicles on the 18th floor working on isolated modules to be used by other coders they will never meet.That's why C#'s obssession with visibility management and highly-specified behavior makes sense.C# is a language that's all about apportioning blame: it forces everything to be very explicit so you know which of the 6000 drones working on your enterprise app to bleame when things go wrong.</p>
-<p>In the context of a small game or a solo project, though, the Pythonic ethic of "we're all adults here" seems more natural and productive.Besides, for hobby projects and one offs fun is a totally legitimate concern: making minigames is something that gets crammed into nooks and crannies left over by work, kids and keeping the house from falling down around my ears.So fun is a totally legit criterion for selecting a language.</p>
-<p>And Boo is definitely more <em>fun</em> than C#. </p>
-<h2>Boo Who?</h2>
-<p>Like many Pythoneers, I've always nursed a secret hunger for the magical button that would take all my tight, laconic Python code and magically make it perform like a "real" language. Boo is not the magic button, but it's a pretty good preview of what that might look like. As you can see from the code samples above, it looks and feels a lot like Python but under the hood is has similar performance and compile-time constraints to C#: in other words, Boo code can run as much as 20X faster than Python.</p>
-<p>That's what makes Boo so tantalizing. It is <em>almost</em> Python, but you can write Unity games, Winforms apps, or even cross-platform DLLS with it. Plus, since Boo runs on the same dotnet CLR as C#, it runs on any platform with the DotNet framework or Mono installed, so a compiled Boo program can run on Windows, Macs, or Linux boxes. There's even an interactice shell so you can do one-offs and experiment, just like Python. But - unlike Python - you get the performance gains that come from a compiled, statically typed language.</p>
-<p>Typing and the compiler are the key difference between Boo and Python. The a compiler makes sure that all of your variables, return values and method signatures line up and uses that knowledge to optimize the final runtime code for you. You can do this in Python:</p>
-<div class="highlight"><pre><span></span>fred = 1   
-fred = fred +  1  
-print fred  
-# 2  
-fred = &quot;fred&quot;  
-fred = fred + &quot; flintstone&quot;  
-print fred  
-# fred flintstone
-</pre></div>
-
-
-<p>In Boo, however, you'll get an error when you try to change <code>fred</code> from an integer value to a string:</p>
-<div class="highlight"><pre><span></span>fred = 1  
-fred = fred +1   
-fred = &quot;fred&quot;  
-#------^  
-#ERROR: Cannot convert `string` to `int`
-</pre></div>
-
-
-<p>In old-school C#, this was made obvious that all variables and to declare a type:</p>
-<div class="highlight"><pre><span></span>int fred = 1;
-</pre></div>
-
-
-<p>In more modern C# you can use the <code>var</code> keyword to make the compiler guess what type you want based on the initial input: when you give it</p>
-<div class="highlight"><pre><span></span>var fred = 1;
-</pre></div>
-
-
-<p>it sees that fred has an integer in it, and treats fred as an integer from then on. If you assign the variable with the result of a method call or another variable, C# uses the expected type of that return value to set the variable type. Boo does more or less the same thing: it uses the assignment value to guess the type of a variable. You can specify it explicitly if you prefer by using the <code>as</code> keyword: </p>
-<div class="highlight"><pre><span></span>barney as string  
-barney = &quot;barney&quot;   #OK
-</pre></div>
-
-
-<p>The same syntax is used to specify inputs in methods and returns:</p>
-<div class="highlight"><pre><span></span>def bedrock (name as string) as string:  
-    return name + &quot;rock&quot;
-
-def inferred_return_type(name as string):  
-    return name + &quot;inferred&quot;  
-    # if the compiler can guess the output type  
-    # you don&#39;t need to &#39;as&#39; it
-</pre></div>
-
-
-<p>Once you get out of the habit of re-using variables with different types, this is usually not too bad: 95% of the time the inference "just works" and you can write code that focuses on logic and good design instead of worrying about the types. The other 5% of the time, however, is often very frustrating. It's particularly tough when Boo's Python-like, but not <em>exactly</em> Python behavior trips you up. Consider this little puzzle:</p>
-<div class="highlight"><pre><span></span>def sum (values as (int)) # expect an integer tuple  
-    result = 0  
-    for v in values:  
-        result += v  
-    return v
-
-# works as expected for this case:  
-example = (1,2,3)  
-sum(example)  
-# 6
-</pre></div>
-
-
-<p>However it can be broken if your input list isn't all of the same type:</p>
-<div class="highlight"><pre><span></span>example2 = (1,2,3,&quot;X&quot;)   
-sum(example2)  
-# ERROR: the best overload to the method sum((int)) is not compatible with the argument list &#39;((object))&#39;
-</pre></div>
-
-
-<p>That's not entirely shocking: the compiler saw a mixed list in example2 and return and array of type <code>object</code> (as in C#, <code>object</code> is the base class of all types). So it is right to reject that as an argument for an int-specific function. Here's where it gets odd:</p>
-<div class="highlight"><pre><span></span>#reassign  
-example2 = (1,2,3,4)  
-sum (example2)  
-# 10
-</pre></div>
-
-
-<p>This time the compiler "helpfully" casts that array to an array of ints because it can. This is not a crazy behavior, but it's definitely going to raise some issues where test code works fine but production code contans bad values. The only way to be sure that things are what they seem is to force them into the right types at declaration time:</p>
-<div class="highlight"><pre><span></span>example3 as (int) == (1,2,3,4,5)  
-sum(example3)  
-# 15
-
-example3 = (1,2,3,&quot;one hundred&quot;)  
-#----------^  
-# ERROR: Cannot convert `(object)` to `(int)`
-</pre></div>
-
-
-<p>This example highlights both the usefulness and the limitations of type inference: If you want a statically typed language (and all the compiler tricks that make it speedier than Python) you do have to think about how to manage your types. There's no way around it. If you've got enough C# experience, you can look at Boo as a neat way of writing speedy, statically typed code with less typing and more syntactic freedom - but if you're looking at it from the standpoint of loosey-goosey Pythonista it can seem like a lot of hurdles to jump. </p>
-<p>My (unscientific) impression is that a lot of people from the Python world come over to Boo and the familiar look of the code gives them a false sense of security. It's easy to write simple bits of code until the subtleties of type management bite you in the behind, and then to give up in frustration when things seem to get cluttered and uptight.</p>
-<p>It is, however, part of the territory: lots of other tools for speeding up Python such as <a href="http://cython.org/">Cython</a> expect the same kind of attention to variable types: here's a sample from Cython</p>
-<div class="highlight"><pre><span></span>def f(double x):  
-    return x**2-x
-
-def integrate_f(double a, double b, int N):  
-    cdef int i  
-    cdef double s, dx  
-    s = 0  
-    dx = (b-a)/N  
-    for i in range(N):  
-        s += f(a+i*dx)  
-    return s * dx
-</pre></div>
-
-
-<p>which is just as finicky as C# or Boo.</p>
-<p>For me, at any rate, spending more than a year doing C# as a regular part of work made fiddling around with Boo much easier and more productive. The type management hassles strike me as inevitable, or even natural, after a year of typing verbose C# variable types. On the other hand the cleanliness of the layout, the lack of extraneous punctuation, and the clealiness of list comprehensions and Python style loops never gets old.</p>
-<p>While there are plenty of minor gotchas, and a few important high-level rules that can't be forgotten, Boo development flows in with an almost Pythonic fluency. If you put in the time to figure out the type inference behavior and add the annotations, you can get code thats <em>almost</em> as flexible as Python and <em>almost</em> as performant as C# - which, for my kind of pet projects is a great compromise. </p>
-<h2>Boo-ty is in the eye of the beholder</h2>
-<p>TL;DR: I've gotten pretty fond of Boo. Above all, it serves me well for noodling around in Unity where the API is mostly identical but the logic is cleaner, shorter and easier to read than the same code in C#. Translating the docs is rarely more than trivial, and the very narrow scope of a typical Unity code chunk keeps me from any of Boo's rough edges.</p>
-<p>Another hurdle for many Pythonistas, though one which does not matter in the the context of Unity games, is the lack of the Python standard library. About 70% of what you can do with the 'batteries included' in Python can, however, be replicated using the <a href="https://msdn.microsoft.com/en-us/library/hfa3fa08%28v=vs.110%29.aspx">dotnet Base Class Library</a> if you're running Boo on a Windows box (on Linux or OSX the percentage is lower: Mono has its own base class library but it's not a complete replica of the one from Microsoft). For many tools tasks and projects, this is more than enough: you'll be able to read and write XML, to decrypt JSON, to talk to an http server and so on although the function names and APIs will vary. I have to admit I prefer the Python toolkit to the dotnet one, which reflects the same bureaucratic mindset that I dislike in C#'s design, but it's still a big, robust set of tools. You can also use anything that's available as a dotnet DLL. Almost anything advertised as a usable with C# will work with Boo.</p>
-<p>All that said, I'd definitely think twice before basing a commercial Unity project or a critical pipeline component on Boo. There does seem to be a small but measurable perfromance penalty compared to C# (the performance is, however, pretty much on par with that of UnityScript). More importantly, the Boo's biggest weakness is documentation: with a small community and (from now on) no docs on the Unity site, finding your way around in the language at first is pretty awkward. The <a href="https://github.com/bamboo/boo/wiki">documentation</a> is a sporadic, volunteer effort with some glaring holes - it doesn't help that Google still sends you to the moribund Boo site on <a href="http://boo.codehaus.org/">codehaus</a> instead of the current docs, which are in a <a href="https://github.com/bamboo/boo/wiki">Github Wiki</a>. The language is officially at version 0.9.4.9 and hasn't incremented in a long time: it's still getting commits from the original author and few other devs but it's a much smaller project than, say, IronPython. In short, it's a cool language that has not found it's audience yet, and unless it does it will remain a niche player. </p>
-<p>Still, it's pretty cool too. If, after those caveats, it still sounds interesting, you'll be relieved to know that Boo is not really 'going away': For the forseeable future, the language will still work in Unity, Boo, like C# and UnityScript, runs on <a href="http://www.mono-project.com/">Mono</a>, much as Java runs on the JVM. Unity doesn't distinguish between the source of Mono assemblies: you can still use Boo, and even more exotic dotnet languages such as F# (though not, alas, IronPython!) in Unity today. The only practical result of Unity's decision to sunset Boo support is the disappearance of the Boo documentation from the Unity website - which , to be honest was rarely adequate - and the lack of a 'create Boo script' menu item. Dropping a boo script into your assets folder, however still creates runnable code, and it should continue to do so for the forseeable future. </p>
-<p>There's some question about how Unity's new cross-platform compiler technology, <a href="http://blogs.unity3d.com/2014/05/20/the-future-of-scripting-in-unity/">IL2CPP</a> will handle Boo. In principle, since it compiles the byte code produced by Mono rather than the original source, it too should work with any CLR language, be it Boo or F# or what have you. I've been able to compile Boo code to Unity WebGL games, which use IL2CPP, without obvious problems although I haven't done anything like a scientific test. It's not beyond belief that bugs which occur only in non-C#, non-UnityScript IL code may go unfixed. And, of course, it's impossible to say what will happen after Unity 5 - technology, particularly in games, moves too fast for confident future predictions. However, It seems pretty clear Boo will be working in Unity for a while to come even though it is being demoted from "officially supported" status to the same kind of l33t hacker underworld as functional languages. </p>
-<h2>Boo-Curious?</h2>
-<p>If you've got Unity installed already, you've already got everything you need to play with Boo. Just create a text file with a ".boo" extension inside a Unity project and you can write Unity components in Boo. If you don't have Unity, You can also <a href="http://www.mono-project.com/download/">download Mono directly</a>, which installs MonoDevelop and Boo automatically. </p>
-<p>If you're not fond of MonoDevelop - an editor for which I have… mixed… feelings - You can write Boo using <a href="http://www.sublimetext.com/">Sublime Text</a>, which has a Boo syntax higlighting package and can run Boo compiles for you. </p>
-<p>If you're curious but don't want to take the plunge, you can see the language for yourself and play with it online, using this <a href="http://tryboo.pollinimini.net/">interactive repl</a></p>
-<p>The documentation - which (be warned!) is incomplete and not always up to date - is in the <a href="https://github.com/bamboo/boo/wiki">Boo Project GitHub wiki</a>. There's an older site at <a href="http://boo.codehaus.org/">boo.codehaus.org</a> which is tends to show up on the Google results but has <em>mostly</em> been ported to the github. In cases of conflicting information, the GitGub wiki is likelier to be right. There's also a <a href="https://groups.google.com/forum/#!forum/boolang">Google Group</a> and a small pool of questions on <a href="http://stackoverflow.com/questions/tagged/boo">StackOverflow</a></p>
-<p>If you're a hardcore type, you can also download and rebuild <a href="https://github.com/bamboo/boo">the source for the entire Boo language</a> yourself from GitHub. Lastly, you might want to check out <a href="https://github.com/drslump/BooJS">BooJS</a>, a project which aims to compile Boo into JavaScript.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 31 May 2015
+            <p class="post-meta">Sun 31 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/boo_who#disqus_thread">comments</a>.</p>        </div>
+                A quick introduction to Boo, a python-like language for the CLR
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/boo_who#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/moonrise_early_access_is_live" rel="bookmark" title="Permalink to Moonrise Early Access is Live!">
+            <a href="http://theodox.com/2015/moonrise_early_access_is_live" rel="bookmark" title="Permalink to Moonrise Early Access is Live!">
                 <h2 class="post-title">
-                    Moonrise Early Access is Live!
+                    Moonrise Early Access is&nbsp;Live!
                 </h2>
             </a>
-                <p>Moonrise is <a href="http://store.steampowered.com/app/351040/">up on Steam now</a>! It's a blast to see people logging in from all over and playing.   </p>
-<p><a href="http://cdn.akamai.steamstatic.com/steam/apps/351040/ss_3e4a330e913cd4c8013c516deaaa87c2dc3cb4da.1920x1080.jpg?t=1432769730"><img alt="" src="http://cdn.akamai.steamstatic.com/steam/apps/351040/ss_3e4a330e913cd4c8013c516deaaa87c2dc3cb4da.1920x1080.jpg?t=1432769730" /></a></p>
-<p>Now that the cat is out of the bag I'll try to post some tech postmortems on the pipeline and some of the interesting shader work we did.  </p>
-<p><strong>PS</strong> If you get into the game, I share the username 'Alpha' with my kids.  So try sending friend requests, but if you get turned down it might be the kids instead of me! Don't take it personally.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 27 May 2015
+            <p class="post-meta">Wed 27 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/moonrise_early_access_is_live#disqus_thread">comments</a>.</p>        </div>
+                Moonrise is live on Steam!
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/moonrise_early_access_is_live#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/moonrise_steam_early_access" rel="bookmark" title="Permalink to Moonrise coming to Steam Early Access next week!">
+            <a href="http://theodox.com/2015/moonrise_steam_early_access" rel="bookmark" title="Permalink to Moonrise coming to Steam Early Access next week!">
                 <h2 class="post-title">
-                    Moonrise coming to Steam Early Access next week!
+                    Moonrise coming to Steam Early Access next&nbsp;week!
                 </h2>
             </a>
-                <p>I'm happy to note that <a href="http://undeadlabs.com/2015/05/news/moonrise-coming-to-early-access-on-may-27/#more-7213">Moonrise</a> will be debuting on Steam Early Access next week! </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 21 May 2015
+            <p class="post-meta">Thu 21 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/moonrise_steam_early_access#disqus_thread">comments</a>.</p>        </div>
+                Moonrise coming to Steam early access
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/moonrise_steam_early_access#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2015/spelchek" rel="bookmark" title="Permalink to spelchek">
                 <h2 class="post-title">
                     spelchek
                 </h2>
             </a>
-                <h2>Spelchek</h2>
-<p>I’m planning one of the worst things that can happen to a TA: a big massive file move-and-rename operation. Much as I love my team, we have a poor record as a company when it comes to spelling, and it occurred to me that I’d like to at least have some degree of automatic spell checking on the names of the new files, folders and assets.<br />
-It turns out that there’s no good spell checker for Python that doesn’t come with some kind of extension module (BTW, I’d love to be wrong about that - if you know one definitely post it in the comments). <a href="http://pythonhosted.org/pyenchant/">PyEnchant</a> for example is great, but it’s got 32-bit only Windows extensions that I can’t distribute without a hassle.   </p>
-<p><img alt="" src="https://s-media-cache-ak0.pinimg.com/236x/55/2c/b5/552cb539fcc6b8addffb0eb19ec98298.jpg" /></p>
-<p>I did, however, find a very neat example of Python Power in a little post by Peter Norvig, who put together a simple spellchecker in a few dozen lines of plain, readable Python <a href="http://norvig.com/spell-correct.html">code and great explanations here</a>.   </p>
-<p>I shamelessly borrowed his structure, with a couple of minor and not very creative tweaks. Norvig's original is built around Bayesian analysis: it guesses the correct word by looking at the relative frequencies with which variants show up – if ‘meet’ shows up 1000 times in your database but ‘mete’ shows up 5 times, that’s a good indication that ‘meet’ is the correct first guess.   </p>
-<p>Since I’m in a rush, I didn’t use that functionality very much. I scrounged around for as many sources correctly scored words. Unfortunately the only free source I could rely on turned out to be the venerable ‘GSL’ or ‘General Service List’, which has great data but only for about 2000 words (I used the version found <a href="http://jbauman.com/gsl.html">here</a>, by <a href="http://jbauman.com/index.html">John Bauman</a> as a the core of the list, and then scrounged the internet for other free sources. Since all of these were less common words than the ones in the GSL I gave them pretty arbitrary Bayes scores (4’s and 5’s for common words, 3’s for variants, plurals and participles). This is not sophisticated linguistics, but it’s close enough for horseshoes. </p>
-<p>The result is up on github as <a href="https://github.com/theodox/spelchek">spelchek</a>, which I affectionately refer to as the <em>cheap-ass spell checker.</em><br />
-It is hardly rocket science, but it does work. You can do something like:  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spelchek</span>  
-<span class="n">spelchek</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="s1">&#39;vhicle&#39;</span><span class="p">)</span>  
-<span class="c1"># &#39;vehicle&#39;</span>
-</pre></div>
-
-
-<p>or   </p>
-<div class="highlight"><pre><span></span><span class="n">spelchek</span><span class="o">.</span><span class="n">guesses</span><span class="p">(</span><span class="s1">&#39;flied&#39;</span><span class="p">)</span>  
-<span class="c1"># [&#39;filed&#39;, &#39;flied&#39;, &#39;flies&#39;, &#39;lied&#39;]</span>
-</pre></div>
-
-
-<p>I would caution against using this for hard-core text work where perfect accuracy matters -- like database stuff, a customer-facing website, or a word processor -- since I did not go with high quality commercially or academically vetted word lists. I’m reasonably certain that there are some mis-spellings or oddballs in the 75,000 or so words I ended up with from various sources. Still, the module useful for my intended use, which is making sure that we don’t get things like ‘floder’, ‘frunishings’ and ‘vetegation’ (all of which shipped with in <a href="http://www.ign.com/games/state-of-decay-year-one-survival-edition/xbox-one-20023993">State of Decay</a>, I’m sorry to admit). </p>
-<p>As always, MIT licensed so go to town. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 16 May 2015
+            <p class="post-meta">Sat 16 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/spelchek#disqus_thread">comments</a>.</p>        </div>
+                A python spell check module
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/spelchek#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/tech_art_for_art_directors" rel="bookmark" title="Permalink to Tech art for art directors">
+            <a href="http://theodox.com/2015/tech_art_for_art_directors" rel="bookmark" title="Permalink to Tech art for art directors">
                 <h2 class="post-title">
-                    Tech art for art directors
+                    Tech art for art&nbsp;directors
                 </h2>
             </a>
-                <p>I see that the slides from my 2015 GDC talk, <em>Technical Art For Art Directors</em> is now up on the <a href="http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art">GDC Vault</a>. <strong>paywall warning</strong> Enjoy – and feedback in the comments is very welcome. I can post the slides if there is interest, but if you watch the video you’ll see that they don’t really work without the verbal context. I defy anybody who wasn't there to make sense of this image, for example....  </p>
-<p><a href="http://1.bp.blogspot.com/-XedE_j-dcHE/VUsCuvzzD_I/AAAAAAABLzM/VCbs1DtFLzM/s1600/21E0AD1CCD067F1F330E9BB69649A81C.jpeg"><img alt="" src="http://1.bp.blogspot.com/-XedE_j-dcHE/VUsCuvzzD_I/AAAAAAABLzM/VCbs1DtFLzM/s400/21E0AD1CCD067F1F330E9BB69649A81C.jpeg" /></a></p>
-<p>I’ll say in passing that – despite the lack of text in the finished presentation – I had great luck putting this talk together in <a href="markdown_wrapup.html">Markdown</a> using <a href="http://www.decksetapp.com/">DeckSet</a>, which let me do the first 90% of the presentation without ever opening PowerPoint or Keynote. The slides were just one big plain text file, which let me <a href="https://github.com/theodox/tadwtf/blob/master/tadwtf_slides.md">put them up on github</a> so I could version them and track changes without getting bogged down in the finicky formatting nonsense that ultimately consumes all slide decks. I particularly liked this workflow because I could work as if it was text but still run it as a slide show very early on, which gave me a chance to get my patter down and listen to the words instead of getting hung up on formatting text. <strong>Plain text FTW!</strong></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 09 May 2015
+            <p class="post-meta">Sat 09 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/tech_art_for_art_directors#disqus_thread">comments</a>.</p>        </div>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/book_review" rel="bookmark" title="Permalink to Book Review">
-                <h2 class="post-title">
-                    Book Review
-                </h2>
-            </a>
-                <p>Computer books are a very hit-or-miss affair. I go through them like comic books but – like comic books – they rarely have much of an impact on me: I read along, nod, and ten minutes after I close the covers I’ve either compressed the whole thing into a crunched-down, dried-up mental summary or filed it away as something to look at for a very specific kind of reference. <br />
-It’s hard for a technical book to really <em>engage</em> a reader. Clarity, clean exposition and simply not peddling misinformation by accident or oversight are hard enough and many tech books fail to even hit those mares. Engaging style and memorable insights are even tougher to conjure up.  </p>
-<p><a href="http://www.amazon.com/gp/product/0596802293/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0596802293&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=CVEGONEA7DGRZKKD"><img alt="" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=0596802293&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=tecsurgui-20" /></a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=0596802293" /></p>
-<p>My personal favorite in this regard is <a href="http://amzn.to/1FQKwV6">The Art Of Readable Code</a> by Dustin Boswell and Trevor Foucher. Unlike most tech books it’s not about technology, it’s about <em>you</em>. By which I mean it’s about how to approach programming problems with a pragmatic, long term view that’s about making your life more productive and less stressful in the long run by adopting smart practices. It’s not about whiz-bang tech - in fact, the book hops around between languages and problem sets and doesn’t really teach anything about <em>programming</em> per se; rather, it’s about <em>writing</em>: about making your code clear, expressive and humane. Programmer machismo often encourages us to write super-efficient alien artifacts which can be extremely impressive but which nobody wants to touch for fear of getting the <em>Space Odyssey</em> treatment. I’ve started forcing this book on all my new people: it’s better than a style guide because it teaches you things to think about, rather than giving you a list of things to memorize and follow.<br />
-(hat tip to @Pat Corwin, by the way, who turned me on to this one)<br />
-What got me thinking about tech books just now is the fact that I’ve recently found one that’s almost but not quite in that elite class of game changers. <a href="http://amzn.to/1AGMvW1">Effective Python</a>, by Brett Slatkin, is more technical and a bit less fluent than <a href="http://amzn.to/1FQKwV6">The Art Of Readable Code</a>. Still, it caught my eye because it seems like a great mile-marker on the road from “pretty good python user” to “real Pythonista.”   </p>
-<p><a href="http://www.amazon.com/gp/product/0134034287/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0134034287&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=CVFALVJQ7SEU6UMO"><img alt="" src="http://ws-na.amazon-adsystem.com/widgets/q?_encoding=UTF8&amp;ASIN=0134034287&amp;Format=_SL250_&amp;ID=AsinImage&amp;MarketPlace=US&amp;ServiceVersion=20070822&amp;WS=1&amp;tag=tecsurgui-20" /></a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=0134034287" /></p>
-<p><a href="http://amzn.to/1AGMvW1">Effective Python</a> does a great job of explaining and illustrating several features of the language which can be overlooked by folks coming from a scripting background rather than computer science. Many of the habits which separate the Python zen masters from the mere acolytes are explained neatly and clearly: the mysteries of the <a href="http://stackoverflow.com/questions/231767/what-does-the-yield-keyword-do-in-python">yield keyword</a>, the evils of the <a href="http://eli.thegreenplace.net/2009/01/16/python-insight-beware-of-mutable-default-values-for-arguments">mutable default argument</a>, and the unfathomable allure of <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">metaclasses</a> are all dealt with clearly and in ways that don’t make you feel like a chump. Even better, the information is presented with a usable, practical slant: it’s neither an abstract set of rules to memorize nor a comp-sci nerdout about language features. Instead the book presents enough information for you to make good strategic choices: Perennial python puyzzlers like “list comprehension or loop?”, “Is it okay to use Try…except…else?” and “When to use propertites vs descriptors vs plain old fields” are all addressed in a reasonable, non-dogmatic way.<br />
-So, I’ll definitely be adding that one to the new-hire reading list in the future. Recommended!  </p>
-<p>PS if you haven’t checked out the <a href="http://astore.amazon.com/tecsurgui-20">Tech Art Bookstore</a> in a while, I’ve added a bunch of new items over the last few months</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 06 May 2015
-            </p>
-<p>There are <a href="http://theodox.com/2015/book_review#disqus_thread">comments</a>.</p>        </div>
+                The slides for my 2015 GDC talk, Technical Art For Art Directors are available on the GDC Vault
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/tech_art_for_art_directors#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -623,107 +220,119 @@ So, I’ll definitely be adding that one to the new-hire reading list in the fut
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

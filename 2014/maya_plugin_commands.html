@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Laziness and cleanliness and MEL, Oh My.</title>
+        <title>Laziness and cleanliness and <span class="caps">MEL</span>, Oh&nbsp;My.</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="Don't use Mel. But if you have to, do it like this: with a pythonic wrapper to clean up your strings">
+        <meta name="description" content="Don’t use Mel. But if you have to, do it like this: with a pythonic wrapper to clean up your strings">
 
         <meta name="author" content="Steve Theodore">
 
@@ -49,9 +51,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/maya_plugin_commands">
-	<meta property="og:title" content="Laziness and cleanliness and MEL, Oh My.">
+	<meta property="og:title" content="Laziness and cleanliness and <span class="caps">MEL</span>, Oh&nbsp;My.">
 	<meta property="article:published_time" content="2014-10-26 00:18:00-07:00">
-            <meta property="og:description" content="Don't use Mel. But if you have to, do it like this: with a pythonic wrapper to clean up your strings">
+            <meta property="og:description" content="Don’t use Mel. But if you have to, do it like this: with a pythonic wrapper to clean up your strings">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -93,7 +95,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Laziness and cleanliness and MEL, Oh My.</h1>
+                        <h1>Laziness and cleanliness and <span class="caps">MEL</span>, Oh&nbsp;My.</h1>
                         <span class="meta">
                             Sun 26 October 2014
                         </span>
@@ -110,9 +112,9 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>The other day I was following a <a href="http://tech-artists.org/forum/showthread.php?5077-FBX-Exporting-from-Maya">thread on Tech-Artists</a> which reminded me of one of those little Maya things that doesn't really matter, but which drives me bonkers: busted front ends for Maya plugins.  </p>
-<p>When a developer makes a plugin for Maya, they can create new Mel commands as well as new nodes. The new commands will ultimately use the same basic strategy to parse their incoming arguments: Maya will give them an <a href="http://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-list-html.html">MArgList</a> object and they will have to parse out what that means. If the plugin uses an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-syntax-html.html">MSyntax</a> and an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-parser-html.html">MArgParser</a> to pull the values out then the plugin will behave just like the functions in maya.cmds.  Flags and arguments will be checked the same way that we're used to in the rest of Maya Python.  </p>
-<p>Unfortunately, there's no law that says the plugin has to do it 'correctly'.  There are more than a few plugins that don't use the standard MSyntax/MArgParser combo and just pull values out of the argument list directly.  The most notorious offender is the FBX Plugin, which generates a ton of commands which all fail to use the standard parsing mechanism.  And, of course, there are also bits of MEL lying around from other sources as well that are a bit painful to call from Python, That's why you see tons of hairy beasts like this:      </p>
+        <p>The other day I was following a <a href="http://tech-artists.org/forum/showthread.php?5077-FBX-Exporting-from-Maya">thread on Tech-Artists</a> which reminded me of one of those little Maya things that doesn&#8217;t really matter, but which drives me bonkers: busted front ends for Maya&nbsp;plugins.  </p>
+<p>When a developer makes a plugin for Maya, they can create new Mel commands as well as new nodes. The new commands will ultimately use the same basic strategy to parse their incoming arguments: Maya will give them an <a href="http://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-list-html.html">MArgList</a> object and they will have to parse out what that means. If the plugin uses an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-syntax-html.html">MSyntax</a> and an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-parser-html.html">MArgParser</a> to pull the values out then the plugin will behave just like the functions in maya.cmds.  Flags and arguments will be checked the same way that we&#8217;re used to in the rest of Maya&nbsp;Python.  </p>
+<p>Unfortunately, there&#8217;s no law that says the plugin has to do it &#8216;correctly&#8217;.  There are more than a few plugins that don&#8217;t use the standard MSyntax/MArgParser combo and just pull values out of the argument list directly.  The most notorious offender is the <span class="caps">FBX</span> Plugin, which generates a ton of commands which all fail to use the standard parsing mechanism.  And, of course, there are also bits of <span class="caps">MEL</span> lying around from other sources as well that are a bit painful to call from Python, That&#8217;s why you see tons of hairy beasts like&nbsp;this:      </p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.mel</span> <span class="kn">as</span> <span class="nn">mel</span>  
 <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexStart -v &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_frames</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>  
 <span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexEnd -v &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">end_frames</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>  
@@ -120,29 +122,29 @@
 </pre></div>
 
 
-<p>While this is workable, it's fragile: composing strings inline inside a function call is an invitation to bugs like forgetting an escaped quote (tell me you'd notice that last escape in the final line if it was borked!) or a bit of significant whitespace. It's also harder to meta-program anything that's written like this - you can't create a dictionary of options or a variable length list of arguments when you call the function. Last - but not least, at least not for lousy typists like myself - you can't rely on autocompletion in your IDE to make things quicker and less error prone.  </p>
-<p>In cases like this it's handy to be able to fall back on a wrapper that will feed the plugin a correctly formatted MEL-style argument but which looks and codes like regular Maya Python. Luckily, you can usually rely on the MEL syntax, even when the plugin's argument parsing is as Python-unfriendly as the FBX plugins: If the MEL version doesn't work either, the whole thing isn't worth rescuing ! -- but if it does then you can Python-ify the front end with a little bit of Python magic to make sure the arguments are passed correctly.  </p>
-<p>One thing we can do to make this a simple job is to use what's known as <em>MEL function syntax</em>.  This is a little-used MEL behavior that lets you call MEL more or less like a traditional computer function, rather than the shell-style script format you usually see. Function syntax uses parentheses and a comma-delimited list of arguments rather than white space. It means that these two calls are identical:  </p>
+<p>While this is workable, it&#8217;s fragile: composing strings inline inside a function call is an invitation to bugs like forgetting an escaped quote (tell me you&#8217;d notice that last escape in the final line if it was borked!) or a bit of significant whitespace. It&#8217;s also harder to meta-program anything that&#8217;s written like this - you can&#8217;t create a dictionary of options or a variable length list of arguments when you call the function. Last - but not least, at least not for lousy typists like myself - you can&#8217;t rely on autocompletion in your <span class="caps">IDE</span> to make things quicker and less error&nbsp;prone.  </p>
+<p>In cases like this it&#8217;s handy to be able to fall back on a wrapper that will feed the plugin a correctly formatted <span class="caps">MEL</span>-style argument but which looks and codes like regular Maya Python. Luckily, you can usually rely on the <span class="caps">MEL</span> syntax, even when the plugin&#8217;s argument parsing is as Python-unfriendly as the <span class="caps">FBX</span> plugins: If the <span class="caps">MEL</span> version doesn&#8217;t work either, the whole thing isn&#8217;t worth rescuing ! &#8212; but if it does then you can Python-ify the front end with a little bit of Python magic to make sure the arguments are passed&nbsp;correctly.  </p>
+<p>One thing we can do to make this a simple job is to use what&#8217;s known as <em><span class="caps">MEL</span> function syntax</em>.  This is a little-used <span class="caps">MEL</span> behavior that lets you call <span class="caps">MEL</span> more or less like a traditional computer function, rather than the shell-style script format you usually see. Function syntax uses parentheses and a comma-delimited list of arguments rather than white space. It means that these two calls are&nbsp;identical:  </p>
 <div class="highlight"><pre><span></span>spaceLocator -p 1 2 3 -n &quot;fred&quot;;  
 spaceLocator(&quot;-p&quot;, &quot;1&quot;, &quot;2&quot;,  &quot;3&quot;,  &quot;-n&quot;,  &quot;fred&quot;);
 </pre></div>
 
 
-<p>While you probably don't want to type that second one, it's a lot easier to manage if you're trying to turn a bunch of flags and arguments into a MEL command string.  What we'll be doing is creating a function that generates argument strings in the function syntax style and then passes them to MEL for you, allowing you to use the familiar cmds-style arguments and keywords instead of doing all the string assembly in-line with your other code.  </p>
-<p>The rest of the relevant MEL syntax rules are pretty simple, with one exception we'll touch on later:  </p>
+<p>While you probably don&#8217;t want to type that second one, it&#8217;s a lot easier to manage if you&#8217;re trying to turn a bunch of flags and arguments into a <span class="caps">MEL</span> command string.  What we&#8217;ll be doing is creating a function that generates argument strings in the function syntax style and then passes them to <span class="caps">MEL</span> for you, allowing you to use the familiar cmds-style arguments and keywords instead of doing all the string assembly in-line with your other&nbsp;code.  </p>
+<p>The rest of the relevant <span class="caps">MEL</span> syntax rules are pretty simple, with one exception we&#8217;ll touch on&nbsp;later:  </p>
 <ul>
-<li><em>Everything</em> is a string!</li>
-<li>Flags are preceded by a dash</li>
-<li>Flags come first</li>
-<li>Non-flag arguments follow flags</li>
-<li>Multipart values are just a series of single values</li>
+<li><em>Everything</em> is a&nbsp;string!</li>
+<li>Flags are preceded by a&nbsp;dash</li>
+<li>Flags come&nbsp;first</li>
+<li>Non-flag arguments follow&nbsp;flags</li>
+<li>Multipart values are just a series of single&nbsp;values</li>
 </ul>
-<p>That first one may suprise you but it's true - and in our case it's extremely useful. If you're dubious, though, try this in your MEL listener:  </p>
+<p>That first one may suprise you but it&#8217;s true - and in our case it&#8217;s extremely useful. If you&#8217;re dubious, though, try this in your <span class="caps">MEL</span>&nbsp;listener:  </p>
 <div class="highlight"><pre><span></span>polyCube (&quot;-name&quot;, &quot;hello&quot;, &quot;-width&quot;, &quot;999&quot;);
 </pre></div>
 
 
-<p>Implementing these rules in a function turns out to be pretty simple.   </p>
+<p>Implementing these rules in a function turns out to be pretty&nbsp;simple.   </p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.mel</span>  
 <span class="k">def</span> <span class="nf">run_mel</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
     <span class="c1"># makes every value into a tuple or list so we can string them together easily  </span>
@@ -163,15 +165,15 @@ spaceLocator(&quot;-p&quot;, &quot;1&quot;, &quot;2&quot;,  &quot;3&quot;,  &quo
 </pre></div>
 
 
-<p>This function will correctly format a MEL call for almost all circumstances (see the note below for the exception).  For example the irritating FBX commands above become  </p>
+<p>This function will correctly format a <span class="caps">MEL</span> call for almost all circumstances (see the note below for the exception).  For example the irritating <span class="caps">FBX</span> commands above&nbsp;become  </p>
 <div class="highlight"><pre><span></span><span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexStart&quot;</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">start_frames</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  
 <span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexEnd&quot;</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">end_frames</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  
 <span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExport&quot;</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">get_export_file</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.fbx&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>That's a big improvement over all that string assembly (not leastaways because it pushes all the string nonsense into one place where it's easy to find and fix bugs!)   However it's still a bit ugly. Wouldn't it be cleaner and more readable to nudge these guys another step towards looking like real Python?  </p>
-<p>Luckily that's quite easy to do. After all, the run_mel("command") part of this is the same except for the command names. So why not make a second function that makes functions with the right command names?  This is basically just a tweak on the way decorators work. For example:  </p>
+<p>That&#8217;s a big improvement over all that string assembly (not leastaways because it pushes all the string nonsense into one place where it&#8217;s easy to find and fix bugs!)   However it&#8217;s still a bit ugly. Wouldn&#8217;t it be cleaner and more readable to nudge these guys another step towards looking like real&nbsp;Python?  </p>
+<p>Luckily that&#8217;s quite easy to do. After all, the run_mel(&#8220;command&#8221;) part of this is the same except for the command names. So why not make a second function that makes functions with the right command names?  This is basically just a tweak on the way decorators work. For&nbsp;example:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mel_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>  
     <span class="k">def</span> <span class="nf">wrap</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
         <span class="k">return</span> <span class="n">run_mel</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
@@ -179,37 +181,37 @@ spaceLocator(&quot;-p&quot;, &quot;1&quot;, &quot;2&quot;,  &quot;3&quot;,  &quo
 </pre></div>
 
 
-<p>This takes a MEL command name ("cmd") and makes a new function which calls run_mel using that command. So you can create objects which look and work like Python commands but do all the nasty mel stuff under the hood like this:  </p>
+<p>This takes a <span class="caps">MEL</span> command name (&#8220;cmd&#8221;) and makes a new function which calls run_mel using that command. So you can create objects which look and work like Python commands but do all the nasty mel stuff under the hood like&nbsp;this:  </p>
 <div class="highlight"><pre><span></span>FBXExport = mel_cmd(&quot;FBXExport&quot;)      
 FBXExportBakeComplexStart = mel_cmd(&quot;FBXExportBakeComplexStart&quot;)  
 FBXExportBakeComplexEnd = mel_cmd(&quot;FBXExportBakeComplexEnd&quot;)
 </pre></div>
 
 
-<p>And call them just like real Python:    </p>
+<p>And call them just like real&nbsp;Python:    </p>
 <div class="highlight"><pre><span></span><span class="n">FBXExport</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="s2">&quot;this_is_a_lot_nicer.fbx&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>All this might seem like a bit of extra work -- and it is, though its not much more work than all those laboriously hand-stitched string concatenations you'd have to do otherwise.</p>
-<p>More importantly, this actually is a case where code cleanliness is next to Godliness: keeping rogue MEL from invading your python code is a big boon to long term maintenance.  String assembly is notoriously bug prone: it's way too easy to miss a closing quote, or to append something that's not a string and bring the whole rickety edifice crashing down.  Moreover, exposing all of that stringy stuff to other code makes it impossible to do clever python tricks like passing keyword arguments as dictionaries.  So in this case, a little upfront work is definitely worth it.  </p>
-<p>Plus, if you're lazy like me you can import these functions in a module and they'll autocomplete. Fat Fingers FTW!   </p>
-<p>So, if you find this useful, the complete code is <a href="https://gist.github.com/theodox/9a2e2b92867fa82ea328">up on Github.</a>  </p>
+<p>All this might seem like a bit of extra work &#8212; and it is, though its not much more work than all those laboriously hand-stitched string concatenations you&#8217;d have to do&nbsp;otherwise.</p>
+<p>More importantly, this actually is a case where code cleanliness is next to Godliness: keeping rogue <span class="caps">MEL</span> from invading your python code is a big boon to long term maintenance.  String assembly is notoriously bug prone: it&#8217;s way too easy to miss a closing quote, or to append something that&#8217;s not a string and bring the whole rickety edifice crashing down.  Moreover, exposing all of that stringy stuff to other code makes it impossible to do clever python tricks like passing keyword arguments as dictionaries.  So in this case, a little upfront work is definitely worth&nbsp;it.  </p>
+<p>Plus, if you&#8217;re lazy like me you can import these functions in a module and they&#8217;ll autocomplete. Fat Fingers <span class="caps">FTW</span>!   </p>
+<p>So, if you find this useful, the complete code is <a href="https://gist.github.com/theodox/9a2e2b92867fa82ea328">up on&nbsp;Github.</a>  </p>
 <h3>Note</h3>
-<p>If you're a real mel-head you may have noticed one limitation in the <code>run_mel()</code>implementation above.  MEL allows multi-use flags, for commands like  </p>
+<p>If you&#8217;re a real mel-head you may have noticed one limitation in the <code>run_mel()</code>implementation above.  <span class="caps">MEL</span> allows multi-use flags, for commands&nbsp;like  </p>
 <div class="highlight"><pre><span></span>ls -type transform -type camera
 </pre></div>
 
 
-<p>However the function here doesn't try to figure format arguments that way. In part because it's a relatively rare feature in MEL, but mostly because it doesn't occur in the places I've needed to wrap MEL commands.  It would not be hard to extend the function so you could annotate some flags as being multi-use - if you give it a whirl let me know and I'll post it for others to see.  </p>
-<h3>Bonus Round</h3>
-<p>The <a href="https://gist.github.com/theodox/2b83b1c47a18448d3cbf">Github also has another module</a> which uses the same basic idea (but a slightly different code structure) to wrap that stupid FBX plugin.</p>
+<p>However the function here doesn&#8217;t try to figure format arguments that way. In part because it&#8217;s a relatively rare feature in <span class="caps">MEL</span>, but mostly because it doesn&#8217;t occur in the places I&#8217;ve needed to wrap <span class="caps">MEL</span> commands.  It would not be hard to extend the function so you could annotate some flags as being multi-use - if you give it a whirl let me know and I&#8217;ll post it for others to&nbsp;see.  </p>
+<h3>Bonus&nbsp;Round</h3>
+<p>The <a href="https://gist.github.com/theodox/2b83b1c47a18448d3cbf">Github also has another module</a> which uses the same basic idea (but a slightly different code structure) to wrap that stupid <span class="caps">FBX</span>&nbsp;plugin.</p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/programming.html">programming</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -229,126 +231,136 @@ FBXExportBakeComplexEnd = mel_cmd(&quot;FBXExportBakeComplexEnd&quot;)
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/maya_plugin_commands';
-                var disqus_url = 'http://theodox.com/2014/maya_plugin_commands';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/maya_plugin_commands';
+            var disqus_url = 'http://theodox.com/2014/maya_plugin_commands';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

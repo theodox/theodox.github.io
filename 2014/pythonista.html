@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Pythonistas need Pythonista!</title>
+        <title>Pythonistas need&nbsp;Pythonista!</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="Pythonista, a remarkably slick Python interpreter for iOS">
+        <meta name="description" content="Pythonista, a remarkably slick Python interpreter for iOS">
 
         <meta name="author" content="Steve Theodore">
 
@@ -48,9 +50,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/pythonista">
-	<meta property="og:title" content="Pythonistas need Pythonista!">
+	<meta property="og:title" content="Pythonistas need&nbsp;Pythonista!">
 	<meta property="article:published_time" content="2014-07-27 13:07:00-07:00">
-            <meta property="og:description" content="Pythonista, a remarkably slick Python interpreter for iOS">
+            <meta property="og:description" content="Pythonista, a remarkably slick Python interpreter for iOS">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Pythonistas need Pythonista!</h1>
+                        <h1>Pythonistas need&nbsp;Pythonista!</h1>
                         <span class="meta">
                             Sun 27 July 2014
                         </span>
@@ -109,19 +111,19 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>If you consider yourself a Pythonista, you've probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It's not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial wig.  </p>
-<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple's rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the 'batteries' included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS console.</p>
-<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and UI.  Ironically, it's easier to develop a GUI application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a UI builder tool similar to QT's interface builder (not nearly as deep or complex, of course, but iOS UI is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image processing:  </p>
+        <p>If you consider yourself a Pythonista, you&#8217;ve probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It&#8217;s not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial&nbsp;wig.  </p>
+<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple&#8217;s rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the &#8216;batteries&#8217; included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS&nbsp;console.</p>
+<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and <span class="caps">UI</span>.  Ironically, it&#8217;s easier to develop a <span class="caps">GUI</span> application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a <span class="caps">UI</span> builder tool similar to <span class="caps">QT</span>&#8217;s interface builder (not nearly as deep or complex, of course, but iOS <span class="caps">UI</span> is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image&nbsp;processing:  </p>
 <p><a href="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg"><img alt="" src="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg" /></a></p>
-<p>Pythonista's main limitation is that it's not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren't available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here's a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies -- such as the perforce api -- are off-limits; I'm not sure it it would be possible to use .pyd's that were properly compiled for iOS or if the security sandbox won't allow arbitrary binary code at all.  </p>
-<p>All in all, it's pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team .  </p>
-<p>All in all, pretty cool for $6.99!</p>
+<p>Pythonista&#8217;s main limitation is that it&#8217;s not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren&#8217;t available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here&#8217;s a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies &#8212; such as the perforce api &#8212; are off-limits; I&#8217;m not sure it it would be possible to use .pyd&#8217;s that were properly compiled for iOS or if the security sandbox won&#8217;t allow arbitrary binary code at&nbsp;all.  </p>
+<p>All in all, it&#8217;s pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team&nbsp;.  </p>
+<p>All in all, pretty cool for&nbsp;$6.99!</p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/web.html">web</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -141,126 +143,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/pythonista';
-                var disqus_url = 'http://theodox.com/2014/pythonista';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/pythonista';
+            var disqus_url = 'http://theodox.com/2014/pythonista';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

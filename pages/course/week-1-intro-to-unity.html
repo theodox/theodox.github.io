@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Week 1: Introducing Unity</title>
+        <title>Week 1: Introducing&nbsp;Unity</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -74,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Week 1: Introducing Unity</h1>
+                        <h1>Week 1: Introducing&nbsp;Unity</h1>
                     </div>
                 </div>
             </div>
@@ -86,43 +88,43 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article>
-        <p>This week is devoted to familiarizing everyone with the basics of the Unity 3d Interface.  We'll start with a high level overview of how Unity does it's work using components, assets, and scripts.  We'll learn how to use the Unity editor itself, in particular:</p>
+        <p>This week is devoted to familiarizing everyone with the basics of the Unity 3d Interface.  We&#8217;ll start with a high level overview of how Unity does it&#8217;s work using components, assets, and scripts.  We&#8217;ll learn how to use the Unity editor itself, in&nbsp;particular:</p>
 <p><hr>
 Intro to Unity
 ===============
 * Why Unity?
    * Games are programs - but a very special kinds of program
-       * Lots of 'content' : models, images, sounds, and so on
+       * Lots of &#8216;content&#8217; : models, images, sounds, and so on
        * Lots of small, almost autonomous bits of code
           * How does a character move?
           * How do we keep score?
           * What happens when I press the mouse button?
    * Building games is <strong>hard</strong>! 
-       * That's why they're always (a) late and (b) expensive!
+       * That&#8217;s why they&#8217;re always (a) late and (b) expensive!
        * Lots of complexity = lots of ways to break things
        * Handling many different kinds of data takes lots of work
    * Unity tries to make this easier
        * Big architectural issues are handled for you
        * You work on bite-sized pieces
        * Content and pipeline are already done
-       * Packaging for different hardware is "automatic".. to a point</p>
+       * Packaging for different hardware is &#8220;automatic&#8221;.. to a&nbsp;point</p>
 <p><hr>
 Unity Building Blocks
 =============================
    * All Unity games are made up of a fairly small set of pieces:
      * <a href="glossary#gameobject">GameObjects</a>
        * These are physical objects with a position in the 3d world
-       * Can be placed by hand or created ("instantiated") in the game
+       * Can be placed by hand or created (&#8220;instantiated&#8221;) in the game
        * GameObjects can contain other GameObjects in a <a href="glossary#parent">parent-child</a> relationship
        * GameObjects can have attached <a href="glossary#component">components</a> which control their behavior or appearance.
      * <a href="glossary#component">Components</a> are small pieces of program code attached to GameObjects
        * One GameObject can have any number of components
-       * Every "turn" (usually 1/60th of a second) all components are updated by the game.
+       * Every &#8220;turn&#8221; (usually 1/60th of a second) all components are updated by the game.
        * Components can communicate using messages or call other bits of code
        * Unity provides many built in components:
         * <em>MeshRenderer</em> displays 3d models
         * <em>Animation</em> plays animations
-        * <em>Collider</em> is uses by the physics system to know the shape and mass of an object</p>
+        * <em>Collider</em> is uses by the physics system to know the shape and mass of an&nbsp;object</p>
 <div class="highlight"><pre><span></span> * [Prefabs](glossary#prefab) are assemblies of gameObjects and components
    * Lets your store and replicate a complex setup
    * Changing a prefab once updates **all** copies of that prefab!
@@ -137,243 +139,253 @@ Unity Building Blocks
 
 
 <ul>
-<li>Every Unity game is just one or more scenes, containing prefabs and components</li>
-<li>This loose kind of organization is tough for big projects - but ideal for small games.</li>
+<li>Every Unity game is just one or more scenes, containing prefabs and&nbsp;components</li>
+<li>This loose kind of organization is tough for big projects - but ideal for small&nbsp;games.</li>
 </ul>
 <p><hr>
-UI basics
-============</p>
+<span class="caps">UI</span> basics&nbsp;============</p>
 <ul>
-<li>The basic Unity UI</li>
+<li>The basic Unity <span class="caps">UI</span></li>
 <li><strong>Scene window</strong>: where you construct your game world <ul>
-<li>Scene window has special tools to show you only what you're intested in</li>
-<li>Scene window camera is lets you see from any angle, not just the game's camera</li>
+<li>Scene window has special tools to show you only what you&#8217;re intested&nbsp;in</li>
+<li>Scene window camera is lets you see from any angle, not just the game&#8217;s&nbsp;camera</li>
 <li>Includes grid for lining up <br>
 <img alt="sceneWindow" src="http://uploads.gamedev.net/packtpub/0546OT_01_10.png" /></li>
 </ul>
 </li>
-<li><strong>Game window</strong>: where you see the world through the player's eyes 
+<li><strong>Game window</strong>: where you see the world through the player&#8217;s eyes 
 <br><img alt="game" src="http://docs.unity3d.com/Documentation/Images/manual/GameView40-3.jpg" /></li>
 <li><strong>Hierarchy window</strong>: Lists the contents of your world<ul>
 <li>The nesting reflects <a href="glossary#parent">parent-child</a> relationships among your pieces.
 <br><img alt="hierarchy" src="http://www.umingo.de/mydata/paper/mechs_and_tanks/images/ch3/map_hierarchy.png" /></li>
 </ul>
 </li>
-<li><strong>Project window</strong>: Lists all the resources in your project; your 'toolbox'.<br>
+<li><strong>Project window</strong>: Lists all the resources in your project; your &#8216;toolbox&#8217;.<br>
 <img alt="projectWindow" src="http://docs.unity3d.com/Documentation/Images/manual/ImportingAssets-0.jpg" /></li>
 <li><strong>Console</strong>: How Unity provides feedback 
 <br><img alt="Console" src="http://docs.unity3d.com/Documentation/Images/manual/Console-0.jpg" />.</li>
 <li><strong>Play button</strong> Run the game in test mode<br>
    <img alt="playbutton" src="http://www.geoplanit.co.uk/wp-content/uploads/2012/03/unity_play_buttons.jpg" /></li>
 <li>Useful tricks<ul>
-<li>Many windows have search boxes in the upper right corner to help you find things in a crowded list</li>
-<li>Windows can be moved and resized to match your work style</li>
-<li>Windows can be docked as tabs</li>
-<li><strong>Space bar</strong> will set the active window to full screen, or reset it back to the default layout if it is already full screen</li>
+<li>Many windows have search boxes in the upper right corner to help you find things in a crowded&nbsp;list</li>
+<li>Windows can be moved and resized to match your work&nbsp;style</li>
+<li>Windows can be docked as&nbsp;tabs</li>
+<li><strong>Space bar</strong> will set the active window to full screen, or reset it back to the default layout if it is already full&nbsp;screen</li>
 </ul>
 </li>
-<li>Use <strong>Window &gt; Layouts</strong> to pick stored layouts or revert to the default view.</li>
+<li>Use <strong>Window &gt; Layouts</strong> to pick stored layouts or revert to the default&nbsp;view.</li>
 </ul>
 <p><hr>
 Getting content into the game
 =============================
 * Unity projects
-   * Projects are Unity's main organizational unit. A project is a set of folders on disk that contain everything needed to make up the game
+   * Projects are Unity&#8217;s main organizational unit. A project is a set of folders on disk that contain everything needed to make up the game
    * Unity projects are created from the file menu (<strong>File &gt; New Project</strong>)
-   * The core of each project is the <strong>Assets Folder</strong>.  This is where all of your art and code will live</p>
+   * The core of each project is the <strong>Assets Folder</strong>.  This is where all of your art and code will&nbsp;live</p>
 <ul>
-<li>What are "assets"?</li>
+<li>What are&nbsp;&#8220;assets&#8221;?</li>
 <li>Assets are all the files that make up your unity project. They live in your <a href="glossary#projectfolder">project folder</a>.</li>
-<li>Models &amp; Animations (Maya, max, or any FBX file)</li>
-<li>Textures (Photoshop, PNG, TIFF, TGA)</li>
-<li>Shaders: the mini-programs that render 3d objects</li>
-<li>Materials : combine a shader and texture(s) for a unique look</li>
-<li>Unity ".asset" files - the catchall category for your own game data</li>
-<li>Unity ".unity" scene files - game levels</li>
-<li>Scripts: C# (.cs), Javascript (.js) and Boo (.boo) script files.</li>
+<li>Models <span class="amp">&amp;</span> Animations (Maya, max, or any <span class="caps">FBX</span>&nbsp;file)</li>
+<li>Textures (Photoshop, <span class="caps">PNG</span>, <span class="caps">TIFF</span>, <span class="caps">TGA</span>)</li>
+<li>Shaders: the mini-programs that render 3d&nbsp;objects</li>
+<li>Materials : combine a shader and texture(s) for a unique&nbsp;look</li>
+<li>Unity &#8220;.asset&#8221; files - the catchall category for your own game&nbsp;data</li>
+<li>Unity &#8220;.unity&#8221; scene files - game&nbsp;levels</li>
+<li>Scripts: C# (.cs), Javascript (.js) and Boo (.boo) script&nbsp;files.</li>
 <li>
-<p>Unity ".prefab" files - combine all of the above into a complete game object with custom look, behaviors, and attributes</p>
+<p>Unity &#8220;.prefab&#8221; files - combine all of the above into a complete game object with custom look, behaviors, and&nbsp;attributes</p>
 </li>
 <li>
-<p>Adding content to a project</p>
+<p>Adding content to a&nbsp;project</p>
 </li>
-<li>Drop files into the project window from explorer/finder</li>
-<li>Import file using <strong>Assets &gt; Import New Asset...</strong>*</li>
+<li>Drop files into the project window from&nbsp;explorer/finder</li>
+<li>Import file using <strong>Assets &gt; Import New Asset&#8230;</strong>*</li>
 <li>Place files manually into the Assets folder<ul>
-<li>Right-click and choose 'refresh' if new files don't show up</li>
-<li>Right-click and choose 'reimport' to force an asset to update</li>
+<li>Right-click and choose &#8216;refresh&#8217; if new files don&#8217;t show&nbsp;up</li>
+<li>Right-click and choose &#8216;reimport&#8217; to force an asset to&nbsp;update</li>
 </ul>
 </li>
-<li>Via Unity Packages</li>
+<li>Via Unity&nbsp;Packages</li>
 <li>
-<p>From the Asset Store</p>
+<p>From the Asset&nbsp;Store</p>
 </li>
 <li>
-<p>Import settings</p>
+<p>Import&nbsp;settings</p>
 </li>
-<li>Unity does a lot of work to make things usable in game. Most of this is hidden from users</li>
-<li>Sometimes you need to tell Unity exactly what do to with an asset, however</li>
+<li>Unity does a lot of work to make things usable in game. Most of this is hidden from&nbsp;users</li>
+<li>Sometimes you need to tell Unity exactly what do to with an asset,&nbsp;however</li>
 <li>Use the <strong>Inspector</strong> (<strong>Window &gt; Inspector</strong> or Ctrl-3) to investigate settings.<ul>
 <li><strong>Common Model settings</strong><ul>
-<li>Scale factor: adjust for different size models from different sources</li>
-<li><strong>TIP</strong> Try to stick to 1 unit per meter for consistency</li>
-<li><strong>TIP</strong> Always model in <strong>CM</strong> in Maya. Unity forces the scale up by 100 for maya files!</li>
+<li>Scale factor: adjust for different size models from different&nbsp;sources</li>
+<li><strong><span class="caps">TIP</span></strong> Try to stick to 1 unit per meter for&nbsp;consistency</li>
+<li><strong><span class="caps">TIP</span></strong> Always model in <strong><span class="caps">CM</span></strong> in Maya. Unity forces the scale up by 100 for maya&nbsp;files!</li>
 <li>Materials:<ul>
-<li>Import materials: controls the naming of materials and where Unity will look for materials matching those names.</li>
+<li>Import materials: controls the naming of materials and where Unity will look for materials matching those&nbsp;names.</li>
 </ul>
 </li>
 </ul>
 </li>
 <li><strong>Common texture settings</strong><ul>
-<li>Be sure to choose the right texture type (normal map, GUI and texture are  the common ones)</li>
-<li>Compression settings - keep an eye on budgets</li>
-<li><strong>TIP</strong> Texture memory is one of the biggest memory budget problems for games. Real games need to carefully control how much memory they use, especially on limited platfroms like iPhones.</li>
+<li>Be sure to choose the right texture type (normal map, <span class="caps">GUI</span> and texture are  the common&nbsp;ones)</li>
+<li>Compression settings - keep an eye on&nbsp;budgets</li>
+<li><strong><span class="caps">TIP</span></strong> Texture memory is one of the biggest memory budget problems for games. Real games need to carefully control how much memory they use, especially on limited platfroms like&nbsp;iPhones.</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <p><hr>
-3d Basics
-==========</p>
+3d Basics&nbsp;==========</p>
 <ul>
-<li>Placing objects in a Unity scene</li>
-<li>Drag from the Project window to the Hierarchy Window</li>
-<li>Drag from Project window to Scene window (can be confusing!)</li>
-<li>Via Scripts and wizards</li>
-<li>Working with the Unity camera.</li>
-<li>Use 'F' key to frame</li>
-<li>Mouse wheel to dolly in and out</li>
-<li>Orthographic vs Perspective </li>
-<li>Right click to choose preset cameras</li>
-<li><strong>Alt+LMB</strong> to orbit</li>
-<li><strong>Alt+MMB</strong> to pan</li>
-<li>Working with 3d objects</li>
-<li>Pan tool (<strong>Q</strong> key)  ( same as <strong>Alt+MMB</strong>)</li>
-<li>Move Tool (<strong>W</strong> key)</li>
-<li>Rotate Tool (<strong>E</strong> key)</li>
-<li>Scale Tool (<strong>R</strong> key)</li>
-<li>About 3d transformations</li>
-<li>Transforms can be nested - moving one moves another</li>
-<li>The 'parent' moves the 'child' -- but <strong>not vice-versa</strong>.</li>
+<li>Placing objects in a Unity&nbsp;scene</li>
+<li>Drag from the Project window to the Hierarchy&nbsp;Window</li>
+<li>Drag from Project window to Scene window (can be&nbsp;confusing!)</li>
+<li>Via Scripts and&nbsp;wizards</li>
+<li>Working with the Unity&nbsp;camera.</li>
+<li>Use &#8216;F&#8217; key to&nbsp;frame</li>
+<li>Mouse wheel to dolly in and&nbsp;out</li>
+<li>Orthographic vs&nbsp;Perspective </li>
+<li>Right click to choose preset&nbsp;cameras</li>
+<li><strong>Alt+<span class="caps">LMB</span></strong> to&nbsp;orbit</li>
+<li><strong>Alt+<span class="caps">MMB</span></strong> to&nbsp;pan</li>
+<li>Working with 3d&nbsp;objects</li>
+<li>Pan tool (<strong>Q</strong> key)  ( same as <strong>Alt+<span class="caps">MMB</span></strong>)</li>
+<li>Move Tool (<strong>W</strong>&nbsp;key)</li>
+<li>Rotate Tool (<strong>E</strong>&nbsp;key)</li>
+<li>Scale Tool (<strong>R</strong>&nbsp;key)</li>
+<li>About 3d&nbsp;transformations</li>
+<li>Transforms can be nested - moving one moves&nbsp;another</li>
+<li>The &#8216;parent&#8217; moves the &#8216;child&#8217; &#8212; but <strong>not vice-versa</strong>.</li>
 <li>Children move and rotate <strong>relative to the parent</strong><ul>
-<li>ex: Shoulder moves elbow; elbow moves wrist; wrist moves fingers...</li>
-<li>ex: Moon rotates around earth; earth rotates around sun....</li>
-<li>It's very useful to do your movement in the right space!</li>
+<li>ex: Shoulder moves elbow; elbow moves wrist; wrist moves&nbsp;fingers&#8230;</li>
+<li>ex: Moon rotates around earth; earth rotates around&nbsp;sun&#8230;.</li>
+<li>It&#8217;s very useful to do your movement in the right&nbsp;space!</li>
 </ul>
 </li>
-<li>Parent objects by dragging the child onto the parent in Hierarchy view</li>
-<li>Global and local mode buttons </li>
-<li>Pivot and center buttons</li>
+<li>Parent objects by dragging the child onto the parent in Hierarchy&nbsp;view</li>
+<li>Global and local mode&nbsp;buttons </li>
+<li>Pivot and center&nbsp;buttons</li>
 </ul>
 <hr>
 
 <h1>Exercise:</h1>
-<p>We'll wrap up the class by importing some pre-made assets and assembling a (very) simple working bowling. Details <a href="excersize-1-bowling-game">here</a></p>
+<p>We&#8217;ll wrap up the class by importing some pre-made assets and assembling a (very) simple working bowling. Details <a href="excersize-1-bowling-game">here</a></p>
     </article>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

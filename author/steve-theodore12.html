@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -91,547 +93,126 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2014/unity_5_announced" rel="bookmark" title="Permalink to Unity 5 announced">
+            <a href="http://theodox.com/2014/worst_cg_evar_" rel="bookmark" title="Permalink to Worst. CG. EVAR.">
                 <h2 class="post-title">
-                    Unity 5 announced
+                    Worst. <span class="caps">CG</span>. <span class="caps">EVAR</span>.
                 </h2>
             </a>
-                <p>So it looks like Unity <a href="http://unity3d.com/5">is announcing Unity 5 a bit early</a>.   It's a bit premature, since they are not done with the much anticipated 4.6 release (I've been wrestling with the existing, awful Unitry GUI system for months and I <strong>can't freaking wait</strong> to push it over the gunwale!)   </p>
-<p><a href="http://unity3d.com/profiles/unity3d/themes/unity/images/pages/unity5/slider/doll2.jpg"><img alt="" src="http://unity3d.com/profiles/unity3d/themes/unity/images/pages/unity5/slider/doll2.jpg" /></a>  </p>
-<h2>Key points of interest:</h2>
-<h4>They are integrating the realtime GI middleware <a href="http://www.geomerics.com/">Enlighten </a></h4>
-<p>This is an interesting choice on a couple of levels; for one thing, I'm not sure most platforms out there are quite ready for realtime GI yet -- while you can <em>do</em> it, as Crytek has been doing for a couple of years, it's hard to do it in a real production environment with real assets and (more importantly) real performance constraints.  I wonder how many current Unity users really need this?  Given that Unity perf generally lags more traditional engines thanks to the C# layer switch costs and managed memory, I'm a bit surprised they took on something so high end.   They advertise this as 'mobile ready' - I'll believe it when I see it. <a href="https://www.marmoset.co/skyshop">SkyShop </a>makes gorgeous pictures on an iPad  - at around 20 fps for one object on screen. </p>
-<p>That said, it does make really pretty demos.</p>
-<h4>Physically based shaders.</h4>
-<p>This is very interesting, but the devil is in the details;  physically correct rendering is a very appealing idea, and is hard to beat when done right; but the mental and artistic adjustment costs can be pretty significant if you've been doing traditional anything-goes rendering for a decade or more.  Will be very interested to see if they manage to popularize this approach.</p>
-<h4>A 64 bit version of the editor.</h4>
-<p>How will this play out with the notoriously flaky GUID system in unity? And honestly, I'd take a 32 bit version that <a href="http://tech-artists.org/forum/showthread.php?4584-Studio-Switching-to-Perforce-need-good-introduction-ramp-up">integrated better with source control</a> and was better adapted to collaborative work environments.  And '<a href="http://forum.unity3d.com/threads/48088-Prefab-saving-question">save my goddam prefab</a>' would also be nice.  </p>
-<p>On the other hand it looks like they're also making the editor more multi-core friendly, which gives me another reason to buy that <a href="https://www.apple.com/mac-pro/">Mac Pro</a> I've been dreaming of. </p>
-<h4>More direct control over blend weights in Mecanim.</h4>
-<p>The recent addition of <code>CrossFade()</code> and <code>Play()</code> is already a big step forward, but this seems like even more belated recognition that the original was too doctrinaire. Who, exactly, thought that an animation system that <em>didn't let you tell it what animations to play</em> was a good idea?  </p>
-<p>The most exciting bullet on animation though is a real headsmacking 'Oh of course' things: the ability to add behavior scripts directly to animation states. This should go a <em>long</em> way to enabling much more interesting -- and comprehensible -- procedural animation code. I'm <em>very excited.</em></p>
-<h4>Forking the web player between the old plugin and WebGL</h4>
-<p>you'll be able to publish to the traditional web player plugin, or to WebGL. Interesting to see how that plays out - I wonder if it will affect security sandbox issues with the web player. I'm still wishing it was easier to write real 3-d tools that could be published on the web, ala <a href="http://clara.o/">clara.o</a>.  </p>
-<p>Of course, once you get into _interesting _stuff, like shader work, "write once run anywhere" gets a little more difficult (I've been battling stencil shader difference between PC, IOS and Android for a while now, so I'm prejudiced).  Will this make it even dicier?  </p>
-<h4>A new audio system.</h4>
-<p>Not my area, but given the complaints I've heard from audio guys any change is probably for the good.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 18 March 2014
+            <p class="post-meta">Wed 19 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/unity_5_announced#disqus_thread">comments</a>.</p>        </div>
+                A compendium of truly mind-blowingly bad CG
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/worst_cg_evar_#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/python_api_crash" rel="bookmark" title="Permalink to If your Maya Python API is crashing">
+            <a href="http://theodox.com/2014/unity_5_announced" rel="bookmark" title="Permalink to Unity 5 announced">
                 <h2 class="post-title">
-                    If your Maya Python API is crashing
+                    Unity 5&nbsp;announced
                 </h2>
             </a>
-                <p>Check out <a href="http://around-the-corner.typepad.com/adn/2013/03/possible-misuse-of-mscriptutil-in-maya.html#">this useful post from Cyril Fauvelle</a> on the ins and outs of the dreaded <a href="http://www.chadvernon.com/blog/resources/maya-api-programming/mscriptutil/"><strong>MScriptUtil</strong></a>.  </p>
-<p>This kind of stuff is why I reserve API programming for only the knottiest of tasks.  maya.cmds won't clean-exit your Maya session if you reverse two lines by accident.  However, sometimes there's no alternative...  Here's hoping API 2.0 matures quickly and we can all forget all of this pointless distraction.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 18 March 2014
+            <p class="post-meta">Tue 18 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/python_api_crash#disqus_thread">comments</a>.</p>        </div>
+                Unity 5 has been announced
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/unity_5_announced#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/python_api_crash" rel="bookmark" title="Permalink to If your Maya Python API is crashing">
+                <h2 class="post-title">
+                    If your Maya Python <span class="caps">API</span> is&nbsp;crashing
+                </h2>
+            </a>
+            <p class="post-meta">Tue 18 March 2014
+            </p>
+                A useful tidbit from Autodesk on how to avoid a common crash scenario in Maya python api 1.0
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/python_api_crash#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2014/sliders" rel="bookmark" title="Permalink to Sliders!">
                 <h2 class="post-title">
                     Sliders!
                 </h2>
             </a>
-                <p>Although GDMag is no more, I still occasionally get interesting press releases from PR flacks who haven't gotten the bad news. This morning,  one from <a href="http://www.makehuman.org/">MakeHuman</a> caught my eye.  </p>
-<h2><a href="http://www.makehuman.org/sites/makehuman.org/files/images/3/img003_001.png"><img alt="" src="http://www.makehuman.org/sites/makehuman.org/files/images/3/img003_001.png" /></a></h2>
-<p>Now with realistic back flab!  </p>
-<p>MakeHuman is a new open sourced parametric modeling / body morphing program written in Python.  The overall use case is similar to <a href="http://poser.smithmicro.com/gallery.html">Poser</a> or <a href="http://www.daz3d.com/">Daz3d</a>.  It seems like it also incorporates some of the underlying ideas from the venerable <a href="http://www.facegen.com/">FaceGen</a> - particularly having a few high level sliders that correlate changes across many different aspects of a model. </p>
-<p><a href="http://2.bp.blogspot.com/-MDesUhTFBYM/UyXbys3vv1I/AAAAAAABH9o/PEIhdil6obE/s1600/makeh.png"><img alt="" src="http://2.bp.blogspot.com/-MDesUhTFBYM/UyXbys3vv1I/AAAAAAABH9o/PEIhdil6obE/s1600/makeh.png" /></a></p>
-<h3>Prognathism += .05</h3>
-<p>The slider set that comes with MakeHuman is pretty good. I didn't do a count but I'd guess there are several hundred.  Unlike many similar programs you can get a decent variety of body types outside the Burne Hogarth / superhero range, with decent control over the high level feel of the model. </p>
-<p><a href="http://3.bp.blogspot.com/-OcSmU55zGkk/UyXt2tCPLvI/AAAAAAABH-Q/OQ70pbYgcwc/s1600/bodytypes.png"><img alt="" src="http://3.bp.blogspot.com/-OcSmU55zGkk/UyXt2tCPLvI/AAAAAAABH-Q/OQ70pbYgcwc/s1600/bodytypes.png" /></a></p>
-<p>The high frequency details that you really wouild need to sell the model are still up to you, however - fat rolls, wrinkles, scars and so on are going to have to be painted on or hand modelled in a later step.</p>
-<p>Like most slider-modeler programs it's easy to create really disturbing imagery, but the underlying slider set is pretty good, with a decent amount of anatomically based sliders for facial and body proportions.  Like all slider-modellers it suffers from the tension between local control and overall believability - it's easy to start noodling on a detail only to discover you've undermined the whole product.  </p>
-<p><a href="http://2.bp.blogspot.com/-um2YWid2fNk/UyXm310LhaI/AAAAAAABH94/bmzSUhs80SY/s1600/lotsasliders.png"><img alt="" src="http://2.bp.blogspot.com/-um2YWid2fNk/UyXm310LhaI/AAAAAAABH94/bmzSUhs80SY/s1600/lotsasliders.png" /></a></p>
-<p>As always with these kinds of things , you are teleported right to the bottom of the <a href="http://www.arts.rpi.edu/~ruiz/EGDFall08/postmortemreadings/Theodore%20Uncanny%20Valley.pdf">Uncanny Valley</a> when you first start to twiddle things; the vacant stare can really get to you as you creep those sliders along (I will not speculate on which sliders <em>you _spend the most time creeping, but if you've looked at <a href="https://www.google.com/search?q=poser+models&amp;safe=active&amp;espv=210&amp;es_sm=122&amp;source=lnms&amp;tbm=isch&amp;sa=X&amp;ei=Vt8lU7LwGoqDogS7q4CgBA&amp;ved=0CAoQ_AUoAg&amp;biw=1180&amp;bih=974">Poser (NSFW) </a>I bet you can guess which one gets the most over-use. Makes you think:: _What a missed microtransaction opportunity!</em>).   </p>
-<h3>Use Case</h3>
-<p>If you go into any slider-modeller expecting shippable characters with strong personalities to pop out the other end, you'll be disappointed.  That's not where these tools shine.  </p>
-<p>One-button art is not really the point with these kinds of tools.  They are, however,  a fabulous way to kick off a ZBrush sculpt or play with ideas quickly.  The topology  on the base meshes that come with the package seems pretty good to me, although I'm sure plenty of artists will have their own preferences. However MakeHuman  allows you to provide alternate base meshes (another trick pioneered by FaceGen back in the day) so you could provide your own body meshes before hitting the sliders if you so desire.   </p>
-<h2><a href="http://3.bp.blogspot.com/-6Ju73PA4gS8/UyXnRjYcyII/AAAAAAABH-A/maJd8o1mGy0/s1600/hai.png"><img alt="" src="http://3.bp.blogspot.com/-6Ju73PA4gS8/UyXnRjYcyII/AAAAAAABH-A/maJd8o1mGy0/s1600/hai.png" /></a></h2>
-<p>The base topo and skinning aren't bad  </p>
-<p>The program can also output ready-riigged characters witth a variety of skeletons to FBX and other intermediate formats.  As with the models, go in expecting to have to tweak the results - but again, its a huge accelerator for progress. The selection of hair, clothing and accessories is pretty small compared to what you'd get with the commercial alternatives, but adding your own is not too tough (an <a href="http://www.aversionofreality.com/blog/2014/1/30/project-maiko-creating-the-base-bodysuit">example tutorial here</a>)  </p>
-<p>For TA's one of the most interesting aspects of the program is the fact that it's mostly written in Python, and that the source code is freely available. If you're interested in adding your own sliders, or new deformation algorithms, or more body data the way is open.  One thing that I'd liove to see more of in the program is a mode based on real world body scan data - one of the ways FaceGen was ahead of its time was its use of statistical models rather than the more obvious 'make bigger butt cheeks' sliders, which meant that randomly generated characters usually started from a more plausible place than the familiar monstrosities of, say, Oblivion:  </p>
-<h2><a href="http://cloud-4.steampowered.com/ugc/542932685069387623/92E24D6F77E61891EFC6A2FC9A077BB70E4C31A5/1024x768.resizedimage"><img alt="" src="http://cloud-4.steampowered.com/ugc/542932685069387623/92E24D6F77E61891EFC6A2FC9A077BB70E4C31A5/1024x768.resizedimage" /></a></h2>
-<p>yes, Oblivion, I'm talking about you.<br />
-All in all, not bad for free-as-in-beer!   <a href="http://www.makehuman.org/content/download.html">Download it from here</a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 16 March 2014
+            <p class="post-meta">Sun 16 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/sliders#disqus_thread">comments</a>.</p>        </div>
+                pending
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/sliders#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/morph_targets_revisited" rel="bookmark" title="Permalink to Morph targets revisited">
+            <a href="http://theodox.com/2014/morph_targets_revisited" rel="bookmark" title="Permalink to Morph targets revisited">
                 <h2 class="post-title">
-                    Morph targets revisited
+                    Morph targets&nbsp;revisited
                 </h2>
             </a>
-                <p>Here's an interesting demo vid from NewTek, spotlighting a new time-based sculpting workflow: in essence, an animatable Zbrush that let you retouch big simulation cache files.  It's easy to see how this could spark a renaissance in vertex animation.....  </p>
-<p>More details <a href="https://www.lightwave3d.com/chronosculpt/">on the NewTek website</a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 14 March 2014
+            <p class="post-meta">Fri 14 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/morph_targets_revisited#disqus_thread">comments</a>.</p>        </div>
+                Chronosculpt - a tool for Zbrush-like painting of dense polymodels
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/morph_targets_revisited#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/descriptors_and_pythonic_maya_properties" rel="bookmark" title="Permalink to Descriptors and pythonic Maya properties">
+            <a href="http://theodox.com/2014/descriptors_and_pythonic_maya_properties" rel="bookmark" title="Permalink to Descriptors and pythonic Maya properties">
                 <h2 class="post-title">
-                    Descriptors and pythonic Maya properties
+                    Descriptors and pythonic Maya&nbsp;properties
                 </h2>
             </a>
-                <p>I'm still working on the followup to <a href="rescuing_maya_gui_from_itself.html">Rescuing Maya GUI From Itself</a>, but while I was at it this <a href="http://stackoverflow.com/questions/22291337/python-re-implementing-setattr-with-super">StackOverflow question</a> made me realize that the same trick works for pyMel-style property access to things like position or rotation. If you're a member of the anti-pyMel brigade you might find this a useful trick for things like <code>pCube1.translation = (0,10,0)</code>. Personally I use pyMel most of the time, but this is a good supplement or alternative for haterz or for special circumstance where pymel is too heavy. </p>
-<p>The goal is to be able to write something like</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">xform</span> <span class="kn">import</span> <span class="n">Xform</span>  
-<span class="n">example</span> <span class="o">=</span> <span class="n">Xform</span><span class="p">(</span><span class="s1">&#39;pCube1&#39;</span><span class="p">)</span>  
-<span class="k">print</span> <span class="n">example</span><span class="o">.</span><span class="n">translation</span>  
-<span class="c1"># [0,0,0]  </span>
-<span class="n">example</span><span class="o">.</span><span class="n">rotation</span> <span class="o">=</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">40</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The process is about as simple as it can get thanks to the magic of <a href="rescuing_maya_gui_from_itself.html">descriptors</a>. This example spotlights one advantage of descriptors over getter/setter property functions: by inheriting the two classes (<code>BBoxProperty</code> and <code>WorldXformProperty</code>) I can get 4 distinct behaviors (world and local, read-write and read-only) with very little code and no if-checks.</p>
-<div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">xform.py</span>
-
-<span class="sd">Exposes the xform class: a simple way to set maya position, rotation and similar properties with point notation.</span>
-
-<span class="sd">(c) 2014 Steve Theodore.  Distributed under the MIT License (http://opensource.org/licenses/MIT)  </span>
-<span class="sd">TLDR: Use, change and share, please retain this copyright notice.  </span>
-<span class="sd">&#39;&#39;&#39;</span>
-
-<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
-
-<span class="k">class</span> <span class="nc">XformProperty</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>  
-    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Descriptor that allows for get-set access of transform properties  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">flag</span> <span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">_q_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">flag</span><span class="p">:</span> <span class="mi">0</span><span class="p">}</span>
-
-
-    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span> <span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_q_args</span> <span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span> <span class="n">obj</span><span class="p">,</span> <span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span> <span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">WorldXformProperty</span><span class="p">(</span> <span class="n">XformProperty</span> <span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Get-set property in world space  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">flag</span> <span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">_q_args</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">flag</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="s1">&#39;ws&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">_e_args</span> <span class="o">=</span> <span class="p">{</span><span class="n">flag</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span> <span class="s1">&#39;ws&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">}</span>
-
-<span class="k">class</span> <span class="nc">BBoxProperty</span> <span class="p">(</span> <span class="n">XformProperty</span> <span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Read only property for bounding boxes  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span> <span class="p">):</span>  
-        <span class="k">raise</span> <span class="ne">RuntimeError</span> <span class="p">(</span> <span class="s2">&quot;bounding box is a read-only property!&quot;</span> <span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">WorldBBoxProperty</span> <span class="p">(</span> <span class="n">WorldXformProperty</span><span class="p">,</span> <span class="n">BBoxProperty</span> <span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Read only property for bounding boxes  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="k">pass</span>
-
-
-<span class="k">class</span> <span class="nc">Xform</span><span class="p">(</span> <span class="nb">object</span> <span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Thin wrapper providing point-notation access to transform attributes</span>
-
-<span class="sd">       example = Xform(&#39;pCube1&#39;)  </span>
-<span class="sd">       # |pCube1  </span>
-<span class="sd">       example.translation   </span>
-<span class="sd">       # [0,0,0]  </span>
-<span class="sd">       example.translation = [0,10,0]</span>
-
-<span class="sd">    For most purposes Xforms are just Maya unicode object names.  Note this does  </span>
-<span class="sd">    NOT track name changes automatically. You can, however, use &#39;rename&#39;:  </span>
-<span class="sd">       example = Xform(&#39;pCube1&#39;)  </span>
-<span class="sd">       example.rename(&#39;fred&#39;)  </span>
-<span class="sd">       print example.Object  </span>
-<span class="sd">       # |fred</span>
-
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">obj</span> <span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Object</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="n">obj</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="bp">True</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span> <span class="bp">self</span> <span class="p">):</span>  
-        <span class="k">return</span> <span class="nb">unicode</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">Object</span> <span class="p">)</span>  <span class="c1"># so that the command will work on the string name of the object</span>
-
-    <span class="c1"># property descriptors  These are descriptors so they live at the class level,  </span>
-    <span class="c1"># not inside __init__!</span>
-
-    <span class="n">translation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;translation&#39;</span> <span class="p">)</span>  
-    <span class="n">rotation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;rotation&#39;</span> <span class="p">)</span>  
-    <span class="n">scale</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;scale&#39;</span> <span class="p">)</span>  
-    <span class="n">pivots</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;pivots&#39;</span> <span class="p">)</span>
-
-    <span class="n">world_translation</span> <span class="o">=</span> <span class="n">WorldXformProperty</span><span class="p">(</span> <span class="s1">&#39;translation&#39;</span> <span class="p">)</span>  
-    <span class="n">world_rotation</span> <span class="o">=</span> <span class="n">WorldXformProperty</span><span class="p">(</span> <span class="s1">&#39;rotation&#39;</span> <span class="p">)</span>  
-    <span class="n">world_pivots</span> <span class="o">=</span> <span class="n">WorldXformProperty</span><span class="p">(</span> <span class="s1">&#39;pivots&#39;</span> <span class="p">)</span>  
-    <span class="c1"># maya does not allow &#39;world scale&#39; - it&#39;s dependent on the parent scale</span>
-
-    <span class="c1"># always local  </span>
-    <span class="n">scaleTranslation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;scaleTranslation&#39;</span> <span class="p">)</span>  
-    <span class="n">rotateTranslation</span> <span class="o">=</span> <span class="n">XformProperty</span><span class="p">(</span> <span class="s1">&#39;rotateTranslation&#39;</span> <span class="p">)</span>
-
-    <span class="n">boundingBox</span> <span class="o">=</span> <span class="n">BBoxProperty</span><span class="p">(</span> <span class="s1">&#39;boundingBox&#39;</span> <span class="p">)</span>  
-    <span class="n">world_boundingBox</span> <span class="o">=</span> <span class="n">WorldBBoxProperty</span><span class="p">(</span> <span class="s1">&#39;boundingBox&#39;</span> <span class="p">)</span>
-
-
-    <span class="k">def</span> <span class="nf">rename</span><span class="p">(</span> <span class="bp">self</span><span class="p">,</span> <span class="n">new_name</span> <span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Object</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span> <span class="bp">self</span><span class="o">.</span><span class="n">Object</span><span class="p">,</span> <span class="n">new_name</span> <span class="p">),</span> <span class="n">l</span><span class="o">=</span><span class="bp">True</span> <span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
-
-    <span class="nd">@classmethod</span>  
-    <span class="k">def</span> <span class="nf">ls</span><span class="p">(</span> <span class="n">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">):</span>  
-        <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">        Returns a list of Xforms, using the same arguments and flags as the default ls command  </span>
-<span class="sd">        &#39;&#39;&#39;</span>  
-        <span class="k">try</span><span class="p">:</span>  
-            <span class="n">nodes</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="o">*</span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span> <span class="p">),</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span> <span class="p">)</span>  
-            <span class="k">return</span> <span class="nb">map</span> <span class="p">(</span> <span class="n">Xform</span><span class="p">,</span> <span class="n">nodes</span> <span class="p">)</span>  
-        <span class="k">except</span><span class="p">:</span>  
-            <span class="k">return</span> <span class="p">[]</span>
-</pre></div>
-
-
-<p>You may note the absence of a <code>__metaclass__</code>. In this case, with only a single class, a meta would be an unnecessary complication. Meanwhile the <a href="https://github.com/theodox/mGui">code for MayaGUI itself is up on GitHub</a>. Comments and/or contributions welcome!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 11 March 2014
+            <p class="post-meta">Tue 11 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/descriptors_and_pythonic_maya_properties#disqus_thread">comments</a>.</p>        </div>
+                How to use descriptors for dot-style access to maya object properties instead of cmds.getAttr()
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/descriptors_and_pythonic_maya_properties#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/a_little_bit_of_innovation" rel="bookmark" title="Permalink to A little bit of innovation">
+            <a href="http://theodox.com/2014/a_little_bit_of_innovation" rel="bookmark" title="Permalink to A little bit of innovation">
                 <h2 class="post-title">
-                    A little bit of innovation
+                    A little bit of&nbsp;innovation
                 </h2>
             </a>
-                <p>If <a href="sigh">recent demise of XSI</a> has you all depressed about the state of 3d software, here's <a href="https://www.youtube.com/watch?v=kjzfhbW2hNY">a little preview of a new Modo feature that will make some modelers very happy</a> </p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/kjzfhbW2hNY" frameborder="0" allowfullscreen></iframe>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 11 March 2014
+            <p class="post-meta">Tue 11 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/a_little_bit_of_innovation#disqus_thread">comments</a>.</p>        </div>
+                A cool new modeling feature in Modo
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/a_little_bit_of_innovation#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2014/sigh" rel="bookmark" title="Permalink to *Sigh*">
                 <h2 class="post-title">
                     *Sigh*
                 </h2>
             </a>
-                <p>It's bad enough we just lost <a href="http://www.nytimes.com/2014/02/25/movies/harold-ramis-who-helped-redefine-what-makes-us-laugh-on-screen-dies-at-69.html?_r=0">Harold Ramis</a>.  </p>
-<p>Now we've also lost <a href="http://www.autodesk.com/products/autodesk-softimage/overview">SoftImage</a>.   </p>
-<p>Although I've never used XSI professionally, I was incredibly impressed by the people who made it, and I've always felt that XSI was a superior product to Max or Maya: making better use of modern hardware and showing off really innovative concepts in an industry that's gotten pretty damn stale for something that's sounds so high tech and is occasionally so magical.  </p>
-<p>In honor of the passing of this great piece of software, I'm going to reprint an article I wrote for <em><a href="http://www.gamasutra.com/topic/game-developer">Game Developer</a></em> back in 2008 when the sale of XSI to Autodesk was first announced.  I'm afraid I may have been a little too optimistic. However I do think that the basic idea of the piece - that we let ourselves in for this kind of treatment by not being more informed and flexible consumers - is still true.   </p>
-<p>In the mean time, I'm going to go have an Irish wake for a poor old XSI.  (BTW, if you're waiting on the follow-up to <a href="http://techartsurvival.blogspot.com/2014/02/rescuing-maya-gui-from-itself.html">Rescuing Maya GUI From Itself, </a>I'm cleaning up the code and writing tests before I go blabbing...)  </p>
-<p><em><strong>Update</strong>: Came upon <a href="http://gfxspeak.com/2014/02/27/autodesk-revenue-transition/">this interesting set of charts</a> (espceially the next to the last one at the bottom) which explains a lot of what's going on on here. Doesn't make it hurt less, though.</em>  </p>
-<p><em><strong>Equally relevant</strong>: <a href="http://forums.cgsociety.org/showthread.php?f=59&amp;t=1159665">Autodesk's upgrade lockdown</a>.</em>  </p>
-<hr />
-<h2><strong>The M-Word</strong></h2>
-<p><a href="http://atariage.com/forums/uploads/monthly_01_2014/post-4620-0-46419700-1389142399.jpg"><img alt="" src="http://atariage.com/forums/uploads/monthly_01_2014/post-4620-0-46419700-1389142399.jpg" /></a></p>
-<p>If you’ve been in a crunch-time media blackout for the past month, or shut down your internet connection to avoid election news,  or are the only games artist on the planet who’s never received a youtube link via email you may have missed an interesting little tidbit of news. On October 23 we learned that Avid is going to sell SoftImage, the Montreal-based developer or SoftImage|XSI to Autodesk.  If and when the deal goes through, all three of the biggest 3d modeling and animation packages will all belong to a single company.  </p>
-<p>Even if you managed to miss the announcement, you can probably predict the immediate reactions anyway.   In the XSI community, the dominant mode was shell-shock.  The “Resistance is Futile” jokes and Borg-themed Photoshop jobs could not disguise the level of emotion in the air -- the poster on the XSI forums who simply said “I think I’ll cry” wasn’t kidding.  There was a smattering of optimists suggesting the deal would give more people access to some of XSI’s best tech.  A few pragmatists found consolation in the idea that the conglomeration would give cross-package data transfer the attention it deserves.  But the most common reactions were shock and anxiety.    </p>
-<p>It’s hardly surprising that the possibility of being forced to abandon the comfort and security of a familiar environment would give XSI users the heebie-jeebies.  The official Pixel Pusher line has always been that any professional game artist should be competent in at least two packages. But even traditional artists are famous for being emotionally attached to their tools (never, ever venture an opinion about Kolinsky sable brushes in mixed company!) For us, who spend so much of our lives poking at one particular set of dialogs or buttons, the thought of being forced to swap them for a different, unfamiliar set of dialogs and buttons is deeply disturbing.  The fact that some XSI fans were so distraught they’d consider switching to Blender out of pique is an index of how emotional this issue can be.  </p>
-<p>What’s surprising, though, is that a similar miasma could be seen in the Max and Maya forums after the buyout announcement. Emotions ran high even for those not affected directly. Hardcore Maya fans suffered flashbacks as they relived the 2006 buyout of Alias.  More commonly, though, users were grimly pondering the future of graphics software in general, rather than the fate of any particular package.  Some naysayers worried that technology would stagnate without the underdogs like XSI striving to gain an advantage through innovation. Others fretted that consolidation in the industry means the exciting, Wild-West days of graphics are really over.  And many users of all three packages speculated that the lack of competition will lead to price gouging.</p>
-<h2><em>You Are Elected Chairman of the Board</em></h2>
-<p><a href="http://adena.com/adena/mo/chpay50.jpg"><img alt="" src="http://adena.com/adena/mo/chpay50.jpg" /></a></p>
-<p>Before we pronounce the graphics software business dead, we ought to look at this deal in its historical context.  These kinds of corporate dramas are unsettling for artists because they are an unsubtle reminder that we creative types are dependent on huge, impersonal corporations to get anything done. Masters-of-the-Universe style MBA analysis isn’t part of our job descriptions, so it’s hard for use mere users to figure out how to respond. A little bit of history, however, is often a good way to get some perspective; so here’s a very abbreviated walk through the life and times of SoftImage to help you understand today’s news.</p>
-<p>XSI may be the youngest of the big three graphics packages, but SoftImage the company is one of the oldest firms in 3d graphics software.  The original “SoftImage Creative Environment” debuted in 1988, but in an economic environment very different from todays.  3D graphics was very closely akin to rocket science – for one thing, it was mysterious new high-tech discipline and for another you needed an exotic workstation that cost upwards of $50,000<a href="file:///E:/Users/Stephen%20Theodore/Documents/My%20Dropbox/Dropbox/Columns/2008/1108/1108%20-%20M%20Word.docx#_ftn1">[1]</a> to do either one.  It was a very esoteric, very pricey business.  </p>
-<p>SoftImage|3D  was the first commercial application to offer artist-friendly IK (1991) and it quickly became the gold standard for computer animation.  Many seminal CGI films of the early ‘90’s were animated in SoftImage, most famously <strong>Jurassic Park.  </strong>Those early days of the CG revolution were heady times. Hollywood stood ready to firehose money onto anybody who could render a good looking triangle  -- SIGGRAPH veterans still murmur nostalgically about the heydays of studio parties – and the boom times were good for the company. In 1992, the Montreal firm went public to much acclaim. ****</p>
-<p>Success also changed the way the industry worked.   By the mid ‘90s, the explosion of 3d game development shifted the industry dynamic: the ranks of 3d artists and animators expanded enormously, but few games companies could afford to put the equivalent of a luxury sports car under every animator’s desk.  Affordable PCs with primitive graphics cards started stealing business from workstations and PC based packages like Autodesk’s 3d Studio started making inroads against pricey workstation software.  </p>
-<h2><em>From Sale Of Stock You Get $45</em></h2>
-<p><a href="http://adena.com/adena/mo/ccstock.jpg"><img alt="" src="http://adena.com/adena/mo/ccstock.jpg" /></a></p>
-<p>Microsoft, naturally, wanted to see the PC forces prevail . In 1994 they bought SoftImage for $130 million – a pretty high price given that the whole 3D software market was only around $60 million a year back then. But box sales weren’t the real goal: Microsoft needed to port a top-end workstation graphics package to Windows and legitimize the market for high end graphics on Windows. </p>
-<p>For many SoftImage vets, the events of last month may have an eerily familiar ring, right down to the “you will be assimilated” jokes (although,  in 1994 the reference was forgivably fresh).  </p>
-<p>The MS acquisition was not a very pleasant experience for SoftImage users. Not only were many Unix devotees forcibly converted to a new OS, but the demands of porting and cross-platform development shunted innovation to the sidelines.  It took almost 7 years for SoftImage|3D to get from version 3.0 to version 4.0 , and the package lost a lot of its technological edge to newer platforms like 3dStudio Max and Maya.  It’s not surprising that the survivors of that first buyout react suspiciously to the latest.</p>
-<p>By 1998, Microsoft had achieved its strategic objective: Windows had triumphed and graphics workstations were headed for the history books.  SoftImage became superfluous.  Microsoft sought out a buyer and found Avid, a rising power in the digital video editing business which coveted the company’s VFX and compositing tech.  Even if the core 3d business was losing steam, the deal still ran a cool $285 million – a price that might have been inflated by internet bubble, but it’s still pretty impressive.  </p>
-<p>Avid’s stewardship was a lot healthier for SoftImage as a tech company. SoftImage XSI, the long overdue gut-rehab of the aging SoftImage|3D, was released in 2000.  The product started out a bit slow – version 1.0 had no poly modeling tools! – but gained steam with impressive tech and clean new architecture. Many artists have lusted after XSI’s GATOR system for mapping one mesh onto another (supporting everything from texture transfers to skin weight matching) , its non-linear animation mixer, Face Robot facial animation technology, and most recently the high-perfomance ICE system for node-based custom object creation.    </p>
-<h2><em>Second Prize in a Beauty Contest, Collect $11</em></h2>
-<p>Unfortunately, the eningeering success of the product did not translate into success for SoftImage’s owners.  Avid’s core business has been hit hard by the proliferation of lower-cost video editing software like Apple’s Final Cut Pro.  Even though the SoftImage was profitable, it wasn’t profitable enough: to get a sense of the scale, you might note that the $35 million sale price for the company won’t even cover Avid’s losses for the 3rdquarter of this year.  As times got leaner, Avid needed to focus on protecting its core video editing business, so it started hunting for a buyer early this year.  Autodesk, as home to both of XSI’s a main rivals, was not the first buyer who was approached… but it was the final one, which is the one that counts.  </p>
-<p>What lessons can you learn from this little history?   </p>
-<p>First, it doesn’t provide a lot of evidence for conspiracy theories about monopoly power.  The fact is, supplying 3d software is pretty small potatoes in the grand scheme of capitalism.  It’s been said that there are only about half a million seats of full 3d packages in the world – sounds like a lot, but that’s smaller than the number of people in the <em>beta program</em> alone for Photoshop.  It’s not a market where achieving dominance is a huge financial win.  All three turnovers at SofImage  have been driven by strategic concerns that didn’t have to do with monopoly power or market domination.  Microsoft bought SoftImage to catalyze the switch from workstations to PCs. Avid bought it to solidify its FX and compositing business and saw modeling and animation through that prism.  The most recent sale didn’t originate with a sinister plot from inside of Autodesk, it originated with Avid’s accountants.    </p>
-<p>The more interesting – but also more depressing – aspect of this story, though, isn’t concerned with money. You could read the whole thing as a stirring tale of steadfast devotion. It was user loyalty that sustained SoftImage during the drift of the Microsoft years, when technical sluggishness might have let Max and Maya completely marginalize the original SoftImage.  The emotional reaction to the news is proof of how viscerally loyal users are to their favorite tools.  </p>
-<p>Unfortunately, that loyalty is a two edged sword.  The last few version of XSI were consistently excellent -- but no combination of cool features and good design managed to seduce away enough users from other packages to secure SoftImage’s future.  They competed on tech and features and did a great job – but it wasn’t enough to overcome the entrenched loyalties of Max and Maya fans. Individual artists might admire this feature or that bit of UI, but collectively we’re reactionaries: we stick with what we know. On top of that, most studios have tools and processes are designed around a particular package and aren’t eager to chuck those investments for the sake of sexy icons or a cleaner interface.  </p>
-<p>The fact is, we don’t really reward tools companies for pushing the envelope.  Even when something new does break into the scene, we try to shoehorn it into our existing workflows rather than embracing the new. We’re the last people to start denouncing monopolies and phoning up the Federal Trade Commission. Most of us have already folded our hands by letting ourselves become emotionally attached or technically beholden to particular bits of software.  If you’re in the same camp as the XSI user who posted “they’ll have to pry my license from my cold dead fingers,” you live in a virtual monopoly already.   </p>
-<h2><em>Get Out Of Jail Free?</em></h2>
-<p><a href="http://adena.com/adena/mo/chjail.jpg"><img alt="" src="http://adena.com/adena/mo/chjail.jpg" /></a></p>
-<p>That’s not to say that things aren’t going to change. The absence of major-league alternatives will definitely give Autodesk a much freer hand in choosing both its price points and research directions. T fact that their track record to date is pretty benign is comforting, but the knowledge that we’re dependent on their altruism from here on out should give us pause.  Autodesk has put some genuine effort into trying to explain the deal to users (there’s an interesting interview featuring the GMs of Autodesk and SoftImage up on the Autodesk website, with more info promised as the deal solidifies) but apart from reassurances that XSI isn’t going to go away overnight, the magic 8-ball is pretty cloudy.  </p>
-<p>The uncertainty is tough, particularly for anxious XSI users but for all of us. We all know the mantra, “it’s the artist not the tools” – but in practice it’s sometimes hard to say where the artist leaves off and the tool begins. The feeling that such an important part of our lives is out of our control is unnerving. </p>
-<p>What can we do about it? As individuals, that means being open to new software and new ways of working, so that we make an environment where companies have a real incentive to give us new and better tools. As studios we should invest in in-house tools rather than relying too faithfully on any single vendor.  As an industry we should push harder for more consistent, open standards in data formats and for open source tools so we can make our pipelines less dependent on the ups and downs of individual companies.  None of these steps will magically unwind the clock but they will give us a little more input into this critical part of our lives.   </p>
-<p>Or, we could all switch to Blender… But man, I hate the way they do their menus. It’s not like Max. You couldn’t pay me enough to switch.  </p>
-<p><a href="http://www.thesleuthjournal.com/wp-content/uploads/2013/10/monopoly-go-to-jail-card12.jpg"><img alt="" src="http://www.thesleuthjournal.com/wp-content/uploads/2013/10/monopoly-go-to-jail-card12.jpg" /></a></p>
-<hr />
-<p><a href="file:///E:/Users/Stephen%20Theodore/Documents/My%20Dropbox/Dropbox/Columns/2008/1108/1108%20-%20M%20Word.docx#_ftnref1">[1]</a>That’s $65,000 in today’s dollars.  For a machine less powerful than an iPhone.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 04 March 2014
+            <p class="post-meta">Tue 04 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/sigh#disqus_thread">comments</a>.</p>        </div>
-        <div class="post-preview">
-            <a href="http://theodox.com/2014/rescuing_maya_gui_from_itself" rel="bookmark" title="Permalink to Rescuing Maya GUI from itself">
-                <h2 class="post-title">
-                    Rescuing Maya GUI from itself
-                </h2>
-            </a>
-                <p><a href="pity_for_the_outcast.html">Last time out</a> was devoted to a subject most TA's already know: the shortcomings of Maya's native GUI. This time we're going to start looking at ways to rescue Maya from itself.</p>
-<p><img alt="" src="http://www.fanderson.org.uk/news/images3/darlingpuppet.jpg" /></p>
-<p>And if you don't know what that picture is there, <a href="http://youtu.be/9XNWA_yZvWo&quot;">go here first</a> -- this tech-art stuff is not as important as a good understanding of <a href="&quot;http://en.wikipedia.org/wiki/Thunderbirds_(TV_series)">Thunderbirds!</a>).</p>
-<p>With that out of the way:</p>
-<p>Any good rescue mission starts with objectives. The three main drawbacks to coding in Maya GUI natively are <strong>nasty syntax</strong>, clunky <strong>event handling</strong>, and difficult <strong>management</strong>. In today's thrill-packed episode, we're going lay some foundations for tackling that old-school syntax and dragging Maya GUI kicking and screaming into the 21st century.</p>
-<h1>Under the surface</h1>
-<p><img alt="" src="http://www.foundation3d.com/forums/attachment.php?attachmentid=74848&amp;d=1410941489" /></p>
-<p>Composing a Maya GUI in code is annoying because the only way to access the properties of a Maya GUI node is via a command - there's no way to get at the properties directly without a lot of command mongering.</p>
-<p>Sure, the purist might say that alternatives are just <a href="http://www.javakey.net/1-java/92b15b2251bd8f85.htm">syntax sugar</a> -- but Maya GUI's drawbacks are are (a) an obstacle to readability (and hence maintenance) and (b) such a big turn off that people don't bother to learn what native GUI can do. This is particularly true for formLayouts, which are the most useful and powerful - and also the least handy and least user-friendly - way of layout of controls in Maya. All the power is no use if you just stick with columnLayouts and hand-typed pixel offsets because setting things up takes a whole paragraph's worth of typing.</p>
-<p>So, the first thing I'd like to ponder is how to cut out some of the crap. Not only will a decent wrapper be more pleasant to read and write - at some point in the future when we get to talk about styling controls, real property access will be a big help in keeping things tidy. Plus, by putting a wrapper around property access we'll have a built in hook for management and cleaning up event handling as well, even though that's a topic for a future post.</p>
-<p>The upshot of it all: we're stuck with the under-the-hood mechanism, but there's no reason we can't wrap it in something prettier. Consider this simple example:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+                The demise of XSI and the future of the art-tools business.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/sigh#disqus_thread">comments</a>.</p>
+-->
 
-<span class="k">class</span> <span class="nc">ExampleButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="n">example</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
-<span class="n">col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
-<span class="n">btn</span> <span class="o">=</span> <span class="n">ExampleButton</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>  
-<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>  
-<span class="k">print</span> <span class="n">btn</span><span class="o">.</span><span class="n">Label</span>  
-<span class="c1"># hello world</span>
-</pre></div>
-
-
-<p>This is <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">plain-vanilla Python properties</a> in action. It's easy to extend it so you can set 'Label' also:</p>
-<div class="highlight"><pre><span></span>    <span class="nd">@Label.setter</span>  
-    <span class="k">def</span> <span class="nf">Label</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
-
-<span class="c1"># add this to the example above:  </span>
-<span class="n">btn</span><span class="o">.</span><span class="n">Label</span> <span class="o">=</span> <span class="s2">&quot;Goodbye cruel world&quot;</span>
-</pre></div>
-
-
-<p><img alt="" src="http://1.bp.blogspot.com/-AOcq5Y6WCSA/UwLm4_AUSoI/AAAAAAABH7s/3FL8iI1r9TU/s1600/gbcw.png" /></p>
-<h1>Rescuing the rescuers</h1>
-<p>While this is a nice trick, it doesn't take long to figure out that replacing the whole Maya GUI library with this will take a lot of annoying, repetitive, and typo-prone code. <code>cmds.button</code> alone has 34(!) properties to manage, and real offenders like <code>rowLayout</code> have a lot more. Writing wrappers for all of these is a huge waste of valuable human brainpower</p>
-<p>Luckily, that's not the end. Property objects are really instances of <a href="http://docs.python.org/2/howto/descriptor.html">Python descriptors</a>, which means they are classes. And since they are classes, we have some more options for creating them.</p>
-<p><a href="http://docs.python.org/2/howto/descriptor.html">The official docs</a> on descriptors are kind of opaque, but the link I shared above to <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">Chris Beaumont's article on properties and descriptors</a> does a great job of explaining what they do: which is, in a nutshell, to provide property like services in the form of class-level objects. (Update: here's <a href="http://nedbatchelder.com/blog/201306/explaining_descriptors.html">great five minute video</a> too). Instead of defining methods and decorating them as we did above, you create a class which handles the function-to-property behavior (both getting and setting) and stick it directly into your own class namespace, the same way you would place a def or a constant (as an aside, this placement is why the CMD field in the example is a class field rather than a hard code or an instance property - it makes it easy for the descriptor to call the right cmds function and flags. We could make a separate class for <code>cmds.floatField</code>, for example, swapping out only the class level CMD parameter, and it would 'just work' the same way).</p>
-<p>The gotcha to bear in mind with descriptors is that they are separate objects that live in the class, <em>not</em> instance members You don't create them inside your <code>__init__</code>, you declare them in the class namespace. They don't belong to individual instances - that's why in the example below you'll notice that <em>self</em> refers to the descriptor itself, and not to the ExampleButton class (this is how each descriptor in the example below remembers how to format it's own call to the maya command under the hood). </p>
-<p>The "bad" part of that is that you the descriptor is ignorant of the class instance to which it is attached when you call it. Pyhton will pass the instance in to the descriptor, as you'll see in the example below. The good part, on the other hand, is that the descriptor itself can (if need be) have a memory of its own - that's why the descriptors in the next example can remember which flags to use when they call the underlying Maya GUI commands.</p>
-<p>While this sounds scary, it's mostly a minor mental adjustment - once you do a couple times it will be routine. And all the oddness is concentrated in the definition of the descriptor objects themselves - once the descriptor is actually declared, you access it just as if it were a conventional instance property and all is plain-jane <code>foo.bar = baz</code>.</p>
-<p>Here's the button example re-written with a couple of descriptors:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">CtlProperty</span> <span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Property descriptor.  When applied to a Control-derived class, invokes the correct Maya command under the hood to get or set values  </span>
-<span class="sd">    &#39;&#39;&#39;</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">flag</span><span class="p">,</span> <span class="n">cmd</span><span class="p">):</span>  
-        <span class="k">assert</span> <span class="nb">callable</span><span class="p">(</span><span class="n">cmd</span><span class="p">),</span> <span class="s2">&quot;cmd flag must be a maya command for editing gui objects&quot;</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span> <span class="o">=</span> <span class="n">flag</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Command</span> <span class="o">=</span> <span class="n">cmd</span>
-
-    <span class="k">def</span> <span class="nf">__get__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">objtype</span><span class="p">):</span>  
-        <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">        Class instance &lt;obj&gt; and its type &lt;objtype&gt; are passed in automatically.   </span>
-<span class="sd">        &lt;self&gt; is this descriptor object, NOT an owning class instance!  </span>
-<span class="sd">        &#39;&#39;&#39;</span>  
-        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Widget</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;Widget&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;q&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">:</span><span class="bp">True</span><span class="p">})</span>
-
-    <span class="k">def</span> <span class="nf">__set__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>  
-        <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">        Again, the owning instance is passed in as &lt;obj&gt; automatically  </span>
-<span class="sd">        &#39;&#39;&#39;</span>  
-        <span class="n">ctrl</span> <span class="o">=</span> <span class="n">obj</span><span class="o">.</span><span class="n">Widget</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="s2">&quot;Widget&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">str</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Command</span><span class="p">(</span><span class="n">ctrl</span><span class="p">,</span> <span class="o">**</span><span class="p">{</span><span class="s1">&#39;e&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">Flag</span><span class="p">:</span><span class="n">value</span><span class="p">})</span>
-
-<span class="k">class</span> <span class="nc">ExampleButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-    <span class="n">Label</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>  
-    <span class="n">BackgroundColor</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="s1">&#39;bgc&#39;</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
-
-<span class="c1"># same example as before      </span>
-<span class="n">example</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
-<span class="n">col</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
-<span class="n">btn</span> <span class="o">=</span> <span class="n">ExampleButton</span><span class="p">(</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>  
-<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">example</span><span class="p">)</span>  
-<span class="n">btn</span><span class="o">.</span><span class="n">Label</span> <span class="o">=</span> <span class="s2">&quot;Thunderbirds are GO!&quot;</span>  
-<span class="n">btn</span><span class="o">.</span><span class="n">BackgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="o">.</span><span class="mi">25</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="o">.</span><span class="mi">25</span><span class="p">)</span>
-</pre></div>
-
-
-<p><img alt="" src="http://2.bp.blogspot.com/-nCT8aEzquIE/UwLr8_Ct6wI/AAAAAAABH78/wVp86oOdf24/s1600/t+are+g.png" /></p>
-<p>That's more like it - only two lines of data-driven code where we used to have six (well, not counting CtlProperty - but thats a one time cost to be spread out over scads of different GUI classes later). It's a lot easier to read and understand as well, and contains far fewer opportunities for typos.</p>
-<p>But… we're still talking 34 lines like that for <code>cmds.button</code>, and God knows how many for <code>cmds.rowColumLayout</code>. </p>
-<p><strong>Sigh.</strong></p>
-<h1>Act III</h1>
-<p><img alt="" src="http://www.clevescene.com/imager/thunderbirds-stiff-acting-all-around/b/original/1504418/2808/1875857.t.jpg" /></p>
-<p>No rescue drama is complete without a false climax, and this is ours. Despite the ominous music just before the commercial,. the situation is not really that bad. The last example shows that the problem is not really one of <em>code</em> any more, it's just <em>data</em>. Since descriptors are objects, you can crank them out like any other object: provide a list of the appropriate flags for a given class and you can crank out the correct descriptors, as they say, "<a href="https://www.youtube.com/watch?v=Z3qK8gT5LLg">automagically</a>."</p>
-<p><strong>As long as you promise not to use that stupid word around me.</strong></p>
-<p>Fortunately for our rescue team, Python treats classes the same way it treats anything else: as objects that can be created and maniuplated.</p>
-<p>If you use the Python builtin <code>type</code> on any Python class, you'll get back <br />
-<code>type 'type'</code>. In other words, a Python class definition is itself an instance of the class 'type'. How… <em>meta.</em></p>
-<p>The reason this matters to us is that we can fabricate classes the same way fabricate other kinds of Python things. You would not hesitate to crank out a list of strings assembled in code: there's no reason you can't do the same thing for descriptors! You could do this by hand, creating type instances and filling them out yourself: types take three arguments: a string name, a list of parent types, and dictionary of named fields and propertis. Thus:</p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">constructor</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>  
-    <span class="bp">self</span><span class="o">.</span><span class="n">Name</span> <span class="o">=</span> <span class="n">name</span>
-
-<span class="n">example</span> <span class="o">=</span> <span class="nb">type</span><span class="p">(</span><span class="s1">&#39;Example&#39;</span><span class="p">,</span> <span class="p">(),</span> <span class="p">{</span><span class="s1">&#39;__init__&#39;</span><span class="p">:</span><span class="n">constructor</span> <span class="p">}</span> <span class="p">)</span>
-
-<span class="n">Test</span> <span class="o">=</span> <span class="n">example</span><span class="p">(</span><span class="s2">&quot;Hello world&quot;</span><span class="p">)</span>  
-<span class="c1"># &lt;__main__.Example object at 0x00000000022D6198&gt;  </span>
-<span class="n">Test</span><span class="o">.</span><span class="n">Name</span>  
-<span class="c1"># Hello world</span>
-</pre></div>
-
-
-<p>However this would send you down a possible rabbit hole, since the idea we're really chasing is a way to mass produce classes to make UI coding easier and it would not be very easy if all of the classes had to be coded up in this clunky way. Luckily Python has an obscure but extremely powerful mechanism designed for just this sort of problem. Because, you know, it's the language of geniuses.</p>
-<p><img alt="" src="https://shapersofthe80s.files.wordpress.com/2011/01/thunderstampbrains.jpg" /></p>
-<h1>"Brains, Activate the Metaclass"</h1>
-<p>The helpful MacGuffin in this case it the <em><a href="http://docs.python.org/2/reference/datamodel.html#customizing-class-creation">Metaclass</a>.</em> Metaclasses have a reputation - not <em>entirely</em> undeserved - as deep voodoo. The most commonly circulated quote about them is that "If you can solve the problem without a metaclass, you should."</p>
-<p>However, in our case we really can't solve the problem without some form of class factory. In particular, we need a way to bang out classes with the right collection of Descriptors to cover all of the zillions of flags in the Maya GUI system. So just this once we can put on the big blue glasses and lab coats and venture into the super secret lair of the mad metaclass scientists.</p>
-<p>The job of a metaclass is to customize the act of class creation. When a class is first defined, python will pass the type it creates (that same object we played with in the last example) to the metaclass for further manipulation. The <code>__new__</code> function of the metaclass will be called on the just-defined type, taking it name, parents and internal dictionary as arguments. The <code>__new__</code> can fiddle with any of these as it sees fit before passing it along for actual use.</p>
-<p>As you can imagine, this is a good time for PythonMan's Uncle Ben to remind us that 'with great power comes great responsibility' - it's easy to shoot yourself in the foot with a metaclass, since you can make changes to the runtime versions of your classes that will not be represented in your source files. Don't just run off and meta all over everything in sight. A minimalist approach is the best way to stay sane.</p>
-<p>But you'd probably like to see what this really looks like in practice. Here's an example.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Metaclass which creates CtlProperty  objects for maya gui proxies  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="n">CONTROL_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="s1">&#39;backgroundColor&#39;</span><span class="p">,</span> <span class="s1">&#39;defineTemplate&#39;</span><span class="p">,</span>   
-                <span class="s1">&#39;docTag&#39;</span><span class="p">,</span> <span class="s1">&#39;dragCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;dropCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;enable&#39;</span><span class="p">,</span>   
-                <span class="s1">&#39;enableBackground&#39;</span><span class="p">,</span>  <span class="s1">&#39;exists&#39;</span><span class="p">,</span> <span class="s1">&#39;fullPathName&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>    
-                <span class="s1">&#39;manage&#39;</span><span class="p">,</span> <span class="s1">&#39;noBackground&#39;</span><span class="p">,</span>  <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">,</span>   
-                <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;preventOverride&#39;</span><span class="p">,</span> <span class="s1">&#39;useTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;visible&#39;</span><span class="p">,</span>   
-                <span class="s1">&#39;visibleChangeCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
-
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>  
-        <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">        __new__ is called then classes using this meta are defined.  It will add   </span>
-<span class="sd">        all of the items in CONTROL_ATTRIBS to the new class definition as   </span>
-<span class="sd">        CtlProperty descriptor objects using the CMD field (a maya.cmds command)   </span>
-<span class="sd">        provied in the outer class.  </span>
-<span class="sd">        &#39;&#39;&#39;</span>
-
-        <span class="n">CMD</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">):</span>  
-            <span class="n">CMD</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">CMD</span>
-
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ControlMeta</span><span class="o">.</span><span class="n">CONTROL_ATTRIBS</span><span class="p">:</span>  
-            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ControlMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The actual code is pretty simple. It takes the type object created by the 'real' class and grabs the contents of the CMD class field (remember that from the earlier examples?). Then it loops through its own list of command names and inserts them all into the new class as descriptors with the correct commands and the maya command that was stored in the command object. So our earlier button example becomes:</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-
-<span class="n">w</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
-<span class="n">c</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  
-<span class="n">mb</span> <span class="o">=</span> <span class="n">MetaButton</span><span class="p">(</span><span class="s2">&quot;button1&quot;</span><span class="p">)</span>  
-<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">w</span><span class="p">)</span>
-
-<span class="k">print</span> <span class="n">mb</span><span class="o">.</span><span class="n">exists</span>  <span class="c1"># We never had to add this one!  </span>
-<span class="c1"># True  </span>
-<span class="k">print</span> <span class="n">mb</span><span class="o">.</span><span class="n">visible</span>  <span class="c1"># or this ! </span>
-<span class="c1"># True</span>
-</pre></div>
-
-
-<p>There is a minor problem with this very truncated example, however: there's no label or command in the the metaclass, so the MetaButton has no button specific properties - only the generic ones in our list (which I made by trolling the flags for <code>cmds.control</code>, the 'base class' of all Maya control commands).</p>
-<p>This is easily fixed by adding properties that are specific to buttons to a class field, and tweaking the metaclass to read and use them the same way it already uses the CMD class field. Like CMD, these are good class-level attributes since the collection of flags is shared by all buttons, fields or whatever.</p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">ControlMeta</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Metaclass which creates CtlProperty  objects for Control classes  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="n">CONTROL_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;annotation&#39;</span><span class="p">,</span> <span class="s1">&#39;backgroundColor&#39;</span><span class="p">,</span> <span class="s1">&#39;defineTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;docTag&#39;</span><span class="p">,</span>   
-                        <span class="s1">&#39;dragCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;dropCallback&#39;</span><span class="p">,</span> <span class="s1">&#39;enable&#39;</span><span class="p">,</span> <span class="s1">&#39;enableBackground&#39;</span><span class="p">,</span>   
-                        <span class="s1">&#39;exists&#39;</span><span class="p">,</span> <span class="s1">&#39;fullPathName&#39;</span><span class="p">,</span> <span class="s1">&#39;height&#39;</span><span class="p">,</span>  <span class="s1">&#39;manage&#39;</span><span class="p">,</span> <span class="s1">&#39;noBackground&#39;</span><span class="p">,</span>   
-                        <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">,</span> <span class="s1">&#39;parent&#39;</span><span class="p">,</span> <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;preventOverride&#39;</span><span class="p">,</span>   
-                        <span class="s1">&#39;useTemplate&#39;</span><span class="p">,</span> <span class="s1">&#39;visible&#39;</span><span class="p">,</span> <span class="s1">&#39;visibleChangeCommand&#39;</span><span class="p">,</span> <span class="s1">&#39;width&#39;</span><span class="p">]</span>
-
-
-    <span class="k">def</span> <span class="nf">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">):</span>
-
-        <span class="n">CMD</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>  
-        <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;_ATTRIBS&#39;</span><span class="p">,[])</span>  <span class="c1"># unique props from outer class</span>
-
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;CMD&#39;</span><span class="p">):</span>  
-            <span class="n">CMD</span> <span class="o">=</span> <span class="n">parents</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">CMD</span>
-
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">ControlMeta</span><span class="o">.</span><span class="n">CONTROL_ATTRIBS</span><span class="p">:</span>  
-            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
-
-        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">_ATTRIBS</span><span class="p">:</span>   <span class="c1"># now add in the outer class&#39;s unique props too  </span>
-            <span class="n">kwargs</span><span class="p">[</span><span class="n">item</span><span class="p">]</span> <span class="o">=</span> <span class="n">CtlProperty</span><span class="p">(</span><span class="n">item</span><span class="p">,</span> <span class="n">CMD</span><span class="p">)</span>
-
-        <span class="k">return</span> <span class="nb">super</span><span class="p">(</span><span class="n">ControlMeta</span><span class="p">,</span> <span class="n">cls</span><span class="p">)</span><span class="o">.</span><span class="n">__new__</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">parents</span><span class="p">,</span> <span class="n">kwargs</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">MetaButton</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span>  
-    <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;label&#39;</span><span class="p">,</span> <span class="s1">&#39;command&#39;</span><span class="p">]</span>  <span class="c1"># button specific props  </span>
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">MetaFloatField</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="n">CMD</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">floatField</span>  
-    <span class="n">_ATTRIBS</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;editable&#39;</span><span class="p">,</span><span class="s1">&#39;precision&#39;</span><span class="p">,</span><span class="s1">&#39;value&#39;</span><span class="p">,</span><span class="s1">&#39;maxValue&#39;</span><span class="p">,</span><span class="s1">&#39;step&#39;</span><span class="p">,</span>  
-                <span class="s1">&#39;minValue&#39;</span><span class="p">,</span> <span class="s1">&#39;changeCommand&#39;</span><span class="p">,</span><span class="s1">&#39;dragCommand&#39;</span><span class="p">,</span><span class="s1">&#39;enterCommand&#39;</span><span class="p">,</span>  
-                <span class="s1">&#39;receiveFocusCommand&#39;</span><span class="p">]</span>  <span class="c1"># this one has a lot of properties</span>
-
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
-
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-</pre></div>
-
-
-<p>As you can see, extending the automatic analysis is easy now that we know the basic trick. Just add a semi-private class field with the class specific attributes, and away we go!</p>
-<h1>In our next exciting episode…</h1>
-<p>I think this pretty much demonstrates that overhauling the Maya GUI toolkit is possible. However, in its current state it's just a down-payment. </p>
-<p>The combination of descriptors and metaclasses is an incredibly powerful tool and it's not hard to see what comes next (it's also easy to imagine similar setups for other problems which suffer from ugly imperative syntax). Now that we have a method for cranking out control widget classes by the bucketload, filling out the class library itself is pretty simple. There are, though, a few tricks we can use to make it better and less manual, as well as making sure it is complete. So, in a future outing, we'll tackle a method for replicating the whole Maya command hierarchy in a more or less automatic way. </p>
-<p>If you want to roll your own lightwieght properties library, this should give you enough tools to work with. If you're more interested in actually doing GUI work without all the <code>cmds</code> crap, you should check out <a href="https://github.com/theodox/mGui">mGui</a>, which is a library based on exactly this metaclass strategy to make GUI code more declarative and less ugly.</p>
-<p>In the mean time,as we say at International Rescue Headquarters: <a href="http://www.funtrivia.com/askft/Question54024.html">F.A.B!</a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 23 February 2014
-            </p>
-<p>There are <a href="http://theodox.com/2014/rescuing_maya_gui_from_itself#disqus_thread">comments</a>.</p>        </div>
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -645,107 +226,119 @@ All in all, not bad for free-as-in-beer!   <a href="http://www.makehuman.org/con
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

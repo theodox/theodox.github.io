@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -88,701 +90,126 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2014/dots_all_folks" rel="bookmark" title="Permalink to Dot's all, folks">
+            <a href="http://theodox.com/2014/dot_matrix" rel="bookmark" title="Permalink to Dot Matrix">
                 <h2 class="post-title">
-                    Dot's all, folks
+                    Dot&nbsp;Matrix
                 </h2>
             </a>
-                <p>Last time out I went on (probably a bit too long) on the virtues of the dot product - the operation which takes two lists of numbers and multiplies them to create a single product. The highlight of the whole thing was the <em>cosine dot product</em> - the handy fact that the dot product of two normalized vectors is the cosine of the angle between them.  </p>
-<p>Now that the theory is out of the way, it’s time to highlight some of the zillions of applications for this handy little operation.  </p>
-<blockquote>
-<p>If none of this sounds familiar you might want to <a href="bagels_and_coffee.html">revisit the first post in the series</a> before continuing.   </p>
-</blockquote>
-<p>The dot product is incredibly useful for a TA for two reasons. First, dots allow you to <em>convert between geometric measures and angles</em> without the need for matrices or complex formulae. Second, dots provide an efficient way to <em>project one vector on to another</em>, allowing you to measure distances and quantities relative to an arbitrary axis or vector - a great tool for anything from color conversions in a pixel shader to measuring motion in a complex rig.<br />
-Before getting down to cases, a quick reminder of one important side fact we pointed out last time. A cosine dot product can only tell you <em>how different</em> the angle between two vectors is - <strong>not</strong> what rotations would transform one vector into the other. If you try out this example you’ll see that the dot of <code>[1,0,0]</code> against both <code>[.5, .866, 0]</code> and <code>[.5, -.866, 0]</code> is .5, which (if you remember your sines and cosines) means the relative angle is 30 degrees. However one of those two vectors is clockwise from <code>[1,0,0]</code> and the other is counter-clockwise from it. The dot, by itself, can’t tell you which one is which. <em>Don’t forget that bit!</em></p>
-<blockquote>
-<p>As I mentioned in the last article, the math for dots is trivially simple. Maxscript <a href="http://www.scriptspot.com/bobo/mel2mxs/arithmetic.htm">includes vector math functions</a> by default, as does MEL, but vanilla maya.cmds does not. If you want to experiment with examples mentioned here in Maya python, you can import <code>pymel.core.datataypes</code> and use the <code>Vector</code>. I’ve also put a <a href="https://github.com/theodox/vector">simple vector module up on Github</a> that works in <code>Maya.cmds</code>. I’ll be using that for these examples but translating between MXS, Pymel, and cmds should be a no-brainer.</p>
-</blockquote>
-<h2>Rigging</h2>
-<p>One of the most common tasks in rigging is wrangling information into the correct frame of reference.This is particularly tough when dealing with angular data, since angles are often presented in the form of Euler angles whose numeric values can vary unpredictably and which are therefore hard to use in expressions or code. Here are a few examples of how dot’s can help riggers get angular information while avoiding the Euler blues  </p>
-<h4>The Bends</h4>
-<p>Dot’s are an excellent way to measure the extension of a limb, without relying on an Euler value which might be affected by local axis orientations, joint orients, or rotated local axes. Here’s an example that gets a reliable value for the extension of an arm (note: this is vanilla maya, you could do it more succintly with Pymel but it’s a better illustration to do it from scratch)  </p>
-<div class="highlight"><pre><span></span><span class="n">shoulder_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;r_shoulder&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-<span class="n">elbow_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;r_elbow&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-<span class="n">wrist_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;r_wrist&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="n">bicep_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">elbow_pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">shoulder_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
-<span class="n">forearm_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">wrist_pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">elbow_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
-<span class="n">elbow_bend</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">bicep_vector</span><span class="p">,</span> <span class="n">forearm_vector</span><span class="p">)</span>
-</pre></div>
-
-
-<p>then <code>arm_extension</code> will be 1 at full extension and 0 when the arm is bent back completely on itself (<em>ouch!</em>). You can map use this extension value to drive muscle deformations, blendshapes, or other behaviors without worrying about th underlying Euler values or converting from angles to linear ranges.  </p>
-<h4>Leaning In</h4>
-<p>It’s often useful to have a general idea what a character’s whole body is doing, rather than focusing entirely on individual joint positions and orientations. For example, you might want to have rig behaviors turn on when a character is ‘upright’ and off when it it is ‘prone’, or vice-versa. Figuring out the gross orientation is often hard because there are so many bones cooperating to produce the visual effect – and because different animators may use different controls in different ways: animator A may prefer to put all of the big rotations onto a center-of-gravity control while animator B does everything on the pelvis.  </p>
-<p>Dots are great for extracting pose info from the world space position of key bones instead of trying to intuit them from rotation values. For example:  </p>
-<div class="highlight"><pre><span></span><span class="n">head_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-<span class="n">pelvis_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;pelvis&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="c1"># how upright is the character’s body?  </span>
-<span class="n">body_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">head_pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">pelvis_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
-<span class="n">upright</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">body_vector</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span> <span class="c1"># for a y-up world</span>
-</pre></div>
-
-
-<p>Here upright will be close to 1 for an upstanding character, close to 0 for a prone character, and close to -1 for an upside down character (eg, during a handstand). This version tracks the pelvis-to-head vector so it will respond to things like a hunched-over spine; but one of the nice side effects of vector math it that you can easily ‘weight’ different elements as you put together your vectors. For example:  </p>
-<div class="highlight"><pre><span></span><span class="n">chest_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="s1">&#39;spine_3&#39;</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">w</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-<span class="n">head_and_chest</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">chest_pos</span><span class="p">)</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">head_pos</span><span class="p">))</span>  <span class="o">/</span> <span class="mf">3.0</span>  
-<span class="n">body_vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">head_and_chest</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">pelvis_pos</span><span class="p">))</span><span class="o">.</span><span class="n">normalized</span><span class="p">()</span>  
-<span class="n">upright</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">body_vector</span><span class="p">,</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-</pre></div>
-
-
-<p>would include bias the uprightness vector towards ‘spine_3’, diminishing the influence of the head on the final results.  </p>
-<h4>Looky here</h4>
-<p>You don’t always have to use positions to drive dot-product calculations. You can always get the local orientation of a transform by looking at it’s matrix (the exact reason for this will be shown in a later posting, for now take it on faith). This allows you to see how closely a given object is oriented towards a given vector.   </p>
-<p>For example, something like this will help you figure out if a character’s body is oriented in roughly the same direction as the character’s root bone:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># assuming that the bones are constructed with positive z as &#39;forward&#39;  </span>
-<span class="n">world_forward</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">b</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="s2">&quot;.worldMatrix&quot;</span><span class="p">)[</span><span class="mi">8</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>  
-<span class="n">root_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;root&#39;</span><span class="p">))</span>  
-<span class="n">pelvis_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;pelvis&#39;</span><span class="p">))</span>  
-<span class="n">shoulders_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;spine_3&#39;</span><span class="p">))</span>  
-<span class="n">head_forward</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">world_forward</span><span class="p">(</span><span class="s1">&#39;head&#39;</span><span class="p">))</span>  
-<span class="c1"># get a weighted average of the pelvis, shoulder and head directions  </span>
-<span class="n">composite</span> <span class="o">=</span> <span class="p">((</span><span class="n">pelvis_forward</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">shoulders_forward</span> <span class="o">*</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">head_forward</span><span class="p">)</span> <span class="o">/</span> <span class="mf">5.0</span>  
-<span class="c1"># flatten the composite and root vectors into 2 dimensions:  </span>
-<span class="n">composite</span> <span class="o">=</span> <span class="n">composite</span> <span class="o">*</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
-<span class="n">root_forward</span> <span class="o">=</span> <span class="n">root_forward</span> <span class="o">*</span> <span class="n">Vector3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>  
-<span class="n">orientation</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">composite</span><span class="o">.</span><span class="n">normalized</span><span class="p">(),</span> <span class="p">(</span><span class="n">root_forward</span><span class="o">.</span><span class="n">normalized</span><span class="p">())</span>
-</pre></div>
-
-
-<p>A value of 1 would have the character facing precisely along the same direction as it’s root bone in 2D. This kind of thing is especially useful when you’re trying to manage a lot of animations which need to begin and end in similar poses - you can quickly check the overall posture of a lot of characters without too much detailed analysis to spot problems before going in and looking at the troublesome ones for hand fixing.  </p>
-<h2>shaders</h2>
-<p>Even more than rigging, shader authoring frequently involves a return to the math fundamentals. The most familiar example of the dot product in shader writing is the <a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404">Lambert rendering equation</a> which we discussed in the last post. However, you can get a variety of other handy effects from the dot inb shaders. The key is to find the right set of vectors to work with. <br />
-For example, if you dot a surface normal against the vector along which the camera is looking, the result will tell you how directly surface is facing the camera. This allows you to create a <a href="http://kylehalladay.com/blog/tutorial/2014/02/18/Fresnel-Shaders-From-The-Ground-Up.html">fresnel</a> or edge-highlighting effect.   </p>
-<p>Here’s a snippet of a very minimal Unity shader that illustrates the principle:</p>
-<div class="highlight"><pre><span></span><span class="n">void</span> <span class="n">surf</span> <span class="p">(</span><span class="n">Input</span> <span class="n">IN</span><span class="p">,</span> <span class="n">inout</span> <span class="n">SurfaceOutput</span> <span class="n">o</span><span class="p">)</span> <span class="p">{</span>  
-        <span class="o">//</span> <span class="n">a</span> <span class="n">hacky</span> <span class="n">way</span> <span class="n">to</span> <span class="n">get</span> <span class="n">the</span> <span class="n">camera</span> <span class="n">vector</span><span class="err">…</span>  
-        <span class="n">float3</span> <span class="n">cam_vect</span> <span class="o">=</span> <span class="n">UNITY_MATRIX_IT_MV</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">xyz</span><span class="p">;</span>  
-        <span class="nb">float</span> <span class="n">result</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">-</span> <span class="n">dot</span><span class="p">(</span> <span class="n">cam_vect</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">Normal</span><span class="p">);</span>  
-        <span class="n">o</span><span class="o">.</span><span class="n">Albedo</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="o">.</span><span class="mi">5</span><span class="p">,</span><span class="nb">pow</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">FresnelPower</span><span class="p">)</span> <span class="p">,</span><span class="o">.</span><span class="mi">5</span><span class="p">);</span>  
-        <span class="n">o</span><span class="o">.</span><span class="n">Alpha</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>  
-        <span class="p">}</span>
-</pre></div>
-
-
-<p>The only thing worth noting here is the way the result value is being inverted: we want the result number to be close to 1 at the horizon and close to zero where the camera normal and the surface normal are aligned, which is the reverse of what the dot would normally give us. By raising the result value to a higher or lower power (using <code>pow</code>) we can sharpen or soften the effect; since it the result value should always be 1 or lower a higher power will result in a smaller result value and thus a tighter highlight as you can see in the images.  </p>
-<p><a href="http://4.bp.blogspot.com/-CPrevKORkfE/VHl_alL2OkI/AAAAAAABLWg/N9jWYdWum-4/s1600/fresnel.jpg"><img alt="" src="http://4.bp.blogspot.com/-CPrevKORkfE/VHl_alL2OkI/AAAAAAABLWg/N9jWYdWum-4/s1600/fresnel.jpg" /></a>    </p>
-<blockquote>
-<p>The dotting the camera vector against the surface normal produces an edge highlight fresnel-style effect.   </p>
-</blockquote>
-<p>The size of the effect can be tweaked by raising the dot product value to a higher or lower power.  </p>
-<p>You can re-map that dot product in other ways as well. The popular Team Fortress 2 shader, for example, takes the dot between the light and the surface normal - which, of course, will range in value from -1 to 1 - and re-maps it onto the range 0 to 1 so it can be used to lookup a color value from a texture. That’s how the game achieves it’s distinctive ‘wrap-around’ lighting:  </p>
-<p><img alt="" src="http://www.maginot.eu/space/mgto/projects/mods/tf2_lightwarp/mgto_lightwarp_mod.jpg" /> </p>
-<blockquote>
-<p>The Team Fortress shader uses a shifted dot-product to look up lighting values from a hand-authored color ramp, creatng a distinctive illustrational look. </p>
-</blockquote>
-<p>Both of those uses use the ‘cosine falloff’ intepretation of the dot product, that is, they represent angular differences. However dots have another mathematical meaning: they represent the projection of one vector onto another. One really cool aspect the projective use of the dot is that the logic works in color spaces as well as physical space. For example, a shader writer of can get the luminance of a pixel elegantly like this:  </p>
-<div class="highlight"><pre><span></span><span class="nb">float</span> <span class="n">luma</span> <span class="o">=</span> <span class="n">dot</span><span class="p">(</span> <span class="n">float3</span><span class="p">(</span><span class="mf">0.2126</span><span class="p">,</span> <span class="mf">0.7152</span><span class="p">,</span> <span class="mf">0.0722</span><span class="p">),</span> <span class="n">pixel_color</span><span class="p">);</span>
-</pre></div>
-
-
-<p>Which is essentially projecting the color onto a ‘luminance vector’ dominated by green (numbers derived from <a href="https://en.wikipedia.org/wiki/Relative_luminance">this</a>) You could use the same trick to identify ‘warm’ colors by dotting against a warm rgb value like (.707, .707, 0) - high dot values will be warm and low dot values will be cool. It takes some meditation to really grok what’s going on (try parsing what’s happening in <a href="http://makc3d.wordpress.com/2011/04/06/matching-colors-in-rgb/">this example</a>!) but dots can be a very handy trick for navigating color space as well as 3-d space.<br />
-Shader writers have one more sneaky use for dots - they can be a cheap substitute for selection functions. Shader authors often have to pack data into vectors for efficiency, but accessing one component of a vector would need an expensive if-then branch in theshader. Dots, however, can let you pick one component out of your vector without using branches. Since the dot of any vector composed of all zeros is of course zero. If one component is a one and the rest are zeros, the result will be the corresponding component of the other vector. Thus:  </p>
-<div class="highlight"><pre><span></span><span class="n">float3</span> <span class="n">y</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>  
-<span class="n">float3</span> <span class="n">x</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">);</span>  
-<span class="n">float3</span> <span class="n">val</span> <span class="o">=</span> <span class="n">float3</span><span class="p">(</span><span class="mf">.5</span><span class="p">,</span> <span class="mf">.866</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  
-<span class="c1">// dot(x,val) == val.x = .5;  </span>
-<span class="c1">// dot(y,val) == val.y = .866;</span>
-</pre></div>
-
-
-<p>This is more compiler friendly than inserting a branch into the shader code to conditionally pick one component or another. I’ve found it especially useful in Unity, where ShaderLab limits your ability to pass custom data types to shaders and it’s often necessary to pack data into vectors or matrices just to get it from the game to the shader.  </p>
-<h2>tools</h2>
-<p>It’s easy to see who the kinds of tricks we’ve already laid out for shaders and rigging generalize for tool writing. The dot of a surface normal and a vector is a great proxy for whether or not the a surface is facing something, dots are great for analyzing geometry. For example, A tree-and-rock scattering script can dot the normal of a terrain against gravity to figure out which slopes are too steep for trees, or which areas are bottomland where there ought to be lots of bushes. A terrain editing tool could against a sun vector to identify exposed areas where the grass is yellowed and shady spots where it’s lush and green.   </p>
-<p>As with rigging , the dot also provides a way to check relative orientations. For example, you might need to know if an object has been where another object can ‘see’ it. If you dot a reference vector - such the object’s local X or Z axs - against the vector to a target, you can figure out if the target is ‘ahead’ or ‘behind’ the reference object. For example this function would tell you if the target was within some angle of the forward axis of the observer:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">target_visible</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">target</span><span class="p">,</span> <span class="n">cone</span><span class="o">-</span><span class="n">angle</span> <span class="o">=</span> <span class="o">.</span><span class="mi">5</span><span class="n">_</span><span class="p">):</span>  
-    <span class="sd">&quot;&quot;&quot;Is target within &lt;coneangle&gt; when viewed on references&#39; local Z axis?&quot;&quot;&quot;</span>  
-    <span class="n">reference</span><span class="o">-</span><span class="n">vector</span> <span class="o">=</span>  <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">reference</span> <span class="o">+</span> <span class="s2">&quot;.worldMatrix&quot;</span><span class="p">)[</span><span class="mi">8</span><span class="p">:</span><span class="mi">11</span><span class="p">]</span>  
-    <span class="n">target_pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-    <span class="n">reference</span><span class="o">-</span><span class="n">pos</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">xform</span><span class="p">(</span><span class="n">reference</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">t</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">ws</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-    <span class="n">target</span><span class="o">-</span><span class="n">vector</span> <span class="o">=</span> <span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="o">*</span><span class="n">target</span><span class="o">-</span><span class="n">pos</span><span class="p">)</span> <span class="o">-</span> <span class="n">Vector3</span><span class="p">(</span><span class="o">*</span> <span class="n">reference</span><span class="o">-</span><span class="n">pos</span><span class="p">))</span>  
-    <span class="k">return</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">target</span><span class="o">-</span><span class="n">vector</span><span class="o">.</span><span class="n">normalized</span><span class="p">(),</span> <span class="n">reference</span><span class="o">-</span><span class="n">vector</span><span class="o">.</span><span class="n">normalized</span><span class="p">())</span> <span class="o">&lt;=</span> <span class="n">cone</span><span class="o">-</span><span class="n">angle</span>
-</pre></div>
-
-
-<p>You could restrict that to one or two axes using the same trick in the rigging example, or use the full cone angle as done here.  </p>
-<blockquote>
-<p>As an aside, this brings up the issue of converting between dots and angles. Since the geometric dot product (as always, assuming you’ve got normalized vectors) is a cosine, you can convert it to an angle by using the arc-cosine function (<code>acos</code> in Python and most other languages) like so:</p>
-</blockquote>
-<div class="highlight"><pre><span></span><span class="n">cosine</span> <span class="o">=</span> <span class="n">Vector3</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>  
-<span class="n">angle_in_radians</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">acos</span><span class="p">(</span><span class="n">cosine</span><span class="p">)</span>  
-<span class="n">angle_in_degrees</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">degrees</span><span class="p">(</span><span class="n">angle_in_radians</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The projective function of dots is also useful in tools. For example, you can use a dot to clamp a line to the position of the mouse, even if the line is constrained so that the mouse doesn’t physically rest on the line:  </p>
-<div class="highlight"><pre><span></span><span class="n">line_vector</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mf">.707</span><span class="p">,</span> <span class="mf">.707</span><span class="p">)</span>  <span class="err">#</span> <span class="n">a</span> <span class="mi">45</span> <span class="n">degree</span> <span class="n">line</span>  
-<span class="n">line_origin</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">(</span><span class="mi">200</span><span class="p">,</span> <span class="mi">200</span><span class="p">)</span>    <span class="err">#</span> <span class="n">start</span> <span class="n">drawing</span> <span class="n">at</span> <span class="n">pixel</span> <span class="p">(</span><span class="mi">200</span><span class="p">,</span><span class="mi">200</span><span class="p">)</span>  
-<span class="k">while</span> <span class="p">(</span><span class="n">mouse</span><span class="p">.</span><span class="n">down</span><span class="p">())</span><span class="o">:</span>  
-    <span class="n">line_end</span> <span class="o">=</span> <span class="n">Vector2</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span> <span class="n">Vector2</span><span class="p">(</span><span class="o">*</span><span class="n">mouse</span><span class="p">.</span><span class="n">position</span><span class="p">)</span> <span class="o">-</span> <span class="n">line_origin</span><span class="p">,</span> <span class="n">line_vector</span><span class="p">)</span>  
-    <span class="n">draw_line</span> <span class="p">(</span><span class="n">line_origin</span><span class="p">,</span> <span class="n">line_origin</span> <span class="o">+</span> <span class="n">line_end</span><span class="p">)</span>
-</pre></div>
-
-
-<h2>Further reading</h2>
-<p>If this one whetted your appetite and you need to know more, here’s a few links I found handy while reading up:  </p>
-<ul>
-<li><a href="http://www.chrisevans3d.com/pub/_blog/maya-python-vector-math-primer/">Chris Evans’ vector math tutorial</a></li>
-<li>A <a href="http://mathinsight.org/dot_product">page on projective dot products</a>, along with an applet that helps you visualize how the projection works</li>
-<li><a href="http://blog.wolfire.com/2009/07/linear-algebra-for-game-developers-part-2/">This post from Wolfire</a>, developers of <a href="http://www.wolfire.com/overgrowth">Overgrowth</a> includes some nice examples of how dots are used in AI and game code (plus a peek at some other concepts I’ll be covering later in this series)</li>
-<li><strong>Update</strong>: <a href="https://plus.google.com/105359351421932966635">+Paul Vosper</a>  put me on to the excellent <a href="http://scratchapixel.com/">Scratchapixel.com</a></li>
-</ul>
-<p>I'll be back on the math trail again as soon as I emerge from my <a href="http://www.webmd.com/food-recipes/features/the-truth-about-tryptophan">mythical tryptophan coma.</a>  </p>
-<h2>Posts in this series</h2>
-<ul>
-<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot products)</a></li>
-<li><a href="dots_all_folks.html">Dots All Folks (dot product uses)</a></li>
-<li><a href="dot_matrix.html">Dot Matrix (intro to matrices)</a></li>
-<li><a href="adventures-in-4th-dimension.html">Adventures in the 4th Dimension (translation matrices)</a></li>
-<li><a href="to-scale.html">To Scale! (scale matrices)</a></li>
-</ul>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 29 November 2014
+            <p class="post-meta">Sat 06 December 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/dots_all_folks#disqus_thread">comments</a>.</p>        </div>
+                Understanding the graphics matrix, with some help from dot products.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/dot_matrix#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/bagels_and_coffee" rel="bookmark" title="Permalink to Bagels and Coffee, or, the vector dot product and you">
+            <a href="http://theodox.com/2014/dots_all_folks" rel="bookmark" title="Permalink to Dot’s all, folks">
                 <h2 class="post-title">
-                    Bagels and Coffee, or, the vector dot product and you
+                    Dot&#8217;s all,&nbsp;folks
                 </h2>
             </a>
-                <p>I’ve been boning up on my math lately.   </p>
-<p>Like most TA’s I’ve cobbled together a bag of tricks from different situations I’ve dealt with over the years, but I’ve never really gone back to shore up my shaky high school trigonometry and pre-calculus. It’s certainly possible (at least, I hope it is!) to be a good TA with only seat-of-the-pants math skills — after all, we have parenting and scaling and all the other cool tricks in our apps to do the heavy lifting for us. Still, I’ve been finding that paying more attention to the math fundamentals is helping me solve problems more efficiently and elegantly than my patented hack-and-slash techniques did.<br />
-So, I’m starting an occasional series on some basic math concepts that I hope will be useful to other TA’s. I know it’s been helpful to me - there’s nothing that concentrates the mind like putting something out there on the internet for public commentary - it’s really forces you to think things through… <em>At least, as long as you’re not on Twitter</em>.  </p>
-<p>To kick off the series, I want to start off with a simple operation that I use all the time, the humble <a href="http://en.wikipedia.org/wiki/Dot_product">dot product</a>. Also known as the 'scalar' product, the dot is an operation for turning lists of numbers into a single number. It’s also astonishingly useful for graphics. I’ve used it for years, but only recently did I try to see how and <em>why</em> it works instead of just relying on the second-hand assurance <em>that</em> it works.  </p>
-<p>The dot is all about combining operations on lists. We always run into it in the context of geometric vectors, but in the pure math world vector is just another way of saying “list of similar numbers.” If you go to the coffee shop every day and buy a $5 latte, its obviously going to cost $25 a week (Tote that up over 48 work weeks a year - it's a lot of money! I bring instant. But I digress). If you buy a $2 bagel on monday and a $3 cookie on Wednesday and Friday, how much will it cost?:  </p>
-<div class="highlight"><pre><span></span>5 * 5 = $25 for coffee  
-2 * 1 = $2 for bagel  
-3 * 2 = $6 for cookies
-</pre></div>
-
-
-<p>This makes $33 total a week (you really should bring in your snacks from home. You'll save a ton!)   </p>
-<p>Besides helping you save money on lunch, this is a classic (though non-3-d related) example of the dot product in action. Dots are nothing more than a structured way of multiplying two lists of numbers. In this case we have list of prices:  </p>
-<div class="highlight"><pre><span></span>[5, 2, 3]
-</pre></div>
-
-
-<p>and a list of quantities:  </p>
-<div class="highlight"><pre><span></span>[5, 1, 2]
-</pre></div>
-
-
-<p>The dot operation merely multiplies the numbers in the same position in the list and adds them together. As you can see, this is trivial math:  </p>
-<div class="highlight"><pre><span></span>(5 * 5) +  (2 * 1) + (3 * 2)
-</pre></div>
-
-
-<p>Despite it's humble origins, however, this trick -- multiplying ordered pairs of numbers and adding them up - is absolutely basic in 3-D graphics. The lists of prices and quantities become vectors (in fact, general purpose algebra calls any list a 'vector') and with a simple convention the dot product takes on a very interesting and useful set of properties for TA’s to exploit.<br />
-The most famous example of the dot product in graphics is <a href="http://en.wikipedia.org/wiki/Lambertian_reflectance">the original Lambert shading equation</a>:  </p>
-<div class="highlight"><pre><span></span>N dot L
-</pre></div>
-
-
-<p>Where N is a surface normal and L is the angle of the incident light.   </p>
-<p><a href="http://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VisualPhotometry_Fig2_from_Lambert'sPhotometria.jpg/2880px-VisualPhotometry_Fig2_from_Lambert'sPhotometria.jpg"><img alt="" src="http://upload.wikimedia.org/wikipedia/commons/thumb/0/03/VisualPhotometry_Fig2_from_Lambert'sPhotometria.jpg/2880px-VisualPhotometry_Fig2_from_Lambert'sPhotometria.jpg" /></a>  </p>
-<blockquote>
-<p>The 'Lambert shader' is based on this math textbook from 1760. How cool is that?  </p>
-</blockquote>
-<p>Lambertian shading is probably the single most common operation in computer graphics, but it’s the same math as figuring out your coffee budget. Here’s how the magical translation from bagels and coffee to shaded pixels works:<br />
-Imagine a sphere being lit by a directional light from straight above, in classic CG fashion. The vector to the light would be   </p>
-<div class="highlight"><pre><span></span>[0, 0, 1]
-</pre></div>
-
-
-<p>On top of the sphere, the normal vector would point the same way - it too would point up towards  </p>
-<div class="highlight"><pre><span></span>[0, 0, 1]
-</pre></div>
-
-
-<p>The dot of these two is:  </p>
-<div class="highlight"><pre><span></span>(0 * 0) + (0 * 0) + (1 * 1)
-</pre></div>
-
-
-<p>in other words, 1. This makes sense: our light is directly overhead, so the sample point on top of the sphere receives the full incoming light. Compare this to a point halfway down the sphere. A a normal point 45 degrees from the vertical might be   </p>
-<div class="highlight"><pre><span></span>[.707, 0, .707]
-</pre></div>
-
-
-<p>And the dot would be  </p>
-<div class="highlight"><pre><span></span>(0 *.707) + (0 * 0) + (1 * .707)
-</pre></div>
-
-
-<p>or .707. That means this sample point is getting about 70% of the incoming light. At the horizon of the sphere the dot will be <code>[0,0,1] dot [1, 0, 0]</code>. This dots out to   </p>
-<div class="highlight"><pre><span></span>(1 * 0) + (0 * 0) + (0 * 1)
-</pre></div>
-
-
-<p>or 0. This makes sense - at the horizon of the sphere the light is parallel to the surface and imparts no light.<br />
-Or, in pretty picture form:  </p>
-<p><a href="http://www.upvector.com/pages/Tutorials/Intro%20to%20Shaders/images/lambert1.gif"><img alt="" src="http://www.upvector.com/pages/Tutorials/Intro%20to%20Shaders/images/lambert1.gif" /></a></p>
-<h2>Wherefore art thou cos(theta)?</h2>
-<p>So, it appears of this fancy-pants rendering is coming from the same bagels-and-coffee trick. How come? Lambert’s law isn’t some simple interpolation - it’s based on cosines, which give it the characteristic soft falloff around the horizon. How does this work?<br />
-The sharp-eyed reader might notice that all of the vectors in this example are <em>normalized</em>, that is to say the length of all of the vectors in this example are 1. That’s is the special convention that turns a plain-vanilla dot product into a geometric proposition. As long as the vectors are normalized -- but <strong>only</strong> if they are normalized -- the dot product of the light vector and the normal vector is the cosine of the angle between the two vectors. That’s what makes the nice soft falloff on a Lambert-lit object, but it has lots of other properties as well.<br />
-To understand how this bagels-and-coffee math turns into trigonometry, remember that ‘normalizing’ a vector just means setting its length to one. Visualize what happens if you sweep a 1-unit long line segment around in a circle, starting from the horizontal. As the segment rotates, you can draw a right triangle from it’s end point up or down to the horizontal axis, as in the example below:  </p>
-<p><a href="http://www.mathsisfun.com/geometry/images/circle-unit-sct.gif"><img alt="" src="http://www.mathsisfun.com/geometry/images/circle-unit-sct.gif" /></a></p>
-<p>If you recall your high-school trigonometry you’ll remember that the cosine of an angle in a right triangle is the ratio between the side of a right triangle next to the angle and the hypotenuse of the same triangle <em>(the “CAH” in “<a href="http://www.mathwords.com/s/sohcahtoa.htm">SOHCAHTOA</a>,” if you learned it the way I did)</em>. In this case, our hypotenuse is always 1 (it’s a unit line). so  the cosine is just the width of our right triangle. All of this works as described <em>only</em> if the vectors are normalized,however - when your dots give you wonky results, non-normalized vectors are always the first thing to look for.<br />
-<em><a href="https://www.youtube.com/watch?v=ZffZvSH285c">This video from Khan Academy</a> gives you a more in-depth derivation if this description isn’t clear.</em><br />
-Once you grasp the unit-circle-cosine setup, it’s easy to see how dotting unit vectors creates cosine values rather than lunch budgets. See what happens when you dot a random vector against <code>[1,0,0]</code>:  </p>
-<div class="highlight"><pre><span></span>example = [.866, .5, 0]  
-reference = [1, 0, 0]  
-example dot reference = (.866 * 1) + (.5 * 0) + (0 * 0) = .866
-</pre></div>
-
-
-<p>As you can see the X component of the example vector has been preserved, but the other two are zeroed out. (This illustrates the meaning of the dot project - it’s the <em>projection</em> of one vector on to another. We’ll touch on that more in the next post).   </p>
-<p>In this case, projecting that 60 degree line segment onto the vector <code>[1,0,0]</code>creates a line segment from <code>[0,0,0]</code>to <code>[.866,0,0]</code> and the same kind of right triangle we described above. The ratio of the hypotenuse vector to this new ‘adjacent’ vector is .866 / 1, that is, plain old .866 — which we we know from the unit circle is the cosine of 60 degrees and the answer we were looking for.   </p>
-<p>This is how the dot of two normalized (!) vectors is alway the cosine of the angle between them.  </p>
-<h2>Dot's all, folks</h2>
-<p>So that's the basic theory of the dot product. Of course what the ruthlessly practical TA will want to know about is uses, not theory. Some of the applications will be obvious but there is a <a href="https://www.youtube.com/watch?v=-mTUmczVdik">plethora</a> of less obvious ways the dot product can make your life eaiser. I’ll hit those in my next post.  In the meantime, bring instant coffee instead of paying for that venti tripple mocchachino every day. That stuff’ll totally blow your budget.  </p>
-<h2>Posts in this series</h2>
-<ul>
-<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot products)</a></li>
-<li><a href="dots_all_folks.html">Dots All Folks (dot product uses)</a></li>
-<li><a href="dot_matrix.html">Dot Matrix (intro to matrices)</a></li>
-<li><a href="adventures-in-4th-dimension.html">Adventures in the 4th Dimension (translation matrices)</a></li>
-<li><a href="to-scale.html">To Scale! (scale matrices)</a></li>
-</ul>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 22 November 2014
+            <p class="post-meta">Sat 29 November 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/bagels_and_coffee#disqus_thread">comments</a>.</p>        </div>
+                Some ways to use the vector dot product in TA programming
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/dots_all_folks#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/big_python_bucks" rel="bookmark" title="Permalink to Big (?) Python bucks!">
+            <a href="http://theodox.com/2014/bagels_and_coffee" rel="bookmark" title="Permalink to Bagels and Coffee, or, the vector dot product and you">
                 <h2 class="post-title">
-                    Big (?) Python bucks!
+                    Bagels and Coffee, or, the vector dot product and&nbsp;you
                 </h2>
             </a>
-                <p>I've frequently commented in the past on the <a href="http://www.gamasutra.com/view/news/221533/Game_Developer_Salary_Survey_2014_The_results_are_in.php">Game Developers Salary Survey</a>.  For you Pythonistas out there, there's some nice data (amateur grade, but still pretty good) to be found at the <a href="http://nbviewer.ipython.org/github/agilevic/pystreet/blob/master/notebooks/PyStreet%20Python%20Developer%20Salary%20Survey%20Results.ipynb">Python Developer Salary Survey</a>.  No mention of what you get for knowing Max / Maya, however, but by crunching the numbers I'd guess it <em>subtracts</em> about $30k per year.   </p>
-<p>Or maybe that's just because we're all lousy programmers.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 16 November 2014
+            <p class="post-meta">Sat 22 November 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/big_python_bucks#disqus_thread">comments</a>.</p>        </div>
+                An introduction to the vector dot product, and how it’s used in computer graphics.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/bagels_and_coffee#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/dot_net_is_open" rel="bookmark" title="Permalink to Dot Net is Open?">
+            <a href="http://theodox.com/2014/big_python_bucks" rel="bookmark" title="Permalink to Big (?) Python bucks!">
                 <h2 class="post-title">
-                    Dot Net is Open?
+                    Big (?) Python&nbsp;bucks!
                 </h2>
             </a>
-                <p>Courtesy of <a href="https://plus.google.com/116275833090172173559">+Robert Butterworth</a>  comes the news that <a href="http://blogs.msdn.com/b/dotnet/archive/2014/11/12/net-core-is-open-source.aspx">.Net is now open source</a>.  Future development will be done out of GitHub (!).  Is the timing - on the anniversary of the fall of the Berlin Wall - just a coincidence?  </p>
-<p>In the short term this probably only means that some projects which have avoided .Net for being closed-source may consider using C# or other .Net languages. Over the medium term it probably presages a 3-6% decline in the use of the dollar sign in derisive online references to Micro$oft.  What's most interesting, though, is what it might mean for Unity, which is hard to predict but tantalizing to speculate on.  </p>
-<p><a href="http://logomentor.com/logos/dot-net-logo.gif"><img alt="" src="http://logomentor.com/logos/dot-net-logo.gif" /></a></p>
-<p>Mono is an impressive effort but it's always been rough around the edges (particularly in the supporting toolsets - nothing makes you appreciate Visual Studio like a few hours with MonoDevelop!  Since MS picked up SyntaxTree and made <a href="http://unityvs.com/">UnityVS</a> available to all, the editor situation has been a lot better. But the guesswork around different DotNet subsets (and some general wonkiness in the deep-down internals of building big Unity projects) is a blemish on Unity's otherwise nicely polished cross-platform credentials.   </p>
-<p>A lot of the reason for that is that Mono was developed in a 'clean room' - for legal reasons neither the Mono team nor the MS .Net team were allowed to actually look at each other's code. It's quite impressive that the result works as well as it does. but throwing open the curtains has got to have some benefits as we move forward.  It's particularly cool that the .Net tean are actually working with de Izcaza and Xamarin on creating future cross-platform implementations,  </p>
-<p>It's even possible that this will benefit Maya, by making it possible to do a full-stack .Net port for Maya's running on Linux and OSX.  And maybe, just maybe, this might make things better for the <a href="https://code.google.com/p/trypython/">Silverlight IronPython web tech</a>, which would be pretty cool, given the lame state of <a href="http://techartsurvival.blogspot.com/2013/12/python-in-browsers.html">Python in the browser</a>.  </p>
-<p>Of course, it's hard to see how any of these things will really play out. It's not like no big company has ever "Open-Sourced" something before as a PR friendly way of ending support for it. But it's always more fun to be an optimist.  </p>
-<p>Interesting side note: even <em>they</em> don't use TFS for version control. See, optimism is sometimes justified - every tyranny falls some day.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 13 November 2014
+            <p class="post-meta">Sun 16 November 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/dot_net_is_open#disqus_thread">comments</a>.</p>        </div>
+                So wait, knowing Maya and Python is worth less than knowing just Python?! I knew it.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/big_python_bucks#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/dot_net_is_open" rel="bookmark" title="Permalink to Dot Net is Open?">
+                <h2 class="post-title">
+                    Dot Net is&nbsp;Open?
+                </h2>
+            </a>
+            <p class="post-meta">Thu 13 November 2014
+            </p>
+                Interesting news from the dotnet world,
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/dot_net_is_open#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2014/wygwys" rel="bookmark" title="Permalink to WYG > WYS">
                 <h2 class="post-title">
-                    WYG > WYS
+                    <span class="caps">WYG</span> > <span class="caps">WYS</span>
                 </h2>
             </a>
-                <blockquote>
-<p>Update 4/4/2015:  I've got a much improved pipeline for markdown blogging using Sublime Text, as detailed <a href="markdown-wrapup.html">here</a>.  I'm also having a lot of luck with <a href="http://dynalon.github.io/mdwiki/#!index.md">MDWiki </a>for static sites on <a href="http://github.io/">github.io</a><br />
-Update 5/1/2016:  If you're reading this, I've finally transitioned over to all-markdown, all-the-time using <a href="http://docs.getpelican.com/en/3.6.3/index.html">Pelican</a></p>
-</blockquote>
-<p>First off, a confession. I’ve become a plaintext nazi. 30 years since I first hit <em>Ctrl+I</em> to italicise a piece of text, I’ve pretty much abandoned fancy-pants text edtors for the hardcore geek chic of plain text and <a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a>.  </p>
-<p>To be honest, this makes me uncomfortable, because plain-text-chauvinism is the techie equivalent of skinny jeans and ironical facial hair; it’s definitely a thing for the Cool Kids<sup>tm</sup>, a demographic which is not really my native habitat.  </p>
-<p>But I’m willing to be cool if that’s what it takes.  </p>
-<p><a href="http://daringfireball.net/projects/markdown/syntax">Markdown</a> is just a great tool for writing web or wiki content. If you spend a lot of time typing - particularly if you’re a TA who spends a lot of typing Python! – it becomes natural really quickly.<br />
-The great thing about markdown is that it’s not dependent on the vagaries of a particular editor or application. There’s no need to worry about the layout of the menus or the mnemonics of the hotkeys - you just type. You just tap away without taking your hands off the keyboard to hit special key combinations for formatting (eg <strong>bold</strong>, <em>italic</em>), so you go a lot faster. <br />
-In markdown, the emphasis is on the structure of what you’re writing instead of the presentation. You don’t format, you ‘mark up’ - that is you indicate what the job of a particular bit of text, is but you don’t describe it’s appearance. You can create headings, lists, block quotes, and even code snippets just using some simple conventions. Moreover the conventions are pretty readable in plain text. For example, you this little snippet of text  </p>
-<div class="highlight"><pre><span></span>heading  
-========  
-This is some plain text
-
-### subheading  
-    * list item  
-    * other list item
-</pre></div>
-
-
-<p>Produces this formatted output:  </p>
-<h1>heading</h1>
-<p>text goes here  </p>
-<h3>subheading</h3>
-<ul>
-<li>list item</li>
-<li>other list item</li>
-</ul>
-<p>The actual look of the output is going to be controlled down stream something else. Most markdown is processed into HTML using CSS to control things like fonts, line-spacing, and alignment.   </p>
-<p>I’ve found that markdown makes me a lot more productive than traditional WYSWIG editing. In part that’s because I can write markdown in a very stripped-down editor like <a href="http://www.sublimetext.com/">Sublime Text</a> on the PC or <a href="http://www.ulyssesapp.com/">Ulysses</a> on the Mac. These stripped-down editors are really qick and responsive, since they do so much next to nothing in the realm of document layout. Most important for me, they include far fewer distractions than Word or even Google Docs, so I can focus on the job at hand instead of fiddling around with styles and formatting.   </p>
-<p>In cases where the layout actually matters I can take the finished text and export it via HTML or PDF to a traditional layout program, but nowadays that almost never happens: I literally cannot remember the last time I worried about the layout of words and images on a printed page (which is a pretty odd reflection for me, since I only got into computers because of <a href="http://www.opticentre.net/FAQ/Desktop-publishing-%28DTP%29/History-of-Desktop-publishing/">desktop publishing</a>, back when that was a thing.). Some flavors of markdown include the ability to inline html directly in the text for special purposes - for example, I got the superscript after Cool Kids tm by typing  </p>
-<div class="highlight"><pre><span></span>Cool Kids <span class="nt">&lt;sup&gt;</span>tm<span class="nt">&lt;/sup&gt;</span>
-</pre></div>
-
-
-<p>99 times out of 100, however, this level of specificity isn’t important until the real work of writing is done and I’m just polishing up - I’m much happier focusing on the actual content and tweaking the visuals at the very last minute. That’s what a lifetime of game devlopment does to a person. </p>
-<p>Nowadays I do all my writing in plain text and markdown, with two exceptions. The wiki we use at work, <a href="https://www.atlassian.com/software/confluence?_mid=2c4fae43fb6d045f4fbe6afdba94a6fe&amp;gclid=Cj0KEQjwt7KiBRD9lOePpe_BhrgBEiQAHaS_19HAtXBp54afa2VUzVBDBXsvpGSZWav3m92wizJ8DZsaAtPB8P8HAQ">Confluence</a>, doesn’t support markdown and to be perfectly frank it drives me nuts: The editor feels sluggish and the workflow constantly distracts me from what I’m supposed to be actually writing. And, unfotunately, Blogger doesn’t support md either. Blogger is at least not quite as sluggish as Confluence, but it definitely feels like wearing a deep-sea diver suit compared to blazing away in a plain text editor with markdown.  </p>
-<p>Luckily I’ve found an option that at least looks pretty good. This post was written entirely in <a href="https://stackedit.io/">StackEdit</a>, a free online markdown editor which also allows publishing directly to Blogger. I followed <a href="http://www.g14n.info/2013/12/how-to-use-markdown-to-edit-blogger.html">these instructions</a> by Gianluca Casati which seem to work pretty well.   </p>
-<p>On the upside, this feels a lot more productive and focused than the usual Blogger writing process. In particular, it’s way easier to include short bits of code in markdown. Including code snippets into blogger, on the other hand, is a huge pain in the patootie; In the past I’ve used <a href="https://help.github.com/articles/about-gists/">Gists</a>, which are not to hard to embed and produce nicely highlighted code in lots of languages. For long format code it’s still a great tool. However it’s not ideal for small snippets of a few lines - there’s a lot of hopping around between editors and it’s very disjointed, which tends to get in the way of good flow when writing. For short jobs I will often just hand-edit the HTML produced by Blogger, which works but is, frankly, BS.   </p>
-<p>One the downside, the StackEdit &gt; markdown &gt; html &gt; Blogger pipeline is precisely the sort of jury-rigged song and dance that drives me crazy in my day job. Translations are rarely perfect in any case, and inserting three of them along the way to do a single job offends my sense of Pipeline Fu. I have yet to figure out how to tweak the final results to stay in line with the established style of the blog, and it’s particularly tough to tweak the final results directly in Blogger if I need to make a tweak. The last straw is blogger's maddening habit of replacing &lt;p&gt; tags with &lt;br/&gt; tags, even if you paste HTML right into the HTML editor.  It all feels a lot like a complex MEL pipeline. It works... but it feels wrong.  </p>
-<p>So, apologies for any wierd fomatting here - this is a very beta version of a new process. I’m still not satisfied that this is the ‘right’ way to write for the web (Santa, if you’re reading this, I’d <em>kill</em> for a good markdown blogging platform that also did Python syntax highlighting!).</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 01 November 2014
+            <p class="post-meta">Sat 01 November 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/wygwys#disqus_thread">comments</a>.</p>        </div>
+                The first step on the long road to a streamlined, markdown based blogging platform…
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/wygwys#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/dog_ate_my_homework" rel="bookmark" title="Permalink to The Dog Ate My Homework">
+            <a href="http://theodox.com/2014/dog_ate_my_homework" rel="bookmark" title="Permalink to The Dog Ate My Homework">
                 <h2 class="post-title">
-                    The Dog Ate My Homework
+                    The Dog Ate My&nbsp;Homework
                 </h2>
             </a>
-                <p>I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth sharing.  </p>
-<p>We run all of our various Maya tools through a single build system which runs unit tests and compiles code for our different targets (currently Maya 2011 and 2015). Ordinarily, since I’m very allergic to using binaries when I don’t have to, this multi-maya setup doesn’t cause us a lot of headaches. I have a little extractor routine which unzips the few binaries we do distribute in the right places, and all the rest of the code is blissfully unaware of which Maya version it’s running (with the exception of the nasty <a href="http://techartsurvival.blogspot.com/2014/09/2015-bug-watch-ls.html">ls bug I mentioned a few weeks ago</a>.)  </p>
-<p><a href="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg"><img alt="" src="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg" /></a></p>
-<p>Last week, however, we added a new tool and accompanying test suite to the toolkit. It works fine in 2015 (where we do all of our actual development right now), but crashes in 2011. After a bit of head-scratching we eventually realized that this one was absurdly simple: the test uses a saved Maya so that it can work with known, valid data. Of course the file was saved from Maya 2015, so when the Maya 2011 version of the tests tries to run boot up, it falls over because 2011 won’t read a 2015 file.<br />
-Or, as the checkin comment has it, “Doh!”  </p>
-<h2>Test cancelled!</h2>
-<p>The obvious fix is just to skip the test in Maya 2011 - a test that can never pass is hardly generating much useful information, and the likelihood that our small pool of 2011 customers actually need this tool is low anyway. Skipping a test is easy enough if you’re running the tests manually in an IDE – but a lot more complex if you’re got a build server that’s trying to auto-detect the tests. Plus, designing a system that makes it <em>too</em> easy to skip tests is a Bad Thingtm; - you generally want all of your tests running all the time, since “I’ll re-enable that test after I deal with this problem” is right up there with “the check is in the mail” and “it’s not you, it’s me” in the probity department. <br />
-So, the goal is to allow us to conditionally disable tests based on a hard constraint - in this case, when they are running on an inappropriate version of Maya - without compromising the tests as a whole . Secondarily it would be nice to do this without any kind of central registry file - we’d really just like the tests to just run, except when they <em>can’t</em>.  </p>
-<p><a href="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg"><img alt="" src="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg" /></a></p>
-<p>Now, typically a test runner will detect tests by looking for classes that derive from <a href="https://docs.python.org/2/library/unittest.html">unittest.TestCase</a>. The easiest way to skip the test, therefore, is simply not to define it at all - if the test runner doesn’t see the class when it imports your test modules, we’ll be fine. <em>Note: this strategy won’t work if you have some kind of hand-rolled test harness that finds tests by string parsing file contents or something like that! However, you probably want to be doing the standard thing anyway… As they say in Python land, <a href="http://legacy.python.org/dev/peps/pep-0020/">“There should be one– and preferably only one –obvious way to do it.”</a></em>  </p>
-<p>In C++ or C# you could do this with a “preprocessor directive”, aka a “#define” - a conditional check that runs at compile time to include or exclude certain parts of a file.   </p>
-<p>In Python we don’t even need that: you can just inline the check in your file and it will execute when the module is imported. Here’s a simple example which conditionally use Raymond Hettinger’s <a href="https://pypi.python.org/pypi/ordereddict">ordereddict module</a> in Python 2.6 and the equivalent built-in version in Python 2.7:  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>  
-    <span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">OrderedDict</span>  
-<span class="k">else</span><span class="p">:</span>  
-    <span class="kn">from</span> <span class="nn">ordereddict</span> <span class="kn">import</span> <span class="n">OrderedDict</span>
-</pre></div>
-
-
-<p>_(If you are total #IFDEF addict there is also the <a href="http://stackoverflow.com/questions/482014/how-would-you-do-the-equivalent-of-preprocessor-directives-in-python">pypredef module</a>. Not my cup of tea, but the author does make some good points about the utility of his approach). _  </p>
-<p>The inline approach works fine in small amounts, but it’s aesthetically unappealing - it forces a bunch of module-level definitions away from the left margin, visually demoting them from important names to generic code blocks. More importantly, it’s easy to mess up: a misplaced indentation can radically change the contents of your file, and even though I’m a big fan of indentations over cur lies, I miss my indents with depressing regularity.  </p>
-<p>Fortunately, Python has an elegantly succinct way of annotating code for higher-level purposes without messing up the visual cleanliness and logical flow: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">decorators</a>. Decorators are handy here for two reasons: first off, they express your intent very clearly by telling future readers something unambiguous about the structure of your code. Secondly, they can execute code (even fairly complex code, though frankly it’s a bad idea for what I’m describing here!) without compromising the layout and readability of your module.<br />
-The particularly nice thing about decorators in this case is that the way decorators work in any case is a natural match for the problem we have.   </p>
-<h2>The substitute teacher</h2>
-<p>A decorator is just a function (or a callable class) which takes another function or class as an argument. When Python finds a decorated function or class, it calls the decorator function and passes the target – that is, the decorated bit of code – as an argument Whatever comes out of the decorator function is then swapped in for the original code. <br />
-Here’s a simple example, using functions for simplicity:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
-        <span class="k">def</span> <span class="nf">replacement_func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>  
-        <span class="c1"># this function replaces the original  </span>
-        <span class="c1"># it only knows what the original does  </span>
-        <span class="c1"># because that was passed in when the  </span>
-        <span class="c1"># decorator was called....  </span>
-        <span class="k">print</span> <span class="s2">&quot;calling original&quot;</span>  
-        <span class="n">result</span> <span class="o">=</span> <span class="n">original_func</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>  
-        <span class="k">print</span> <span class="s2">&quot;original says : &quot;</span><span class="p">,</span> <span class="n">result</span>  
-        <span class="k">return</span> <span class="n">result</span>  
-    <span class="k">return</span> <span class="n">replacement_func</span>   
-    <span class="c1"># return our new replacement function  </span>
-    <span class="c1"># but bind it to the name of the original</span>
-
-<span class="nd">@decorated</span>  
-<span class="k">def</span> <span class="nf">size</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>  
-   <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-
-<span class="n">example</span> <span class="o">=</span> <span class="n">size</span><span class="p">(</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">,</span><span class="mi">3</span><span class="p">])</span>  
-<span class="c1"># calling original  </span>
-<span class="c1"># original says : 3  </span>
-<span class="k">print</span> <span class="n">example</span><span class="p">:</span>  
-<span class="c1"># 3</span>
-</pre></div>
-
-
-<p>The decorator can completely replace the original code if it wants to:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
-   <span class="k">def</span> <span class="nf">completely_different</span><span class="p">():</span>  
-       <span class="k">return</span> <span class="s2">&quot;and now for something completely different&quot;</span>
-
-<span class="nd">@override</span>  
-<span class="k">def</span> <span class="nf">parrot</span><span class="p">():</span>  
-    <span class="k">return</span> <span class="s2">&quot;I’d like to make a complaint about a parrot&quot;</span>
-
-<span class="k">print</span> <span class="n">parrot</span><span class="p">()</span>  
-<span class="c1"># and now for something completely different</span>
-</pre></div>
-
-
-<p>Or, it could leave it untouched too:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">untouched</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
-    <span class="k">return</span> <span class="n">original_func</span>
-
-<span class="nd">@untouched</span>  
-<span class="k">def</span> <span class="nf">spam</span><span class="p">():</span>  
-    <span class="k">return</span> <span class="s2">&quot;spam!&quot;</span>
-
-<span class="k">print</span> <span class="n">spam</span><span class="p">()</span>  
-<span class="c1">#spam!</span>
-</pre></div>
-
-
-<p>The essential thing here is that the decorator sort of like one of those elves who swap out children for changelings. Officially nothing has changed - the name you defined in the un-decorated code is right there - but under the hood it may be different.  </p>
-<p><a href="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg"><img alt="" src="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg" /></a></p>
-<h2>Mandatory testing</h2>
-<p>Once you understand the decorator-as-changeling idea, it becomes pretty easy to see how the decorator can allow code swaps based on some condition. You might, for example, try to patch around a function which returns an empty list in Maya 2014, but <a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404">crashes in Maya 2015</a>(link):  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">safe_2015</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
-        <span class="k">if</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>  
-        <span class="c1"># wrap it for safety in 2015  </span>
-        <span class="k">def</span> <span class="nf">safe</span>\<span class="n">_ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-            <span class="k">try</span><span class="p">:</span>  
-                <span class="k">return</span> <span class="n">original_func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
-            <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>  
-                <span class="k">return</span> <span class="p">[]()</span>  
-        <span class="k">return</span> <span class="n">safe_ls</span>  
-    <span class="k">else</span><span class="p">:</span>  
-        <span class="c1"># send it back unchanged in non-2015  </span>
-        <span class="k">return</span> <span class="n">original_func</span>
-
-<span class="nd">@safe_2015</span>    
-<span class="k">def</span> <span class="nf">do_something</span><span class="p">():</span>  
-   \<span class="c1">#....</span>
-</pre></div>
-
-
-<blockquote>
-<p>Disclaimer: I wouldn’t use this code in practice! It’s a good example of the principle, but not a wise way to patch around the 2015 ls bug.  </p>
-</blockquote>
-<p>Returning at long last to the problem of suppressing tests: we just need to harness the power of decorators to replace the class definition of our test classes with something else that won’t get run by our test suite. And, luckily, that’s really easy to do since we don’t have to return anything:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Only2015</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>  
-    <span class="k">if</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>  
-            <span class="k">return</span> <span class="n">original</span> <span class="c1"># untouched!  </span>
-        <span class="k">else</span><span class="p">:</span>  
-            <span class="k">return</span> <span class="nb">object</span> <span class="c1"># the decorated class is now just object</span>
-</pre></div>
-
-
-<p>So if your do something like this in your tests:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">TestCase</span>  
-<span class="kn">import</span> <span class="nn">maya.standalone</span>  
-<span class="k">try</span><span class="p">:</span>  
-    <span class="n">maya</span><span class="o">.</span><span class="n">standalone</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>  
-<span class="k">except</span><span class="p">:</span>  
-    <span class="k">pass</span>
-
-
-<span class="nd">@Only2015</span>  
-<span class="k">class</span> <span class="nc">Test2015Only</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">test_its_2015</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">assert</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-
-<span class="k">class</span> <span class="nc">TestOtherVersions</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">test_any_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">assert</span> <span class="s1">&#39;20&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
-
-<p>As you’d expect, both of these test will run and pass when run on a Maya 2015 python. However, under any other version of Maya the file really looks like this:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">TestCase</span>  
-    <span class="kn">import</span> <span class="nn">maya.standalone</span>  
-    <span class="k">try</span><span class="p">:</span>  
-        <span class="n">maya</span><span class="o">.</span><span class="n">standalone</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>  
-    <span class="k">except</span><span class="p">:</span>  
-        <span class="k">pass</span>
-
-<span class="c1"># in 2014 &lt;, this TestCase class has been replaced by a dumb object() class  </span>
-<span class="k">class</span> <span class="nc">Test2015Only</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="k">pass</span>
-
-
-<span class="k">class</span> <span class="nc">TestOtherVersions</span><span class="p">(</span><span class="n">TestCase</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">test</span>\<span class="n">_any</span>\<span class="n">_version</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">assert</span> <span class="s1">&#39;20&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Because <code>Test2015Only()</code> is now an <code>object()</code> instead of a <code>TestCase()</code>, the test runner doesn’t even see it and doesn’t try to run it.  </p>
-<h2>Makeup work</h2>
-<p>This is a lovely example of why Python can be so much fun. The language has the magical ability to extend itself on the fly - in this case, change the meaning of whole blocks of otherwise conventional code - but at the same time it offers simple, conservative mechanisms that keep that process for degenerating into mere anarchy (or, worse, into <em><a href="http://qph.is.quoracdn.net/main-qimg-eb6eb210fd4116ef10fee083428ed482?convert_to_webp=true">JavaScript</a></em>).  </p>
-<p>This particular gimmick was a great way to clean up our messy test set. Predictably, about 30 seconds I verified that it worked I was starting to brainstorm all sorts of cool new uses for this tactic.   </p>
-<p>A few more minutes of reflection, however, brought me to see that this kind of trick should be reserved for special occasions. The ability to swap the contents of a name based on runtime condition is definitely cool - but it’s hardly a good practice for readability and maintenance down the road. It happens to be a nice fit for this problem because a test is never going to be used by anything other than the test suite. Trying the same thing with, say, a geometry library that gets imported all over the place would be a nightmare to debug.  </p>
-<p>Magic is wonderful but, best used <em>sparingly</em>.  </p>
-<p><a href="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg"><img alt="" src="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg" /></a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 30 October 2014
+            <p class="post-meta">Thu 30 October 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/dog_ate_my_homework#disqus_thread">comments</a>.</p>        </div>
+                a cheap-ass way to specialize Maya unit tests for different Maya versions.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/dog_ate_my_homework#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/maya_plugin_commands" rel="bookmark" title="Permalink to Laziness and cleanliness and MEL, Oh My.">
+            <a href="http://theodox.com/2014/maya_plugin_commands" rel="bookmark" title="Permalink to Laziness and cleanliness and MEL, Oh My.">
                 <h2 class="post-title">
-                    Laziness and cleanliness and MEL, Oh My.
+                    Laziness and cleanliness and <span class="caps">MEL</span>, Oh&nbsp;My.
                 </h2>
             </a>
-                <p>The other day I was following a <a href="http://tech-artists.org/forum/showthread.php?5077-FBX-Exporting-from-Maya">thread on Tech-Artists</a> which reminded me of one of those little Maya things that doesn't really matter, but which drives me bonkers: busted front ends for Maya plugins.  </p>
-<p>When a developer makes a plugin for Maya, they can create new Mel commands as well as new nodes. The new commands will ultimately use the same basic strategy to parse their incoming arguments: Maya will give them an <a href="http://knowledge.autodesk.com/support/maya/learn-explore/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-list-html.html">MArgList</a> object and they will have to parse out what that means. If the plugin uses an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-syntax-html.html">MSyntax</a> and an <a href="http://knowledge.autodesk.com/support/maya/getting-started/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/class-open-maya-1-1-m-arg-parser-html.html">MArgParser</a> to pull the values out then the plugin will behave just like the functions in maya.cmds.  Flags and arguments will be checked the same way that we're used to in the rest of Maya Python.  </p>
-<p>Unfortunately, there's no law that says the plugin has to do it 'correctly'.  There are more than a few plugins that don't use the standard MSyntax/MArgParser combo and just pull values out of the argument list directly.  The most notorious offender is the FBX Plugin, which generates a ton of commands which all fail to use the standard parsing mechanism.  And, of course, there are also bits of MEL lying around from other sources as well that are a bit painful to call from Python, That's why you see tons of hairy beasts like this:      </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.mel</span> <span class="kn">as</span> <span class="nn">mel</span>  
-<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexStart -v &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">start_frames</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>  
-<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexEnd -v &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span> <span class="n">end_frames</span><span class="p">[</span><span class="n">x</span><span class="p">]))</span>  
-<span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;FBXExport -f </span><span class="se">\&quot;</span><span class="s2">&quot;</span> <span class="o">+</span> <span class="n">get_export_file</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.fbx</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>While this is workable, it's fragile: composing strings inline inside a function call is an invitation to bugs like forgetting an escaped quote (tell me you'd notice that last escape in the final line if it was borked!) or a bit of significant whitespace. It's also harder to meta-program anything that's written like this - you can't create a dictionary of options or a variable length list of arguments when you call the function. Last - but not least, at least not for lousy typists like myself - you can't rely on autocompletion in your IDE to make things quicker and less error prone.  </p>
-<p>In cases like this it's handy to be able to fall back on a wrapper that will feed the plugin a correctly formatted MEL-style argument but which looks and codes like regular Maya Python. Luckily, you can usually rely on the MEL syntax, even when the plugin's argument parsing is as Python-unfriendly as the FBX plugins: If the MEL version doesn't work either, the whole thing isn't worth rescuing ! -- but if it does then you can Python-ify the front end with a little bit of Python magic to make sure the arguments are passed correctly.  </p>
-<p>One thing we can do to make this a simple job is to use what's known as <em>MEL function syntax</em>.  This is a little-used MEL behavior that lets you call MEL more or less like a traditional computer function, rather than the shell-style script format you usually see. Function syntax uses parentheses and a comma-delimited list of arguments rather than white space. It means that these two calls are identical:  </p>
-<div class="highlight"><pre><span></span>spaceLocator -p 1 2 3 -n &quot;fred&quot;;  
-spaceLocator(&quot;-p&quot;, &quot;1&quot;, &quot;2&quot;,  &quot;3&quot;,  &quot;-n&quot;,  &quot;fred&quot;);
-</pre></div>
-
-
-<p>While you probably don't want to type that second one, it's a lot easier to manage if you're trying to turn a bunch of flags and arguments into a MEL command string.  What we'll be doing is creating a function that generates argument strings in the function syntax style and then passes them to MEL for you, allowing you to use the familiar cmds-style arguments and keywords instead of doing all the string assembly in-line with your other code.  </p>
-<p>The rest of the relevant MEL syntax rules are pretty simple, with one exception we'll touch on later:  </p>
-<ul>
-<li><em>Everything</em> is a string!</li>
-<li>Flags are preceded by a dash</li>
-<li>Flags come first</li>
-<li>Non-flag arguments follow flags</li>
-<li>Multipart values are just a series of single values</li>
-</ul>
-<p>That first one may suprise you but it's true - and in our case it's extremely useful. If you're dubious, though, try this in your MEL listener:  </p>
-<div class="highlight"><pre><span></span>polyCube (&quot;-name&quot;, &quot;hello&quot;, &quot;-width&quot;, &quot;999&quot;);
-</pre></div>
-
-
-<p>Implementing these rules in a function turns out to be pretty simple.   </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.mel</span>  
-<span class="k">def</span> <span class="nf">run_mel</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-    <span class="c1"># makes every value into a tuple or list so we can string them together easily  </span>
-    <span class="n">unpack</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">v</span><span class="p">:</span> <span class="n">v</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="p">(</span><span class="n">v</span><span class="p">,)</span>  
-    <span class="n">output</span> <span class="o">=</span> <span class="p">[]</span>  
-    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>   
-        <span class="n">output</span><span class="o">.</span><span class="n">append</span> <span class="p">(</span><span class="s2">&quot;-</span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">k</span><span class="p">)</span>  
-        <span class="c1"># if the flag value is True of False, skip it   </span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="n">v</span> <span class="o">**</span><span class="ow">in</span> <span class="p">(</span><span class="o">**</span><span class="bp">True</span><span class="o">**</span><span class="p">,</span> <span class="o">**</span><span class="bp">False</span><span class="o">**</span><span class="p">)</span><span class="o">**</span><span class="p">:</span>  
-            <span class="n">output</span><span class="o">.</span><span class="n">extend</span> <span class="p">(</span><span class="n">unpack</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
-
-    <span class="k">for</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">args</span><span class="p">:</span>  
-        <span class="n">output</span><span class="o">.</span><span class="n">append</span> <span class="p">(</span><span class="n">arg</span><span class="p">)</span>
-
-    <span class="n">quoted</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">q</span><span class="p">:</span> <span class="s1">&#39;&quot;</span><span class="si">%s</span><span class="s1">&quot;&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="n">q</span><span class="p">)</span>
-
-    <span class="k">return</span> <span class="n">maya</span><span class="o">.</span><span class="n">mel</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%s</span><span class="s2">(</span><span class="si">%s</span><span class="s2">)&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="s2">&quot;,&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="n">quoted</span><span class="p">,</span> <span class="n">output</span><span class="p">))))</span>
-</pre></div>
-
-
-<p>This function will correctly format a MEL call for almost all circumstances (see the note below for the exception).  For example the irritating FBX commands above become  </p>
-<div class="highlight"><pre><span></span><span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexStart&quot;</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">start_frames</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  
-<span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExportBakeComplexEnd&quot;</span><span class="p">,</span> <span class="n">v</span> <span class="o">=</span> <span class="n">end_frames</span><span class="p">[</span><span class="n">x</span><span class="p">])</span>  
-<span class="n">run_mel</span><span class="p">(</span><span class="s2">&quot;FBXExport&quot;</span><span class="p">,</span> <span class="n">f</span> <span class="o">=</span> <span class="n">get_export_file</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.fbx&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>That's a big improvement over all that string assembly (not leastaways because it pushes all the string nonsense into one place where it's easy to find and fix bugs!)   However it's still a bit ugly. Wouldn't it be cleaner and more readable to nudge these guys another step towards looking like real Python?  </p>
-<p>Luckily that's quite easy to do. After all, the run_mel("command") part of this is the same except for the command names. So why not make a second function that makes functions with the right command names?  This is basically just a tweak on the way decorators work. For example:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">mel_cmd</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">wrap</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="n">run_mel</span><span class="p">(</span><span class="n">cmd</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
-    <span class="k">return</span> <span class="n">wrap</span>
-</pre></div>
-
-
-<p>This takes a MEL command name ("cmd") and makes a new function which calls run_mel using that command. So you can create objects which look and work like Python commands but do all the nasty mel stuff under the hood like this:  </p>
-<div class="highlight"><pre><span></span>FBXExport = mel_cmd(&quot;FBXExport&quot;)      
-FBXExportBakeComplexStart = mel_cmd(&quot;FBXExportBakeComplexStart&quot;)  
-FBXExportBakeComplexEnd = mel_cmd(&quot;FBXExportBakeComplexEnd&quot;)
-</pre></div>
-
-
-<p>And call them just like real Python:    </p>
-<div class="highlight"><pre><span></span><span class="n">FBXExport</span><span class="p">(</span><span class="n">f</span> <span class="o">=</span> <span class="s2">&quot;this_is_a_lot_nicer.fbx&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>All this might seem like a bit of extra work -- and it is, though its not much more work than all those laboriously hand-stitched string concatenations you'd have to do otherwise.</p>
-<p>More importantly, this actually is a case where code cleanliness is next to Godliness: keeping rogue MEL from invading your python code is a big boon to long term maintenance.  String assembly is notoriously bug prone: it's way too easy to miss a closing quote, or to append something that's not a string and bring the whole rickety edifice crashing down.  Moreover, exposing all of that stringy stuff to other code makes it impossible to do clever python tricks like passing keyword arguments as dictionaries.  So in this case, a little upfront work is definitely worth it.  </p>
-<p>Plus, if you're lazy like me you can import these functions in a module and they'll autocomplete. Fat Fingers FTW!   </p>
-<p>So, if you find this useful, the complete code is <a href="https://gist.github.com/theodox/9a2e2b92867fa82ea328">up on Github.</a>  </p>
-<h3>Note</h3>
-<p>If you're a real mel-head you may have noticed one limitation in the <code>run_mel()</code>implementation above.  MEL allows multi-use flags, for commands like  </p>
-<div class="highlight"><pre><span></span>ls -type transform -type camera
-</pre></div>
-
-
-<p>However the function here doesn't try to figure format arguments that way. In part because it's a relatively rare feature in MEL, but mostly because it doesn't occur in the places I've needed to wrap MEL commands.  It would not be hard to extend the function so you could annotate some flags as being multi-use - if you give it a whirl let me know and I'll post it for others to see.  </p>
-<h3>Bonus Round</h3>
-<p>The <a href="https://gist.github.com/theodox/2b83b1c47a18448d3cbf">Github also has another module</a> which uses the same basic idea (but a slightly different code structure) to wrap that stupid FBX plugin.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 26 October 2014
+            <p class="post-meta">Sun 26 October 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/maya_plugin_commands#disqus_thread">comments</a>.</p>        </div>
-        <div class="post-preview">
-            <a href="http://theodox.com/2014/2015_bug_watch_ls" rel="bookmark" title="Permalink to 2015 Bug watch: ls()">
-                <h2 class="post-title">
-                    2015 Bug watch: ls()
-                </h2>
-            </a>
-                <p>For people switching to Maya 2015 here's an irritating bug in the 2015 Maya python layer.  </p>
-<p>In all Mayas before 2015 (as far as I can check, anyway), calling cmds.ls() with a string that was not a valid Maya object name was allowed. You could for example, call  </p>
-<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="s2">&quot;@&quot;</span><span class="p">)</span>
-</pre></div>
+                Don’t use Mel. But if you have to, do it like this: with a pythonic wrapper to clean up your strings
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/maya_plugin_commands#disqus_thread">comments</a>.</p>
+-->
 
-
-<p>and you'd get back an empty array. In 2015, however, it looks like they have changed the way maya.cmds is converting the string into a dag node reference; it you call the same thing in 2015 you'll get this instead:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># Error: Syntax error: unexpected end @ at position 1 while parsing:  </span>
-<span class="c1"># ; ; @  </span>
-<span class="c1"># ; ; ^  </span>
-<span class="c1"># : @  </span>
-<span class="c1"># Traceback (most recent call last):  </span>
-<span class="c1"># ; File &quot;&quot;, line 1, in   </span>
-<span class="c1"># RuntimeError: Syntax error: unexpected end @ at position 1 while parsing:  </span>
-<span class="c1"># ; ; @  </span>
-<span class="c1"># ; ; ^  </span>
-<span class="c1"># : @ #</span>
-</pre></div>
-
-
-<p>This is a bit more serious than it seems at first glance, because ls is such a common command. Any ls operation which includes a string that starts with anything other than a letter or a number with raise an exception, so there are a lot of places which used to just chug along silently that are going to start raising exceptions.  </p>
-<p>My workaround is to patch cmds.ls on startup so that it safely renames any bad string before passing them to Maya.  I do this in my bootstrap routine so I don't have to chase down every occurrence of ls anywhere in my code  (1,001 of them, or so PyCharm tells me...).  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>  
-<span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
-
-<span class="n">VALID_OBJECT</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s2">&quot;&quot;&quot;^[|]?([^a-zA-Z_\?\*\:\|])|([^a-zA-Z0-9_\?\*\:\|\.\[\]])&quot;&quot;&quot;</span><span class="p">)</span>  
-<span class="n">as_u</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">p</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="s1">&#39;addPrefix&#39;</span><span class="p">)</span> <span class="k">else</span> <span class="nb">unicode</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">safe_ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    Patches maya 2015 cmds.ls so that it does not except when passed illegal name characters.  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="k">if</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="n">_BASE_LS</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>  
-    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">hasattr</span><span class="p">(</span><span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="s1">&#39;__iter__&#39;</span><span class="p">):</span>  
-       <span class="n">args</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-    <span class="n">test_args</span> <span class="o">=</span> <span class="p">[</span><span class="n">VALID_OBJECT</span><span class="o">.</span><span class="n">sub</span><span class="p">(</span><span class="s1">&#39;_&#39;</span><span class="p">,</span> <span class="n">as_u</span><span class="p">(</span><span class="n">i</span><span class="p">))</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">args</span><span class="p">]</span>  
-    <span class="k">return</span> <span class="n">_BASE_LS</span><span class="p">(</span><span class="n">test_args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span><span class="n">gs</span><span class="p">)</span>
-
-<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span> <span class="o">=</span> <span class="n">safe_ls</span>
-</pre></div>
-
-
-<p>This makes sure that existing code works as it did before and I don't <em>think</em> it will break anything, since the invalid character strings were never going to be ls'ed into anything anyway.  Ordinarily I'm not a big fan of magical behind the scenes fixes but this is a pretty serious change to the behavior of ls which doesn't seem like an intentional upgrade so much as an oversight on Autodesk's part. So, at least until the old behavior comes back I'm gonna try it.  </p>
-<p><em><strong>Update:</strong> Hat tip to +Robert White for pointing out that the original regex I posted did not handle namespaces. Code above includes the fix.  Never would have figured it out without <a href="https://pythex.org/">Pythex!</a></em>  </p>
-<p><em><strong>Update 2:</strong> Updated the <code>safe_ls</code> procedure to handle more of the allowable syntax in older mayas</em>  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 04 September 2014
-            </p>
-<p>There are <a href="http://theodox.com/2014/2015_bug_watch_ls#disqus_thread">comments</a>.</p>        </div>
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -796,107 +223,119 @@ FBXExportBakeComplexEnd = mel_cmd(&quot;FBXExportBakeComplexEnd&quot;)
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,20 +87,23 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2014/siggraph_2014_short_review" rel="bookmark" title="Permalink to SIGGRAPH 2014 Short Review">
+            <a href="http://theodox.com/2014/siggraph_2014_short_review" rel="bookmark" title="Permalink to SIGGRAPH 2014 Short Review">
                 <h2 class="post-title">
-                    SIGGRAPH 2014 Short Review
+                    <span class="caps">SIGGRAPH</span> 2014 Short&nbsp;Review
                 </h2>
             </a>
-                <p>It's been <a href="http://moonrise-game.com/">crazy times at Undead Labs</a> as we <a href="http://undeadlabs.com/2014/08/news/pinny-arcade-now-featuring-moonrise-pin/">get ready for Pax</a>.  I did sneak in a lightning visit to SIGGRAPH, since it drive-able in Vancouver, but I had to cut it pretty short.   </p>
-<p>The highlight of the show was the <a href="http://tech-artists.org/forum/showthread.php?4885-Siggraph-2014-TA-Meetup">TA beer night at the Butcher and Bullock</a>  -- hats off to <a href="https://plus.google.com/116275833090172173559">+Robert Butterworth</a>  for putting together -- but there was some other stuff going on as well. Here's a very partial and completely unscientific brain dump of what I saw. The important caveat here is that my limited schedule kept me on a very short leash:  I spent all day Monday in the <em>Advances in Real Time Graphics</em> course, which I'm pleased to say has become a SIGGRAPH institution (go Natasha!) and then all day Tuesday talking to vendors, so I'm 100% certain to have missed a lot of cool and interesting stuff. This was an all business visit, so most of what I have to report is general impressions rather than new cutting edge research.  My impressions are after the jump...  </p>
-<h2>Have a PBR!</h2>
-<p>The trend towards <a href="http://www.marmoset.co/toolbag/learn/pbr-theory">physically based rendering</a> is getting even more pronounced: I think there's no question this will be this year's buzzword of the year, at least in games.  I've been working with PBR renderers at work (mostly, but not only Marmoset) and it really is a better way to work, at least if your working with realistic subject matter.  I've got an article in the works for 3D World about exactly this - lost somewhere in the labyrinth that is print production - and the takeaway is that it's a good thing for anybody in game art to be boning up on.  </p>
+            <p class="post-meta">Wed 20 August 2014
+            </p>
+                <p>It&#8217;s been <a href="http://moonrise-game.com/">crazy times at Undead Labs</a> as we <a href="http://undeadlabs.com/2014/08/news/pinny-arcade-now-featuring-moonrise-pin/">get ready for Pax</a>.  I did sneak in a lightning visit to <span class="caps">SIGGRAPH</span>, since it drive-able in Vancouver, but I had to cut it pretty&nbsp;short.   </p>
+<p>The highlight of the show was the <a href="http://tech-artists.org/forum/showthread.php?4885-Siggraph-2014-TA-Meetup"><span class="caps">TA</span> beer night at the Butcher and Bullock</a>  &#8212; hats off to <a href="https://plus.google.com/116275833090172173559">+Robert Butterworth</a>  for putting together &#8212; but there was some other stuff going on as well. Here&#8217;s a very partial and completely unscientific brain dump of what I saw. The important caveat here is that my limited schedule kept me on a very short leash:  I spent all day Monday in the <em>Advances in Real Time Graphics</em> course, which I&#8217;m pleased to say has become a <span class="caps">SIGGRAPH</span> institution (go Natasha!) and then all day Tuesday talking to vendors, so I&#8217;m 100% certain to have missed a lot of cool and interesting stuff. This was an all business visit, so most of what I have to report is general impressions rather than new cutting edge research.  My impressions are after the&nbsp;jump&#8230;  </p>
+<h2>Have a <span class="caps">PBR</span>!</h2>
+<p>The trend towards <a href="http://www.marmoset.co/toolbag/learn/pbr-theory">physically based rendering</a> is getting even more pronounced: I think there&#8217;s no question this will be this year&#8217;s buzzword of the year, at least in games.  I&#8217;ve been working with <span class="caps">PBR</span> renderers at work (mostly, but not only Marmoset) and it really is a better way to work, at least if your working with realistic subject matter.  I&#8217;ve got an article in the works for 3D World about exactly this - lost somewhere in the labyrinth that is print production - and the takeaway is that it&#8217;s a good thing for anybody in game art to be boning up&nbsp;on.  </p>
 <table>
 <thead>
 <tr>
-<th>The standard textbook, <a href="http://www.amazon.com/gp/product/0123750792/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0123750792&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=HDVQMGQOD6MKGOCB">Physically Based Rendering, Second Edition: From Theory To Implementation</a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=0123750792" />, is a bit of a slog. It has great info but very coder-centric. The Marmoset site linked above has some great intro level material.  For a deeper dive there's <a href="http://seblagarde.wordpress.com/2011/08/17/feeding-a-physical-based-lighting-mode/">this post from Sebastian Lagarde</a>. There's also a couple of decent video intros:</th>
+<th>The standard textbook, <a href="http://www.amazon.com/gp/product/0123750792/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0123750792&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=HDVQMGQOD6MKGOCB">Physically Based Rendering, Second Edition: From Theory To Implementation</a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=0123750792" />, is a bit of a slog. It has great info but very coder-centric. The Marmoset site linked above has some great intro level material.  For a deeper dive there&#8217;s <a href="http://seblagarde.wordpress.com/2011/08/17/feeding-a-physical-based-lighting-mode/">this post from Sebastian Lagarde</a>. There&#8217;s also a couple of decent video intros:</th>
 <th></th>
 </tr>
 </thead>
@@ -108,32 +113,38 @@
 <td></td>
 </tr>
 <tr>
-<td>I think there's a near-future blog post in all this somewhere :)</td>
+<td>I think there&#8217;s a near-future blog post in all this somewhere :)</td>
 <td></td>
 </tr>
 </tbody>
 </table>
-<p>One side note: the need for high quality specular light samples - usually cubemaps - in a PBR pipeline has the nice side-effect that you can usually count on a reflection map for lots of areas which might not have gotten one traditionally. Combine with depth buffer reflections for fun and profit!  There were good talks from the <em>Killzone</em> and _Thief _teams about real-time depth buffer reflections which I think are going to make a noticeable difference in tone from last gen graphics as it becomes more common.  </p>
-<h2>Free samples</h2>
-<p>One of the side effects of the new console generation is that everybody is revisiting antialiasing and sampling.  From 720p to 1080p means pushing more than 2X the pixels. This makes MSAA a worrisome burden: you've to do a lot of sampling at that res.  </p>
-<p>Not surprisingly there was a lot of interest in alternatives to brute force antialiasing at this year's graphics course. I particularly liked the paper from Michel Drobot of Guerilla on 'Hybrid Reconstructive AA', which to my less-than-wizardly ears sounded like a variant of temporal AA (in which you accumulate AA over a few frames by varying the precise sampling point in the 3d world a little bit on each render) spiced up by oversampling just the coverage buffer of the graphics card to get enough data to do higher quality sample weighting on the AA for edges. ~~ I know that's kind of a sketchy description, unfortunately the paper is not up yet for linking so I can't go through it more academically;  however it will eventually show up on the course website at ~~  The slide with all the gory details are now up at <a href="http://advances.realtimerendering.com/">advances.realtimerendering.com</a>.  </p>
-<h2>Fabric 50</h2>
-<p>What does it say about me in my old age that one of the pulse-pounders of the show was a change in licensing terms? The <a href="http://fabricengine.com/fabric50/">Fabric 50 program</a> is a new idea from the makers of the <a href="http://fabricengine.com/">Fabric Engine</a>. Fabric is a high performance, highly parallel computing engine that is intended to be used inside DCC tools like Maya or as the core of a standalone app. The key goal is to put lots and lots of power in a package that is usable by mortals so you can write a pretty beefy tool without having to go back to school and learn all the dark arts of multiprocessing and parallelism. The 50 program allows studios up to 50 licenses for free in an effort to get more tool makers using and evangelising for the tech. I'm pretty sure I'll be dropping this one on my tech director's desk soon.   </p>
-<h2>The Dismal Science</h2>
-<p>Business-wise this felt like a slow year to  me. Not sure how much of that comes from the size of the venue, how much comes from Hollywood types skipping out on the cross-border travel, and how much is the result of the slow implosion of the big-budget FX industry but the overall vibe among vendors was fairly mellow.   </p>
-<p>The advances in capture and acquisition tech are kind of like those in cell phones: we're so jaded that we don't even notice the miracles anymore. I saw a lot of mocap demos - it's the siggraph show floor, so ball suits abound - and I was struck by how clean and lag-less the captured images were all round; even the bargain stuff looks pretty damn good these days.  </p>
-<p>There's no big 3d application booths anymore - the market has gotten so mature (or monopolized, depending on your mood) that big stage shows and high power demos you used to see are gone - the Autodesk booth was literally a 10 foot cube featuring primarily  abstract artwork.   </p>
-<p>One 3d app demo I did catch was a <a href="http://www.thefoundry.co.uk/products/modo/latest-version/">Modo 801</a> animation demo. I've been ambivalent about Modo's efforts to compete head on with the Max/Maya juggernaught, but I was quite impressed by their animation workflow (here's a video from their site, which covers a lot of the ground I saw in a more bullet-pointy fashion:)  </p>
-<p>I'm usually a bit suspicious of efforts to port the pen-and-paper workflow to CG, since I don't see the point in mimicking the artifacts of one medium in another. However the timing chart workflow is a fresh take on an aspec of animation which has been badly overshadowed by the minutia of rigging, and I hope it inspires everybody to kickstart the moribund business of animation software. Speaking of which, I had an interesting talk with the founder of French startup <a href="http://www.nukeygara.com/">Nukeygara</a>, who was showing an interesting and unconventional standalone animation package called Akeytsu (no, I'm not sure how to pronounce it either. It's <em>French</em>. Just roll with it!) This vid gives a pretty good idea where this is going:  </p>
-<p>I'm very curious to see how this one works out: I'm still waiting for somebody -- please! -- to shake up animation the way Zbrush has (and continues to) shake up modelling. Like recent GDC's it seemed like schools and training programs took up as much floor space as vendors, which is a little scary: call me selfish but I kind of miss the days when  our skills were rare and esoteric.  Of course, the kids coming out of these programs are all waaaay more sophisticated technically and artistically than I was at the same point in my career, so it's good for the art form I suppose.  </p>
-<p>Not for my ego, though.  </p>
-<h2>The Meet Market</h2>
-<p>The Job fair was a tad small this year -- like the show floor, it might just be the distance from LA, but I'd say there were only about two dozen booths.  Many of these seemed to be BC based VFX houses as well: the hurly burly of the old days with 4 hour lines at ILM and Pixar was not much in evidence, at least not while I was there. I saw a handful of game companies (biggies like Blizzard and smaller ones) but things seemed a bit subdued. Here's hoping that's just an artifact of the time and place of the show.  Maybe there was more action in private suites and hotel rooms, perhaps the internet has taken some of the flesh-pressing out of the process. Still, a bit worrisome.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 20 August 2014
-            </p>
-<p>There are <a href="http://theodox.com/2014/siggraph_2014_short_review#disqus_thread">comments</a>.</p>        </div>
+<p>One side note: the need for high quality specular light samples - usually cubemaps - in a <span class="caps">PBR</span> pipeline has the nice side-effect that you can usually count on a reflection map for lots of areas which might not have gotten one traditionally. Combine with depth buffer reflections for fun and profit!  There were good talks from the <em>Killzone</em> and _Thief _teams about real-time depth buffer reflections which I think are going to make a noticeable difference in tone from last gen graphics as it becomes more&nbsp;common.  </p>
+<h2>Free&nbsp;samples</h2>
+<p>One of the side effects of the new console generation is that everybody is revisiting antialiasing and sampling.  From 720p to 1080p means pushing more than 2X the pixels. This makes <span class="caps">MSAA</span> a worrisome burden: you&#8217;ve to do a lot of sampling at that&nbsp;res.  </p>
+<p>Not surprisingly there was a lot of interest in alternatives to brute force antialiasing at this year&#8217;s graphics course. I particularly liked the paper from Michel Drobot of Guerilla on &#8216;Hybrid Reconstructive <span class="caps">AA</span>&#8217;, which to my less-than-wizardly ears sounded like a variant of temporal <span class="caps">AA</span> (in which you accumulate <span class="caps">AA</span> over a few frames by varying the precise sampling point in the 3d world a little bit on each render) spiced up by oversampling just the coverage buffer of the graphics card to get enough data to do higher quality sample weighting on the <span class="caps">AA</span> for edges. ~~ I know that&#8217;s kind of a sketchy description, unfortunately the paper is not up yet for linking so I can&#8217;t go through it more academically;  however it will eventually show up on the course website at ~~  The slide with all the gory details are now up at <a href="http://advances.realtimerendering.com/">advances.realtimerendering.com</a>.  </p>
+<h2>Fabric&nbsp;50</h2>
+<p>What does it say about me in my old age that one of the pulse-pounders of the show was a change in licensing terms? The <a href="http://fabricengine.com/fabric50/">Fabric 50 program</a> is a new idea from the makers of the <a href="http://fabricengine.com/">Fabric Engine</a>. Fabric is a high performance, highly parallel computing engine that is intended to be used inside <span class="caps">DCC</span> tools like Maya or as the core of a standalone app. The key goal is to put lots and lots of power in a package that is usable by mortals so you can write a pretty beefy tool without having to go back to school and learn all the dark arts of multiprocessing and parallelism. The 50 program allows studios up to 50 licenses for free in an effort to get more tool makers using and evangelising for the tech. I&#8217;m pretty sure I&#8217;ll be dropping this one on my tech director&#8217;s desk&nbsp;soon.   </p>
+<h2>The Dismal&nbsp;Science</h2>
+<p>Business-wise this felt like a slow year to  me. Not sure how much of that comes from the size of the venue, how much comes from Hollywood types skipping out on the cross-border travel, and how much is the result of the slow implosion of the big-budget <span class="caps">FX</span> industry but the overall vibe among vendors was fairly&nbsp;mellow.   </p>
+<p>The advances in capture and acquisition tech are kind of like those in cell phones: we&#8217;re so jaded that we don&#8217;t even notice the miracles anymore. I saw a lot of mocap demos - it&#8217;s the siggraph show floor, so ball suits abound - and I was struck by how clean and lag-less the captured images were all round; even the bargain stuff looks pretty damn good these&nbsp;days.  </p>
+<p>There&#8217;s no big 3d application booths anymore - the market has gotten so mature (or monopolized, depending on your mood) that big stage shows and high power demos you used to see are gone - the Autodesk booth was literally a 10 foot cube featuring primarily  abstract&nbsp;artwork.   </p>
+<p>One 3d app demo I did catch was a <a href="http://www.thefoundry.co.uk/products/modo/latest-version/">Modo 801</a> animation demo. I&#8217;ve been ambivalent about Modo&#8217;s efforts to compete head on with the Max/Maya juggernaught, but I was quite impressed by their animation workflow (here&#8217;s a video from their site, which covers a lot of the ground I saw in a more bullet-pointy&nbsp;fashion:)  </p>
+<p>I&#8217;m usually a bit suspicious of efforts to port the pen-and-paper workflow to <span class="caps">CG</span>, since I don&#8217;t see the point in mimicking the artifacts of one medium in another. However the timing chart workflow is a fresh take on an aspec of animation which has been badly overshadowed by the minutia of rigging, and I hope it inspires everybody to kickstart the moribund business of animation software. Speaking of which, I had an interesting talk with the founder of French startup <a href="http://www.nukeygara.com/">Nukeygara</a>, who was showing an interesting and unconventional standalone animation package called Akeytsu (no, I&#8217;m not sure how to pronounce it either. It&#8217;s <em>French</em>. Just roll with it!) This vid gives a pretty good idea where this is&nbsp;going:  </p>
+<p>I&#8217;m very curious to see how this one works out: I&#8217;m still waiting for somebody &#8212; please! &#8212; to shake up animation the way Zbrush has (and continues to) shake up modelling. Like recent <span class="caps">GDC</span>&#8217;s it seemed like schools and training programs took up as much floor space as vendors, which is a little scary: call me selfish but I kind of miss the days when  our skills were rare and esoteric.  Of course, the kids coming out of these programs are all waaaay more sophisticated technically and artistically than I was at the same point in my career, so it&#8217;s good for the art form I&nbsp;suppose.  </p>
+<p>Not for my ego,&nbsp;though.  </p>
+<h2>The Meet&nbsp;Market</h2>
+<p>The Job fair was a tad small this year &#8212; like the show floor, it might just be the distance from <span class="caps">LA</span>, but I&#8217;d say there were only about two dozen booths.  Many of these seemed to be <span class="caps">BC</span> based <span class="caps">VFX</span> houses as well: the hurly burly of the old days with 4 hour lines at <span class="caps">ILM</span> and Pixar was not much in evidence, at least not while I was there. I saw a handful of game companies (biggies like Blizzard and smaller ones) but things seemed a bit subdued. Here&#8217;s hoping that&#8217;s just an artifact of the time and place of the show.  Maybe there was more action in private suites and hotel rooms, perhaps the internet has taken some of the flesh-pressing out of the process. Still, a bit&nbsp;worrisome.  </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/siggraph_2014_short_review#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2014/siggraph_2014_short_review#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2014/siggraph_2014_short_review#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -145,107 +156,119 @@
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

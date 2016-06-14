@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Boo Who?</title>
+        <title>Boo&nbsp;Who?</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -48,7 +50,7 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2015/boo_who">
-	<meta property="og:title" content="Boo Who?">
+	<meta property="og:title" content="Boo&nbsp;Who?">
 	<meta property="article:published_time" content="2015-05-31 22:02:00-07:00">
             <meta property="og:description" content="A quick introduction to Boo, a python-like language for the CLR">
 
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Boo Who?</h1>
+                        <h1>Boo&nbsp;Who?</h1>
                         <span class="meta">
                             Sun 31 May 2015
                         </span>
@@ -110,18 +112,18 @@
     <!-- Post Content -->
     <article>
         <h2>Boo!</h2>
-<p>Did I scare you?</p>
+<p>Did I scare&nbsp;you?</p>
 <p><a href="http://1.bp.blogspot.com/-OFk47U8-b9E/VWvmUwg7gII/AAAAAAABL6E/61gYBKYRRN4/s1600/medium.png"><img alt="" src="http://1.bp.blogspot.com/-OFk47U8-b9E/VWvmUwg7gII/AAAAAAABL6E/61gYBKYRRN4/s400/medium.png" /></a></p>
-<p>Evidently somebody's scared: the <a href="https://github.com/bamboo/boo/wiki">Boo language</a>, which has been a part of Unity for several years, is going to be removed from the Unity documentation in favor of C#. </p>
-<p>The reason is pretty simple, as this graph explains:</p>
+<p>Evidently somebody&#8217;s scared: the <a href="https://github.com/bamboo/boo/wiki">Boo language</a>, which has been a part of Unity for several years, is going to be removed from the Unity documentation in favor of&nbsp;C#. </p>
+<p>The reason is pretty simple, as this graph&nbsp;explains:</p>
 <p><img alt="" src="http://blogs.unity3d.com/wp-content/uploads/2014/09/graph3.png" /></p>
-<p>For a lot of Unity developers (99.56% of them, apparently) this is non-news; Boo never really garnered much of a following in the Unity community. For new developers and recent grads, C# is an easy and very well documented option; for former web debs moving to mobile apps, UnityScript feels JavaScript-y enough to ease into a new environment. Boo, on the other hand, never got much traction: it's got a small but passionate community but it never garnered enough momentum to break out of its niche. </p>
+<p>For a lot of Unity developers (99.56% of them, apparently) this is non-news; Boo never really garnered much of a following in the Unity community. For new developers and recent grads, C# is an easy and very well documented option; for former web debs moving to mobile apps, UnityScript feels JavaScript-y enough to ease into a new environment. Boo, on the other hand, never got much traction: it&#8217;s got a small but passionate community but it never garnered enough momentum to break out of its&nbsp;niche. </p>
 <blockquote>
-<p>Update 5/2016:  Since this post was first written the Boo community has been picking up some steam and is actively aiming at a 1.0 release of the language. They can be found in the <a href="https://groups.google.com/forum/#!forum/boolang">Boo Languge Google Group</a></p>
+<p>Update 5/2016:  Since this post was first written the Boo community has been picking up some steam and is actively aiming at a 1.0 release of the language. They can be found in the <a href="https://groups.google.com/forum/#!forum/boolang">Boo Languge Google&nbsp;Group</a></p>
 </blockquote>
-<h2>Boo Hoo</h2>
-<p>Now, I'm kind of a sucker for hopeless causes, so almost inevitably this news inclined me to revisit Boo, which I've toyed with a few times but never really tried to learn. I had to write a lot of C# for <a href="http://store.steampowered.com/app/351040/">Moonrise</a> and it made me long for the clarity and concision of Python. Even though C# is a perfectly capable language with lots of modern features (closures, firest class functions, etc) it's still very chatty. The tantalizing promise of Boo - not completely fulfilled, but pretty close, is that it combines both: the performance, runtime type safety, and intimate access to Unity that C# offers in a language not deformed by punctuation and rendered ridiculous by overly wordy syntax.</p>
-<p>Here's the aesthetic differences in a nutshell:</p>
+<h2>Boo&nbsp;Hoo</h2>
+<p>Now, I&#8217;m kind of a sucker for hopeless causes, so almost inevitably this news inclined me to revisit Boo, which I&#8217;ve toyed with a few times but never really tried to learn. I had to write a lot of C# for <a href="http://store.steampowered.com/app/351040/">Moonrise</a> and it made me long for the clarity and concision of Python. Even though C# is a perfectly capable language with lots of modern features (closures, firest class functions, etc) it&#8217;s still very chatty. The tantalizing promise of Boo - not completely fulfilled, but pretty close, is that it combines both: the performance, runtime type safety, and intimate access to Unity that C# offers in a language not deformed by punctuation and rendered ridiculous by overly wordy&nbsp;syntax.</p>
+<p>Here&#8217;s the aesthetic differences in a&nbsp;nutshell:</p>
 <h2>Boo</h2>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">UnityEngine</span>
 
@@ -204,12 +206,12 @@ public class JumpingMovementController(MonoBehaviour)
 </pre></div>
 
 
-<p>I just can't shake the feeling that the first code is something I don't mind reading and writing while the latter is a chore. It's also a whopping 45% more typing for the same result. And that delta only gets bigger if you want to try something a little more complicated: Boo supports offers the same list comprehension syntax as Python, so you can write:</p>
+<p>I just can&#8217;t shake the feeling that the first code is something I don&#8217;t mind reading and writing while the latter is a chore. It&#8217;s also a whopping 45% more typing for the same result. And that delta only gets bigger if you want to try something a little more complicated: Boo supports offers the same list comprehension syntax as Python, so you can&nbsp;write:</p>
 <div class="highlight"><pre><span></span>    addresses = [(x,y) for x in range(3) for y in range(3)]
 </pre></div>
 
 
-<p>where in C# you'd either get 6 lines of for-loops and nested brackets, or you'd have to use Linq. Even in the most compact form I can manage it's still much wordier:  </p>
+<p>where in C# you&#8217;d either get 6 lines of for-loops and nested brackets, or you&#8217;d have to use Linq. Even in the most compact form I can manage it&#8217;s still much&nbsp;wordier:  </p>
 <div class="highlight"><pre><span></span>        var xs = Enumerable.Range(0, 3).ToList();  
         var ys = Enumerable.Range(0, 3).ToList();  
         var addresses = (from x in xs  
@@ -218,17 +220,17 @@ public class JumpingMovementController(MonoBehaviour)
 </pre></div>
 
 
-<p>to get to the same place. </p>
-<h2>Why Boother?</h2>
-<p>A hardcore programmer might object that this is "all just syntax". That's true - but since my everyday experience of working with a language is about 90% syntax I don't feel like it's fair to dismiss that concern as if it were irrelevant. That said, it can't be denied that modern C# 4 includes many language constructs that earlier versions of the language lacked: things like <code>var</code> inferred variables, lambdas, closures, and named default arguments. These things all help make the code less chatty and more legilble: If you're a <em>good</em> C# programmer you can write very terse, expressive code that's not absurdly wordy. </p>
-<p>Apart from those stupid curly brackets.</p>
-<p>On the other hand, the "culture" of the language was set in place before those kinds of features were added. The C# ethos definitely prefers the verbose to the understated, the extremely explicit to the implied.This isn't a terrible decision - like Java, it's a language designed to be used by huge teams of enterprise programmers working on titanic projects where only a few people see the whole project scope and most coders are locked away in cubicles on the 18th floor working on isolated modules to be used by other coders they will never meet.That's why C#'s obssession with visibility management and highly-specified behavior makes sense.C# is a language that's all about apportioning blame: it forces everything to be very explicit so you know which of the 6000 drones working on your enterprise app to bleame when things go wrong.</p>
-<p>In the context of a small game or a solo project, though, the Pythonic ethic of "we're all adults here" seems more natural and productive.Besides, for hobby projects and one offs fun is a totally legitimate concern: making minigames is something that gets crammed into nooks and crannies left over by work, kids and keeping the house from falling down around my ears.So fun is a totally legit criterion for selecting a language.</p>
-<p>And Boo is definitely more <em>fun</em> than C#. </p>
-<h2>Boo Who?</h2>
-<p>Like many Pythoneers, I've always nursed a secret hunger for the magical button that would take all my tight, laconic Python code and magically make it perform like a "real" language. Boo is not the magic button, but it's a pretty good preview of what that might look like. As you can see from the code samples above, it looks and feels a lot like Python but under the hood is has similar performance and compile-time constraints to C#: in other words, Boo code can run as much as 20X faster than Python.</p>
-<p>That's what makes Boo so tantalizing. It is <em>almost</em> Python, but you can write Unity games, Winforms apps, or even cross-platform DLLS with it. Plus, since Boo runs on the same dotnet CLR as C#, it runs on any platform with the DotNet framework or Mono installed, so a compiled Boo program can run on Windows, Macs, or Linux boxes. There's even an interactice shell so you can do one-offs and experiment, just like Python. But - unlike Python - you get the performance gains that come from a compiled, statically typed language.</p>
-<p>Typing and the compiler are the key difference between Boo and Python. The a compiler makes sure that all of your variables, return values and method signatures line up and uses that knowledge to optimize the final runtime code for you. You can do this in Python:</p>
+<p>to get to the same&nbsp;place. </p>
+<h2>Why&nbsp;Boother?</h2>
+<p>A hardcore programmer might object that this is &#8220;all just syntax&#8221;. That&#8217;s true - but since my everyday experience of working with a language is about 90% syntax I don&#8217;t feel like it&#8217;s fair to dismiss that concern as if it were irrelevant. That said, it can&#8217;t be denied that modern C# 4 includes many language constructs that earlier versions of the language lacked: things like <code>var</code> inferred variables, lambdas, closures, and named default arguments. These things all help make the code less chatty and more legilble: If you&#8217;re a <em>good</em> C# programmer you can write very terse, expressive code that&#8217;s not absurdly&nbsp;wordy. </p>
+<p>Apart from those stupid curly&nbsp;brackets.</p>
+<p>On the other hand, the &#8220;culture&#8221; of the language was set in place before those kinds of features were added. The C# ethos definitely prefers the verbose to the understated, the extremely explicit to the implied.This isn&#8217;t a terrible decision - like Java, it&#8217;s a language designed to be used by huge teams of enterprise programmers working on titanic projects where only a few people see the whole project scope and most coders are locked away in cubicles on the 18th floor working on isolated modules to be used by other coders they will never meet.That&#8217;s why C#&#8217;s obssession with visibility management and highly-specified behavior makes sense.C# is a language that&#8217;s all about apportioning blame: it forces everything to be very explicit so you know which of the 6000 drones working on your enterprise app to bleame when things go&nbsp;wrong.</p>
+<p>In the context of a small game or a solo project, though, the Pythonic ethic of &#8220;we&#8217;re all adults here&#8221; seems more natural and productive.Besides, for hobby projects and one offs fun is a totally legitimate concern: making minigames is something that gets crammed into nooks and crannies left over by work, kids and keeping the house from falling down around my ears.So fun is a totally legit criterion for selecting a&nbsp;language.</p>
+<p>And Boo is definitely more <em>fun</em> than&nbsp;C#. </p>
+<h2>Boo&nbsp;Who?</h2>
+<p>Like many Pythoneers, I&#8217;ve always nursed a secret hunger for the magical button that would take all my tight, laconic Python code and magically make it perform like a &#8220;real&#8221; language. Boo is not the magic button, but it&#8217;s a pretty good preview of what that might look like. As you can see from the code samples above, it looks and feels a lot like Python but under the hood is has similar performance and compile-time constraints to C#: in other words, Boo code can run as much as 20X faster than&nbsp;Python.</p>
+<p>That&#8217;s what makes Boo so tantalizing. It is <em>almost</em> Python, but you can write Unity games, Winforms apps, or even cross-platform <span class="caps">DLLS</span> with it. Plus, since Boo runs on the same dotnet <span class="caps">CLR</span> as C#, it runs on any platform with the DotNet framework or Mono installed, so a compiled Boo program can run on Windows, Macs, or Linux boxes. There&#8217;s even an interactice shell so you can do one-offs and experiment, just like Python. But - unlike Python - you get the performance gains that come from a compiled, statically typed&nbsp;language.</p>
+<p>Typing and the compiler are the key difference between Boo and Python. The a compiler makes sure that all of your variables, return values and method signatures line up and uses that knowledge to optimize the final runtime code for you. You can do this in&nbsp;Python:</p>
 <div class="highlight"><pre><span></span>fred = 1   
 fred = fred +  1  
 print fred  
@@ -240,7 +242,7 @@ print fred
 </pre></div>
 
 
-<p>In Boo, however, you'll get an error when you try to change <code>fred</code> from an integer value to a string:</p>
+<p>In Boo, however, you&#8217;ll get an error when you try to change <code>fred</code> from an integer value to a&nbsp;string:</p>
 <div class="highlight"><pre><span></span>fred = 1  
 fred = fred +1   
 fred = &quot;fred&quot;  
@@ -249,12 +251,12 @@ fred = &quot;fred&quot;
 </pre></div>
 
 
-<p>In old-school C#, this was made obvious that all variables and to declare a type:</p>
+<p>In old-school C#, this was made obvious that all variables and to declare a&nbsp;type:</p>
 <div class="highlight"><pre><span></span>int fred = 1;
 </pre></div>
 
 
-<p>In more modern C# you can use the <code>var</code> keyword to make the compiler guess what type you want based on the initial input: when you give it</p>
+<p>In more modern C# you can use the <code>var</code> keyword to make the compiler guess what type you want based on the initial input: when you give&nbsp;it</p>
 <div class="highlight"><pre><span></span>var fred = 1;
 </pre></div>
 
@@ -265,7 +267,7 @@ barney = &quot;barney&quot;   #OK
 </pre></div>
 
 
-<p>The same syntax is used to specify inputs in methods and returns:</p>
+<p>The same syntax is used to specify inputs in methods and&nbsp;returns:</p>
 <div class="highlight"><pre><span></span>def bedrock (name as string) as string:  
     return name + &quot;rock&quot;
 
@@ -276,7 +278,7 @@ def inferred_return_type(name as string):
 </pre></div>
 
 
-<p>Once you get out of the habit of re-using variables with different types, this is usually not too bad: 95% of the time the inference "just works" and you can write code that focuses on logic and good design instead of worrying about the types. The other 5% of the time, however, is often very frustrating. It's particularly tough when Boo's Python-like, but not <em>exactly</em> Python behavior trips you up. Consider this little puzzle:</p>
+<p>Once you get out of the habit of re-using variables with different types, this is usually not too bad: 95% of the time the inference &#8220;just works&#8221; and you can write code that focuses on logic and good design instead of worrying about the types. The other 5% of the time, however, is often very frustrating. It&#8217;s particularly tough when Boo&#8217;s Python-like, but not <em>exactly</em> Python behavior trips you up. Consider this little&nbsp;puzzle:</p>
 <div class="highlight"><pre><span></span>def sum (values as (int)) # expect an integer tuple  
     result = 0  
     for v in values:  
@@ -290,14 +292,14 @@ sum(example)
 </pre></div>
 
 
-<p>However it can be broken if your input list isn't all of the same type:</p>
+<p>However it can be broken if your input list isn&#8217;t all of the same&nbsp;type:</p>
 <div class="highlight"><pre><span></span>example2 = (1,2,3,&quot;X&quot;)   
 sum(example2)  
 # ERROR: the best overload to the method sum((int)) is not compatible with the argument list &#39;((object))&#39;
 </pre></div>
 
 
-<p>That's not entirely shocking: the compiler saw a mixed list in example2 and return and array of type <code>object</code> (as in C#, <code>object</code> is the base class of all types). So it is right to reject that as an argument for an int-specific function. Here's where it gets odd:</p>
+<p>That&#8217;s not entirely shocking: the compiler saw a mixed list in example2 and return and array of type <code>object</code> (as in C#, <code>object</code> is the base class of all types). So it is right to reject that as an argument for an int-specific function. Here&#8217;s where it gets&nbsp;odd:</p>
 <div class="highlight"><pre><span></span>#reassign  
 example2 = (1,2,3,4)  
 sum (example2)  
@@ -305,7 +307,7 @@ sum (example2)
 </pre></div>
 
 
-<p>This time the compiler "helpfully" casts that array to an array of ints because it can. This is not a crazy behavior, but it's definitely going to raise some issues where test code works fine but production code contans bad values. The only way to be sure that things are what they seem is to force them into the right types at declaration time:</p>
+<p>This time the compiler &#8220;helpfully&#8221; casts that array to an array of ints because it can. This is not a crazy behavior, but it&#8217;s definitely going to raise some issues where test code works fine but production code contans bad values. The only way to be sure that things are what they seem is to force them into the right types at declaration&nbsp;time:</p>
 <div class="highlight"><pre><span></span>example3 as (int) == (1,2,3,4,5)  
 sum(example3)  
 # 15
@@ -316,9 +318,9 @@ example3 = (1,2,3,&quot;one hundred&quot;)
 </pre></div>
 
 
-<p>This example highlights both the usefulness and the limitations of type inference: If you want a statically typed language (and all the compiler tricks that make it speedier than Python) you do have to think about how to manage your types. There's no way around it. If you've got enough C# experience, you can look at Boo as a neat way of writing speedy, statically typed code with less typing and more syntactic freedom - but if you're looking at it from the standpoint of loosey-goosey Pythonista it can seem like a lot of hurdles to jump. </p>
-<p>My (unscientific) impression is that a lot of people from the Python world come over to Boo and the familiar look of the code gives them a false sense of security. It's easy to write simple bits of code until the subtleties of type management bite you in the behind, and then to give up in frustration when things seem to get cluttered and uptight.</p>
-<p>It is, however, part of the territory: lots of other tools for speeding up Python such as <a href="http://cython.org/">Cython</a> expect the same kind of attention to variable types: here's a sample from Cython</p>
+<p>This example highlights both the usefulness and the limitations of type inference: If you want a statically typed language (and all the compiler tricks that make it speedier than Python) you do have to think about how to manage your types. There&#8217;s no way around it. If you&#8217;ve got enough C# experience, you can look at Boo as a neat way of writing speedy, statically typed code with less typing and more syntactic freedom - but if you&#8217;re looking at it from the standpoint of loosey-goosey Pythonista it can seem like a lot of hurdles to&nbsp;jump. </p>
+<p>My (unscientific) impression is that a lot of people from the Python world come over to Boo and the familiar look of the code gives them a false sense of security. It&#8217;s easy to write simple bits of code until the subtleties of type management bite you in the behind, and then to give up in frustration when things seem to get cluttered and&nbsp;uptight.</p>
+<p>It is, however, part of the territory: lots of other tools for speeding up Python such as <a href="http://cython.org/">Cython</a> expect the same kind of attention to variable types: here&#8217;s a sample from&nbsp;Cython</p>
 <div class="highlight"><pre><span></span>def f(double x):  
     return x**2-x
 
@@ -333,27 +335,27 @@ def integrate_f(double a, double b, int N):
 </pre></div>
 
 
-<p>which is just as finicky as C# or Boo.</p>
-<p>For me, at any rate, spending more than a year doing C# as a regular part of work made fiddling around with Boo much easier and more productive. The type management hassles strike me as inevitable, or even natural, after a year of typing verbose C# variable types. On the other hand the cleanliness of the layout, the lack of extraneous punctuation, and the clealiness of list comprehensions and Python style loops never gets old.</p>
-<p>While there are plenty of minor gotchas, and a few important high-level rules that can't be forgotten, Boo development flows in with an almost Pythonic fluency. If you put in the time to figure out the type inference behavior and add the annotations, you can get code thats <em>almost</em> as flexible as Python and <em>almost</em> as performant as C# - which, for my kind of pet projects is a great compromise. </p>
-<h2>Boo-ty is in the eye of the beholder</h2>
-<p>TL;DR: I've gotten pretty fond of Boo. Above all, it serves me well for noodling around in Unity where the API is mostly identical but the logic is cleaner, shorter and easier to read than the same code in C#. Translating the docs is rarely more than trivial, and the very narrow scope of a typical Unity code chunk keeps me from any of Boo's rough edges.</p>
-<p>Another hurdle for many Pythonistas, though one which does not matter in the the context of Unity games, is the lack of the Python standard library. About 70% of what you can do with the 'batteries included' in Python can, however, be replicated using the <a href="https://msdn.microsoft.com/en-us/library/hfa3fa08%28v=vs.110%29.aspx">dotnet Base Class Library</a> if you're running Boo on a Windows box (on Linux or OSX the percentage is lower: Mono has its own base class library but it's not a complete replica of the one from Microsoft). For many tools tasks and projects, this is more than enough: you'll be able to read and write XML, to decrypt JSON, to talk to an http server and so on although the function names and APIs will vary. I have to admit I prefer the Python toolkit to the dotnet one, which reflects the same bureaucratic mindset that I dislike in C#'s design, but it's still a big, robust set of tools. You can also use anything that's available as a dotnet DLL. Almost anything advertised as a usable with C# will work with Boo.</p>
-<p>All that said, I'd definitely think twice before basing a commercial Unity project or a critical pipeline component on Boo. There does seem to be a small but measurable perfromance penalty compared to C# (the performance is, however, pretty much on par with that of UnityScript). More importantly, the Boo's biggest weakness is documentation: with a small community and (from now on) no docs on the Unity site, finding your way around in the language at first is pretty awkward. The <a href="https://github.com/bamboo/boo/wiki">documentation</a> is a sporadic, volunteer effort with some glaring holes - it doesn't help that Google still sends you to the moribund Boo site on <a href="http://boo.codehaus.org/">codehaus</a> instead of the current docs, which are in a <a href="https://github.com/bamboo/boo/wiki">Github Wiki</a>. The language is officially at version 0.9.4.9 and hasn't incremented in a long time: it's still getting commits from the original author and few other devs but it's a much smaller project than, say, IronPython. In short, it's a cool language that has not found it's audience yet, and unless it does it will remain a niche player. </p>
-<p>Still, it's pretty cool too. If, after those caveats, it still sounds interesting, you'll be relieved to know that Boo is not really 'going away': For the forseeable future, the language will still work in Unity, Boo, like C# and UnityScript, runs on <a href="http://www.mono-project.com/">Mono</a>, much as Java runs on the JVM. Unity doesn't distinguish between the source of Mono assemblies: you can still use Boo, and even more exotic dotnet languages such as F# (though not, alas, IronPython!) in Unity today. The only practical result of Unity's decision to sunset Boo support is the disappearance of the Boo documentation from the Unity website - which , to be honest was rarely adequate - and the lack of a 'create Boo script' menu item. Dropping a boo script into your assets folder, however still creates runnable code, and it should continue to do so for the forseeable future. </p>
-<p>There's some question about how Unity's new cross-platform compiler technology, <a href="http://blogs.unity3d.com/2014/05/20/the-future-of-scripting-in-unity/">IL2CPP</a> will handle Boo. In principle, since it compiles the byte code produced by Mono rather than the original source, it too should work with any CLR language, be it Boo or F# or what have you. I've been able to compile Boo code to Unity WebGL games, which use IL2CPP, without obvious problems although I haven't done anything like a scientific test. It's not beyond belief that bugs which occur only in non-C#, non-UnityScript IL code may go unfixed. And, of course, it's impossible to say what will happen after Unity 5 - technology, particularly in games, moves too fast for confident future predictions. However, It seems pretty clear Boo will be working in Unity for a while to come even though it is being demoted from "officially supported" status to the same kind of l33t hacker underworld as functional languages. </p>
+<p>which is just as finicky as C# or&nbsp;Boo.</p>
+<p>For me, at any rate, spending more than a year doing C# as a regular part of work made fiddling around with Boo much easier and more productive. The type management hassles strike me as inevitable, or even natural, after a year of typing verbose C# variable types. On the other hand the cleanliness of the layout, the lack of extraneous punctuation, and the clealiness of list comprehensions and Python style loops never gets&nbsp;old.</p>
+<p>While there are plenty of minor gotchas, and a few important high-level rules that can&#8217;t be forgotten, Boo development flows in with an almost Pythonic fluency. If you put in the time to figure out the type inference behavior and add the annotations, you can get code thats <em>almost</em> as flexible as Python and <em>almost</em> as performant as C# - which, for my kind of pet projects is a great&nbsp;compromise. </p>
+<h2>Boo-ty is in the eye of the&nbsp;beholder</h2>
+<p><span class="caps">TL</span>;<span class="caps">DR</span>: I&#8217;ve gotten pretty fond of Boo. Above all, it serves me well for noodling around in Unity where the <span class="caps">API</span> is mostly identical but the logic is cleaner, shorter and easier to read than the same code in C#. Translating the docs is rarely more than trivial, and the very narrow scope of a typical Unity code chunk keeps me from any of Boo&#8217;s rough&nbsp;edges.</p>
+<p>Another hurdle for many Pythonistas, though one which does not matter in the the context of Unity games, is the lack of the Python standard library. About 70% of what you can do with the &#8216;batteries included&#8217; in Python can, however, be replicated using the <a href="https://msdn.microsoft.com/en-us/library/hfa3fa08%28v=vs.110%29.aspx">dotnet Base Class Library</a> if you&#8217;re running Boo on a Windows box (on Linux or <span class="caps">OSX</span> the percentage is lower: Mono has its own base class library but it&#8217;s not a complete replica of the one from Microsoft). For many tools tasks and projects, this is more than enough: you&#8217;ll be able to read and write <span class="caps">XML</span>, to decrypt <span class="caps">JSON</span>, to talk to an http server and so on although the function names and APIs will vary. I have to admit I prefer the Python toolkit to the dotnet one, which reflects the same bureaucratic mindset that I dislike in C#&#8217;s design, but it&#8217;s still a big, robust set of tools. You can also use anything that&#8217;s available as a dotnet <span class="caps">DLL</span>. Almost anything advertised as a usable with C# will work with&nbsp;Boo.</p>
+<p>All that said, I&#8217;d definitely think twice before basing a commercial Unity project or a critical pipeline component on Boo. There does seem to be a small but measurable perfromance penalty compared to C# (the performance is, however, pretty much on par with that of UnityScript). More importantly, the Boo&#8217;s biggest weakness is documentation: with a small community and (from now on) no docs on the Unity site, finding your way around in the language at first is pretty awkward. The <a href="https://github.com/bamboo/boo/wiki">documentation</a> is a sporadic, volunteer effort with some glaring holes - it doesn&#8217;t help that Google still sends you to the moribund Boo site on <a href="http://boo.codehaus.org/">codehaus</a> instead of the current docs, which are in a <a href="https://github.com/bamboo/boo/wiki">Github Wiki</a>. The language is officially at version 0.9.4.9 and hasn&#8217;t incremented in a long time: it&#8217;s still getting commits from the original author and few other devs but it&#8217;s a much smaller project than, say, IronPython. In short, it&#8217;s a cool language that has not found it&#8217;s audience yet, and unless it does it will remain a niche&nbsp;player. </p>
+<p>Still, it&#8217;s pretty cool too. If, after those caveats, it still sounds interesting, you&#8217;ll be relieved to know that Boo is not really &#8216;going away&#8217;: For the forseeable future, the language will still work in Unity, Boo, like C# and UnityScript, runs on <a href="http://www.mono-project.com/">Mono</a>, much as Java runs on the <span class="caps">JVM</span>. Unity doesn&#8217;t distinguish between the source of Mono assemblies: you can still use Boo, and even more exotic dotnet languages such as F# (though not, alas, IronPython!) in Unity today. The only practical result of Unity&#8217;s decision to sunset Boo support is the disappearance of the Boo documentation from the Unity website - which , to be honest was rarely adequate - and the lack of a &#8216;create Boo script&#8217; menu item. Dropping a boo script into your assets folder, however still creates runnable code, and it should continue to do so for the forseeable&nbsp;future. </p>
+<p>There&#8217;s some question about how Unity&#8217;s new cross-platform compiler technology, <a href="http://blogs.unity3d.com/2014/05/20/the-future-of-scripting-in-unity/"><span class="caps">IL2CPP</span></a> will handle Boo. In principle, since it compiles the byte code produced by Mono rather than the original source, it too should work with any <span class="caps">CLR</span> language, be it Boo or F# or what have you. I&#8217;ve been able to compile Boo code to Unity WebGL games, which use <span class="caps">IL2CPP</span>, without obvious problems although I haven&#8217;t done anything like a scientific test. It&#8217;s not beyond belief that bugs which occur only in non-C#, non-UnityScript <span class="caps">IL</span> code may go unfixed. And, of course, it&#8217;s impossible to say what will happen after Unity 5 - technology, particularly in games, moves too fast for confident future predictions. However, It seems pretty clear Boo will be working in Unity for a while to come even though it is being demoted from &#8220;officially supported&#8221; status to the same kind of l33t hacker underworld as functional&nbsp;languages. </p>
 <h2>Boo-Curious?</h2>
-<p>If you've got Unity installed already, you've already got everything you need to play with Boo. Just create a text file with a ".boo" extension inside a Unity project and you can write Unity components in Boo. If you don't have Unity, You can also <a href="http://www.mono-project.com/download/">download Mono directly</a>, which installs MonoDevelop and Boo automatically. </p>
-<p>If you're not fond of MonoDevelop - an editor for which I have… mixed… feelings - You can write Boo using <a href="http://www.sublimetext.com/">Sublime Text</a>, which has a Boo syntax higlighting package and can run Boo compiles for you. </p>
-<p>If you're curious but don't want to take the plunge, you can see the language for yourself and play with it online, using this <a href="http://tryboo.pollinimini.net/">interactive repl</a></p>
-<p>The documentation - which (be warned!) is incomplete and not always up to date - is in the <a href="https://github.com/bamboo/boo/wiki">Boo Project GitHub wiki</a>. There's an older site at <a href="http://boo.codehaus.org/">boo.codehaus.org</a> which is tends to show up on the Google results but has <em>mostly</em> been ported to the github. In cases of conflicting information, the GitGub wiki is likelier to be right. There's also a <a href="https://groups.google.com/forum/#!forum/boolang">Google Group</a> and a small pool of questions on <a href="http://stackoverflow.com/questions/tagged/boo">StackOverflow</a></p>
-<p>If you're a hardcore type, you can also download and rebuild <a href="https://github.com/bamboo/boo">the source for the entire Boo language</a> yourself from GitHub. Lastly, you might want to check out <a href="https://github.com/drslump/BooJS">BooJS</a>, a project which aims to compile Boo into JavaScript.</p>
+<p>If you&#8217;ve got Unity installed already, you&#8217;ve already got everything you need to play with Boo. Just create a text file with a &#8220;.boo&#8221; extension inside a Unity project and you can write Unity components in Boo. If you don&#8217;t have Unity, You can also <a href="http://www.mono-project.com/download/">download Mono directly</a>, which installs MonoDevelop and Boo&nbsp;automatically. </p>
+<p>If you&#8217;re not fond of MonoDevelop - an editor for which I have… mixed… feelings - You can write Boo using <a href="http://www.sublimetext.com/">Sublime Text</a>, which has a Boo syntax higlighting package and can run Boo compiles for&nbsp;you. </p>
+<p>If you&#8217;re curious but don&#8217;t want to take the plunge, you can see the language for yourself and play with it online, using this <a href="http://tryboo.pollinimini.net/">interactive&nbsp;repl</a></p>
+<p>The documentation - which (be warned!) is incomplete and not always up to date - is in the <a href="https://github.com/bamboo/boo/wiki">Boo Project GitHub wiki</a>. There&#8217;s an older site at <a href="http://boo.codehaus.org/">boo.codehaus.org</a> which is tends to show up on the Google results but has <em>mostly</em> been ported to the github. In cases of conflicting information, the GitGub wiki is likelier to be right. There&#8217;s also a <a href="https://groups.google.com/forum/#!forum/boolang">Google Group</a> and a small pool of questions on <a href="http://stackoverflow.com/questions/tagged/boo">StackOverflow</a></p>
+<p>If you&#8217;re a hardcore type, you can also download and rebuild <a href="https://github.com/bamboo/boo">the source for the entire Boo language</a> yourself from GitHub. Lastly, you might want to check out <a href="https://github.com/drslump/BooJS">BooJS</a>, a project which aims to compile Boo into&nbsp;JavaScript.</p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/boo.html">boo</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -373,126 +375,136 @@ def integrate_f(double a, double b, int N):
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2015/boo_who';
-                var disqus_url = 'http://theodox.com/2015/boo_who';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2015/boo_who';
+            var disqus_url = 'http://theodox.com/2015/boo_who';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

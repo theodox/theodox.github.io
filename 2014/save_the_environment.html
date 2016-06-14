@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Save the environment!</title>
+        <title>Save the&nbsp;environment!</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A grumpy look at the state of python tools distribution">
+        <meta name="description" content="A grumpy look at the state of python tools distribution">
 
         <meta name="author" content="Steve Theodore">
 
@@ -51,9 +53,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/save_the_environment">
-	<meta property="og:title" content="Save the environment!">
+	<meta property="og:title" content="Save the&nbsp;environment!">
 	<meta property="article:published_time" content="2014-06-03 10:30:00-07:00">
-            <meta property="og:description" content="A grumpy look at the state of python tools distribution">
+            <meta property="og:description" content="A grumpy look at the state of python tools distribution">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -95,7 +97,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Save the environment!</h1>
+                        <h1>Save the&nbsp;environment!</h1>
                         <span class="meta">
                             Tue 03 June 2014
                         </span>
@@ -112,23 +114,23 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p><a href="https://plus.google.com/112207898076601628221">+Rob Galanakis</a>  posted this on Google+, and as I started to reply I realized this would be a useful thing to put out to a wider audience.  Or maybe useful isn't the right word - it's just something that bugs me so I want to bloviate about it.  </p>
+        <p><a href="https://plus.google.com/112207898076601628221">+Rob Galanakis</a>  posted this on Google+, and as I started to reply I realized this would be a useful thing to put out to a wider audience.  Or maybe useful isn&#8217;t the right word - it&#8217;s just something that bugs me so I want to bloviate about&nbsp;it.  </p>
 <blockquote>
-<p>Hey +Cory Mogk , +Brad Clark, +Steve Theodore , and whoever else in #techart . Has anyone figured out a viable model for reusing Python libraries in Maya, like other Python applications with pip/virtualenv/requirements.txt do? Is there a conversation anywhere?﻿</p>
+<p>Hey +Cory Mogk , +Brad Clark, +Steve Theodore , and whoever else in #techart . Has anyone figured out a viable model for reusing Python libraries in Maya, like other Python applications with pip/virtualenv/requirements.txt do? Is there a conversation&nbsp;anywhere?﻿</p>
 </blockquote>
-<p>The short answer to Rob's question is : I've tried to go this route, but I couldn't get a virtualenv-based approach to match for my needs.   For the long answer, read on...  </p>
-<h2>If You're Not Outraged, You're Not Paying Attention</h2>
-<p>Like <a href="http://lucumr.pocoo.org/2014/1/27/python-on-wheels/">a lot of people</a>, I'm pretty unhappy about <a href="http://www.simplistix.co.uk/presentations/python_package_management_08/python_package_management_08.pdf">the state of python environment management</a>.   </p>
+<p>The short answer to Rob&#8217;s question is : I&#8217;ve tried to go this route, but I couldn&#8217;t get a virtualenv-based approach to match for my needs.   For the long answer, read&nbsp;on&#8230;  </p>
+<h2>If You&#8217;re Not Outraged, You&#8217;re Not Paying&nbsp;Attention</h2>
+<p>Like <a href="http://lucumr.pocoo.org/2014/1/27/python-on-wheels/">a lot of people</a>, I&#8217;m pretty unhappy about <a href="http://www.simplistix.co.uk/presentations/python_package_management_08/python_package_management_08.pdf">the state of python environment management</a>.   </p>
 <p><a href="http://www.faithvillage.com/files/galleries/acf1e1575cba5c2dcbb9966017bab1622c3bfee9-7aaec91bedc07579a475225ff6467f07/thumbs/acf1e1575cba5c2dcbb9966017bab1622c3bfee9-7aaec91bedc07579a475225ff6467f07-hero_image-resize-260-620-fill.jpg"><img alt="" src="http://www.faithvillage.com/files/galleries/acf1e1575cba5c2dcbb9966017bab1622c3bfee9-7aaec91bedc07579a475225ff6467f07/thumbs/acf1e1575cba5c2dcbb9966017bab1622c3bfee9-7aaec91bedc07579a475225ff6467f07-hero_image-resize-260-620-fill.jpg" /></a></p>
-<p>There's no dependable, low-maintenance way for people to distribute things -- or to cleanly install things that depend on other things. Even the best tools are wonky, jacked up scaffolding on layers of older, crummier code.  </p>
-<p>The boundaries of any particular piece of Python are porous to begin with, both because of cross imports and also python's magical morphing and monkey patching abilities - but the messy state of the distribution ecosystem makes things far worse than they should be. Figuring out how to correctly set up a new module in this ambiguous environment is treacherous. It's not for nothing that the "easy" installation tools, pip and easy_install between them have 17,000+ questions on StackOverflow!  </p>
-<p>The typical <a href="http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows">easy_install / pip route</a> is tolerable, more or less, if you're coder, and you live in a *nixy everybody-is-a-coder and everybody-has-a-compiler environment. When you're busy experimenting with different frameworks and shiny new toys that show up on <a href="https://pypi.python.org/pypi">the cheeseshop</a>, it's great to get all that cool free stuff with just a a few keystrokes.  But this is "easy" only in the sense that hand editing config files to set up a web server is "easy": if you're technically confident, willing to debug anomalies, and have enough background knowledge to sort of the hiccups you'll be fine. But that's not "easy" for 99% of humanity, that's easy for hardcore nerds.   </p>
-<p>The Python distribution ecosystem just isn't... well... Pythonic.  It embarrassingly fails the <a href="http://legacy.python.org/dev/peps/pep-0020/">pythonic principle</a>  </p>
+<p>There&#8217;s no dependable, low-maintenance way for people to distribute things &#8212; or to cleanly install things that depend on other things. Even the best tools are wonky, jacked up scaffolding on layers of older, crummier&nbsp;code.  </p>
+<p>The boundaries of any particular piece of Python are porous to begin with, both because of cross imports and also python&#8217;s magical morphing and monkey patching abilities - but the messy state of the distribution ecosystem makes things far worse than they should be. Figuring out how to correctly set up a new module in this ambiguous environment is treacherous. It&#8217;s not for nothing that the &#8220;easy&#8221; installation tools, pip and easy_install between them have 17,000+ questions on&nbsp;StackOverflow!  </p>
+<p>The typical <a href="http://stackoverflow.com/questions/4750806/how-to-install-pip-on-windows">easy_install / pip route</a> is tolerable, more or less, if you&#8217;re coder, and you live in a *nixy everybody-is-a-coder and everybody-has-a-compiler environment. When you&#8217;re busy experimenting with different frameworks and shiny new toys that show up on <a href="https://pypi.python.org/pypi">the cheeseshop</a>, it&#8217;s great to get all that cool free stuff with just a a few keystrokes.  But this is &#8220;easy&#8221; only in the sense that hand editing config files to set up a web server is &#8220;easy&#8221;: if you&#8217;re technically confident, willing to debug anomalies, and have enough background knowledge to sort of the hiccups you&#8217;ll be fine. But that&#8217;s not &#8220;easy&#8221; for 99% of humanity, that&#8217;s easy for hardcore&nbsp;nerds.   </p>
+<p>The Python distribution ecosystem just isn&#8217;t&#8230; well&#8230; Pythonic.  It embarrassingly fails the <a href="http://legacy.python.org/dev/peps/pep-0020/">pythonic&nbsp;principle</a>  </p>
 <div class="highlight"><pre><span></span>There should be one-- and preferably only one --obvious way to do it.
 </pre></div>
 
 
-<p>since there are <a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2">at least 4 big toolsets</a> (setuptoools, distutils, distribute and distribute 2) and none of them is perfect. All rely on a mixture of static data and scripts that react to the state of your local machine, so installing stuff can provide different results from different orders of operation or different environment settings.  It also fails both  </p>
+<p>since there are <a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2">at least 4 big toolsets</a> (setuptoools, distutils, distribute and distribute 2) and none of them is perfect. All rely on a mixture of static data and scripts that react to the state of your local machine, so installing stuff can provide different results from different orders of operation or different environment settings.  It also fails&nbsp;both  </p>
 <div class="highlight"><pre><span></span>    Simple is better than complex.
 </pre></div>
 
@@ -138,52 +140,52 @@
 </pre></div>
 
 
-<p>Since the operations you need to perform are often obscure and obscurely interdependent.  Even on a mac, which (being *nixy) should be a much friendlier environment for the live-install approach, I've had serious nightmares -- <a href="http://techartsurvival.blogspot.com/2013/12/and-i-thought-we-had-it-bad.html">trying to set up Django was like a &amp;!*^#&amp;^$ Kafka novel.</a>  To some degree my bad luck there reflects failure to live up to  </p>
+<p>Since the operations you need to perform are often obscure and obscurely interdependent.  Even on a mac, which (being *nixy) should be a much friendlier environment for the live-install approach, I&#8217;ve had serious nightmares &#8212; <a href="http://techartsurvival.blogspot.com/2013/12/and-i-thought-we-had-it-bad.html">trying to set up Django was like a &amp;!*^#&amp;^$ Kafka novel.</a>  To some degree my bad luck there reflects failure to live up&nbsp;to  </p>
 <div class="highlight"><pre><span></span>    In the face of ambiguity, refuse the temptation to guess.
 </pre></div>
 
 
-<p>because many of the problems come from a welter of competing installation scripts and tools that are constantly trying to make things "easy" for one application in ways that make them harder for others.  </p>
-<p>To be fair, the Python universe is so diverse that it's almost beyond the possibility of rational management : a big product like <a href="http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/updating-package-dependencies">Plone </a>can involve literally hundreds of dependencies including a mix of python and compiled code that has to run on dozens of platforms.  Even if 99% of them install flawlessly, the remainders still add up to (at best ) a long, frustrating afternoon of  head-scratching, doc-reading forensics.  It's DLL hell all over again.  </p>
-<p>It's enough to make you long for a blankety-blank InstallShield wizard.   </p>
-<p>On the receiving end, things are just as confusing and intimidating.  Because Python is so multi-platform, lots of packages expect you to be able to compile your own binaries, which is rarely a trivial undertaking even for coders (at least, for people who don't do much non-python programming) and is petrifying for end users. More dangerous, though, is the fact that not everybody does a great job of tracking their own dependencies or knowing their own requirements.  If package X will works with version 2.1 of package Y, but not with 2.2  upgrading Y to 2.35 will break X.  And  of course Y 2.35 might have come along after the author of package X has moved on to other projects.  And Y 2.2 may be required by package Z, and get upgraded automatically when you grab Z to check it out.  </p>
-<p>All of this puts us in the rotten position where installing something new has the potential to break existing code. The user is the one who has to figure that out and work around it, and the fix is often "you can't do this and that in the same install unless you write a patch yourself."   </p>
-<p><a href="https://pip.readthedocs.org/en/1.0.1/">pip</a> and <a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2">buildout</a> do a heroic job of trying to organize all this chaos. However the underlying problem is _extremely _hard, because the foundations are shaky. You've got decades' worth of code, full of shadowy, hard-to-track dependencies, made by hundreds of different hands with widely varying levels of care and forethought.  The  requirements for packages may not even be clear to their authors: do you know every nuance of the version differences in the packages you rely on? Do you always know when you're exploiting a behavior that the developers don't like and want to change?   </p>
-<p>Hell, I cannot honestly say that for my <em>own</em> code all the time.  </p>
-<p>The short version of all this: being able to install stuff is not the same as maintaining a healthy environment.  Just ask all your older relatives whose machines sport seventeen different internet toolbars.  </p>
-<h2>Habitat Crisis!</h2>
-<p>If that all sounds bad... well, in the technical art / Maya context, it's <em>worse</em>.  For a couple of reasons:  </p>
+<p>because many of the problems come from a welter of competing installation scripts and tools that are constantly trying to make things &#8220;easy&#8221; for one application in ways that make them harder for&nbsp;others.  </p>
+<p>To be fair, the Python universe is so diverse that it&#8217;s almost beyond the possibility of rational management : a big product like <a href="http://plone.org/documentation/manual/upgrade-guide/version/upgrading-plone-4.2-to-4.3/updating-package-dependencies">Plone </a>can involve literally hundreds of dependencies including a mix of python and compiled code that has to run on dozens of platforms.  Even if 99% of them install flawlessly, the remainders still add up to (at best ) a long, frustrating afternoon of  head-scratching, doc-reading forensics.  It&#8217;s <span class="caps">DLL</span> hell all over&nbsp;again.  </p>
+<p>It&#8217;s enough to make you long for a blankety-blank InstallShield&nbsp;wizard.   </p>
+<p>On the receiving end, things are just as confusing and intimidating.  Because Python is so multi-platform, lots of packages expect you to be able to compile your own binaries, which is rarely a trivial undertaking even for coders (at least, for people who don&#8217;t do much non-python programming) and is petrifying for end users. More dangerous, though, is the fact that not everybody does a great job of tracking their own dependencies or knowing their own requirements.  If package X will works with version 2.1 of package Y, but not with 2.2  upgrading Y to 2.35 will break X.  And  of course Y 2.35 might have come along after the author of package X has moved on to other projects.  And Y 2.2 may be required by package Z, and get upgraded automatically when you grab Z to check it&nbsp;out.  </p>
+<p>All of this puts us in the rotten position where installing something new has the potential to break existing code. The user is the one who has to figure that out and work around it, and the fix is often &#8220;you can&#8217;t do this and that in the same install unless you write a patch&nbsp;yourself.&#8221;   </p>
+<p><a href="https://pip.readthedocs.org/en/1.0.1/">pip</a> and <a href="http://stackoverflow.com/questions/6344076/differences-between-distribute-distutils-setuptools-and-distutils2">buildout</a> do a heroic job of trying to organize all this chaos. However the underlying problem is _extremely _hard, because the foundations are shaky. You&#8217;ve got decades&#8217; worth of code, full of shadowy, hard-to-track dependencies, made by hundreds of different hands with widely varying levels of care and forethought.  The  requirements for packages may not even be clear to their authors: do you know every nuance of the version differences in the packages you rely on? Do you always know when you&#8217;re exploiting a behavior that the developers don&#8217;t like and want to&nbsp;change?   </p>
+<p>Hell, I cannot honestly say that for my <em>own</em> code all the&nbsp;time.  </p>
+<p>The short version of all this: being able to install stuff is not the same as maintaining a healthy environment.  Just ask all your older relatives whose machines sport seventeen different internet&nbsp;toolbars.  </p>
+<h2>Habitat&nbsp;Crisis!</h2>
+<p>If that all sounds bad&#8230; well, in the technical art / Maya context, it&#8217;s <em>worse</em>.  For a couple of&nbsp;reasons:  </p>
 <p><a href="http://rlv.zcache.com/habitat_for_two_manatees_bumper_sticker-r4dabf424d562476183df7d3644afd8f8_v9wht_8byvr_512.jpg"><img alt="" src="http://rlv.zcache.com/habitat_for_two_manatees_bumper_sticker-r4dabf424d562476183df7d3644afd8f8_v9wht_8byvr_512.jpg" /></a></p>
-<p>First, and most importantly, artist users are aren't going to accept a "real" command-line-and-text-file based system on their own, even if we had one. That means the TAs have to do it ~~automagically~~ remotely, which is a non-trivial tech challenge.  All too often 'remote installation' translates to 'send some poor sucker running around typing stuff for the artists while they everybody stands around waiting to get back to work.'   And wait till the next big update happens when somebody's on vacation; suddenly they're out of sync with the rest of the team and generating weird issues that are hard to debug. A first class ticket to 'It works on my machine' land!  </p>
-<p>All tech support is made more difficult by a diversity of environments: that's why console games are easier to make than PC games even though the underlying tech is the same.  Asking your artists to maintain their own Python ecosystem is like asking your teenage kids to clean their rooms: if they do it at all, it won't be done that well enough to justify the arguing you need to get it done at all. It's hard enough to get a big art team to stay in sync with simple stuff like 'always get latest in perforce' or 'set this environment variable'.   So... managing a complex programming environment?  </p>
-<p>In a shell window?  </p>
+<p>First, and most importantly, artist users are aren&#8217;t going to accept a &#8220;real&#8221; command-line-and-text-file based system on their own, even if we had one. That means the TAs have to do it ~~automagically~~ remotely, which is a non-trivial tech challenge.  All too often &#8216;remote installation&#8217; translates to &#8216;send some poor sucker running around typing stuff for the artists while they everybody stands around waiting to get back to work.&#8217;   And wait till the next big update happens when somebody&#8217;s on vacation; suddenly they&#8217;re out of sync with the rest of the team and generating weird issues that are hard to debug. A first class ticket to &#8216;It works on my machine&#8217;&nbsp;land!  </p>
+<p>All tech support is made more difficult by a diversity of environments: that&#8217;s why console games are easier to make than <span class="caps">PC</span> games even though the underlying tech is the same.  Asking your artists to maintain their own Python ecosystem is like asking your teenage kids to clean their rooms: if they do it at all, it won&#8217;t be done that well enough to justify the arguing you need to get it done at all. It&#8217;s hard enough to get a big art team to stay in sync with simple stuff like &#8216;always get latest in perforce&#8217; or &#8216;set this environment variable&#8217;.   So&#8230; managing a complex programming&nbsp;environment?  </p>
+<p>In a shell&nbsp;window?  </p>
 <p><em>Seriously?</em>  </p>
-<p>To some degree this is a moot point: no matter your preferences, you might not have the kind of access you need to use python's admin level tools anyway.  If you have to work with outsourcers, as I do,  you don't have the option of ~~forcing your users at gunpoint~~ empowering your users to manage their own setups. In a lot of places (China especially) you can't count on the end user having admin privileges (thus, no writing into the Maya directory) or always-on internet access (thus, no pip/easy_install).   </p>
-<p>Even if you have the rights, it might not be a good idea.  Outsource teams don't like having to reconfigure their whole workspace to accommodate a client who is here today and gone tomorrow. They want a clean, disposable, drop-in setup that they can turn on and off quickly.  A nice discrete footprint removes a lot of hassle from the relationship.  Done properly, it also saves a lot of remote support time and money.  Simplicity pays.  </p>
-<p>That's true even for pure in-house development: any company that supports multiple teams needs the same flexibility to swap out toolsets easily without going deep into machine- or user-level configuration. At work I have people hopping between two or three distinct toolsets during an ordinary day, and it's vital that they can do this without wasting time or thought on how things like setting setting all sorts of environment variables or remembering to launch Maya from the right command line.  </p>
-<h2>Save the Endangered Pythons!</h2>
+<p>To some degree this is a moot point: no matter your preferences, you might not have the kind of access you need to use python&#8217;s admin level tools anyway.  If you have to work with outsourcers, as I do,  you don&#8217;t have the option of ~~forcing your users at gunpoint~~ empowering your users to manage their own setups. In a lot of places (China especially) you can&#8217;t count on the end user having admin privileges (thus, no writing into the Maya directory) or always-on internet access (thus, no&nbsp;pip/easy_install).   </p>
+<p>Even if you have the rights, it might not be a good idea.  Outsource teams don&#8217;t like having to reconfigure their whole workspace to accommodate a client who is here today and gone tomorrow. They want a clean, disposable, drop-in setup that they can turn on and off quickly.  A nice discrete footprint removes a lot of hassle from the relationship.  Done properly, it also saves a lot of remote support time and money.  Simplicity&nbsp;pays.  </p>
+<p>That&#8217;s true even for pure in-house development: any company that supports multiple teams needs the same flexibility to swap out toolsets easily without going deep into machine- or user-level configuration. At work I have people hopping between two or three distinct toolsets during an ordinary day, and it&#8217;s vital that they can do this without wasting time or thought on how things like setting setting all sorts of environment variables or remembering to launch Maya from the right command&nbsp;line.  </p>
+<h2>Save the Endangered&nbsp;Pythons!</h2>
 <p><a href="http://www.kingsnake.com/blog/uploads/zombie.JPG"><img alt="" src="http://www.kingsnake.com/blog/uploads/zombie.JPG" /></a></p>
-<p>All this adds up to a some pretty stark requirements for Maya python tools:  </p>
+<p>All this adds up to a some pretty stark requirements for Maya python&nbsp;tools:  </p>
 <ol>
-<li>You want a Python environment that's uniform for all your users</li>
-<li>You want to be able to have more than one environment side by side</li>
-<li>You want your environments to be easy to distribute - and easy to delete </li>
+<li>You want a Python environment that&#8217;s uniform for all your&nbsp;users</li>
+<li>You want to be able to have more than one environment side by&nbsp;side</li>
+<li>You want your environments to be easy to distribute - and easy to&nbsp;delete </li>
 </ol>
 <p>In the wider Python world, this would automatically make you think <a href="https://pypi.python.org/pypi/virtualenv">virtualenv</a><em>.</em>  </p>
-<p><a href="https://pypi.python.org/pypi/virtualenv">virtualenv</a> is the most popular solution to the messy round-robin of versioning, dependency management, and distribution.  While it's all sorts of sophisticated under the hood (here's some <a href="http://blip.tv/pycon-us-videos-2009-2010-2011/pycon-2011-reverse-engineering-ian-bicking-s-brain-inside-pip-and-virtualenv-4899496">details here</a>) it's conceptually very simple: cut all the crap and just make a separate Python for every project, containing exactly what we need!  Throw in <a href="http://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/">pip </a>- the best-of-a-bad-lot installer tool that makes installing new modules as good as it's likely to get - and you can quickly create and populate lots of clean environments and populate them. Or use <a href="http://www.buildout.org/en/latest/">buildout </a>to create precisely controlled setups that have exactly what you need this time.  It's brilliant, Gordian-knot-cutting solution that replaces the incredible complexity of package management tools --  albeit at the cost of lots of duplicated code on disk. Disk space, however, is far cheaper than debugging time and tech-support hand holding.  </p>
-<p>Unfortunately, I've never been able to figure out how to get a running Maya to use a virtualenv at runtime. The Maya application appears to be it's own python interpreter (you can verify this by checking _sys.executable _in your command window, or just by renaming mayapy.exe and noting that Maya still works fine).  Which means that virtualenv's main trick -- recursing up from the physical location of the python executable -- isn't going to work correctly.  We don't want to try copying Maya itself and all of it's zillions of dependencies  -- a hefty half-gigabyte or so --for every new project.  And even if we do, the licensing engine does actually care if you're running from the default install directory (at least, it's never let me get away with copying maya to a new location even on a licensed machine).  </p>
-<p>Effectively, Maya already <em>is</em> it's own virtualenv . That's why you can have other versions of Maya running independently of other Pythons installed on your machine.  Which is nice and all  -- but no help for the problem of creating a cleanly isolated toolsets for your Maya users.  </p>
+<p><a href="https://pypi.python.org/pypi/virtualenv">virtualenv</a> is the most popular solution to the messy round-robin of versioning, dependency management, and distribution.  While it&#8217;s all sorts of sophisticated under the hood (here&#8217;s some <a href="http://blip.tv/pycon-us-videos-2009-2010-2011/pycon-2011-reverse-engineering-ian-bicking-s-brain-inside-pip-and-virtualenv-4899496">details here</a>) it&#8217;s conceptually very simple: cut all the crap and just make a separate Python for every project, containing exactly what we need!  Throw in <a href="http://www.dabapps.com/blog/introduction-to-pip-and-virtualenv-python/">pip </a>- the best-of-a-bad-lot installer tool that makes installing new modules as good as it&#8217;s likely to get - and you can quickly create and populate lots of clean environments and populate them. Or use <a href="http://www.buildout.org/en/latest/">buildout </a>to create precisely controlled setups that have exactly what you need this time.  It&#8217;s brilliant, Gordian-knot-cutting solution that replaces the incredible complexity of package management tools &#8212;  albeit at the cost of lots of duplicated code on disk. Disk space, however, is far cheaper than debugging time and tech-support hand&nbsp;holding.  </p>
+<p>Unfortunately, I&#8217;ve never been able to figure out how to get a running Maya to use a virtualenv at runtime. The Maya application appears to be it&#8217;s own python interpreter (you can verify this by checking _sys.executable _in your command window, or just by renaming mayapy.exe and noting that Maya still works fine).  Which means that virtualenv&#8217;s main trick &#8212; recursing up from the physical location of the python executable &#8212; isn&#8217;t going to work correctly.  We don&#8217;t want to try copying Maya itself and all of it&#8217;s zillions of dependencies  &#8212; a hefty half-gigabyte or so &#8212;for every new project.  And even if we do, the licensing engine does actually care if you&#8217;re running from the default install directory (at least, it&#8217;s never let me get away with copying maya to a new location even on a licensed&nbsp;machine).  </p>
+<p>Effectively, Maya already <em>is</em> it&#8217;s own virtualenv . That&#8217;s why you can have other versions of Maya running independently of other Pythons installed on your machine.  Which is nice and all  &#8212; but no help for the problem of creating a cleanly isolated toolsets for your Maya&nbsp;users.  </p>
 <p><a href="http://rlv.zcache.com/our_product_use_sustainable_buzzwords_bumper_sticker-r2e739ef8d9874e7f90d354212bf488aa_v9wht_8byvr_324.jpg"><img alt="" src="http://rlv.zcache.com/our_product_use_sustainable_buzzwords_bumper_sticker-r2e739ef8d9874e7f90d354212bf488aa_v9wht_8byvr_324.jpg" /></a></p>
-<p>After banging my head against this for a while - I'm <a href="http://stackoverflow.com/questions/16678334/virtualenv-and-maya">not the only one who's tried it</a> - I've switched to a tactic that has most of the same properties as the virtualenv but is more Maya-friendly.  I try to replicate the same level of isolation with a rather higher level of uniformity (OK, let's be honest here: I mean <em>fascistic control</em>) over what my users get.  </p>
-<p>While I'm not convinced its the distribution system to end all systems, I'm fairly happy with it - it's definitely been the least troublesome, lowest maintenance setup I've administered over the years, and it's worked pretty reliably for me both in and out of house.  I'll describe it a soon-to-be-completed followup post.  </p>
-<p>In the meantime, allow me to say that looking at lots of bumper stickers while seeking funny graphics for your blog is a speedy way to dim your faith in humanity. <em>Not recommended.</em>  </p>
+<p>After banging my head against this for a while - I&#8217;m <a href="http://stackoverflow.com/questions/16678334/virtualenv-and-maya">not the only one who&#8217;s tried it</a> - I&#8217;ve switched to a tactic that has most of the same properties as the virtualenv but is more Maya-friendly.  I try to replicate the same level of isolation with a rather higher level of uniformity (<span class="caps">OK</span>, let&#8217;s be honest here: I mean <em>fascistic control</em>) over what my users&nbsp;get.  </p>
+<p>While I&#8217;m not convinced its the distribution system to end all systems, I&#8217;m fairly happy with it - it&#8217;s definitely been the least troublesome, lowest maintenance setup I&#8217;ve administered over the years, and it&#8217;s worked pretty reliably for me both in and out of house.  I&#8217;ll describe it a soon-to-be-completed followup&nbsp;post.  </p>
+<p>In the meantime, allow me to say that looking at lots of bumper stickers while seeking funny graphics for your blog is a speedy way to dim your faith in humanity. <em>Not&nbsp;recommended.</em>  </p>
 <p><a href="http://rlv.zcache.com/im_not_cynical_im_just_experienced_bumper_sticker-rf1ba55c5e6df4016859176f200d32d0f_v9wht_8byvr_324.jpg"><img alt="" src="http://rlv.zcache.com/im_not_cynical_im_just_experienced_bumper_sticker-rf1ba55c5e6df4016859176f200d32d0f_v9wht_8byvr_324.jpg" /></a></p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/distribution.html">distribution</a>, <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/tools.html">tools</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -203,126 +205,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/save_the_environment';
-                var disqus_url = 'http://theodox.com/2014/save_the_environment';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/save_the_environment';
+            var disqus_url = 'http://theodox.com/2014/save_the_environment';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

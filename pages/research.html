@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Interesting graphics and animation research</title>
+        <title>Interesting graphics and animation&nbsp;research</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -74,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Interesting graphics and animation research</h1>
+                        <h1>Interesting graphics and animation&nbsp;research</h1>
                     </div>
                 </div>
             </div>
@@ -86,133 +88,145 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article>
-        <p>This page is a list of interesting,  maybe not-quite-ready-real time graphics and animation tech that I'm keeping an eye on. Should be growing over time.</p>
+        <p>This page is a list of interesting,  maybe not-quite-ready-real time graphics and animation tech that I&#8217;m keeping an eye on. Should be growing over&nbsp;time.</p>
 <h3>Rendering</h3>
-<p>Anybody in games should be interested in the fate of <a href="http://ptex.us/">Ptex</a>, the no-uvs, variable resolution texturing system from Disney and used in, for example, <a href="http://www.thefoundry.co.uk/products/mari/">Mari</a>.  So far, it's not ready for runtime graphics. but <a href="https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/Borderless%20Ptex.pdf">this Nvidia slideset</a> discusses a realtime implementation.  It claims to be only 15% slower than a UV mapped alternative - while saving about 18% of texture memory.  I'll believe it when I see it, but i <em>want</em> to believe. ( <strong>Update: </strong><em>I went over this with our residence graphics genius and he doesn't think it'll fly, even on XBone / PS4 class hardware)</em></p>
-<p>A <a href="http://diglib.eg.org/EG/DL/PE/VMV/VMV12/063-070.pdf.abstract.pdf;internal&amp;action=action.digitallibrary.ShowPaperAbstract">GPU Gem</a> on doing hardware aging of materials using GPU particles. Can't wait to see this get out from behind the paywall!</p>
-<p><a href="http://www.disneyresearch.com/project/joint-importance-sampling/">Joint Importance Sampling</a>: a paper from Disney on a better way to render path-traced media like fog or water.  Claims to increase render times 1000x for little change in quality! And it's <em>still</em> too slow for games :)</p>
-<p>A <a href="http://ppsloan.org/publications/mrtSA.pdf">new(ish) paper</a> from <a href="http://ppsloan.org/">Peter-Pike Sloan</a> proposing a method for low-res, realtime friendly pseudo gi lighting.  The new hardware generation is not going to make realtime GI happen with <a href="http://cg.ibds.kit.edu/publications/p2011/DGIWTCLPV_Kaplanyan_2011/DGIWTCLPV_Kaplanyan_2011.html">the current techniques,</a> so new ways of looking at GI are important.</p>
-<p>Also from PPS and Bungie, a review of the <a href="http://ppsloan.org/publications/BungieBake.pdf">hardware-based AO bake system used on Destiny</a>.  Note that in this example "AO" is "ambient obscurance" rather than "ambient occlusion" - obscurance accounts for distance to light sources, where as tradtional occlusion is dimensionless.</p>
-<p>A neat paper from Sebastian Lagarde on <a href="http://seblagarde.wordpress.com/2012/12/10/observe-rainy-world/">rendering wet surfaces in a physically based environment</a>.  <a href="http://seblagarde.wordpress.com/">Seb's blog</a> is a top-notch reference for anybody doing Physically based rendering (which means most of us by about 2015)</p>
+<p>Anybody in games should be interested in the fate of <a href="http://ptex.us/">Ptex</a>, the no-uvs, variable resolution texturing system from Disney and used in, for example, <a href="http://www.thefoundry.co.uk/products/mari/">Mari</a>.  So far, it&#8217;s not ready for runtime graphics. but <a href="https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/Borderless%20Ptex.pdf">this Nvidia slideset</a> discusses a realtime implementation.  It claims to be only 15% slower than a <span class="caps">UV</span> mapped alternative - while saving about 18% of texture memory.  I&#8217;ll believe it when I see it, but i <em>want</em> to believe. ( <strong>Update: </strong><em>I went over this with our residence graphics genius and he doesn&#8217;t think it&#8217;ll fly, even on XBone / <span class="caps">PS4</span> class&nbsp;hardware)</em></p>
+<p>A <a href="http://diglib.eg.org/EG/DL/PE/VMV/VMV12/063-070.pdf.abstract.pdf;internal&amp;action=action.digitallibrary.ShowPaperAbstract"><span class="caps">GPU</span> Gem</a> on doing hardware aging of materials using <span class="caps">GPU</span> particles. Can&#8217;t wait to see this get out from behind the&nbsp;paywall!</p>
+<p><a href="http://www.disneyresearch.com/project/joint-importance-sampling/">Joint Importance Sampling</a>: a paper from Disney on a better way to render path-traced media like fog or water.  Claims to increase render times 1000x for little change in quality! And it&#8217;s <em>still</em> too slow for games&nbsp;:)</p>
+<p>A <a href="http://ppsloan.org/publications/mrtSA.pdf">new(ish) paper</a> from <a href="http://ppsloan.org/">Peter-Pike Sloan</a> proposing a method for low-res, realtime friendly pseudo gi lighting.  The new hardware generation is not going to make realtime <span class="caps">GI</span> happen with <a href="http://cg.ibds.kit.edu/publications/p2011/DGIWTCLPV_Kaplanyan_2011/DGIWTCLPV_Kaplanyan_2011.html">the current techniques,</a> so new ways of looking at <span class="caps">GI</span> are&nbsp;important.</p>
+<p>Also from <span class="caps">PPS</span> and Bungie, a review of the <a href="http://ppsloan.org/publications/BungieBake.pdf">hardware-based <span class="caps">AO</span> bake system used on Destiny</a>.  Note that in this example &#8220;<span class="caps">AO</span>&#8221; is &#8220;ambient obscurance&#8221; rather than &#8220;ambient occlusion&#8221; - obscurance accounts for distance to light sources, where as tradtional occlusion is&nbsp;dimensionless.</p>
+<p>A neat paper from Sebastian Lagarde on <a href="http://seblagarde.wordpress.com/2012/12/10/observe-rainy-world/">rendering wet surfaces in a physically based environment</a>.  <a href="http://seblagarde.wordpress.com/">Seb&#8217;s blog</a> is a top-notch reference for anybody doing Physically based rendering (which means most of us by about&nbsp;2015)</p>
 <hr />
 <h3>Animation</h3>
-<p><a href="http://grail.cs.washington.edu/projects/motion-fields/motion-fields.pdf">Motion fields</a>  "Motion graphs" - basically efficiently seaming together  a desired set of Mocap data  - has been a big deal in academia for a long time, but it's never caught on in games due to the Prince of Persia problem: it's too realistic and thus not responsive enough. This work from the graphics group at UW is an interesting slant on making this more reactive.  Unfortunately @ZoranPopovic has largely moved on to education from animation, but his <a href="http://homes.cs.washington.edu/~zoran/">group's page at UW </a>has a lot of interesting work from the last 5-6 years.</p>
-<p>I'm a huge fan of Kevin Wampler's work on procededural animation. <a href="http://grail.cs.washington.edu/projects/animal-morphology/s2009/">This paper</a> from 2009 describes a (slow, offline, but _cool) _process for generating decent gaits for arbitrarily shaped creatures. Check out the <a href="http://grail.cs.washington.edu/projects/animal-morphology/s2009/movs/morphology.avi">videos</a> (note: big download, requires divx).  <a href="http://www.staff.science.uu.nl/~geijt101/papers/SA2013/">This one</a> from the Netherlands is a similar optimization based approach to bipeds only - the big wrinkle being that everything in this one runs on simulated muscle networks rather than pure joint motors. Fun stuff!</p>
-<p>This is an <a href="http://www.cc.gatech.edu/~jtan34/project/softBodyLocomotion.html">interesting paper from Karen Liu's group at Georgia Tech</a>, featuring soft body simulation done with a combination of finite element modeling and a muscle fiber system. Soft body animation remains a pretty black art, it would be great if it catches on in realtime-friendly ways. Not holding my breath, alas.</p>
-<p><a href="http://aigamedev.com/open/access/overgrowth/">This talk from the developer of Overgrowh </a>is an interesting look at hybrid physical-kinematic animations, a sort of  'Euphoria Lite'.  Some related references from <a href="http://aigamedev.com/open/editorial/animation-revolution/">AIGameDev</a>.  Also related is <a href="http://www.gdcvault.com/search.php#&amp;category=free&amp;firstfocus=&amp;keyword=lico&amp;conference_id=">Rick Lico's talk from GDC 2014</a> about the Destiny animation system (GDC vault paywall).</p>
-<h3>Procedural worlds</h3>
-<p>I'm very interested in procedural worlds for <a href="http://www.ign.com/articles/2013/04/16/4-hours-in-state-of-decays-open-world-zombie-nightmare">obvious reasons</a>.  It's an area that's got enornous potential but has been moving very slowly in the game side of things.</p>
-<p><a href="http://hss.ulb.uni-bonn.de/2013/3124/3124.pdf">The early chapters of this dissertation</a> provides a decent overview of lots of the terminology and existing work in the field</p>
-<p>There's <a href="http://www.esri.com/software/cityengine">CityEngine, </a> which looks good if you're looking at city size data sets (and it <a href="http://www.esri.com/software/cityengine/features">supports python</a>!)  There are a lot of nice procedural terrain packages but they all look very fractal-y to me  nowadays; it was impressive in <em>Wrath of Khan</em> but hasn't moved on much since. The most interesting terrain paper I've seen in a while is <a href="http://hpcg.purdue.edu/?page=publication&amp;id=170">this one</a>, which uses rivers as the structural basis for terrain generation..</p>
-<p>A <a href="https://www.cs.purdue.edu/cgvlab/urban/urban-procedural-modeling.html">collection of papers from Purdue</a> on procedural land use - thing like zoning and road layout. Some of this looks pretty handy.   If it gets scary, just remember 'markov chain'  is math-speak for 'state machine', more or less.  The other fun aspect is their efforts to  'inverse model' the stuff they study - to turn real data into the data their model uses.</p>
+<p><a href="http://grail.cs.washington.edu/projects/motion-fields/motion-fields.pdf">Motion fields</a>  &#8220;Motion graphs&#8221; - basically efficiently seaming together  a desired set of Mocap data  - has been a big deal in academia for a long time, but it&#8217;s never caught on in games due to the Prince of Persia problem: it&#8217;s too realistic and thus not responsive enough. This work from the graphics group at <span class="caps">UW</span> is an interesting slant on making this more reactive.  Unfortunately @ZoranPopovic has largely moved on to education from animation, but his <a href="http://homes.cs.washington.edu/~zoran/">group&#8217;s page at <span class="caps">UW</span> </a>has a lot of interesting work from the last 5-6&nbsp;years.</p>
+<p>I&#8217;m a huge fan of Kevin Wampler&#8217;s work on procededural animation. <a href="http://grail.cs.washington.edu/projects/animal-morphology/s2009/">This paper</a> from 2009 describes a (slow, offline, but _cool) _process for generating decent gaits for arbitrarily shaped creatures. Check out the <a href="http://grail.cs.washington.edu/projects/animal-morphology/s2009/movs/morphology.avi">videos</a> (note: big download, requires divx).  <a href="http://www.staff.science.uu.nl/~geijt101/papers/SA2013/">This one</a> from the Netherlands is a similar optimization based approach to bipeds only - the big wrinkle being that everything in this one runs on simulated muscle networks rather than pure joint motors. Fun&nbsp;stuff!</p>
+<p>This is an <a href="http://www.cc.gatech.edu/~jtan34/project/softBodyLocomotion.html">interesting paper from Karen Liu&#8217;s group at Georgia Tech</a>, featuring soft body simulation done with a combination of finite element modeling and a muscle fiber system. Soft body animation remains a pretty black art, it would be great if it catches on in realtime-friendly ways. Not holding my breath,&nbsp;alas.</p>
+<p><a href="http://aigamedev.com/open/access/overgrowth/">This talk from the developer of Overgrowh </a>is an interesting look at hybrid physical-kinematic animations, a sort of  &#8216;Euphoria Lite&#8217;.  Some related references from <a href="http://aigamedev.com/open/editorial/animation-revolution/">AIGameDev</a>.  Also related is <a href="http://www.gdcvault.com/search.php#&amp;category=free&amp;firstfocus=&amp;keyword=lico&amp;conference_id=">Rick Lico&#8217;s talk from <span class="caps">GDC</span> 2014</a> about the Destiny animation system (<span class="caps">GDC</span> vault&nbsp;paywall).</p>
+<h3>Procedural&nbsp;worlds</h3>
+<p>I&#8217;m very interested in procedural worlds for <a href="http://www.ign.com/articles/2013/04/16/4-hours-in-state-of-decays-open-world-zombie-nightmare">obvious reasons</a>.  It&#8217;s an area that&#8217;s got enornous potential but has been moving very slowly in the game side of&nbsp;things.</p>
+<p><a href="http://hss.ulb.uni-bonn.de/2013/3124/3124.pdf">The early chapters of this dissertation</a> provides a decent overview of lots of the terminology and existing work in the&nbsp;field</p>
+<p>There&#8217;s <a href="http://www.esri.com/software/cityengine">CityEngine, </a> which looks good if you&#8217;re looking at city size data sets (and it <a href="http://www.esri.com/software/cityengine/features">supports python</a>!)  There are a lot of nice procedural terrain packages but they all look very fractal-y to me  nowadays; it was impressive in <em>Wrath of Khan</em> but hasn&#8217;t moved on much since. The most interesting terrain paper I&#8217;ve seen in a while is <a href="http://hpcg.purdue.edu/?page=publication&amp;id=170">this one</a>, which uses rivers as the structural basis for terrain&nbsp;generation..</p>
+<p>A <a href="https://www.cs.purdue.edu/cgvlab/urban/urban-procedural-modeling.html">collection of papers from Purdue</a> on procedural land use - thing like zoning and road layout. Some of this looks pretty handy.   If it gets scary, just remember &#8216;markov chain&#8217;  is math-speak for &#8216;state machine&#8217;, more or less.  The other fun aspect is their efforts to  &#8216;inverse model&#8217; the stuff they study - to turn real data into the data their model&nbsp;uses.</p>
 <hr />
-<h3>Meshes, models, and surfaces</h3>
-<p><a href="http://www.cs.columbia.edu/~keenan/Projects/GloballyOptimalDirectionFields/paper.pdf">This paper from Columbia</a> promises an optimal way of establishing surface flow across arbitrary surfaces. This is interesting for a couple of reasons - it might be an interesting improvement to mesh-based navigation, and it might also lead to alternate methods of automatic UV generation.</p>
-<p>A <a href="http://www.cs.berkeley.edu/~jrs/meshpapers/ShefferPraunRose.pdf">decent roundup of mesh parameterization techniques</a></p>
+<h3>Meshes, models, and&nbsp;surfaces</h3>
+<p><a href="http://www.cs.columbia.edu/~keenan/Projects/GloballyOptimalDirectionFields/paper.pdf">This paper from Columbia</a> promises an optimal way of establishing surface flow across arbitrary surfaces. This is interesting for a couple of reasons - it might be an interesting improvement to mesh-based navigation, and it might also lead to alternate methods of automatic <span class="caps">UV</span>&nbsp;generation.</p>
+<p>A <a href="http://www.cs.berkeley.edu/~jrs/meshpapers/ShefferPraunRose.pdf">decent roundup of mesh parameterization&nbsp;techniques</a></p>
     </article>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

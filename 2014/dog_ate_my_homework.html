@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>The Dog Ate My Homework</title>
+        <title>The Dog Ate My&nbsp;Homework</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions.">
+        <meta name="description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions.">
 
         <meta name="author" content="Steve Theodore">
 
@@ -49,9 +51,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/dog_ate_my_homework">
-	<meta property="og:title" content="The Dog Ate My Homework">
+	<meta property="og:title" content="The Dog Ate My&nbsp;Homework">
 	<meta property="article:published_time" content="2014-10-30 09:55:00.001000-07:00">
-            <meta property="og:description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions.">
+            <meta property="og:description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions.">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -93,7 +95,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>The Dog Ate My Homework</h1>
+                        <h1>The Dog Ate My&nbsp;Homework</h1>
                         <span class="meta">
                             Thu 30 October 2014
                         </span>
@@ -110,18 +112,18 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth sharing.  </p>
+        <p>I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth&nbsp;sharing.  </p>
 <p>We run all of our various Maya tools through a single build system which runs unit tests and compiles code for our different targets (currently Maya 2011 and 2015). Ordinarily, since I’m very allergic to using binaries when I don’t have to, this multi-maya setup doesn’t cause us a lot of headaches. I have a little extractor routine which unzips the few binaries we do distribute in the right places, and all the rest of the code is blissfully unaware of which Maya version it’s running (with the exception of the nasty <a href="http://techartsurvival.blogspot.com/2014/09/2015-bug-watch-ls.html">ls bug I mentioned a few weeks ago</a>.)  </p>
 <p><a href="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg"><img alt="" src="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg" /></a></p>
 <p>Last week, however, we added a new tool and accompanying test suite to the toolkit. It works fine in 2015 (where we do all of our actual development right now), but crashes in 2011. After a bit of head-scratching we eventually realized that this one was absurdly simple: the test uses a saved Maya so that it can work with known, valid data. Of course the file was saved from Maya 2015, so when the Maya 2011 version of the tests tries to run boot up, it falls over because 2011 won’t read a 2015 file.<br />
-Or, as the checkin comment has it, “Doh!”  </p>
-<h2>Test cancelled!</h2>
-<p>The obvious fix is just to skip the test in Maya 2011 - a test that can never pass is hardly generating much useful information, and the likelihood that our small pool of 2011 customers actually need this tool is low anyway. Skipping a test is easy enough if you’re running the tests manually in an IDE – but a lot more complex if you’re got a build server that’s trying to auto-detect the tests. Plus, designing a system that makes it <em>too</em> easy to skip tests is a Bad Thingtm; - you generally want all of your tests running all the time, since “I’ll re-enable that test after I deal with this problem” is right up there with “the check is in the mail” and “it’s not you, it’s me” in the probity department. <br />
+Or, as the checkin comment has it,&nbsp;“Doh!”  </p>
+<h2>Test&nbsp;cancelled!</h2>
+<p>The obvious fix is just to skip the test in Maya 2011 - a test that can never pass is hardly generating much useful information, and the likelihood that our small pool of 2011 customers actually need this tool is low anyway. Skipping a test is easy enough if you’re running the tests manually in an <span class="caps">IDE</span> – but a lot more complex if you’re got a build server that’s trying to auto-detect the tests. Plus, designing a system that makes it <em>too</em> easy to skip tests is a Bad Thingtm; - you generally want all of your tests running all the time, since “I’ll re-enable that test after I deal with this problem” is right up there with “the check is in the mail” and “it’s not you, it’s me” in the probity department. <br />
 So, the goal is to allow us to conditionally disable tests based on a hard constraint - in this case, when they are running on an inappropriate version of Maya - without compromising the tests as a whole . Secondarily it would be nice to do this without any kind of central registry file - we’d really just like the tests to just run, except when they <em>can’t</em>.  </p>
 <p><a href="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg"><img alt="" src="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg" /></a></p>
-<p>Now, typically a test runner will detect tests by looking for classes that derive from <a href="https://docs.python.org/2/library/unittest.html">unittest.TestCase</a>. The easiest way to skip the test, therefore, is simply not to define it at all - if the test runner doesn’t see the class when it imports your test modules, we’ll be fine. <em>Note: this strategy won’t work if you have some kind of hand-rolled test harness that finds tests by string parsing file contents or something like that! However, you probably want to be doing the standard thing anyway… As they say in Python land, <a href="http://legacy.python.org/dev/peps/pep-0020/">“There should be one– and preferably only one –obvious way to do it.”</a></em>  </p>
-<p>In C++ or C# you could do this with a “preprocessor directive”, aka a “#define” - a conditional check that runs at compile time to include or exclude certain parts of a file.   </p>
-<p>In Python we don’t even need that: you can just inline the check in your file and it will execute when the module is imported. Here’s a simple example which conditionally use Raymond Hettinger’s <a href="https://pypi.python.org/pypi/ordereddict">ordereddict module</a> in Python 2.6 and the equivalent built-in version in Python 2.7:  </p>
+<p>Now, typically a test runner will detect tests by looking for classes that derive from <a href="https://docs.python.org/2/library/unittest.html">unittest.TestCase</a>. The easiest way to skip the test, therefore, is simply not to define it at all - if the test runner doesn’t see the class when it imports your test modules, we’ll be fine. <em>Note: this strategy won’t work if you have some kind of hand-rolled test harness that finds tests by string parsing file contents or something like that! However, you probably want to be doing the standard thing anyway… As they say in Python land, <a href="http://legacy.python.org/dev/peps/pep-0020/">“There should be one– and preferably only one –obvious way to do&nbsp;it.”</a></em>  </p>
+<p>In C++ or C# you could do this with a “preprocessor directive”, aka a “#define” - a conditional check that runs at compile time to include or exclude certain parts of a&nbsp;file.   </p>
+<p>In Python we don’t even need that: you can just inline the check in your file and it will execute when the module is imported. Here’s a simple example which conditionally use Raymond Hettinger’s <a href="https://pypi.python.org/pypi/ordereddict">ordereddict module</a> in Python 2.6 and the equivalent built-in version in Python&nbsp;2.7:  </p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="k">if</span> <span class="n">sys</span><span class="o">.</span><span class="n">version_info</span><span class="o">.</span><span class="n">major</span> <span class="o">==</span> <span class="mi">7</span><span class="p">:</span>  
@@ -131,13 +133,13 @@ So, the goal is to allow us to conditionally disable tests based on a hard const
 </pre></div>
 
 
-<p>_(If you are total #IFDEF addict there is also the <a href="http://stackoverflow.com/questions/482014/how-would-you-do-the-equivalent-of-preprocessor-directives-in-python">pypredef module</a>. Not my cup of tea, but the author does make some good points about the utility of his approach). _  </p>
-<p>The inline approach works fine in small amounts, but it’s aesthetically unappealing - it forces a bunch of module-level definitions away from the left margin, visually demoting them from important names to generic code blocks. More importantly, it’s easy to mess up: a misplaced indentation can radically change the contents of your file, and even though I’m a big fan of indentations over cur lies, I miss my indents with depressing regularity.  </p>
+<p>_(If you are total #<span class="caps">IFDEF</span> addict there is also the <a href="http://stackoverflow.com/questions/482014/how-would-you-do-the-equivalent-of-preprocessor-directives-in-python">pypredef module</a>. Not my cup of tea, but the author does make some good points about the utility of his approach).&nbsp;_  </p>
+<p>The inline approach works fine in small amounts, but it’s aesthetically unappealing - it forces a bunch of module-level definitions away from the left margin, visually demoting them from important names to generic code blocks. More importantly, it’s easy to mess up: a misplaced indentation can radically change the contents of your file, and even though I’m a big fan of indentations over cur lies, I miss my indents with depressing&nbsp;regularity.  </p>
 <p>Fortunately, Python has an elegantly succinct way of annotating code for higher-level purposes without messing up the visual cleanliness and logical flow: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">decorators</a>. Decorators are handy here for two reasons: first off, they express your intent very clearly by telling future readers something unambiguous about the structure of your code. Secondly, they can execute code (even fairly complex code, though frankly it’s a bad idea for what I’m describing here!) without compromising the layout and readability of your module.<br />
-The particularly nice thing about decorators in this case is that the way decorators work in any case is a natural match for the problem we have.   </p>
-<h2>The substitute teacher</h2>
+The particularly nice thing about decorators in this case is that the way decorators work in any case is a natural match for the problem we&nbsp;have.   </p>
+<h2>The substitute&nbsp;teacher</h2>
 <p>A decorator is just a function (or a callable class) which takes another function or class as an argument. When Python finds a decorated function or class, it calls the decorator function and passes the target – that is, the decorated bit of code – as an argument Whatever comes out of the decorator function is then swapped in for the original code. <br />
-Here’s a simple example, using functions for simplicity:  </p>
+Here’s a simple example, using functions for&nbsp;simplicity:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
         <span class="k">def</span> <span class="nf">replacement_func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>  
         <span class="c1"># this function replaces the original  </span>
@@ -164,7 +166,7 @@ Here’s a simple example, using functions for simplicity:  </p>
 </pre></div>
 
 
-<p>The decorator can completely replace the original code if it wants to:  </p>
+<p>The decorator can completely replace the original code if it wants&nbsp;to:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">override</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
    <span class="k">def</span> <span class="nf">completely_different</span><span class="p">():</span>  
        <span class="k">return</span> <span class="s2">&quot;and now for something completely different&quot;</span>
@@ -178,7 +180,7 @@ Here’s a simple example, using functions for simplicity:  </p>
 </pre></div>
 
 
-<p>Or, it could leave it untouched too:  </p>
+<p>Or, it could leave it untouched&nbsp;too:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">untouched</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
     <span class="k">return</span> <span class="n">original_func</span>
 
@@ -191,9 +193,9 @@ Here’s a simple example, using functions for simplicity:  </p>
 </pre></div>
 
 
-<p>The essential thing here is that the decorator sort of like one of those elves who swap out children for changelings. Officially nothing has changed - the name you defined in the un-decorated code is right there - but under the hood it may be different.  </p>
+<p>The essential thing here is that the decorator sort of like one of those elves who swap out children for changelings. Officially nothing has changed - the name you defined in the un-decorated code is right there - but under the hood it may be&nbsp;different.  </p>
 <p><a href="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg"><img alt="" src="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg" /></a></p>
-<h2>Mandatory testing</h2>
+<h2>Mandatory&nbsp;testing</h2>
 <p>Once you understand the decorator-as-changeling idea, it becomes pretty easy to see how the decorator can allow code swaps based on some condition. You might, for example, try to patch around a function which returns an empty list in Maya 2014, but <a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404">crashes in Maya 2015</a>(link):  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">safe_2015</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
         <span class="k">if</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>  
@@ -215,9 +217,9 @@ Here’s a simple example, using functions for simplicity:  </p>
 
 
 <blockquote>
-<p>Disclaimer: I wouldn’t use this code in practice! It’s a good example of the principle, but not a wise way to patch around the 2015 ls bug.  </p>
+<p>Disclaimer: I wouldn’t use this code in practice! It’s a good example of the principle, but not a wise way to patch around the 2015 ls&nbsp;bug.  </p>
 </blockquote>
-<p>Returning at long last to the problem of suppressing tests: we just need to harness the power of decorators to replace the class definition of our test classes with something else that won’t get run by our test suite. And, luckily, that’s really easy to do since we don’t have to return anything:  </p>
+<p>Returning at long last to the problem of suppressing tests: we just need to harness the power of decorators to replace the class definition of our test classes with something else that won’t get run by our test suite. And, luckily, that’s really easy to do since we don’t have to return&nbsp;anything:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">Only2015</span><span class="p">(</span><span class="n">original</span><span class="p">):</span>  
     <span class="k">if</span> <span class="s1">&#39;2015&#39;</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">about</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">):</span>  
             <span class="k">return</span> <span class="n">original</span> <span class="c1"># untouched!  </span>
@@ -226,7 +228,7 @@ Here’s a simple example, using functions for simplicity:  </p>
 </pre></div>
 
 
-<p>So if your do something like this in your tests:  </p>
+<p>So if your do something like this in your&nbsp;tests:  </p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">TestCase</span>  
 <span class="kn">import</span> <span class="nn">maya.standalone</span>  
 <span class="k">try</span><span class="p">:</span>  
@@ -246,7 +248,7 @@ Here’s a simple example, using functions for simplicity:  </p>
 </pre></div>
 
 
-<p>As you’d expect, both of these test will run and pass when run on a Maya 2015 python. However, under any other version of Maya the file really looks like this:  </p>
+<p>As you’d expect, both of these test will run and pass when run on a Maya 2015 python. However, under any other version of Maya the file really looks like&nbsp;this:  </p>
 <div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">unittest</span> <span class="kn">import</span> <span class="n">TestCase</span>  
     <span class="kn">import</span> <span class="nn">maya.standalone</span>  
     <span class="k">try</span><span class="p">:</span>  
@@ -265,11 +267,11 @@ Here’s a simple example, using functions for simplicity:  </p>
 </pre></div>
 
 
-<p>Because <code>Test2015Only()</code> is now an <code>object()</code> instead of a <code>TestCase()</code>, the test runner doesn’t even see it and doesn’t try to run it.  </p>
-<h2>Makeup work</h2>
+<p>Because <code>Test2015Only()</code> is now an <code>object()</code> instead of a <code>TestCase()</code>, the test runner doesn’t even see it and doesn’t try to run&nbsp;it.  </p>
+<h2>Makeup&nbsp;work</h2>
 <p>This is a lovely example of why Python can be so much fun. The language has the magical ability to extend itself on the fly - in this case, change the meaning of whole blocks of otherwise conventional code - but at the same time it offers simple, conservative mechanisms that keep that process for degenerating into mere anarchy (or, worse, into <em><a href="http://qph.is.quoracdn.net/main-qimg-eb6eb210fd4116ef10fee083428ed482?convert_to_webp=true">JavaScript</a></em>).  </p>
-<p>This particular gimmick was a great way to clean up our messy test set. Predictably, about 30 seconds I verified that it worked I was starting to brainstorm all sorts of cool new uses for this tactic.   </p>
-<p>A few more minutes of reflection, however, brought me to see that this kind of trick should be reserved for special occasions. The ability to swap the contents of a name based on runtime condition is definitely cool - but it’s hardly a good practice for readability and maintenance down the road. It happens to be a nice fit for this problem because a test is never going to be used by anything other than the test suite. Trying the same thing with, say, a geometry library that gets imported all over the place would be a nightmare to debug.  </p>
+<p>This particular gimmick was a great way to clean up our messy test set. Predictably, about 30 seconds I verified that it worked I was starting to brainstorm all sorts of cool new uses for this&nbsp;tactic.   </p>
+<p>A few more minutes of reflection, however, brought me to see that this kind of trick should be reserved for special occasions. The ability to swap the contents of a name based on runtime condition is definitely cool - but it’s hardly a good practice for readability and maintenance down the road. It happens to be a nice fit for this problem because a test is never going to be used by anything other than the test suite. Trying the same thing with, say, a geometry library that gets imported all over the place would be a nightmare to&nbsp;debug.  </p>
 <p>Magic is wonderful but, best used <em>sparingly</em>.  </p>
 <p><a href="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg"><img alt="" src="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg" /></a></p>
     </article>
@@ -277,7 +279,7 @@ Here’s a simple example, using functions for simplicity:  </p>
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/maya.html">maya</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -297,126 +299,136 @@ Here’s a simple example, using functions for simplicity:  </p>
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/dog_ate_my_homework';
-                var disqus_url = 'http://theodox.com/2014/dog_ate_my_homework';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/dog_ate_my_homework';
+            var disqus_url = 'http://theodox.com/2014/dog_ate_my_homework';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

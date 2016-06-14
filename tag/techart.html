@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,380 +87,141 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2016/memory_hole" rel="bookmark" title="Permalink to The Memory Hole">
+            <a href="http://theodox.com/2016/memory_hole" rel="bookmark" title="Permalink to The Memory Hole">
                 <h2 class="post-title">
-                    The Memory Hole
+                    The Memory&nbsp;Hole
                 </h2>
             </a>
-                <p>We tend to be the kind of people who throw themselves into things – we live for the joy of problem solving. So when we’re really grappling with the intricacies of todays disaster, we immerse ourselves in it. We tear it apart and inspect all the little moving pieces till we understand it well enough to duct-tape it back together again.   </p>
+            <p class="post-meta">Sat 06 February 2016
+            </p>
+                <p>We tend to be the kind of people who throw themselves into things – we live for the joy of problem solving. So when we’re really grappling with the intricacies of todays disaster, we immerse ourselves in it. We tear it apart and inspect all the little moving pieces till we understand it well enough to duct-tape it back together&nbsp;again.   </p>
 <p><a href="http://www.ocinside.de/media/uploads/less_memory_4.jpg"><img alt="" src="http://www.ocinside.de/media/uploads/less_memory_4.jpg" /></a></p>
-<p>Along the way, that attention to detail and mastery of nuance tends to make us think we know it all. But – a shock, I know – we don’t. More to the point, we might now it all <em>for the moment</em>. But we’ll dump that knowledge to make sure we have room for our encyclopedic knowledge of tomorrow’s problem. And next week’s. And next months.  </p>
-<p>In short, we’re constantly flushing our caches. Unless you’re stuck in a rut, doing the same thing every day, you’re constantly learning new little things for your current problem and silently shelving the knowledge you aquired for your last.  </p>
-<p>This is one reason why good code comments are so important. Sure, comments rot just like code. But a couple of well-placed notes about how and why the code looks the way it does can save future you a lot of time when many layers of memory recycling have left you completeley oblivious about what the hell past you was up to. I can easily think of a couple of embarrassing occasions where I’ve literally chased my own tail – done something non-obvious because of a wierd maya bug, then come back six month later to ‘clean up’ my ‘ugly code’ and of course hit the exact same bug again.   </p>
+<p>Along the way, that attention to detail and mastery of nuance tends to make us think we know it all. But – a shock, I know – we don’t. More to the point, we might now it all <em>for the moment</em>. But we’ll dump that knowledge to make sure we have room for our encyclopedic knowledge of tomorrow’s problem. And next week’s. And next&nbsp;months.  </p>
+<p>In short, we’re constantly flushing our caches. Unless you’re stuck in a rut, doing the same thing every day, you’re constantly learning new little things for your current problem and silently shelving the knowledge you aquired for your&nbsp;last.  </p>
+<p>This is one reason why good code comments are so important. Sure, comments rot just like code. But a couple of well-placed notes about how and why the code looks the way it does can save future you a lot of time when many layers of memory recycling have left you completeley oblivious about what the hell past you was up to. I can easily think of a couple of embarrassing occasions where I’ve literally chased my own tail – done something non-obvious because of a wierd maya bug, then come back six month later to ‘clean up’ my ‘ugly code’ and of course hit the exact same bug&nbsp;again.   </p>
 <p>Of course, good comments don’t have to have high literary quality, they don’t need to cover every variable and for loop, and they certainly don’t need to be overwhelming: what they should be is notes to future-self that will help him or her revive all the fading memories which seem so obvious today but which will be utterly erased before the next season of <em>Silicon Valley</em> is released.<br />
-Which brings me, by a <em>very</em> roundabout route, to what I actually set out to talk about: a perfect case in point. I was noodling around with a system that needed to fire events for maya attribute changes: basically, a way to make <code>attributeChanged</code> scriptJobs that were easy to start, stop and restart. So I did a little googling and…   </p>
+Which brings me, by a <em>very</em> roundabout route, to what I actually set out to talk about: a perfect case in point. I was noodling around with a system that needed to fire events for maya attribute changes: basically, a way to make <code>attributeChanged</code> scriptJobs that were easy to start, stop and restart. So I did a little googling&nbsp;and…   </p>
 <p>Yep. I’d already written it. I’d even <a href="https://github.com/theodox/attributeEvents">put it up on Github</a>.  </p>
-<p>In my defense, I realized in retrospect that I had cancelled the project at work that made it necessary the first time: I did the work on the system, got it ready to go, and then decided that there was a simpler way to solve the problem without all those attribute-change scripts anyway. Nonetheless it’s a perfect illustration of how thoroughly one’s short-term memory cache gets flushed – and of the importance of leaving good comments. At least when I found the damn thing the readme that Github makes you put up reminded me how it was supposed to work (as an aside, it’s a great reason for putting your stuff up on GitHub or similar forums: knowing that other people will be looking at it forces you to clean up and document more than you would if you just decided to shelve a project). </p>
-<p>So there you have it: an object lesson in the importance of clarity in tools development <em>and</em> a free module for messing around with AttributeChange scriptJobs!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 06 February 2016
-            </p>
-<p>There are <a href="http://theodox.com/2016/memory_hole#disqus_thread">comments</a>.</p>        </div>
+<p>In my defense, I realized in retrospect that I had cancelled the project at work that made it necessary the first time: I did the work on the system, got it ready to go, and then decided that there was a simpler way to solve the problem without all those attribute-change scripts anyway. Nonetheless it’s a perfect illustration of how thoroughly one’s short-term memory cache gets flushed – and of the importance of leaving good comments. At least when I found the damn thing the readme that Github makes you put up reminded me how it was supposed to work (as an aside, it’s a great reason for putting your stuff up on GitHub or similar forums: knowing that other people will be looking at it forces you to clean up and document more than you would if you just decided to shelve a&nbsp;project). </p>
+<p>So there you have it: an object lesson in the importance of clarity in tools development <em>and</em> a free module for messing around with AttributeChange&nbsp;scriptJobs!</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/memory_hole#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/memory_hole#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/memory_hole#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2016/for_my_homies" rel="bookmark" title="Permalink to For my homies">
+            <a href="http://theodox.com/2016/for_my_homies" rel="bookmark" title="Permalink to For my homies">
                 <h2 class="post-title">
-                    For my homies
+                    For my&nbsp;homies
                 </h2>
             </a>
-                <p><a href="http://3.bp.blogspot.com/-RZtbJhpL0Ds/Vq-LmkPaLjI/AAAAAAABNSk/i2R7KWtnOi4/s1600/Slack%2Bfor%2BiOS%2BUpload.png.jpeg"><img alt="" src="http://3.bp.blogspot.com/-RZtbJhpL0Ds/Vq-LmkPaLjI/AAAAAAABNSk/i2R7KWtnOi4/s640/Slack%2Bfor%2BiOS%2BUpload.png.jpeg" /></a></p>
-<p>Hat tip: Matt Heiniger</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Mon 01 February 2016
+            <p class="post-meta">Mon 01 February 2016
             </p>
-<p>There are <a href="http://theodox.com/2016/for_my_homies#disqus_thread">comments</a>.</p>        </div>
+                Tech art representin’
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/for_my_homies#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
+            <a href="http://theodox.com/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
                 <h2 class="post-title">
-                    First module of the year!
+                    First module of the&nbsp;year!
                 </h2>
             </a>
-                <p>It's been a busy few months at work, and the blogging has been pretty light. But I promised some folks on the Tech-Artists.org slack that I'd share some code for dealing with Mays's ShaderFX system: a very useful toolkit but not the best documented or automatable part of Maya. Since it's New Years' Resolution time, I thought I'd kill two birds with one stone and put up some notes to go with the code  </p>
-<p>All of shaderfx in maya is organized by a single, undocumented command. Which is pretty lame.   </p>
-<p>However, it’s not as bad as it seems once you figure out the standard command form, which is always some variant of this form:  </p>
-<div class="highlight"><pre><span></span>    shaderfx -sfxnode &lt;shader node&gt; -command &lt;command&gt; &lt;node id&gt;
-</pre></div>
-
-
-<p>The <code>sfxnode</code> argument tells maya which sfx shader to work on. The <code>command</code> flag indiciates an action and the <code>node id</code> specifies an node in the network. Nodes are assigned an id in order of creation, with the firstnode after the root ordinarily being number 2 and so on – however the ids are not recycled so a network which has been edited extensively can have what look like random ids and there is no guarantee that the nodes will form a neat, continuous order. <br />
-Many commands take additional arguments as well. Those extra always follow the main command; thus   </p>
-<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -edit_int 19 &quot;uiorder&quot; 1;
-</pre></div>
-
-
-<p>sets the value of the <code>uiorder</code> field on node 19 to a value of 1. <br />
-The <code>shaderfx</code> command can also return a value: to query the <code>uiorder</code> field in the example above you’d issue   </p>
-<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -getPropertyValue 19 &quot;uiorder&quot;;  
-    // Result: 1 //
-</pre></div>
-
-
-<p>So, the good news is that the <code>shaderfx</code> command is actually pretty capable: so far, at least, I have not found anything I really needed to do that the command did not support. For some reason the help documentation on the mel command is pretty sparse but the python version of the help text is actually quite verbose and useful.<br />
-Still, it’s kind of a wonky API: a single command for everything, and no way to really reason over a network as a whole. Worse, the different types of nodes are identified only by cryptic (and undocumented) numeric codes: for example a <code>Cosine</code> node is 20205 – but the only way to find that out is to use the <code>getNodeTypeByClassName</code> command (and, by the way, the node type names are case and space sensitive).  </p>
-<h2>Cleanup crew</h2>
-<p>With all that baggage I was pretty discouraged about actually getting any work done using shaderfx programmatically. However a little poking around produced what I hope is a somewhat more logical API, which I’m <a href="https://github.com/theodox/sfx">sharing on github</a>.<br />
-The <code>sfx</code> module is a plain python module - you can drop it into whatever location you use to story your Maya python scripts. It exposes two main classes:<br />
-<strong><code>SFXNetwork</code></strong> represents a single shader network – it is a wrapper around the Maya shader ball. The <code>SFXNetwork</code> contains an indexed list of all the nodes in the network and also exposes methods for adding, deleting, finding and connecting the nodes in the network.<br />
-<strong><code>SFXNode</code></strong> represets a single node inside the network. It exposes the properties of the node so they can be accessed and edited using python dot-style syntax. </p>
-<p>The module also includes to submodules, <code>sfxnodes</code> and <code>pbsnodes</code>. These make it easier to work with the zillions of custom node ids: Instead of remembering that a <code>Cosine</code> node is type 20205, you reference <code>sfxnodes.Cosine</code>. I’ll be using the <code>StingrayPBSNetwork</code> class and the <code>pbsnodes</code> submodule in my examples, since most of my actual use-case involves the Stingray PBS shader. The syntax and usage, however, are the same for the vanilla <code>SFXNetwork</code> and <code>sfxnodes</code> – only the array of node types and their properties.<br />
-Here’s a bit of the basic network functionality.   </p>
-<h3>Create a network</h3>
-<p>To create a new shaderfx network, use the <code>create()</code> classmethod:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sfx</span> <span class="kn">import</span> <span class="n">StingrayPBSNetwork</span>  
-<span class="kn">import</span> <span class="nn">sfx.pbsnodes</span> <span class="kn">as</span> <span class="nn">pbsnodes</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">StingrayPBSNetwork</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;new_shader&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>That creates a new shaderball (note that it won’t be connected to a shadingEngine by default – that’s up to you).  </p>
-<h3>Listing nodes</h3>
-<p>An SFXNetwork contains a dictionary of id and nodes in the field <code>nodes</code>. This represents all of the graph nodes in the network. <em>Note I’ve used a different shader than the default one in this example to make things easier to read.</em>  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span>  
-<span class="c1"># { 1 : &lt;sfxNode UnlitBase (1)&gt;, 2: &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt; }</span>
-
-<span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>  
-<span class="c1"># &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt;</span>
-</pre></div>
-
-
-<p>The keys of the dictionary are the node ids. As already noted, these are not guaranteed to be in a continuous order depending on what you do to the network - however they are stable and they will always match the id numbers shown in the shaderfx ui when you activate the <code>show node IDs</code> toggle in the ShaderFX window.  </p>
-<p>The values of the node dictionary are <code>SFXNode</code> objects.  </p>
-<h3>Adding new nodes</h3>
-<p>To add a node to the network use its <code>add()</code> method and pass a class from either the <code>sfxnodes</code> or <code>pbsnodes</code> submodule to indicate the type.   </p>
-<div class="highlight"><pre><span></span><span class="n">if_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">If</span><span class="p">)</span>  
-<span class="c1"># creates an If node and adds it to the network</span>
-
-<span class="n">var_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">MaterialVariable</span><span class="p">)</span>  
-<span class="c1"># creates a MaterialVariable node and adds it to the network</span>
-</pre></div>
-
-
-<h3>Connecting nodes</h3>
-<p>Connecting nodes in shaderfx requires specifying the source node the source plug, the target node and the target plug. Unforunately the plugs are indentifited by zero-based index numbers: the only way to know them by default is to count the slots in the actual shaderfx UI. Output plugs are usually (not always) going to be index zero but the target plugs can be all over the map.<br />
-To make this cleaner, each <code>SFXNode</code> object exposes two fields called <code>inputs</code> and <code>outputs</code>, which have named members for the available plugs. So to connect the ‘result’ output of the <code>var_node</code> object to the input named ‘B’ on the <code>if_node</code>:  </p>
-<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-
-
-<p>If the connection can’t be made for some reason, a <code>MayaCommandError</code> will be raised.  </p>
-<p>In any shader system it's common to have to ‘swizzle’ the connections: to connect the x and z channels of a 3-pronged output to channels of an input, for example. Mismatched swizzles are a common cause of those <code>MayaCommandErrors</code>. You can set the swizzle along with the connection by passing the swizzle you need as a string  </p>
-<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>  
-<span class="c1"># connects the &#39;x&#39; output of var_node  to the b channel of the input</span>
-</pre></div>
-
-
-<h3>Setting node properties</h3>
-<p>Nodes often have editable properties. There are a lot of different ones so it is often necessary to inspect a node and find out what properties it has and what type of values those properties accept. Every <code>SFXNode</code> object has a read-only member <code>properties</code>, which is a dictionary of names and property types. Thus:</p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span>  
-<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
-</pre></div>
-
-
-<p>If you know that a property exists on an object you can query it or set it using typical python dot syntax:  </p>
-<div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>   
-<span class="c1"># get the node at index 5 in this network</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>  
-<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>  
-<span class="c1"># 1.0  </span>
-<span class="c1"># getting a named property returns its value.</span>
-
-<span class="n">node</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="mf">2.0</span>  
-<span class="c1"># sets the node value</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>  
-<span class="c1"># 2.0</span>
-</pre></div>
-
-
-<p>If you try to access a property that doesnt exist, an error will be raised:  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span>  
-<span class="c1"># AttributeError: no attribute named i_dont_exist</span>
-
-<span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span> <span class="o">=</span> <span class="mi">99</span>  
-<span class="c1"># MayaCommandError</span>
-</pre></div>
-
-
-<h2>Help wanted!</h2>
-<p>So, there’s the basics. This module is pretty simple but I’ve found it <em>extremely</em> helpful in workign with SFX nodes. It will be much easier to work with, of course, if you already know your way around ShaderFX. Please let me know how it works for you – and as always bug reports and pull requests are very welcome! </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 13 January 2016
+            <p class="post-meta">Wed 13 January 2016
             </p>
-<p>There are <a href="http://theodox.com/2016/sfx_module#disqus_thread">comments</a>.</p>        </div>
+                Introducing SFX — a python module for scripting Maya shaderFX shaders.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/sfx_module#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr..... Maya!!!">
+            <a href="http://theodox.com/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr….. Maya!!!">
                 <h2 class="post-title">
-                    Grrrr..... Maya!!!
+                    Grrrr&#8230;..&nbsp;Maya!!!
                 </h2>
             </a>
-                <p>Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its over. </p>
-<p>Other kinds of pain aren't as sharp or as sudden... but they're chronic.  That persistent twinge in your lower back may not hurt as much as a twisted ankle - but it's going to be there forever (at least unless you get into Power Yoga, or so my wife claims).  </p>
-<p>Maya is old enough to have a few of those chronic pains, and I just ran in to one which -- once we debugged it and figured it out -- I realized has been a persistant irritant for at least the last decade; if my creaky old memory does not lie it's been a distinct pain in the butt since at least 2002 and it may very well go back all the way to Maya 1.0. </p>
-<p>In another context I might even have been able to diagnose it but instead we spent a ton of time and energy working around an unexpected behavior which is, in fact, purely standard Maya. It's <em>stupid</em> Maya, but it's standard too.  Maya, alas, is <strong>double plus ungood</strong> about mixing per-face and per-object material assignments. So, I figured I'd document this here for future sufferers: it might not ease the pain much, but at least you'll know you're not crazy.  </p>
-<p>The basic problem is that assigning materials to faces and to objects use slightly different mechanisms. If you check your hypergraph you'll see that per-face assignments connect to their shadingGroup nodes through the <code>compInstObjectGroups[]</code> attribute while object-level assigmemts go through the similar-but-not-identical <code>instObjectGroups</code> attribute (if you're looking for these in the docs, the component cone is inherited from the <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/geometryShape.html"><code>geometryShape</code></a> class and the object version comes from <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/dagNode.html"><code>dagNode</code></a>).  </p>
-<p>As long as you're working with one object at a time this isn't a problem. However, if you're duplicating or copy-pasting nodes, there's a gotcha:  If you ever try to merge meshes which have a mix of per-face and per-object assignments, Maya will magically "remember" old per-face assigments in the combined mesh.  If you're a masochist, here's the repro:  </p>
-<ol>
-<li>create a object, give it a couple of different materials on different faces</li>
-<li>duplicate it a couple of times</li>
-<li>assign a per-object material to the duplicates, overriding the original per-face assignments</li>
-<li>combine all the meshes.</li>
-<li><em>Et voîla!</em> The cloned meshes revert to their original assignments</li>
-</ol>
-<p><a href="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s1600/pasted_image_at_2015_10_23_05_32_pm_720.png"><img alt="" src="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s640/pasted_image_at_2015_10_23_05_32_pm_720.png" /></a></p>
-<p>What appears to happen is that those <code>compInstObjectGroups</code> connections are driven by hidden <code>groupID</code> nodes which don't get deleted when the per-face assignments are overridden by the per-object ones in step (3) .  They stick around even though they aren't being used, and when the mesh is combined they step right back into their original roles.  </p>
-<p>If you're doing this interactively it's an annoyance. If you're got tools that do things like auto-combine meshes to cut down on transform load in your game.... well, it's a source of some surprising bugs and equally surprising bursts of profanity.  But at least it'ss predictable.</p>
-<p>The workaround:  Before doing any mesh combination first delete the existing history then add something harmless to meshes you're about to combine. (I use a triangulate step, since this happens only at export time). That kills the rogue <code>groupID</code> nodes and keeps the combined mesh looking the way you intended.</p>
-<p>Sheesh. What a way to make a living.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 27 October 2015
+            <p class="post-meta">Tue 27 October 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/grrrr_maya#disqus_thread">comments</a>.</p>        </div>
+                A really annoying, and really old bug in Maya relating to materials.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/grrrr_maya#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/dont_endorse" rel="bookmark" title="Permalink to I don't endorse this...">
+            <a href="http://theodox.com/2015/dont_endorse" rel="bookmark" title="Permalink to I don’t endorse this…">
                 <h2 class="post-title">
-                    I don't endorse this...
+                    I don&#8217;t endorse&nbsp;this&#8230;
                 </h2>
             </a>
-                <p>.. But I could not resist. The original title was <em>Automation comes from the Latin word meaning 'self', and 'mating', which means 'screwing</em>'</p>
-<p><a href="https://lh3.googleusercontent.com/-3a1UXfwg0rk/VfnomRM_Q_I/AAAAAAABMmc/VYrorxZyTMI/s640/blogger-image--1005462469.jpg"><img alt="" src="https://lh3.googleusercontent.com/-3a1UXfwg0rk/VfnomRM_Q_I/AAAAAAABMmc/VYrorxZyTMI/s640/blogger-image--1005462469.jpg" /></a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 16 September 2015
+            <p class="post-meta">Wed 16 September 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/dont_endorse#disqus_thread">comments</a>.</p>        </div>
+                Ah, XKCD. Get out of my head, dammit.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/dont_endorse#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/con_job" rel="bookmark" title="Permalink to Con Job">
+            <a href="http://theodox.com/2015/con_job" rel="bookmark" title="Permalink to Con Job">
                 <h2 class="post-title">
-                    Con Job
+                    Con&nbsp;Job
                 </h2>
             </a>
-                <p>If you do a lot of tools work in maya – particularly if you’re working one something that integrates with a whole studio toolset, instead of being a one-off script – you spend a lot of time restarting. I think I know every pixel of the last five Maya splash screens by heart at this point. A good knowledge of the python <code>[reload()](https://docs.python.org/2/library/functions.html#reload)</code> command can ease the pain a bit, but there are still a lot of times when you want to get in and out quickly and waiting for the GUI to spin up can be a real drag.  </p>
-<p>If this drives you nuts, <code>mayapy</code> -- the python interpreter that comes with Maya -- can be a huge time saver. There are a lot of cases where you can fire off a mayapy and run a few lines of code just to validate that things are working and you don’t need to watch as all the GUI widgets draw in. This is particularly handy if you do a lot of tools work or script development, but’s also a great environment for doing quickie batch work – opening a bunch of files to troll for out of date rigs, missing textures, and similar annoyances.<br />
-All that said, the default mayapy experience is a bit too old-school if you’re running on Windows, where the python shell runs inside the horrendous <code>CMD</code> prompt, the same one that makes using DOS so unpleasant. If you’re used to a nice IDE like <a href="https://www.jetbrains.com/pycharm/">PyCharm</a> or a swanky text editor like <a href="http://www.sublimetext.com/3">Sublime</a>, the ugly fonts, the monochrome dullness, and above all the antediluvian lack of cut and paste are pretty offputting.  </p>
-<p>However, it’s not too hard to put a much more pleasant face on mayapy and make it a really useful tool.  </p>
-<h2>Con Ed</h2>
-<p><a href="http://www.top10films.co.uk/img/conair_cage.jpg"><img alt="" src="http://www.top10films.co.uk/img/conair_cage.jpg" /></a>  </p>
-<blockquote>
-<p>obligatory "con" joke here.  </p>
-</blockquote>
-<p>The first thing to do is find a good <em>console program</em>. A console provides the window and display services for command-line programs; <code>CMD.exe</code> does the same thing, it just does it very <em>badly</em>. There are several good options depending on your taste (good roundup <a href="http://www.nextofwindows.com/4-better-windows-console-tools-alternatives-to-windows-built-in-command-prompt/">here</a>)). I’m going to walk through the setup for my favorite emulator, <a href="http://conemu.github.io/">ConEmu</a>, but the same ideas should adapt to the other emulators pretty simply.<br />
-First, here’s a quick round up of what <a href="http://conemu.github.io/">ConEmu</a> is going to be doing for us and mayapay:  </p>
-<h4>Cut and paste</h4>
-<p><code>Ctrl+C</code>, <code>Ctrl+V</code>. Worth the price of admission all by itself!</p>
-<h4>Customizable fonts</h4>
-<p>A killer feature for those of us with old, weak eyes and/or aspirations to style</p>
-<h4>Command history</h4>
-<p>If you’re testing out a bit of syntax, or doing something that repetitive but not worth really automating you’ll get a lot of value out of the command history: you can use the up and down arrows to scroll through your recently issued commands and repeat them. Especially when you’re testing a script over and over this takes the bite out of those two or three lines of setup you need to enter again and again.</p>
-<h4>Startup options</h4>
-<p>We’ll want to pass a few flags and instructions to mayapy every time.</p>
-<h4>Multiple consoles in one window</h4>
-<p>ConEmu allows you to run different shells in different tabs. This can be invaluable if you’re doing things like checking the contents of multiple folders, but it’s also a great way to compare the results of your maya scripts side-by-side in two different sessions</p>
-<h4>Transparency</h4>
-<p>A palliative for OSX envy.</p>
-<h2>Setup basics</h2>
-<blockquote>
-<p>Again, these instructions are for ConEmu – if you try this with a different console, add your experience in the comments for others!</p>
-</blockquote>
-<p>ConEmu is a great little tool, and it’s free, but it is a bit… overeager?… in its efforts to let you control everything. The interface is a bit old school, so it’s worth walking through the setup process step by step.<br />
-First you’ll want to download and install <a href="http://conemu.github.io/">ConEmu</a> (the installation instructions are down at the botton of the linked page, and the setup is basically ‘unzip into a folder’).</p>
-<p>Once you’ve got ConEmu up and running, you’ll want to open the settings dialog and select the <em>Tasks</em> option from the tree list at left. This will show you a dialog like this:  </p>
-<p><a href="http://3.bp.blogspot.com/-w0mbodm7rfY/VSAucMI2xPI/AAAAAAABLnI/0y0424YSh94/s1600/conemu_1.jpg"><img alt="" src="http://3.bp.blogspot.com/-w0mbodm7rfY/VSAucMI2xPI/AAAAAAABLnI/0y0424YSh94/s1600/conemu_1.jpg" /></a>  </p>
-<blockquote>
-<p>Like I said, old school.</p>
-</blockquote>
-<p>For starters going to create a startup preset that launches mayapy. ConEmu calls these ‘tasks’. To create a new one, click that <code>+</code> botton under the list of predefined tasks. That will create a blank preset with a name like “Group #”, you can rename it by typing a better name in the text box just to the left of the word “Hotkey”.  </p>
-<p>The actual command you’ll type goes into the large text box on lower right. Just as test, enter the path to your mayapy <em>in quotes</em>, (usually it’s in <code>Program files\Autodesk\MayaXXXX\bin\mayapy.exe</code>) followed by a space and <code>-i</code>. The <code>-i</code> flag is important: it makes sure that mayaypy launches in interactive mode so you can actually use it – without the flag the application will launch and immediately quit! For maya 2015, for example, you can do:  </p>
-<div class="highlight"><pre><span></span>&quot;%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe&quot; -i
-</pre></div>
-
-
-<p>Test out this minimal version by saving the settings (the <em>Save Settings…</em>) button at lower right and making a new console using the green plus button at the upper right. Select the preset; if all goes right you’ll get a python prompt like this:  </p>
-<p><a href="http://4.bp.blogspot.com/-6SwtLYQpf7s/VSAuvIdPHDI/AAAAAAABLnQ/gtXK892tdFs/s1600/conemu_2.jpg"><img alt="" src="http://4.bp.blogspot.com/-6SwtLYQpf7s/VSAuvIdPHDI/AAAAAAABLnQ/gtXK892tdFs/s1600/conemu_2.jpg" /></a></p>
-<p>If it doesn’t work, go back and make sure that you surrounded the path to maypy.exe with quotes. <strong><code>&lt;insert rant about making an operating system with spaces in the paths that doesn't support spaces by default here!&gt;</code></strong>   </p>
-<h2>More cowbell</h2>
-<p>With just these options, you’ve got a working python intepreter, but it’s doesn’t have any maya-specific features. To get an actual maya session you could manually start a <a href="http://techartsurvival.blogspot.com/2014/04/earth-calling-mayastandalone.html">maya standalone</a> by typing  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.standalone</span><span class="p">;</span> <span class="n">maya</span><span class="o">.</span><span class="n">standalone</span><span class="o">.</span><span class="n">initialize</span><span class="p">()</span>
-</pre></div>
-
-
-<p>at the prompt. This works, but it’s a bit tedious. You can automate the process in ConEmu by editing your task description: Go back to the task settings in ConEmu add this to your configuration:  </p>
-<div class="highlight"><pre><span></span><span class="s2">&quot;%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe&quot;</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import maya.standalone; maya.standalone.initialize()&quot;</span>
-</pre></div>
-
-
-<p>making sure again to check your quotes.   </p>
-<p>When you launch a new ConEmu session for your preset you’ll probably notice a pause on startup: that’s Maya starting up in the backgrdound. If your maya loads tools or scripts at startup via <code>userSetup.py</code>, you may see printouts or debug information scroll by as well. You should now be working in a standalone session, so you should be able to try something like:  </p>
-<p><a href="http://3.bp.blogspot.com/-ncaJyLvqczY/VSAuvALxi_I/AAAAAAABLnU/64gr2WRWkdo/s1600/conemu3.jpg"><img alt="" src="http://3.bp.blogspot.com/-ncaJyLvqczY/VSAuvALxi_I/AAAAAAABLnU/64gr2WRWkdo/s1600/conemu3.jpg" /></a></p>
-<h2>Avoiding userSetup.py</h2>
-<p>If your startup scripts do something dependent on the maya GUI you may get an error instead. The <em>Right Thing<sup>TM<sup></em> to do is to fix that: you don’t want GUI in your startup routine because it hampers your ability to do batch jobs or renders.   </p>
-<p>However as a stopgap measure you can <a href="no-soup-for-you.html">suppress your userSetup.py</a> and load a completely vanilla Maya. This requires setting an environment variable called <code>MAYA_SKIP_USERSETUP_PY</code> to 0, which unfortunately is something ConEmu can’t do for you. However, you can work around that by creating a <code>.BAT</code> file that sets the environment before launching mayapy. The bat will look like this: </p>
-<div class="highlight"><pre><span></span><span class="nb">set</span> <span class="n">MAYA_SKIP_USERSETUP_PY</span>  <span class="o">=</span> <span class="mi">1</span>  
-<span class="s2">&quot;%ProgramFiles%/Autodesk/maya2015/bin/mayapy.exe&quot;</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import maya.standalone; maya.standalone.initialize()&quot;</span>
-
-<span class="nb">exit</span>
-</pre></div>
-
-
-<p>You can point your ConEmu task at the .BAT file instead of directly at mayapy and you should get a no-userSetup session.   </p>
-<p>This trick can also be used to launch mayapy with different environment variables – for example, I use to maintain different mayapy’s for different projects based on a set of project-specific env vars.  </p>
-<h2>Con Air</h2>
-<p>I’ve been using mayapy in the terminal window as a key part of my work for about a year now, and I’m sure I’ve saved many, many hours of waiting when I noodle on various bits of code, one-off batch tasks, and general noodling. In addition to speedier startup, running mayaPy in the console also gives you a more customizable view and command history, so it’s also a great replacement for many things you might otherwise want to do by starting up Maya and popping open the listener.  </p>
-<p>Of course, on the meta-meta-level it is a bit odd to by running a text only version of the most powerful graphics tool on the planet. But hey, that’s how we roll in techart land.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 04 April 2015
+            <p class="post-meta">Sat 04 April 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/con_job#disqus_thread">comments</a>.</p>        </div>
+                How to be more productive with mayapy and a console program.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/con_job#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2015/dang" rel="bookmark" title="Permalink to Dang">
                 <h2 class="post-title">
                     Dang
                 </h2>
             </a>
-                <p>You know the old saying, "you learn something new every day?" Well it's true. Usually, it's something like "I don't know where I left my keys," but sometimes you run into something that you realized you should have known all along and yet somehow it takes you by surprise.   </p>
-<p>Here's a little nugget that I stumbled onto today.  If you know Maya, you probably know that cmds.ls() with no arguments gives you a list of every entity in your current maya scene.  However if you pass in a list, ls() will filter it down.  It's very common to do something like</p>
-<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pCubeShape1&#39;</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;persp&#39;</span><span class="p">]</span>  
-<span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span> <span class="o">=</span> <span class="s1">&#39;camera&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>as a cheap way of filtering a list of objects by type, or</p>
-<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
-
-<p>to get long names and so on.  All pretty 101.</p>
-<p>Now, if you're an old Pythonista, you've probably tried it like this too:</p>
-<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="n">l</span> <span class="o">=</span> <span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
-
-<p>and gotten the same result.  Usually, <strong>*args</strong> is a great help in writing simpler code, since you write functions that take an arbitrary number of arguments without forcing the callers to create lists or tuples. Your code can use loops or comprehensions knowing that the <strong>*args</strong> will be iterable even if it's empty:   </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">starargs</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
-    <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span> <span class="p">(</span><span class="n">args</span><span class="p">):</span>  
-        <span class="k">print</span> <span class="n">idx</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\t</span><span class="s1">&#39;</span><span class="p">,</span> <span class="n">item</span>
-
-
-<span class="n">starargs</span><span class="p">()</span> <span class="c1"># prints nothing</span>
-
-<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;a&#39;</span><span class="p">)</span>  
-<span class="c1"># 0  a</span>
-
-<span class="n">starargs</span><span class="p">(</span><span class="s1">&#39;i&#39;</span><span class="p">,</span> <span class="s1">&#39;j&#39;</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>  
-<span class="c1"># 0  i  </span>
-<span class="c1"># 1  j  </span>
-<span class="c1"># 2 k</span>
-
-<span class="n">starargs</span><span class="p">(</span><span class="o">*</span><span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span><span class="s1">&#39;y&#39;</span><span class="p">,</span><span class="s1">&#39;z&#39;</span><span class="p">])</span>  
-<span class="c1"># 0    x  </span>
-<span class="c1"># 1    y  </span>
-<span class="c1"># 2    z</span>
-</pre></div>
-
-
-<p>Unfortunately this nice behavior can bite you if you use it with cmds.ls().  It's easy to miss the difference between</p>
-<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">stuff</span><span class="p">)</span>
-</pre></div>
-
-
-<p>and </p>
-<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">)</span>
-</pre></div>
-
-
-<p>especially because most functions will treat these interchangeably.  </p>
-<p>However (!) the <em>no arguments means list everything</em> behavior means that the first one returns and empty list, but the second returns <strong>a list of everything in Maya</strong>.  If you were using the ls() as a filter or a long-name-converter you are likely to be very surprised by the results. I was using it as part of a cleanup routine, and I suddenly discovered I was 'cleaning' everything in my scenes.   </p>
-<p>Like I said, you learn something new everyday -- in this case, new curse words!</p>
-<hr />
-<p>You can work around this behavior  simply enough by not passing *-formatted args to ls(), or at least by not doing so without checking if the argument is valid:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">list_xforms</span> <span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>  
-      <span class="k">if</span> <span class="ow">not</span> <span class="n">args</span><span class="p">:</span> <span class="k">return</span> <span class="p">[]</span>  
-      <span class="k">return</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Not an earth-shaking discovery, just another one of the many mysteries of the Maya.  </p>
-<p><a href="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg"><img alt="" src="http://www-tc.pbs.org/wgbh/nova/assets/img/posters/cracking-maya-code-vi.jpg" /></a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 10 January 2015
+            <p class="post-meta">Sat 10 January 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/dang#disqus_thread">comments</a>.</p>        </div>
+                An irritating behavior in cmds.ls() that can really ruin your day.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/dang#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/comments_requested" rel="bookmark" title="Permalink to Comments requested">
+            <a href="http://theodox.com/2014/comments_requested" rel="bookmark" title="Permalink to Comments requested">
                 <h2 class="post-title">
-                    Comments requested
+                    Comments&nbsp;requested
                 </h2>
             </a>
-                <p>I'm working a talk for <a href="http://www.gdconf.com/">GDC</a> , tentatively entitled "<em>Technical</em> Art Director? What the heck does that mean?"  </p>
-<p>I'd love to hear thoughts from all you industry types on what the role means. That could be what you think it means for your company, or what you think it means when other people hear it, or what you think it ought to mean. </p>
-<p>Good anecdotes are particularly appreciated and may be shamelessly stolen :)</p>
-<p>So please comment below and let me know what you think while I'm trying to figure out what I think...  </p>
-<p>PS for future readers coming here via Google or whatnot, <a href="submit.html">this link goes to my perennial <em>how to write  a GDC talk</em> post</a>. Physician, heal thyself!</p>
-<p><strong>Update</strong>: <a href="http://www.gdcvault.com/play/1021806/Art-Direction-Bootcamp-Technical-Art">Here is the talk as it was finally delivered</a> at GDC 2015.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 21 December 2014
+            <p class="post-meta">Sun 21 December 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/comments_requested#disqus_thread">comments</a>.</p>        </div>
+                seeking input for an upcoming talk on technical art at GDC
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/comments_requested#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -471,107 +234,119 @@ First you’ll want to download and install <a href="http://conemu.github.io/">C
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

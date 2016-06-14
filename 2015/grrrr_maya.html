@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Grrrr..... Maya!!!</title>
+        <title>Grrrr&#8230;..&nbsp;Maya!!!</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A really annoying, and really old bug in Maya relating to materials.">
+        <meta name="description" content="A really annoying, and really old bug in Maya relating to materials.">
 
         <meta name="author" content="Steve Theodore">
 
@@ -50,9 +52,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2015/grrrr_maya">
-	<meta property="og:title" content="Grrrr..... Maya!!!">
+	<meta property="og:title" content="Grrrr&#8230;..&nbsp;Maya!!!">
 	<meta property="article:published_time" content="2015-10-27 22:43:00-07:00">
-            <meta property="og:description" content="A really annoying, and really old bug in Maya relating to materials.">
+            <meta property="og:description" content="A really annoying, and really old bug in Maya relating to materials.">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -94,7 +96,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Grrrr..... Maya!!!</h1>
+                        <h1>Grrrr&#8230;..&nbsp;Maya!!!</h1>
                         <span class="meta">
                             Tue 27 October 2015
                         </span>
@@ -111,30 +113,30 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its over. </p>
-<p>Other kinds of pain aren't as sharp or as sudden... but they're chronic.  That persistent twinge in your lower back may not hurt as much as a twisted ankle - but it's going to be there forever (at least unless you get into Power Yoga, or so my wife claims).  </p>
-<p>Maya is old enough to have a few of those chronic pains, and I just ran in to one which -- once we debugged it and figured it out -- I realized has been a persistant irritant for at least the last decade; if my creaky old memory does not lie it's been a distinct pain in the butt since at least 2002 and it may very well go back all the way to Maya 1.0. </p>
-<p>In another context I might even have been able to diagnose it but instead we spent a ton of time and energy working around an unexpected behavior which is, in fact, purely standard Maya. It's <em>stupid</em> Maya, but it's standard too.  Maya, alas, is <strong>double plus ungood</strong> about mixing per-face and per-object material assignments. So, I figured I'd document this here for future sufferers: it might not ease the pain much, but at least you'll know you're not crazy.  </p>
-<p>The basic problem is that assigning materials to faces and to objects use slightly different mechanisms. If you check your hypergraph you'll see that per-face assignments connect to their shadingGroup nodes through the <code>compInstObjectGroups[]</code> attribute while object-level assigmemts go through the similar-but-not-identical <code>instObjectGroups</code> attribute (if you're looking for these in the docs, the component cone is inherited from the <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/geometryShape.html"><code>geometryShape</code></a> class and the object version comes from <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/dagNode.html"><code>dagNode</code></a>).  </p>
-<p>As long as you're working with one object at a time this isn't a problem. However, if you're duplicating or copy-pasting nodes, there's a gotcha:  If you ever try to merge meshes which have a mix of per-face and per-object assignments, Maya will magically "remember" old per-face assigments in the combined mesh.  If you're a masochist, here's the repro:  </p>
+        <p>Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its&nbsp;over. </p>
+<p>Other kinds of pain aren&#8217;t as sharp or as sudden&#8230; but they&#8217;re chronic.  That persistent twinge in your lower back may not hurt as much as a twisted ankle - but it&#8217;s going to be there forever (at least unless you get into Power Yoga, or so my wife&nbsp;claims).  </p>
+<p>Maya is old enough to have a few of those chronic pains, and I just ran in to one which &#8212; once we debugged it and figured it out &#8212; I realized has been a persistant irritant for at least the last decade; if my creaky old memory does not lie it&#8217;s been a distinct pain in the butt since at least 2002 and it may very well go back all the way to Maya&nbsp;1.0. </p>
+<p>In another context I might even have been able to diagnose it but instead we spent a ton of time and energy working around an unexpected behavior which is, in fact, purely standard Maya. It&#8217;s <em>stupid</em> Maya, but it&#8217;s standard too.  Maya, alas, is <strong>double plus ungood</strong> about mixing per-face and per-object material assignments. So, I figured I&#8217;d document this here for future sufferers: it might not ease the pain much, but at least you&#8217;ll know you&#8217;re not&nbsp;crazy.  </p>
+<p>The basic problem is that assigning materials to faces and to objects use slightly different mechanisms. If you check your hypergraph you&#8217;ll see that per-face assignments connect to their shadingGroup nodes through the <code>compInstObjectGroups[]</code> attribute while object-level assigmemts go through the similar-but-not-identical <code>instObjectGroups</code> attribute (if you&#8217;re looking for these in the docs, the component cone is inherited from the <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/geometryShape.html"><code>geometryShape</code></a> class and the object version comes from <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/dagNode.html"><code>dagNode</code></a>).  </p>
+<p>As long as you&#8217;re working with one object at a time this isn&#8217;t a problem. However, if you&#8217;re duplicating or copy-pasting nodes, there&#8217;s a gotcha:  If you ever try to merge meshes which have a mix of per-face and per-object assignments, Maya will magically &#8220;remember&#8221; old per-face assigments in the combined mesh.  If you&#8217;re a masochist, here&#8217;s the&nbsp;repro:  </p>
 <ol>
-<li>create a object, give it a couple of different materials on different faces</li>
-<li>duplicate it a couple of times</li>
-<li>assign a per-object material to the duplicates, overriding the original per-face assignments</li>
-<li>combine all the meshes.</li>
-<li><em>Et voîla!</em> The cloned meshes revert to their original assignments</li>
+<li>create a object, give it a couple of different materials on different&nbsp;faces</li>
+<li>duplicate it a couple of&nbsp;times</li>
+<li>assign a per-object material to the duplicates, overriding the original per-face&nbsp;assignments</li>
+<li>combine all the&nbsp;meshes.</li>
+<li><em>Et voîla!</em> The cloned meshes revert to their original&nbsp;assignments</li>
 </ol>
 <p><a href="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s1600/pasted_image_at_2015_10_23_05_32_pm_720.png"><img alt="" src="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s640/pasted_image_at_2015_10_23_05_32_pm_720.png" /></a></p>
-<p>What appears to happen is that those <code>compInstObjectGroups</code> connections are driven by hidden <code>groupID</code> nodes which don't get deleted when the per-face assignments are overridden by the per-object ones in step (3) .  They stick around even though they aren't being used, and when the mesh is combined they step right back into their original roles.  </p>
-<p>If you're doing this interactively it's an annoyance. If you're got tools that do things like auto-combine meshes to cut down on transform load in your game.... well, it's a source of some surprising bugs and equally surprising bursts of profanity.  But at least it'ss predictable.</p>
-<p>The workaround:  Before doing any mesh combination first delete the existing history then add something harmless to meshes you're about to combine. (I use a triangulate step, since this happens only at export time). That kills the rogue <code>groupID</code> nodes and keeps the combined mesh looking the way you intended.</p>
-<p>Sheesh. What a way to make a living.</p>
+<p>What appears to happen is that those <code>compInstObjectGroups</code> connections are driven by hidden <code>groupID</code> nodes which don&#8217;t get deleted when the per-face assignments are overridden by the per-object ones in step (3) .  They stick around even though they aren&#8217;t being used, and when the mesh is combined they step right back into their original&nbsp;roles.  </p>
+<p>If you&#8217;re doing this interactively it&#8217;s an annoyance. If you&#8217;re got tools that do things like auto-combine meshes to cut down on transform load in your game&#8230;. well, it&#8217;s a source of some surprising bugs and equally surprising bursts of profanity.  But at least it&#8217;ss&nbsp;predictable.</p>
+<p>The workaround:  Before doing any mesh combination first delete the existing history then add something harmless to meshes you&#8217;re about to combine. (I use a triangulate step, since this happens only at export time). That kills the rogue <code>groupID</code> nodes and keeps the combined mesh looking the way you&nbsp;intended.</p>
+<p>Sheesh. What a way to make a&nbsp;living.</p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/bugs.html">bugs</a>, <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/techart.html">techart</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -154,126 +156,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2015/grrrr_maya';
-                var disqus_url = 'http://theodox.com/2015/grrrr_maya';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2015/grrrr_maya';
+            var disqus_url = 'http://theodox.com/2015/grrrr_maya';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

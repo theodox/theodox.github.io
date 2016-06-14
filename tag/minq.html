@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,16 +87,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
+            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
                 <h2 class="post-title">
-                    A touch of minq
+                    A touch of&nbsp;minq
                 </h2>
             </a>
+            <p class="post-meta">Sun 06 March 2016
+            </p>
                 <p>If you’re a long-time reader, you may recall that i’m very ambivalent about <a href="wraptastic.html">wrapper code</a>. I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.<br />
 So, it’s with a little bit of trepidation that I’m sharing my latest library. <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.<br />
 Now, that isn’t a particularly interesting job most of the time, but it’s one we do a <em>lot</em>: a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code> and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make. <br />
-Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like this?  </p>
+Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like&nbsp;this?  </p>
 <div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;something_thats_not_transform&#39;</span><span class="p">]</span>  
 <span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
 <span class="c1"># [u&#39;top&#39;]</span>
@@ -105,7 +110,7 @@ Moreover, I’m reasonably certain (though I didn’t do the grepping to bear th
 </pre></div>
 
 
-<p>or this?  </p>
+<p>or&nbsp;this?  </p>
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">my_meshes</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">):</span>  
     <span class="k">print</span> <span class="n">item</span>  
 <span class="c1"># Error: &#39;NoneType&#39; object is not iterable  </span>
@@ -116,11 +121,11 @@ Moreover, I’m reasonably certain (though I didn’t do the grepping to bear th
 
 
 <p>There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my <code>ls()</code> calls alone will produce at least 5 bugs.<br />
-More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want fixed.  </p>
-<h2>Minq in action</h2>
+More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want&nbsp;fixed.  </p>
+<h2>Minq in&nbsp;action</h2>
 <p>Hence, <a href="https://github.com/theodox/minq">minq</a>. <br />
 The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.<br />
-Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional means:  </p>
+Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional&nbsp;means:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_assemblies_that_drive_skins</span><span class="p">():</span>  
     <span class="n">skinned</span> <span class="o">=</span> <span class="p">[]</span>  
     <span class="k">for</span> <span class="n">asm</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">assemblies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>  
@@ -134,7 +139,7 @@ Suppose you need to find all of your character skeletons and distinguish them fr
 
 <p>You’ll notice the littering of <code>or []</code> to make sure we don’t get errors for failed queries. We have to create two temporary variables (<code>childen</code> and <code>history</code>) in order to store the intermediate results. And, obviously, we’re 3 layers deep when we get to the actual work item. <br />
 Above all, though, you need to remember two little bits of Maya trivia to make sense of this code: that <code>cmds.ls(asm=True)</code> means ‘give me the assemblies’ and that <code>listRelatives(ad=True)</code> gives you the children of an object. These are, of course, very clear to Maya vets – but there are over 50 flags in <code>ls()</code> and more than a dozen in <code>listRelatives()</code> . I’ve been working in Maya for 20 years and I still need to look up most of them. You pass those flags to Maya as strings which won’t get evaluated until runtime – and it’s possible to mistype them and not even know because <code>ls()</code>, in particular, makes wierd tweaky decisions about how to interpret conflicting flags.<br />
-Here’s the minq equivalent to the previous function:  </p>
+Here’s the minq equivalent to the previous&nbsp;function:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drives_skin</span><span class="p">(</span><span class="n">some_object</span><span class="p">):</span>  
     <span class="n">children</span> <span class="o">=</span> <span class="n">using</span><span class="p">(</span><span class="n">some_object</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AllChildren</span><span class="p">)</span>  
     <span class="n">skin_clusters</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">SkinClusters</span><span class="p">)</span>  
@@ -144,17 +149,17 @@ Here’s the minq equivalent to the previous function:  </p>
 </pre></div>
 
 
-<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the names:  </p>
+<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the&nbsp;names:  </p>
 <ol>
-<li><code>drives_skin()</code> takes a maya object  </li>
-<li>It gets all of that object’s children  </li>
-<li>It gets all of the future history of those children  </li>
-<li>It it filters down to only the skin clusters in that future history  </li>
-<li>it returns true if any skin clusters are present  </li>
+<li><code>drives_skin()</code> takes a maya&nbsp;object  </li>
+<li>It gets all of that object’s&nbsp;children  </li>
+<li>It gets all of the future history of those&nbsp;children  </li>
+<li>It it filters down to only the skin clusters in that future&nbsp;history  </li>
+<li>it returns true if any skin clusters are&nbsp;present  </li>
 </ol>
-<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read -- otherwise it could all be done in a single expression.<br />
+<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read &#8212; otherwise it could all be done in a single expression.<br />
 A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to <code>ls</code> and <code>listRelatives</code>.  </p>
-<p>Here’s a couple of other examples to give you the flavor of what a minq query looks like:  </p>
+<p>Here’s a couple of other examples to give you the flavor of what a minq query looks&nbsp;like:  </p>
 <div class="highlight"><pre><span></span><span class="c1"># get all mesh transforms in a scene  </span>
 <span class="n">mesh_transforms</span> <span class="o">=</span>  <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span>
 
@@ -178,12 +183,18 @@ A purist will probably point out that there are important under-the-hood details
 </pre></div>
 
 
-<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual MIT, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and style. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 06 March 2016
-            </p>
-<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>        </div>
+<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual <span class="caps">MIT</span>, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and&nbsp;style. </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -195,107 +206,119 @@ A purist will probably point out that there are important under-the-hood details
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

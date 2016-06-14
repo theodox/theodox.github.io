@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,21 +87,24 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2015/api_2_getpoints_bug" rel="bookmark" title="Permalink to Maya Bug Watch: API2 and GetPoints()">
+            <a href="http://theodox.com/2015/api_2_getpoints_bug" rel="bookmark" title="Permalink to Maya Bug Watch: API2 and GetPoints()">
                 <h2 class="post-title">
-                    Maya Bug Watch: API2 and GetPoints()
+                    Maya Bug Watch: <span class="caps">API2</span> and&nbsp;GetPoints()
                 </h2>
             </a>
-                <p>In general I’m more or less a <a href="api_2_chance.html">fan of Maya Python API 2.0</a>. It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.<br />
-If you want to get the vertices of an object in the api, the usual formula is:  </p>
+            <p class="post-meta">Fri 27 March 2015
+            </p>
+                <p>In general I’m more or less a <a href="api_2_chance.html">fan of Maya Python <span class="caps">API</span> 2.0</a>. It’s more pythonic and feels faster than the old version. However, it’s not without its quirks and I just found one that really bit me in the behind.<br />
+If you want to get the vertices of an object in the api, the usual formula&nbsp;is:  </p>
 <ol>
-<li>Get the dagPath of the object</li>
+<li>Get the dagPath of the&nbsp;object</li>
 <li>Make an <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_fn_mesh_html">MFnMesh</a></li>
-<li>Call the ‘GetPoints’ method of your mesh</li>
-<li>Party on, dudes</li>
+<li>Call the ‘GetPoints’ method of your&nbsp;mesh</li>
+<li>Party on,&nbsp;dudes</li>
 </ol>
-<p>Something like this, which returns a list of <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_point_html">MPoint</a> objects for the verts in the mesh  </p>
+<p>Something like this, which returns a list of <a href="http://help.autodesk.com/view/MAYAUL/2015/ENU/?guid=__py_ref_class_open_maya_1_1_m_point_html">MPoint</a> objects for the verts in the&nbsp;mesh  </p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.api.OpenMaya</span> <span class="kn">as</span> <span class="nn">api</span>
 
 <span class="k">def</span> <span class="nf">get_verts</span><span class="p">(</span><span class="n">mesh</span><span class="p">):</span>  
@@ -112,9 +117,9 @@ If you want to get the vertices of an object in the api, the usual formula is:  
 </pre></div>
 
 
-<p>This works fine and dandy… except:  </p>
+<p>This works fine and dandy…&nbsp;except:  </p>
 <p><em><strong>If the mesh has 256 or more verts, the first vertex comes back as garbage</strong></em><br />
-Here’s an example, using the same function:  </p>
+Here’s an example, using the same&nbsp;function:  </p>
 <div class="highlight"><pre><span></span>mesh, _ = cmds.polyCube(sw = 1, sh= 1, sd = 1)  
 print get_verts(mesh)[:4]  
 #&gt; [maya.api.OpenMaya.MPoint(-0.50000000000009082, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(0.5, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.5, 0.5, 0.5, 1), maya.api.OpenMaya.MPoint(0.5, 0.5, 0.5, 1)]
@@ -133,7 +138,7 @@ print get_verts(mesh)[:4]
 </pre></div>
 
 
-<p>I’ll leave it to wiser heads to figure out <em>why</em> it works out like this. My guess is that something is borked in pointer math going on inside the wrapper around <code>MfnMesh</code>, but I don’t know. Luckily, there’s a workaround: if you create <em>new</em> MPoints out of the items coming back from the <code>GetPoints()</code> call, you get good data. I’m not sure why but this should be so but it appears to be reliable on my machine (Windows 7, 64 bit maya 2015). Here’s the workaround:  </p>
+<p>I’ll leave it to wiser heads to figure out <em>why</em> it works out like this. My guess is that something is borked in pointer math going on inside the wrapper around <code>MfnMesh</code>, but I don’t know. Luckily, there’s a workaround: if you create <em>new</em> MPoints out of the items coming back from the <code>GetPoints()</code> call, you get good data. I’m not sure why but this should be so but it appears to be reliable on my machine (Windows 7, 64 bit maya 2015). Here’s the&nbsp;workaround:  </p>
 <div class="highlight"><pre><span></span>def safe_get_verts(mesh):  
     mobj = api.MGlobal.getSelectionListByName(mesh).getDagPath(0)  
     mfn_mesh =  api.MFnMesh(mobj)  
@@ -144,80 +149,47 @@ mesh, _ = cmds.polyCube(sw = 10, sh= 10, sd = 10)
 print safe_get_verts(mesh)[:4]  
 #&gt; [maya.api.OpenMaya.MPoint(-0.5, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.40000000596046448, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.30000001192092896, -0.5, 0.5, 1), maya.api.OpenMaya.MPoint(-0.20000001788139343, -0.5, 0.5, 1)]
 </pre></div>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 27 March 2015
-            </p>
-<p>There are <a href="http://theodox.com/2015/api_2_getpoints_bug#disqus_thread">comments</a>.</p>        </div>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/api_2_getpoints_bug#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2015/api_2_getpoints_bug#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2015/api_2_getpoints_bug#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/api_2_chance" rel="bookmark" title="Permalink to All we are saying is give API 2.0 a chance">
+            <a href="http://theodox.com/2014/api_2_chance" rel="bookmark" title="Permalink to All we are saying is give API 2.0 a chance">
                 <h2 class="post-title">
-                    All we are saying is give API 2.0 a chance
+                    All we are saying is give <span class="caps">API</span> 2.0 a&nbsp;chance
                 </h2>
             </a>
-                <p>Doing all this math-related posting has reminded me of something I've been meaning to write up:  </p>
-<p>Maya's <a href="http://knowledge.autodesk.com/search-result/caas/CloudHelp/cloudhelp/2015/ENU/Maya-SDK/py-ref/index-html.html">python API 2.0,</a> first introduced in the 2013 version, got off to a rocky start. People complained about <a href="http://stackoverflow.com/questions/20232835/maya-python-api-2-0-has-no-mitdag-so-how-traverse-dag-graph">missing functions</a> and <a href="http://jeremyyk.com/tutorials/maya-s-python-api-2-0-">missing modules</a>.  It uses (mostly) the same function and class names as the original OpenMaya Python, which is a recipe for confusion. The documentation is pretty confusing too, since it points at the original C++ docs and leaves it up to you to do much of the translation in your head.    However....  </p>
-<p>One thing that API 2 definitely does right is to eliminate the dreaded <a href="python_api_crash"><code>MScriptUtil</code></a>, with its ugly and confusing interface and all of the opportunities for failures that it includes.  I've been busy porting over a bunch of geometry utilities to the new API and I'm routinely finding that stuff like this:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">APIVector</span><span class="p">(</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">normal</span><span class="o">=</span><span class="bp">False</span> <span class="p">):</span>  
-    <span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">    return an iterable as an OpenMaya MVector</span>
-
-<span class="sd">    if iterable is an openMaya MVector, returns untouched  </span>
-<span class="sd">    &#39;&#39;&#39;</span>  
-    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span> <span class="n">iterable</span><span class="p">,</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MVector</span> <span class="p">):</span>  
-        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">iterable</span>  
-    <span class="k">else</span><span class="p">:</span>  
-        <span class="k">assert</span> <span class="nb">len</span><span class="p">(</span> <span class="n">iterable</span> <span class="p">)</span> <span class="o">==</span> <span class="mi">3</span><span class="p">,</span> <span class="s2">&quot;argument to APIVector must have 3 entries&quot;</span>  
-        <span class="n">v_util</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MScriptUtil</span><span class="p">()</span>  
-        <span class="n">it</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span> <span class="n">copy</span><span class="p">(</span> <span class="n">iterable</span> <span class="p">)</span> <span class="p">)</span>  
-        <span class="n">v_util</span><span class="o">.</span><span class="n">createFromDouble</span><span class="p">(</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">iterable</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>  
-        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">OpenMaya</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span> <span class="n">v_util</span><span class="o">.</span><span class="n">asDoublePtr</span><span class="p">()</span> <span class="p">)</span>
-
-    <span class="k">if</span> <span class="n">normal</span><span class="p">:</span>  
-        <span class="n">o_vector</span> <span class="o">=</span> <span class="n">o_vector</span><span class="o">.</span><span class="n">normal</span> <span class="p">()</span>  
-    <span class="k">return</span> <span class="n">o_vector</span>
-</pre></div>
-
-
-<p>Turns into to this:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">APIVector</span><span class="p">(</span><span class="o">*</span><span class="n">iterable</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-
-
-    <span class="n">result</span> <span class="o">=</span> <span class="bp">None</span>  
-    <span class="k">try</span><span class="p">:</span>  
-        <span class="n">result</span> <span class="o">=</span> <span class="n">api2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="n">iterable</span><span class="p">)</span>  
-    <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>  
-        <span class="n">result</span> <span class="o">=</span> <span class="n">api2</span><span class="o">.</span><span class="n">MVector</span><span class="p">(</span><span class="n">iterable</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>  
-    <span class="k">finally</span><span class="p">:</span>  
-        <span class="k">if</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s1">&#39;normal&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">):</span>  
-            <span class="n">result</span><span class="o">.</span><span class="n">normalize</span><span class="p">()</span>  
-        <span class="k">return</span> <span class="n">result</span>
-</pre></div>
-
-
-<p>In other words, one reasonable line for 4 icky ones.  </p>
-<p>Plus, the new versions are generally more pythonic - the API 2 version of <code>MVector</code>, for example supports both dot-access, bracket access, and iteration over the vector components (though, annoyingly, <em>not</em> slicing).  </p>
-<p>It's certainly not all perfect. You do have to be very careful about mixing API 1 and API 2 code in the same functions - even though they are both wrapping the same C++ underpinnings they are are mutually incompatible.  Some things are still cumbersome -- converting strings to MSelectionList items to MObjects to MFNs is still a waste of good brain cells -- but it's a step in the right direction. I'll post more as I know more.  </p>
-<p>By the way, I spent several minutes surfing around for a funny image to wrap up on, I even did a meme-generator.com thing with The Most Interesting Man In The World saying something dismissive about MScriptUtil.  And then I thought... "What's the point."  </p>
-<p>See? Progress <em>is</em> possible.   Or maybe I'm just getting old. In Internet Years I'm already like 7,303.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 12 December 2014
+            <p class="post-meta">Fri 12 December 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/api_2_chance#disqus_thread">comments</a>.</p>        </div>
+                Maya’s api version 2.0 is finally coming of age
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/api_2_chance#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/python_api_crash" rel="bookmark" title="Permalink to If your Maya Python API is crashing">
+            <a href="http://theodox.com/2014/python_api_crash" rel="bookmark" title="Permalink to If your Maya Python API is crashing">
                 <h2 class="post-title">
-                    If your Maya Python API is crashing
+                    If your Maya Python <span class="caps">API</span> is&nbsp;crashing
                 </h2>
             </a>
-                <p>Check out <a href="http://around-the-corner.typepad.com/adn/2013/03/possible-misuse-of-mscriptutil-in-maya.html#">this useful post from Cyril Fauvelle</a> on the ins and outs of the dreaded <a href="http://www.chadvernon.com/blog/resources/maya-api-programming/mscriptutil/"><strong>MScriptUtil</strong></a>.  </p>
-<p>This kind of stuff is why I reserve API programming for only the knottiest of tasks.  maya.cmds won't clean-exit your Maya session if you reverse two lines by accident.  However, sometimes there's no alternative...  Here's hoping API 2.0 matures quickly and we can all forget all of this pointless distraction.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 18 March 2014
+            <p class="post-meta">Tue 18 March 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/python_api_crash#disqus_thread">comments</a>.</p>        </div>
+                A useful tidbit from Autodesk on how to avoid a common crash scenario in Maya python api 1.0
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/python_api_crash#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -229,107 +201,119 @@ print safe_get_verts(mesh)[:4]
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

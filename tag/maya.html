@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,16 +87,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
+            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
                 <h2 class="post-title">
-                    A touch of minq
+                    A touch of&nbsp;minq
                 </h2>
             </a>
+            <p class="post-meta">Sun 06 March 2016
+            </p>
                 <p>If you’re a long-time reader, you may recall that i’m very ambivalent about <a href="wraptastic.html">wrapper code</a>. I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.<br />
 So, it’s with a little bit of trepidation that I’m sharing my latest library. <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.<br />
 Now, that isn’t a particularly interesting job most of the time, but it’s one we do a <em>lot</em>: a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code> and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make. <br />
-Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like this?  </p>
+Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like&nbsp;this?  </p>
 <div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;something_thats_not_transform&#39;</span><span class="p">]</span>  
 <span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
 <span class="c1"># [u&#39;top&#39;]</span>
@@ -105,7 +110,7 @@ Moreover, I’m reasonably certain (though I didn’t do the grepping to bear th
 </pre></div>
 
 
-<p>or this?  </p>
+<p>or&nbsp;this?  </p>
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">my_meshes</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">):</span>  
     <span class="k">print</span> <span class="n">item</span>  
 <span class="c1"># Error: &#39;NoneType&#39; object is not iterable  </span>
@@ -116,11 +121,11 @@ Moreover, I’m reasonably certain (though I didn’t do the grepping to bear th
 
 
 <p>There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my <code>ls()</code> calls alone will produce at least 5 bugs.<br />
-More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want fixed.  </p>
-<h2>Minq in action</h2>
+More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want&nbsp;fixed.  </p>
+<h2>Minq in&nbsp;action</h2>
 <p>Hence, <a href="https://github.com/theodox/minq">minq</a>. <br />
 The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.<br />
-Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional means:  </p>
+Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional&nbsp;means:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_assemblies_that_drive_skins</span><span class="p">():</span>  
     <span class="n">skinned</span> <span class="o">=</span> <span class="p">[]</span>  
     <span class="k">for</span> <span class="n">asm</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">assemblies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>  
@@ -134,7 +139,7 @@ Suppose you need to find all of your character skeletons and distinguish them fr
 
 <p>You’ll notice the littering of <code>or []</code> to make sure we don’t get errors for failed queries. We have to create two temporary variables (<code>childen</code> and <code>history</code>) in order to store the intermediate results. And, obviously, we’re 3 layers deep when we get to the actual work item. <br />
 Above all, though, you need to remember two little bits of Maya trivia to make sense of this code: that <code>cmds.ls(asm=True)</code> means ‘give me the assemblies’ and that <code>listRelatives(ad=True)</code> gives you the children of an object. These are, of course, very clear to Maya vets – but there are over 50 flags in <code>ls()</code> and more than a dozen in <code>listRelatives()</code> . I’ve been working in Maya for 20 years and I still need to look up most of them. You pass those flags to Maya as strings which won’t get evaluated until runtime – and it’s possible to mistype them and not even know because <code>ls()</code>, in particular, makes wierd tweaky decisions about how to interpret conflicting flags.<br />
-Here’s the minq equivalent to the previous function:  </p>
+Here’s the minq equivalent to the previous&nbsp;function:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drives_skin</span><span class="p">(</span><span class="n">some_object</span><span class="p">):</span>  
     <span class="n">children</span> <span class="o">=</span> <span class="n">using</span><span class="p">(</span><span class="n">some_object</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AllChildren</span><span class="p">)</span>  
     <span class="n">skin_clusters</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">SkinClusters</span><span class="p">)</span>  
@@ -144,17 +149,17 @@ Here’s the minq equivalent to the previous function:  </p>
 </pre></div>
 
 
-<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the names:  </p>
+<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the&nbsp;names:  </p>
 <ol>
-<li><code>drives_skin()</code> takes a maya object  </li>
-<li>It gets all of that object’s children  </li>
-<li>It gets all of the future history of those children  </li>
-<li>It it filters down to only the skin clusters in that future history  </li>
-<li>it returns true if any skin clusters are present  </li>
+<li><code>drives_skin()</code> takes a maya&nbsp;object  </li>
+<li>It gets all of that object’s&nbsp;children  </li>
+<li>It gets all of the future history of those&nbsp;children  </li>
+<li>It it filters down to only the skin clusters in that future&nbsp;history  </li>
+<li>it returns true if any skin clusters are&nbsp;present  </li>
 </ol>
-<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read -- otherwise it could all be done in a single expression.<br />
+<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read &#8212; otherwise it could all be done in a single expression.<br />
 A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to <code>ls</code> and <code>listRelatives</code>.  </p>
-<p>Here’s a couple of other examples to give you the flavor of what a minq query looks like:  </p>
+<p>Here’s a couple of other examples to give you the flavor of what a minq query looks&nbsp;like:  </p>
 <div class="highlight"><pre><span></span><span class="c1"># get all mesh transforms in a scene  </span>
 <span class="n">mesh_transforms</span> <span class="o">=</span>  <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span>
 
@@ -178,515 +183,123 @@ A purist will probably point out that there are important under-the-hood details
 </pre></div>
 
 
-<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual MIT, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and style. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 06 March 2016
-            </p>
-<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>        </div>
+<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual <span class="caps">MIT</span>, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and&nbsp;style. </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2016/the_little_things" rel="bookmark" title="Permalink to The little things">
+            <a href="http://theodox.com/2016/the_little_things" rel="bookmark" title="Permalink to The little things">
                 <h2 class="post-title">
-                    The little things
+                    The little&nbsp;things
                 </h2>
             </a>
-                <p>It’s the little things that really matter in life.  </p>
-<p><a href="http://www.tshirtbordello.com/images/rule-32-enjoy-little-things-s3.jpg"><img alt="" src="http://www.tshirtbordello.com/images/rule-32-enjoy-little-things-s3.jpg" /></a></p>
-<p>If you’ve ever spent any time wrestling with Maya distribution, you’ve probably noticed that <code>userSetup.py</code> executes in an odd fashion: it’s not a module that gets imported, it’s basically a series of statements that get executed when Maya fires up. </p>
-<p>Unfortunately that also means that most of the usual strategies you’d use in python to find out <em>where</em>, exactly, you are running from is problematic. The usual python tricks like <code>__file__</code> don’t work; and most of the time asking for <code>os.getcwd()</code> will point at your Maya program directory. Usually you end up running around looking at all the directories where Maya might be stashing a <code>userSetup</code> and trying to figure out which one is the one you are in`. It’s ugly.  </p>
-<p>However today, I <em><strong>actually found one which works</strong></em>. At least, I haven’t figured out how to break it yet.  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">inspect</span>  
-<span class="n">USER_SETUP_PATH</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">inspect</span><span class="o">.</span><span class="n">currentframe</span><span class="p">()</span><span class="o">.</span><span class="n">f_code</span><span class="o">.</span><span class="n">co_filename</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Since I’ve tried to figure this one out on at least a hundred previous occasions, I am feeling unduly smug about this one.   </p>
-<p><em>PS</em>, if you’re wondering why I care: this makes it really easy to do a simple install/uninstall of a <a href="egg_man"><code>userSetup.py</code> / <code>userSetup.zip</code> combo</a> with no environment variables or special rules.   </p>
-<p><strong>PPS</strong>: <em>Take that, Maya!</em></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 18 February 2016
+            <p class="post-meta">Thu 18 February 2016
             </p>
-<p>There are <a href="http://theodox.com/2016/the_little_things#disqus_thread">comments</a>.</p>        </div>
+                After a decade, victory over over userSetup.py is within our grasp
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/the_little_things#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2016/some_fixups_for_sfx" rel="bookmark" title="Permalink to Some fixups for sfx">
+            <a href="http://theodox.com/2016/some_fixups_for_sfx" rel="bookmark" title="Permalink to Some fixups for sfx">
                 <h2 class="post-title">
-                    Some fixups for sfx
+                    Some fixups for&nbsp;sfx
                 </h2>
             </a>
-                <p>I've posted <a href="https://github.com/theodox/sfx/commits/master">a couple of fixes</a> to the code for the <a href="http://techartsurvival.blogspot.com/2016/01/first-module-of-year.htmlDone">shaderfx module</a> I posted a little while ago.  <a href="https://plus.google.com/116374315761191190711">+Sophie Brennan</a> spotted a problem with the way that module handled some kinds of nodes -- which I had assumed were just plain old objects but which were in fact buttoned-up group nodes.  Since they didn't use the same method to report their outputs as the rest of shaderfx they could not easily be created or connected using the module.  </p>
-<p>Luckily  <a href="https://plus.google.com/115746724358684308496">+Kees Rijnen</a>, the main author of shaderfx, noticed the blog post and helpfully  pointed me at the source of the problem which I've included in a fix.   </p>
-<p>If you are using the original version of the code this may be a breaking change.  To unify the way that individual nodes and groups are connected,  I changed the connect() and disconnect() methods to take only two arguments where they previously took 4.  In the first pass you would write  </p>
-<div class="highlight"><pre><span></span>network.connect( node1, node1.outputs.xyz, node2, node2.inputs.rgb)
-</pre></div>
-
-
-<p>which was needlessly wordy.  So connect() and disconnect() now sport the cleaner, simpler syntax  </p>
-<div class="highlight"><pre><span></span>network.connect(node1.outputs.xyz,   node2.inputs.rgb)
-</pre></div>
-
-
-<p>As always, comments and pulls are encouraged!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 29 January 2016
+            <p class="post-meta">Fri 29 January 2016
             </p>
-<p>There are <a href="http://theodox.com/2016/some_fixups_for_sfx#disqus_thread">comments</a>.</p>        </div>
+                pending
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/some_fixups_for_sfx#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
+            <a href="http://theodox.com/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
                 <h2 class="post-title">
-                    First module of the year!
+                    First module of the&nbsp;year!
                 </h2>
             </a>
-                <p>It's been a busy few months at work, and the blogging has been pretty light. But I promised some folks on the Tech-Artists.org slack that I'd share some code for dealing with Mays's ShaderFX system: a very useful toolkit but not the best documented or automatable part of Maya. Since it's New Years' Resolution time, I thought I'd kill two birds with one stone and put up some notes to go with the code  </p>
-<p>All of shaderfx in maya is organized by a single, undocumented command. Which is pretty lame.   </p>
-<p>However, it’s not as bad as it seems once you figure out the standard command form, which is always some variant of this form:  </p>
-<div class="highlight"><pre><span></span>    shaderfx -sfxnode &lt;shader node&gt; -command &lt;command&gt; &lt;node id&gt;
-</pre></div>
-
-
-<p>The <code>sfxnode</code> argument tells maya which sfx shader to work on. The <code>command</code> flag indiciates an action and the <code>node id</code> specifies an node in the network. Nodes are assigned an id in order of creation, with the firstnode after the root ordinarily being number 2 and so on – however the ids are not recycled so a network which has been edited extensively can have what look like random ids and there is no guarantee that the nodes will form a neat, continuous order. <br />
-Many commands take additional arguments as well. Those extra always follow the main command; thus   </p>
-<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -edit_int 19 &quot;uiorder&quot; 1;
-</pre></div>
-
-
-<p>sets the value of the <code>uiorder</code> field on node 19 to a value of 1. <br />
-The <code>shaderfx</code> command can also return a value: to query the <code>uiorder</code> field in the example above you’d issue   </p>
-<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -getPropertyValue 19 &quot;uiorder&quot;;  
-    // Result: 1 //
-</pre></div>
-
-
-<p>So, the good news is that the <code>shaderfx</code> command is actually pretty capable: so far, at least, I have not found anything I really needed to do that the command did not support. For some reason the help documentation on the mel command is pretty sparse but the python version of the help text is actually quite verbose and useful.<br />
-Still, it’s kind of a wonky API: a single command for everything, and no way to really reason over a network as a whole. Worse, the different types of nodes are identified only by cryptic (and undocumented) numeric codes: for example a <code>Cosine</code> node is 20205 – but the only way to find that out is to use the <code>getNodeTypeByClassName</code> command (and, by the way, the node type names are case and space sensitive).  </p>
-<h2>Cleanup crew</h2>
-<p>With all that baggage I was pretty discouraged about actually getting any work done using shaderfx programmatically. However a little poking around produced what I hope is a somewhat more logical API, which I’m <a href="https://github.com/theodox/sfx">sharing on github</a>.<br />
-The <code>sfx</code> module is a plain python module - you can drop it into whatever location you use to story your Maya python scripts. It exposes two main classes:<br />
-<strong><code>SFXNetwork</code></strong> represents a single shader network – it is a wrapper around the Maya shader ball. The <code>SFXNetwork</code> contains an indexed list of all the nodes in the network and also exposes methods for adding, deleting, finding and connecting the nodes in the network.<br />
-<strong><code>SFXNode</code></strong> represets a single node inside the network. It exposes the properties of the node so they can be accessed and edited using python dot-style syntax. </p>
-<p>The module also includes to submodules, <code>sfxnodes</code> and <code>pbsnodes</code>. These make it easier to work with the zillions of custom node ids: Instead of remembering that a <code>Cosine</code> node is type 20205, you reference <code>sfxnodes.Cosine</code>. I’ll be using the <code>StingrayPBSNetwork</code> class and the <code>pbsnodes</code> submodule in my examples, since most of my actual use-case involves the Stingray PBS shader. The syntax and usage, however, are the same for the vanilla <code>SFXNetwork</code> and <code>sfxnodes</code> – only the array of node types and their properties.<br />
-Here’s a bit of the basic network functionality.   </p>
-<h3>Create a network</h3>
-<p>To create a new shaderfx network, use the <code>create()</code> classmethod:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sfx</span> <span class="kn">import</span> <span class="n">StingrayPBSNetwork</span>  
-<span class="kn">import</span> <span class="nn">sfx.pbsnodes</span> <span class="kn">as</span> <span class="nn">pbsnodes</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">StingrayPBSNetwork</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;new_shader&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>That creates a new shaderball (note that it won’t be connected to a shadingEngine by default – that’s up to you).  </p>
-<h3>Listing nodes</h3>
-<p>An SFXNetwork contains a dictionary of id and nodes in the field <code>nodes</code>. This represents all of the graph nodes in the network. <em>Note I’ve used a different shader than the default one in this example to make things easier to read.</em>  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span>  
-<span class="c1"># { 1 : &lt;sfxNode UnlitBase (1)&gt;, 2: &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt; }</span>
-
-<span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>  
-<span class="c1"># &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt;</span>
-</pre></div>
-
-
-<p>The keys of the dictionary are the node ids. As already noted, these are not guaranteed to be in a continuous order depending on what you do to the network - however they are stable and they will always match the id numbers shown in the shaderfx ui when you activate the <code>show node IDs</code> toggle in the ShaderFX window.  </p>
-<p>The values of the node dictionary are <code>SFXNode</code> objects.  </p>
-<h3>Adding new nodes</h3>
-<p>To add a node to the network use its <code>add()</code> method and pass a class from either the <code>sfxnodes</code> or <code>pbsnodes</code> submodule to indicate the type.   </p>
-<div class="highlight"><pre><span></span><span class="n">if_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">If</span><span class="p">)</span>  
-<span class="c1"># creates an If node and adds it to the network</span>
-
-<span class="n">var_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">MaterialVariable</span><span class="p">)</span>  
-<span class="c1"># creates a MaterialVariable node and adds it to the network</span>
-</pre></div>
-
-
-<h3>Connecting nodes</h3>
-<p>Connecting nodes in shaderfx requires specifying the source node the source plug, the target node and the target plug. Unforunately the plugs are indentifited by zero-based index numbers: the only way to know them by default is to count the slots in the actual shaderfx UI. Output plugs are usually (not always) going to be index zero but the target plugs can be all over the map.<br />
-To make this cleaner, each <code>SFXNode</code> object exposes two fields called <code>inputs</code> and <code>outputs</code>, which have named members for the available plugs. So to connect the ‘result’ output of the <code>var_node</code> object to the input named ‘B’ on the <code>if_node</code>:  </p>
-<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-
-
-<p>If the connection can’t be made for some reason, a <code>MayaCommandError</code> will be raised.  </p>
-<p>In any shader system it's common to have to ‘swizzle’ the connections: to connect the x and z channels of a 3-pronged output to channels of an input, for example. Mismatched swizzles are a common cause of those <code>MayaCommandErrors</code>. You can set the swizzle along with the connection by passing the swizzle you need as a string  </p>
-<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>  
-<span class="c1"># connects the &#39;x&#39; output of var_node  to the b channel of the input</span>
-</pre></div>
-
-
-<h3>Setting node properties</h3>
-<p>Nodes often have editable properties. There are a lot of different ones so it is often necessary to inspect a node and find out what properties it has and what type of values those properties accept. Every <code>SFXNode</code> object has a read-only member <code>properties</code>, which is a dictionary of names and property types. Thus:</p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span>  
-<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
-</pre></div>
-
-
-<p>If you know that a property exists on an object you can query it or set it using typical python dot syntax:  </p>
-<div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>   
-<span class="c1"># get the node at index 5 in this network</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>  
-<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>  
-<span class="c1"># 1.0  </span>
-<span class="c1"># getting a named property returns its value.</span>
-
-<span class="n">node</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="mf">2.0</span>  
-<span class="c1"># sets the node value</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>  
-<span class="c1"># 2.0</span>
-</pre></div>
-
-
-<p>If you try to access a property that doesnt exist, an error will be raised:  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span>  
-<span class="c1"># AttributeError: no attribute named i_dont_exist</span>
-
-<span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span> <span class="o">=</span> <span class="mi">99</span>  
-<span class="c1"># MayaCommandError</span>
-</pre></div>
-
-
-<h2>Help wanted!</h2>
-<p>So, there’s the basics. This module is pretty simple but I’ve found it <em>extremely</em> helpful in workign with SFX nodes. It will be much easier to work with, of course, if you already know your way around ShaderFX. Please let me know how it works for you – and as always bug reports and pull requests are very welcome! </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 13 January 2016
+            <p class="post-meta">Wed 13 January 2016
             </p>
-<p>There are <a href="http://theodox.com/2016/sfx_module#disqus_thread">comments</a>.</p>        </div>
+                Introducing SFX — a python module for scripting Maya shaderFX shaders.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/sfx_module#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr..... Maya!!!">
+            <a href="http://theodox.com/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr….. Maya!!!">
                 <h2 class="post-title">
-                    Grrrr..... Maya!!!
+                    Grrrr&#8230;..&nbsp;Maya!!!
                 </h2>
             </a>
-                <p>Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its over. </p>
-<p>Other kinds of pain aren't as sharp or as sudden... but they're chronic.  That persistent twinge in your lower back may not hurt as much as a twisted ankle - but it's going to be there forever (at least unless you get into Power Yoga, or so my wife claims).  </p>
-<p>Maya is old enough to have a few of those chronic pains, and I just ran in to one which -- once we debugged it and figured it out -- I realized has been a persistant irritant for at least the last decade; if my creaky old memory does not lie it's been a distinct pain in the butt since at least 2002 and it may very well go back all the way to Maya 1.0. </p>
-<p>In another context I might even have been able to diagnose it but instead we spent a ton of time and energy working around an unexpected behavior which is, in fact, purely standard Maya. It's <em>stupid</em> Maya, but it's standard too.  Maya, alas, is <strong>double plus ungood</strong> about mixing per-face and per-object material assignments. So, I figured I'd document this here for future sufferers: it might not ease the pain much, but at least you'll know you're not crazy.  </p>
-<p>The basic problem is that assigning materials to faces and to objects use slightly different mechanisms. If you check your hypergraph you'll see that per-face assignments connect to their shadingGroup nodes through the <code>compInstObjectGroups[]</code> attribute while object-level assigmemts go through the similar-but-not-identical <code>instObjectGroups</code> attribute (if you're looking for these in the docs, the component cone is inherited from the <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/geometryShape.html"><code>geometryShape</code></a> class and the object version comes from <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/dagNode.html"><code>dagNode</code></a>).  </p>
-<p>As long as you're working with one object at a time this isn't a problem. However, if you're duplicating or copy-pasting nodes, there's a gotcha:  If you ever try to merge meshes which have a mix of per-face and per-object assignments, Maya will magically "remember" old per-face assigments in the combined mesh.  If you're a masochist, here's the repro:  </p>
-<ol>
-<li>create a object, give it a couple of different materials on different faces</li>
-<li>duplicate it a couple of times</li>
-<li>assign a per-object material to the duplicates, overriding the original per-face assignments</li>
-<li>combine all the meshes.</li>
-<li><em>Et voîla!</em> The cloned meshes revert to their original assignments</li>
-</ol>
-<p><a href="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s1600/pasted_image_at_2015_10_23_05_32_pm_720.png"><img alt="" src="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s640/pasted_image_at_2015_10_23_05_32_pm_720.png" /></a></p>
-<p>What appears to happen is that those <code>compInstObjectGroups</code> connections are driven by hidden <code>groupID</code> nodes which don't get deleted when the per-face assignments are overridden by the per-object ones in step (3) .  They stick around even though they aren't being used, and when the mesh is combined they step right back into their original roles.  </p>
-<p>If you're doing this interactively it's an annoyance. If you're got tools that do things like auto-combine meshes to cut down on transform load in your game.... well, it's a source of some surprising bugs and equally surprising bursts of profanity.  But at least it'ss predictable.</p>
-<p>The workaround:  Before doing any mesh combination first delete the existing history then add something harmless to meshes you're about to combine. (I use a triangulate step, since this happens only at export time). That kills the rogue <code>groupID</code> nodes and keeps the combined mesh looking the way you intended.</p>
-<p>Sheesh. What a way to make a living.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 27 October 2015
+            <p class="post-meta">Tue 27 October 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/grrrr_maya#disqus_thread">comments</a>.</p>        </div>
+                A really annoying, and really old bug in Maya relating to materials.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/grrrr_maya#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/charcoal" rel="bookmark" title="Permalink to Charcoal - it's smokin'!">
+            <a href="http://theodox.com/2015/charcoal" rel="bookmark" title="Permalink to Charcoal - it’s smokin’!">
                 <h2 class="post-title">
-                    Charcoal - it's smokin'!
+                    Charcoal - it&#8217;s&nbsp;smokin&#8217;!
                 </h2>
             </a>
-                <p>When you’re shopping around for something new – whether it’s a cool new piece of software or just a kitchen gadget – it’s not uncommon to tell yourself, “man, I wish I had thought of that.” But what’s really impressive is when you see a polished product and you say to yourself <em>Dammnit, I absolutely thought of that!</em>, or <em>I’ve been wanting this exact thing for years!</em>. It’s a rare thrill when you stumble across something that seems as if it were a gift from some future self, come back to give you exactly what you wanted in a way that only you, yourself could.<br />
-One of my coworkers found one of those little somethings the other day - a product that will make pretty much any TA go feel like Christmas came a little early.   </p>
-<p>The <a href="http://zurbrigg.com/charcoal-editor">Charcoal Editor</a> from <a href="http://zurbrigg.com/about">Chris Zurbrigg</a> is a slick, polished replacement for Maya’s script editor. It’s a plugin (available for Maya on Mac, Windows and Linux) that offers many of the features of a slick Python IDE right inside of Maya. Some of the key highlights include  </p>
-<ul>
-<li>Syntax highlighing</li>
-<li>Autcomplete (including your own code and also the entire Maya cmds api)</li>
-<li>Smart indent and dedent</li>
-<li>Bracket matching</li>
-</ul>
-<p>but the feature that will sell most Maya veterans instantly is the fact you can execute lines or scripts without the familiar <strong>Select &gt; Enter</strong> that has deleted countless lines of your test code down the ages.   </p>
-<p><a href="https://vimeo.com/89196374">Charcoal Editor Overview</a> from <a href="https://vimeo.com/zurbrigg">Chris Zurbrigg</a> on <a href="https://vimeo.com">Vimeo</a>.</p>
-<p>That one feature alone would probably be worth the price for most people who do a lot of scripting. But the whole package is thoughtfully put together in a way that clearly says the author wrote a tool for himself – and that he shares a lot of the frustrations that have driven you and I bonkers for the last 18 years of Maya history. A great example is the addition of quick help for Maya commands: if you (like me) can never remember the difference between the flags for <code>listConnections</code> and those for <code>listRelatives</code>, Charcaol allows you to pop up a quick in-window help view or to open the relevant documentation in a browser: a welcome alternative to the maddening ritual of entering “cmds.whatever” into Chrome and being directed to the Maya 2011 Japanese docs by the mysterious imps of the internet.   </p>
-<p>In general, Charcoal shows a lot of attention to the nuances of scripting work. For example, it allows you to quickly toggle layouts: Charcoal allows you to quickly flip back and forth between the usual split view and a full panel of either script or history, so you don’t have to give up coding space to see your printouts or vice-versa. Likewise, you can set font sizes and color schemes for the scripting panel and the history panel separately – a big help if you want to save space on your printouts or if (like me) your eyes are going and you need to bump up the font size for coding. The history panel even supports highlighting – separating errors and warnings clearly from regular printouts, for example. All in all it’s a collection of small touches that offers a much-appreciated sense that the program has your back and that the author has wrestled with many of the same irritations you’ve had.  </p>
-<p>The product also ventures into territory that’s useally associated with full-fledged IDEs. It particular it offers an “outline view” which displays the classes and functions in the current scope - a big help for navigating around in a longish file, as well as a handy way to remember what you’re working with. There’s also a “project view” which displays all of the scripts in a project folder tree – more or less the same as the project views in <a href="http://www.sublimetext.com/">Sublime Text</a> or <a href="https://atom.io/">Atom</a> (two other scripter-friendly editors you should check out if you’ve never seen them.)<br />
-These IDE features will be very helpful for folks who’ve been soldiering on with nothing but the Maya script editor and Notepad. If you’re already using an IDE like <a href="https://www.jetbrains.com/pycharm/">PyCharm</a>, <a href="https://wingware.com/">Wing</a>, or <a href="http://microsoft.github.io/PTVS/">PTVS</a> they may not be quite enough to wean you out of your fancy environment – particularly if you’r gotten used to using a real debugger instead of littering your code with print statements. Charcoal’s project features are functional but – given the nature of the task and the audience – are not as fancy as the equivalent features in big budget development environments. If you really prize the ablity to inifitely noodle on color themes, or a built-in style guide, you may find yourself wandering back to one of the bigger packages. That’s not a knock on Charcoal, though – it’s just a reminder that it’s a specialist tool for Maya users and not a general-purpose project management powerhouse.  </p>
-<p>For myself, I plan on sticking with PyCharm for long coding sessions (btw, PyCharm fans, you’ll be <em>incredibly</em> pleased to hear that Charcoal allows cut and paste directly from PyCharm, unlike Maya’s wonky script editor. Whoop-de-doo!) However Charcoal more than justifies itself as a replacement for the vanilla script editor with a lot of juicy productivity features. I’ve already gotten a lot of productivity bounce by using <a href="https://github.com/cmcpasserby/MayaCharm">MayaCharm</a> to bypass the Maya script editor whenever possible – but I still spend quite a lot of time in the clunky old Maya pane nonetheless. I’ve got high hopes that Charcoal will save precious brain power for real problems and allow me to focus more on doing my job and less on frantically hitting Undo after my last attempt to execute a line accidentally erased an hour’s work.   </p>
-<p>Charcoal offers a free, non-saving demo; an individual license is $49 US (site licenses are available but you’ll have to negotiate them with the author).</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 06 October 2015
+            <p class="post-meta">Tue 06 October 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/charcoal#disqus_thread">comments</a>.</p>        </div>
+                The Charcoal editor, an excellent drop-in replacement for Maya’s script editor
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/charcoal#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/return_of_the_namedtuples" rel="bookmark" title="Permalink to Return of the namedtuples">
+            <a href="http://theodox.com/2015/return_of_the_namedtuples" rel="bookmark" title="Permalink to Return of the namedtuples">
                 <h2 class="post-title">
-                    Return of the namedtuples
+                    Return of the&nbsp;namedtuples
                 </h2>
             </a>
-                <p>I’m sure you’ve read or written code that looks like this:  </p>
-<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>  
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>  
-    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</pre></div>
-
-
-<p>Here <code>some_function</code> must be using one of Python’s handiest features, the ability to return lists or tuples of different types in a single function. Python’s ability to return ‘whatever’ - a list, a tuple, or a single object – makes it easy to assemble a stream of data in one place and consume it in others wihout worrying about type declarations or creating a custom class to hold the results. Trying to create a similarly flexible system in, say, C# involves a lot of type-mongering. So it’s nice.  </p>
-<p>At least, it’s nice <em>at first</em>. Unfortunately it’s got some serious drawbacks that will become apparent after a while – outside the context of a single script or function, relying entirely on indices to keep things straight is dangerous. As so often in Pythonia, freedom and flexibility can come at the cost of chaos downstream if you’re not careful.  </p>
-<p><a href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRd4-Lzu45urv3dmdng5DMjdlO-ILlLVxoa-HeHMZ8uczP4fLWC"><img alt="" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRd4-Lzu45urv3dmdng5DMjdlO-ILlLVxoa-HeHMZ8uczP4fLWC" /></a></p>
-<h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#i-have-a-bad-feeling-about-this"></a>I have a bad feeling about this…</h1>
-<p>Everything will be hunky-dory as long as <code>some_function</code> continues to pack its output the same way. In this example <code>some_function</code> is probably doing something like:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># imagine some actual code here ...  </span>
-<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>  
-<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_list</span>  
-    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">:</span>  
-        <span class="n">settable</span> <span class="o">=</span> <span class="n">is_attrib_settable</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">settable</span><span class="p">:</span>  
-           <span class="n">new_value</span> <span class="o">=</span> <span class="n">dict_of_defaults</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>  
-           <span class="n">results</span><span class="o">.</span><span class="n">append</span> <span class="p">([</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">new_value</span><span class="p">])</span>  
-<span class="k">return</span> <span class="n">results</span>
-</pre></div>
-
-
-<p>Inevitably, though, something will come along that causes the order of the results to change. In a Maya example like this, for example, the likely cause would be some other user of this function finding out that the code needs to set defaults on an unusual value type. <code>setAttr</code> needs to be told what type of data to expect if things are unusual.  </p>
-<p>That being the case, your teammate extends <code>some_function</code> to output the data type needed. If you’re lucky, the results look like <code>[node, attribute, value, type]</code> and your existing code works fine. But if it changes to <code>[node, attribute, type, value]</code> your existing code will break in wierd ways. Moreover if you haven’t written a lot of comments, the person fixing the bugs will have to sit down and deduce what <code>item[0]</code>, <code>item[1]</code> and <code>item[2]</code> were supposed to be.   </p>
-<p>This example is a perfect illustration unit tests are such a nice thing to have in Python-land: a unit test would probably catch the change in signature right away, alerting your helpful co-worker to the can of worms they have opened up by changing the output of the function. But the real moral of the story is how dangerous it is to rely on implicit knowledge of structures – like the ordering of a list – instead of on explicit instructions. When somebody fails to understand the implications of that ordering, bad things will happen. When the knowledge you need to debug the problem is hidden, things will be<br />
-even worse.  </p>
-<p><a href="http://images6.fanpop.com/image/photos/36000000/Harrison-in-Star-Wars-Empire-strikes-back-harrison-ford-36029606-3257-2231.jpg"><img alt="" src="http://images6.fanpop.com/image/photos/36000000/Harrison-in-Star-Wars-Empire-strikes-back-harrison-ford-36029606-3257-2231.jpg" /></a></p>
-<blockquote>
-<p>Sometimes things get complicated</p>
-</blockquote>
-<h2>Return classes strike back</h2>
-<p>In most languages the way around this is to create a class that holds the results of something like <code>some_function</code>. A result class provides clear, named access to what’s going on:  </p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attr</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">val</span>
-
- <span class="c1"># and inside of some_function()  </span>
-<span class="o">...</span>  
-    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>  
-<span class="o">...</span>
-</pre></div>
-
-
-<p>This means the receiving code is much neater and easier to understand:  </p>
-<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>  
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>  
-    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">node</span><span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</pre></div>
-
-
-<p>This is a better record of what you were trying to achieve in the first place, and it’s also much more survivable: as long as HelpfulCoworker01 does not actually rename the fields in the result object it can be tweaked and updated without causing problems.  </p>
-<h2>A bit less classy</h2>
-<p>For many cases this is the right way to go. However it comes with some drawbacks of its own.   </p>
-<p>First off – let’s be honest – there’s a lot of typing for something so dull. I always try to leave that out of the equation when I can - the time spent typing the code is such a tiny fraction of the time you’ll spend reading it that trying to save a few keystrokes is usually a Bad Idea (tm). However, typing 5 lines when you could just type a pair of bracket does feel like an imposition – particularly when the 5 lines are 100% boring boilerplate.  </p>
-<p>The second issue is that, being a class, <code>SomeFuncResult</code> is comparatively expensive: it costs a smidge more in both memory and processor time than just a list or a tuple of values. I’m ranking this behind the typing costs deliberately, because most of the time that increment of cost doesn’t matter at all: if you’re dealing with a few hundred or even a few thousand of them, at a time the costs for spinning up new instances of <code>SomeFuncResult</code> just to hold data are going to be invisible to users. However, if you are doing something more performance-intensive the costs of creating a full mutable object can be significant in large numbers. As always, <a href="the_right_profile.html">it’s wiser not to try to optimize until things are working</a> but this is still a consideration worth recalling.  </p>
-<p>The last issue (but probably the most important) is that <code>SomeFuncResult</code> can be changed in flight. Since it is a class, the data in a <code>SomeFuncResult</code> can be updated (for you CS types, it is <em>mutable</em>). This means some other piece of code that looks at the result object in between <code>some_function</code> and you might can decide to mess with the results. That can be a feature or a bug depending on how you want to code it – but since Python does not have a built-in mechanism for locking fields in an object, you’d have to put in extra work to make sure the results didn’t get changed by accident if keeping the data pristine was mission-critical. You can use the a property decorator to make a fake read only field:  </p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="n">node</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">_attribute</span> <span class="o">=</span> <span class="n">attr</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">val</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attribute</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
-</pre></div>
-
-
-<p>Alas, our 5 lines of boilerplate have now blossomed into 16. Our quest for clarity is getting expensive.  </p>
-<p><a href="https://s-media-cache-ak0.pinimg.com/originals/ec/cf/c1/eccfc13e87cc987cbe29fadb248e3b6b.jpg"><img alt="" src="https://s-media-cache-ak0.pinimg.com/originals/ec/cf/c1/eccfc13e87cc987cbe29fadb248e3b6b.jpg" /></a></p>
-<h2>obiter dicta</h2>
-<p>One common way to get around the hassles – or at least, they typing costs –of custom return objects is simply to use dictionaries instead. If you use the <a href="http://www.perforce.com/perforce/doc.current/user/p4pythonnotes.txt">perforce Python API</a> you’ll be quite familiar with this strategy; instead of creating a class, you just return dictionaries with nice descriptive names   </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_list</span>  
-    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">:</span>  
-        <span class="n">settable</span> <span class="o">=</span> <span class="n">is_attrib_settable</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">settable</span><span class="p">:</span>  
-           <span class="n">new_value</span> <span class="o">=</span> <span class="n">dict_of_defaults</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>  
-           <span class="n">results</span><span class="o">.</span><span class="n">append</span> <span class="p">({</span><span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">:</span><span class="n">attrib</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">new_value</span><span class="p">})</span>  
-<span class="k">return</span> <span class="n">results</span>
-</pre></div>
-
-
-<p>Like a custom class this increases readability and clarity; it’s also future proof since you can add more fields to the dictionary without messing with existing data.   </p>
-<p>Even better, dictionaries – unlike classes – are self-describing: in order to understand the contents of a custom result class like <code>SomeFuncResult</code> you’ll have to look at the source code, whereas you can see the contents of a result dictionary with a simple print statement. Dictionaries are slightly cheaper than classes (there is a <a href="http://stackoverflow.com/questions/1336791/dictionary-vs-object-which-is-more-efficient-and-why">good workaround</a> to speed up classes, but it’s something you have to write and maintain). And, of course, dictionaries have minimal setup costs: they are boiler-plate free.  </p>
-<p>This doesn’t mean they are ideal for all circumstances, however.</p>
-<p>The Achilles’ heel of using dictionaries is keys, which are likely to be strings. Unless you are very disciplined about using named constants for all your result dictionaries you’ll inevitably find that somebody somewhere has typed <code>attribite</code> with an  <em>i</em> instead of a <em>u</em> and suddenly perfectly valid, impeccably logical code is failing because nobody thought to look at the key names. Instead of typing lots of setup code once, you’ll be dribbling out square brackets and quotes till the end of time, with lots of little missteps and typos along the way. While that’s not an insurmoutable problem it’s another annoyance.  </p>
-<p><a href="http://assets7.thrillist.com/v1/image/1335116/size/tl-horizontal_main_2x/amazing-1983-return-of-the-jedi-photos-you-ve-never-seen"><img alt="" src="http://assets7.thrillist.com/v1/image/1335116/size/tl-horizontal_main_2x/amazing-1983-return-of-the-jedi-photos-you-ve-never-seen" /></a></p>
-<blockquote>
-<p>Not so scary when you know the secret!</p>
-</blockquote>
-<h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#return-of-the-namedtuples"></a>Return of the namedtuples</h1>
-<p>Luckily there is yet another – and for most purposes better – way to return complex results — one that is both flexible and self-describing. <a href="http://pymotw.com/2/collections/namedtuple.html">namedtuples</a> are part of the python standard library and they offer a clean, simple way to create lightweight objects that have named properties – like classes – but require almost no setup: you can create a new type of named tuple with a single line of code, and then use it like a lightweight (and immutable) class.<br />
-A namedtuple is just a python tuple that can also use names to access it’s own fields. For example:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-
-<span class="c1"># create a namedtuple called &#39;SomeFuncRes&#39; to hold nodes, attributes and values  </span>
-<span class="n">SomeFuncRes</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;SomeFuncRes&quot;</span><span class="p">,</span> <span class="s2">&quot;node attribute value&quot;</span><span class="p">)</span>
-
-<span class="c1"># make an instance  </span>
-<span class="n">example</span> <span class="o">=</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="s1">&#39;pCube1&#39;</span><span class="p">,</span> <span class="s1">&#39;tx&#39;</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">)</span>  
-<span class="c1"># Result: SomeFuncRes(node=&#39;pCube1&#39;, attribute=&#39;tx&#39;, value=33.0)</span>
-</pre></div>
-
-
-<p>As you can see, namedtuples are as even easier to ‘read’ than dictionaries when printed out. However, namedtuples give you dot-access to their contents.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">example</span><span class="o">.</span><span class="n">node</span>  
-<span class="c1"># pCube1</span>
-</pre></div>
-
-
-<p>This saves a few characters: <code>result.node</code> beats <code>result['node']</code> – but mopre important offers with far fewer opportunities for mistyped keys or open quotes. <br />
-However, namedtuples can also use old-fashioned indexed access too:  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-<span class="c1"># pCube1</span>
-</pre></div>
-
-
-<p>And you can even iterate over them if you need to, since a namedtuple is in the end just a slightly fancier tuple:  </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>  
-    <span class="k">print</span> <span class="n">item</span>
-
-<span class="c1"># pCube1  </span>
-<span class="c1"># tx  </span>
-<span class="c1"># 30</span>
-</pre></div>
-
-
-<p>Namedtuples are easy to instantiate: You can create them using index ordering, names, or **keyword arguments. Names tend to be better for clarity, but if you’re expanding the results of other functions like <code>zip()</code> indices and double-starred dictionaries can be very handy. Having all three options allows you to create them in the most appropriate way.  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="s1">&#39;pSphere1&#39;</span><span class="p">,</span> <span class="s1">&#39;ry&#39;</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>  
-<span class="c1"># SomeFuncRes(node=&#39;pSphere1&#39;, attribute=&#39;ry&#39;, value=180)  </span>
-<span class="k">print</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="s1">&#39;pCube1&#39;</span><span class="p">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s1">&#39;tz&#39;</span><span class="p">)</span>  
-<span class="c1"># SomeFuncRes(node=&#39;pCube1&#39;, attribute=&#39;tz&#39;, value=1)  </span>
-<span class="n">from_dict</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="s1">&#39;pPlane1&#39;</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">:</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="mf">40.5</span><span class="p">}</span>  
-<span class="n">SomeFuncRes</span><span class="p">(</span><span class="o">**</span><span class="n">from_dict</span><span class="p">)</span>  
-<span class="c1"># SomeFuncRes(node=&#39;pPlane1&#39;, attribute=&#39;rz&#39;, value=40.5)</span>
-</pre></div>
-
-
-<p>One of the great advantages of namedtuples is that (unlike classes or dictionaries) namedtuples are <em>immutable</em>; that is, they are read-only by default. This is usually a Good Thing<sup>tm</sup> for a result object, since data changing in mid-flight can lead to subtle bugs that may be very hard to reproduce. Immutability also makes them cheaper: they don’t require Python to do as much setup behind then scenes when a they are created, which can be significant in large quantities. They usually <a href="http://blog.explainmydata.com/2012/07/expensive-lessons-in-python-performance.html">take up less memory as well</a>.   </p>
-<p>This combination of features is tough to beat in a cheapo data-only class. If for some reason you need to upgrade to a real class instead, you probably won’t even need to change the code which reads your namedtuples: Python doesn’t care if <code>result.node</code> is a namedtuple field or a regular object field. For all these reasons, namedtuples are a great little tool for a lot of common data-bundling jobs. No strategy fits every battle, but namedtuples are an excellent - and often overlooked! – way to manage this very common (albeit not very interesting) problem and to keep your overall toolkit cleaner, more robust and easier to maintain.  </p>
-<p><a href="http://iruntheinternet.com/lulzdump/images/its-a-trap-pun-its-a-wrap-admiral-ackbar-star-wars-1363199217Z.jpg?id=784"><img alt="" src="http://iruntheinternet.com/lulzdump/images/its-a-trap-pun-its-a-wrap-admiral-ackbar-star-wars-1363199217Z.jpg?id=784" /></a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 02 August 2015
+            <p class="post-meta">Sun 02 August 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/return_of_the_namedtuples#disqus_thread">comments</a>.</p>        </div>
+                A quick review of the Python namedtuple — a great way to return complex data from your functions without needing complex custom classes.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/return_of_the_namedtuples#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/the_right_profile" rel="bookmark" title="Permalink to The right profile">
+            <a href="http://theodox.com/2015/the_right_profile" rel="bookmark" title="Permalink to The right profile">
                 <h2 class="post-title">
-                    The right profile
+                    The right&nbsp;profile
                 </h2>
             </a>
-                <p>Lately I was working in one of those relatively rare TA tasks where performance really mattered. I had to do a lot of geometry processing and the whole thing was as slow as molasses, despite all my best guesses about clever little tricks to speed things up. </p>
-<p>To break the logjam, I resorted to actual profiling, something I tend to avoid except in emergencies. </p>
-<p>Now, you might wonder why I say I avoid profiling. If you skip ahead and see the trick I used here, and all the fiddly little bits of detailed performance data it provides, you may be particularly curious why anybody would want to pass up on all this cool, authoritative data. The reason, however, is really simple: Good profiling is so powerful that it can be overly seductive. Once you can see right down to the millisecond how tiny tweaks affect your code, the temptation to start re-working everything to shave a little bit off here and there is hard to escape.</p>
-<p>If you're working on a game engine, constant reference to the profiler might make sense. In regular TA work, however, milliseconds rarely matter: all that counts is the user's perception of responsiveness. Your users will care about the difference between a .1 second tool and a 1 second tool, or that between a 1 second tool and a 10 second tool. They are unlikely to care about - or even notice - the difference between a 1.3 second tool and a 1.1 second tool. The time you spend grinding out those extra fractions of a second may just not be worth it. As Donald Knuth, one of the great-grandaddies of all programming put it:</p>
-<blockquote>
-<p>We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil. </p>
-</blockquote>
-<p>So a word of warning before we proceed. Optimize late, only after you've got the problem solved and after you've got what seems like solid, working code that's just too slow. Stay focused on clarity, reliability and ease of maintenance first; only reach for the profiler in code where the perf has really become an issue. </p>
-<h2>Cheap-ass profiling</h2>
-<p>Python includes some excellent native profiling tools. The easiest one to use (and the one that's most handy for people working in Maya) is the <a href="https://docs.python.org/2/library/profile.html"><code>cProfile</code></a> module. It allows you to extract very detailed timing and call-count information from a run of a function. </p>
-<p>Here's a basic example of profile in action. We'll start of with a couple of simple functions. </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>  
-<span class="kn">import</span> <span class="nn">cProfile</span>
-
-
-<span class="k">def</span> <span class="nf">some_math</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>  
-    <span class="k">return</span> <span class="n">n</span> <span class="o">**</span> <span class="n">n</span>
-
-<span class="k">def</span> <span class="nf">slow</span><span class="p">():</span>  
-    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="o">.</span><span class="mo">01</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">do</span><span class="p">():</span>  
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>  
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">200</span><span class="p">):</span>  
-        <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>  
-        <span class="n">some_math</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>  
-        <span class="n">slow</span><span class="p">()</span>
-</pre></div>
-
-
-<p>Then we'll call them using <code>cProfile.run()</code>. The run function takes a string which it will use <code>eval</code> to execute. So in our case:</p>
-<div class="highlight"><pre><span></span>cProfile.run(&#39;do()&#39;)
-</pre></div>
-
-
-<p>That will print out the following report, or something pretty like it:</p>
-<div class="highlight"><pre><span></span>     604 function calls in 2.096 seconds
-
-Ordered by: standard name
-
-ncalls  tottime  percall  cumtime  percall filename:lineno(function)  
-    1    0.002    0.002    2.096    2.096 &lt;maya console&gt;:12(do)  
-  200    0.003    0.000    0.003    0.000 &lt;maya console&gt;:6(some_math)  
-  200    0.002    0.000    2.091    0.010 &lt;maya console&gt;:9(slow)  
-    1    0.000    0.000    2.096    2.096 &lt;string&gt;:1(&lt;module&gt;)  
-    1    0.000    0.000    0.000    0.000 {method &#39;disable&#39; of &#39;_lsprof.Profiler&#39; objects}  
-    1    0.000    0.000    0.000    0.000 {range}  
-  200    2.089    0.010    2.089    0.010 {time.sleep}
-</pre></div>
-
-
-<p>The first line in the report prints out the total time, in this case a shade over 2 seconds. Each line in the report that follows lists the following information for a single function call (including nested calls)</p>
-<p><em>ncalls</em>
-    The number of times a given function was called during this run. If the function is recursive, this number may show up as two numbers separated by a a slash, where the first is the true number of total calls and second the number of direct, non-recursive calls. As you can see here <code>do()</code> itself was called only once, but the sub-functions <code>some_math()</code> and <code>slow()</code> were each called 200 times; <code>time.sleep()</code> was called 200 times as well since it was called by every iteration of <code>slow()</code>
-<em>tottime</em>
-    the total amount of time spent executing this function for the entire run. As you can see the call to <code>time.sleep</code> occupies the bulk of the time in this run. Not that this is the time it takes to process the function - <em>not</em> the real-world time it takes to run! So our <code>do()</code> function in the first line shows a <code>tottime</code> of .002 seconds even though it clearly took more than two seconds to run. 
-<em>percall</em>
-    The <em>average</em> time spent executing the function on this line, if it was executed multiple times. Like <code>tottime</code>, this measures processor time only and does not include things like network delays or (as in this case) thread sleeps.
-<em>cumtime</em>
-    this is the real world time needed to complete the call, or more precisely the total real world time spent on all of the calls (as you can see, it's the sleep call and <code>do()</code> which each take up about two seconds)
-<em>percall</em>
-    the second percall column is the amount of average amount of real-world time spent executing the function on this line.
-<em>filename</em>
-    this identifies the function and if possible the origin of the file where the function came from. Functions that originate in C or other extension modules will show up in curly braces.</p>
-<p>As you can see this is <em>incredibly</em> powerful right out of the box: it lets you see the relative importance of different functions to your overall perfomance and it effortlessly includes useful back-tracking information so you can find the offenders.</p>
-<h2>Record Keeping</h2>
-<p>If you want to keep a longer term record, you can dump the results of <code>cProfile.run()</code> to disk. In this form:</p>
-<div class="highlight"><pre><span></span>cProfile.run(&#39;do()&#39;, &quot;C:/do_stats.prf&quot;)
-</pre></div>
-
-
-<p>You'll get a dump of the performance data to disk instead of an on-screen printout. A minor irritant is the fact that the dumped stats are not the plain-text version of what you see when running the stats interactively: they are the pickled version of a <code>Stats</code> object: just opened in a text editor they are gibberish.</p>
-<p>To read them you need to import the <code>pstats</code> module and create a new <code>Stats</code> from the saved file. It's easy:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>  
-<span class="n">disk_stats</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s2">&quot;C:/do_stats.prf&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Calling the <code>print_stats</code> method of your new <code>Stats</code> object will print out the familiar report. You can also use the <code>sort_stats</code> method on the object to reorganize the results (by call count, say, or cumulative time). </p>
-<p>The details on the <code>Stats</code> object are <a href="https://docs.python.org/2/library/profile.html#pstats.Stats">in the docs</a></p>
-<h2>Caveats</h2>
-<p>I've already said that this kind of information can tempt you to cruise past to point of diminishing returns right on to squeezing-blood-from-a-stone-land. That said it's also worth noting that there is also bit of the Heisenberg uncertainty principle at work here: profiling slightly changes the performance characteristics of your code Game engine programmers or people who do embedded systems for guided missiles will care about that: you probably don't need to.</p>
-<p>In any case, approaching this kind of profiling with the wrong mindset will drive you crazy as you chase micro-second scale will-o-the-wisps. The numbers give a good general insight into the way your code is working, but don't accord them any larger importance just because they seem seem so official and computer-y. They are guidelines, not gospel.</p>
-<h2>Using the data</h2>
-<p>When you actually do start optimizing, what do you want to do with all those swanky numbers? The art of optimizing code is <em>waaaay</em> too deep to cover in a few paragraphs but there are a couple of rules of thumb that are handy to think about while learning how to read the profile results:</p>
-<h3>Call Counts Count</h3>
-<p>The first thing to look at is <em>not</em> the times: it's the call counts. </p>
-<p>If they seem wildly out of line, you may have inadvertently done something like call a more than you intended. If you have a script that does something to 500-vertex object but a particular vertex-oriented function shows up 2000 or 4000 times, that may mean you're approaching the data in an inefficient way. If it becomes something huge - like 250,000 calls - it sounds like you're doing an "all against all" or "n-squared" check: an algorithm that has to consider not just every vert, but every vertex-to-vertex relationship. These are generally something to avoid where possible, and the call count totals are a good way to spot cases where you've let one slip in by accident. </p>
-<blockquote>
-<p>The evils of 'n-squared' and so on are illustrated nicely <a href="http://rob-bell.net/2009/06/a-beginners-guide-to-big-o-notation/">here</a>. You might also want to check out <a href="http://astore.amazon.com/tecsurgui-20/detail/1430232374">Python Algorithms</a> if you're really getting in to waters where this kind of thing matters!</p>
-</blockquote>
-<h3>Look for fat loops</h3>
-<p>The second thing too look at is the balance of times and call counts. The most performant code is a mix of infrequent big calls and high-frequency cheap ones. If your stats show a high call count and a high <code>cumtime</code> on the same line, that's a big red flag saying "investigate me!" As you can see in the report above, the real villains (<code>slow()</code> and in turn <code>time.sleep()</code>) are easily spotted by the combination of high call counts and high cumtime numbers.</p>
-<h3>Use builtins where possible</h3>
-<p>Next, you want to check the balance between your own code and built-ins or Maya API code, as indicated by the curly brackets around the function names in the last column. In general, API or built-in calls are going to be faster than anything you write yourself: doing things like a deriving the distance between two 3-D points will usually run about 8x faster in the API than it would in pure python. So, you'd like to see lots of those kinds of calls, particularly inside loops with high call counts. </p>
-<h3>High cumtimes</h3>
-<p>Only after you've sorted through the high call counts, and high call/cumtime combinations, and aggressive use of builtins do you want to start looking at high cumtimes on their own. Of course, you won't have a good idea when those high times are <em>justified</em> if you don't know how the code actually works, which is why you want to do your optimizing passes on code that is already legible and well organized. </p>
-<h2>Wrap</h2>
-<p>Naturally, these few notes just scratch the surface of how you optimize - this post is really about <em>profiling</em> rather than optimizing. I'm sure we'll hit that topinc some other day. In the meantime, it's worth spending some time mastering the slightly retro, programmer-esque interface of the cProfile module. Doug Hellman's <a href="http://pymotw.com/2/profile/"><em>Python Module Of the Week</em> article</a> on profiling is a good if you want to get beyond the basic report i'm using here. There's also a nice lightweight intro at <a href="http://www.blog.pythonlibrary.org/2014/03/20/python-102-how-to-profile-your-code/">Mouse vs Python</a>. The <a href="https://docs.python.org/2/library/profile.html#">docs</a> could be more friendly but they are authoritative.</p>
-<p>In the meantime, readers of a certain age will certainly remember who <em>really</em> had the right profile</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 18 April 2015
+            <p class="post-meta">Sat 18 April 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/the_right_profile#disqus_thread">comments</a>.</p>        </div>
+                A brief, gentle introduction to the uses and abuses of profiling in Maya Python
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/the_right_profile#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -699,107 +312,119 @@ ncalls  tottime  percall  cumtime  percall filename:lineno(function)
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

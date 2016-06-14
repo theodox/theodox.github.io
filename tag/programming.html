@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,16 +87,19 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
+            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
                 <h2 class="post-title">
-                    A touch of minq
+                    A touch of&nbsp;minq
                 </h2>
             </a>
+            <p class="post-meta">Sun 06 March 2016
+            </p>
                 <p>If you’re a long-time reader, you may recall that i’m very ambivalent about <a href="wraptastic.html">wrapper code</a>. I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.<br />
 So, it’s with a little bit of trepidation that I’m sharing my latest library. <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.<br />
 Now, that isn’t a particularly interesting job most of the time, but it’s one we do a <em>lot</em>: a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code> and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make. <br />
-Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like this?  </p>
+Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like&nbsp;this?  </p>
 <div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;something_thats_not_transform&#39;</span><span class="p">]</span>  
 <span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
 <span class="c1"># [u&#39;top&#39;]</span>
@@ -105,7 +110,7 @@ Moreover, I’m reasonably certain (though I didn’t do the grepping to bear th
 </pre></div>
 
 
-<p>or this?  </p>
+<p>or&nbsp;this?  </p>
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">my_meshes</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">):</span>  
     <span class="k">print</span> <span class="n">item</span>  
 <span class="c1"># Error: &#39;NoneType&#39; object is not iterable  </span>
@@ -116,11 +121,11 @@ Moreover, I’m reasonably certain (though I didn’t do the grepping to bear th
 
 
 <p>There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my <code>ls()</code> calls alone will produce at least 5 bugs.<br />
-More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want fixed.  </p>
-<h2>Minq in action</h2>
+More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want&nbsp;fixed.  </p>
+<h2>Minq in&nbsp;action</h2>
 <p>Hence, <a href="https://github.com/theodox/minq">minq</a>. <br />
 The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.<br />
-Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional means:  </p>
+Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional&nbsp;means:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_assemblies_that_drive_skins</span><span class="p">():</span>  
     <span class="n">skinned</span> <span class="o">=</span> <span class="p">[]</span>  
     <span class="k">for</span> <span class="n">asm</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">assemblies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>  
@@ -134,7 +139,7 @@ Suppose you need to find all of your character skeletons and distinguish them fr
 
 <p>You’ll notice the littering of <code>or []</code> to make sure we don’t get errors for failed queries. We have to create two temporary variables (<code>childen</code> and <code>history</code>) in order to store the intermediate results. And, obviously, we’re 3 layers deep when we get to the actual work item. <br />
 Above all, though, you need to remember two little bits of Maya trivia to make sense of this code: that <code>cmds.ls(asm=True)</code> means ‘give me the assemblies’ and that <code>listRelatives(ad=True)</code> gives you the children of an object. These are, of course, very clear to Maya vets – but there are over 50 flags in <code>ls()</code> and more than a dozen in <code>listRelatives()</code> . I’ve been working in Maya for 20 years and I still need to look up most of them. You pass those flags to Maya as strings which won’t get evaluated until runtime – and it’s possible to mistype them and not even know because <code>ls()</code>, in particular, makes wierd tweaky decisions about how to interpret conflicting flags.<br />
-Here’s the minq equivalent to the previous function:  </p>
+Here’s the minq equivalent to the previous&nbsp;function:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drives_skin</span><span class="p">(</span><span class="n">some_object</span><span class="p">):</span>  
     <span class="n">children</span> <span class="o">=</span> <span class="n">using</span><span class="p">(</span><span class="n">some_object</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AllChildren</span><span class="p">)</span>  
     <span class="n">skin_clusters</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">SkinClusters</span><span class="p">)</span>  
@@ -144,17 +149,17 @@ Here’s the minq equivalent to the previous function:  </p>
 </pre></div>
 
 
-<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the names:  </p>
+<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the&nbsp;names:  </p>
 <ol>
-<li><code>drives_skin()</code> takes a maya object  </li>
-<li>It gets all of that object’s children  </li>
-<li>It gets all of the future history of those children  </li>
-<li>It it filters down to only the skin clusters in that future history  </li>
-<li>it returns true if any skin clusters are present  </li>
+<li><code>drives_skin()</code> takes a maya&nbsp;object  </li>
+<li>It gets all of that object’s&nbsp;children  </li>
+<li>It gets all of the future history of those&nbsp;children  </li>
+<li>It it filters down to only the skin clusters in that future&nbsp;history  </li>
+<li>it returns true if any skin clusters are&nbsp;present  </li>
 </ol>
-<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read -- otherwise it could all be done in a single expression.<br />
+<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read &#8212; otherwise it could all be done in a single expression.<br />
 A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to <code>ls</code> and <code>listRelatives</code>.  </p>
-<p>Here’s a couple of other examples to give you the flavor of what a minq query looks like:  </p>
+<p>Here’s a couple of other examples to give you the flavor of what a minq query looks&nbsp;like:  </p>
 <div class="highlight"><pre><span></span><span class="c1"># get all mesh transforms in a scene  </span>
 <span class="n">mesh_transforms</span> <span class="o">=</span>  <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span>
 
@@ -178,632 +183,123 @@ A purist will probably point out that there are important under-the-hood details
 </pre></div>
 
 
-<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual MIT, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and style. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 06 March 2016
-            </p>
-<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>        </div>
+<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual <span class="caps">MIT</span>, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and&nbsp;style. </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2016/some_fixups_for_sfx" rel="bookmark" title="Permalink to Some fixups for sfx">
+            <a href="http://theodox.com/2016/some_fixups_for_sfx" rel="bookmark" title="Permalink to Some fixups for sfx">
                 <h2 class="post-title">
-                    Some fixups for sfx
+                    Some fixups for&nbsp;sfx
                 </h2>
             </a>
-                <p>I've posted <a href="https://github.com/theodox/sfx/commits/master">a couple of fixes</a> to the code for the <a href="http://techartsurvival.blogspot.com/2016/01/first-module-of-year.htmlDone">shaderfx module</a> I posted a little while ago.  <a href="https://plus.google.com/116374315761191190711">+Sophie Brennan</a> spotted a problem with the way that module handled some kinds of nodes -- which I had assumed were just plain old objects but which were in fact buttoned-up group nodes.  Since they didn't use the same method to report their outputs as the rest of shaderfx they could not easily be created or connected using the module.  </p>
-<p>Luckily  <a href="https://plus.google.com/115746724358684308496">+Kees Rijnen</a>, the main author of shaderfx, noticed the blog post and helpfully  pointed me at the source of the problem which I've included in a fix.   </p>
-<p>If you are using the original version of the code this may be a breaking change.  To unify the way that individual nodes and groups are connected,  I changed the connect() and disconnect() methods to take only two arguments where they previously took 4.  In the first pass you would write  </p>
-<div class="highlight"><pre><span></span>network.connect( node1, node1.outputs.xyz, node2, node2.inputs.rgb)
-</pre></div>
-
-
-<p>which was needlessly wordy.  So connect() and disconnect() now sport the cleaner, simpler syntax  </p>
-<div class="highlight"><pre><span></span>network.connect(node1.outputs.xyz,   node2.inputs.rgb)
-</pre></div>
-
-
-<p>As always, comments and pulls are encouraged!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 29 January 2016
+            <p class="post-meta">Fri 29 January 2016
             </p>
-<p>There are <a href="http://theodox.com/2016/some_fixups_for_sfx#disqus_thread">comments</a>.</p>        </div>
+                pending
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/some_fixups_for_sfx#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr..... Maya!!!">
+            <a href="http://theodox.com/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr….. Maya!!!">
                 <h2 class="post-title">
-                    Grrrr..... Maya!!!
+                    Grrrr&#8230;..&nbsp;Maya!!!
                 </h2>
             </a>
-                <p>Some kinds of pain are just occasional: you stub your toe or bump your head, ouch, and then its over. </p>
-<p>Other kinds of pain aren't as sharp or as sudden... but they're chronic.  That persistent twinge in your lower back may not hurt as much as a twisted ankle - but it's going to be there forever (at least unless you get into Power Yoga, or so my wife claims).  </p>
-<p>Maya is old enough to have a few of those chronic pains, and I just ran in to one which -- once we debugged it and figured it out -- I realized has been a persistant irritant for at least the last decade; if my creaky old memory does not lie it's been a distinct pain in the butt since at least 2002 and it may very well go back all the way to Maya 1.0. </p>
-<p>In another context I might even have been able to diagnose it but instead we spent a ton of time and energy working around an unexpected behavior which is, in fact, purely standard Maya. It's <em>stupid</em> Maya, but it's standard too.  Maya, alas, is <strong>double plus ungood</strong> about mixing per-face and per-object material assignments. So, I figured I'd document this here for future sufferers: it might not ease the pain much, but at least you'll know you're not crazy.  </p>
-<p>The basic problem is that assigning materials to faces and to objects use slightly different mechanisms. If you check your hypergraph you'll see that per-face assignments connect to their shadingGroup nodes through the <code>compInstObjectGroups[]</code> attribute while object-level assigmemts go through the similar-but-not-identical <code>instObjectGroups</code> attribute (if you're looking for these in the docs, the component cone is inherited from the <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/geometryShape.html"><code>geometryShape</code></a> class and the object version comes from <a href="http://help.autodesk.com/cloudhelp/2016/ENU/Maya-Tech-Docs/Nodes/dagNode.html"><code>dagNode</code></a>).  </p>
-<p>As long as you're working with one object at a time this isn't a problem. However, if you're duplicating or copy-pasting nodes, there's a gotcha:  If you ever try to merge meshes which have a mix of per-face and per-object assignments, Maya will magically "remember" old per-face assigments in the combined mesh.  If you're a masochist, here's the repro:  </p>
-<ol>
-<li>create a object, give it a couple of different materials on different faces</li>
-<li>duplicate it a couple of times</li>
-<li>assign a per-object material to the duplicates, overriding the original per-face assignments</li>
-<li>combine all the meshes.</li>
-<li><em>Et voîla!</em> The cloned meshes revert to their original assignments</li>
-</ol>
-<p><a href="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s1600/pasted_image_at_2015_10_23_05_32_pm_720.png"><img alt="" src="http://3.bp.blogspot.com/-WHA-mYamWSw/VjBfoXDF_4I/AAAAAAABMuY/BtrR34QPRhM/s640/pasted_image_at_2015_10_23_05_32_pm_720.png" /></a></p>
-<p>What appears to happen is that those <code>compInstObjectGroups</code> connections are driven by hidden <code>groupID</code> nodes which don't get deleted when the per-face assignments are overridden by the per-object ones in step (3) .  They stick around even though they aren't being used, and when the mesh is combined they step right back into their original roles.  </p>
-<p>If you're doing this interactively it's an annoyance. If you're got tools that do things like auto-combine meshes to cut down on transform load in your game.... well, it's a source of some surprising bugs and equally surprising bursts of profanity.  But at least it'ss predictable.</p>
-<p>The workaround:  Before doing any mesh combination first delete the existing history then add something harmless to meshes you're about to combine. (I use a triangulate step, since this happens only at export time). That kills the rogue <code>groupID</code> nodes and keeps the combined mesh looking the way you intended.</p>
-<p>Sheesh. What a way to make a living.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Tue 27 October 2015
+            <p class="post-meta">Tue 27 October 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/grrrr_maya#disqus_thread">comments</a>.</p>        </div>
+                A really annoying, and really old bug in Maya relating to materials.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/grrrr_maya#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/code_wars" rel="bookmark" title="Permalink to code wars">
+            <a href="http://theodox.com/2015/code_wars" rel="bookmark" title="Permalink to code wars">
                 <h2 class="post-title">
-                    code wars
+                    code&nbsp;wars
                 </h2>
             </a>
-                <p>By a certain stroke of cosmic irony, it was just after I finished shoe-horning lame <em>Star Wars</em> jokes into my last post that I started to get obsessed with <a href="http://www.codewars.com/">CodeWars</a>, one of the plethora of competitive coding sites that have sprung up in the last few years.   </p>
-<p><a href="http://3.bp.blogspot.com/-vc-eVNbzo1Q/VcZdEcRBhXI/AAAAAAABMag/NYI22iT0zro/s1600/cw.png"><img alt="" src="http://3.bp.blogspot.com/-vc-eVNbzo1Q/VcZdEcRBhXI/AAAAAAABMag/NYI22iT0zro/s400/cw.png" /></a></p>
-<p>Mostly I find that sort of thing pretty annoying – it’s a genre that all too easily degenerates into macho brogrammer chest-thumping. 90 percent of the code I see on those sites is so tightly knotted – in hopes of scoring fewest-number-of-lines bragging rights – that it’s useless for learning. I’m impressed as hell by this:  </p>
-<div class="highlight"><pre><span></span>f=lambda s:next((t,k)for t,k in map(lambda i:(s[:i],len(s)/i),range(1,len(s)+1))if t*k==s)
-</pre></div>
-
-
-<p>but I never want to have to <em>interact</em> with it (Bonus points if you can tell what it does! Post your answer in the comments....)  </p>
-<p>The nice thing about Codewars is that the experience tends to push you into thinking about how to solve the problems, rather than how to maximize your score. </p>
-<p>I particularly like two things: first, the site includes a built-in test framework so you can do The Right Thing<sup>tm</sup> and write the tests before you write the code – not only is it a helpful touch for would-be problem solvers its very effective ‘propaganda of the deed’ for encouranging people to take tests seriously. </p>
-<p>Second, the site doesn’t just show you the ‘best’ solutions, it shows you all of them – and it allows you to vote both for solutions you think are clever and ones you think embody “best practices.” That snippet I posted above is extremely <em>clever</em> but not a best practice – I wouldn’t let something like that into my codebase if I could avoid it! I’m not smart enough to unriddle such things, though I’m glad they exist.  </p>
-<p>The other nice thing is that most of the problems are bite-sized, the sort of thing you can chew on while waiting for a longish perforce sync to complete. It’s a great way to practice you coding chops outside all the gnarly things that come with working in a particular problems set for work. I’ve had a work task which involved me in a lot of 5-minute wait times this week and I found CodeWars to be a nice chance to do keep my brains warm while waiting for Perforce.  </p>
-<p>So, if you’re looking to sharpen up your coding skills you should definitely check out <a href="http://www.codewars.com/">CodeWars</a>. My username is <em>Theodox</em> and in the goofy ninja-academy language of Codewars we can form an ‘alliance’ by following one another. We can make technical art a power in the land!<br />
-On the practical side: codewars supports Python, Javascript, and several other languages – they just added C#. It’s great way to get familiar with new syntaxes and to see how folks who know what they are doing tackle problems natively, it’s a great tool to pick up a new language on your own. Give it a shot!  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 08 August 2015
+            <p class="post-meta">Sat 08 August 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/code_wars#disqus_thread">comments</a>.</p>        </div>
+                Code Wars, yet another programming dojo — but a pretty good one
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/code_wars#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/return_of_the_namedtuples" rel="bookmark" title="Permalink to Return of the namedtuples">
+            <a href="http://theodox.com/2015/return_of_the_namedtuples" rel="bookmark" title="Permalink to Return of the namedtuples">
                 <h2 class="post-title">
-                    Return of the namedtuples
+                    Return of the&nbsp;namedtuples
                 </h2>
             </a>
-                <p>I’m sure you’ve read or written code that looks like this:  </p>
-<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>  
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>  
-    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">item</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
-</pre></div>
-
-
-<p>Here <code>some_function</code> must be using one of Python’s handiest features, the ability to return lists or tuples of different types in a single function. Python’s ability to return ‘whatever’ - a list, a tuple, or a single object – makes it easy to assemble a stream of data in one place and consume it in others wihout worrying about type declarations or creating a custom class to hold the results. Trying to create a similarly flexible system in, say, C# involves a lot of type-mongering. So it’s nice.  </p>
-<p>At least, it’s nice <em>at first</em>. Unfortunately it’s got some serious drawbacks that will become apparent after a while – outside the context of a single script or function, relying entirely on indices to keep things straight is dangerous. As so often in Pythonia, freedom and flexibility can come at the cost of chaos downstream if you’re not careful.  </p>
-<p><a href="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRd4-Lzu45urv3dmdng5DMjdlO-ILlLVxoa-HeHMZ8uczP4fLWC"><img alt="" src="https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcRd4-Lzu45urv3dmdng5DMjdlO-ILlLVxoa-HeHMZ8uczP4fLWC" /></a></p>
-<h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#i-have-a-bad-feeling-about-this"></a>I have a bad feeling about this…</h1>
-<p>Everything will be hunky-dory as long as <code>some_function</code> continues to pack its output the same way. In this example <code>some_function</code> is probably doing something like:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># imagine some actual code here ...  </span>
-<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>  
-<span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_list</span>  
-    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">:</span>  
-        <span class="n">settable</span> <span class="o">=</span> <span class="n">is_attrib_settable</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">settable</span><span class="p">:</span>  
-           <span class="n">new_value</span> <span class="o">=</span> <span class="n">dict_of_defaults</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>  
-           <span class="n">results</span><span class="o">.</span><span class="n">append</span> <span class="p">([</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">new_value</span><span class="p">])</span>  
-<span class="k">return</span> <span class="n">results</span>
-</pre></div>
-
-
-<p>Inevitably, though, something will come along that causes the order of the results to change. In a Maya example like this, for example, the likely cause would be some other user of this function finding out that the code needs to set defaults on an unusual value type. <code>setAttr</code> needs to be told what type of data to expect if things are unusual.  </p>
-<p>That being the case, your teammate extends <code>some_function</code> to output the data type needed. If you’re lucky, the results look like <code>[node, attribute, value, type]</code> and your existing code works fine. But if it changes to <code>[node, attribute, type, value]</code> your existing code will break in wierd ways. Moreover if you haven’t written a lot of comments, the person fixing the bugs will have to sit down and deduce what <code>item[0]</code>, <code>item[1]</code> and <code>item[2]</code> were supposed to be.   </p>
-<p>This example is a perfect illustration unit tests are such a nice thing to have in Python-land: a unit test would probably catch the change in signature right away, alerting your helpful co-worker to the can of worms they have opened up by changing the output of the function. But the real moral of the story is how dangerous it is to rely on implicit knowledge of structures – like the ordering of a list – instead of on explicit instructions. When somebody fails to understand the implications of that ordering, bad things will happen. When the knowledge you need to debug the problem is hidden, things will be<br />
-even worse.  </p>
-<p><a href="http://images6.fanpop.com/image/photos/36000000/Harrison-in-Star-Wars-Empire-strikes-back-harrison-ford-36029606-3257-2231.jpg"><img alt="" src="http://images6.fanpop.com/image/photos/36000000/Harrison-in-Star-Wars-Empire-strikes-back-harrison-ford-36029606-3257-2231.jpg" /></a></p>
-<blockquote>
-<p>Sometimes things get complicated</p>
-</blockquote>
-<h2>Return classes strike back</h2>
-<p>In most languages the way around this is to create a class that holds the results of something like <code>some_function</code>. A result class provides clear, named access to what’s going on:  </p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">node</span> <span class="o">=</span> <span class="n">node</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="n">attr</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">value</span> <span class="o">=</span> <span class="n">val</span>
-
- <span class="c1"># and inside of some_function()  </span>
-<span class="o">...</span>  
-    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">,</span> <span class="n">attrib</span><span class="p">,</span> <span class="n">val</span><span class="p">))</span>  
-<span class="o">...</span>
-</pre></div>
-
-
-<p>This means the receiving code is much neater and easier to understand:  </p>
-<div class="highlight"><pre><span></span><span class="n">results</span> <span class="o">=</span> <span class="n">some_function</span><span class="p">()</span>  
-<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">results</span><span class="p">:</span>  
-    <span class="n">cmds</span><span class="o">.</span><span class="n">setAttr</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">node</span><span class="o">+</span> <span class="s2">&quot;.&quot;</span> <span class="o">+</span> <span class="n">item</span><span class="o">.</span><span class="n">attribute</span><span class="p">,</span> <span class="n">item</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</pre></div>
-
-
-<p>This is a better record of what you were trying to achieve in the first place, and it’s also much more survivable: as long as HelpfulCoworker01 does not actually rename the fields in the result object it can be tweaked and updated without causing problems.  </p>
-<h2>A bit less classy</h2>
-<p>For many cases this is the right way to go. However it comes with some drawbacks of its own.   </p>
-<p>First off – let’s be honest – there’s a lot of typing for something so dull. I always try to leave that out of the equation when I can - the time spent typing the code is such a tiny fraction of the time you’ll spend reading it that trying to save a few keystrokes is usually a Bad Idea (tm). However, typing 5 lines when you could just type a pair of bracket does feel like an imposition – particularly when the 5 lines are 100% boring boilerplate.  </p>
-<p>The second issue is that, being a class, <code>SomeFuncResult</code> is comparatively expensive: it costs a smidge more in both memory and processor time than just a list or a tuple of values. I’m ranking this behind the typing costs deliberately, because most of the time that increment of cost doesn’t matter at all: if you’re dealing with a few hundred or even a few thousand of them, at a time the costs for spinning up new instances of <code>SomeFuncResult</code> just to hold data are going to be invisible to users. However, if you are doing something more performance-intensive the costs of creating a full mutable object can be significant in large numbers. As always, <a href="the_right_profile.html">it’s wiser not to try to optimize until things are working</a> but this is still a consideration worth recalling.  </p>
-<p>The last issue (but probably the most important) is that <code>SomeFuncResult</code> can be changed in flight. Since it is a class, the data in a <code>SomeFuncResult</code> can be updated (for you CS types, it is <em>mutable</em>). This means some other piece of code that looks at the result object in between <code>some_function</code> and you might can decide to mess with the results. That can be a feature or a bug depending on how you want to code it – but since Python does not have a built-in mechanism for locking fields in an object, you’d have to put in extra work to make sure the results didn’t get changed by accident if keeping the data pristine was mission-critical. You can use the a property decorator to make a fake read only field:  </p>
-<div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">SomeFuncResult</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-     <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">,</span> <span class="n">attr</span><span class="p">,</span> <span class="n">val</span><span class="p">):</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">_node</span> <span class="o">=</span> <span class="n">node</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">_attribute</span> <span class="o">=</span> <span class="n">attr</span>  
-         <span class="bp">self</span><span class="o">.</span><span class="n">_value</span> <span class="o">=</span> <span class="n">val</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">node</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_node</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_attribute</span>
-
-    <span class="nd">@property</span>  
-    <span class="k">def</span> <span class="nf">value</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_value</span>
-</pre></div>
-
-
-<p>Alas, our 5 lines of boilerplate have now blossomed into 16. Our quest for clarity is getting expensive.  </p>
-<p><a href="https://s-media-cache-ak0.pinimg.com/originals/ec/cf/c1/eccfc13e87cc987cbe29fadb248e3b6b.jpg"><img alt="" src="https://s-media-cache-ak0.pinimg.com/originals/ec/cf/c1/eccfc13e87cc987cbe29fadb248e3b6b.jpg" /></a></p>
-<h2>obiter dicta</h2>
-<p>One common way to get around the hassles – or at least, they typing costs –of custom return objects is simply to use dictionaries instead. If you use the <a href="http://www.perforce.com/perforce/doc.current/user/p4pythonnotes.txt">perforce Python API</a> you’ll be quite familiar with this strategy; instead of creating a class, you just return dictionaries with nice descriptive names   </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">object_list</span>  
-    <span class="k">for</span> <span class="n">attrib</span> <span class="ow">in</span> <span class="n">attrib_list</span><span class="p">:</span>  
-        <span class="n">settable</span> <span class="o">=</span> <span class="n">is_attrib_settable</span><span class="p">(</span><span class="n">node</span><span class="p">,</span> <span class="n">attrib</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">settable</span><span class="p">:</span>  
-           <span class="n">new_value</span> <span class="o">=</span> <span class="n">dict_of_defaults</span><span class="p">[</span><span class="n">attrib</span><span class="p">]</span>  
-           <span class="n">results</span><span class="o">.</span><span class="n">append</span> <span class="p">({</span><span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="n">node</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">:</span><span class="n">attrib</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="n">new_value</span><span class="p">})</span>  
-<span class="k">return</span> <span class="n">results</span>
-</pre></div>
-
-
-<p>Like a custom class this increases readability and clarity; it’s also future proof since you can add more fields to the dictionary without messing with existing data.   </p>
-<p>Even better, dictionaries – unlike classes – are self-describing: in order to understand the contents of a custom result class like <code>SomeFuncResult</code> you’ll have to look at the source code, whereas you can see the contents of a result dictionary with a simple print statement. Dictionaries are slightly cheaper than classes (there is a <a href="http://stackoverflow.com/questions/1336791/dictionary-vs-object-which-is-more-efficient-and-why">good workaround</a> to speed up classes, but it’s something you have to write and maintain). And, of course, dictionaries have minimal setup costs: they are boiler-plate free.  </p>
-<p>This doesn’t mean they are ideal for all circumstances, however.</p>
-<p>The Achilles’ heel of using dictionaries is keys, which are likely to be strings. Unless you are very disciplined about using named constants for all your result dictionaries you’ll inevitably find that somebody somewhere has typed <code>attribite</code> with an  <em>i</em> instead of a <em>u</em> and suddenly perfectly valid, impeccably logical code is failing because nobody thought to look at the key names. Instead of typing lots of setup code once, you’ll be dribbling out square brackets and quotes till the end of time, with lots of little missteps and typos along the way. While that’s not an insurmoutable problem it’s another annoyance.  </p>
-<p><a href="http://assets7.thrillist.com/v1/image/1335116/size/tl-horizontal_main_2x/amazing-1983-return-of-the-jedi-photos-you-ve-never-seen"><img alt="" src="http://assets7.thrillist.com/v1/image/1335116/size/tl-horizontal_main_2x/amazing-1983-return-of-the-jedi-photos-you-ve-never-seen" /></a></p>
-<blockquote>
-<p>Not so scary when you know the secret!</p>
-</blockquote>
-<h1><a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404#return-of-the-namedtuples"></a>Return of the namedtuples</h1>
-<p>Luckily there is yet another – and for most purposes better – way to return complex results — one that is both flexible and self-describing. <a href="http://pymotw.com/2/collections/namedtuple.html">namedtuples</a> are part of the python standard library and they offer a clean, simple way to create lightweight objects that have named properties – like classes – but require almost no setup: you can create a new type of named tuple with a single line of code, and then use it like a lightweight (and immutable) class.<br />
-A namedtuple is just a python tuple that can also use names to access it’s own fields. For example:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections</span> <span class="kn">import</span> <span class="n">namedtuple</span>
-
-<span class="c1"># create a namedtuple called &#39;SomeFuncRes&#39; to hold nodes, attributes and values  </span>
-<span class="n">SomeFuncRes</span> <span class="o">=</span> <span class="n">namedtuple</span><span class="p">(</span><span class="s2">&quot;SomeFuncRes&quot;</span><span class="p">,</span> <span class="s2">&quot;node attribute value&quot;</span><span class="p">)</span>
-
-<span class="c1"># make an instance  </span>
-<span class="n">example</span> <span class="o">=</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="s1">&#39;pCube1&#39;</span><span class="p">,</span> <span class="s1">&#39;tx&#39;</span><span class="p">,</span> <span class="mf">33.0</span><span class="p">)</span>  
-<span class="c1"># Result: SomeFuncRes(node=&#39;pCube1&#39;, attribute=&#39;tx&#39;, value=33.0)</span>
-</pre></div>
-
-
-<p>As you can see, namedtuples are as even easier to ‘read’ than dictionaries when printed out. However, namedtuples give you dot-access to their contents.</p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">example</span><span class="o">.</span><span class="n">node</span>  
-<span class="c1"># pCube1</span>
-</pre></div>
-
-
-<p>This saves a few characters: <code>result.node</code> beats <code>result['node']</code> – but mopre important offers with far fewer opportunities for mistyped keys or open quotes. <br />
-However, namedtuples can also use old-fashioned indexed access too:  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">example</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  
-<span class="c1"># pCube1</span>
-</pre></div>
-
-
-<p>And you can even iterate over them if you need to, since a namedtuple is in the end just a slightly fancier tuple:  </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">example</span><span class="p">:</span>  
-    <span class="k">print</span> <span class="n">item</span>
-
-<span class="c1"># pCube1  </span>
-<span class="c1"># tx  </span>
-<span class="c1"># 30</span>
-</pre></div>
-
-
-<p>Namedtuples are easy to instantiate: You can create them using index ordering, names, or **keyword arguments. Names tend to be better for clarity, but if you’re expanding the results of other functions like <code>zip()</code> indices and double-starred dictionaries can be very handy. Having all three options allows you to create them in the most appropriate way.  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="s1">&#39;pSphere1&#39;</span><span class="p">,</span> <span class="s1">&#39;ry&#39;</span><span class="p">,</span> <span class="mi">180</span><span class="p">)</span>  
-<span class="c1"># SomeFuncRes(node=&#39;pSphere1&#39;, attribute=&#39;ry&#39;, value=180)  </span>
-<span class="k">print</span> <span class="n">SomeFuncRes</span><span class="p">(</span><span class="n">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">node</span> <span class="o">=</span> <span class="s1">&#39;pCube1&#39;</span><span class="p">,</span> <span class="n">attribute</span> <span class="o">=</span> <span class="s1">&#39;tz&#39;</span><span class="p">)</span>  
-<span class="c1"># SomeFuncRes(node=&#39;pCube1&#39;, attribute=&#39;tz&#39;, value=1)  </span>
-<span class="n">from_dict</span>  <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;node&#39;</span><span class="p">:</span><span class="s1">&#39;pPlane1&#39;</span><span class="p">,</span> <span class="s1">&#39;attribute&#39;</span><span class="p">:</span><span class="s1">&#39;rz&#39;</span><span class="p">,</span> <span class="s1">&#39;value&#39;</span><span class="p">:</span><span class="mf">40.5</span><span class="p">}</span>  
-<span class="n">SomeFuncRes</span><span class="p">(</span><span class="o">**</span><span class="n">from_dict</span><span class="p">)</span>  
-<span class="c1"># SomeFuncRes(node=&#39;pPlane1&#39;, attribute=&#39;rz&#39;, value=40.5)</span>
-</pre></div>
-
-
-<p>One of the great advantages of namedtuples is that (unlike classes or dictionaries) namedtuples are <em>immutable</em>; that is, they are read-only by default. This is usually a Good Thing<sup>tm</sup> for a result object, since data changing in mid-flight can lead to subtle bugs that may be very hard to reproduce. Immutability also makes them cheaper: they don’t require Python to do as much setup behind then scenes when a they are created, which can be significant in large quantities. They usually <a href="http://blog.explainmydata.com/2012/07/expensive-lessons-in-python-performance.html">take up less memory as well</a>.   </p>
-<p>This combination of features is tough to beat in a cheapo data-only class. If for some reason you need to upgrade to a real class instead, you probably won’t even need to change the code which reads your namedtuples: Python doesn’t care if <code>result.node</code> is a namedtuple field or a regular object field. For all these reasons, namedtuples are a great little tool for a lot of common data-bundling jobs. No strategy fits every battle, but namedtuples are an excellent - and often overlooked! – way to manage this very common (albeit not very interesting) problem and to keep your overall toolkit cleaner, more robust and easier to maintain.  </p>
-<p><a href="http://iruntheinternet.com/lulzdump/images/its-a-trap-pun-its-a-wrap-admiral-ackbar-star-wars-1363199217Z.jpg?id=784"><img alt="" src="http://iruntheinternet.com/lulzdump/images/its-a-trap-pun-its-a-wrap-admiral-ackbar-star-wars-1363199217Z.jpg?id=784" /></a></p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 02 August 2015
+            <p class="post-meta">Sun 02 August 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/return_of_the_namedtuples#disqus_thread">comments</a>.</p>        </div>
+                A quick review of the Python namedtuple — a great way to return complex data from your functions without needing complex custom classes.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/return_of_the_namedtuples#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2015/wraptastic" rel="bookmark" title="Permalink to Wraptastic!">
                 <h2 class="post-title">
                     Wraptastic!
                 </h2>
             </a>
-                <h2>The wrap up</h2>
-<p>The beauty of working with code, even really simple code, is that you can build your own little universe out of bits and pieces contributed by thousands of other people – all without paying a dime or even asking them for help. From sharing a script off of CreativeCrash to downloading a huge open-source behemoth like Apache, any reasonably plucky individual can today make stuff that actually involves the work of thousands of anonymous others. It’s really quite a remarkable evolution in human history that so many people voluntarily give away their work for nothing, and (whatever else you can say about the internet era) it’s something to be proud of participatng in.  </p>
-<p>On the other hand…   </p>
-<p>Well, Say you are an Amish farmer and all your neighbors showed up to help you raise your barn, you’d certainly be grateful. But you might still be pretty annoyed if Hans from next door hung your barn doors so they stuck in the summer heat. Maybe old Hans worries more about keeping the barn warm than you do, so he prefers a tight seal: but that’s small comfort when you’re heaving on that handle in a muggy Pennsylvania morning.<br />
-<img alt="barn raising" src="http://notonbluray.com/blog/wp-content/uploads/2014/04/Witness-barn-raising-scene-Bluray-screenshot-3.png" />  </p>
-<p>The internet abounds in excellent – and, amazingly, free – tools to help make your life easier. But they all started life as tools to make somebody else’s life easier. If your needs don’t line up perfectly with the needs of the original author, you’re likely to get a little <em><a href="http://www.dict.cc/deutsch-englisch/gereizt.html">gereizt</a></em>.  </p>
-<p>The fact is that nobody writes all their own stuff: we all use other people’s code all the time (and, as sharing becomes more and more ingrained in coding, that’s only going to increase). All that sharing means that we constantly have to work with libraries and APIs that are useful and free and for which we know we should be grateful… but – like that sticky barn door – they drive us absolutely bonkers.  </p>
-<h2>Wrap up</h2>
-<p>Not surprisingly, almost everybody ends up writing <em>wrappers</em>: code to help ease those nice-but-imperferct tools and API into a something that feels a little more natural. If you spend a lot of time on <a href="http://tech-artists.org/">TAO</a> or coding forums where people swap tips and advertise their wares you’ll see a huge variety of wrappers for all sorts of tasks: indeed, the wrappers often seem to outnumber the actual functional bits. Whether you call the job making things ‘more pythonic’ or ‘more functional’ or ‘cleaner’, its something we all feel compelled to do (and to <a href="https://github.com/theodox/mGui">share</a>) from time to time.<br />
-It’s also easy to get cynical about wrappers. You see so many – and so many of them just taste-driven syntactic variations on each other – that veteran coders often reflexively shrug and ignore them. This is particularly true in Python land, where the malleability of the language encourages a certain degree of experimentation and re-casting. Because you <em>can</em> adapt Python to suit your tastes, the temptation to do so even when it’s not actually getting you much beyond style points is hard to resist. <br />
-The net result of all this customization and adaptation is messier than Christmas morning: wrappers everywhere. Whatever simplifications each individual wrapper gives you, the aggregate effect of so many different extra layers is overwhelming. At several times in the last decade I’ve sworn off wrappers and vowed to stick with vanilla python, straight-up maya.cmds and simple, linear code. A good code archaeologist could troll through my history and find several repeated periods of growth and die-offs in the wrapper ecosystem, like fossils trapped in shale.<br />
-<img alt="where's pymel?" src="http://www.lparchaeology.com/prescot/images/156.jpg" /><br />
-<em>Where's pymel in there?</em>  </p>
-<h2>Wraptors</h2>
-<p>Wrappers, though, never really die off like the dinosaurs: they, in fact, more persistent as the cockroaches. And there’s a lesson in that. <br />
-Consider a classic case of wrapper-iteis: a system for <a href="rescuing_maya_gui_from_itself.html">making maya GUI less of a pain</a>. Everybody writes that one at some point in their TA career (I’ve done it 4 times to my certain knowledge, not counting one-offs and half-assed, abandonware). When somebody feels compelled to spruce something up that much it’s a sign. <br />
-Sure, most gui wrappers are just a reaction to the clunky, wordy way that Maya expects us to pop up a window or make a button. And sure, most of those wrappers (some of my own, I hasten to add) really aren’t much better: they’re just shortcuts that cut down on the carpal-tunnel of <code>cmds.textField(fieldname, q=True, text=True)</code>.   </p>
-<p>Sure, saving keystrokes is nice, but over the life of a piece of code the time spent typing is a tiny fraction of that spent reading, debugging and refactoring: that you could (and probably should) just bit the bullet on. But so many persistent, repeated efforts to fix a problemare a symptom that something worse than wordiness is the problem. Wrapper-itis really runs rampant when the toolkit that is simply not adequate to the job at hand. If you have to spend a lot of time thinking about the implementation details <em>instead</em> of the problem you really want to solve you’re not just wasting keystrokes: you’re wasting precious thought and time.  </p>
-<p>So I’ve been trying to soften my anti-wrapper stance. Sometimes it’s better to actually solve a recurring problem instead of papering it over; sometimes it’s worth taking the time to be in a position to write the code you <em>need</em> to write instead of the code you’re <em>forced</em> to write. Sometimes.<br />
-Which of course raises the question of how you can identify those situations and distinguish between a real need for better abstractions and a plain old peevish desire to avoid boilerplate.   </p>
-<h2>Wraptitude</h2>
-<p>The prime way to distinguish between a ‘wrappable’ problem and a purely syntactic one is to consider the needs of the person who’ll be picking through your code after you’be been run over by a bus.   </p>
-<p><img alt="" src="http://i.ytimg.com/vi/y_PrZ-J7D3k/maxresdefault.jpg" />  </p>
-<p>When your replacement comes to look at your code, will they see something that seems to clearly express the problems you were trying to solve? Or just code that clearly expresses your preferences for a particular set of formatting options and code idioms?  </p>
-<p>Here’s a little bit of code that reads some information from a database in order to add some ‘credits’ to a time account:   </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replenish</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>  
-    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>  
-        <span class="k">return</span> <span class="bp">False</span>
-
-    <span class="k">with</span> <span class="n">connect_db</span><span class="p">()</span> <span class="k">as</span> <span class="n">db</span><span class="p">:</span>  
-        <span class="n">repl</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT replenished FROM users WHERE name LIKE ? AND DATE (replenished) &lt;  DATE (&#39;now&#39;)&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="p">,))</span>  
-        <span class="n">recent</span> <span class="o">=</span> <span class="n">repl</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>
-
-        <span class="k">if</span> <span class="n">recent</span><span class="p">:</span>  
-            <span class="n">daynum</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT strftime (&#39;%w&#39;, &#39;now&#39;)&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="mi">0</span><span class="p">]</span>  
-            <span class="n">daynum</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">daynum</span><span class="p">)</span>  
-            <span class="n">repl_amount</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span>  
-                <span class="s2">&quot;SELECT sun, mon, tues, weds, thurs, fri, sat FROM replenish WHERE users_name LIKE ?&quot;</span><span class="p">,</span> <span class="p">(</span> <span class="n">user</span><span class="p">,))</span>  
-            <span class="n">refresh</span> <span class="o">=</span> <span class="n">repl_amount</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()[</span><span class="n">daynum</span><span class="p">]</span>  
-            <span class="n">cap_amount</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;SELECT cap, balance FROM users WHERE name LIKE ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">user</span><span class="p">,))</span>  
-            <span class="n">cap</span><span class="p">,</span> <span class="n">balance</span> <span class="o">=</span> <span class="n">cap_amount</span><span class="o">.</span><span class="n">fetchone</span><span class="p">()</span>  
-            <span class="n">new_balance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">cap</span><span class="p">,</span> <span class="n">refresh</span> <span class="o">+</span> <span class="n">balance</span><span class="p">)</span>
-
-            <span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE users SET balance = ? , replenished = DATE(&#39;now&#39;) WHERE name LIKE ?&quot;</span><span class="p">,</span> <span class="p">(</span><span class="n">new_balance</span><span class="p">,</span> <span class="n">user</span><span class="p">))</span>  
-        <span class="n">log</span><span class="p">(</span><span class="n">db</span><span class="p">,</span> <span class="n">user</span><span class="p">,</span> <span class="s2">&quot;replenished with </span><span class="si">%i</span><span class="s2"> credits&quot;</span> <span class="o">%</span> <span class="n">new_balance</span><span class="p">)</span>
-</pre></div>
-
-
-<p>the basic logic is pretty simple. Stripped all the fluff, you merely need to:  </p>
-<ul>
-<li>connect to the database</li>
-<li>ask the database the last time the user was topped off</li>
-<li>if the user hasn’t been replenished today, get the amount due</li>
-<li>add the amount to the user’s account</li>
-</ul>
-<p>That’s just four basic ideas. but it takes more than 20 lines to express them. <br />
-Far worse, the key logical linkages of the operation are implied, not stated.For the code to make real sense you need to know or deduce that the <em>users</em> table has a field called <em>replenished</em> which stores the last day when the user was topped off; that the ‘replenish’ table has seven fields containing the top-off numbers, arranged Sunday throguh Saturday; and that the user table stores both the maximum number of credits to store and the current balance of credits. The implementation of our simple, 4-step idea only makes sense with all of that special knowledge. It’s further obscured by time saving shortcuts, like using the actual column index in a database table to check today’s value. That may save a couple of lines but it renders the code even harder to parse. And, of course, there are syntax quirks big and small, particularly relating to the creation and formatting of the SQL. <br />
-This code works fine; it’s even fairly economical and readable for what it does (for a given value ‘economical’) But it’s not the kind of thing you’d ever want to <em>inherit</em>; it makes sense to me, because I wrote it and I remember (at least today) what I was thinking about when I did. But some future inheritor (heck, even me a year from now) will have to think long and hard about what really ought to be a simple process. The whole thing is bogged down in implementation details that <em>obscure the intent</em> of what’s going on. Really good code often reads almost like pseudo-code. This does not.<br />
-To illustrate what a good wrapper can do, here’s the same code using an ‘<a href="https://en.wikipedia.org/wiki/Object-relational_mapping">object relational mapper</a>‘ called <a href="https://github.com/coleifer/peewee">peewee</a>: it’s a wrapper around the SQL backend that map database operations onto classes and allows you to focus on the logic instead of the mechanics:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replenish</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>  
-    <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>  
-        <span class="k">return</span>  
-    <span class="k">with</span> <span class="n">connect_db</span><span class="p">()</span><span class="o">.</span><span class="n">atomic</span><span class="p">():</span>  
-        <span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>  
-        <span class="n">today_name</span> <span class="o">=</span> <span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%A&quot;</span><span class="p">)</span>
-
-        <span class="n">updatable_user</span> <span class="o">=</span> <span class="n">User</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">user</span><span class="p">,</span> <span class="n">replenished</span>  <span class="o">&lt;</span> <span class="n">today</span><span class="p">)</span>  
-        <span class="n">today_update</span> <span class="o">=</span> <span class="n">Replenish</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">name</span> <span class="o">=</span> <span class="n">user</span><span class="p">,</span> <span class="n">today_name</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">updatable_user</span> <span class="ow">and</span>  <span class="n">today_update</span><span class="p">:</span>  
-            <span class="n">refresh</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">today_update</span><span class="p">,</span> <span class="n">today_name</span><span class="p">)</span>  
-            <span class="n">new_balance</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">updatable_user</span><span class="o">.</span><span class="n">cap</span><span class="p">,</span> <span class="n">refresh</span> <span class="o">+</span> <span class="n">updatable_user</span><span class="o">.</span><span class="n">balance</span><span class="p">)</span>  
-            <span class="n">updatable_user</span><span class="o">.</span><span class="n">balance</span> <span class="o">=</span> <span class="n">new_balance</span>  
-            <span class="n">Log</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="n">user</span><span class="o">=</span> <span class="n">user</span><span class="p">,</span>  <span class="n">message</span> <span class="o">=</span> <span class="s2">&quot;replenished with </span><span class="si">%i</span><span class="s2"> credits&quot;</span> <span class="o">%</span> <span class="n">new_balance</span><span class="p">)</span>
-</pre></div>
-
-
-<p>That’s a significantly cleaner bit of code to read. It still requires some outside knowledge but the intention is much more clearly expressed and the message isn’t drowned out in quotes and parens. An ‘offscreen’ benefit, given the way peewee is structured, is that backtracking to the <code>User</code> and <code>Replenish</code> classes would tell the rest of the story pretty straightforwardly without a ton of comments. Only a handful of lines are needed to munge data into the right forms, and the code almost <em>reads</em> like the summary. <br />
-That’s a good example of how wrappers can help: saving keystrokes is nice but clarifying the real <em>meaning</em> of the code is priceless.  </p>
-<h2>Wrapola</h2>
-<p>Well, maybe not exactly price-<em>less</em>. All wrapper code comes with a cost: there are new rules to learn and, probably, new bugs to encounter. If the wrapper uses odd conventions, unusual data formats or is simply slower than hand rolled code it may still be a bad bargain. Nonetheless, this example shows wrappers can be more than just a protest against awkward syntax and API’s that don’t match your taste. Ultimately wrappers are a perfect microcosm of what all coding is about: the search for a clearer understanding of the problem you’re trying to solve. <br />
-So if you’re thinking about writing a wrapper, ask yourself this: does the code you want to write teach you something about the problem your solving? Or does it just save you a few keystrokes? Typing is a pain, but you’ll spend a lot more tine looking at your code than you ever will typing it. So don’t focus on just counting lines or syntax: focus on whether the wrapper helps you understand the problem better. If the wrapped code reads like a description of your thought process, you’re on the right track. If it’s just getting you back to <a href="http://www.twitch.tv/undeadlabs">that TwitchTV stream</a> on your second monitor a few minutes earlier it might not be worth your time.  </p>
-<h2>PS</h2>
-<p>I used an ORM for my example because it provides such a powerful example of code that’s not bogged down in syntactic complexities. There is, however, a classic internet flame war about ORMs that I’m glossing over, with nerd rage aplenty for friends and foes of ORMs. Background <a href="http://martinfowler.com/bliki/OrmHate.html">here</a> if you care. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 12 July 2015
+            <p class="post-meta">Sun 12 July 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/wraptastic#disqus_thread">comments</a>.</p>        </div>
+                When is it time to write a wrapper?
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/wraptastic#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2015/boo_who" rel="bookmark" title="Permalink to Boo Who?">
+            <a href="http://theodox.com/2015/boo_who" rel="bookmark" title="Permalink to Boo Who?">
                 <h2 class="post-title">
-                    Boo Who?
+                    Boo&nbsp;Who?
                 </h2>
             </a>
-                <h2>Boo!</h2>
-<p>Did I scare you?</p>
-<p><a href="http://1.bp.blogspot.com/-OFk47U8-b9E/VWvmUwg7gII/AAAAAAABL6E/61gYBKYRRN4/s1600/medium.png"><img alt="" src="http://1.bp.blogspot.com/-OFk47U8-b9E/VWvmUwg7gII/AAAAAAABL6E/61gYBKYRRN4/s400/medium.png" /></a></p>
-<p>Evidently somebody's scared: the <a href="https://github.com/bamboo/boo/wiki">Boo language</a>, which has been a part of Unity for several years, is going to be removed from the Unity documentation in favor of C#. </p>
-<p>The reason is pretty simple, as this graph explains:</p>
-<p><img alt="" src="http://blogs.unity3d.com/wp-content/uploads/2014/09/graph3.png" /></p>
-<p>For a lot of Unity developers (99.56% of them, apparently) this is non-news; Boo never really garnered much of a following in the Unity community. For new developers and recent grads, C# is an easy and very well documented option; for former web debs moving to mobile apps, UnityScript feels JavaScript-y enough to ease into a new environment. Boo, on the other hand, never got much traction: it's got a small but passionate community but it never garnered enough momentum to break out of its niche. </p>
-<blockquote>
-<p>Update 5/2016:  Since this post was first written the Boo community has been picking up some steam and is actively aiming at a 1.0 release of the language. They can be found in the <a href="https://groups.google.com/forum/#!forum/boolang">Boo Languge Google Group</a></p>
-</blockquote>
-<h2>Boo Hoo</h2>
-<p>Now, I'm kind of a sucker for hopeless causes, so almost inevitably this news inclined me to revisit Boo, which I've toyed with a few times but never really tried to learn. I had to write a lot of C# for <a href="http://store.steampowered.com/app/351040/">Moonrise</a> and it made me long for the clarity and concision of Python. Even though C# is a perfectly capable language with lots of modern features (closures, firest class functions, etc) it's still very chatty. The tantalizing promise of Boo - not completely fulfilled, but pretty close, is that it combines both: the performance, runtime type safety, and intimate access to Unity that C# offers in a language not deformed by punctuation and rendered ridiculous by overly wordy syntax.</p>
-<p>Here's the aesthetic differences in a nutshell:</p>
-<h2>Boo</h2>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">UnityEngine</span>
-
-<span class="k">class</span> <span class="nc">JumpingMovementController</span><span class="p">(</span><span class="n">MonoBehaviour</span><span class="p">):</span>
-
- <span class="n">_HORIZ</span> <span class="o">=</span> <span class="s1">&#39;Horizontal&#39;</span>  
- <span class="n">_VERT</span> <span class="o">=</span> <span class="s1">&#39;Vertical&#39;</span>  
- <span class="n">_JUMP</span> <span class="o">=</span> <span class="s1">&#39;Jump&#39;</span>  
- <span class="n">_Momentum</span> <span class="o">=</span> <span class="mf">0.0</span>  
- <span class="n">_Gravity</span> <span class="o">=</span> <span class="mf">2.0</span>  
- <span class="n">public</span> <span class="n">_Speed</span> <span class="o">=</span> <span class="mf">1.0</span>  
- <span class="n">public</span> <span class="n">_JumpSpeed</span> <span class="o">=</span> <span class="mf">1.5</span>
-
- <span class="k">def</span> <span class="nf">Update</span><span class="p">():</span>   
-  <span class="n">frame_speed</span> <span class="o">=</span> <span class="n">_Speed</span> <span class="o">*</span> <span class="n">Time</span><span class="o">.</span><span class="n">deltaTime</span>
-
-  <span class="k">if</span> <span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">:</span>  
-   <span class="n">_Momentum</span> <span class="o">+=</span> <span class="n">Input</span><span class="o">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="n">_JUMP</span><span class="p">)</span> <span class="o">*</span> <span class="n">_JumpSpeed</span>
-
-  <span class="n">up</span> <span class="o">=</span>  <span class="n">_Momentum</span> <span class="o">*</span> <span class="n">Time</span><span class="o">.</span><span class="n">deltaTime</span>  
-  <span class="n">left_right</span> <span class="o">=</span> <span class="n">Input</span><span class="o">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="n">_HORIZ</span><span class="p">)</span> <span class="o">*</span> <span class="n">frame_speed</span>  
-  <span class="n">forward_back</span> <span class="o">=</span> <span class="n">Input</span><span class="o">.</span><span class="n">GetAxis</span><span class="p">(</span><span class="n">_VERT</span><span class="p">)</span> <span class="o">*</span> <span class="n">frame_speed</span>  
-  <span class="n">transform</span><span class="o">.</span><span class="n">Translate</span><span class="p">(</span><span class="n">Vector3</span><span class="p">(</span><span class="n">left_right</span><span class="p">,</span> <span class="n">up</span><span class="p">,</span> <span class="n">forward_back</span><span class="p">),</span> <span class="n">Space</span><span class="o">.</span><span class="n">Self</span><span class="p">)</span>
-
- <span class="k">def</span> <span class="nf">LateUpdate</span><span class="p">():</span>  
-  <span class="k">if</span> <span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">y</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>  
-   <span class="n">_Momentum</span> <span class="o">-=</span> <span class="n">_Gravity</span> <span class="o">*</span> <span class="n">Time</span><span class="o">.</span><span class="n">deltaTime</span><span class="p">;</span>  
-  <span class="k">else</span><span class="p">:</span>  
-   <span class="n">_Momentum</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>  
-   <span class="n">vp</span> <span class="o">=</span> <span class="n">Vector3</span><span class="p">(</span><span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">transform</span><span class="o">.</span><span class="n">position</span><span class="o">.</span><span class="n">z</span><span class="p">)</span>  
-   <span class="n">transform</span><span class="o">.</span><span class="n">position</span> <span class="o">=</span> <span class="n">vp</span>
-</pre></div>
-
-
-<h2>C\</h2>
-<div class="highlight"><pre><span></span>using UnityEngine;  
-using System;
-
-public class JumpingMovementController(MonoBehaviour)  
-{
-
-    const static string _HORIZ = &quot;Horizontal&quot;;  
-    const static string _VERT = &quot;Vertical&quot;;  
-    const static string _JUMP = &quot;Jump&quot;;  
-    var _Momentum = 0.0f;  
-    var _Gravity = 2.0f;  
-    public var _Speed = 1.0f;  
-    public var _JumpSpeed = 1.5f;
-
-
-    void Update()  
-    {  
-        var frame_speed = _Speed * Time.deltaTime
-
-        if (transform.position.y == 0)   
-        {  
-            _Momentum += Input.GetAxis(_JUMP) * _JumpSpeed;  
-        }
-
-        var up =  _Momentum * Time.deltaTime;  
-        var left_right = Input.GetAxis(_HORIZ) * frame_speed;  
-        var forward_back = Input.GetAxis(_VERT) * frame_speed;  
-        transform.Translate(new (Vector3(left_right, up, forward_back)), Space.Self);  
-    }
-
-    void LateUpdate()  
-    {  
-        if (transform.position.y &gt; 0)   
-        {  
-            _Momentum -= _Gravity * Time.deltaTime;  
-        }  
-        else   
-        {  
-            _Momentum = 0;  
-            vp = new Vector3(transform.position.x, 0, transform.position.z);  
-            transform.position = vp;  
-        }  
-    }  
-}
-</pre></div>
-
-
-<p>I just can't shake the feeling that the first code is something I don't mind reading and writing while the latter is a chore. It's also a whopping 45% more typing for the same result. And that delta only gets bigger if you want to try something a little more complicated: Boo supports offers the same list comprehension syntax as Python, so you can write:</p>
-<div class="highlight"><pre><span></span>    addresses = [(x,y) for x in range(3) for y in range(3)]
-</pre></div>
-
-
-<p>where in C# you'd either get 6 lines of for-loops and nested brackets, or you'd have to use Linq. Even in the most compact form I can manage it's still much wordier:  </p>
-<div class="highlight"><pre><span></span>        var xs = Enumerable.Range(0, 3).ToList();  
-        var ys = Enumerable.Range(0, 3).ToList();  
-        var addresses = (from x in xs  
-                         from y in ys  
-                         select new Tuple&lt;int,int&gt;(x, y)).ToList();
-</pre></div>
-
-
-<p>to get to the same place. </p>
-<h2>Why Boother?</h2>
-<p>A hardcore programmer might object that this is "all just syntax". That's true - but since my everyday experience of working with a language is about 90% syntax I don't feel like it's fair to dismiss that concern as if it were irrelevant. That said, it can't be denied that modern C# 4 includes many language constructs that earlier versions of the language lacked: things like <code>var</code> inferred variables, lambdas, closures, and named default arguments. These things all help make the code less chatty and more legilble: If you're a <em>good</em> C# programmer you can write very terse, expressive code that's not absurdly wordy. </p>
-<p>Apart from those stupid curly brackets.</p>
-<p>On the other hand, the "culture" of the language was set in place before those kinds of features were added. The C# ethos definitely prefers the verbose to the understated, the extremely explicit to the implied.This isn't a terrible decision - like Java, it's a language designed to be used by huge teams of enterprise programmers working on titanic projects where only a few people see the whole project scope and most coders are locked away in cubicles on the 18th floor working on isolated modules to be used by other coders they will never meet.That's why C#'s obssession with visibility management and highly-specified behavior makes sense.C# is a language that's all about apportioning blame: it forces everything to be very explicit so you know which of the 6000 drones working on your enterprise app to bleame when things go wrong.</p>
-<p>In the context of a small game or a solo project, though, the Pythonic ethic of "we're all adults here" seems more natural and productive.Besides, for hobby projects and one offs fun is a totally legitimate concern: making minigames is something that gets crammed into nooks and crannies left over by work, kids and keeping the house from falling down around my ears.So fun is a totally legit criterion for selecting a language.</p>
-<p>And Boo is definitely more <em>fun</em> than C#. </p>
-<h2>Boo Who?</h2>
-<p>Like many Pythoneers, I've always nursed a secret hunger for the magical button that would take all my tight, laconic Python code and magically make it perform like a "real" language. Boo is not the magic button, but it's a pretty good preview of what that might look like. As you can see from the code samples above, it looks and feels a lot like Python but under the hood is has similar performance and compile-time constraints to C#: in other words, Boo code can run as much as 20X faster than Python.</p>
-<p>That's what makes Boo so tantalizing. It is <em>almost</em> Python, but you can write Unity games, Winforms apps, or even cross-platform DLLS with it. Plus, since Boo runs on the same dotnet CLR as C#, it runs on any platform with the DotNet framework or Mono installed, so a compiled Boo program can run on Windows, Macs, or Linux boxes. There's even an interactice shell so you can do one-offs and experiment, just like Python. But - unlike Python - you get the performance gains that come from a compiled, statically typed language.</p>
-<p>Typing and the compiler are the key difference between Boo and Python. The a compiler makes sure that all of your variables, return values and method signatures line up and uses that knowledge to optimize the final runtime code for you. You can do this in Python:</p>
-<div class="highlight"><pre><span></span>fred = 1   
-fred = fred +  1  
-print fred  
-# 2  
-fred = &quot;fred&quot;  
-fred = fred + &quot; flintstone&quot;  
-print fred  
-# fred flintstone
-</pre></div>
-
-
-<p>In Boo, however, you'll get an error when you try to change <code>fred</code> from an integer value to a string:</p>
-<div class="highlight"><pre><span></span>fred = 1  
-fred = fred +1   
-fred = &quot;fred&quot;  
-#------^  
-#ERROR: Cannot convert `string` to `int`
-</pre></div>
-
-
-<p>In old-school C#, this was made obvious that all variables and to declare a type:</p>
-<div class="highlight"><pre><span></span>int fred = 1;
-</pre></div>
-
-
-<p>In more modern C# you can use the <code>var</code> keyword to make the compiler guess what type you want based on the initial input: when you give it</p>
-<div class="highlight"><pre><span></span>var fred = 1;
-</pre></div>
-
-
-<p>it sees that fred has an integer in it, and treats fred as an integer from then on. If you assign the variable with the result of a method call or another variable, C# uses the expected type of that return value to set the variable type. Boo does more or less the same thing: it uses the assignment value to guess the type of a variable. You can specify it explicitly if you prefer by using the <code>as</code> keyword: </p>
-<div class="highlight"><pre><span></span>barney as string  
-barney = &quot;barney&quot;   #OK
-</pre></div>
-
-
-<p>The same syntax is used to specify inputs in methods and returns:</p>
-<div class="highlight"><pre><span></span>def bedrock (name as string) as string:  
-    return name + &quot;rock&quot;
-
-def inferred_return_type(name as string):  
-    return name + &quot;inferred&quot;  
-    # if the compiler can guess the output type  
-    # you don&#39;t need to &#39;as&#39; it
-</pre></div>
-
-
-<p>Once you get out of the habit of re-using variables with different types, this is usually not too bad: 95% of the time the inference "just works" and you can write code that focuses on logic and good design instead of worrying about the types. The other 5% of the time, however, is often very frustrating. It's particularly tough when Boo's Python-like, but not <em>exactly</em> Python behavior trips you up. Consider this little puzzle:</p>
-<div class="highlight"><pre><span></span>def sum (values as (int)) # expect an integer tuple  
-    result = 0  
-    for v in values:  
-        result += v  
-    return v
-
-# works as expected for this case:  
-example = (1,2,3)  
-sum(example)  
-# 6
-</pre></div>
-
-
-<p>However it can be broken if your input list isn't all of the same type:</p>
-<div class="highlight"><pre><span></span>example2 = (1,2,3,&quot;X&quot;)   
-sum(example2)  
-# ERROR: the best overload to the method sum((int)) is not compatible with the argument list &#39;((object))&#39;
-</pre></div>
-
-
-<p>That's not entirely shocking: the compiler saw a mixed list in example2 and return and array of type <code>object</code> (as in C#, <code>object</code> is the base class of all types). So it is right to reject that as an argument for an int-specific function. Here's where it gets odd:</p>
-<div class="highlight"><pre><span></span>#reassign  
-example2 = (1,2,3,4)  
-sum (example2)  
-# 10
-</pre></div>
-
-
-<p>This time the compiler "helpfully" casts that array to an array of ints because it can. This is not a crazy behavior, but it's definitely going to raise some issues where test code works fine but production code contans bad values. The only way to be sure that things are what they seem is to force them into the right types at declaration time:</p>
-<div class="highlight"><pre><span></span>example3 as (int) == (1,2,3,4,5)  
-sum(example3)  
-# 15
-
-example3 = (1,2,3,&quot;one hundred&quot;)  
-#----------^  
-# ERROR: Cannot convert `(object)` to `(int)`
-</pre></div>
-
-
-<p>This example highlights both the usefulness and the limitations of type inference: If you want a statically typed language (and all the compiler tricks that make it speedier than Python) you do have to think about how to manage your types. There's no way around it. If you've got enough C# experience, you can look at Boo as a neat way of writing speedy, statically typed code with less typing and more syntactic freedom - but if you're looking at it from the standpoint of loosey-goosey Pythonista it can seem like a lot of hurdles to jump. </p>
-<p>My (unscientific) impression is that a lot of people from the Python world come over to Boo and the familiar look of the code gives them a false sense of security. It's easy to write simple bits of code until the subtleties of type management bite you in the behind, and then to give up in frustration when things seem to get cluttered and uptight.</p>
-<p>It is, however, part of the territory: lots of other tools for speeding up Python such as <a href="http://cython.org/">Cython</a> expect the same kind of attention to variable types: here's a sample from Cython</p>
-<div class="highlight"><pre><span></span>def f(double x):  
-    return x**2-x
-
-def integrate_f(double a, double b, int N):  
-    cdef int i  
-    cdef double s, dx  
-    s = 0  
-    dx = (b-a)/N  
-    for i in range(N):  
-        s += f(a+i*dx)  
-    return s * dx
-</pre></div>
-
-
-<p>which is just as finicky as C# or Boo.</p>
-<p>For me, at any rate, spending more than a year doing C# as a regular part of work made fiddling around with Boo much easier and more productive. The type management hassles strike me as inevitable, or even natural, after a year of typing verbose C# variable types. On the other hand the cleanliness of the layout, the lack of extraneous punctuation, and the clealiness of list comprehensions and Python style loops never gets old.</p>
-<p>While there are plenty of minor gotchas, and a few important high-level rules that can't be forgotten, Boo development flows in with an almost Pythonic fluency. If you put in the time to figure out the type inference behavior and add the annotations, you can get code thats <em>almost</em> as flexible as Python and <em>almost</em> as performant as C# - which, for my kind of pet projects is a great compromise. </p>
-<h2>Boo-ty is in the eye of the beholder</h2>
-<p>TL;DR: I've gotten pretty fond of Boo. Above all, it serves me well for noodling around in Unity where the API is mostly identical but the logic is cleaner, shorter and easier to read than the same code in C#. Translating the docs is rarely more than trivial, and the very narrow scope of a typical Unity code chunk keeps me from any of Boo's rough edges.</p>
-<p>Another hurdle for many Pythonistas, though one which does not matter in the the context of Unity games, is the lack of the Python standard library. About 70% of what you can do with the 'batteries included' in Python can, however, be replicated using the <a href="https://msdn.microsoft.com/en-us/library/hfa3fa08%28v=vs.110%29.aspx">dotnet Base Class Library</a> if you're running Boo on a Windows box (on Linux or OSX the percentage is lower: Mono has its own base class library but it's not a complete replica of the one from Microsoft). For many tools tasks and projects, this is more than enough: you'll be able to read and write XML, to decrypt JSON, to talk to an http server and so on although the function names and APIs will vary. I have to admit I prefer the Python toolkit to the dotnet one, which reflects the same bureaucratic mindset that I dislike in C#'s design, but it's still a big, robust set of tools. You can also use anything that's available as a dotnet DLL. Almost anything advertised as a usable with C# will work with Boo.</p>
-<p>All that said, I'd definitely think twice before basing a commercial Unity project or a critical pipeline component on Boo. There does seem to be a small but measurable perfromance penalty compared to C# (the performance is, however, pretty much on par with that of UnityScript). More importantly, the Boo's biggest weakness is documentation: with a small community and (from now on) no docs on the Unity site, finding your way around in the language at first is pretty awkward. The <a href="https://github.com/bamboo/boo/wiki">documentation</a> is a sporadic, volunteer effort with some glaring holes - it doesn't help that Google still sends you to the moribund Boo site on <a href="http://boo.codehaus.org/">codehaus</a> instead of the current docs, which are in a <a href="https://github.com/bamboo/boo/wiki">Github Wiki</a>. The language is officially at version 0.9.4.9 and hasn't incremented in a long time: it's still getting commits from the original author and few other devs but it's a much smaller project than, say, IronPython. In short, it's a cool language that has not found it's audience yet, and unless it does it will remain a niche player. </p>
-<p>Still, it's pretty cool too. If, after those caveats, it still sounds interesting, you'll be relieved to know that Boo is not really 'going away': For the forseeable future, the language will still work in Unity, Boo, like C# and UnityScript, runs on <a href="http://www.mono-project.com/">Mono</a>, much as Java runs on the JVM. Unity doesn't distinguish between the source of Mono assemblies: you can still use Boo, and even more exotic dotnet languages such as F# (though not, alas, IronPython!) in Unity today. The only practical result of Unity's decision to sunset Boo support is the disappearance of the Boo documentation from the Unity website - which , to be honest was rarely adequate - and the lack of a 'create Boo script' menu item. Dropping a boo script into your assets folder, however still creates runnable code, and it should continue to do so for the forseeable future. </p>
-<p>There's some question about how Unity's new cross-platform compiler technology, <a href="http://blogs.unity3d.com/2014/05/20/the-future-of-scripting-in-unity/">IL2CPP</a> will handle Boo. In principle, since it compiles the byte code produced by Mono rather than the original source, it too should work with any CLR language, be it Boo or F# or what have you. I've been able to compile Boo code to Unity WebGL games, which use IL2CPP, without obvious problems although I haven't done anything like a scientific test. It's not beyond belief that bugs which occur only in non-C#, non-UnityScript IL code may go unfixed. And, of course, it's impossible to say what will happen after Unity 5 - technology, particularly in games, moves too fast for confident future predictions. However, It seems pretty clear Boo will be working in Unity for a while to come even though it is being demoted from "officially supported" status to the same kind of l33t hacker underworld as functional languages. </p>
-<h2>Boo-Curious?</h2>
-<p>If you've got Unity installed already, you've already got everything you need to play with Boo. Just create a text file with a ".boo" extension inside a Unity project and you can write Unity components in Boo. If you don't have Unity, You can also <a href="http://www.mono-project.com/download/">download Mono directly</a>, which installs MonoDevelop and Boo automatically. </p>
-<p>If you're not fond of MonoDevelop - an editor for which I have… mixed… feelings - You can write Boo using <a href="http://www.sublimetext.com/">Sublime Text</a>, which has a Boo syntax higlighting package and can run Boo compiles for you. </p>
-<p>If you're curious but don't want to take the plunge, you can see the language for yourself and play with it online, using this <a href="http://tryboo.pollinimini.net/">interactive repl</a></p>
-<p>The documentation - which (be warned!) is incomplete and not always up to date - is in the <a href="https://github.com/bamboo/boo/wiki">Boo Project GitHub wiki</a>. There's an older site at <a href="http://boo.codehaus.org/">boo.codehaus.org</a> which is tends to show up on the Google results but has <em>mostly</em> been ported to the github. In cases of conflicting information, the GitGub wiki is likelier to be right. There's also a <a href="https://groups.google.com/forum/#!forum/boolang">Google Group</a> and a small pool of questions on <a href="http://stackoverflow.com/questions/tagged/boo">StackOverflow</a></p>
-<p>If you're a hardcore type, you can also download and rebuild <a href="https://github.com/bamboo/boo">the source for the entire Boo language</a> yourself from GitHub. Lastly, you might want to check out <a href="https://github.com/drslump/BooJS">BooJS</a>, a project which aims to compile Boo into JavaScript.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 31 May 2015
+            <p class="post-meta">Sun 31 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/boo_who#disqus_thread">comments</a>.</p>        </div>
+                A quick introduction to Boo, a python-like language for the CLR
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/boo_who#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2015/spelchek" rel="bookmark" title="Permalink to spelchek">
                 <h2 class="post-title">
                     spelchek
                 </h2>
             </a>
-                <h2>Spelchek</h2>
-<p>I’m planning one of the worst things that can happen to a TA: a big massive file move-and-rename operation. Much as I love my team, we have a poor record as a company when it comes to spelling, and it occurred to me that I’d like to at least have some degree of automatic spell checking on the names of the new files, folders and assets.<br />
-It turns out that there’s no good spell checker for Python that doesn’t come with some kind of extension module (BTW, I’d love to be wrong about that - if you know one definitely post it in the comments). <a href="http://pythonhosted.org/pyenchant/">PyEnchant</a> for example is great, but it’s got 32-bit only Windows extensions that I can’t distribute without a hassle.   </p>
-<p><img alt="" src="https://s-media-cache-ak0.pinimg.com/236x/55/2c/b5/552cb539fcc6b8addffb0eb19ec98298.jpg" /></p>
-<p>I did, however, find a very neat example of Python Power in a little post by Peter Norvig, who put together a simple spellchecker in a few dozen lines of plain, readable Python <a href="http://norvig.com/spell-correct.html">code and great explanations here</a>.   </p>
-<p>I shamelessly borrowed his structure, with a couple of minor and not very creative tweaks. Norvig's original is built around Bayesian analysis: it guesses the correct word by looking at the relative frequencies with which variants show up – if ‘meet’ shows up 1000 times in your database but ‘mete’ shows up 5 times, that’s a good indication that ‘meet’ is the correct first guess.   </p>
-<p>Since I’m in a rush, I didn’t use that functionality very much. I scrounged around for as many sources correctly scored words. Unfortunately the only free source I could rely on turned out to be the venerable ‘GSL’ or ‘General Service List’, which has great data but only for about 2000 words (I used the version found <a href="http://jbauman.com/gsl.html">here</a>, by <a href="http://jbauman.com/index.html">John Bauman</a> as a the core of the list, and then scrounged the internet for other free sources. Since all of these were less common words than the ones in the GSL I gave them pretty arbitrary Bayes scores (4’s and 5’s for common words, 3’s for variants, plurals and participles). This is not sophisticated linguistics, but it’s close enough for horseshoes. </p>
-<p>The result is up on github as <a href="https://github.com/theodox/spelchek">spelchek</a>, which I affectionately refer to as the <em>cheap-ass spell checker.</em><br />
-It is hardly rocket science, but it does work. You can do something like:  </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">spelchek</span>  
-<span class="n">spelchek</span><span class="o">.</span><span class="n">correct</span><span class="p">(</span><span class="s1">&#39;vhicle&#39;</span><span class="p">)</span>  
-<span class="c1"># &#39;vehicle&#39;</span>
-</pre></div>
-
-
-<p>or   </p>
-<div class="highlight"><pre><span></span><span class="n">spelchek</span><span class="o">.</span><span class="n">guesses</span><span class="p">(</span><span class="s1">&#39;flied&#39;</span><span class="p">)</span>  
-<span class="c1"># [&#39;filed&#39;, &#39;flied&#39;, &#39;flies&#39;, &#39;lied&#39;]</span>
-</pre></div>
-
-
-<p>I would caution against using this for hard-core text work where perfect accuracy matters -- like database stuff, a customer-facing website, or a word processor -- since I did not go with high quality commercially or academically vetted word lists. I’m reasonably certain that there are some mis-spellings or oddballs in the 75,000 or so words I ended up with from various sources. Still, the module useful for my intended use, which is making sure that we don’t get things like ‘floder’, ‘frunishings’ and ‘vetegation’ (all of which shipped with in <a href="http://www.ign.com/games/state-of-decay-year-one-survival-edition/xbox-one-20023993">State of Decay</a>, I’m sorry to admit). </p>
-<p>As always, MIT licensed so go to town. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sat 16 May 2015
+            <p class="post-meta">Sat 16 May 2015
             </p>
-<p>There are <a href="http://theodox.com/2015/spelchek#disqus_thread">comments</a>.</p>        </div>
+                A python spell check module
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/spelchek#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -816,107 +312,119 @@ It is hardly rocket science, but it does work. You can do something like:  </p>
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -91,199 +93,126 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2014/sony_open_source_toolset" rel="bookmark" title="Permalink to Sony's Open Source Toolset">
+            <a href="http://theodox.com/2014/2015_bug_watch_ls" rel="bookmark" title="Permalink to 2015 Bug watch: ls()">
                 <h2 class="post-title">
-                    Sony's Open Source Toolset
+                    2015 Bug watch:&nbsp;ls()
                 </h2>
             </a>
-                <p>I noticed on <a href="http://www.gamasutra.com/view/news/224682/Sony_releases_level_editor_thats_open_source_and_engineagnostic.php">Gamasutra </a>(hat tip <a href="https://plus.google.com/114297709081673565436">+Jon Jones</a> ) that Sony is open-sourcing its <a href="https://github.com/SonyWWS/ATF">Authoring Tools Framework</a>.    </p>
-<p><a href="https://raw.githubusercontent.com/wiki/SonyWWS/ATF/images/LBP_PSP_2.png?raw=true"><img alt="" src="https://raw.githubusercontent.com/wiki/SonyWWS/ATF/images/LBP_PSP_2.png?raw=true" /></a></p>
-<p>This is an interesting idea and I'm a big fan of putting this sort of thing out there - not only does it provide people a good starting point for their own projects, it also allows the curious to see what's going on even if they aren't actually using the code.  I'm sure I'll be poking around in it even if I never use a line of C#.  It's a goodwill gesture, a community service, and a nice way of asking people to fix your bugs for you for free. A win-win!  </p>
-<p>I am curious as to where the tools are actually pitched. The blurb clains the ATF is used in Naughty Dog's level editor and shader editor for <em>The Last of Us</em>, a sequence editor for <em>Killzone</em>, an animation blending tool for <em>God of War</em>, and  a visual state machine editor for Quantic Dream among other things. That's a pretty broad palette for a single toolkit.  Overly-tight coupling between particular games and particular tools is one reason why game production advances in fits and starts: we have to choose between the completely generic, one-size-fits-all solutions ("Let's just make our level editor in Maya!" or "Just make the particle system UI look like Max's") and tools that can only do a very specific job for a very specific project. The middle ground between these extremes is, I think, fertile territory to explore if you're interested in game toolsets that don't suck.  </p>
-<p>I'll be curious to see what's in Sony's toybox. I'm especially curious to hear from anybody who has actually worked with this code -- comment away!  </p>
-<p>The project is available for cloning on <a href="https://github.com/SonyWWS/ATF">github</a>.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 03 September 2014
+            <p class="post-meta">Thu 04 September 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/sony_open_source_toolset#disqus_thread">comments</a>.</p>        </div>
+                A nasty little changed in maya’s ls() command for 2015
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/2015_bug_watch_ls#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/size_is_the_enemy" rel="bookmark" title="Permalink to Size is the enemy: an oldie but a goodie">
+            <a href="http://theodox.com/2014/sony_open_source_toolset" rel="bookmark" title="Permalink to Sony’s Open Source Toolset">
                 <h2 class="post-title">
-                    Size is the enemy: an oldie but a goodie
+                    Sony&#8217;s Open Source&nbsp;Toolset
                 </h2>
             </a>
-                <h2>#1: Maintain &gt; Build</h2>
-<p>Maintaining any codebase is way harder than making it. Waaaaaay harder.  </p>
-<p>I've been presiding over a rewrite of my own toolset - one that is only 2.5 years or so of my own work - and I'm amazed and appalled at how crufty it is. Lots of important things are held together with spit and bailing wire. Lots of trivial things are massively over-engineered. And -- though I pride myself on being good about code reuse, _there's-only-one-way-to-do-it, _and extending earlier solutions instead of reinventing things -- it's full of pointless duplication.   </p>
-<p>And even though it's 90% my own work it's full of conflicting style choices and paradigms.  I guess it shows I'm still learning, so I haven't gotten totally stale yet.  </p>
-<h2>#2: Dynamic &gt; Static</h2>
-<p>I've been looking a lot at possible language alternatives to Python for future tools. I love Python. I mean, in a totally unhealthy, creepy, even stalker-y way. But I don't like being to beholden to any one tech or approach. I'd love to get beyond Python's erratic distribution mechanisms, and Id' <em>really</em> like to get my hands on a decent GUI toolkit that didn't make me program C++ indirectly ( <a href="http://shoesrb.com/">Python Shoes</a>, where are you?)  </p>
-<p>So, while tinkering with <a href="http://boo.codehaus.org/">Boo</a>, <a href="http://cobra-language.com/">Cobra</a>, <a href="http://nimrod-lang.org/documentation.html">Nimrod </a>and a few other options I've been revisiting the old theological debate about dynamic vs static languages; working on <a href="http://moonrise-game.com/">Moonrise </a> (in Unity) has made me realise that C# was designed with the express intention of driving me insane. It seems routinely true that I write 4 times as many lines of C# as I do in Python. I'm sure I'm saving a few bugs because of all the clunky type management stuff, but I think I'd rather just fix the bugs than suffer through the oceans of boilerplate that C# induces.   </p>
-<p>To be fair, it's a little worse in Unity than in the rest of the world: you can do a lot to make C# suck less using attributes and reflection and other meta-techniques, but those are tougher to do in Unity's special flavor of C#.   </p>
-<p>Still, I think I've finally made up my mind on this one: I'd rather take the risks that come with dynamic code over the sheer, mind-numbing boredom that comes with obsessive type safety.  Especially in a world where overhauling and updating and refactoring code is the <em>real</em> work: building it is just the first chapter.  </p>
-<h2>#3 I hate curly braces.</h2>
-<p>I'm not even trying to deny it anymore. I hate the little bastards.  What a waste of space.  </p>
-<h2>#4  I'm Screwed</h2>
-<p>The interesting problem - if I end up just getting cozy with my prejudices and preferences - is now how to pick a decent dynamic environment for tools development while (A) not having the code base degenerate into mush and  (B) having decent GUI options.   And if at all possible, (C), no goddam curly brackets.  </p>
-<p>For most of my work - managing files, talking to databases, and dealing with data on disk performance is not really the most important problem: I tend to deal in minute-scale problems not hour-scale problems, so cutting them down by a factor of 5 is a nice plus rather than a live-or-die necessity.  While this means a bit more freedom, it also removes a sorting criterion from the problem.  </p>
-<p>The stinky part is that, for the given problem set there really is <strong>no obvious winner</strong>.  </p>
-<ul>
-<li>I could imagine that the combination of <a href="https://www.ruby-lang.org/en/">Ruby </a>and <a href="http://shoesrb.com/">Shoes</a> would be super productive, even though the Shoes GUI is pretty limited compared to QT or WPF.  I could probably tolerate those block ending markers in Ruby, and there is a good set of standard library code out there. The perf is not great but that's my least important problem. I don't think it's much easier to distribute Ruby apps to users than it is to do with Python, however.</li>
-<li>Nimrod looks like a cool little language, but has no equivalent of the Python standardlib.</li>
-<li>
-<p>Boo and Cobra both use the same CLR as C#, so theoretically you can use them to drive GUI apps with WPF or winforms, but that puts you right back into programming a clunky language through the medium of a nicer one: if I wanted that I'd stick with PyQT.  </p>
-</li>
-<li>
-<p>Javascript is actually super powerful, in the sense that has the same kind of high level fluidity that Python does. It's also got the best (or at least the most broadly available and flexible) GUI out there in the form of  HTML + CSS. Unfortunately it's got the security sandbox so you need a special infrastructure to do even really mundane stuff like trolling the files on a hard disk -- to say nothing of it's famously bad issues with local vs global variables and scoping.  <a href="http://coffeescript.org/">CoffeeScript</a> can eleminate a lot of the worst syntactic pain (and the blankety-blank curly brackets) but it's hard to maintain code which is written in one language but actually <em>run</em> in another: "compiles to Javascript" is pretty cool until you have to actually debug something which is only genetically related to the code you actually <em>wrote.<br />
-</em></p>
-</li>
-<li>
-<p>(update 9/3) You can do an HTML front end for a python app with the <a href="https://code.google.com/p/cefpython/">Chromium Embedded Framework for python</a>. That actually works pretty well, and lets you keep JS for the light weight UI manipulation while passing the heavy lifting off to Python fairly transparently. The only caveat: the day after I discovered this I went to work, installed the Maya 2015 trial -- and promptly found that <em>their</em> shiny new HTML gui front end had a Javascript error and did not work, thereby preventing me from logging iu to the trial. It's the new thing altight, but it's not quite there.  And It's still a 2-language solution, albeit a nice one.  </p>
-</li>
-<li>
-<p>(update 9/3):  For completeness sake I should mention the combination of Jytron and AWT or Swing. This works right out of the box - if you have Jython, you have a complete GUI toolkit with no downloads, installs or DLLs to manage. You can also <a href="http://stackoverflow.com/questions/16701979/packaging-a-jython-program-in-an-executable-jar">compiile Jython to executables</a>, buit it's not a completely transparent process and it seems a bit fiddly. Still, could be an optiom....  </p>
-</li>
-<li>
-<p>(ipdate 9/3)::  I've also been experimenting a lot with compiling IronPython to exes using the IL compiler that comes with IronPython. So far it actually looks pretty good: the exes are smaller than similar Py2Exes or PyInstaller projects and they seem to be less prone to obscure compilation problems too.... maybe some light at the end of the tunnel?</p>
-</li>
-</ul>
-<p>_<strong>TLDR: </strong> _There really is nothing that fills the niche of a powerful, flexible language with good GUI and distribution options right now.  Sigh.  </p>
-<p>Please, prove me wrong !</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Mon 01 September 2014
+            <p class="post-meta">Wed 03 September 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/size_is_the_enemy#disqus_thread">comments</a>.</p>        </div>
+                pending
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/sony_open_source_toolset#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/size_is_the_enemy" rel="bookmark" title="Permalink to Size is the enemy: an oldie but a goodie">
+                <h2 class="post-title">
+                    Size is the enemy: an oldie but a&nbsp;goodie
+                </h2>
+            </a>
+            <p class="post-meta">Mon 01 September 2014
+            </p>
+                While googling my way around some strategy issues lately I rediscovered this 2007 post from Jeff Atwood which neatly sums up a few ...
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/size_is_the_enemy#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
             <a href="http://theodox.com/2014/pax" rel="bookmark" title="Permalink to Pax!">
                 <h2 class="post-title">
                     Pax!
                 </h2>
             </a>
-                <p>Ear plugs? <strong>Check</strong>.</p>
-<p>Throat lozenges? <strong>Check</strong>.</p>
-<p>Hand sanitizer? <strong>Check</strong>.</p>
-<p><em>Let the games begin!</em></p>
-<p>I'll be working the <strong>Moonrise</strong> booth Friday, and manning the <strong>State of Decay</strong> booth Sunday and Monday. Stop by!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 28 August 2014
+            <p class="post-meta">Thu 28 August 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/pax#disqus_thread">comments</a>.</p>        </div>
+                Pax 2014 on the horizon!
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/pax#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/sod_post_mortem" rel="bookmark" title="Permalink to Pax Dev State of Decay Post-mortem">
+            <a href="http://theodox.com/2014/sod_post_mortem" rel="bookmark" title="Permalink to Pax Dev State of Decay Post-mortem">
                 <h2 class="post-title">
-                    Pax Dev State of Decay Post-mortem
+                    Pax Dev State of Decay&nbsp;Post-mortem
                 </h2>
             </a>
-                <p><a href="http://undeadlabs.com/wp-content/uploads/2012/01/mural.jpg"><img alt="" src="http://undeadlabs.com/wp-content/uploads/2012/01/mural.jpg" /></a></p>
-<p>I'll be <a href="http://dev.paxsite.com/schedule/panel/state-of-decay-postmortem">on a panel this Thursday at Pax Dev,</a> along with a bunch of my <a href="https://plus.google.com/108326676864227822131">+Undead Labs</a>  colleagues to talk about how we shipped a big open world game with a teensy tiny team.  Since we're also debuting <a href="http://moonrise-game.com/">Moonrise </a>at the show, and hanging out with <a href="http://undeadlabs.com/about-state-of-decay/">State of Decay</a> fans as well, it's gonna be a busy, busy week. Hope to see you there!  </p>
-<p>PS. You know we're looking for some serious senior tech-artists, right?  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Mon 25 August 2014
+            <p class="post-meta">Mon 25 August 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/sod_post_mortem#disqus_thread">comments</a>.</p>        </div>
+                A PAX panel covering State of Decay and how it was made.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/sod_post_mortem#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/siggraph_2014_short_review" rel="bookmark" title="Permalink to SIGGRAPH 2014 Short Review">
+            <a href="http://theodox.com/2014/siggraph_2014_short_review" rel="bookmark" title="Permalink to SIGGRAPH 2014 Short Review">
                 <h2 class="post-title">
-                    SIGGRAPH 2014 Short Review
+                    <span class="caps">SIGGRAPH</span> 2014 Short&nbsp;Review
                 </h2>
             </a>
-                <p>It's been <a href="http://moonrise-game.com/">crazy times at Undead Labs</a> as we <a href="http://undeadlabs.com/2014/08/news/pinny-arcade-now-featuring-moonrise-pin/">get ready for Pax</a>.  I did sneak in a lightning visit to SIGGRAPH, since it drive-able in Vancouver, but I had to cut it pretty short.   </p>
-<p>The highlight of the show was the <a href="http://tech-artists.org/forum/showthread.php?4885-Siggraph-2014-TA-Meetup">TA beer night at the Butcher and Bullock</a>  -- hats off to <a href="https://plus.google.com/116275833090172173559">+Robert Butterworth</a>  for putting together -- but there was some other stuff going on as well. Here's a very partial and completely unscientific brain dump of what I saw. The important caveat here is that my limited schedule kept me on a very short leash:  I spent all day Monday in the <em>Advances in Real Time Graphics</em> course, which I'm pleased to say has become a SIGGRAPH institution (go Natasha!) and then all day Tuesday talking to vendors, so I'm 100% certain to have missed a lot of cool and interesting stuff. This was an all business visit, so most of what I have to report is general impressions rather than new cutting edge research.  My impressions are after the jump...  </p>
-<h2>Have a PBR!</h2>
-<p>The trend towards <a href="http://www.marmoset.co/toolbag/learn/pbr-theory">physically based rendering</a> is getting even more pronounced: I think there's no question this will be this year's buzzword of the year, at least in games.  I've been working with PBR renderers at work (mostly, but not only Marmoset) and it really is a better way to work, at least if your working with realistic subject matter.  I've got an article in the works for 3D World about exactly this - lost somewhere in the labyrinth that is print production - and the takeaway is that it's a good thing for anybody in game art to be boning up on.  </p>
-<table>
-<thead>
-<tr>
-<th>The standard textbook, <a href="http://www.amazon.com/gp/product/0123750792/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=390957&amp;creativeASIN=0123750792&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=HDVQMGQOD6MKGOCB">Physically Based Rendering, Second Edition: From Theory To Implementation</a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=0123750792" />, is a bit of a slog. It has great info but very coder-centric. The Marmoset site linked above has some great intro level material.  For a deeper dive there's <a href="http://seblagarde.wordpress.com/2011/08/17/feeding-a-physical-based-lighting-mode/">this post from Sebastian Lagarde</a>. There's also a couple of decent video intros:</th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Hat tip : +Robert-Jan Brems</td>
-<td></td>
-</tr>
-<tr>
-<td>I think there's a near-future blog post in all this somewhere :)</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>One side note: the need for high quality specular light samples - usually cubemaps - in a PBR pipeline has the nice side-effect that you can usually count on a reflection map for lots of areas which might not have gotten one traditionally. Combine with depth buffer reflections for fun and profit!  There were good talks from the <em>Killzone</em> and _Thief _teams about real-time depth buffer reflections which I think are going to make a noticeable difference in tone from last gen graphics as it becomes more common.  </p>
-<h2>Free samples</h2>
-<p>One of the side effects of the new console generation is that everybody is revisiting antialiasing and sampling.  From 720p to 1080p means pushing more than 2X the pixels. This makes MSAA a worrisome burden: you've to do a lot of sampling at that res.  </p>
-<p>Not surprisingly there was a lot of interest in alternatives to brute force antialiasing at this year's graphics course. I particularly liked the paper from Michel Drobot of Guerilla on 'Hybrid Reconstructive AA', which to my less-than-wizardly ears sounded like a variant of temporal AA (in which you accumulate AA over a few frames by varying the precise sampling point in the 3d world a little bit on each render) spiced up by oversampling just the coverage buffer of the graphics card to get enough data to do higher quality sample weighting on the AA for edges. ~~ I know that's kind of a sketchy description, unfortunately the paper is not up yet for linking so I can't go through it more academically;  however it will eventually show up on the course website at ~~  The slide with all the gory details are now up at <a href="http://advances.realtimerendering.com/">advances.realtimerendering.com</a>.  </p>
-<h2>Fabric 50</h2>
-<p>What does it say about me in my old age that one of the pulse-pounders of the show was a change in licensing terms? The <a href="http://fabricengine.com/fabric50/">Fabric 50 program</a> is a new idea from the makers of the <a href="http://fabricengine.com/">Fabric Engine</a>. Fabric is a high performance, highly parallel computing engine that is intended to be used inside DCC tools like Maya or as the core of a standalone app. The key goal is to put lots and lots of power in a package that is usable by mortals so you can write a pretty beefy tool without having to go back to school and learn all the dark arts of multiprocessing and parallelism. The 50 program allows studios up to 50 licenses for free in an effort to get more tool makers using and evangelising for the tech. I'm pretty sure I'll be dropping this one on my tech director's desk soon.   </p>
-<h2>The Dismal Science</h2>
-<p>Business-wise this felt like a slow year to  me. Not sure how much of that comes from the size of the venue, how much comes from Hollywood types skipping out on the cross-border travel, and how much is the result of the slow implosion of the big-budget FX industry but the overall vibe among vendors was fairly mellow.   </p>
-<p>The advances in capture and acquisition tech are kind of like those in cell phones: we're so jaded that we don't even notice the miracles anymore. I saw a lot of mocap demos - it's the siggraph show floor, so ball suits abound - and I was struck by how clean and lag-less the captured images were all round; even the bargain stuff looks pretty damn good these days.  </p>
-<p>There's no big 3d application booths anymore - the market has gotten so mature (or monopolized, depending on your mood) that big stage shows and high power demos you used to see are gone - the Autodesk booth was literally a 10 foot cube featuring primarily  abstract artwork.   </p>
-<p>One 3d app demo I did catch was a <a href="http://www.thefoundry.co.uk/products/modo/latest-version/">Modo 801</a> animation demo. I've been ambivalent about Modo's efforts to compete head on with the Max/Maya juggernaught, but I was quite impressed by their animation workflow (here's a video from their site, which covers a lot of the ground I saw in a more bullet-pointy fashion:)  </p>
-<p>I'm usually a bit suspicious of efforts to port the pen-and-paper workflow to CG, since I don't see the point in mimicking the artifacts of one medium in another. However the timing chart workflow is a fresh take on an aspec of animation which has been badly overshadowed by the minutia of rigging, and I hope it inspires everybody to kickstart the moribund business of animation software. Speaking of which, I had an interesting talk with the founder of French startup <a href="http://www.nukeygara.com/">Nukeygara</a>, who was showing an interesting and unconventional standalone animation package called Akeytsu (no, I'm not sure how to pronounce it either. It's <em>French</em>. Just roll with it!) This vid gives a pretty good idea where this is going:  </p>
-<p>I'm very curious to see how this one works out: I'm still waiting for somebody -- please! -- to shake up animation the way Zbrush has (and continues to) shake up modelling. Like recent GDC's it seemed like schools and training programs took up as much floor space as vendors, which is a little scary: call me selfish but I kind of miss the days when  our skills were rare and esoteric.  Of course, the kids coming out of these programs are all waaaay more sophisticated technically and artistically than I was at the same point in my career, so it's good for the art form I suppose.  </p>
-<p>Not for my ego, though.  </p>
-<h2>The Meet Market</h2>
-<p>The Job fair was a tad small this year -- like the show floor, it might just be the distance from LA, but I'd say there were only about two dozen booths.  Many of these seemed to be BC based VFX houses as well: the hurly burly of the old days with 4 hour lines at ILM and Pixar was not much in evidence, at least not while I was there. I saw a handful of game companies (biggies like Blizzard and smaller ones) but things seemed a bit subdued. Here's hoping that's just an artifact of the time and place of the show.  Maybe there was more action in private suites and hotel rooms, perhaps the internet has taken some of the flesh-pressing out of the process. Still, a bit worrisome.  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 20 August 2014
+            <p class="post-meta">Wed 20 August 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/siggraph_2014_short_review#disqus_thread">comments</a>.</p>        </div>
+                pending
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/siggraph_2014_short_review#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/moonrise_announcement" rel="bookmark" title="Permalink to Moonrise announcement">
+            <a href="http://theodox.com/2014/moonrise_announcement" rel="bookmark" title="Permalink to Moonrise announcement">
                 <h2 class="post-title">
-                    Moonrise announcement
+                    Moonrise&nbsp;announcement
                 </h2>
             </a>
-                <p>So, we just took the wraps off <a href="http://undeadlabs.com/2014/08/news/moonrise/">our latest project</a>:  </p>
-<p><a href="http://undeadlabs.com/wp-content/uploads/2014/08/Moonrise02.jpg"><img alt="" src="http://undeadlabs.com/wp-content/uploads/2014/08/Moonrise02.jpg" /></a></p>
-<p>We'll be showing the beta at <a href="http://prime.paxsite.com/">Pax Prime</a> (booth 6103).  It's been a really fun project to work on (for a grizzled ancient like yrs. truly, working on mobile is kind of liberating. It's like the old days of limited budgets and tiny teams.  Its so nice to get something from concept to execution in 18 months instead of 4 or 5 years, and with a team that can meet in a lunch room instead of needing a whole theater.  </p>
-<p>...the game looks a lot nicer than they did in the old days though. I used to sneer at mobile graphics, but nowadays it's pretty awesome what you can accomplish with a little care.  </p>
-<p><a href="http://4.bp.blogspot.com/-_fZyKqsKkGs/U-MKvBP9dcI/AAAAAAABIZk/hZpIULBgxLw/s1600/town.jpg"><img alt="" src="http://4.bp.blogspot.com/-_fZyKqsKkGs/U-MKvBP9dcI/AAAAAAABIZk/hZpIULBgxLw/s1600/town.jpg" /></a>
-<a href="http://2.bp.blogspot.com/-X4uma6gxdB4/U-MKvJe7UPI/AAAAAAABIZo/CLjG8PIOglg/s1600/combat.jpg"><img alt="" src="http://2.bp.blogspot.com/-X4uma6gxdB4/U-MKvJe7UPI/AAAAAAABIZo/CLjG8PIOglg/s1600/combat.jpg" /></a></p>
-<p><strong>PS</strong>. In case you're wondering: It's not a zombie game.  But we're not out of the zombie business, not by a long shot. Check out article linked above for more from HQ.  But trust me, there's a lot of zombies in our future too. </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 06 August 2014
+            <p class="post-meta">Wed 06 August 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/moonrise_announcement#disqus_thread">comments</a>.</p>        </div>
+                The product announcement for Moonrise
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/moonrise_announcement#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/rob_g_sale" rel="bookmark" title="Permalink to Rob G's Maya Python book is finally out">
+            <a href="http://theodox.com/2014/rob_g_sale" rel="bookmark" title="Permalink to Rob G’s Maya Python book is finally out">
                 <h2 class="post-title">
-                    Rob G's Maya Python book is finally out
+                    Rob G&#8217;s Maya Python book is finally&nbsp;out
                 </h2>
             </a>
-                <p>I see Rob Galanakis's new book is finally available for realz on Amazon.   </p>
-<p>I've added it -- and a few more new  books -- to the <a href="http://astore.amazon.com/tecsurgui-20">Techart bookstore page</a> too!  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Wed 30 July 2014
+            <p class="post-meta">Wed 30 July 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/rob_g_sale#disqus_thread">comments</a>.</p>        </div>
-        <div class="post-preview">
-            <a href="http://theodox.com/2014/pythonista" rel="bookmark" title="Permalink to Pythonistas need Pythonista!">
-                <h2 class="post-title">
-                    Pythonistas need Pythonista!
-                </h2>
-            </a>
-                <p>If you consider yourself a Pythonista, you've probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It's not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial wig.  </p>
-<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple's rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the 'batteries' included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS console.</p>
-<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and UI.  Ironically, it's easier to develop a GUI application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a UI builder tool similar to QT's interface builder (not nearly as deep or complex, of course, but iOS UI is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image processing:  </p>
-<p><a href="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg"><img alt="" src="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg" /></a></p>
-<p>Pythonista's main limitation is that it's not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren't available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here's a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies -- such as the perforce api -- are off-limits; I'm not sure it it would be possible to use .pyd's that were properly compiled for iOS or if the security sandbox won't allow arbitrary binary code at all.  </p>
-<p>All in all, it's pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team .  </p>
-<p>All in all, pretty cool for $6.99!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 27 July 2014
-            </p>
-<p>There are <a href="http://theodox.com/2014/pythonista#disqus_thread">comments</a>.</p>        </div>
+                Rob’s Maya Python book is on sale
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/rob_g_sale#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -297,107 +226,119 @@
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>How 3d Models work</title>
+        <title>How 3d Models&nbsp;work</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -74,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>How 3d Models work</h1>
+                        <h1>How 3d Models&nbsp;work</h1>
                     </div>
                 </div>
             </div>
@@ -86,127 +88,139 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article>
-        <p>Models are collections of <a href="glossary#coordinate">3D coordinates</a> known as "<a href="glossary#vertex">vertices</a>".  The vertices are grouped together into <a href="glossary#triangle">triangles</a> (confusingly, they are sometimes known interchangeably as 'polygons' - strictly, a polygon is alway going to be made of triangles)</p>
+        <p>Models are collections of <a href="glossary#coordinate">3D coordinates</a> known as &#8220;<a href="glossary#vertex">vertices</a>&#8220;.  The vertices are grouped together into <a href="glossary#triangle">triangles</a> (confusingly, they are sometimes known interchangeably as &#8216;polygons&#8217; - strictly, a polygon is alway going to be made of&nbsp;triangles)</p>
 <p><img alt="triangles" src="http://www.webreference.com/3d/lesson52/52-16.gif" /></p>
-<p>Triangles are useful because they are always planar. The math for figuring out of a triangle is facing one way or the other or whether something lies on the plane of the triangle is very simple. The number of vertices in the model is directly related to how much work the computer will have to do to render it: a 1000 vertex model is about 10 times slower to render than a 100 vertex model.  For this reason many game models are described in terms of their 'poly count' or 'triangle count'. A model under 1,000 triangles is fairly inexpensive to render; between 1000 and 5000 is moderate cost, 5,000 to 10,000 is fairly expensive, and more than 10,000 should be rare.  On less powerful hardware (such as phones or tablets) Unity slows down when the number of triangles on screen passes about 150,000.  More powerful PCs can do much better - but unless you're working on very high end hardware total counts should be well under 500,000 triangles at a time.</p>
-<p><strong>Tip</strong> <em>You can use the 'Optimize Mesh' setting in the inspector to attempt to simplify models. This will reduce the poly count for incoming models, but often at the expense of quality. If you can't work on the models by hand, this may be a handy way to bring them under control</em></p>
-<p>The direction that a triangle faces is known as its <a href="glossary#normal">normal</a>. Normals are used to calculate shading: if the normal of a triangle points towards a light source, that triangle will be lit; if it's perpendicular or pointing away, the triangle is not lit.  Triangles are not naturally two sided - they are invisible from the 'back' unless you choose a shader that deliberately renders the back sides of triangles as well as their front faces.</p>
+<p>Triangles are useful because they are always planar. The math for figuring out of a triangle is facing one way or the other or whether something lies on the plane of the triangle is very simple. The number of vertices in the model is directly related to how much work the computer will have to do to render it: a 1000 vertex model is about 10 times slower to render than a 100 vertex model.  For this reason many game models are described in terms of their &#8216;poly count&#8217; or &#8216;triangle count&#8217;. A model under 1,000 triangles is fairly inexpensive to render; between 1000 and 5000 is moderate cost, 5,000 to 10,000 is fairly expensive, and more than 10,000 should be rare.  On less powerful hardware (such as phones or tablets) Unity slows down when the number of triangles on screen passes about 150,000.  More powerful PCs can do much better - but unless you&#8217;re working on very high end hardware total counts should be well under 500,000 triangles at a&nbsp;time.</p>
+<p><strong>Tip</strong> <em>You can use the &#8216;Optimize Mesh&#8217; setting in the inspector to attempt to simplify models. This will reduce the poly count for incoming models, but often at the expense of quality. If you can&#8217;t work on the models by hand, this may be a handy way to bring them under&nbsp;control</em></p>
+<p>The direction that a triangle faces is known as its <a href="glossary#normal">normal</a>. Normals are used to calculate shading: if the normal of a triangle points towards a light source, that triangle will be lit; if it&#8217;s perpendicular or pointing away, the triangle is not lit.  Triangles are not naturally two sided - they are invisible from the &#8216;back&#8217; unless you choose a shader that deliberately renders the back sides of triangles as well as their front&nbsp;faces.</p>
 <p><img alt="lighting normals" src="http://docs.unity3d.com/Documentation/Images/manual/AnatomyofaMesh-0.jpg" /></p>
-<p>To create the appearance of smooth surfaces, we tell the computer to average out the normals of adjacent triangles. This makes the surface light as if it were smooth, even though it is still faceted:</p>
+<p>To create the appearance of smooth surfaces, we tell the computer to average out the normals of adjacent triangles. This makes the surface light as if it were smooth, even though it is still&nbsp;faceted:</p>
 <p><img alt="smooth normals" src="http://download.autodesk.com/global/docs/maya2014/en_us/images/comp_vertexNormals3.png" /></p>
-<p>Just like other 3d coordinates, vertices can be moved, rotated or scaled by transforms in the scene. </p>
-<p>Some models are <a href="glossary#skinned">skinned</a>. In a skinned model, the vertices of the model can be moved by more than one transform (for example, a vertex in a character's elbow might move partially with the bicep transform and partially with the forearm transform) creating a soft deformation that looks like skin flexing.</p>
-<p><strong>TIP</strong> <em>Skinning is used all the time in games, but it comes with a cost.  Don't use skinning unless you need to deform the models - if you're not planning on smooth skinned behavior, make sure your models are not skinned! You can spot skinned models in Unity because they will have a <strong>SkinnedMeshRenderer</strong> component rather than the more common <strong>MeshRenderer</strong> in their inspectors.</em></p>
+<p>Just like other 3d coordinates, vertices can be moved, rotated or scaled by transforms in the&nbsp;scene. </p>
+<p>Some models are <a href="glossary#skinned">skinned</a>. In a skinned model, the vertices of the model can be moved by more than one transform (for example, a vertex in a character&#8217;s elbow might move partially with the bicep transform and partially with the forearm transform) creating a soft deformation that looks like skin&nbsp;flexing.</p>
+<p><strong><span class="caps">TIP</span></strong> <em>Skinning is used all the time in games, but it comes with a cost.  Don&#8217;t use skinning unless you need to deform the models - if you&#8217;re not planning on smooth skinned behavior, make sure your models are not skinned! You can spot skinned models in Unity because they will have a <strong>SkinnedMeshRenderer</strong> component rather than the more common <strong>MeshRenderer</strong> in their&nbsp;inspectors.</em></p>
 <p><img alt="skinning" src="http://upload.wikimedia.org/wikipedia/commons/6/66/Ie_paint_tube.jpg" /></p>
 <ul>
-<li>For obvious reasons, the transforms of a skinned character are usually known as '<a href="glossary#bones">bones</a>'.
+<li>For obvious reasons, the transforms of a skinned character are usually known as &#8216;<a href="glossary#bones">bones</a>&#8216;.
 <img alt="skeleton" src="http://morpheo.inrialpes.fr/people/hetroy/data/uploads/rech-anim-old.png" />
 <a href="2-1-basics-of-3d-rendering">back</a> <a href="2-3-3d-lighting">next</a></li>
 </ul>
     </article>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Techartists doin' it for themselves: A Python REPL in Unity</title>
+        <title>Techartists doin&#8217; it for themselves: A Python <span class="caps">REPL</span> in&nbsp;Unity</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A simple Python REPL inside the Unity Editor">
+        <meta name="description" content="A simple Python REPL inside the Unity Editor">
 
         <meta name="author" content="Steve Theodore">
 
@@ -48,9 +50,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2013/unityrepl">
-	<meta property="og:title" content="Techartists doin' it for themselves: A Python REPL in Unity">
+	<meta property="og:title" content="Techartists doin&#8217; it for themselves: A Python <span class="caps">REPL</span> in&nbsp;Unity">
 	<meta property="article:published_time" content="2013-12-22 10:10:00.003000-08:00">
-            <meta property="og:description" content="A simple Python REPL inside the Unity Editor">
+            <meta property="og:description" content="A simple Python REPL inside the Unity Editor">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Techartists doin' it for themselves: A Python REPL in Unity</h1>
+                        <h1>Techartists doin&#8217; it for themselves: A Python <span class="caps">REPL</span> in&nbsp;Unity</h1>
                         <span class="meta">
                             Sun 22 December 2013
                         </span>
@@ -109,13 +111,13 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>Last time, I sketched out the basics of <a href="python_in_unity.html">embedding a Python intepreter into Unity.</a>   That's cool enough -- but unless you're so desperate for Python that you're willing to script your whole application inside of triple quotes it doesn't have a ton of immediate applications.  </p>
-<p>So, this time out I'll sketch out how to build a simple script editor inside of Unity (at the risk of repeating myself, I'll just say again that the extensibility of the Unity editor is an incredible aid to game developers of all stripes, and to tech artists in particular -- it's pretty amazing you can hack in something this complex without source code access or esoteric C++ chops.  </p>
+        <p>Last time, I sketched out the basics of <a href="python_in_unity.html">embedding a Python intepreter into Unity.</a>   That&#8217;s cool enough &#8212; but unless you&#8217;re so desperate for Python that you&#8217;re willing to script your whole application inside of triple quotes it doesn&#8217;t have a ton of immediate&nbsp;applications.  </p>
+<p>So, this time out I&#8217;ll sketch out how to build a simple script editor inside of Unity (at the risk of repeating myself, I&#8217;ll just say again that the extensibility of the Unity editor is an incredible aid to game developers of all stripes, and to tech artists in particular &#8212; it&#8217;s pretty amazing you can hack in something this complex without source code access or esoteric C++&nbsp;chops.  </p>
 <h2>Prologomena</h2>
-<p>The basic strategy for this excersize is simply to create a Unity window with two panes - a 'history' pane  and a  'script' pane -- and before you ask, yes, it's just a ripoff of the Maya listener.   </p>
-<p>Before setting up the GUI, we need to cover the framework - the code that will keep the GUI stat and also set up the Python intepreter. In this example, you'll see a bunch of properties declared for the use of the GUI - notably <code>historyText</code> and <code>scriptText</code>, which hold the actual contents of the listener and the history pane.  The other notable feature is the same duo of <code>ScriptEngine</code>, and <code>ScriptScope</code> which we went over in the <a href="python_in_unity.html">last post</a>. </p>
+<p>The basic strategy for this excersize is simply to create a Unity window with two panes - a &#8216;history&#8217; pane  and a  &#8216;script&#8217; pane &#8212; and before you ask, yes, it&#8217;s just a ripoff of the Maya&nbsp;listener.   </p>
+<p>Before setting up the <span class="caps">GUI</span>, we need to cover the framework - the code that will keep the <span class="caps">GUI</span> stat and also set up the Python intepreter. In this example, you&#8217;ll see a bunch of properties declared for the use of the <span class="caps">GUI</span> - notably <code>historyText</code> and <code>scriptText</code>, which hold the actual contents of the listener and the history pane.  The other notable feature is the same duo of <code>ScriptEngine</code>, and <code>ScriptScope</code> which we went over in the <a href="python_in_unity.html">last post</a>. </p>
 <blockquote>
-<p>If those terms don't mean anything to you you might want to follow that link before proceeding).  </p>
+<p>If those terms don&#8217;t mean anything to you you might want to follow that link before&nbsp;proceeding).  </p>
 </blockquote>
 <div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
  <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
@@ -181,16 +183,16 @@
 </pre></div>
 
 
-<p>As in the last example you'll also not that we're manually setting up sys.path to point at the directory where IronPython is installed, with a little extra code to make it portable  (dotNet assemblies can tell you where they live on disk, so it's a cheap shortcut to find your install directory).   </p>
-<p>The only thing in here that is really 'architecturally' important its this line:  </p>
+<p>As in the last example you&#8217;ll also not that we&#8217;re manually setting up sys.path to point at the directory where IronPython is installed, with a little extra code to make it portable  (dotNet assemblies can tell you where they live on disk, so it&#8217;s a cheap shortcut to find your install&nbsp;directory).   </p>
+<p>The only thing in here that is really &#8216;architecturally&#8217; important its this&nbsp;line:  </p>
 <div class="highlight"><pre><span></span> <span class="n">init</span><span class="p">.</span><span class="n">AppendLine</span> <span class="p">(</span><span class="s">&quot;printbuffer = sys.stdout = StringIO.StringIO()&quot;</span><span class="p">);</span>
 </pre></div>
 
 
-<p>What's going on there is that we're replacing <code>sys.stdout</code> - which in ordinary Python points at the user's console - with a <a href="http://docs.python.org/2/library/stringio.html">StringIO </a>object.  StringIO mimicks a file -- and so does sys.stdout. By stuffing printbuffer in there we are hijacking any calls to print that you might make in a script so we can print them out in our UI.  This is trick should be familiar to tech artists who need <a href="http://www.drakeguan.org/blog/2009/02/How-to-make-Maya-output-all-messages-into-console-terminal/">to grab the Maya console for nefarious purposes.</a>  </p>
-<h2>Unity GUI - the good, the bad, and the ugly</h2>
-<p>Unity's GUI toolkit is notoriously wonky, and you'll see as we go along that much of the energy here is devoted to working around it's limitations.  While we can go pretty far just using the basics, the is a certain <a href="http://usersv2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldbergphotogal4155photo1695691461lr.jpg">Rube Goldberg</a> quality to what follows. You've been warned.  </p>
-<p>First let's just layout out the actual drawing call - the <code>OnGUI</code> method of our window:  </p>
+<p>What&#8217;s going on there is that we&#8217;re replacing <code>sys.stdout</code> - which in ordinary Python points at the user&#8217;s console - with a <a href="http://docs.python.org/2/library/stringio.html">StringIO </a>object.  StringIO mimicks a file &#8212; and so does sys.stdout. By stuffing printbuffer in there we are hijacking any calls to print that you might make in a script so we can print them out in our <span class="caps">UI</span>.  This is trick should be familiar to tech artists who need <a href="http://www.drakeguan.org/blog/2009/02/How-to-make-Maya-output-all-messages-into-console-terminal/">to grab the Maya console for nefarious&nbsp;purposes.</a>  </p>
+<h2>Unity <span class="caps">GUI</span> - the good, the bad, and the&nbsp;ugly</h2>
+<p>Unity&#8217;s <span class="caps">GUI</span> toolkit is notoriously wonky, and you&#8217;ll see as we go along that much of the energy here is devoted to working around it&#8217;s limitations.  While we can go pretty far just using the basics, the is a certain <a href="http://usersv2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldbergphotogal4155photo1695691461lr.jpg">Rube Goldberg</a> quality to what follows. You&#8217;ve been&nbsp;warned.  </p>
+<p>First let&#8217;s just layout out the actual drawing call - the <code>OnGUI</code> method of our&nbsp;window:  </p>
 <div class="highlight"><pre><span></span> <span class="n">using</span> <span class="n">UnityEngine</span><span class="p">;</span>    
  <span class="n">using</span> <span class="n">UnityEditor</span><span class="p">;</span>    
  <span class="n">using</span> <span class="n">IronPython</span><span class="p">;</span>    
@@ -272,23 +274,23 @@
 </pre></div>
 
 
-<p>If you're familiar with the dark arts of Unity GUI programming this should be pretty straight forward. If you're not, the key to understanding it is to remember that Unity uses what old-schooler's call <a href="http://lambda-the-ultimate.org/node/4561">Immediate mode GUI</a> , in which each control gets evaluated as it is declared .  There's a <a href="http://mollyrocket.com/forums/viewtopic.php?t=134">case to be made </a>that immediate mode is better for performance sensitive applications, but if you're used to the more typical (aka 'retained') mode GUIs in, for example, QT it's kind of an oddball way to write.   </p>
-<p>As each GUI element is drawn it reflects and then possibly updates the data that it relies on -- so, for example, we pass the string scriptText  to the GUI.TextArea that draws the script listener pane - and the results of any changes are immediately passed back into scriptText without the courtesy of a callback. This makes it tricky to manage complex state - as you run down the GUI draw, it's possible to hit a condition which changes a state and sends you back to the start! This makes it important to keep your state management code very clean and simple.  </p>
-<p>The one bit that may surprise people who do have some Unity experience its the line  </p>
+<p>If you&#8217;re familiar with the dark arts of Unity <span class="caps">GUI</span> programming this should be pretty straight forward. If you&#8217;re not, the key to understanding it is to remember that Unity uses what old-schooler&#8217;s call <a href="http://lambda-the-ultimate.org/node/4561">Immediate mode <span class="caps">GUI</span></a> , in which each control gets evaluated as it is declared .  There&#8217;s a <a href="http://mollyrocket.com/forums/viewtopic.php?t=134">case to be made </a>that immediate mode is better for performance sensitive applications, but if you&#8217;re used to the more typical (aka &#8216;retained&#8217;) mode GUIs in, for example, <span class="caps">QT</span> it&#8217;s kind of an oddball way to&nbsp;write.   </p>
+<p>As each <span class="caps">GUI</span> element is drawn it reflects and then possibly updates the data that it relies on &#8212; so, for example, we pass the string scriptText  to the <span class="caps">GUI</span>.TextArea that draws the script listener pane - and the results of any changes are immediately passed back into scriptText without the courtesy of a callback. This makes it tricky to manage complex state - as you run down the <span class="caps">GUI</span> draw, it&#8217;s possible to hit a condition which changes a state and sends you back to the start! This makes it important to keep your state management code very clean and&nbsp;simple.  </p>
+<p>The one bit that may surprise people who do have some Unity experience its the&nbsp;line  </p>
 <div class="highlight"><pre><span></span><span class="n">TEditor</span> <span class="o">=</span> <span class="p">(</span><span class="n">TextEditor</span><span class="p">)</span><span class="n">GUIUtility</span><span class="p">.</span><span class="n">GetStateObject</span> <span class="p">(</span><span class="n">typeof</span><span class="p">(</span><span class="n">TextEditor</span><span class="p">),</span>   
                                                   <span class="n">GUIUtility</span><span class="p">.</span><span class="n">keyboardControl</span><span class="p">);</span>
 </pre></div>
 
 
-<p>The TextEditor class is an undocumented bit of Unity arcana - it is a wrapper on the code that actually handles things like typing, selecting or cutting and pasting into a Unity text field.  It has methods for things like setting the cursor location and executing copy-paste operations. Unfortunately, being undocumented, it's tricky to figure out what to do with it -- in this example I'm only using it to preserve the selection position when I do something crazy - as you'll see in a moment.  </p>
+<p>The TextEditor class is an undocumented bit of Unity arcana - it is a wrapper on the code that actually handles things like typing, selecting or cutting and pasting into a Unity text field.  It has methods for things like setting the cursor location and executing copy-paste operations. Unfortunately, being undocumented, it&#8217;s tricky to figure out what to do with it &#8212; in this example I&#8217;m only using it to preserve the selection position when I do something crazy - as you&#8217;ll see in a&nbsp;moment.  </p>
 <h2>Hacktastic</h2>
-<p>You probably noticed the enigmatic line  </p>
+<p>You probably noticed the enigmatic&nbsp;line  </p>
 <div class="highlight"><pre><span></span><span class="n">HackyTabSubstitute</span><span class="p">();</span>
 </pre></div>
 
 
-<p>which leads up to the tricky bit of this example  -- and the reason for my earlier hack disclaimer.  </p>
-<p>Tabs of course are the <a href="http://www.wisegeek.com/what-is-sine-qua-non.htm#didyouknowout">sine qua non</a> for Pythonistas.  Unfortunately Unity catches the tab key before you can grab it, so it's impossible to 'type' a tab into a Unity text field.  After banging my head against this for a while, I settled on a pathetic workaround: just cheat and use the tilde key, which is above the tab key on most keyboards and doesn't have semantic importance in Python. Our new friend <code>HackyTabSubsitute()</code> makes sure that each time the GUI is drawn we replace and  backtick characters with indents and any tildes (shift-backtick) with dedents.  You can see how we also preserve the cursor position  by use of the TextEditor.  </p>
+<p>which leads up to the tricky bit of this example  &#8212; and the reason for my earlier hack&nbsp;disclaimer.  </p>
+<p>Tabs of course are the <a href="http://www.wisegeek.com/what-is-sine-qua-non.htm#didyouknowout">sine qua non</a> for Pythonistas.  Unfortunately Unity catches the tab key before you can grab it, so it&#8217;s impossible to &#8216;type&#8217; a tab into a Unity text field.  After banging my head against this for a while, I settled on a pathetic workaround: just cheat and use the tilde key, which is above the tab key on most keyboards and doesn&#8217;t have semantic importance in Python. Our new friend <code>HackyTabSubsitute()</code> makes sure that each time the <span class="caps">GUI</span> is drawn we replace and  backtick characters with indents and any tildes (shift-backtick) with dedents.  You can see how we also preserve the cursor position  by use of the&nbsp;TextEditor.  </p>
 <div class="highlight"><pre><span></span><span class="c1">// use ` and ~ as substitutes for tab and un-tab  </span>
 <span class="n">private</span> <span class="kt">void</span> <span class="nf">HackyTabSubstitute</span> <span class="p">()</span> 
 <span class="p">{</span> 
@@ -313,9 +315,9 @@
 </pre></div>
 
 
-<p>Assuming you can discipline yourself to use tilde instead of tab, this works like you'd expect, and it supports indents and dedents in any part of the line, which is handy for python edits.  </p>
-<h2>Running the script</h2>
-<p>As so often happens, it's the damn GUI which takes all the work. The actual point of this whole excersize is to let you type in some python and execute it. If you trigger an evaluation - with the buttons or with command + enter, you'll fire the Interpret function:  </p>
+<p>Assuming you can discipline yourself to use tilde instead of tab, this works like you&#8217;d expect, and it supports indents and dedents in any part of the line, which is handy for python&nbsp;edits.  </p>
+<h2>Running the&nbsp;script</h2>
+<p>As so often happens, it&#8217;s the damn <span class="caps">GUI</span> which takes all the work. The actual point of this whole excersize is to let you type in some python and execute it. If you trigger an evaluation - with the buttons or with command + enter, you&#8217;ll fire the Interpret&nbsp;function:  </p>
 <div class="highlight"><pre><span></span><span class="c1">// Pass the script text to the interpreter and display results    </span>
  <span class="n">private</span> <span class="kt">void</span> <span class="nf">Intepret</span> <span class="p">(</span><span class="n">string</span> <span class="n">texttointerpret</span><span class="p">)</span>
  <span class="p">{</span>
@@ -362,25 +364,25 @@
 </pre></div>
 
 
-<p>The heart of the whole business is just  </p>
+<p>The heart of the whole business is&nbsp;just  </p>
 <div class="highlight"><pre><span></span><span class="n">result</span> <span class="o">=</span> <span class="n">scriptSrc</span><span class="p">.</span><span class="n">Execute</span> <span class="p">(</span><span class="n">ScriptScope</span><span class="p">);</span>
 </pre></div>
 
 
-<p>which actually executes the contents of your script window.  As in Maya, we'll copy the evaluated text up to the history pane  (historyText += ,etc).  If the event of an exception, we print out the exception into the history window as well, and also push a Unity debug message in case you aren't looking at your console window when the problem arises.  Finally, we check to see if the printbuffer StringIO object has been written to duing the script execution  and copy it's contents to the history window too.   </p>
+<p>which actually executes the contents of your script window.  As in Maya, we&#8217;ll copy the evaluated text up to the history pane  (historyText += ,etc).  If the event of an exception, we print out the exception into the history window as well, and also push a Unity debug message in case you aren&#8217;t looking at your console window when the problem arises.  Finally, we check to see if the printbuffer StringIO object has been written to duing the script execution  and copy it&#8217;s contents to the history window&nbsp;too.   </p>
 <p><a href="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png"><img alt="" src="http://1.bp.blogspot.com/-DRvP1YjaeZg/UrcrG6xumEI/AAAAAAAABP0/XwuthQ55-iA/s1600/example.png" /></a></p>
-<h2>V. 0.1</h2>
-<p>Before starting the first of this pair of posts I was mostly just musing on how TA-friendly Unity is.   Building out a complete script editor is a perfect example of TA feature creep in action.  </p>
-<p>If you implement a script editor using the hints here you'll quickly see what's not there things like cut and paste, syntax highlighting, execution of selected text only and support for external files, just to name a few things that would be worth having.  And I should mention that this is demo code, it's not the sort of thing I'd want to turn into a critical path tool without further work.   </p>
-<p>Even so, it's been a useful little project.  In this holiday season it's taught me to appreciate my blessings - like how many nice little touches you get with a modern text editor. I'm even feeling more charitable towards the Max and Maya script listeners, since I've walked a mile in their sad patheric old worn out shoes.   </p>
-<p>All that said though, it really is pretty fricking neat that you can add a completely new scripting language to the Unity editor in a couple of hours -- and save your self tons of future time by adding cheapo scripts to automate tedious tasks that aren't worth 200 lines of C# curly brackets.  </p>
-<p>At some point I'll address the most obvious failings - lack of cut-n-paste is the clear winner! - but first I want to see about implementing the console in a more flexible GUI - for example, I could pop up a WPF window, or maybe even something truly funky like an <a href="python_in_browsers.html">in-browser python console.</a>.  In the mean time, if anybody takes this further I'd love to hear about it.  </p>
+<h2>V.&nbsp;0.1</h2>
+<p>Before starting the first of this pair of posts I was mostly just musing on how <span class="caps">TA</span>-friendly Unity is.   Building out a complete script editor is a perfect example of <span class="caps">TA</span> feature creep in&nbsp;action.  </p>
+<p>If you implement a script editor using the hints here you&#8217;ll quickly see what&#8217;s not there things like cut and paste, syntax highlighting, execution of selected text only and support for external files, just to name a few things that would be worth having.  And I should mention that this is demo code, it&#8217;s not the sort of thing I&#8217;d want to turn into a critical path tool without further&nbsp;work.   </p>
+<p>Even so, it&#8217;s been a useful little project.  In this holiday season it&#8217;s taught me to appreciate my blessings - like how many nice little touches you get with a modern text editor. I&#8217;m even feeling more charitable towards the Max and Maya script listeners, since I&#8217;ve walked a mile in their sad patheric old worn out&nbsp;shoes.   </p>
+<p>All that said though, it really is pretty fricking neat that you can add a completely new scripting language to the Unity editor in a couple of hours &#8212; and save your self tons of future time by adding cheapo scripts to automate tedious tasks that aren&#8217;t worth 200 lines of C# curly&nbsp;brackets.  </p>
+<p>At some point I&#8217;ll address the most obvious failings - lack of cut-n-paste is the clear winner! - but first I want to see about implementing the console in a more flexible <span class="caps">GUI</span> - for example, I could pop up a <span class="caps">WPF</span> window, or maybe even something truly funky like an <a href="python_in_browsers.html">in-browser python console.</a>.  In the mean time, if anybody takes this further I&#8217;d love to hear about&nbsp;it.  </p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/unity.html">unity</a>, <a href="http://theodox.com/tag/python.html">python</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -400,126 +402,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2013/unityrepl';
-                var disqus_url = 'http://theodox.com/2013/unityrepl';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2013/unityrepl';
+            var disqus_url = 'http://theodox.com/2013/unityrepl';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

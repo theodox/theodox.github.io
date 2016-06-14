@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -85,224 +87,78 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
         <div class="post-preview">
-            <a href="http://theodox.com/2014/pythonista" rel="bookmark" title="Permalink to Pythonistas need Pythonista!">
+            <a href="http://theodox.com/2014/pythonista" rel="bookmark" title="Permalink to Pythonistas need Pythonista!">
                 <h2 class="post-title">
-                    Pythonistas need Pythonista!
+                    Pythonistas need&nbsp;Pythonista!
                 </h2>
             </a>
-                <p>If you consider yourself a Pythonista, you've probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It's not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial wig.  </p>
-<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple's rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the 'batteries' included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS console.</p>
-<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and UI.  Ironically, it's easier to develop a GUI application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a UI builder tool similar to QT's interface builder (not nearly as deep or complex, of course, but iOS UI is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image processing:  </p>
+            <p class="post-meta">Sun 27 July 2014
+            </p>
+                <p>If you consider yourself a Pythonista, you&#8217;ve probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It&#8217;s not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial&nbsp;wig.  </p>
+<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple&#8217;s rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the &#8216;batteries&#8217; included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS&nbsp;console.</p>
+<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and <span class="caps">UI</span>.  Ironically, it&#8217;s easier to develop a <span class="caps">GUI</span> application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a <span class="caps">UI</span> builder tool similar to <span class="caps">QT</span>&#8217;s interface builder (not nearly as deep or complex, of course, but iOS <span class="caps">UI</span> is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image&nbsp;processing:  </p>
 <p><a href="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg"><img alt="" src="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg" /></a></p>
-<p>Pythonista's main limitation is that it's not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren't available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here's a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies -- such as the perforce api -- are off-limits; I'm not sure it it would be possible to use .pyd's that were properly compiled for iOS or if the security sandbox won't allow arbitrary binary code at all.  </p>
-<p>All in all, it's pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team .  </p>
-<p>All in all, pretty cool for $6.99!</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Sun 27 July 2014
-            </p>
-<p>There are <a href="http://theodox.com/2014/pythonista#disqus_thread">comments</a>.</p>        </div>
+<p>Pythonista&#8217;s main limitation is that it&#8217;s not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren&#8217;t available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here&#8217;s a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies &#8212; such as the perforce api &#8212; are off-limits; I&#8217;m not sure it it would be possible to use .pyd&#8217;s that were properly compiled for iOS or if the security sandbox won&#8217;t allow arbitrary binary code at&nbsp;all.  </p>
+<p>All in all, it&#8217;s pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team&nbsp;.  </p>
+<p>All in all, pretty cool for&nbsp;$6.99!</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/pythonista#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2014/pythonista#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2014/pythonista#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2014/clara_io" rel="bookmark" title="Permalink to First find of 2014: A Scriptable DCC app in the browser?!?!">
+            <a href="http://theodox.com/2014/clara_io" rel="bookmark" title="Permalink to First find of 2014: A Scriptable DCC app in the browser?!?!">
                 <h2 class="post-title">
-                    First find of 2014: A Scriptable DCC app in the browser?!?!
+                    First find of 2014: A Scriptable <span class="caps">DCC</span> app in the&nbsp;browser?!?!
                 </h2>
             </a>
-                <p>Just stumbled across this link to <a href="http://clara.io/">clara.io</a>, which is an in-browser 3D editor from Ecocortex, one of the vendors behind the <a href="https://code.google.com/p/alembic/">Alembic file format</a>. It's a 3d modeler that runs in a browser.  And it's free.  </p>
-<p>Sheesh.  </p>
-<p><a href="http://3.bp.blogspot.com/-YigSyxvbhNw/Usbzp7a29GI/AAAAAAAABYc/M06nOJapj_Q/s1600/claraio.png"><img alt="" src="http://3.bp.blogspot.com/-YigSyxvbhNw/Usbzp7a29GI/AAAAAAAABYc/M06nOJapj_Q/s1600/claraio.png" /></a>  </p>
-<blockquote>
-<p>And look at the bottom - a script console!  </p>
-</blockquote>
-<p>I'm not entirely sure what to make of this, beyond <a href="http://www.youtube.com/watch?v=acYDNlMYAaI"><em>totally wicked</em></a>.  I'm not going to try to review clara here - I just found it today, after all, but it's such an interesting find that I can't help but comment.  </p>
-<p>The UI is a riff on familiar ideas, so it's easy to pick up for any TA, or for that matter anybody with more than a passing familiarity with the usual suspects. It doesn't break any new ground in productivity or ease of use - but that doesn't bother me in this context. Like the dog that walks on it's hind legs, it's not done perfectly but one is surprised to see it_ <em>done at all.  This is, after all running _in a browser.</em> Yikes.  </p>
-<p>The app is still kind of wet behind the ears - it feels a trifle slow (some kinds of UI operations seem to trigger a perceptible refresh in all of the 3d views, for example). There are host of poly modeling tools -- notably booleans -- that Max/Maya users will miss pretty quickly.  All that said - the idea of running a zero-configuration, instantly deployable app from anywhere -- a tool you could be sure was the same for your outsources in Bangkok and on your own desktop <em>right now</em> -- along with inherent cloud data management?  The ability to run remote commands via web push commands, so you could set up a That is beyond just a curiosity. This app doesn't suddenly obsolete Max or Maya or XSI, but it might be the first rumblings of a big change in how things get done.  As a side benefit, it's got a several different file IO options and could perhaps make as decent waystation for people crossing product boundaries.  </p>
-<p>The TA who immediately asks "what scripting language" will be pleased to note that there's a script console down at the bottom; unsurprisingly for a web app the scripting language is JavaScript.  JS may not be my favorite language -- not by a long shot! -- but it's the natural language of the web. Most importantly, the scripting system makes it fairly easy to extend the application by writing your own plugins: this example on their website shows <a href="http://clara.io/learn/sdk/creating-commands">how to make an OBJ importer</a>.   </p>
-<p>Most important of all, though -- did I mention this? -- it's a browser app. Which means you can so things like this:   </p>
-<iframe width="660" height="370" src="https://www.youtube.com/embed/r0hrE8fSU08" frameborder="0" allowfullscreen></iframe>
-
-<p>Which, you must admit, scores pretty well on the Gee-Whiz scale for a freakin browser app.</p>
-<p>Overall, this is a really excellent developmnt. The 3d market has been painfully sluggish for a decade now - we've got better bells and whistles but on the whole we still work in 2014 more or less the away we worked in 2004.  We need new companies with fresh ideas to shake up this market.  We also need to <a href="and-i-thought-we-had-it-bad.html">embrace web development as a part of how we build tools</a>.  This is a big step in the right direction and we should do what we can to help it along.</p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Fri 03 January 2014
+            <p class="post-meta">Fri 03 January 2014
             </p>
-<p>There are <a href="http://theodox.com/2014/clara_io#disqus_thread">comments</a>.</p>        </div>
+                Clara.io — a full 3d DCC app that runs in your browser!
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/clara_io#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/python_in_browsers" rel="bookmark" title="Permalink to Python in browsers">
+            <a href="http://theodox.com/2013/python_in_browsers" rel="bookmark" title="Permalink to Python in browsers">
                 <h2 class="post-title">
-                    Python in browsers
+                    Python in&nbsp;browsers
                 </h2>
             </a>
-                <p>In case folks are wondering about the tantalizing prospect of running python in browser (as an alternative to or escape from JavaScript) <a href="http://stromberg.dnsalias.org/~strombrg/pybrowser/python-browser.html">this is a great roundup </a>of where things sit as of now (late 2013).</p>
-<blockquote>
-<p>Note: as of today (2016)the new hotness on the horizon is <a href="https://hacks.mozilla.org/2015/12/compiling-to-webassembly-its-happening/">WebAssembly</a> This is almost sure to make for interestng python-in-the-browser developments in the next year or so</p>
-</blockquote>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 12 December 2013
+            <p class="post-meta">Thu 12 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/python_in_browsers#disqus_thread">comments</a>.</p>        </div>
+                A quick link to python-in-the-browser projects
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/python_in_browsers#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
         <div class="post-preview">
-            <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad" rel="bookmark" title="Permalink to ...And I thought we had it bad...">
+            <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad" rel="bookmark" title="Permalink to …And I thought we had it bad…">
                 <h2 class="post-title">
-                    ...And I thought we had it bad...
+                    &#8230;And I thought we had it&nbsp;bad&#8230;
                 </h2>
             </a>
-                <p>Bitching about all the random stuff you have to wire together is the key rituals of the tech-art faith.  You inherit all sorts of crazy decisions from Max, Maya, plugin authors, game engine teams, and random tools you find lying around and then some how have to lash it all together into a <a href="http://www.rubegoldberg.com/gallery#">Rube Goldberg contraption</a> that (hopefully) hides the wackiness from your users  </p>
-<p><a href="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2001285523_lr.jpg"><img alt="" src="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2001285523_lr.jpg" /></a></p>
-<p>Of course, this is a huge pain in the butt  </p>
-<p><a href="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_1673126806_lr.jpg"><img alt="" src="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_1673126806_lr.jpg" /></a></p>
-<p>But I never realized that we have it _easy. _Until I sat down to write a web app.  </p>
-<p>After lots of fruitless searching for commercial asset management system that would help us manage versions, review status and so on for our assets I finally broke down and decided to write my own. While <a href="http://www.shotgunsoftware.com/">Shotgun</a> has gotten much slicker over the last year and <a href="http://www.southpawtech.com/">Tactic</a> is both open-source and Python-based, neither works well with Perforce (Tactic has been promising P4 integration for over a year, with no public release that I've been able to find) and both are very heavy on the kind of features you need to handle a huge Hollywood-style team with hundreds of Anonymous Drones.  Our tiny team doesn't need pretty gantt charts and time-stamped hourly activity reports.  </p>
-<p><a href="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2039295957_lr.jpg"><img alt="" src="http://users_v2.section101.com/memberdata/ru/rubegoldberg/photos/rubegoldberg_photo_gal_4152_photo_2039295957_lr.jpg" /></a></p>
-<h2>Web Dev 0.1B</h2>
-<p>The basic plan of attack is quite simple. Luckily the problem that usually damns these kinds of setups -- making sure that the database and the game are actually in sync on things like, say, texture size or polycount -- isn't a big problem since all of that is, blessedly, available in Unity with minimal work. The real goal of this system is to make sure people know what's placeholder art, what's work in progress, what has bugs, and so on..  To that, I've got a MySQL database sitting in our data center and some tools in the Unity editor that can collect and forward info to the database.  In Unity I've also hacked the editor so that the current status of the asset is displayed over the asset thumbnail in the project view so the users can see where they stand without going out to another tool.  </p>
-<p>I love Unity to death, but even I can't convince myself to like Unity's built in procedural GUI language; it's clunky and formulaic -- and because it's orientation is so procedural it is extremely slow for anything with lots of controls.  Big Data -- spreadsheets, long lists, or fancy MVVM views are just not happening in the Unity Editor UI layer.  So -- to return at long last to the original seed of this post - I decided to write a web app to provide the producers and artists with the kind of overview data they'd need to see how things were progressing all across the project, rather than just the status of individual assets.  </p>
-<h2>The Devil You Know</h2>
-<p>I did a bunch of research trying to figure out how to do this without having to start a whole new career as a web developer. In all honesty I was mostly hoping to avoid having to escape from the comfy confines of Python and C# (I can't really call SQL 'comfy' but at least it's <em>familiar</em>).  In particular my limited experiments with JavaScript (the real kind, not the beefed up Unity version) have been so uniformly unpleasant that I was desperate to avoid tangling with it at all costs.  I played with browser Pythons such as <a href="http://www.brython.info/">Brython</a> , <a href="http://www.skulpt.org/">Skulpt</a>, and the <a href="http://jimmy.schementi.com/2010/03/pycon-2010-python-in-browser.html">IronPython DLR host</a>.  There's also projects like <a href="http://pyjs.org/">PyJS </a>and <a href="https://bitbucket.org/pyjeon/rapydscript">RapydScript</a>, which compile Python (or in the case of RapydScript a 'pythonalike') to Javascript.   </p>
-<p>All of which are really cool - but none of which are tightly integrated into the bewildering complexity of modern web development. If all I wanted to do was <em>program_in the browser, I could stick with Python, take the speed hit and be done.  After more obsessive reading, however, I sadly concluded that the HTML-verse too crazy a place for any tacked-on, ex-post-facto solution -- even one as fricking cool as a complete Python interpreter written in Javascript.  The real hard part is not the programming, which is mostly UI level stuff -- hide this! highlight that! -- it's controlling the infinite number of stylistic choices that are involved in designing a functional and attractive layout in HTML.  The more I looked at it the more I felt like I needed to follow the herd and do what the 'real' web developers do -- which means not only learning HTML itself, but also CSS -- the language that defines style sheets for different graphic elements -- a language which is not the same as HTML - or the same as Javascript. ( Remember I said tech artists have it pretty good compared to web programmers? Imagine having to learn Mel, Python and Maxscript _all at the same time</em> just to get started as a TA.  There but for the grace...)  </p>
-<p>This could be worse. Thank heavens a friend at work pointed me at <a href="http://getbootstrap.com/">Bootstrap</a>, which is Twitter's clean and relatively simple to learn web gui framework. It lets you create nicely formatted modern looking pages without knowing too much about what really goes on in the tangled jungle of curly braces that define your CSS.  It still takes some doing to handle the GUI glue "do this when I push the button" stuff but its less annoying than, say, QT or WPF.  </p>
-<p>It's still incredibly annoying to write scads of parentheses and curlies for even the most trivial task  </p>
-<p><code>numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]</code><br />
-<code>evens = [x for x in numbers if x % 2 == 0]</code>  </p>
-<p>Is aesthetically and morally superior to<br />
-<code>``numbers=[1,2,3,4,5,6,7,8,9,10];  
-evens=new Array;  
-var _$tmp1_data=_$pyva_iter(numbers);</code><br />
-<code>var _$tmp2_len=_$tmp1_data.length;</code><br />
-<code>for(var _$tmp3_index=0;_$tmp3_index&lt;_$tmp2_len;_$tmp3_index++)</code><br />
-<code>{</code><br />
-<code>x=_$tmp1_data[_$tmp3_index];  
-    if((_.isEqual((x % 2),0)))</code><br />
-<code>{  
-        evens.append(x);</code><br />
-<code>}  
-     }</code><br />
-<code></code>But on the other hand you get lots of nice graphical goodies to soften the pain. I'm experimenting with <a href="http://coffeescript.org/">CoffeeScript</a>, which has Pythonic brevity and clarity -- but it's not Python and if you go in thinking it is (as I have on a few occasions) you'll get your knickers in a twist.   </p>
-<h2>The backside</h2>
-<p>Fortunately, the server side code is actually much less of a hassle than I had feared. Given the nature of the problem -- selecting and filtering data from a database and then spitting it out to users -- the natural choice for me was <a href="https://www.djangoproject.com/">Django</a>, which has several advantages:  </p>
-<ol>
-<li>A great object-relational mapper (ie, you get to program with nice objects instead of gnarly SQL queries, cursors, and rows</li>
-<li>A decent templating language. When I wrote the first Python build server for <a href="http://undeadlabs.com/">the lab</a> I did this all by myself with string.Template, and it was a pain in the pants.</li>
-<li>Hardly a curly bracket in sight</li>
-<li>Lots of documentation and tutorials on the web, which is comforting for the terrified novice (= me).</li>
-</ol>
-<p>After all of the consternation I went to researching web client stuff, this was a snap choice. And then the fun began.  </p>
-<p>The server is going to be running on a Mac (the tech art mac that we use for builds) so it will be ready to migrate to a Linux host later.  No problem, I use a mac laptop and do a fair amount of python on the mac already.,  So we want to install Django on the mac.  </p>
-<p>We need to install easy-setup (not sure why that doesn't come with the default mac python install)<br />
-....So we can install pip<br />
-.......So we can install Django<br />
-...... which needs MySQLdb<br />
-.......... which needs MySQL<br />
-..............which <a href="http://stackoverflow.com/questions/1448429/how-to-install-mysqldb-python-data-access-library-to-mysql-on-mac-os-x">doesn't install correctly on OSX the way it is supposed to</a><br />
-.................so we need to install a Ruby package manager that can install MySql and MysqlDb<br />
-....................so we install <a href="http://brew.sh/">Homebrew</a><br />
-.........................which needs Xcode<br />
-............................which requires you to accept the Xcode license after updates<br />
-..............................and then to install the Xcode commmand line tools<br />
-...........................so we can properly rebuild and install MySQL<br />
-........................so we can install MySQLdb<br />
-.....................so we can point Django at MySQL  </p>
-<p>_Eh voila! _We're done!  It's a good thing Mac's are the elegant operating system for people who don't go in for all that techie stuff.  </p>
-<p>Evidently. though,  this sort of thing is just business as usual for the real web developers. I guess I'll stop bitching about Autodesk's lousy license manager from now on.  The theme of this project is learning to appreciate just how good we've got it :)  </p>
-<p>So, with all that done, I grabbed a trial of <a href="http://www.jetbrains.com/pycharm/">PyCharm </a>. As an IDE I find it a bit clunky, but it's got good Django integration. Off to the races  </p>
-<h2>SQLitis</h2>
-<p><em>In this next bit I'm going to touch lightly on how Django does and doesn't make it easy to work with a database using familiar python techniques. The TL;DR is that it works pretty well, with gotchas. If you're unfamiliar with SQL terminology, databases, etc, you may want skim (and if you're an expert, you'll probably roll your eyes).  This isn't a how-to or tutorial - there are <a href="http://gettingstartedwithdjango.com/">great ones</a> out there.  It's just a quick glance at something that many TA's may find useful in coming years.</em>  </p>
-<p>The nice part of the Django workflow is that you can get Django to generate your data models for you by analysing your existing database.  Running  </p>
-<p><code>python django-admin.py inspectdb</code>  </p>
-<p>On your database will spit out the Python class definitions for your data models to stdout, where you can cut and paste them into your code.  I already had a decent database schema (I took most of my n00b lumps with that sort of thing building a bug tracking database for <a href="http://undeadlabs.com/about-state-of-decay/">SOD</a>) and getting the object models built took about half an hour from 'starting to look at the docs' to 'done'. The little GUI that PyCharm gives you for django-admin is particularly helpful here.  </p>
-<p>There are a couple of hitches.   </p>
-<p>Django could be smarter about tables which don't use numerical ID columns as their primary keys -- which bugs my inner <a href="https://www.simple-talk.com/sql/t-sql-programming/a-tale-of-identifiers/">Joe Celko</a> -- and I ended up having to add numeric ID columns to some of my tables in order to placate Django. Evidently there are ways to get in under the hood an tweak the actual sql that is emitted from your models to get around this but I've got other things to worry about.   </p>
-<p>It's also a bit tricky to get exactly the info you want.  For simple queries of the _get everything in this table named 'foo' _ variety Django works fine.  You can even do <a href="http://www.w3resource.com/sql/joins/using-a-where-cluase-to-join-two-tables-related-by-a-single-column-primary-key-or-foriegn-key-pair.php">SQL joins</a>, where you create a new pseudo table by picking entries from a set of tables with common keys - in Django you can trace back through a chain or table to table relationships just by following a  set of properties on your data objects.  In my case I have a table of assets (which describes the assets' names, location, and so on) and another table of asset types which is basically an Enum describing all the asset types - models, textures, animations and whatnot.  In SQL you'd connect them up using a <a href="http://www.w3schools.com/sql/sql_foreignkey.asp">foreign key </a>  to make sure that all the links were valid, and then use a JOIN statement to produce a combined result.  For example I have two tables somewhat like this:  </p>
-<h4>Assets table</h4>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Asset</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Thumbnail</td>
-<td>Image</td>
-</tr>
-<tr>
-<td>Path</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Type</td>
-<td>Int</td>
-</tr>
-</tbody>
-</table>
-<h4>Asset type table</h4>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>ID</td>
-<td>Int</td>
-</tr>
-<tr>
-<td>Description</td>
-<td>String</td>
-</tr>
-<tr>
-<td>Name</td>
-<td>String</td>
-</tr>
-</tbody>
-</table>
-<p>And if I want to grab a combined view that shows the assets along with their types I might do something like  </p>
-<div class="highlight"><pre><span></span>SELECT assets.asset, assets.path, asset_types.name  
-FROM assets  
-INNER JOIN asset_types  
-ON asset_types.id = assets.type
-</pre></div>
-
-
-<p>Which seems kind of funky and 1970's to read, but it's a very powerful technique - this would give back all of the assets and their types without any tedious loop writing on the receiving end.  Django handles this for you nicely in its object model: as long as I made sure to let Django know that the 'type' I want comes from the asset types table and the 'asset' comes from the assets table, I can just grab it with  </p>
-<div class="highlight"><pre><span></span>asset_list = Assets.objects.all()  # collect all the assets  
-for each_asset in asset_list:  
-  print asset.type.name
-</pre></div>
-
-
-<p>This is fine and dandy for many cases, but it does have some pitfalls. One of the great things about joins is that you can use them to substitute for conventional if-then logic. For example, in my case the I have a table of 'history' entries, which record changes in status (say from 'ready for review' to 'approved') along with times, dates and comments so we can see when things were OK'd for use in the game.  To get the current status of the object  I join the history table to itself:  </p>
-<div class="highlight"><pre><span></span>SELECT  
-h1.idhistory, h1.asset, h1.changed  
-FROM (history h1 left join history h2  
-      ON  
-     (h1.asset = h2.asset and  h2.changed &gt; h1.changed)  
-     )  
-      WHERE isnull(h2.asset)  
-ORDER BY h1.asset
-</pre></div>
-
-
-<p>The LEFT JOIN tries to run all combinations of dates in h2 against matching assets/date combinations in h1.  In all but one cases these will succeed (since the last date will be larger than all but the latest date). By looking for the failed join (with "isnull (h2.assets)") we can grab the latest entry.  This seems like a lot of work but it's way faster than a conventional loop-through-them-all-and-pick-the-latest-one approach; plus it is done in the server, in highly optimized C code, instead of on the client in (slow) Python.  </p>
-<p>Unfortunately this is a tricky one to get right with Django - at least, in my current (4 days and counting) aquaintance with Django.  I ended up having to work around it by creating a SQL view - basically a stored query - and grabbing just the id's of the history entries I wanted from their, and then doing a separate query to get the 'real' assets using the object technique I outlined earlier. Works fine but it is two server hits where one would do. C'est la vie.  </p>
-<h2>Last words</h2>
-<p>So, it's been a mixed bag getting this thing off the ground.  Django is pretty cool - one of the nice things about working with web tech is that itt has several orders of magnitude more users than typical TA tech - the  speed with which things evolve in this space is pretty dizzying if you're used to the typical lackadaisical pace of tech advances from ADSK.  Web tools are clearly going to be a Big Thing in the coming years - the ease of distribution and graphical panache you can get makes the old school batch-file and script world seem pretty pokey.  On the other hand, web tech  really is a Rube Goldberg machine - it's made up of technologies that have vastly outgrown their original purposes, and is plagued by competing vendors and developer faddism.  Javascript is icky, and the idea of having to learn at least 3 different languages ( JS, CSS, and HTML) just to get anything done is pretty irritating.  </p>
-<p>Fortunately the core of the TA personality is pure stubbornness.  We have our jobs because we don't like to rest until we figure out what the hell is going on. It's a very, very valuable trait to have if you're getting into web tools :)  </p>
-            <p class="post-meta">Posted by
-                    <a href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
-                 on Thu 12 December 2013
+            <p class="post-meta">Thu 12 December 2013
             </p>
-<p>There are <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad#disqus_thread">comments</a>.</p>        </div>
+                A tech artist looks at web development, recoils in horror
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2013/and_i_thought_we_had_it_bad#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
 
     <hr>
     <!-- Pager -->
@@ -314,107 +170,119 @@ ORDER BY h1.asset
     <hr>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

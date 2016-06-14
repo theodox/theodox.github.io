@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Good tricks</title>
+        <title>Good&nbsp;tricks</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -74,7 +76,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Good tricks</h1>
+                        <h1>Good&nbsp;tricks</h1>
                     </div>
                 </div>
             </div>
@@ -86,11 +88,11 @@
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <article>
-        <p>This page is a collection of little bits of useful info that are too small to merit their own blog posts.  They aren't in any particular order but they can be very useful.</p>
+        <p>This page is a collection of little bits of useful info that are too small to merit their own blog posts.  They aren&#8217;t in any particular order but they can be very&nbsp;useful.</p>
 <hr />
-<h2>itertools is your friend</h2>
-<p>The itertools module is a bit of Python arcana that many people overlook.  For an in-depth look , <a href="http://pymotw.com/2/itertools/index.html">Doug Hellman's PyMOTW article</a> is a great overview.. Here are some of the highlights:</p>
-<p><strong>itertools.chain</strong> is a fast way to string a list of iterables together. For example, you might have a list of lists - say, a bunch of component selections in Maya - and want to combine them into a single list.  It creates a generator that you can run through one item at a time or convert to a list with a list comprehension   </p>
+<h2>itertools is your&nbsp;friend</h2>
+<p>The itertools module is a bit of Python arcana that many people overlook.  For an in-depth look , <a href="http://pymotw.com/2/itertools/index.html">Doug Hellman&#8217;s PyMOTW article</a> is a great overview.. Here are some of the&nbsp;highlights:</p>
+<p><strong>itertools.chain</strong> is a fast way to string a list of iterables together. For example, you might have a list of lists - say, a bunch of component selections in Maya - and want to combine them into a single list.  It creates a generator that you can run through one item at a time or convert to a list with a list&nbsp;comprehension   </p>
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">itertools</span>  
 <span class="n">cube_verts</span> <span class="o">=</span>  <span class="p">[</span><span class="s1">&#39;pCube1.vtx[1]&#39;</span><span class="p">,</span> <span class="s1">&#39;pCube1.vtx[2]&#39;</span><span class="p">,</span> <span class="s1">&#39;pCube1.vtx[4]&#39;</span><span class="p">,</span> <span class="s1">&#39;pCube1.vtx[5]&#39;</span><span class="p">]</span>  
 <span class="n">sphere_verts</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;pSphere1.vtx[10]&#39;</span><span class="p">,</span> <span class="s1">&#39;pSphere1.vtx[11]&#39;</span><span class="p">,</span> <span class="s1">&#39;pSphere1.vtx[12]&#39;</span><span class="p">,</span> <span class="s1">&#39;pSphere1.vtx[99]&#39;</span><span class="p">]</span>  
@@ -114,7 +116,7 @@
 </pre></div>
 
 
-<p><strong>itertools.product</strong> will give you a generator that produces all the combinations of multiple iterable items. For example:  </p>
+<p><strong>itertools.product</strong> will give you a generator that produces all the combinations of multiple iterable items. For&nbsp;example:  </p>
 <div class="highlight"><pre><span></span>axes = (&#39;x&#39;, &#39;y&#39;, &#39;z&#39;)  
 dimensions = (-1, 0, 1)  
 print [i for i in itertools.product(axes, dimensions)]  
@@ -123,13 +125,13 @@ print [i for i in itertools.product(axes, dimensions)]
 
 
 <hr />
-<h2>regex testers</h2>
-<p>Regular aexpressions are powerful.  They are also ridiculous artifacts of the dark ages when superstitious programmers seemed to believe that every keystroke incurred the displeasure of the computing gods.  Figuring out a regex from scratch is all to often a frustrating exercise, so it's great to have an interactive tool to let you experiment in a nice, safe environment instead of trying to write your regexes and your actual tools st the same time.</p>
-<p>For Pythonista's, try <a href="https://pythex.org/">Pythex</a>.</p>
-<p>C# / dotnet programmers can use <a href="http://regexstorm.net/tester">Regex Storm</a> </p>
+<h2>regex&nbsp;testers</h2>
+<p>Regular aexpressions are powerful.  They are also ridiculous artifacts of the dark ages when superstitious programmers seemed to believe that every keystroke incurred the displeasure of the computing gods.  Figuring out a regex from scratch is all to often a frustrating exercise, so it&#8217;s great to have an interactive tool to let you experiment in a nice, safe environment instead of trying to write your regexes and your actual tools st the same&nbsp;time.</p>
+<p>For Pythonista&#8217;s, try <a href="https://pythex.org/">Pythex</a>.</p>
+<p>C# / dotnet programmers can use <a href="http://regexstorm.net/tester">Regex&nbsp;Storm</a> </p>
 <hr />
-<h2><strong>Maya list returns</strong></h2>
-<p>Before maya 2014, cmds had several commands with an annoying, anti-pythonic behaviour: if you ask a question that usually returns a list but get no results, Maya will return <em>None</em> instead of an empty list. The most common example is a call to <em>cmds.ls</em> which returns nothing:  </p>
+<h2><strong>Maya list&nbsp;returns</strong></h2>
+<p>Before maya 2014, cmds had several commands with an annoying, anti-pythonic behaviour: if you ask a question that usually returns a list but get no results, Maya will return <em>None</em> instead of an empty list. The most common example is a call to <em>cmds.ls</em> which returns&nbsp;nothing:  </p>
 <div class="highlight"><pre><span></span>good_stuff = cmds.ls(type=&#39;mesh&#39;)  
 for item in good_stuff:  
     do_something(item)  
@@ -137,17 +139,17 @@ for item in good_stuff:
 </pre></div>
 
 
-<p>Luckily, Python has a handy language feature that makes it easy to avoid this trap without an extra if test. If you change the ls like so:   </p>
+<p>Luckily, Python has a handy language feature that makes it easy to avoid this trap without an extra if test. If you change the ls like&nbsp;so:   </p>
 <div class="highlight"><pre><span></span>good_stuff = cmds.ls(type=&#39;mesh&#39;) or []  
 for item in good_stuff:  
     do_something(item)
 </pre></div>
 
 
-<p>The <code>or []</code> will pass a list result with something in it unchanged; but if the result is None, the or will substitute the empty list. Everything downstream from there can rely on the presence of a real list, even if it's empty   </p>
+<p>The <code>or []</code> will pass a list result with something in it unchanged; but if the result is None, the or will substitute the empty list. Everything downstream from there can rely on the presence of a real list, even if it&#8217;s&nbsp;empty   </p>
 <hr />
-<h2>Maya-like selection-or-list behavior</h2>
-<p>If you want to make a function that behaves like the default maya commands -- that is, it works on arguments you pass or on selected objects -- you can combine the *args variable input and the or [] trick to make a nice one liner :</p>
+<h2>Maya-like selection-or-list&nbsp;behavior</h2>
+<p>If you want to make a function that behaves like the default maya commands &#8212; that is, it works on arguments you pass or on selected objects &#8212; you can combine the *args variable input and the or [] trick to make a nice one liner&nbsp;:</p>
 <div class="highlight"><pre><span></span>def mayalike(*args):  
      my_objects = args or cmds.ls(sl=True) or []  
      for item in my_objects:  
@@ -155,148 +157,160 @@ for item in good_stuff:
 </pre></div>
 
 
-<p>This will use <code>args</code> if provided and the result of <code>cmds.ls(sl=True)</code> if not. Since the <code>or []</code> is at the end you can always iterate on it regardless of the arguments or the state of the Maya selection.</p>
+<p>This will use <code>args</code> if provided and the result of <code>cmds.ls(sl=True)</code> if not. Since the <code>or []</code> is at the end you can always iterate on it regardless of the arguments or the state of the Maya&nbsp;selection.</p>
 <hr />
-<h2>Python multiple assignment</h2>
-<p>Python has a handy trick of unpacking iterables in a single assigment call.  This lets you write things like:</p>
+<h2>Python multiple&nbsp;assignment</h2>
+<p>Python has a handy trick of unpacking iterables in a single assigment call.  This lets you write things&nbsp;like:</p>
 <div class="highlight"><pre><span></span>rotation = [ 0, 90, 0 ]
 rx, ry, rz = rotation
 </pre></div>
 
 
-<p>which saves some annoying boilderplate.  It can be especially useful when dealing with functions that produce tuple or list results:</p>
+<p>which saves some annoying boilderplate.  It can be especially useful when dealing with functions that produce tuple or list&nbsp;results:</p>
 <div class="highlight"><pre><span></span>filename, extension = os.splitext(completefilename)
 </pre></div>
 
 
-<p>which is much more elegant than</p>
+<p>which is much more elegant&nbsp;than</p>
 <div class="highlight"><pre><span></span>results = os.splitext(completefilename)
 filename = results[0]
 extension = results[1]
 </pre></div>
 
 
-<p>It's a good idea, though, to resist the temptation to overdo it: if you find yourself unpacking long tuples a lot:</p>
+<p>It&#8217;s a good idea, though, to resist the temptation to overdo it: if you find yourself unpacking long tuples a&nbsp;lot:</p>
 <div class="highlight"><pre><span></span>name, address, state, zip, phone = customer
 </pre></div>
 
 
-<p>that's a good sign that customer should be a dictionary, a class, or -- best of all -- a <a href="http://pymotw.com/2/collections/namedtuple.html"><code>namedtuple</code></a>so you can parse it reliably. </p>
+<p>that&#8217;s a good sign that customer should be a dictionary, a class, or &#8212; best of all &#8212; a <a href="http://pymotw.com/2/collections/namedtuple.html"><code>namedtuple</code></a>so you can parse it&nbsp;reliably. </p>
 <hr />
-<h3>Learn to love Mayapy</h3>
-<p>If you're doing a lot of work that involves restarting and reloading maya - particularly if you're iterating on one script that involves a bunch of setup work -- the common trick is to keep all of your steps in a python tab in your listener.  It's better than nothing, but it's still pretty slow, since you need to start up Maya and wait for the gui to finish loading which takes several seconds at best. </p>
-<p>If what you're working on does not require GUI access, you can use MayaPy.exe and the <code>-c</code> and <code>-i</code> flags to get into your script quickly. The <code>-c</code> flag launches mayapy and runs a command, and the <code>-i</code> flag keeps the  interpreter running. So you can boot mayapy directly into a running, headless copy of maya python like this:  </p>
+<h3>Learn to love&nbsp;Mayapy</h3>
+<p>If you&#8217;re doing a lot of work that involves restarting and reloading maya - particularly if you&#8217;re iterating on one script that involves a bunch of setup work &#8212; the common trick is to keep all of your steps in a python tab in your listener.  It&#8217;s better than nothing, but it&#8217;s still pretty slow, since you need to start up Maya and wait for the gui to finish loading which takes several seconds at&nbsp;best. </p>
+<p>If what you&#8217;re working on does not require <span class="caps">GUI</span> access, you can use MayaPy.exe and the <code>-c</code> and <code>-i</code> flags to get into your script quickly. The <code>-c</code> flag launches mayapy and runs a command, and the <code>-i</code> flag keeps the  interpreter running. So you can boot mayapy directly into a running, headless copy of maya python like&nbsp;this:  </p>
 <div class="highlight"><pre><span></span><span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">maya</span><span class="o">.</span><span class="n">py</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">i</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;import maya.standalone; maya.standalone.initialize()&quot;</span>
 </pre></div>
 
 
-<p>Obviously you could put your test setup in a separate module and import that after standalone. I've found this saves me a <em>huge</em> amount of time when I'm iterating on something that doesn't need GUI.  I stick this into a button in my IDE or make a shell alias / bat script to do it.  </p>
+<p>Obviously you could put your test setup in a separate module and import that after standalone. I&#8217;ve found this saves me a <em>huge</em> amount of time when I&#8217;m iterating on something that doesn&#8217;t need <span class="caps">GUI</span>.  I stick this into a button in my <span class="caps">IDE</span> or make a shell alias / bat script to do&nbsp;it.  </p>
 <hr />
 <h2><a href="http://lesterbanks.com/2014/01/maya-using-transfer-attributes-as-a-shrink-wrap-deformer/">http://lesterbanks.com/2014/01/maya-using-transfer-attributes-as-a-shrink-wrap-deformer/</a></h2>
     </article>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>

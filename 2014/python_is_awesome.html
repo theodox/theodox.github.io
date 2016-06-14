@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Your weekly moment of Python-is-awesome</title>
+        <title>Your weekly moment of&nbsp;Python-is-awesome</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -20,6 +20,8 @@
         <!-- Code highlight color scheme -->
             <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
 
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
 
         <!-- Custom Fonts -->
         <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -35,7 +37,7 @@
 
 
 
-        <meta name="description" content="A trick that lets you load python modules directly over the web.">
+        <meta name="description" content="A trick that lets you load python modules directly over the web.">
 
         <meta name="author" content="Steve Theodore">
 
@@ -48,9 +50,9 @@
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
 	<meta property="og:url" content="http://theodox.com/2014/python_is_awesome">
-	<meta property="og:title" content="Your weekly moment of Python-is-awesome">
+	<meta property="og:title" content="Your weekly moment of&nbsp;Python-is-awesome">
 	<meta property="article:published_time" content="2014-05-27 22:58:00.001000-07:00">
-            <meta property="og:description" content="A trick that lets you load python modules directly over the web.">
+            <meta property="og:description" content="A trick that lets you load python modules directly over the web.">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -92,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>Your weekly moment of Python-is-awesome</h1>
+                        <h1>Your weekly moment of&nbsp;Python-is-awesome</h1>
                         <span class="meta">
                             Tue 27 May 2014
                         </span>
@@ -109,13 +111,13 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>I stumbled across a cool little idea while working on a refactor of my python tools build system, and although it is not really ready for prime-time it's fun enough I had to share.  With a little bit of work you can <em>load Python modules directly over the web via http!</em>  How cool is that?  </p>
-<p>In the past I've always gave users a userSetup.py which automatically downloads a zip file containing all the rest of my code from a net share. While this works quite well, the userSetup file itself is a bit of a weak link. Although it changed pretty rarely, it was a bit more complex than I liked. In an ideal world, the user setup would be just a couple of lines, highly resistant to breakage and easy to leave untouched for months or years.  All the changeable stuff should happen off in the ether, so users always get the latest hotness.  </p>
-<p>While pondering how to improve this, I was trolling Doug Hellman's invaluable <a href="http://pymotw.com/2/">Python Module of the Week</a> site and stumbled onto his discussion of <a href="http://pymotw.com/2/sys/imports.html">custom Python module finders</a>. Basically, a module finder is a class which you can register with python to tell it how to look for modules. The key word there is 'how', not where' -- a module finder can do anything it wants to find or create a module, as long as it has returns an object with a load_module method that python can use to actually pop the code into sys.modules. It's particularly cool because the process is <em>completely transparent</em> to the calling code: if you call  </p>
+        <p>I stumbled across a cool little idea while working on a refactor of my python tools build system, and although it is not really ready for prime-time it&#8217;s fun enough I had to share.  With a little bit of work you can <em>load Python modules directly over the web via http!</em>  How cool is&nbsp;that?  </p>
+<p>In the past I&#8217;ve always gave users a userSetup.py which automatically downloads a zip file containing all the rest of my code from a net share. While this works quite well, the userSetup file itself is a bit of a weak link. Although it changed pretty rarely, it was a bit more complex than I liked. In an ideal world, the user setup would be just a couple of lines, highly resistant to breakage and easy to leave untouched for months or years.  All the changeable stuff should happen off in the ether, so users always get the latest&nbsp;hotness.  </p>
+<p>While pondering how to improve this, I was trolling Doug Hellman&#8217;s invaluable <a href="http://pymotw.com/2/">Python Module of the Week</a> site and stumbled onto his discussion of <a href="http://pymotw.com/2/sys/imports.html">custom Python module finders</a>. Basically, a module finder is a class which you can register with python to tell it how to look for modules. The key word there is &#8216;how&#8217;, not where&#8217; &#8212; a module finder can do anything it wants to find or create a module, as long as it has returns an object with a load_module method that python can use to actually pop the code into sys.modules. It&#8217;s particularly cool because the process is <em>completely transparent</em> to the calling code: if you&nbsp;call  </p>
 <p><code>import XXX</code>  </p>
-<p>you'll get XXX, even if your custom finder/loader had to generate it by consulting the _I Ching _and waiting for the right phase of the moon.  </p>
-<p>That sounds like fun (jeez, my sense of fun has gotten pretty esoteric). So, I hacked up a highly experimental example of a module loader that will look on the web for a python module being served up via http and import it as if it were local.  </p>
-<p>Here's the first bit, the module finder which is in charge of looking for the code when somebody says <code>import xxx</code>:  </p>
+<p>you&#8217;ll get <span class="caps">XXX</span>, even if your custom finder/loader had to generate it by consulting the _I Ching _and waiting for the right phase of the&nbsp;moon.  </p>
+<p>That sounds like fun (jeez, my sense of fun has gotten pretty esoteric). So, I hacked up a highly experimental example of a module loader that will look on the web for a python module being served up via http and import it as if it were&nbsp;local.  </p>
+<p>Here&#8217;s the first bit, the module finder which is in charge of looking for the code when somebody says <code>import xxx</code>:  </p>
 <div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;  </span>
 <span class="sd">web_shim.py</span>
 
@@ -180,9 +182,9 @@
 </pre></div>
 
 
-<p>The module finder's job is to be pointed at a path (in this case, 'self.url') If the path is not something this finder knows how to handle, it raises an ImportError. Otherwise, it sticks around until Python calls find_module with a module name, at which point it will return a module loader object (see below) or None if it doesn't know what to do.  </p>
-<p>In this case, we do everything as simply as possible. The finder only works on a path with 'http' in it (note that's not really the right way to check for a url! It's enough for proof of concept, though). The finder just fills out the path with the name of the module (plus ".py") and tries to download it into the user's temp directory. The business with the hex numbers is just a crc check to make sure that the downloaded module is the latest version. If this is the first time you've grabbed the file -- or if the code on the server has changed  -- the cached copy will be refreshed.  </p>
-<p>The second half of the operation is the WebLoader, which loads the cached module:  </p>
+<p>The module finder&#8217;s job is to be pointed at a path (in this case, &#8216;self.url&#8217;) If the path is not something this finder knows how to handle, it raises an ImportError. Otherwise, it sticks around until Python calls find_module with a module name, at which point it will return a module loader object (see below) or None if it doesn&#8217;t know what to&nbsp;do.  </p>
+<p>In this case, we do everything as simply as possible. The finder only works on a path with &#8216;http&#8217; in it (note that&#8217;s not really the right way to check for a url! It&#8217;s enough for proof of concept, though). The finder just fills out the path with the name of the module (plus &#8220;.py&#8221;) and tries to download it into the user&#8217;s temp directory. The business with the hex numbers is just a crc check to make sure that the downloaded module is the latest version. If this is the first time you&#8217;ve grabbed the file &#8212; or if the code on the server has changed  &#8212; the cached copy will be&nbsp;refreshed.  </p>
+<p>The second half of the operation is the WebLoader, which loads the cached&nbsp;module:  </p>
 <div class="highlight"><pre><span></span><span class="c1"># usess the same imports as WebFinder.py</span>
 
 <span class="k">class</span> <span class="nc">WebLoader</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
@@ -213,7 +215,7 @@
 </pre></div>
 
 
-<p>A moduleloader can do all sorts of fancy things (the test code on PyMOTW, for example, loads a module from a python shelf database) but in this case I'm doing the simplest thing possible, which is to use imp.load_source on our cached python file. imp, if you're not familiar with it, is a super useful built-in module which provides access to most of the internals of python's import process). Actually using the code is the cool part. All you need to do is to register the finder with sys.path_hooks and then add the web server with your modules on in to your path:   </p>
+<p>A moduleloader can do all sorts of fancy things (the test code on PyMOTW, for example, loads a module from a python shelf database) but in this case I&#8217;m doing the simplest thing possible, which is to use imp.load_source on our cached python file. imp, if you&#8217;re not familiar with it, is a super useful built-in module which provides access to most of the internals of python&#8217;s import process). Actually using the code is the cool part. All you need to do is to register the finder with sys.path_hooks and then add the web server with your modules on in to your&nbsp;path:   </p>
 <div class="highlight"><pre><span></span><span class="n">sys</span><span class="o">.</span><span class="n">path_hooks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">WebFinder</span><span class="p">)</span>  
 <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s2">&quot;http://www.inference.phy.cam.ac.uk/mackay/python/compression/huffman&quot;</span><span class="p">)</span>
 
@@ -227,16 +229,16 @@
 </pre></div>
 
 
-<p>This isn't really something I'd be comfortable using in production without more work.  There's no security and no authentication, so not only is your code up on the web for anybody to see, you're also executing code off the web with no idea what it will do. It would be OK for an intranet if you were pretty sure none of your coworkers fancies him/herself a master prankster, but I'd slather on the security before trying this over long distances!  </p>
-<p>Another obvious improvement would be to figure out a how to diff the local version of the file against the version on the http server without actually downloading the whole thing; that would be simple if the server could be asked for the CRC directly, but it would mean a tighter coupling between the finder and the server (which might be a good thing, security wise).  Another improvement might be to hack the loader so it force reloaded the module if the server version had changed, although that could have unintended side effects.</p>
-<p>The point, however -- assuming there is one --  is how freaking awesome python's infrastructure is. Live loading of code over the net, transparent to all your other code, in about 50 lines?  Hats off to Guido.   </p>
+<p>This isn&#8217;t really something I&#8217;d be comfortable using in production without more work.  There&#8217;s no security and no authentication, so not only is your code up on the web for anybody to see, you&#8217;re also executing code off the web with no idea what it will do. It would be <span class="caps">OK</span> for an intranet if you were pretty sure none of your coworkers fancies him/herself a master prankster, but I&#8217;d slather on the security before trying this over long&nbsp;distances!  </p>
+<p>Another obvious improvement would be to figure out a how to diff the local version of the file against the version on the http server without actually downloading the whole thing; that would be simple if the server could be asked for the <span class="caps">CRC</span> directly, but it would mean a tighter coupling between the finder and the server (which might be a good thing, security wise).  Another improvement might be to hack the loader so it force reloaded the module if the server version had changed, although that could have unintended side&nbsp;effects.</p>
+<p>The point, however &#8212; assuming there is one &#8212;  is how freaking awesome python&#8217;s infrastructure is. Live loading of code over the net, transparent to all your other code, in about 50 lines?  Hats off to&nbsp;Guido.   </p>
 <p><a href="http://www.wired.com/wp-content/uploads/blogs/wiredenterprise/wp-content/uploads/2012/06/beard-programmers-final-two.png"><img alt="" src="http://www.wired.com/wp-content/uploads/blogs/wiredenterprise/wp-content/uploads/2012/06/beard-programmers-final-two.png" /></a></p>
     </article>
 
         <div class="tags">
             <p>tags: <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/python.html">python</a></p>
         </div>
-
+    <div id="comment">
 <hr>
 <div class="sharing">
         <!-- AddThis Button BEGIN -->
@@ -256,126 +258,136 @@
         <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
         <!-- AddThis Button END -->
 </div>
-    <hr>
-
-        <div class="comments">
-            <h2>Comments !</h2>
-            <div id="disqus_thread"></div>
-            <script type="text/javascript">
-                var disqus_shortname = 'theodoxcom';
-                var disqus_identifier = '2014/python_is_awesome';
-                var disqus_url = 'http://theodox.com/2014/python_is_awesome';
-                (function() {
-                    var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                    dsq.src = '//theodoxcom.disqus.com/embed.js';
-                    (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-                })();
-            </script>
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2014/python_is_awesome';
+            var disqus_url = 'http://theodox.com/2014/python_is_awesome';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
-            <div class="col-lg-2 col-md-1">
-                <div class="vertical-spacer">
-                <h4>@social</h4>
-                    <ul class="list-inline text-center">
-                            <li>
-                                <a href="https://www.linkedin.com/in/stevetheodore">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://github.com/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="http://stackoverflow.com/users/1936075/theodox">
-                                    <span class="fa-stack fa-lg">
-                                        <i class="fa fa-circle fa-stack-2x"></i>
-                                        <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                                    </span>
-                                </a>
-                            </li>
-                    </ul>
-                
-                </div>
-                <div class="vertical-spacer">
-                <h4>#tags</h4>
-                    <a href="/tags">tag list</a>
-                    
-                        <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
-                        <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
-                        <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
-                        <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
-                        <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
-                        <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
-                        <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
-                        <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
-                        <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
-                        <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
-                        <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
-                        <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
-                        <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
-                        <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
-                        <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
-                        <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
-                        <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
-                        <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
-                        <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
-                        <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
-                        <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
-                        <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
-                        <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
-                        <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
-                        <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
-                        <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
-                        <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
-                        <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
-                        <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
-                        <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
-                        <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
-                        <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
-                        <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
-                        <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
-                        <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
-                        <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
-                        <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
-                        <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
-                </div>
-                 <div class="vertical-spacer">
-                <h4>archives</h4>
-                    <a href="/archives">site history</a>
-                </div> 
-                <div class="vertical-spacer">
-                <h4>feeds </h4>
-                <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-                <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-                </div>   
-
-            </div>
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
         </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
     </div>
 
     <hr>
