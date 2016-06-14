@@ -34,7 +34,7 @@ SINGLE_AUTHOR = True
 AMAZON_STORE = 'http://astore.amazon.com/tecsurgui-20'
 DISQUS_SITENAME = 'theodoxcom'
 
-SHOW_FULL_ARTICLE = True
+#SHOW_FULL_ARTICLE = True
 SHOW_SITESUBTITLE_IN_HTML = True
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = False
@@ -64,6 +64,10 @@ DEFAULT_HEADER_IMAGE = 'http://texturetaddka.com/wp-content/uploads/2011/09/DSC8
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
 COLOR_SCHEME_CSS = 'zenburn.css'
+CSS_OVERRIDE = 'theme/css/theodox.css'
+TYPOGRIFY = True
+YEAR_ARCHIVE_SAVE_AS = '{date:%Y}/index.html'
+
 
 THEME = "pelican-clean-blog"
 DELETE_OUTPUT_DIRECTORY = True
