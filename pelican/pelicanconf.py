@@ -27,7 +27,7 @@ SLUGIFIY_SOURCE = 'basename'
 ARTICLE_URL = '{date:%Y}/{slug}'
 ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
 
-STATIC_PATHS = ['pages/course', 'pages/cookbook', 'pages/publications']
+STATIC_PATHS = ['pages/course', 'pages/cookbook', 'pages/publications', 'images']
 
 MAIN_MENU = True
 SINGLE_AUTHOR = True
