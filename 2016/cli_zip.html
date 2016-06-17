@@ -2,12 +2,12 @@
 <html lang="en">
 
 <head>
-        <meta charset="utf-8">
+            <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>Chimeras & Manticores - Tag python</title>
+        <title>Command and&nbsp;Conquer</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -35,8 +35,27 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
         <![endif]-->
 
-                <meta property="og:locale" content="">
+
+
+        <meta name="description" content="A handy hack for distributing Python command line tools with predictable execution environments.">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="maya">
+        <meta name="tags" content="python">
+        <meta name="tags" content="distribution">
+
+	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Chimeras & Manticores">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
+	<meta property="og:url" content="http://theodox.com/2016/cli_zip">
+	<meta property="og:title" content="Command and&nbsp;Conquer">
+	<meta property="article:published_time" content="2016-06-16 00:00:00-07:00">
+            <meta property="og:description" content="A handy hack for distributing Python command line tools with predictable execution environments.">
+
+            <meta property="og:image" content="http://theodox.com/http://www.wsgf.org/f/u/imagecache/node-gallery-display/contrib/dr/203/ingame_16x9.jpg">
 </head>
 
 <body>
@@ -70,13 +89,17 @@
         <!-- /.container -->
     </nav>
 
-        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/home-bg.jpg')">
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('http://www.wsgf.org/f/u/imagecache/node-gallery-display/contrib/dr/203/ingame_16x9.jpg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="page-heading">
-                        <h1>#python</h1>
-                        <h3>43 items<h3>
+                    <div class="post-heading">
+                        <h1>Command and&nbsp;Conquer</h1>
+                        <span class="meta">
+                            Thu 16 June 2016
+                        </span>
+                        
                     </div>
                 </div>
             </div>
@@ -87,16 +110,9 @@
     <div class="container">
         <div class="row">
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-        <div class="post-preview">
-            <a href="http://theodox.com/2016/cli_zip" rel="bookmark" title="Permalink to Command and Conquer">
-                <h2 class="post-title">
-                    Command and&nbsp;Conquer
-                </h2>
-            </a>
-            <p class="post-meta">Thu 16 June 2016
-            </p>
-                <p>It&#8217;s pretty common for <span class="caps">TA</span>&#8217;s to want some specialty command-line tools that for their own use, or to share with a select number of power users who aren&#8217;t afraid of typing.  Python is great at making tools for this kind of one-off use, distributing and maintaing these kinds of scripts  requires jumping even more hoops than sending out artist tools (something covered in more detail <a href="blog/2014/save_the_environment">here</a> and <a href="blog/2014/egg_man">here</a>). </p>
+    <!-- Post Content -->
+    <article>
+        <p>It&#8217;s pretty common for <span class="caps">TA</span>&#8217;s to want some specialty command-line tools that for their own use, or to share with a select number of power users who aren&#8217;t afraid of typing.  Python is great at making tools for this kind of one-off use, distributing and maintaing these kinds of scripts  requires jumping even more hoops than sending out artist tools (something covered in more detail <a href="blog/2014/save_the_environment">here</a> and <a href="blog/2014/egg_man">here</a>). </p>
 <p>It&#8217;s much easier for folders full of loose scripts to diverge among coders, who are likely to be tinkering with their contents, than it is among artists.  For keeping the artists on the same page, I <a href="/blog/2014/egg_man">distribute a complete environment in a single .zip file</a>, which has definitely cut my distribution headaches by an order of magnitude and simplified my management a great deal.  But until fairly recently the techies had to muddle along the old fashioned&nbsp;way.</p>
 <p>However, once we started getting in to command line tools on a larger scale,  we realized that we can get many of the same benefits by using the same zip file as part of our command line arsenal.  This means we can write scipts that use our up-to-date in-house libraries (and also all of the path manipulation that gets done for our artist tools) without&nbsp;modification.</p>
 <p><img alt="" src="http://static2.gamespot.com/uploads/scale_super/gamespot/images/2006/043/reviews/712537-930763_20060213_001.jpg" /></p>
@@ -207,132 +223,46 @@
 <iframe width="560" height="315" src="https://www.youtube.com/embed/5BqAeN-F9Qs" frameborder="0" allowfullscreen></iframe>
 
 <p>Alas, however, the talk mostly served to reinforce my feeling that Python distribution is badly busted (and that <code>pip install</code> is not how to fix it).  For the meantime it&#8217;s at least comforting to know there&#8217;s fairly easy way to pop out an uncomplicated, repeatable toolkit with no external dependencies even if it costs you some disk&nbsp;space.</p>
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2016/cli_zip#disqus_thread">comments</a>.</p>
--->
-                <a href="http://theodox.com/2016/cli_zip#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2016/cli_zip#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
+    </article>
 
+        <div class="tags">
+            <p>tags: <a href="http://theodox.com/tag/maya.html">maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/distribution.html">distribution</a></p>
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
-                <h2 class="post-title">
-                    A touch of&nbsp;minq
-                </h2>
-            </a>
-            <p class="post-meta">Sun 06 March 2016
-            </p>
-                Introducing Minq, a query language for Maya scenes.
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>
--->
-
+    <div id="comment">
+<hr>
+<div class="sharing">
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+            <a class="addthis_button_preferred_1"></a>
+            <a class="addthis_button_preferred_2"></a>
+            <a class="addthis_button_preferred_3"></a>
+            <a class="addthis_button_preferred_4"></a>
+            <a class="addthis_button_preferred_5"></a>
+            <a class="addthis_button_preferred_6"></a>
+            <a class="addthis_button_preferred_7"></a>
+            <a class="addthis_button_preferred_8"></a>
+            <a class="addthis_button_preferred_9"></a>
+            <a class="addthis_button_compact"></a>
+            <a class="addthis_counter addthis_bubble_style"></a>
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2016/the_little_things" rel="bookmark" title="Permalink to The little things">
-                <h2 class="post-title">
-                    The little&nbsp;things
-                </h2>
-            </a>
-            <p class="post-meta">Thu 18 February 2016
-            </p>
-                After a decade, victory over over userSetup.py is within our grasp
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2016/the_little_things#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
-                <h2 class="post-title">
-                    First module of the&nbsp;year!
-                </h2>
-            </a>
-            <p class="post-meta">Wed 13 January 2016
-            </p>
-                Introducing SFX — a python module for scripting Maya shaderFX shaders.
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2016/sfx_module#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/charcoal" rel="bookmark" title="Permalink to Charcoal - it’s smokin’!">
-                <h2 class="post-title">
-                    Charcoal - it&#8217;s&nbsp;smokin&#8217;!
-                </h2>
-            </a>
-            <p class="post-meta">Tue 06 October 2015
-            </p>
-                The Charcoal editor, an excellent drop-in replacement for Maya’s script editor
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2015/charcoal#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/return_of_the_namedtuples" rel="bookmark" title="Permalink to Return of the namedtuples">
-                <h2 class="post-title">
-                    Return of the&nbsp;namedtuples
-                </h2>
-            </a>
-            <p class="post-meta">Sun 02 August 2015
-            </p>
-                A quick review of the Python namedtuple — a great way to return complex data from your functions without needing complex custom classes.
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2015/return_of_the_namedtuples#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/spelchek" rel="bookmark" title="Permalink to spelchek">
-                <h2 class="post-title">
-                    spelchek
-                </h2>
-            </a>
-            <p class="post-meta">Sat 16 May 2015
-            </p>
-                A python spell check module
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2015/spelchek#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/the_right_profile" rel="bookmark" title="Permalink to The right profile">
-                <h2 class="post-title">
-                    The right&nbsp;profile
-                </h2>
-            </a>
-            <p class="post-meta">Sat 18 April 2015
-            </p>
-                A brief, gentle introduction to the uses and abuses of profiling in Maya Python
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2015/the_right_profile#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-
-    <hr>
-    <!-- Pager -->
-    <ul class="pager">
-        <li class="next">
-                <a href="http://theodox.com/tag/python2.html">Older Posts &rarr;</a>
-        </li>
-    </ul>
-    Page 1 / 6
-    <hr>
+        <script type="text/javascript" src="http://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
+        <!-- AddThis Button END -->
+</div>
+    <div class="comments">
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'theodoxcom';
+            var disqus_identifier = '2016/cli_zip';
+            var disqus_url = 'http://theodox.com/2016/cli_zip';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//theodoxcom.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the comments.</noscript>
+    </div>
+    </div>
             </div>
             <!---- right sidebar -->
 <div class="right-sidebar col-lg-2 col-md-1">

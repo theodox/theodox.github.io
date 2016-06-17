@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#maya</h1>
-                        <h3>40 items<h3>
+                        <h3>41 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,137 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="http://theodox.com/2016/cli_zip" rel="bookmark" title="Permalink to Command and Conquer">
+                <h2 class="post-title">
+                    Command and&nbsp;Conquer
+                </h2>
+            </a>
+            <p class="post-meta">Thu 16 June 2016
+            </p>
+                <p>It&#8217;s pretty common for <span class="caps">TA</span>&#8217;s to want some specialty command-line tools that for their own use, or to share with a select number of power users who aren&#8217;t afraid of typing.  Python is great at making tools for this kind of one-off use, distributing and maintaing these kinds of scripts  requires jumping even more hoops than sending out artist tools (something covered in more detail <a href="blog/2014/save_the_environment">here</a> and <a href="blog/2014/egg_man">here</a>). </p>
+<p>It&#8217;s much easier for folders full of loose scripts to diverge among coders, who are likely to be tinkering with their contents, than it is among artists.  For keeping the artists on the same page, I <a href="/blog/2014/egg_man">distribute a complete environment in a single .zip file</a>, which has definitely cut my distribution headaches by an order of magnitude and simplified my management a great deal.  But until fairly recently the techies had to muddle along the old fashioned&nbsp;way.</p>
+<p>However, once we started getting in to command line tools on a larger scale,  we realized that we can get many of the same benefits by using the same zip file as part of our command line arsenal.  This means we can write scipts that use our up-to-date in-house libraries (and also all of the path manipulation that gets done for our artist tools) without&nbsp;modification.</p>
+<p><img alt="" src="http://static2.gamespot.com/uploads/scale_super/gamespot/images/2006/043/reviews/712537-930763_20060213_001.jpg" /></p>
+<blockquote>
+<p>Forget <span class="caps">CLI</span> tools, bring on the <span class="caps">FMV</span> tools and party like its&nbsp;1996</p>
+</blockquote>
+<h1>Just a <span class="caps">NOD</span></h1>
+<p>The trick is really pretty simple. All you need to do is include a <code>__main__.py</code> in the zip file.  Any python zip with a <code>__main__.py</code> is treated by python as an executable script.  Here&#8217;s a trivial&nbsp;example:</p>
+<div class="highlight"><pre><span></span><span class="c1"># main.py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">print</span> <span class="s2">&quot;# I was called with&quot;</span><span class="p">,</span> <span class="n">arguments</span>
+</pre></div>
+
+
+<p>If you zip that file, you can execute it like&nbsp;so:</p>
+<div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">example</span><span class="o">.</span><span class="n">zip</span> <span class="n">hello</span> <span class="n">world</span>
+<span class="c1"># I was called with hello world</span>
+</pre></div>
+
+
+<p>Once you understand that, you can build a flexible command-line toolkit that uses your library quite simply.  You&#8217;ll need to collect all of your path mongering into a single place, but that&#8217;s a good idea in any case &#8212; things get crazy pretty quick if every module can mess with <code>sys.path</code> on a&nbsp;whim.  </p>
+<p>I use a module that mimics <code>site</code> but works for zips as well as loose&nbsp;files:</p>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">zipsite</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">class</span> <span class="nc">SiteProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">contents</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pth_files</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># this gets overridden in derived classes</span>
+        <span class="c1"># so that zips and loose files worh the same</span>
+        <span class="k">yield</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;import&quot;</span><span class="p">):</span>
+                <span class="k">exec</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">continue</span>
+            <span class="n">new_path</span> <span class="o">=</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FolderSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">roots</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pth&quot;</span><span class="p">):</span>
+                    <span class="n">clean_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">roots</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">clean_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+                        <span class="k">yield</span> <span class="n">roots</span><span class="p">,</span> <span class="n">handle</span>
+
+
+<span class="k">class</span> <span class="nc">ZipSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">archive</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">all_names</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
+        <span class="n">all_names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">pth_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">all_names</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pth&#39;</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">pthfile</span> <span class="ow">in</span> <span class="n">pth_list</span><span class="p">:</span>
+            <span class="n">local_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pthfile</span><span class="p">)</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pthfile</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">local_pth</span><span class="p">,</span> <span class="n">contents</span>
+
+
+<span class="k">def</span> <span class="nf">addsitedir</span><span class="p">(</span><span class="o">*</span><span class="n">roots</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    for every .pth file in or under each root, process the pth file</span>
+<span class="sd">    in the same way as site.addsitedir()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">each_root</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">is_zipfile</span><span class="p">(</span><span class="n">each_root</span><span class="p">):</span>
+            <span class="n">ZipSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">FolderSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+
+
+<p>As long as that&#8217;s in my distribution zip, my <code>__main__</code> cam setup all the paths with a couple of&nbsp;lines:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipsite</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">zipsite</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">__file__</span> <span class="o">+</span> <span class="s2">&quot;/..&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>All the real work is delegated to the .pth files, which is a much simpler and less error prone method than letting the individual modules run&nbsp;rampant.</p>
+<p><img alt="" src="http://s3.amazonaws.com/bronibooru/a5fcec9d4f6a844d7222954ada743cf5.jpg" /></p>
+<blockquote>
+<p>I&#8230;. I just don&#8217;t know what to say&#8230; I mean&#8230;   But it <strong>is</strong> the least problematic search result for &#8216;Command and Conquerer Red Alert&nbsp;characters&#8217;</p>
+</blockquote>
+<h1>Red&nbsp;Alert</h1>
+<p>Of course, this is only a little bandaid on the big, nasty psoriasis that is Python tools distribution.  I was very hopeful when I stumbled across this PyCon talk on&nbsp;YouTube:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5BqAeN-F9Qs" frameborder="0" allowfullscreen></iframe>
+
+<p>Alas, however, the talk mostly served to reinforce my feeling that Python distribution is badly busted (and that <code>pip install</code> is not how to fix it).  For the meantime it&#8217;s at least comforting to know there&#8217;s fairly easy way to pop out an uncomplicated, repeatable toolkit with no external dependencies even if it costs you some disk&nbsp;space.</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/cli_zip#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/cli_zip#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/cli_zip#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
                 <h2 class="post-title">
                     A touch of&nbsp;minq
@@ -96,103 +227,10 @@
             </a>
             <p class="post-meta">Sun 06 March 2016
             </p>
-                <p>If you’re a long-time reader, you may recall that i’m very ambivalent about <a href="wraptastic.html">wrapper code</a>. I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.<br />
-So, it’s with a little bit of trepidation that I’m sharing my latest library. <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.<br />
-Now, that isn’t a particularly interesting job most of the time, but it’s one we do a <em>lot</em>: a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code> and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make. <br />
-Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like&nbsp;this?  </p>
-<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;something_thats_not_transform&#39;</span><span class="p">]</span>  
-<span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
-<span class="c1"># [u&#39;top&#39;]</span>
-
-<span class="n">stuff</span> <span class="o">=</span> <span class="p">[]</span>  
-<span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
-<span class="c1"># [u&#39;front&#39;, u&#39;persp&#39;, u&#39;side&#39;, u&#39;top&#39;]</span>
-</pre></div>
-
-
-<p>or&nbsp;this?  </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">my_meshes</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">):</span>  
-    <span class="k">print</span> <span class="n">item</span>  
-<span class="c1"># Error: &#39;NoneType&#39; object is not iterable  </span>
-<span class="c1"># Traceback (most recent call last):  </span>
-<span class="c1">#   File &quot;&lt;maya console&gt;&quot;, line 1, in &lt;module&gt;  </span>
-<span class="c1"># TypeError: &#39;NoneType&#39; object is not iterable #</span>
-</pre></div>
-
-
-<p>There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my <code>ls()</code> calls alone will produce at least 5 bugs.<br />
-More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want&nbsp;fixed.  </p>
-<h2>Minq in&nbsp;action</h2>
-<p>Hence, <a href="https://github.com/theodox/minq">minq</a>. <br />
-The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.<br />
-Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional&nbsp;means:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_assemblies_that_drive_skins</span><span class="p">():</span>  
-    <span class="n">skinned</span> <span class="o">=</span> <span class="p">[]</span>  
-    <span class="k">for</span> <span class="n">asm</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">assemblies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>  
-        <span class="n">children</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">asm</span><span class="p">,</span> <span class="n">ad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>  
-        <span class="n">history</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">future</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">history</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;skinCluster&#39;</span><span class="p">):</span>  
-            <span class="n">skinned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asm</span><span class="p">)</span>  
-    <span class="k">return</span> <span class="n">skinned</span>
-</pre></div>
-
-
-<p>You’ll notice the littering of <code>or []</code> to make sure we don’t get errors for failed queries. We have to create two temporary variables (<code>childen</code> and <code>history</code>) in order to store the intermediate results. And, obviously, we’re 3 layers deep when we get to the actual work item. <br />
-Above all, though, you need to remember two little bits of Maya trivia to make sense of this code: that <code>cmds.ls(asm=True)</code> means ‘give me the assemblies’ and that <code>listRelatives(ad=True)</code> gives you the children of an object. These are, of course, very clear to Maya vets – but there are over 50 flags in <code>ls()</code> and more than a dozen in <code>listRelatives()</code> . I’ve been working in Maya for 20 years and I still need to look up most of them. You pass those flags to Maya as strings which won’t get evaluated until runtime – and it’s possible to mistype them and not even know because <code>ls()</code>, in particular, makes wierd tweaky decisions about how to interpret conflicting flags.<br />
-Here’s the minq equivalent to the previous&nbsp;function:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drives_skin</span><span class="p">(</span><span class="n">some_object</span><span class="p">):</span>  
-    <span class="n">children</span> <span class="o">=</span> <span class="n">using</span><span class="p">(</span><span class="n">some_object</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AllChildren</span><span class="p">)</span>  
-    <span class="n">skin_clusters</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">SkinClusters</span><span class="p">)</span>  
-    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">skin_clusters</span><span class="p">)</span>
-
-<span class="n">unskinned_assemblies</span> <span class="o">=</span> <span class="n">Assemblies</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drives_skin</span><span class="p">)</span>
-</pre></div>
-
-
-<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the&nbsp;names:  </p>
-<ol>
-<li><code>drives_skin()</code> takes a maya&nbsp;object  </li>
-<li>It gets all of that object’s&nbsp;children  </li>
-<li>It gets all of the future history of those&nbsp;children  </li>
-<li>It it filters down to only the skin clusters in that future&nbsp;history  </li>
-<li>it returns true if any skin clusters are&nbsp;present  </li>
-</ol>
-<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read &#8212; otherwise it could all be done in a single expression.<br />
-A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to <code>ls</code> and <code>listRelatives</code>.  </p>
-<p>Here’s a couple of other examples to give you the flavor of what a minq query looks&nbsp;like:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># get all mesh transforms in a scene  </span>
-<span class="n">mesh_transforms</span> <span class="o">=</span>  <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span>
-
-<span class="c1"># find stub joints  </span>
-<span class="k">def</span> <span class="nf">is_stub</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>  
-    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span> <span class="p">(</span><span class="n">using</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Children</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">Transforms</span><span class="p">))</span>  
-<span class="n">stubs</span> <span class="o">=</span> <span class="n">Joints</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_stub</span><span class="p">)</span>
-
-<span class="c1"># filtering by type, by name, and with functions  </span>
-<span class="n">cube_creator_nodes</span> <span class="o">=</span> <span class="n">PolyCreators</span><span class="p">()</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="s1">&#39;polyCube&#39;</span><span class="p">)</span>  
-<span class="n">used_to_be_cubes</span> <span class="o">=</span> <span class="n">cube_creator_nodes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">Meshes</span><span class="p">)</span>  
-<span class="n">has_8_verts</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyEvaluate</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span>  
-<span class="n">still_are_cubes</span> <span class="o">=</span> <span class="n">used_to_be_cubes</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">has_8_verts</span><span class="p">)</span>
-
-<span class="c1"># adding, subtracting or intersecting queries</span>
-
-<span class="n">too_high</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>  
-<span class="n">too_low</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="n">middle_xforms</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">too_high</span> <span class="o">+</span> <span class="n">too_low</span><span class="p">)</span>
-</pre></div>
-
-
-<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual <span class="caps">MIT</span>, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and&nbsp;style. </p>
+                Introducing Minq, a query language for Maya scenes.
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>
 -->
-                <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -285,21 +323,6 @@ A purist will probably point out that there are important under-the-hood details
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/the_right_profile" rel="bookmark" title="Permalink to The right profile">
-                <h2 class="post-title">
-                    The right&nbsp;profile
-                </h2>
-            </a>
-            <p class="post-meta">Sat 18 April 2015
-            </p>
-                A brief, gentle introduction to the uses and abuses of profiling in Maya Python
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2015/the_right_profile#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
@@ -308,7 +331,7 @@ A purist will probably point out that there are important under-the-hood details
                 <a href="http://theodox.com/tag/maya2.html">Older Posts &rarr;</a>
         </li>
     </ul>
-    Page 1 / 5
+    Page 1 / 6
     <hr>
             </div>
             <!---- right sidebar -->

@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#distribution</h1>
-                        <h3>2 items<h3>
+                        <h3>3 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,137 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="http://theodox.com/2016/cli_zip" rel="bookmark" title="Permalink to Command and Conquer">
+                <h2 class="post-title">
+                    Command and&nbsp;Conquer
+                </h2>
+            </a>
+            <p class="post-meta">Thu 16 June 2016
+            </p>
+                <p>It&#8217;s pretty common for <span class="caps">TA</span>&#8217;s to want some specialty command-line tools that for their own use, or to share with a select number of power users who aren&#8217;t afraid of typing.  Python is great at making tools for this kind of one-off use, distributing and maintaing these kinds of scripts  requires jumping even more hoops than sending out artist tools (something covered in more detail <a href="blog/2014/save_the_environment">here</a> and <a href="blog/2014/egg_man">here</a>). </p>
+<p>It&#8217;s much easier for folders full of loose scripts to diverge among coders, who are likely to be tinkering with their contents, than it is among artists.  For keeping the artists on the same page, I <a href="/blog/2014/egg_man">distribute a complete environment in a single .zip file</a>, which has definitely cut my distribution headaches by an order of magnitude and simplified my management a great deal.  But until fairly recently the techies had to muddle along the old fashioned&nbsp;way.</p>
+<p>However, once we started getting in to command line tools on a larger scale,  we realized that we can get many of the same benefits by using the same zip file as part of our command line arsenal.  This means we can write scipts that use our up-to-date in-house libraries (and also all of the path manipulation that gets done for our artist tools) without&nbsp;modification.</p>
+<p><img alt="" src="http://static2.gamespot.com/uploads/scale_super/gamespot/images/2006/043/reviews/712537-930763_20060213_001.jpg" /></p>
+<blockquote>
+<p>Forget <span class="caps">CLI</span> tools, bring on the <span class="caps">FMV</span> tools and party like its&nbsp;1996</p>
+</blockquote>
+<h1>Just a <span class="caps">NOD</span></h1>
+<p>The trick is really pretty simple. All you need to do is include a <code>__main__.py</code> in the zip file.  Any python zip with a <code>__main__.py</code> is treated by python as an executable script.  Here&#8217;s a trivial&nbsp;example:</p>
+<div class="highlight"><pre><span></span><span class="c1"># main.py</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+    <span class="k">print</span> <span class="s2">&quot;# I was called with&quot;</span><span class="p">,</span> <span class="n">arguments</span>
+</pre></div>
+
+
+<p>If you zip that file, you can execute it like&nbsp;so:</p>
+<div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">example</span><span class="o">.</span><span class="n">zip</span> <span class="n">hello</span> <span class="n">world</span>
+<span class="c1"># I was called with hello world</span>
+</pre></div>
+
+
+<p>Once you understand that, you can build a flexible command-line toolkit that uses your library quite simply.  You&#8217;ll need to collect all of your path mongering into a single place, but that&#8217;s a good idea in any case &#8212; things get crazy pretty quick if every module can mess with <code>sys.path</code> on a&nbsp;whim.  </p>
+<p>I use a module that mimics <code>site</code> but works for zips as well as loose&nbsp;files:</p>
+<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">zipsite</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">os</span>
+
+
+<span class="k">class</span> <span class="nc">SiteProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
+
+    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">contents</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pth_files</span><span class="p">():</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c1"># this gets overridden in derived classes</span>
+        <span class="c1"># so that zips and loose files worh the same</span>
+        <span class="k">yield</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
+                <span class="k">continue</span>
+            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;import&quot;</span><span class="p">):</span>
+                <span class="k">exec</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+                <span class="k">continue</span>
+            <span class="n">new_path</span> <span class="o">=</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
+                <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
+
+
+<span class="k">class</span> <span class="nc">FolderSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">roots</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pth&quot;</span><span class="p">):</span>
+                    <span class="n">clean_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">roots</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
+                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">clean_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
+                        <span class="k">yield</span> <span class="n">roots</span><span class="p">,</span> <span class="n">handle</span>
+
+
+<span class="k">class</span> <span class="nc">ZipSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">archive</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+        <span class="n">all_names</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
+        <span class="n">all_names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+        <span class="n">pth_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">all_names</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pth&#39;</span><span class="p">)]</span>
+        <span class="k">for</span> <span class="n">pthfile</span> <span class="ow">in</span> <span class="n">pth_list</span><span class="p">:</span>
+            <span class="n">local_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pthfile</span><span class="p">)</span>
+            <span class="n">contents</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pthfile</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span>
+            <span class="k">yield</span> <span class="n">local_pth</span><span class="p">,</span> <span class="n">contents</span>
+
+
+<span class="k">def</span> <span class="nf">addsitedir</span><span class="p">(</span><span class="o">*</span><span class="n">roots</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    for every .pth file in or under each root, process the pth file</span>
+<span class="sd">    in the same way as site.addsitedir()</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">each_root</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">is_zipfile</span><span class="p">(</span><span class="n">each_root</span><span class="p">):</span>
+            <span class="n">ZipSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">FolderSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
+</pre></div>
+
+
+<p>As long as that&#8217;s in my distribution zip, my <code>__main__</code> cam setup all the paths with a couple of&nbsp;lines:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipsite</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="n">zipsite</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">__file__</span> <span class="o">+</span> <span class="s2">&quot;/..&quot;</span><span class="p">))</span>
+</pre></div>
+
+
+<p>All the real work is delegated to the .pth files, which is a much simpler and less error prone method than letting the individual modules run&nbsp;rampant.</p>
+<p><img alt="" src="http://s3.amazonaws.com/bronibooru/a5fcec9d4f6a844d7222954ada743cf5.jpg" /></p>
+<blockquote>
+<p>I&#8230;. I just don&#8217;t know what to say&#8230; I mean&#8230;   But it <strong>is</strong> the least problematic search result for &#8216;Command and Conquerer Red Alert&nbsp;characters&#8217;</p>
+</blockquote>
+<h1>Red&nbsp;Alert</h1>
+<p>Of course, this is only a little bandaid on the big, nasty psoriasis that is Python tools distribution.  I was very hopeful when I stumbled across this PyCon talk on&nbsp;YouTube:</p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/5BqAeN-F9Qs" frameborder="0" allowfullscreen></iframe>
+
+<p>Alas, however, the talk mostly served to reinforce my feeling that Python distribution is badly busted (and that <code>pip install</code> is not how to fix it).  For the meantime it&#8217;s at least comforting to know there&#8217;s fairly easy way to pop out an uncomplicated, repeatable toolkit with no external dependencies even if it costs you some disk&nbsp;space.</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/cli_zip#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/cli_zip#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/cli_zip#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="http://theodox.com/2014/egg_man" rel="bookmark" title="Permalink to Save The Environment 2: I am the .Egg Man">
                 <h2 class="post-title">
                     Save The Environment 2: I am the .Egg&nbsp;Man
@@ -96,171 +227,10 @@
             </a>
             <p class="post-meta">Sat 05 July 2014
             </p>
-                <p>In my last, <a href="save_the_environment">bumper-sticker-laden post</a> I offered to share a little bit about the way I pack up my tools for users.  This time I&#8217;ll try to actually describe the&nbsp;process.  </p>
-<p>After a all the buildup, I wish I could make this sound more high tech and impressive. Basically, I just pack up what I have and send it all out to my users in a big ol&#8217; zip file.  The zip ends up on their Maya&#8217;s <span class="caps">PYTHONPATH</span>, and gives them exactly the same stuff I had when I created the zip.  That&#8217;s kind of it.  It&#8217;s basically a simplified version of a <a href="http://mrtopf.de/blog/en/a-small-introduction-to-python-eggs/">python egg</a>; however since I&#8217;m distributing an entire ecosystem in one shot I&#8217;ve opted to do the packaging myself instead of relying on <a href="https://pypi.python.org/pypi/setuptools">setuptools</a> and all of its complex dependency management&nbsp;arrangements.  </p>
-<p>Simple as it is, this system has saved me a huge amount of time and energy over the last few years. It&#8217;s been a long time since I&#8217;ve had to worry about a mysterious import failure or the wrong version of a module.  Simplicity and robustness are very important, especially in the foundation of a pipeline. Of course, they don&#8217;t always make for the most engaging blog posts  But I&#8217;ll do what I can, even if it means resorting to some pretty lame egg&nbsp;puns.  </p>
-<h2>You can&#8217;t make an omelette&nbsp;without&#8230;</h2>
-<p>There actually are some details worth discussing, but before I get into them, I should talk about why this works for the special case of Maya tools - and why it might not work as well for other forms of application&nbsp;development.  </p>
-<p><a href="http://gabrielutasi.com/copyright/gabrielutasi/052307.egg.gif"><img alt="" src="http://gabrielutasi.com/copyright/gabrielutasi/052307.egg.gif" /></a></p>
-<p>My primary problem - the thing I worry most about - is <strong>making sure that all my users are running the same code at the same time</strong>.  Maya tools are hard enough - it&#8217;s tough to really nail things down when your data structures are just lying around in the scene where users can poke at them.  Between that and the inexorable tick-tock of the game development  clock, I&#8217;ve gotten very resistant to  debugging problems I already solved a week or a month ago and which are only showing up because Jane/Joe Artist doesn&#8217;t like downloading the latest&nbsp;tools.  </p>
-<p>Similarly, it needs to be <strong>hard for an end user to delete or mangle vital stuff</strong>.  I&#8217;ve had artists at a former company who decided to &#8220;speedup their startup time&#8221; by deleting the file that downloaded the latest tools - a fact which only came to light when their out-of-date data started bringing down nightly builds.  Most users have a few scripts or tools of their own, but I&#8217;m not keen on having unvetted stuff from the intenet being dumped into the same folder where all my tools live - there are lots of ways that can go&nbsp;wrong.  </p>
-<p>Another thing that&#8217;s also important is that the system needs to be <strong>clean</strong>: it has to be easy to install and to uninstall, and easy for users to switch between toolsets.  I&#8217;ve got to support multiple teams in house and outsources and I don&#8217;t want to worry about micromanaging hundreds of files on other people&#8217;s&nbsp;disks.  </p>
-<p>The last  thing I need  to do is to keep this system <strong>independent of our internal source control</strong>. Source control&#8217;s real job &#8212; managing change over time &#8212; is hard enough.  Using it as a cheapo distribution service is pushing it into a role it&#8217;s not intended for.  For one thing, many users have reasons (sometimes good, sometimes bad) for opting out of the daily sync ritual.  I don&#8217;t want my users dropping out of sync with the rest of the team on purpose or by accident &#8212; but I&#8217;m also leery of forcing them to sync at a time they didn&#8217;t choose, since I don&#8217;t know what they&#8217;re up to or what other people may have checked in.  Plus, we don&#8217;t always give outsourcers direct access to source control and I don&#8217;t want to have to maintain different systems in and out of&nbsp;house.  </p>
-<p>Besides,  I want to be able to use source control selfishly, to make my own job easier.  I want to track my development and have the ability to debug or roll back or branch as I need while working, without worrying that checking in the wrong file will bring my whole team to a halt.  I once had a team of 80 artists brought to a screeching halt by a guy who checked in a maxScript file that was auto-synced by everybody in the building. Unfortunately, he did it from a unicode text editor - and Max hates unicode in maxScript. The auto-sync, keep-everybody-current system gave everybody the crashing file straight from his incautious checkin &#8212; and, of course, it broke their auto-syncing as well as killing their Maxes. Since then I&#8217;ve been pretty leery of using source control to get things into users&#8217;&nbsp;hands.  </p>
-<h2>How to lay an&nbsp;egg</h2>
-<p>It&#8217;s the sum of all these considerations that gives rise to the method I use &#8212; which is, as I said, just zipping up a complete environment and distributing that directly to users via a net share or an http&nbsp;server.  </p>
-<p>The zip comes with a userSetup.py that checks the shared drive for newer versions and grab it if needed and then adds the zip file to the user&#8217;s <span class="caps">PATH</span>.  <em>Rocket Science <span class="caps">FTW</span>!</em>  </p>
-<p>This system satisfies most of my key concerns at a&nbsp;shot:  </p>
-<ul>
-<li>It&#8217;s all one piece (well, two if you count _userSetup.py). _That means that every user has exactly the same code - and there are no out-of-date .pyc files lying in wait to confuse&nbsp;things.</li>
-<li>Keeping people up to date is&nbsp;automatic</li>
-<li>It can be delivered to a user&#8217;s personal maya directory - no need to touch the base Maya&nbsp;install</li>
-<li>It&#8217;s outside of source&nbsp;control</li>
-<li>It&#8217;s easy to adapt for multiple projects.  userSetup can check an environment variable to decide between multiple zips, and the zips can coexist happily with each&nbsp;other.</li>
-<li>It&#8217;s trivial to remove: there are no permanent alterations to the local filesystem or the maya&nbsp;installation.</li>
-</ul>
-<p>The most complicated bit - and &#8220;complicated&#8221; here is a pretty relative term - is making sure that the zip file is exactly equivalent to the folder structure I use when I&#8217;m developing. My project folder looks more or less like&nbsp;this:  </p>
-<p><a href="http://4.bp.blogspot.com/-1Z9srlWTbMA/U7YY-sLus2I/AAAAAAABIZI/7f4yysrcJA4/s1600/folders.png"><img alt="" src="http://4.bp.blogspot.com/-1Z9srlWTbMA/U7YY-sLus2I/AAAAAAABIZI/7f4yysrcJA4/s1600/folders.png" /></a></p>
-<p>Most of this is what you&#8217;d expect: the .py files are modules, and the folders with the little dots in them are python packages. As long as my project folder is on the Python path, these are all available for import in the usual way.  The mildly interesting bit are the folders highlighted in green; those are external modules like PyMySql and Perforce, which I keep separately so I can manage the legal mumbo-jumbo that comes with redistributing and licensing.  In this example &#8216;external&#8217; is not a package (note the blue parent folder - my <span class="caps">IDE</span> paints them blue if they aren&#8217;t on the python path) so none of these packages are going to be on the python path or available for import without a smidge of extra&nbsp;work.  </p>
-<p>On my own machine, where I&#8217;m running from loose files, I add project to my Python path using the wonderful, and often overlooked standard library module site.  site is an alternative method of managing your Python search path - instead of appending paths onto sys.path, you can add directories using using <a href="https://docs.python.org/2/library/site.html">site.addsitedir()</a>.  The truly excellent feature of site, though, that it&#8217;s data-driven: when you add a directory with site.addsitedir(), the module will search the folder for text files with the .pth extension and then add any directories specified there as well.   That UL_maya.pth file down near the bottom of the picture is my .pth file: it includes entries for my external modules so that they are automatically included when my project folder is added to the&nbsp;path.  </p>
-<p>Unfortunately, site does not know how to deal with pth files inside a zip file.  So, my startup code includes a little shim which duplicates the functionality of <code>addsitedir</code>. Luckily it&#8217;s pretty&nbsp;simple:  </p>
-<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;  </span>
-<span class="sd">ul.paths.py</span>
-
-<span class="sd">mimics the site module: process .pth files identically for zip and loose file distributions  </span>
-<span class="sd">&quot;&quot;&quot;</span>  
-<span class="kn">import</span> <span class="nn">zipfile</span>  
-<span class="kn">import</span> <span class="nn">sys</span>  
-<span class="kn">import</span> <span class="nn">os</span>  
-<span class="kn">import</span> <span class="nn">logging</span>
-
-
-<span class="k">class</span> <span class="nc">SiteProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>  
-        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
-
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">contents</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pth_files</span><span class="p">():</span>  
-            <span class="bp">self</span><span class="o">.</span><span class="n">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">yield</span>
-
-    <span class="nd">@staticmethod</span>  
-    <span class="k">def</span> <span class="nf">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>  
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>  
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>  
-                <span class="k">continue</span>  
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;import&quot;</span><span class="p">):</span>  
-                <span class="k">exec</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
-                <span class="k">continue</span>  
-            <span class="n">new_path</span> <span class="o">=</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>  
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>  
-                <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">FolderSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="k">for</span> <span class="n">roots</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>  
-            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>  
-                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pth&quot;</span><span class="p">):</span>  
-                    <span class="n">clean_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">roots</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>  
-                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">clean_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>  
-                        <span class="k">yield</span> <span class="n">roots</span><span class="p">,</span> <span class="n">handle</span>
-
-
-<span class="k">class</span> <span class="nc">ZipSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
-        <span class="n">archive</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>  
-        <span class="n">all_names</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>  
-        <span class="n">all_names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>  
-        <span class="n">pth_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">all_names</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pth&#39;</span><span class="p">)]</span>  
-        <span class="k">for</span> <span class="n">pthfile</span> <span class="ow">in</span> <span class="n">pth_list</span><span class="p">:</span>  
-            <span class="n">local_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pthfile</span><span class="p">)</span>  
-            <span class="n">contents</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pthfile</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span>  
-            <span class="k">yield</span> <span class="n">local_pth</span><span class="p">,</span> <span class="n">contents</span>
-
-
-<span class="k">def</span> <span class="nf">include_site_files</span><span class="p">(</span><span class="o">*</span><span class="n">roots</span><span class="p">):</span>  
-    <span class="sd">&quot;&quot;&quot;  </span>
-<span class="sd">    for every .pth file in or under each root, process the pth file  </span>
-<span class="sd">    in the same way as site.addsitedir()  </span>
-<span class="sd">    &quot;&quot;&quot;</span>  
-    <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s2">&quot;bootstrap&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s2">&quot;path shim&quot;</span><span class="p">)</span>  
-    <span class="k">for</span> <span class="n">each_root</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">:</span>  
-        <span class="k">if</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">is_zipfile</span><span class="p">(</span><span class="n">each_root</span><span class="p">):</span>  
-            <span class="n">ZipSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>  
-        <span class="k">else</span><span class="p">:</span>  
-            <span class="n">FolderSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
-</pre></div>
-
-
-<p>This way, adding the whole environment just requires calling <code>include_site_files()</code>. Under the hood the Processor classes will read the .pth files and process them the same way <code>site.addsitedir</code> does: adding named folders to the python path, ignoring comments, and executing&nbsp;imports.  </p>
-<p>I don&#8217;t use that auto-import functionality right now but it would work nicely if you wanted to create a self-registering plugin system where each plugin was a zip of its own.  If you were feeling adventurous, you could bootstrap your whole Maya toolset by adding an import statement to the end of a .pth file in the zip.  As I said, that&#8217;s not what I do right now -  I currently call my main bootstrap routine from userSetup.py,  since I&#8217;m habitually averse to relying the side effects of imports for important&nbsp;jobs.  </p>
-<h2>If (eggs) in&nbsp;one_basket:</h2>
-<p><a href="http://stylebook-p.s3.amazonaws.com/prod/assets/5018bfdd15121/5018bfdd15121-large.jpg"><img alt="" src="http://stylebook-p.s3.amazonaws.com/prod/assets/5018bfdd15121/5018bfdd15121-large.jpg" /></a></p>
-<p>It&#8217;s userSetup.py that provides the  actual link between the zip file and a running copy of Maya. I like to keep it as simple as I can, since it&#8217;s the hardest part of the system to update.  All it really needs to do is download the latest zip file (from a shared network drive  or via http)  and shim it in with site.addsitedir.  Here&#8217;s a very simple&nbsp;example:   </p>
-<div class="highlight"><pre><span></span><span class="sd">&#39;&#39;&#39;  </span>
-<span class="sd">This is an example userSetup.py. It should be copied into  </span>
-<span class="sd">one of the  user&#39;s MAYA_SCRIPT_DIR folders (typically, the one for the   </span>
-<span class="sd">current version, like &#39;2014x64&#39;,  but it works in the generic one as well)  </span>
-<span class="sd">&#39;&#39;&#39;</span>  
-<span class="kn">import</span> <span class="nn">os</span>  
-<span class="kn">import</span> <span class="nn">site</span>  
-<span class="kn">import</span> <span class="nn">sys</span>
-
-<span class="n">ZIP_NAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;MAYA_ZIP&#39;</span><span class="p">,</span> <span class="s1">&#39;mayatools.zip&#39;</span><span class="p">)</span>
-
-<span class="k">def</span> <span class="nf">_startup_</span><span class="p">(</span><span class="n">_globals</span><span class="p">):</span>  
-    <span class="n">tools_root</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;MAYA_DEV&#39;</span><span class="p">,</span> <span class="bp">False</span><span class="p">)</span>  
-    <span class="k">if</span> <span class="n">tools_root</span><span class="p">:</span>  
-         <span class="n">site</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="n">tools_root</span><span class="p">))</span>  
-    <span class="k">else</span><span class="p">:</span>  
-        <span class="n">script_dirs</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s1">&#39;MAYA_SCRIPT_PATH&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;;&quot;</span><span class="p">)</span>  
-        <span class="k">for</span> <span class="nb">dir</span> <span class="ow">in</span> <span class="n">script_dirs</span><span class="p">:</span>  
-            <span class="n">tools_root</span> <span class="o">=</span> <span class="nb">dir</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">ZIP_NAME</span>  
-            <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">tools_root</span><span class="p">):</span>  
-                <span class="n">site</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">tools_root</span><span class="p">)</span>  
-                <span class="k">break</span>  
-    <span class="kn">import</span> <span class="nn">ul.bootstrap</span> <span class="kn">as</span> <span class="nn">bootstrap</span>  
-    <span class="n">bootstrap</span><span class="o">.</span><span class="n">bootstrap</span><span class="p">(</span><span class="n">_globals</span><span class="p">)</span>
-
-
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>  
-    <span class="n">_startup_</span><span class="p">(</span><span class="nb">globals</span><span class="p">())</span>  
-    <span class="k">del</span> <span class="n">_startup_</span>
-</pre></div>
-
-
-<p>You&#8217;ll note that nothing is really going on here: just download the zip, add it to the path, and call the bootstrap module. End of&nbsp;story.  </p>
-<p>This is because you want to keep all the real work inside your bootstrap module. If you try to do anything fancy in userSetup itself, you have to worry about version drift: what happens if the contractor machine in the corner gets turned on after a year of downtime, with a userSetup that&#8217;s many versions behind?  Moreover, you have no way of preventing users from messing with userSetup for their own reasons: if the code is simple, it&#8217;s much less likely to be broken by an adventurous&nbsp;artists.   </p>
-<p>The bootstrapper module itself is where all of the complex work takes place:  it knows how to unpack the binary resources like plugins or icons from the zip file if they have changed,  how to turn on persistent scriptJobs , and how to load menu items &#8212; all the zillions of things you want to do when you set up you environment. Since it provides a single entry point, it&#8217;s a great opportunity to put some order and discipline into your setup process: it&#8217;s far safer than importing dozens of tools or modules in a long userSetup that&#8217;s not versioned or updated&nbsp;centrally.  </p>
-<p>You might notice that all the information needed by userSetup is stashed into environment variables. That makes it easy to boot different environments by launching Maya with the right settings; it&#8217;s easy to give the users batch files which launch the correct versions of the tools by just setting the variables correctly. This has the nice side effect of supporting nonstandard locations transparently - there&#8217;s always that one artist who insists on keeping things on an X: drive to consider.  It&#8217;s easy to see how this could be done with config files rather than env vars, the logic is so simple that the details hardly&nbsp;matter.  </p>
-<p>One evolutionary step forward I haven&#8217;t used in production is to move the userSetup / zip pair to a <a href="http://techartsurvival.blogspot.com/2014/01/mayas-mildy-magical-modules.html">Maya module</a>.  That would allow for more complex arrangements such as a shared core environment with branch or project specific additions; it would also mean that toolset management would be done by enabling or disabling modules rather than swapping environment variables.  The main hassle would be the fact that a user could simultaneously enable more than one toolset and get random results, since you could never be sure which version of a given module you were getting. It might work better as an outsource-friendly mod than as a replacement for the variable-swapping&nbsp;setup.  </p>
-<h2>Hot times in the hen&nbsp;house</h2>
-<p>The zipped environment is created by a simple Python build program.  There&#8217;s not much magic here either.  The build script runs unit tests and aborts the packaging process if they fail.  If the tests pass, the builder gets the latest versions of any external resources (like icons, or binary plugins), and strips out some stuff like unit tests that doesn&#8217;t need to get to the users.   I add a little bit of metadata &#8212; basically, a text file &#8212; to the zip so I can quickly find out which distribution is running; this is a great way avoid those headsmacking &#8220;I fixed that bug a week ago, but user X hasn&#8217;t restarted Maya in two weeks&#8221;&nbsp;mysteries.   </p>
-<p>One nice refinement that we discovered almost by accident is using the <a href="https://docs.python.org/2/library/py_compile.html">py_compile </a>module to pre-compile the whole shebang before packing.  Our system ships only pyc files instead of pys.  This speeds up load times and slims down the zip file by a noticeable amount. However the most important thing it does is make sure that every module - even those with no unit tests, which are alas too numerous - is at least minimally importable. py_compile will complain if it encounters a module with a syntax error that cannot be compiled. Over the years this has saved me countless small humiliations by making sure that stupid typos and oversights don&#8217;t result in a busted&nbsp;Maya.  </p>
-<p>These days I use a little python program which polls my GitHub repositories for changes and tries to create a new build when a checkin is pushed to the master branch.  The server handles running multiple builds for different Maya versions: When Autodesk rev&#8217;ed the version of Python inside Maya, it meant that we needed different .pyc&#8217;s for different versions of Maya. For most of the last several years, though,  I simply used a zip script from a command line or as an external tool in my <span class="caps">IDE</span> and that answered fine for most purposes.  Moving to a server is just a way of making it more painless for a team to do the right thing automatically instead of appointing one person as &#8216;build master&#8217; and making them sync and push the button to start a&nbsp;build. </p>
-<blockquote>
-<p>Extra credit: Can you guess who the build master was, and why he decided to write the&nbsp;server?   </p>
-</blockquote>
-<h2>Hatchlings</h2>
-<p>One problem I don&#8217;t have to solve for this application - but one which looms very large in the setuptools-distutils-easy_install end of Pythonland - is dealing with a diversity of <span class="caps">OS</span>&#8217;s and hardware.  I&#8217;m happy not to try to deal with things like recompiling a slew of C extension modules for <span class="caps">DEC</span>-Alpha chips running <span class="caps">OS</span>/2 or whatever. I&#8217;ve only got Windows users currently (though pretty much everything I write works on <span class="caps">OSX</span>, since I often develop on my laptop).  This removes, for me, the primary appeal of the traditional python distribution pipeline, which is the option of automatically creating whatever esoteric binaries you need just by typing a few lines at the command&nbsp;prompt.  </p>
-<p>The price for not letting users compile on their machines is that I have to pre-package the right binaries. To the extent that I can, I end-run around the problem by using pure python modules in preference to binary alternatives, such as using <a href="https://github.com/PyMySQL/PyMySQL">PyMySql</a> in preference to MySQLdb, or elementTree instead of <a href="http://lxml.de/">lXml</a>. Inevitably, this does give away some performance (rarely so much that I&#8217;m bothered by it) but it hugely enhances portability.  The unavoidable exceptions are things like Maya plugins or the Perforce <span class="caps">API</span>, both very finicky about <span class="caps">OS</span> and bit-depth; these have to be distributed as part of my zip files and extracted at startup time.  The bootstrapper module includes a manifest which tells it which files to use for which Maya/<span class="caps">OS</span>/bit-depth combination, and uses that info to makes sure that things get delivered to the right&nbsp;place.   </p>
-<p>The only complication I&#8217;ve run into is that a user (often, me) is may be running multiple maya sessions, and a later one may want to unpack a new version of a binary plugin while an older session is still using a previous version. Unsurprisingly, you can&#8217;t overwrite the old one since Maya is using it. I haven&#8217;t quite figured out what to do in that situation, beyond displaying an error dialog and suggesting that the user restarts all of the Maya instances using the same plugin.  For the time being the overlap between tool changes and multiple Maya sessions is rare enough that I tolerate it. It would be possible to dump things into a temp directory in that case, but honestly it sounds like overkill even to&nbsp;me.  </p>
-<p><a href="http://stylebook-p.s3.amazonaws.com/prod/assets/4ff82077d338e/4ff82077d338e-large.jpg"><img alt="" src="http://stylebook-p.s3.amazonaws.com/prod/assets/4ff82077d338e/4ff82077d338e-large.jpg" /></a></p>
-<h2>Counting your&nbsp;chickens</h2>
-<p>So, that&#8217;s kind of it. It&#8217;s not very sexy but it&#8217;s been extremely useful for me over the last 4 years - the amount of mystery which this system removed from my life is uncountable.  Because the actual code I use is pretty tied up with work-specific problems, I have not ventured to make a cleaned up, genericised version for public consumption so far, though if there were a lot of interest I could probably whip up a cleanroom&nbsp;version.  </p>
-<p>Hope other folks find this one useful. I know it&#8217;s certainly ~~accompanied~~ saved my bacon&nbsp;!  </p>
+                In my last, bumper-sticker-laden post I offered to share a little bit about the way I pack up my tools for users. This time I’ll try to ...
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2014/egg_man#disqus_thread">comments</a>.</p>
 -->
-                <a href="http://theodox.com/2014/egg_man#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2014/egg_man#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
