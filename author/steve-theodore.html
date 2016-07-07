@@ -95,6 +95,28 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="http://theodox.com/2016/gdc-subs-2017" rel="bookmark" title="Permalink to GDC Submissions for 2017 open">
+                <h2 class="post-title">
+                    <span class="caps">GDC</span> Submissions for 2017&nbsp;open
+                </h2>
+            </a>
+            <p class="post-meta">Wed 06 July 2016
+            </p>
+                <p>The annual call for submissions to <a href="http://www.gdconf.com/news/in_the_wake_of_record-breaking/"><span class="caps">GDC</span></a> is going to open soon.  Looks like the submissions site will be open July 21st, so start working on those outlines&nbsp;now!  </p>
+<p>For a roundup of why <span class="caps">GDC</span> talks are a great venue for tech artists, check out <a href="/pages/pub/submit">this old post</a>. And start planning ahead for the Tech Art&nbsp;Bootcamp!</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/gdc-subs-2017#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/gdc-subs-2017#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/gdc-subs-2017#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="http://theodox.com/2016/cli_zip" rel="bookmark" title="Permalink to Command and Conquer">
                 <h2 class="post-title">
                     Command and&nbsp;Conquer
@@ -102,126 +124,10 @@
             </a>
             <p class="post-meta">Thu 16 June 2016
             </p>
-                <p>It&#8217;s pretty common for <span class="caps">TA</span>&#8217;s to want some specialty command-line tools that for their own use, or to share with a select number of power users who aren&#8217;t afraid of typing.  Python is great at making tools for this kind of one-off use, distributing and maintaing these kinds of scripts  requires jumping even more hoops than sending out artist tools (something covered in more detail <a href="blog/2014/save_the_environment">here</a> and <a href="blog/2014/egg_man">here</a>). </p>
-<p>It&#8217;s much easier for folders full of loose scripts to diverge among coders, who are likely to be tinkering with their contents, than it is among artists.  For keeping the artists on the same page, I <a href="/blog/2014/egg_man">distribute a complete environment in a single .zip file</a>, which has definitely cut my distribution headaches by an order of magnitude and simplified my management a great deal.  But until fairly recently the techies had to muddle along the old fashioned&nbsp;way.</p>
-<p>However, once we started getting in to command line tools on a larger scale,  we realized that we can get many of the same benefits by using the same zip file as part of our command line arsenal.  This means we can write scipts that use our up-to-date in-house libraries (and also all of the path manipulation that gets done for our artist tools) without&nbsp;modification.</p>
-<p><img alt="" src="http://static2.gamespot.com/uploads/scale_super/gamespot/images/2006/043/reviews/712537-930763_20060213_001.jpg" /></p>
-<blockquote>
-<p>Forget <span class="caps">CLI</span> tools, bring on the <span class="caps">FMV</span> tools and party like its&nbsp;1996</p>
-</blockquote>
-<h1>Just a <span class="caps">NOD</span></h1>
-<p>The trick is really pretty simple. All you need to do is include a <code>__main__.py</code> in the zip file.  Any python zip with a <code>__main__.py</code> is treated by python as an executable script.  Here&#8217;s a trivial&nbsp;example:</p>
-<div class="highlight"><pre><span></span><span class="c1"># main.py</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
-    <span class="n">arguments</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="k">print</span> <span class="s2">&quot;# I was called with&quot;</span><span class="p">,</span> <span class="n">arguments</span>
-</pre></div>
-
-
-<p>If you zip that file, you can execute it like&nbsp;so:</p>
-<div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">path</span><span class="o">/</span><span class="n">to</span><span class="o">/</span><span class="n">example</span><span class="o">.</span><span class="n">zip</span> <span class="n">hello</span> <span class="n">world</span>
-<span class="c1"># I was called with hello world</span>
-</pre></div>
-
-
-<p>Once you understand that, you can build a flexible command-line toolkit that uses your library quite simply.  You&#8217;ll need to collect all of your path mongering into a single place, but that&#8217;s a good idea in any case &#8212; things get crazy pretty quick if every module can mess with <code>sys.path</code> on a&nbsp;whim.  </p>
-<p>I use a module that mimics <code>site</code> but works for zips as well as loose&nbsp;files:</p>
-<div class="highlight"><pre><span></span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">zipsite</span>
-<span class="sd">&quot;&quot;&quot;</span>
-<span class="kn">import</span> <span class="nn">zipfile</span>
-<span class="kn">import</span> <span class="nn">sys</span>
-<span class="kn">import</span> <span class="nn">os</span>
-
-
-<span class="k">class</span> <span class="nc">SiteProcessor</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">root</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">=</span> <span class="n">root</span>
-
-    <span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">root</span><span class="p">,</span> <span class="n">contents</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">pth_files</span><span class="p">():</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">)</span>
-
-    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="c1"># this gets overridden in derived classes</span>
-        <span class="c1"># so that zips and loose files worh the same</span>
-        <span class="k">yield</span>
-
-    <span class="nd">@staticmethod</span>
-    <span class="k">def</span> <span class="nf">read_pth_file</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">contents</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">contents</span><span class="o">.</span><span class="n">readlines</span><span class="p">():</span>
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;#&#39;</span><span class="p">):</span>
-                <span class="k">continue</span>
-            <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;import&quot;</span><span class="p">):</span>
-                <span class="k">exec</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-                <span class="k">continue</span>
-            <span class="n">new_path</span> <span class="o">=</span> <span class="s2">&quot;{0}/{1}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">root</span><span class="p">,</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">new_path</span> <span class="ow">in</span> <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="p">:</span>
-                <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">new_path</span><span class="p">)</span>
-
-
-<span class="k">class</span> <span class="nc">FolderSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">roots</span><span class="p">,</span> <span class="n">dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">):</span>
-            <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
-                <span class="k">if</span> <span class="n">f</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;.pth&quot;</span><span class="p">):</span>
-                    <span class="n">clean_path</span> <span class="o">=</span> <span class="p">(</span><span class="n">roots</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">f</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span><span class="p">)</span>
-                    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">clean_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">handle</span><span class="p">:</span>
-                        <span class="k">yield</span> <span class="n">roots</span><span class="p">,</span> <span class="n">handle</span>
-
-
-<span class="k">class</span> <span class="nc">ZipSiteProcessor</span><span class="p">(</span><span class="n">SiteProcessor</span><span class="p">):</span>
-    <span class="k">def</span> <span class="nf">pth_files</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-        <span class="n">archive</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-        <span class="n">all_names</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
-        <span class="n">all_names</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-        <span class="n">pth_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">all_names</span> <span class="k">if</span> <span class="n">p</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s1">&#39;.pth&#39;</span><span class="p">)]</span>
-        <span class="k">for</span> <span class="n">pthfile</span> <span class="ow">in</span> <span class="n">pth_list</span><span class="p">:</span>
-            <span class="n">local_pth</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root</span> <span class="o">+</span> <span class="s2">&quot;/&quot;</span> <span class="o">+</span> <span class="n">pthfile</span><span class="p">)</span>
-            <span class="n">contents</span> <span class="o">=</span> <span class="n">archive</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">pthfile</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">)</span>
-            <span class="k">yield</span> <span class="n">local_pth</span><span class="p">,</span> <span class="n">contents</span>
-
-
-<span class="k">def</span> <span class="nf">addsitedir</span><span class="p">(</span><span class="o">*</span><span class="n">roots</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    for every .pth file in or under each root, process the pth file</span>
-<span class="sd">    in the same way as site.addsitedir()</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-    <span class="k">for</span> <span class="n">each_root</span> <span class="ow">in</span> <span class="n">roots</span><span class="p">:</span>
-        <span class="k">if</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">is_zipfile</span><span class="p">(</span><span class="n">each_root</span><span class="p">):</span>
-            <span class="n">ZipSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
-        <span class="k">else</span><span class="p">:</span>
-            <span class="n">FolderSiteProcessor</span><span class="p">(</span><span class="n">each_root</span><span class="p">)</span><span class="o">.</span><span class="n">process</span><span class="p">()</span>
-</pre></div>
-
-
-<p>As long as that&#8217;s in my distribution zip, my <code>__main__</code> cam setup all the paths with a couple of&nbsp;lines:</p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">zipsite</span>
-<span class="kn">import</span> <span class="nn">os</span>
-<span class="n">zipsite</span><span class="o">.</span><span class="n">addsitedir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">__file__</span> <span class="o">+</span> <span class="s2">&quot;/..&quot;</span><span class="p">))</span>
-</pre></div>
-
-
-<p>All the real work is delegated to the .pth files, which is a much simpler and less error prone method than letting the individual modules run&nbsp;rampant.</p>
-<p><img alt="" src="http://s3.amazonaws.com/bronibooru/a5fcec9d4f6a844d7222954ada743cf5.jpg" /></p>
-<blockquote>
-<p>I&#8230;. I just don&#8217;t know what to say&#8230; I mean&#8230;   But it <strong>is</strong> the least problematic search result for &#8216;Command and Conquerer Red Alert&nbsp;characters&#8217;</p>
-</blockquote>
-<h1>Red&nbsp;Alert</h1>
-<p>Of course, this is only a little bandaid on the big, nasty psoriasis that is Python tools distribution.  I was very hopeful when I stumbled across this PyCon talk on&nbsp;YouTube:</p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/5BqAeN-F9Qs" frameborder="0" allowfullscreen></iframe>
-
-<p>Alas, however, the talk mostly served to reinforce my feeling that Python distribution is badly busted (and that <code>pip install</code> is not how to fix it).  For the meantime it&#8217;s at least comforting to know there&#8217;s fairly easy way to pop out an uncomplicated, repeatable toolkit with no external dependencies even if it costs you some disk&nbsp;space.</p>
+                A handy hack for distributing Python command line tools with predictable execution environments.
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2016/cli_zip#disqus_thread">comments</a>.</p>
 -->
-                <a href="http://theodox.com/2016/cli_zip#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2016/cli_zip#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -311,21 +217,6 @@
                 My 2015 GDC talk, Technical Art For Art Directors.
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2016/technical_art_for_art_directors#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2016/the_little_things" rel="bookmark" title="Permalink to The little things">
-                <h2 class="post-title">
-                    The little&nbsp;things
-                </h2>
-            </a>
-            <p class="post-meta">Thu 18 February 2016
-            </p>
-                After a decade, victory over over userSetup.py is within our grasp
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2016/the_little_things#disqus_thread">comments</a>.</p>
 -->
 
         </div>
