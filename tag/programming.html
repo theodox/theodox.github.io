@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#programming</h1>
-                        <h3>35 items<h3>
+                        <h3>36 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,39 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="http://theodox.com/2016/doc_20" rel="bookmark" title="Permalink to Documentation 2.0?">
+                <h2 class="post-title">
+                    Documentation&nbsp;2.0?
+                </h2>
+            </a>
+            <p class="post-meta">Mon 25 July 2016
+            </p>
+                <p>I noticed recently that <a href="http://stackoverflow.com/users/1936075/theodox">StackOverflow</a> is trying to encourage community documentation. The tagline they&#8217;re using is &#8220;Let&#8217;s do for documentation what we did for <span class="caps">QA</span>,&#8221; which immediately made the cynical side of my brain think &#8220;like, turn it into a brogrammer mud-wrestling&nbsp;match?&#8221; </p>
+<p>Kidding aside, documentation is something I&#8217;ve gotten to be very uptight about. Maybe it&#8217;s just having spent a the better part of a year having to maintain somebody else&#8217;s code. Maybe its the whiplash I&#8217;ve gotten from hopping between 3 game engines in 5 years.  Or maybe I&#8217;m just setting into my grumpy old man persona and I want to stop answering the same questions about how to attach a control to a <code>formLayout</code>.  But the idea of a good, relatively up-to-date community documentation is really appealing to&nbsp;me.</p>
+<p>One of the things that really jumped out at me in the initial pitch on StackOverflow was the&nbsp;sentence</p>
+<blockquote>
+<p>[Documentation] was usually written once, often by someone not even using the technology, so it was a guess at what to focus&nbsp;on.</p>
+</blockquote>
+<p>which really rang true: I&#8217;ve generally run into only two different kinds of documentation: slick, well written and shallow &#8212; or spotty and inadequate. Those are not great alternatives.  Easily 7 times out of 10 I end up on StackOverflow it&#8217;s precisely because I&#8217;ve found another hole in somebody&#8217;s&nbsp;documentation.</p>
+<p>The idea that <span class="caps">SO</span> is pushing is effectively a kind of Wikipedia for their different communities: They want users to put together the building blocks and also to edit each other&#8217;s works &#8212; voting things up and down and editing them collaboratively more or less the way they do with <span class="caps">SO</span>&nbsp;questions. </p>
+<p>To get a sense of where this is headed, you can check out the <a href="http://stackoverflow.com/documentation/python/topics">Python documentation page</a>.  </p>
+<p>To me it doesn&#8217;t feel quite right just yet: the examples are fine on their own but I&#8217;m not sure I&#8217;d know how to assemble them into a coherent picture if I didn&#8217;t already know roughly how they fit together. On the other hand this is still new: give it a couple of years, with the incredible amount of free labor that the internet&#8217;s reputation economy provides, and I can see it being as good as the double-whammy of Unity&#8217;s docs and answer platforms.  It&#8217;s particularly appealing to have a single place where a community can put the perennials: so many <span class="caps">SO</span> questions are just repeats of old questions where for some reason the asker hasn&#8217;t figured out the magic combinations of search terms to find the pre-existing answers.  I hope that a good community doc site, with input from lots of people who know their way around, would produce a lot of folks who could efficiently route the clueless to the information &#8212; the answer might really lie less in the docs themselves than in creating a culture of people who knew roughly where to send people for authoritative&nbsp;info.</p>
+<p>With that in mind I&#8217;d like to point out that there are currently only two people signed up to do documentation for Maya programming on <span class="caps">SO</span> &#8212; the site requires a minimum of five user before it will open a documentation site for a given topic.  I think it would be great if the <span class="caps">TA</span> community led the way in getting the Maya documentation project into good shape.  Not only would we all benefit from the information directly, we&#8217;d also have a chance to point new entrants in the field to a common source of knowledge that we all share in &#8212; over time I can see it becoming an important part of onboarding new <span class="caps">TA</span>&#8217;s into the&nbsp;business.</p>
+<p>Plus, if it really works I can stop answering all those &#8216;how do I make this button update this field in Maya&#8217; questions once and for&nbsp;all.</p>
+<p>So, whaddya say gang? Who&#8217;s with&nbsp;me?</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/doc_20#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/doc_20#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/doc_20#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="http://theodox.com/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
                 <h2 class="post-title">
                     A touch of&nbsp;minq
@@ -96,103 +129,10 @@
             </a>
             <p class="post-meta">Sun 06 March 2016
             </p>
-                <p>If you’re a long-time reader, you may recall that i’m very ambivalent about <a href="wraptastic.html">wrapper code</a>. I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual <em>job</em>.<br />
-So, it’s with a little bit of trepidation that I’m sharing my latest library. <strong><a href="https://github.com/theodox/minq">Minq</a></strong> bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.<br />
-Now, that isn’t a particularly interesting job most of the time, but it’s one we do a <em>lot</em>: a quick grep of my own codebase shows over 600 calls to <code>cmds.ls()</code>, <code>cmds.listRelatives()</code>, <code>cmds.listHistory</code> and <code>cmds.nodeType()</code> in various combinations: as far as I can tell, <code>ls()</code> is actually the single most common call I make. <br />
-Moreover, I’m reasonably certain (though I didn’t do the grepping to bear this out) that those hundreds of <code>ls()</code> calls are accompanied by hundreds of little snippets of code to deal with Maya’s quirks. How often have you run into little gems like&nbsp;this?  </p>
-<div class="highlight"><pre><span></span><span class="n">stuff</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="s1">&#39;something_thats_not_transform&#39;</span><span class="p">]</span>  
-<span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
-<span class="c1"># [u&#39;top&#39;]</span>
-
-<span class="n">stuff</span> <span class="o">=</span> <span class="p">[]</span>  
-<span class="k">print</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="o">*</span><span class="n">stuff</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>  
-<span class="c1"># [u&#39;front&#39;, u&#39;persp&#39;, u&#39;side&#39;, u&#39;top&#39;]</span>
-</pre></div>
-
-
-<p>or&nbsp;this?  </p>
-<div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">my_meshes</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;mesh&#39;</span><span class="p">):</span>  
-    <span class="k">print</span> <span class="n">item</span>  
-<span class="c1"># Error: &#39;NoneType&#39; object is not iterable  </span>
-<span class="c1"># Traceback (most recent call last):  </span>
-<span class="c1">#   File &quot;&lt;maya console&gt;&quot;, line 1, in &lt;module&gt;  </span>
-<span class="c1"># TypeError: &#39;NoneType&#39; object is not iterable #</span>
-</pre></div>
-
-
-<p>There are of course ways around these little gotchas - but given the number of times you have to interact with them it’s hard to be sure you’ve really nailed them all. In my case a 99% correct handlong of my <code>ls()</code> calls alone will produce at least 5 bugs.<br />
-More importantly – and, frankly, the whole reason for this project – dealing with these little gotchas is not an <em>interesting</em> job. Finding, filter and sorting stuff in your Maya scene is not am opportunity for you to display your brilliant algorithms or clever strategies for bending Maya to your will: it’s just a bunch of stuff you have to on your way to fixing the problems your users really want&nbsp;fixed.  </p>
-<h2>Minq in&nbsp;action</h2>
-<p>Hence, <a href="https://github.com/theodox/minq">minq</a>. <br />
-The goal of minq is to provide a more concise and more readable way to find things in your maya scenes. Here’s an example to give you the idea of how the project is supposed to work.<br />
-Suppose you need to find all of your character skeletons and distinguish them from other things lying around in the scene. The easy way to do that is usually to look for assemblies (top level nodes) which have children who drive skinClusters. Here’s an example of how you could find all the root nodes in the scene which drive skins using conventional&nbsp;means:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">find_assemblies_that_drive_skins</span><span class="p">():</span>  
-    <span class="n">skinned</span> <span class="o">=</span> <span class="p">[]</span>  
-    <span class="k">for</span> <span class="n">asm</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">assemblies</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]:</span>  
-        <span class="n">children</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listRelatives</span><span class="p">(</span><span class="n">asm</span><span class="p">,</span> <span class="n">ad</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="ow">or</span> <span class="p">[]</span>  
-        <span class="n">history</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">listHistory</span><span class="p">(</span><span class="n">children</span><span class="p">,</span> <span class="n">future</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>  
-        <span class="k">if</span> <span class="n">history</span> <span class="ow">and</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="n">history</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">&#39;skinCluster&#39;</span><span class="p">):</span>  
-            <span class="n">skinned</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">asm</span><span class="p">)</span>  
-    <span class="k">return</span> <span class="n">skinned</span>
-</pre></div>
-
-
-<p>You’ll notice the littering of <code>or []</code> to make sure we don’t get errors for failed queries. We have to create two temporary variables (<code>childen</code> and <code>history</code>) in order to store the intermediate results. And, obviously, we’re 3 layers deep when we get to the actual work item. <br />
-Above all, though, you need to remember two little bits of Maya trivia to make sense of this code: that <code>cmds.ls(asm=True)</code> means ‘give me the assemblies’ and that <code>listRelatives(ad=True)</code> gives you the children of an object. These are, of course, very clear to Maya vets – but there are over 50 flags in <code>ls()</code> and more than a dozen in <code>listRelatives()</code> . I’ve been working in Maya for 20 years and I still need to look up most of them. You pass those flags to Maya as strings which won’t get evaluated until runtime – and it’s possible to mistype them and not even know because <code>ls()</code>, in particular, makes wierd tweaky decisions about how to interpret conflicting flags.<br />
-Here’s the minq equivalent to the previous&nbsp;function:  </p>
-<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">drives_skin</span><span class="p">(</span><span class="n">some_object</span><span class="p">):</span>  
-    <span class="n">children</span> <span class="o">=</span> <span class="n">using</span><span class="p">(</span><span class="n">some_object</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AllChildren</span><span class="p">)</span>  
-    <span class="n">skin_clusters</span> <span class="o">=</span> <span class="n">children</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">SkinClusters</span><span class="p">)</span>  
-    <span class="k">return</span> <span class="nb">any</span><span class="p">(</span><span class="n">skin_clusters</span><span class="p">)</span>
-
-<span class="n">unskinned_assemblies</span> <span class="o">=</span> <span class="n">Assemblies</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">drives_skin</span><span class="p">)</span>
-</pre></div>
-
-
-<p>It’s shorter, but the real goal is to make it more readable. Here’s what happens, which should be pretty clear from the&nbsp;names:  </p>
-<ol>
-<li><code>drives_skin()</code> takes a maya&nbsp;object  </li>
-<li>It gets all of that object’s&nbsp;children  </li>
-<li>It gets all of the future history of those&nbsp;children  </li>
-<li>It it filters down to only the skin clusters in that future&nbsp;history  </li>
-<li>it returns true if any skin clusters are&nbsp;present  </li>
-</ol>
-<p>The rest of it pretty self evident: <code>unskinned_assemblies</code> just collects all of the assemblies which pass <code>drives_skin()</code>. The <em>algorithm</em> is exactly the same as the first version – but, at least to me, that algorithm is actually expressed much more clearly in the minq version. As for concision, I deliberately broke the query into two lines to make it easier to read &#8212; otherwise it could all be done in a single expression.<br />
-A purist will probably point out that there are important under-the-hood details in the first one that are hidden in the second, and s/he’d be right. However after doing a lot of this kind of code down the years I’m fairly certain that those important details have almost always been important because screwing them up causes problems – not because they provide an opportunity for a wizardly optimization or better approach to the problem. I’m interested in finding unskinned meshes, not in remembering to pass the correct flags to <code>ls</code> and <code>listRelatives</code>.  </p>
-<p>Here’s a couple of other examples to give you the flavor of what a minq query looks&nbsp;like:  </p>
-<div class="highlight"><pre><span></span><span class="c1"># get all mesh transforms in a scene  </span>
-<span class="n">mesh_transforms</span> <span class="o">=</span>  <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span>
-
-<span class="c1"># find stub joints  </span>
-<span class="k">def</span> <span class="nf">is_stub</span><span class="p">(</span><span class="n">obj</span><span class="p">):</span>  
-    <span class="k">return</span> <span class="ow">not</span> <span class="nb">any</span> <span class="p">(</span><span class="n">using</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Children</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">Transforms</span><span class="p">))</span>  
-<span class="n">stubs</span> <span class="o">=</span> <span class="n">Joints</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">is_stub</span><span class="p">)</span>
-
-<span class="c1"># filtering by type, by name, and with functions  </span>
-<span class="n">cube_creator_nodes</span> <span class="o">=</span> <span class="n">PolyCreators</span><span class="p">()</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="s1">&#39;polyCube&#39;</span><span class="p">)</span>  
-<span class="n">used_to_be_cubes</span> <span class="o">=</span> <span class="n">cube_creator_nodes</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Future</span><span class="p">)</span><span class="o">.</span><span class="n">only</span><span class="p">(</span><span class="n">Meshes</span><span class="p">)</span>  
-<span class="n">has_8_verts</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">polyEvaluate</span><span class="p">(</span><span class="n">p</span><span class="p">,</span> <span class="n">v</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> <span class="o">==</span> <span class="mi">8</span>  
-<span class="n">still_are_cubes</span> <span class="o">=</span> <span class="n">used_to_be_cubes</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">has_8_verts</span><span class="p">)</span>
-
-<span class="c1"># adding, subtracting or intersecting queries</span>
-
-<span class="n">too_high</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">)</span>  
-<span class="n">too_low</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&lt;</span> <span class="o">-</span><span class="mi">100</span><span class="p">)</span>
-
-<span class="n">middle_xforms</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span> <span class="o">-</span> <span class="p">(</span><span class="n">too_high</span> <span class="o">+</span> <span class="n">too_low</span><span class="p">)</span>
-</pre></div>
-
-
-<p>So, that’s the basic idea: to replace a lot of tedious boilerplate with something a little cleaner, more predictable and easier to maintain. The code for the whole thing is up on <a href="https://github.com/theodox/minq">up on Github</a> under the usual <span class="caps">MIT</span>, ‘use it as you like but keep the copyright header’ license. It’s still very much a work-in-progress and I’d love feedback, particularly on issues of syntax and&nbsp;style. </p>
+                Introducing Minq, a query language for Maya scenes.
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2016/a_touch_of_minq#disqus_thread">comments</a>.</p>
 -->
-                <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2016/a_touch_of_minq#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -282,21 +222,6 @@ A purist will probably point out that there are important under-the-hood details
                 A quick introduction to Boo, a python-like language for the CLR
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2015/boo_who#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2015/spelchek" rel="bookmark" title="Permalink to spelchek">
-                <h2 class="post-title">
-                    spelchek
-                </h2>
-            </a>
-            <p class="post-meta">Sat 16 May 2015
-            </p>
-                A python spell check module
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2015/spelchek#disqus_thread">comments</a>.</p>
 -->
 
         </div>
@@ -393,6 +318,7 @@ A purist will probably point out that there are important under-the-hood details
             <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
             <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
             <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/ta.html">TA</a>
             <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
             <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
             <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
