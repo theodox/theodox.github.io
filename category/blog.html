@@ -89,6 +89,94 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="http://theodox.com/2016/mgui2_live" rel="bookmark" title="Permalink to mGui 2.0 is live">
+                <h2 class="post-title">
+                    mGui 2.0 is&nbsp;live
+                </h2>
+            </a>
+            <p class="post-meta">Sun 09 October 2016
+            </p>
+                <p>It&#8217;s been a <em>craaazy</em> summer at work, so I had to defer integrating a bunch of <a href="https://github.com/theodox/mGui">mGui</a> changes that have been sitting on a branch in the GitHub repo for several months.  However things have settled down a bit, and it&#8217;s time to get this&nbsp;done.</p>
+<p><img alt="all your rebase" src="http://i2.wp.com/discoposse.com/wp-content/uploads/2015/07/all-your-rebase-featured.png?resize=250%2C243" /></p>
+<p>So, <strong>I&#8217;m going to merge the <a href="https://github.com/theodox/mGui/tree/remove_keys"><code>remove_keys</code></a> branch &#8212; aka &#8216;mGui 2.0&#8217; &#8212; into the main line tomorrow: October 10th, 2016.</strong>  It&#8217;s been in use at a couple of sites for the last few months and seems pretty stable, so the time has come to pull the&nbsp;trigger. </p>
+<h1>mGui? What&#8217;s&nbsp;that?</h1>
+<p>For those of you who haven&#8217;t heard of it, <a href="https://github.com/theodox/mGui">mGui</a> is a module designed to speed the creation of Maya <span class="caps">GUI</span> items.  The main design goal is to combine the portability of native Maya <span class="caps">GUI</span> with more modern software&nbsp;patterns.  </p>
+<p><a href="https://github.com/theodox/mGui">mGui</a> syntax is more object-oriented than you&#8217;d see in <code>maya.cmds</code>. Instead of issuing commands to create a widget you make objects instead.  This little snippet in vanilla maya creates a window with <code>TextScrollList</code> and adds to the list when you click a&nbsp;button: </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+<span class="n">form</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">()</span>
+<span class="n">textScroll</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">button_callback</span> <span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="s2">&quot;pushed&quot;</span><span class="p">)</span>
+
+<span class="n">btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="n">button_callback</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+    <span class="n">af</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
+            <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="n">aoc</span> <span class="o">=</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>  <span class="n">btn</span><span class="p">)</span>
+    <span class="p">)</span>    
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The mGui version looks like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">with</span> <span class="n">Window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">FooterForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">textScroll</span> <span class="o">=</span> <span class="n">TextScrollList</span><span class="p">()</span>
+        <span class="n">btn</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;push&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">handle_push</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
+            <span class="n">textScroll</span><span class="o">.</span><span class="n">append</span> <span class="o">=</span> <span class="s1">&#39;pushed&#39;</span>
+        <span class="n">btn</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">handle_push</span>
+
+<span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The actual <span class="caps">GUI</span> produced by both snippets is identical, but the mGui version adds a few nice gimmicks to make the code shorter and simpler.  Instead of functions, mGui widgets are objects with properties. That lets you tweak they layout and appearance more naturally. To change the color of the button in this example, the vanilla maya would&nbsp;be:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+
+<p>whereas the mGui version&nbsp;is </p>
+<div class="highlight"><pre><span></span><span class="n">btn</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>There are also a bunch of supporting features designed to make it easier to manage large, complex GUIs without too much tedium.  For more background you can check out <a href="/2014/all_your_base">the original post</a> to see how the underlyint tech works, and the <a href="/2016/mgui_updates_2">mGui 2.0 announcement</a> to see all the features in that will be coming&nbsp;on-line.</p>
+<h1>Incoming!!!</h1>
+<p>Part of the reason I&#8217;ve sat on this one for so long is that it does introduce some minor breaking changes.  There are two key things to watch out&nbsp;for.</p>
+<p><strong>Key names</strong> In mGui 1.0, every widget was supposed to have a &#8216;key name&#8217;.  This was used to create an absolute path to the widget, so you could address it as &#8216;window.columnLayout.button1&#8217; or something like that.  It worked fine but it required every widget to get an explicit name or a bailout value like <code>None</code>, which rendered the code a bit more cluttered than it had to be.  In mGui 2.0, the key names are derived from local variables: so if you build your gui like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">ColumnLayout</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
+        <span class="n">go_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Go&quot;</span><span class="p">)</span>
+        <span class="n">stop_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Stop&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>you could address the buttons as <code>window.main.go_button</code> or <code>window.main.stop_button</code> because of the variable names which were present when they were created.  You can still provide an explicit key if you really want to but it&#8217;s not commonly&nbsp;needed.</p>
+<p><strong>Naming conventions</strong>  In mGui 1.0 the property names used a convention we used in my office, that member variables were capitalized. Thus a property on a widget would get a capital letter: <code>my_button.Width = 128</code> and so on.  This is not very typical python style, so in this release we&#8217;re using the the standard python convention and the properties are now lower-cased:  <code>my_button.width = 128</code>.  This makes the upgrade a little more painful than it has to be, for which I apologize; but it helps with readability and code-compatibility in the long run.  A good <a href="/2014/for_regex_haters">regular expression</a> will help you find and fix most issues quickly &#8212; I got all of my code (and I have alot of mGui code!) fixed in a couple of&nbsp;hours.</p>
+<p>Anyway, hope you find it useful. Please don&#8217;t hesitate to put bugs or questions up on the GitHub site &#8212; that&#8217;s what it&#8217;s there for! Special thanks to <a href="https://github.com/bob-white">+Bob White</a> for his help on this one.  And if you feel like taking a whack at fixing bugs, improving docs or adding features to the project by all means take a shot and send me a pull&nbsp;request!</p>
+<p>All mGui-related posts can be found <a href="/tag/mgui">here</a></p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/mgui2_live#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/mgui2_live#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/mgui2_live#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="http://theodox.com/2016/doc_20" rel="bookmark" title="Permalink to Documentation 2.0?">
                 <h2 class="post-title">
                     Documentation&nbsp;2.0?
@@ -96,28 +184,10 @@
             </a>
             <p class="post-meta">Mon 25 July 2016
             </p>
-                <p>I noticed recently that <a href="http://stackoverflow.com/users/1936075/theodox">StackOverflow</a> is trying to encourage community documentation. The tagline they&#8217;re using is &#8220;Let&#8217;s do for documentation what we did for <span class="caps">QA</span>,&#8221; which immediately made the cynical side of my brain think &#8220;like, turn it into a brogrammer mud-wrestling&nbsp;match?&#8221; </p>
-<p>Kidding aside, documentation is something I&#8217;ve gotten to be very uptight about. Maybe it&#8217;s just having spent a the better part of a year having to maintain somebody else&#8217;s code. Maybe its the whiplash I&#8217;ve gotten from hopping between 3 game engines in 5 years.  Or maybe I&#8217;m just setting into my grumpy old man persona and I want to stop answering the same questions about how to attach a control to a <code>formLayout</code>.  But the idea of a good, relatively up-to-date community documentation is really appealing to&nbsp;me.</p>
-<p>One of the things that really jumped out at me in the initial pitch on StackOverflow was the&nbsp;sentence</p>
-<blockquote>
-<p>[Documentation] was usually written once, often by someone not even using the technology, so it was a guess at what to focus&nbsp;on.</p>
-</blockquote>
-<p>which really rang true: I&#8217;ve generally run into only two different kinds of documentation: slick, well written and shallow &#8212; or spotty and inadequate. Those are not great alternatives.  Easily 7 times out of 10 I end up on StackOverflow it&#8217;s precisely because I&#8217;ve found another hole in somebody&#8217;s&nbsp;documentation.</p>
-<p>The idea that <span class="caps">SO</span> is pushing is effectively a kind of Wikipedia for their different communities: They want users to put together the building blocks and also to edit each other&#8217;s works &#8212; voting things up and down and editing them collaboratively more or less the way they do with <span class="caps">SO</span>&nbsp;questions. </p>
-<p>To get a sense of where this is headed, you can check out the <a href="http://stackoverflow.com/documentation/python/topics">Python documentation page</a>.  </p>
-<p>To me it doesn&#8217;t feel quite right just yet: the examples are fine on their own but I&#8217;m not sure I&#8217;d know how to assemble them into a coherent picture if I didn&#8217;t already know roughly how they fit together. On the other hand this is still new: give it a couple of years, with the incredible amount of free labor that the internet&#8217;s reputation economy provides, and I can see it being as good as the double-whammy of Unity&#8217;s docs and answer platforms.  It&#8217;s particularly appealing to have a single place where a community can put the perennials: so many <span class="caps">SO</span> questions are just repeats of old questions where for some reason the asker hasn&#8217;t figured out the magic combinations of search terms to find the pre-existing answers.  I hope that a good community doc site, with input from lots of people who know their way around, would produce a lot of folks who could efficiently route the clueless to the information &#8212; the answer might really lie less in the docs themselves than in creating a culture of people who knew roughly where to send people for authoritative&nbsp;info.</p>
-<p>With that in mind I&#8217;d like to point out that there are currently only two people signed up to do documentation for Maya programming on <span class="caps">SO</span> &#8212; the site requires a minimum of five user before it will open a documentation site for a given topic.  I think it would be great if the <span class="caps">TA</span> community led the way in getting the Maya documentation project into good shape.  Not only would we all benefit from the information directly, we&#8217;d also have a chance to point new entrants in the field to a common source of knowledge that we all share in &#8212; over time I can see it becoming an important part of onboarding new <span class="caps">TA</span>&#8217;s into the&nbsp;business.</p>
-<p>Plus, if it really works I can stop answering all those &#8216;how do I make this button update this field in Maya&#8217; questions once and for&nbsp;all.</p>
-<p>So, whaddya say gang? Who&#8217;s with&nbsp;me?</p>
+                StackOverflow wants to tackle documentation. Maybe we should help.
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2016/doc_20#disqus_thread">comments</a>.</p>
 -->
-                <a href="http://theodox.com/2016/doc_20#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2016/doc_20#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -210,21 +280,6 @@
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="http://theodox.com/2016/gdc_2016" rel="bookmark" title="Permalink to Another Year, Another GDC…">
-                <h2 class="post-title">
-                    Another Year, Another <span class="caps">GDC</span>&#8230;
-                </h2>
-            </a>
-            <p class="post-meta">Sun 20 March 2016
-            </p>
-                GDC 2016 after-action report
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="http://theodox.com/2016/gdc_2016#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
@@ -299,6 +354,7 @@
             <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
             <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
             <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/matrix.html">matrix</a>
             <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
             <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
             <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>

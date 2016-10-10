@@ -45,6 +45,7 @@
         <meta name="tags" content="python">
         <meta name="tags" content="GUI">
         <meta name="tags" content="programming">
+        <meta name="tags" content="mGui">
 
 	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Chimeras & Manticores">
@@ -114,7 +115,7 @@
     <!-- Post Content -->
     <article>
         <blockquote>
-<p>I&#8217;ve left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood &#8212; but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the <a href="mGui_updates_2">mGui updates</a> post for a more up-to-date view of the current mGui&nbsp;syntax</p>
+<p>I&#8217;ve left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood &#8212; but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the <a href="mGui_updates_2">mGui updates</a> post for a more up-to-date view of the current mGui syntax. mGui 2 will be the main line in GitHub after&nbsp;10-10-2016.</p>
 </blockquote>
 <p>In <a href="rescuing_maya_gui_from_itself.html">Rescuing Maya <span class="caps">GUI</span> From Itself</a> I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya <span class="caps">GUI</span> toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to <a href="http://www.youtube.com/watch?v=BfIAKj3Gl1E">Thunderbirds</a>. This time out I want to detail what a working implementation of the ideas I sketched out there looks like.<br />
 <img alt="" src="http://fc06.deviantart.net/fs70/f/2010/282/6/a/all_your_base_by_ultimathegod-d30fu0f.jpg" />  </p>
@@ -186,9 +187,9 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
 <p>So, we’ve covered our improved property descriptors, and now it’s time to set up our base&nbsp;class.  </p>
 <p>This is a great opportunity to do some plumbing for more efficient coding. However it’s also a temptation – when the desire to sneak everything under the sun into your base classes is a recipe for monster code and untraceable bugs. This design should be as simple as we can make&nbsp;it.  </p>
 <p>Still, there are a couple of things that it would be nice to put into the base class - they are all very general (as befits base-class functions) and they are all common to any <span class="caps">GUI</span>&nbsp;tasks.  </p>
-<h2>Tags</h2>
+<h3>Tags</h3>
 <p>In most <span class="caps">GUI</span> systems, you can attach any arbitrary data you want to a widget. For example, you might want to have an array of buttons that all did the same thing with slightly different values, say moving an object by different amounts.  In vanilla Maya, you have to encapsulate the data into your command call: With a tag attached to the buttons, on the other hand, you can write a script that just says &#8220;move the target by the amount in this button’s tag&#8221;, which is much easier to maintain and more flexible. And as we just pointed out, the event mechanism always sends a reference to the control which owns an event when it fires, so it’s easy to get to the right tag when you want&nbsp;it.  </p>
-<h2>A real&nbsp;name</h2>
+<h3>A real&nbsp;name</h3>
 <p>Having explicit names for your pieces is very handy, particularly in large, deeply nested systems like a <span class="caps">GUI</span>..  </p>
 <p>In conventional Maya coding the names are critical, since they are your only way of contacting the <span class="caps">GUI</span> after it’s built. They are also unpredictable, because of Maya’s habit of renaming items to give them unique path names. Luckily for us we don’t need to rely on the widget names from Maya, since we’re managing the <span class="caps">GUI</span> items under the hood inside our wrappers. This gets us off the hook for creating and managing variables to capture the results of every <span class="caps">GUI</span> command under the&nbsp;sun.  </p>
 <p>That said, names are still useful in a big complex system. So, to make it really clear how to find one of our wrappers inside a <span class="caps">GUI</span> layout it makes sense to ask for an explicit name passed in as the first argument - that way it’s totally clear what the control is intended to&nbsp;be. </p>
@@ -196,9 +197,11 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
 <p>Note: This system changes slightly in mGui 2.0 (spring, 2016).  The newer syntax allows you to auto-assign keys using local variable names, which involves less redundancy than the original way. Explicit keys still work,&nbsp;however.</p>
 </blockquote>
 <p>There are, of course, plenty of controls you don’t really care about once they’re made: help text, spaces, separators and so on. To avoid making users have to invent names for those guys, we should let users pass in 0 or False or None as a succinct way of saying “I don’t care about the name of this&nbsp;thing”.  </p>
-<p>One minor note: I used <code>Key</code> as the name of the property so my <span class="caps">IDE</span> did not bug me for using in the Python reserved word ‘id’. Little things matter&nbsp;:)  </p>
+<blockquote>
+<p>Minor note: I used <code>Key</code> as the name of the property so my <span class="caps">IDE</span> did not bug me for using in the Python reserved word ‘id’. Little things matter :) However in mGui 2.0, you generally don&#8217;t need to specify&nbsp;kees.</p>
+</blockquote>
 <p>Speaking of little things: there are some great tools in the Python language to make classes more efficient to work with. The so called ‘magic methods’ allow you to customize the behavior of your classes, both to make them feel more Pythonic and to express your intentions more clearly. Here are a couple of the things we can do with the magic methods in our base&nbsp;class:  </p>
-<h2><code>__nonzero__</code></h2>
+<h3>__nonzero__</h3>
 <p>Speaking of that pass-in-zero-to-skip-names gimmick, one simple but super-useful thing we can do is to implement the <code>__nonzero__</code> method. That’s what Python calls when you try the&nbsp;familiar  </p>
 <div class="highlight"><pre><span></span><span class="k">if</span> <span class="n">something</span><span class="p">:</span>  
     <span class="n">doSomething</span><span class="p">()</span>
@@ -206,10 +209,10 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
 
 
 <p>test. In our case, we know that all Maya <span class="caps">GUI</span> control commands have the <code>exist</code> flag, and therefore all of our <span class="caps">GUI</span> classes will too. So, if our <code>__nonzero__</code> just returns the <code>exist</code> property of our class instances, we can elegantly check for things like dead controls with a simple, pythonic if&nbsp;test.  </p>
-<h2><code>__repr__</code></h2>
+<h3>__repr__</h3>
 <p><code>__repr__</code> is what Python calls when you need a printable representation of an object. In our case, we can pass back our underlying Maya <span class="caps">GUI</span> object, which is just a <span class="caps">GUI</span> path string. This way, you can pass one of our wrapper classes to some other python code that works on <span class="caps">GUI</span> objects and it will ‘just work’ – This is more or less what PyMel does for nodes, and it’s a great help when integrating a new module into an existing codebase. Like PyMel’s version there will be some odd corner cases that don’t work but it’s a handy convenience most of the&nbsp;time.  </p>
 <p>As a minor tweak, the <code>__repr__</code> is also tweaked to display differently when the <span class="caps">GUI</span> widget inside a wrapper class has been deleted. This won’t prevent errors if you try to use the widget, but it is a big help in parsing error messages or stack&nbsp;traces.  </p>
-<h3><code>__iter__</code></h3>
+<h3>__iter__</h3>
 <p>The next magic method we want to add is <code>__iter__</code>. It is the what python calls when you try to loop over a list or a&nbsp;tuple.  </p>
 <p>Now, a single <span class="caps">GUI</span> object obviously is not iterable. A layout like columnLayout, on the other hand, can be iterated since it has child controls. By implementing <code>__iter__</code> here and then over-riding it when we tackle layouts, we can iterate over both layouts and their children in a single call. This makes it easy to look for layout children&nbsp;:  </p>
 <div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">child</span> <span class="ow">in</span> <span class="n">mainlayout</span><span class="p">:</span>  
@@ -446,7 +449,7 @@ One parting note about the naming scheme, It does have one, inevitable drawback:
 <h2>Make All&nbsp;Zig!</h2>
 <p>Hopefully, the combination of some syntax sugar in our wrappers and turning layouts into context managers will make Maya <span class="caps">GUI</span> layout less of a pain in the butt. However, we still need to actually crank out all the wrappers for all those scores of classes in the Maya <span class="caps">GUI</span> library. Descriptors and metaclasses are powerful tools, but few of us have the intestinal fortitude to plow through the dozens of classes in the Maya <span class="caps">GUI</span> library getting every flag and command&nbsp;correct.  </p>
 <p>In an ideal world we’d have a way of reflecting over some kind of assembly information and extracting all of the Maya <span class="caps">GUI</span> commands with their flags and options. Of course, in an ideal world we would not have to do this in the first place, since the native <span class="caps">GUI</span> system would not be the unfortunate <span class="caps">SNES</span>-era mishmash that it&nbsp;is.  </p>
-<p><img alt="" src="http://games.shizzle.be/wp-content/images/060419-all-your-base-are-belong-to-us.jpg" />  </p>
+<p><img alt="" src="http://www.rogerwendell.com/images/allyourbase/allyourbase_clip.gif" />  </p>
 <blockquote>
 <p>Mass production is a pain in the&nbsp;ass.  </p>
 </blockquote>
@@ -475,7 +478,7 @@ However… Simpler syntax is just scratching the surface of what we can get up t
     </article>
 
         <div class="tags">
-            <p>tags: <a href="http://theodox.com/tag/maya.html">Maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/gui.html">GUI</a>, <a href="http://theodox.com/tag/programming.html">programming</a></p>
+            <p>tags: <a href="http://theodox.com/tag/maya.html">Maya</a>, <a href="http://theodox.com/tag/python.html">python</a>, <a href="http://theodox.com/tag/gui.html">GUI</a>, <a href="http://theodox.com/tag/programming.html">programming</a>, <a href="http://theodox.com/tag/mgui.html">mGui</a></p>
         </div>
     <div id="comment">
 <hr>
@@ -576,6 +579,7 @@ However… Simpler syntax is just scratching the surface of what we can get up t
             <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
             <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
             <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/matrix.html">matrix</a>
             <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
             <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
             <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>

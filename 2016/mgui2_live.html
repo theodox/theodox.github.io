@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
 
-        <title>To&nbsp;Scale!</title>
+        <title>mGui 2.0 is&nbsp;live</title>
 
             <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
             <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
@@ -37,21 +37,21 @@
 
 
 
-        <meta name="description" content="The math review continues with a thrilling look at scale matrices!">
+        <meta name="description" content="mGui 2 is live">
 
         <meta name="author" content="Steve Theodore">
 
-        <meta name="tags" content="math">
+        <meta name="tags" content="mGui">
 
 	                <meta property="og:locale" content="">
 		<meta property="og:site_name" content="Chimeras & Manticores">
 
 	<meta property="og:type" content="article">
             <meta property="article:author" content="http://theodox.com/author/steve-theodore.html">
-	<meta property="og:url" content="http://theodox.com/2015/to_scale">
-	<meta property="og:title" content="To&nbsp;Scale!">
-	<meta property="article:published_time" content="2015-01-04 22:08:00.004000-08:00">
-            <meta property="og:description" content="The math review continues with a thrilling look at scale matrices!">
+	<meta property="og:url" content="http://theodox.com/2016/mgui2_live">
+	<meta property="og:title" content="mGui 2.0 is&nbsp;live">
+	<meta property="article:published_time" content="2016-10-09 00:00:00-07:00">
+            <meta property="og:description" content="mGui 2 is live">
 
             <meta property="og:image" content="http://theodox.com/theme/images/post-bg.jpg">
 </head>
@@ -93,9 +93,9 @@
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
-                        <h1>To&nbsp;Scale!</h1>
+                        <h1>mGui 2.0 is&nbsp;live</h1>
                         <span class="meta">
-                            Sun 04 January 2015
+                            Sun 09 October 2016
                         </span>
                         
                     </div>
@@ -110,335 +110,78 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
     <!-- Post Content -->
     <article>
-        <p>In our <a href="adventures_in_4th_dimension.html">last visit to 3-d math land</a>, we moved from the 2x2 and 3x3 matrices we used to learn how matrices function to the full 4x4 matrix that we all know and love to hate from 3d applications. This time I’d like to add support for scaling to our matrices so we can round out the ways matrices&nbsp;work.   </p>
-<blockquote>
-<p>This might be a good time to back and breeze throught the <a href="adventures_in_4th_dimension.html">last installment in our math series</a> if you’re a little fuzzy on how 4X4 matrices work, or just rusty after the&nbsp;holidays.</p>
-</blockquote>
-<p>The 4x4 matrix encodes both rotations and scales very elegantly. If that matrix represented a transfrom, the first three rows of the matrix would be correspond to the local coordinates of the transform, while the fourth row is the 3-D point where the origin of the transform sits (if you’re wondering where things like the pivot offset or maya’s joint orient come from, those are actually a series of matrices that are multiplied together: the <a href="http://download.autodesk.com/us/maya/2009help/CommandsPython/xform.html">maya docs</a> go into much more&nbsp;detail.).  </p>
-<p>Of course, we all know that transforms can also be scaled up or down. So what does that look like in matrix&nbsp;form?  </p>
-<p>Here’s our old friend the identity&nbsp;matrix:  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>and a sample&nbsp;point:  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>If you&#8217;re wondering why we need 4 points instead of three, you might want to check back after reviewing the last article in the&nbsp;series. </p>
-</blockquote>
-<p>We want to figure out what to do to this matrix so that it returns points and vectors scaled: we’d like to turn our <code>[1,1,1]</code> into <code>[2,2,2]</code><br />
-The natural first guess is just to scale up the whole thing by 2: in other words, we could try just changing the 1’s in our matrix to&nbsp;2’s:  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-</tr>
-</tbody>
-</table>
-<p>Easy - but let&#8217;s do the math just to be&nbsp;sure:  </p>
-<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
-[1,1,1,1] dot [0,2,0,0] = 2  
-[1,1,1,1] dot [0,0,2,0] = 2  
-[1,1,1,1] dot [0,0,0,2] = 2
+        <p>It&#8217;s been a <em>craaazy</em> summer at work, so I had to defer integrating a bunch of <a href="https://github.com/theodox/mGui">mGui</a> changes that have been sitting on a branch in the GitHub repo for several months.  However things have settled down a bit, and it&#8217;s time to get this&nbsp;done.</p>
+<p><img alt="all your rebase" src="http://i2.wp.com/discoposse.com/wp-content/uploads/2015/07/all-your-rebase-featured.png?resize=250%2C243" /></p>
+<p>So, <strong>I&#8217;m going to merge the <a href="https://github.com/theodox/mGui/tree/remove_keys"><code>remove_keys</code></a> branch &#8212; aka &#8216;mGui 2.0&#8217; &#8212; into the main line tomorrow: October 10th, 2016.</strong>  It&#8217;s been in use at a couple of sites for the last few months and seems pretty stable, so the time has come to pull the&nbsp;trigger. </p>
+<h1>mGui? What&#8217;s&nbsp;that?</h1>
+<p>For those of you who haven&#8217;t heard of it, <a href="https://github.com/theodox/mGui">mGui</a> is a module designed to speed the creation of Maya <span class="caps">GUI</span> items.  The main design goal is to combine the portability of native Maya <span class="caps">GUI</span> with more modern software&nbsp;patterns.  </p>
+<p><a href="https://github.com/theodox/mGui">mGui</a> syntax is more object-oriented than you&#8217;d see in <code>maya.cmds</code>. Instead of issuing commands to create a widget you make objects instead.  This little snippet in vanilla maya creates a window with <code>TextScrollList</code> and adds to the list when you click a&nbsp;button: </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+<span class="n">form</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">()</span>
+<span class="n">textScroll</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">button_callback</span> <span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="s2">&quot;pushed&quot;</span><span class="p">)</span>
+
+<span class="n">btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="n">button_callback</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+    <span class="n">af</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
+            <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="n">aoc</span> <span class="o">=</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>  <span class="n">btn</span><span class="p">)</span>
+    <span class="p">)</span>    
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
 </pre></div>
 
 
-<p>This looks right at first, but there’s a problem. If you cast your mind back to the <a href="adventures_in_4th_dimension.html">brain bending vortex</a> of <a href="http://deltaorange.com/2012/03/08/the-truth-behind-homogenous-coordinates/">homogeneous coordinates</a>, you’ll remember that the point <code>[2,2,2,2]</code> is actually quite different from <code>[2,2,2,1]</code>: in fact, it’s the same as [1,1,1,1] , since homogenous coordinates are divided by their last (W) coordinate when turned into plain old 3-D&nbsp;points. </p>
-<p>So, the naive approach turns out to be wrong: <em>we can’t just scale up every number in the matrix</em>!  </p>
-<p>The culprit is that very last 2: it’s scaling up the W of the output &#8212; which is equivalent to scaling the actual 3-D point <strong>down</strong>. Scaling that last W component is <em>negating</em> all of the other&nbsp;scales.  </p>
-<p>Of course, that suggests that if we just reset that last row, we&#8217;ll get the result we&nbsp;expected:  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>2</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
-[1,1,1,1] dot [0,2,0,0] = 2  
-[1,1,1,1] dot [0,0,2,0] = 2  
-[1,1,1,1] dot [0,0,0,1] = 1
+<p>The mGui version looks like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">with</span> <span class="n">Window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">FooterForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">textScroll</span> <span class="o">=</span> <span class="n">TextScrollList</span><span class="p">()</span>
+        <span class="n">btn</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;push&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">handle_push</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
+            <span class="n">textScroll</span><span class="o">.</span><span class="n">append</span> <span class="o">=</span> <span class="s1">&#39;pushed&#39;</span>
+        <span class="n">btn</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">handle_push</span>
+
+<span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 
 
-<p>If you take off your math hat momentarily, and resume your usual <span class="caps">TA</span> hat for a moment, you can we have to treat that last row differently from the others. Scaling a transform node up or down may move the children, but the origin of the transform isn’t changing. Scaling doesn’t need to touch that last matrix row, any more than the rotation&nbsp;does.  </p>
-<p>This is consistent with what we discovered last time while deriving the translation matrix: that last row is a slightly different beast than the others and gets handled separately. The upshot is quite simple: <strong>scale information in your matrix is encoded only in the upper left-hand 3x3 subsection.</strong> It doesn’t affect the last row in any&nbsp;way.  </p>
-<h2>Uniformity</h2>
-<p>So, we know know how to apply a uniform scale to a matrix. If you keep that Max/Maya transform node in mind for just another moment, you can probably get a good intuition about what non-uniform scales will look like in matrix form. We know that applying a non-uniform scale to enlarges everything along the local axes of the node; we also know that the first three rows of our matrix correspond to the local axes of a transform. This suggests that we should be able to apply non-uniform scales by simply scaling those rows differently.<br />
-Here’s a matrix that scales up by 2 in the X axis, by 3 in Y, and by 4 in&nbsp;Z:  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>3</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>4</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>And as you can see it scales our point as we&#8217;d&nbsp;like:   </p>
-<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
-[1,1,1,1] dot [0,2,0,0] = 3  
-[1,1,1,1] dot [0,0,2,0] = 4  
-[1,1,1,1] dot [0,0,0,1] = 1
+<p>The actual <span class="caps">GUI</span> produced by both snippets is identical, but the mGui version adds a few nice gimmicks to make the code shorter and simpler.  Instead of functions, mGui widgets are objects with properties. That lets you tweak they layout and appearance more naturally. To change the color of the button in this example, the vanilla maya would&nbsp;be:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
 </pre></div>
 
 
-<h2>Scale and&nbsp;rotation</h2>
-<p>It’s probably a good idea to try this with a more complex matrix as well, just to prove out what happens when the matrix isn’t neatly lined up with the world. Here’s a matrix that rotates 45 degrees in X and 30 in&nbsp;Z   </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.866</td>
-<td>.5</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>-.353</td>
-<td>.612</td>
-<td>.707</td>
-<td>0</td>
-</tr>
-<tr>
-<td>.353</td>
-<td>-.612</td>
-<td>.707</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>You can check back to our discussion of <a href="dot_matrix.html">rotation matrices</a> to see the pattern behind those&nbsp;numbers</p>
-</blockquote>
-<p>Our test point&nbsp;becomes       </p>
-<div class="highlight"><pre><span></span>[1,1,1,1] dot [.866,-.353,.353,0] = .866  
-[1,1,1,1] dot [.5, .612,-.612, 0] = .5  
-[1,1,1,1] dot [0,.707,.707,0] = 1.414  
-[1,1,1,1] dot [0,0,0,1] = 1
+<p>whereas the mGui version&nbsp;is </p>
+<div class="highlight"><pre><span></span><span class="n">btn</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
 </pre></div>
 
 
-<p>or <code>[.866, .5, .1.414]</code> (I’ve done a little rounding for readability).  To make this a little less abstract, heres&#8217; a unit cube in Maya with that matrix&nbsp;applied:  </p>
-<p><a href="http://4.bp.blogspot.com/-3MHZFxXQeMY/VKohUK39ItI/AAAAAAABLgQ/VSQCT-mKkns/s1600/45_30.png"><img alt="" src="http://4.bp.blogspot.com/-3MHZFxXQeMY/VKohUK39ItI/AAAAAAABLgQ/VSQCT-mKkns/s1600/45_30.png" /></a></p>
-<p>Since those first three rows represent the local axes of our transform, we have to multiply the whole row in order to apply a local scale. If we wanted to scale this matrix up by 2 along it’s local X, we’d&nbsp;get  </p>
-<table>
-<thead>
-<tr>
-<th>1.732</th>
-<th>1</th>
-<th>0</th>
-<th>0</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>.353</td>
-<td>-.612</td>
-<td>.707</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>(note how both .866 and .5 are doubled). Our new dots&nbsp;become:  </p>
-<div class="highlight"><pre><span></span>[1,1,1,1] dot [1.732,-.353,.353,0] = 1.732  
-[1,1,1,1] dot [1, .612,-.612, 0] = 1  
-[1,1,1,1] dot [0, .707, .707, 0] = 1.414  
-[1,1,1,1] dot [0,0,0,1] = 1
+<p>There are also a bunch of supporting features designed to make it easier to manage large, complex GUIs without too much tedium.  For more background you can check out <a href="/2014/all_your_base">the original post</a> to see how the underlyint tech works, and the <a href="/2016/mgui_updates_2">mGui 2.0 announcement</a> to see all the features in that will be coming&nbsp;on-line.</p>
+<h1>Incoming!!!</h1>
+<p>Part of the reason I&#8217;ve sat on this one for so long is that it does introduce some minor breaking changes.  There are two key things to watch out&nbsp;for.</p>
+<p><strong>Key names</strong> In mGui 1.0, every widget was supposed to have a &#8216;key name&#8217;.  This was used to create an absolute path to the widget, so you could address it as &#8216;window.columnLayout.button1&#8217; or something like that.  It worked fine but it required every widget to get an explicit name or a bailout value like <code>None</code>, which rendered the code a bit more cluttered than it had to be.  In mGui 2.0, the key names are derived from local variables: so if you build your gui like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">ColumnLayout</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
+        <span class="n">go_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Go&quot;</span><span class="p">)</span>
+        <span class="n">stop_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Stop&quot;</span><span class="p">)</span>
 </pre></div>
 
 
-<p>You can see how the X and Y dimensions have both scaled up, since the original X axis is pointing partially into world X and world Y. Here’s the same transformation in Maya for comparison - you can see that the orientation is preserved but the unit cube is scaled double along it&#8217;s local X&nbsp;axis.  </p>
-<p><a href="http://1.bp.blogspot.com/-xQrr4BXBAI0/VKolH8cyJcI/AAAAAAABLgY/TDc1GUziqRo/s1600/scaled_and_rotated.png"><img alt="" src="http://1.bp.blogspot.com/-xQrr4BXBAI0/VKolH8cyJcI/AAAAAAABLgY/TDc1GUziqRo/s1600/scaled_and_rotated.png" /></a></p>
-<p>This demonstrates how you apply non-uniform scales: by scaling the contents of your X, Y or Z rows of your matrix.  You&#8217;ll notice that we had to scale the entire row to get the correct&nbsp;results.   </p>
-<p>One important side-effect of this strategy is that not all of your row vectors will be normalized: if the matrix is scaled the vectors will have unpredictable lengths.  If you are using the matrix rows as vectors (for example, in a look-at equation) you&#8217;ll have to remember to re-normalized them or you&#8217;ll get wonky&nbsp;results.   </p>
-<p>On the other hand, the length of your row vectors actually encodes the local scales of your matrix. The local X scale of your matrix is the length of the first row, the local Y is the length of the second, and the local Z scale is the length of the third&nbsp;row.  </p>
-<p>In the examples above you can see that the rows of our (2,3,4) scale matrix are 2, 3 and 4 respectively  This is also true for the last example, despite the rotations. In case you’ve forgotten the formula, the length of a vector is the <a href="http://www.netcomuk.co.uk/~jenolive/vect5.html">square root of the sum of it’s squared contents</a>, or in more readable&nbsp;form:  </p>
-<div class="highlight"><pre><span></span>def vector_length(v):  
-   square_length = [i * i for i in v]  
-   return math.sqrt(sum(square_length))
-</pre></div>
-
-
-<blockquote>
-<p>As you can see the vector length formula works for any length vector: Just add up the squares and take the square roots! A useful trick for many applications, though is not to bother getting square roots unless you need them: for example, if you want to sort vectors by length, you can just collect the sum of the component squares without getting the roots: the ordering is the same, but you don&#8217;t have to do a bunch of expensive square roots since you only care about relative lenghts, not&nbsp;absolutes.</p>
-</blockquote>
-<p>With that in mind, the lenght of the X row of our tilted-and-scaled matrix&nbsp;is   </p>
-<div class="highlight"><pre><span></span>sqrt ( 1.732**2 + 1**2 + 0**2 )
-</pre></div>
-
-
-<p>in other words 2, as expected (with allowance for my rounding,&nbsp;anyway).  </p>
-<p>This is a particularly neat trick &#8212; as always, working through my stuff has left me in awe of the geniuses who devised this system! &#8212; because the scales are embedded in the matrix and easily recovered even though they don&#8217;t show up as single&nbsp;numbers.  </p>
-<p>Pretty slick, huh?  But it also explains why you frequently get objects in Max and Maya reporting themselves with scale values that seem off, like 3.99999997 or the like:  that&#8217;s floating point error accumulating in the calculation of the length of those row&nbsp;vectors.   </p>
-<h2>Next&nbsp;up</h2>
-<p>Scaling, it turns out, is quite pleasantly simple after the mad 4-D adventures involved in adding translation. It remains happily parked in the upper-left-hand corner of the matrix, doing its thing in a predictable&nbsp;way.  </p>
-<p>Next time out we’ll take a look at shears - a way to skew a matrix which usually happens by accident but which is sometimes useful to know about. In the meantime, Happy New Year and keep on&nbsp;dotting!  </p>
-<h2>Posts in this&nbsp;series</h2>
-<ul>
-<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot&nbsp;products)</a></li>
-<li><a href="dots_all_folks.html">Dots All Folks (dot product&nbsp;uses)</a></li>
-<li><a href="dot_matrix.html">Dot Matrix (intro to&nbsp;matrices)</a></li>
-<li><a href="adventures_in_4th_dimension.html">Adventures in the 4th Dimension (translation&nbsp;matrices)</a></li>
-<li><a href="to_scale.html">To Scale! (scale&nbsp;matrices)</a></li>
-</ul>
+<p>you could address the buttons as <code>window.main.go_button</code> or <code>window.main.stop_button</code> because of the variable names which were present when they were created.  You can still provide an explicit key if you really want to but it&#8217;s not commonly&nbsp;needed.</p>
+<p><strong>Naming conventions</strong>  In mGui 1.0 the property names used a convention we used in my office, that member variables were capitalized. Thus a property on a widget would get a capital letter: <code>my_button.Width = 128</code> and so on.  This is not very typical python style, so in this release we&#8217;re using the the standard python convention and the properties are now lower-cased:  <code>my_button.width = 128</code>.  This makes the upgrade a little more painful than it has to be, for which I apologize; but it helps with readability and code-compatibility in the long run.  A good <a href="/2014/for_regex_haters">regular expression</a> will help you find and fix most issues quickly &#8212; I got all of my code (and I have alot of mGui code!) fixed in a couple of&nbsp;hours.</p>
+<p>Anyway, hope you find it useful. Please don&#8217;t hesitate to put bugs or questions up on the GitHub site &#8212; that&#8217;s what it&#8217;s there for! Special thanks to <a href="https://github.com/bob-white">+Bob White</a> for his help on this one.  And if you feel like taking a whack at fixing bugs, improving docs or adding features to the project by all means take a shot and send me a pull&nbsp;request!</p>
+<p>All mGui-related posts can be found <a href="/tag/mgui">here</a></p>
     </article>
 
         <div class="tags">
-            <p>tags: <a href="http://theodox.com/tag/math.html">math</a></p>
+            <p>tags: <a href="http://theodox.com/tag/mgui.html">mGui</a></p>
         </div>
     <div id="comment">
 <hr>
@@ -464,8 +207,8 @@ Here’s a matrix that scales up by 2 in the X axis, by 3 in Y, and by 4 in&nbsp
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'theodoxcom';
-            var disqus_identifier = '2015/to_scale';
-            var disqus_url = 'http://theodox.com/2015/to_scale';
+            var disqus_identifier = '2016/mgui2_live';
+            var disqus_url = 'http://theodox.com/2016/mgui2_live';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//theodoxcom.disqus.com/embed.js';

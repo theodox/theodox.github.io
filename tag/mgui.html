@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#mGui</h1>
-                        <h3>6 items<h3>
+                        <h3>8 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,94 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="http://theodox.com/2016/mgui2_live" rel="bookmark" title="Permalink to mGui 2.0 is live">
+                <h2 class="post-title">
+                    mGui 2.0 is&nbsp;live
+                </h2>
+            </a>
+            <p class="post-meta">Sun 09 October 2016
+            </p>
+                <p>It&#8217;s been a <em>craaazy</em> summer at work, so I had to defer integrating a bunch of <a href="https://github.com/theodox/mGui">mGui</a> changes that have been sitting on a branch in the GitHub repo for several months.  However things have settled down a bit, and it&#8217;s time to get this&nbsp;done.</p>
+<p><img alt="all your rebase" src="http://i2.wp.com/discoposse.com/wp-content/uploads/2015/07/all-your-rebase-featured.png?resize=250%2C243" /></p>
+<p>So, <strong>I&#8217;m going to merge the <a href="https://github.com/theodox/mGui/tree/remove_keys"><code>remove_keys</code></a> branch &#8212; aka &#8216;mGui 2.0&#8217; &#8212; into the main line tomorrow: October 10th, 2016.</strong>  It&#8217;s been in use at a couple of sites for the last few months and seems pretty stable, so the time has come to pull the&nbsp;trigger. </p>
+<h1>mGui? What&#8217;s&nbsp;that?</h1>
+<p>For those of you who haven&#8217;t heard of it, <a href="https://github.com/theodox/mGui">mGui</a> is a module designed to speed the creation of Maya <span class="caps">GUI</span> items.  The main design goal is to combine the portability of native Maya <span class="caps">GUI</span> with more modern software&nbsp;patterns.  </p>
+<p><a href="https://github.com/theodox/mGui">mGui</a> syntax is more object-oriented than you&#8217;d see in <code>maya.cmds</code>. Instead of issuing commands to create a widget you make objects instead.  This little snippet in vanilla maya creates a window with <code>TextScrollList</code> and adds to the list when you click a&nbsp;button: </p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
+
+<span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+<span class="n">form</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">()</span>
+<span class="n">textScroll</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">button_callback</span> <span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="s2">&quot;pushed&quot;</span><span class="p">)</span>
+
+<span class="n">btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="n">button_callback</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
+    <span class="n">af</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
+            <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
+    <span class="n">aoc</span> <span class="o">=</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>  <span class="n">btn</span><span class="p">)</span>
+    <span class="p">)</span>    
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The mGui version looks like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<span class="k">with</span> <span class="n">Window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">FooterForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+        <span class="n">textScroll</span> <span class="o">=</span> <span class="n">TextScrollList</span><span class="p">()</span>
+        <span class="n">btn</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;push&#39;</span><span class="p">)</span>
+
+        <span class="k">def</span> <span class="nf">handle_push</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
+            <span class="n">textScroll</span><span class="o">.</span><span class="n">append</span> <span class="o">=</span> <span class="s1">&#39;pushed&#39;</span>
+        <span class="n">btn</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">handle_push</span>
+
+<span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The actual <span class="caps">GUI</span> produced by both snippets is identical, but the mGui version adds a few nice gimmicks to make the code shorter and simpler.  Instead of functions, mGui widgets are objects with properties. That lets you tweak they layout and appearance more naturally. To change the color of the button in this example, the vanilla maya would&nbsp;be:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+</pre></div>
+
+
+<p>whereas the mGui version&nbsp;is </p>
+<div class="highlight"><pre><span></span><span class="n">btn</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>There are also a bunch of supporting features designed to make it easier to manage large, complex GUIs without too much tedium.  For more background you can check out <a href="/2014/all_your_base">the original post</a> to see how the underlyint tech works, and the <a href="/2016/mgui_updates_2">mGui 2.0 announcement</a> to see all the features in that will be coming&nbsp;on-line.</p>
+<h1>Incoming!!!</h1>
+<p>Part of the reason I&#8217;ve sat on this one for so long is that it does introduce some minor breaking changes.  There are two key things to watch out&nbsp;for.</p>
+<p><strong>Key names</strong> In mGui 1.0, every widget was supposed to have a &#8216;key name&#8217;.  This was used to create an absolute path to the widget, so you could address it as &#8216;window.columnLayout.button1&#8217; or something like that.  It worked fine but it required every widget to get an explicit name or a bailout value like <code>None</code>, which rendered the code a bit more cluttered than it had to be.  In mGui 2.0, the key names are derived from local variables: so if you build your gui like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">ColumnLayout</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
+        <span class="n">go_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Go&quot;</span><span class="p">)</span>
+        <span class="n">stop_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Stop&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>you could address the buttons as <code>window.main.go_button</code> or <code>window.main.stop_button</code> because of the variable names which were present when they were created.  You can still provide an explicit key if you really want to but it&#8217;s not commonly&nbsp;needed.</p>
+<p><strong>Naming conventions</strong>  In mGui 1.0 the property names used a convention we used in my office, that member variables were capitalized. Thus a property on a widget would get a capital letter: <code>my_button.Width = 128</code> and so on.  This is not very typical python style, so in this release we&#8217;re using the the standard python convention and the properties are now lower-cased:  <code>my_button.width = 128</code>.  This makes the upgrade a little more painful than it has to be, for which I apologize; but it helps with readability and code-compatibility in the long run.  A good <a href="/2014/for_regex_haters">regular expression</a> will help you find and fix most issues quickly &#8212; I got all of my code (and I have alot of mGui code!) fixed in a couple of&nbsp;hours.</p>
+<p>Anyway, hope you find it useful. Please don&#8217;t hesitate to put bugs or questions up on the GitHub site &#8212; that&#8217;s what it&#8217;s there for! Special thanks to <a href="https://github.com/bob-white">+Bob White</a> for his help on this one.  And if you feel like taking a whack at fixing bugs, improving docs or adding features to the project by all means take a shot and send me a pull&nbsp;request!</p>
+<p>All mGui-related posts can be found <a href="/tag/mgui">here</a></p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2016/mgui2_live#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2016/mgui2_live#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2016/mgui2_live#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="http://theodox.com/2016/mgui_updates_2" rel="bookmark" title="Permalink to mGui updates in the offing…">
                 <h2 class="post-title">
                     mGui updates in the&nbsp;offing&#8230;
@@ -96,56 +184,10 @@
             </a>
             <p class="post-meta">Sat 26 March 2016
             </p>
-                <p>For those of you who&#8217;ve been using <a href="https://github.com/theodox/mGui">mGui</a> to speed up and simplify your Maya gui coding, there are some interesting changes on the horizon. Although I&#8217;m not entirely ready to release the changes I have in mind they are mostly sitting in <a href="https://github.com/theodox/mGui/tree/remove_keys">their own branch in the Github repo</a>. </p>
-<p>The upcoming version introduces some new idioms - in particular, it gets rid of the need for explicitly setting keys on new controls to get access to nested properties. In the first version of mGui you&#8217;d write something like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
-    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">(</span><span class="s1">&#39;main&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
-        <span class="n">Text</span><span class="p">(</span><span class="bp">None</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
-        <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">(</span><span class="s1">&#39;lister&#39;</span> <span class="p">)</span><span class="o">.</span><span class="n">Collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>    
-        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">(</span><span class="s1">&#39;buttons&#39;</span><span class="p">):</span>  
-            <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;refresh&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
-            <span class="n">Button</span><span class="p">(</span><span class="s1">&#39;close&#39;</span><span class="p">,</span> <span class="n">l</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>With the new refactor that looks like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
-    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
-        <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
-        <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>  
-        <span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>    
-        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>  
-            <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
-            <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The big advantage here is that those local variables are not scoped exclusively to the layout context managers where they live, which makes it easy to control when and where you hook up your event handlers: In the above example you could defer all the bindings and event handlers to the end of the script like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">gui</span><span class="o">.</span><span class="n">Window</span><span class="p">(</span><span class="s1">&#39;window&#39;</span><span class="p">,</span> <span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;fred&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">example_window</span><span class="p">:</span>  
-    <span class="k">with</span> <span class="n">VerticalForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>  
-        <span class="n">Text</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;Items without vertex colors&quot;</span><span class="p">)</span>  
-        <span class="n">lister</span> <span class="o">=</span> <span class="n">lists</span><span class="o">.</span><span class="n">VerticalList</span><span class="p">()</span>  
-        <span class="k">with</span> <span class="n">HorizontalStretchForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">button_row</span><span class="p">:</span>  
-            <span class="n">refresh</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span> <span class="n">label</span><span class="o">=</span><span class="s1">&#39;Refresh&#39;</span><span class="p">)</span>  
-            <span class="n">close</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Close&#39;</span><span class="p">)</span>  
-<span class="n">lister</span><span class="o">.</span><span class="n">collection</span> <span class="o">&lt;</span> <span class="n">bind</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">bound</span>  
-<span class="n">refresh</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">refresh_def</span>  
-<span class="n">close</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">close_def</span>
-</pre></div>
-
-
-<p>So far I&#8217;m really liking the new idiom, particularly eliminating the extra quotes and redundant <code>None</code> keys. However this is a minorly breaking change: in some cases, old code which relied on the key value to name and also label a control at the same time will when the keys become redundant. Moreover I bit the bullet and started to refactor the entire mGui module to use correct pep-8 naming conventions - in particular, member variables are <em>no longer capitalized</em>. So if you have code outside of mGui this will introduce some issues. When I converted my own code, most of the changes could be done with a regular expression but there were a few&nbsp;danglers.</p>
-<p>I think the changes are worth the effort, but I&#8217;d be really interested in hearing from users before trying to bring the new mGui branch back into the main line. It should actually be possible to write a script that fixes most existing code automatically, that&#8217;s something we could refine collaboratively.Please let me know in the comments or by opening an issue on the GitHub site if you have comments or&nbsp;plans. </p>
-<p>As always, bug fixes and pull requests always&nbsp;entertained!</p>
+                A sneek peek at some changes in the 2.0 version of mGui
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2016/mgui_updates_2#disqus_thread">comments</a>.</p>
 -->
-                <a href="http://theodox.com/2016/mgui_updates_2#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="http://theodox.com/2016/mgui_updates_2#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -190,6 +232,21 @@
                 An mGui port of the Maya Module Manager
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="http://theodox.com/2014/mighty_morphin_module_manager_made_moreso#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/all_your_base" rel="bookmark" title="Permalink to Maya GUI II: All Your Base Classes Are Belong To Us">
+                <h2 class="post-title">
+                    Maya <span class="caps">GUI</span> <span class="caps">II</span>: All Your Base Classes Are Belong To&nbsp;Us
+                </h2>
+            </a>
+            <p class="post-meta">Fri 28 March 2014
+            </p>
+                Introducing mGui, a module for making Maya GUI coding more pythonic and less infuriating.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/all_your_base#disqus_thread">comments</a>.</p>
 -->
 
         </div>
@@ -296,6 +353,7 @@
             <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
             <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
             <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/matrix.html">matrix</a>
             <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
             <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
             <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
