@@ -1,12 +1,12 @@
 Title: Maya GUI II: All Your Base Classes Are Belong To Us
 Date: 2014-03-28 09:30:00.000
 Category: blog
-Tags: Maya, python, GUI, programming
+Tags: Maya, python, GUI, programming, mGui
 Slug: all_your_base
 Authors: Steve Theodore
 Summary: Introducing `mGui`, a module for making Maya GUI coding more pythonic and less infuriating.
 
-> I've left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood -- but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the [mGui updates](mGui_updates_2) post for a more up-to-date view of the current mGui syntax
+> I've left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood -- but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the [mGui updates](mGui_updates_2) post for a more up-to-date view of the current mGui syntax. mGui 2 will be the main line in GitHub after 10-10-2016.
 
 
 In [Rescuing Maya GUI From Itself](rescuing_maya_gui_from_itself.html) I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya GUI toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to [Thunderbirds](http://www.youtube.com/watch?v=BfIAKj3Gl1E). This time out I want to detail what a working implementation of the ideas I sketched out there looks like.  
@@ -100,11 +100,11 @@ This is a great opportunity to do some plumbing for more efficient coding. Howev
 
 Still, there are a couple of things that it would be nice to put into the base class - they are all very general (as befits base-class functions) and they are all common to any GUI tasks.  
 
-## Tags
+### Tags
 
 In most GUI systems, you can attach any arbitrary data you want to a widget. For example, you might want to have an array of buttons that all did the same thing with slightly different values, say moving an object by different amounts.  In vanilla Maya, you have to encapsulate the data into your command call: With a tag attached to the buttons, on the other hand, you can write a script that just says "move the target by the amount in this button’s tag", which is much easier to maintain and more flexible. And as we just pointed out, the event mechanism always sends a reference to the control which owns an event when it fires, so it’s easy to get to the right tag when you want it.  
 
-##  A real name
+###  A real name
 
 Having explicit names for your pieces is very handy, particularly in large, deeply nested systems like a GUI..  
 
@@ -116,11 +116,11 @@ That said, names are still useful in a big complex system. So, to make it really
 
 There are, of course, plenty of controls you don’t really care about once they’re made: help text, spaces, separators and so on. To avoid making users have to invent names for those guys, we should let users pass in 0 or False or None as a succinct way of saying “I don’t care about the name of this thing”.  
 
-One minor note: I used `Key` as the name of the property so my IDE did not bug me for using in the Python reserved word ‘id’. Little things matter :)  
+> Minor note: I used `Key` as the name of the property so my IDE did not bug me for using in the Python reserved word ‘id’. Little things matter :) However in mGui 2.0, you generally don't need to specify kees.
 
 Speaking of little things: there are some great tools in the Python language to make classes more efficient to work with. The so called ‘magic methods’ allow you to customize the behavior of your classes, both to make them feel more Pythonic and to express your intentions more clearly. Here are a couple of the things we can do with the magic methods in our base class:  
 
-## `__nonzero__`
+### \_\_nonzero\_\_
 
 Speaking of that pass-in-zero-to-skip-names gimmick, one simple but super-useful thing we can do is to implement the `__nonzero__` method. That’s what Python calls when you try the familiar  
     
@@ -131,13 +131,13 @@ Speaking of that pass-in-zero-to-skip-names gimmick, one simple but super-useful
 
 test. In our case, we know that all Maya GUI control commands have the `exist` flag, and therefore all of our GUI classes will too. So, if our `__nonzero__` just returns the `exist` property of our class instances, we can elegantly check for things like dead controls with a simple, pythonic if test.  
 
-## `__repr__`
+### \_\_repr\_\_
 
 `__repr__` is what Python calls when you need a printable representation of an object. In our case, we can pass back our underlying Maya GUI object, which is just a GUI path string. This way, you can pass one of our wrapper classes to some other python code that works on GUI objects and it will ‘just work’ – This is more or less what PyMel does for nodes, and it’s a great help when integrating a new module into an existing codebase. Like PyMel’s version there will be some odd corner cases that don’t work but it’s a handy convenience most of the time.  
 
 As a minor tweak, the `__repr__` is also tweaked to display differently when the GUI widget inside a wrapper class has been deleted. This won’t prevent errors if you try to use the widget, but it is a big help in parsing error messages or stack traces.  
 
-### `__iter__`
+### \_\_iter\_\_
 
 The next magic method we want to add is `__iter__`. It is the what python calls when you try to loop over a list or a tuple.  
 
@@ -398,7 +398,7 @@ Hopefully, the combination of some syntax sugar in our wrappers and turning layo
 
 In an ideal world we’d have a way of reflecting over some kind of assembly information and extracting all of the Maya GUI commands with their flags and options. Of course, in an ideal world we would not have to do this in the first place, since the native GUI system would not be the unfortunate SNES-era mishmash that it is.  
 
-![](http://games.shizzle.be/wp-content/images/060419-all-your-base-are-belong-to-us.jpg)  
+![](http://www.rogerwendell.com/images/allyourbase/allyourbase_clip.gif)  
 > Mass production is a pain in the ass.  
 
 Luckily, the TA spirit cannot be kept down by adversity. In this case we don’t have a nice clean api but we do have MEL.... poor, neglected, wallflower MEL. Well, here’s a chance for the wallflower to save the party: MEL’s help command can list all of the commands and all of the flags in Maya. So, what we need to do is to run through all of the Mel commands in help, find the ones that look like GUI commands, and capture their command - flag combinations as raw material for our metaclass control factory.  

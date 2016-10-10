@@ -1,12 +1,12 @@
 Title: Dot Matrix
 Date: 2014-12-06 12:22:00.000
 Category: blog
-Tags: math
+Tags: math, matrix
 Slug: dot_matrix
 Authors: Steve Theodore
 Summary: Understanding the graphics matrix, with some help from dot products.
 Image: theme/images/main-header.jpg
-Keywords: matrix, math
+Keywords: graphics, matrix, math, dot
 
 We started our math review with a look at the [dot product](http://techartsurvival.blogspot.com/2014/11/bagels-and-coffee-or-vector-dot-product.html), and started out by showing how dots work in a minimalist way. This time out we’ll do the same thing the most basic component of 3d math - the matrix.
 

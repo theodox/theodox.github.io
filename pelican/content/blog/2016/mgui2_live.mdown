@@ -1,0 +1,100 @@
+Title: mGui 2.0 is live
+Date: 2016-10-09
+Category: blog
+Tags: mGui
+Slug: mgui2_live
+Authors: Steve Theodore
+Summary:  [mGui 2](https://github.com/theodox/mGui) is live
+
+It's been a _craaazy_ summer at work, so I had to defer integrating a bunch of [mGui](https://github.com/theodox/mGui) changes that have been sitting on a branch in the GitHub repo for several months.  However things have settled down a bit, and it's time to get this done.
+
+![all your rebase](http://i2.wp.com/discoposse.com/wp-content/uploads/2015/07/all-your-rebase-featured.png?resize=250%2C243)
+
+So, **I'm going to merge the [`remove_keys`](https://github.com/theodox/mGui/tree/remove_keys) branch -- aka 'mGui 2.0' -- into the main line tomorrow: October 10th, 2016.**  It's been in use at a couple of sites for the last few months and seems pretty stable, so the time has come to pull the trigger. 
+
+mGui? What's that?
+======
+
+For those of you who haven't heard of it, [mGui](https://github.com/theodox/mGui) is a module designed to speed the creation of Maya GUI items.  The main design goal is to combine the portability of native Maya GUI with more modern software patterns.  
+
+[mGui](https://github.com/theodox/mGui) syntax is more object-oriented than you'd see in `maya.cmds`. Instead of issuing commands to create a widget you make objects instead.  This little snippet in vanilla maya creates a window with `TextScrollList` and adds to the list when you click a button: 
+
+
+```python
+import maya.cmds as cmds
+
+window = cmds.window()
+form = cmds.formLayout()
+textScroll = cmds.textScrollList()
+
+def button_callback (*_):
+    cmds.textScrollList(textScroll, e=True, append="pushed")
+    
+btn = cmds.button("push", c= button_callback)
+cmds.formLayout(form, e=True, 
+    af = [ (textScroll, 'top', 0),  (textScroll, 'left', 0),  (textScroll, 'right', 0), 
+            (btn, 'bottom', 0), (btn, 'left', 0), (btn, 'right', 0)],
+    aoc = (textScroll, 'bottom', 4,  btn)
+    )    
+cmds.showWindow(window)
+```
+
+The mGui version looks like this:
+
+```python
+from mGui.gui import *
+from mGui.forms import *
+
+
+with Window(title='example') as window:
+    with FooterForm() as f:
+        textScroll = TextScrollList()
+        btn = Button(label='push')
+        
+        def handle_push(*_, **__):
+            textScroll.append = 'pushed'
+        btn.command += handle_push
+        
+window.show()
+```
+
+The actual GUI produced by both snippets is identical, but the mGui version adds a few nice gimmicks to make the code shorter and simpler.  Instead of functions, mGui widgets are objects with properties. That lets you tweak they layout and appearance more naturally. To change the color of the button in this example, the vanilla maya would be:
+
+```python
+cmds.button(btn, e=True, backgroundColor = (1,0,0))
+```
+
+whereas the mGui version is 
+
+```python
+btn.backgroundColor = (1,0,0)
+```
+
+
+There are also a bunch of supporting features designed to make it easier to manage large, complex GUIs without too much tedium.  For more background you can check out [the original post](/2014/all_your_base) to see how the underlyint tech works, and the [mGui 2.0 announcement](/2016/mgui_updates_2) to see all the features in that will be coming on-line.
+
+Incoming!!!
+==========
+Part of the reason I've sat on this one for so long is that it does introduce some minor breaking changes.  There are two key things to watch out for.
+
+**Key names** In mGui 1.0, every widget was supposed to have a 'key name'.  This was used to create an absolute path to the widget, so you could address it as 'window.columnLayout.button1' or something like that.  It worked fine but it required every widget to get an explicit name or a bailout value like `None`, which rendered the code a bit more cluttered than it had to be.  In mGui 2.0, the key names are derived from local variables: so if you build your gui like this:
+
+
+```python
+
+with Window() as window:
+    with ColumnLayout() as main:
+        go_button = Button("Go")
+        stop_button = Button("Stop")
+```
+
+you could address the buttons as `window.main.go_button` or `window.main.stop_button` because of the variable names which were present when they were created.  You can still provide an explicit key if you really want to but it's not commonly needed.
+
+**Naming conventions**  In mGui 1.0 the property names used a convention we used in my office, that member variables were capitalized. Thus a property on a widget would get a capital letter: `my_button.Width = 128` and so on.  This is not very typical python style, so in this release we're using the the standard python convention and the properties are now lower-cased:  `my_button.width = 128`.  This makes the upgrade a little more painful than it has to be, for which I apologize; but it helps with readability and code-compatibility in the long run.  A good [regular expression](/2014/for_regex_haters) will help you find and fix most issues quickly -- I got all of my code (and I have alot of mGui code!) fixed in a couple of hours.
+
+Anyway, hope you find it useful. Please don't hesitate to put bugs or questions up on the GitHub site -- that's what it's there for! Special thanks to [+Bob White](https://github.com/bob-white) for his help on this one.  And if you feel like taking a whack at fixing bugs, improving docs or adding features to the project by all means take a shot and send me a pull request!
+
+All mGui-related posts can be found [here](/tag/mgui)
+
+
+
