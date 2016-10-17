@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+          <title>Chimeras & Manticores</title>
+        <meta charset="utf-8" />
+        <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+        <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
+
+
+
+    <meta name="tags" content="maya" />
+    <meta name="tags" content="python" />
+    <meta name="tags" content="minq" />
+
+</head>
+
+<body id="index" class="home">
+        <header id="banner" class="body">
+                <h1><a href="http://theodox.com/">Chimeras & Manticores <strong>technical art, python, the games business, and obscurantism</strong></a></h1>
+        </header><!-- /#banner -->
+        <nav id="menu"><ul>
+            <li><a href="/about">About...</a></li>
+            <li><a href="/pages/pub">Publications</a></li>
+            <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+            <li><a href="/pages/cookbook">Cookbook</a></li>
+        </ul></nav><!-- /#menu -->
+<section id="content" class="body">
+  <header>
+    <h2 class="entry-title">
+      <a href="http://theodox.com/2016/minq_fixes" rel="bookmark"
+         title="Permalink to Moar Minq!">Moar&nbsp;Minq!</a></h2>
+ 
+  </header>
+  <footer class="post-info">
+    <abbr class="published" title="2016-10-16T00:00:00-07:00">
+      Sun 16 October 2016
+    </abbr>
+    <address class="vcard author">
+      By           <a class="url fn" href="http://theodox.com/author/steve-theodore.html">Steve Theodore</a>
+    </address>
+  </footer><!-- /.post-info -->
+  <div class="entry-content">
+    <p>After the recent updates to <a href="/2016/mgui2_live">mGui</a>, I&#8217;ve just pushed a few changes to <a href="https://github.com/theodox/minq/blob/master/readme.MD">minq</a>.  After a couple of months away I solved a couple of nagging issues with that had me stumped&nbsp;earlier.  </p>
+<blockquote>
+<p>Oh man, after a month of C++ it feels so nice to do somey Python, even if it&#8217;s just playing&nbsp;hooky&#8230;</p>
+</blockquote>
+<h1>Fabulous Fancy&nbsp;Filters</h1>
+<p>The big change is to the way you do attribute filters.  In the first release, you had to choose between a nice clean way of writing an attribute filter and a limited set of features.  The <code>where()</code> operator on a query let you pass in a filter function , so you could &#8212; for example &#8212; find all the transforms above the zero line like&nbsp;this:</p>
+<div class="highlight"><pre><span></span>    <span class="n">upper</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;.ty&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Under the hood that would look more or less&nbsp;like:</p>
+<div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">each_node</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">each_node</span> <span class="o">+</span> <span class="s2">&quot;.ty&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="n">each_node</span>
+</pre></div>
+
+
+<p>Which works fine. However for a big list it involves a potentially large number of independent <code>getAttr</code> calls, which aren&#8217;t too fast.  So we also added the option to format a special bulk query that would issue the same <code>getAttr</code> on all of the items in your query at once, for a big speed boost. Those accelerated queries looked like&nbsp;this:</p>
+<div class="highlight"><pre><span></span>   <span class="n">upper</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This exploits an interesting behavior in Maya: if you select a whole bunch of items at once and do a <code>getAttr</code> from the listener you&#8217;ll get a whole list of answers, not just one &#8212; and the cost of the query is correspondingly lower.  Unfortunately, it doesn&#8217;t work for <em>custom</em> attributes: it only works for Maya&#8217;s built-in&nbsp;attributes.</p>
+<p>So in the old version of minq you had to choose between a clean, fast bulk query or a wordy, slower but more flexible version using a lambda.  To de-couple the style from the speed, I&#8217;ve added two new variants on the query syntax:  <code>native</code> will generate a fast bulk attribute query for built-in attributes, and <code>custom</code> uses the same syntax but uses the slower-but-flexible approach instead.&nbsp;Thus</p>
+<div class="highlight"><pre><span></span>    <span class="n">upper</span>  <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">native</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>  <span class="c1"># a fast bulk query</span>
+    <span class="n">customized</span> <span class="o">=</span> <span class="n">Shapes</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">custom</span><span class="o">.</span><span class="n">example</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># a slower general query</span>
+</pre></div>
+
+
+<p>There&#8217;s also an option for tweaking the custom queries so they will or will not raise exceptions if the custom attribute isn&#8217;t found.  The default behavior for missing attributes is simply not to pass the filter, but in some situations you may want to know for sure if your stream has items that are missing the attributes you&nbsp;expect.</p>
+<h1>Proud, Pleasing&nbsp;Positions</h1>
+<p>Another longstanding gripe that is partially cleaned up in this pass is bulk queries for object positions.  It&#8217;s always been easy to get <em>local</em> positions with a simple query&nbsp;like</p>
+<div class="highlight"><pre><span></span>    <span class="n">Selected</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Transforms</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AttribValues</span><span class="p">,</span> <span class="s2">&quot;translate&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>However there was no easy way to get <em>world</em> positions. This release adds the <code>WorldPositions</code> and <code>LocalPositions</code> classes which will return the&nbsp;positions:</p>
+<div class="highlight"><pre><span></span>    <span class="n">camera_positions</span> <span class="o">=</span> <span class="n">Cameras</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">WorldPositions</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Under the hood these are extracted from the <code>matrix</code> and <code>worldMatrix</code> attributes so they work as speedy bulk queries.  The main limitation is that the results will always come back in native Maya units (ie, in centimeters) so you may need to transform them if you&#8217;re working in another unit.  Should you need to do that, here&#8217;s a handy hack using <code>api.OpenMaya.MVector</code>:</p>
+<div class="highlight"><pre><span></span>    <span class="n">in_meters</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">MVector</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
+    <span class="n">Selected</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">WorldPositions</span><span class="p">)</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="n">in_meters</span><span class="p">)</span>
+</pre></div>
+
+
+<p>Along with <code>LocalPositions</code> and <code>WorldPositions</code>, access to the matrices also made it easy to add a <code>LocalAxis</code> query. This will return the local X, Y or Z axis of a transform in either world or local&nbsp;space:</p>
+<div class="highlight"><pre><span></span>    <span class="n">forwards</span> <span class="o">=</span> <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LocalAxis</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span> 
+</pre></div>
+
+
+<p>By default the axis vectors will be returned in world space, but you can get local space&nbsp;instead:</p>
+<div class="highlight"><pre><span></span>    <span class="n">lcl_forwards</span> <span class="o">=</span> <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LocalAxis</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+
+
+<p>These vectors are extracted directly from the matrices, so you may need to renormalize them depending on what you want them&nbsp;for. </p>
+<h1>Dauntless&nbsp;Documentation</h1>
+<p>While we&#8217;re on the subject, I&#8217;ve cleaned up the <a href="https://github.com/theodox/minq/wiki">minq wiki</a>.  After a long month of slogging through the Unreal Engine codebase in search of what-the-heck-is-going-on-here?, I&#8217;ve tried to atone for my past sins in terms of under-documenting.  Please give me a shout out or update the wiki yourself if you see something wrong or unclear on the&nbsp;docs!</p>
+  </div><!-- /.entry-content -->
+</section>
+        <footer id="contentinfo" class="body">
+                <address id="about" class="vcard body">
+                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
+                which takes great advantage of <a href="http://python.org">Python</a>.
+                </address><!-- /#about -->
+        </footer><!-- /#contentinfo -->
+</body>
+</html>
