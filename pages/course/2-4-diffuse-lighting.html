@@ -1,37 +1,262 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
         <title>Diffuse&nbsp;illumination</title>
-        <meta charset="utf-8" />
-        <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
-        <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
+
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Chimeras & Manticores">
 </head>
 
-<body id="index" class="home">
-        <header id="banner" class="body">
-                <h1><a href="http://theodox.com/">Chimeras & Manticores <strong>technical art, python, the games business, and obscurantism</strong></a></h1>
-        </header><!-- /#banner -->
-        <nav id="menu"><ul>
-            <li><a href="/about">About...</a></li>
-            <li><a href="/pages/pub">Publications</a></li>
-            <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
-            <li><a href="/pages/cookbook">Cookbook</a></li>
-        </ul></nav><!-- /#menu -->
-    <h1>Diffuse&nbsp;illumination</h1>
-    
+<body>
 
-    <p>Lighting of matte surfaces is known as <a href="glossary#diffuse">diffuse illumination</a>:</p>
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('course_bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Diffuse&nbsp;illumination</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <article>
+        <p>Lighting of matte surfaces is known as <a href="glossary#diffuse">diffuse illumination</a>:</p>
 <p><img alt="diffuse" src="http://www.reindelsoftware.com/Documents/Mapping/images/diffuse_teapot2.gif" /></p>
 <p>Diffuse illumination is calculated by comparing the <a href="#normal">normal</a> of the surface and the position of the light  (usually, the cosine of the angle between them tells you how bright the light is). Because it only uses the surface and light positions, diffuse illumination does not depend on the viewpoint of the camera.  For this reason,  diffuse illumination is sometimes precalculated or &#8216;<a href="glossary#baking">baked</a>&#8216; to save rendering time; in Unity the precalculated lights are stored into <a href="glossary#texture">textures</a> known as <a href="glossary#lightmap">lightmaps</a></p>
 <p>The color of a 3d model is also affected by <a href="glossary#texture">textures</a>.  The color of the texture pixels is multiplied by the color of the lit surface to produce a shaded&nbsp;image:</p>
 <p><img alt="textured" src="https://tpfto.files.wordpress.com/2012/03/teapots.png" /></p>
 <p><a href="2-3-3d-lighting">back</a> <a href="2-5-specular-lighting">next</a></p>
+    </article>
+            </div>
+            <!---- right sidebar -->
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/matrix.html">matrix</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/ta.html">TA</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
+        </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
 
-        <footer id="contentinfo" class="body">
-                <address id="about" class="vcard body">
-                Proudly powered by <a href="http://getpelican.com/">Pelican</a>,
-                which takes great advantage of <a href="http://python.org">Python</a>.
-                </address><!-- /#about -->
-        </footer><!-- /#contentinfo -->
+</div>        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-79232212-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+<script type="text/javascript">
+    var disqus_shortname = 'theodoxcom';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
 </body>
+
 </html>

@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Chimeras & Manticores - Tag math</title>
+
+            <link href="http://theodox.com/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="http://theodox.com/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="http://theodox.com/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="http://theodox.com/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="http://theodox.com/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+            <!-- CSS specified by the user -->
+            <link href="http://theodox.com/theme/css/theodox.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Chimeras & Manticores">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="http://theodox.com/">Chimeras & Manticores</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+        <header class="intro-header" style="background-image: url('http://theodox.com/theme/images/home-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="page-heading">
+                        <h1>#math</h1>
+                        <h3>5 items<h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+        <div class="post-preview">
+            <a href="http://theodox.com/2015/to_scale" rel="bookmark" title="Permalink to To Scale!">
+                <h2 class="post-title">
+                    To&nbsp;Scale!
+                </h2>
+            </a>
+            <p class="post-meta">Sun 04 January 2015
+            </p>
+                <p>In our <a href="adventures_in_4th_dimension.html">last visit to 3-d math land</a>, we moved from the 2x2 and 3x3 matrices we used to learn how matrices function to the full 4x4 matrix that we all know and love to hate from 3d applications. This time I’d like to add support for scaling to our matrices so we can round out the ways matrices&nbsp;work.   </p>
+<blockquote>
+<p>This might be a good time to back and breeze throught the <a href="adventures_in_4th_dimension.html">last installment in our math series</a> if you’re a little fuzzy on how 4X4 matrices work, or just rusty after the&nbsp;holidays.</p>
+</blockquote>
+<p>The 4x4 matrix encodes both rotations and scales very elegantly. If that matrix represented a transfrom, the first three rows of the matrix would be correspond to the local coordinates of the transform, while the fourth row is the 3-D point where the origin of the transform sits (if you’re wondering where things like the pivot offset or maya’s joint orient come from, those are actually a series of matrices that are multiplied together: the <a href="http://download.autodesk.com/us/maya/2009help/CommandsPython/xform.html">maya docs</a> go into much more&nbsp;detail.).  </p>
+<p>Of course, we all know that transforms can also be scaled up or down. So what does that look like in matrix&nbsp;form?  </p>
+<p>Here’s our old friend the identity&nbsp;matrix:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>and a sample&nbsp;point:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>If you&#8217;re wondering why we need 4 points instead of three, you might want to check back after reviewing the last article in the&nbsp;series. </p>
+</blockquote>
+<p>We want to figure out what to do to this matrix so that it returns points and vectors scaled: we’d like to turn our <code>[1,1,1]</code> into <code>[2,2,2]</code><br />
+The natural first guess is just to scale up the whole thing by 2: in other words, we could try just changing the 1’s in our matrix to&nbsp;2’s:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p>Easy - but let&#8217;s do the math just to be&nbsp;sure:  </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
+[1,1,1,1] dot [0,2,0,0] = 2  
+[1,1,1,1] dot [0,0,2,0] = 2  
+[1,1,1,1] dot [0,0,0,2] = 2
+</pre></div>
+
+
+<p>This looks right at first, but there’s a problem. If you cast your mind back to the <a href="adventures_in_4th_dimension.html">brain bending vortex</a> of <a href="http://deltaorange.com/2012/03/08/the-truth-behind-homogenous-coordinates/">homogeneous coordinates</a>, you’ll remember that the point <code>[2,2,2,2]</code> is actually quite different from <code>[2,2,2,1]</code>: in fact, it’s the same as [1,1,1,1] , since homogenous coordinates are divided by their last (W) coordinate when turned into plain old 3-D&nbsp;points. </p>
+<p>So, the naive approach turns out to be wrong: <em>we can’t just scale up every number in the matrix</em>!  </p>
+<p>The culprit is that very last 2: it’s scaling up the W of the output &#8212; which is equivalent to scaling the actual 3-D point <strong>down</strong>. Scaling that last W component is <em>negating</em> all of the other&nbsp;scales.  </p>
+<p>Of course, that suggests that if we just reset that last row, we&#8217;ll get the result we&nbsp;expected:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>2</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
+[1,1,1,1] dot [0,2,0,0] = 2  
+[1,1,1,1] dot [0,0,2,0] = 2  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<p>If you take off your math hat momentarily, and resume your usual <span class="caps">TA</span> hat for a moment, you can we have to treat that last row differently from the others. Scaling a transform node up or down may move the children, but the origin of the transform isn’t changing. Scaling doesn’t need to touch that last matrix row, any more than the rotation&nbsp;does.  </p>
+<p>This is consistent with what we discovered last time while deriving the translation matrix: that last row is a slightly different beast than the others and gets handled separately. The upshot is quite simple: <strong>scale information in your matrix is encoded only in the upper left-hand 3x3 subsection.</strong> It doesn’t affect the last row in any&nbsp;way.  </p>
+<h2>Uniformity</h2>
+<p>So, we know know how to apply a uniform scale to a matrix. If you keep that Max/Maya transform node in mind for just another moment, you can probably get a good intuition about what non-uniform scales will look like in matrix form. We know that applying a non-uniform scale to enlarges everything along the local axes of the node; we also know that the first three rows of our matrix correspond to the local axes of a transform. This suggests that we should be able to apply non-uniform scales by simply scaling those rows differently.<br />
+Here’s a matrix that scales up by 2 in the X axis, by 3 in Y, and by 4 in&nbsp;Z:  </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>3</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>And as you can see it scales our point as we&#8217;d&nbsp;like:   </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [2,0,0,0] = 2  
+[1,1,1,1] dot [0,2,0,0] = 3  
+[1,1,1,1] dot [0,0,2,0] = 4  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<h2>Scale and&nbsp;rotation</h2>
+<p>It’s probably a good idea to try this with a more complex matrix as well, just to prove out what happens when the matrix isn’t neatly lined up with the world. Here’s a matrix that rotates 45 degrees in X and 30 in&nbsp;Z   </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.866</td>
+<td>.5</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr>
+<td>-.353</td>
+<td>.612</td>
+<td>.707</td>
+<td>0</td>
+</tr>
+<tr>
+<td>.353</td>
+<td>-.612</td>
+<td>.707</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>You can check back to our discussion of <a href="dot_matrix.html">rotation matrices</a> to see the pattern behind those&nbsp;numbers</p>
+</blockquote>
+<p>Our test point&nbsp;becomes       </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [.866,-.353,.353,0] = .866  
+[1,1,1,1] dot [.5, .612,-.612, 0] = .5  
+[1,1,1,1] dot [0,.707,.707,0] = 1.414  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<p>or <code>[.866, .5, .1.414]</code> (I’ve done a little rounding for readability).  To make this a little less abstract, heres&#8217; a unit cube in Maya with that matrix&nbsp;applied:  </p>
+<p><a href="http://4.bp.blogspot.com/-3MHZFxXQeMY/VKohUK39ItI/AAAAAAABLgQ/VSQCT-mKkns/s1600/45_30.png"><img alt="" src="http://4.bp.blogspot.com/-3MHZFxXQeMY/VKohUK39ItI/AAAAAAABLgQ/VSQCT-mKkns/s1600/45_30.png" /></a></p>
+<p>Since those first three rows represent the local axes of our transform, we have to multiply the whole row in order to apply a local scale. If we wanted to scale this matrix up by 2 along it’s local X, we’d&nbsp;get  </p>
+<table>
+<thead>
+<tr>
+<th>1.732</th>
+<th>1</th>
+<th>0</th>
+<th>0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>.353</td>
+<td>-.612</td>
+<td>.707</td>
+<td>0</td>
+</tr>
+<tr>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>(note how both .866 and .5 are doubled). Our new dots&nbsp;become:  </p>
+<div class="highlight"><pre><span></span>[1,1,1,1] dot [1.732,-.353,.353,0] = 1.732  
+[1,1,1,1] dot [1, .612,-.612, 0] = 1  
+[1,1,1,1] dot [0, .707, .707, 0] = 1.414  
+[1,1,1,1] dot [0,0,0,1] = 1
+</pre></div>
+
+
+<p>You can see how the X and Y dimensions have both scaled up, since the original X axis is pointing partially into world X and world Y. Here’s the same transformation in Maya for comparison - you can see that the orientation is preserved but the unit cube is scaled double along it&#8217;s local X&nbsp;axis.  </p>
+<p><a href="http://1.bp.blogspot.com/-xQrr4BXBAI0/VKolH8cyJcI/AAAAAAABLgY/TDc1GUziqRo/s1600/scaled_and_rotated.png"><img alt="" src="http://1.bp.blogspot.com/-xQrr4BXBAI0/VKolH8cyJcI/AAAAAAABLgY/TDc1GUziqRo/s1600/scaled_and_rotated.png" /></a></p>
+<p>This demonstrates how you apply non-uniform scales: by scaling the contents of your X, Y or Z rows of your matrix.  You&#8217;ll notice that we had to scale the entire row to get the correct&nbsp;results.   </p>
+<p>One important side-effect of this strategy is that not all of your row vectors will be normalized: if the matrix is scaled the vectors will have unpredictable lengths.  If you are using the matrix rows as vectors (for example, in a look-at equation) you&#8217;ll have to remember to re-normalized them or you&#8217;ll get wonky&nbsp;results.   </p>
+<p>On the other hand, the length of your row vectors actually encodes the local scales of your matrix. The local X scale of your matrix is the length of the first row, the local Y is the length of the second, and the local Z scale is the length of the third&nbsp;row.  </p>
+<p>In the examples above you can see that the rows of our (2,3,4) scale matrix are 2, 3 and 4 respectively  This is also true for the last example, despite the rotations. In case you’ve forgotten the formula, the length of a vector is the <a href="http://www.netcomuk.co.uk/~jenolive/vect5.html">square root of the sum of it’s squared contents</a>, or in more readable&nbsp;form:  </p>
+<div class="highlight"><pre><span></span>def vector_length(v):  
+   square_length = [i * i for i in v]  
+   return math.sqrt(sum(square_length))
+</pre></div>
+
+
+<blockquote>
+<p>As you can see the vector length formula works for any length vector: Just add up the squares and take the square roots! A useful trick for many applications, though is not to bother getting square roots unless you need them: for example, if you want to sort vectors by length, you can just collect the sum of the component squares without getting the roots: the ordering is the same, but you don&#8217;t have to do a bunch of expensive square roots since you only care about relative lenghts, not&nbsp;absolutes.</p>
+</blockquote>
+<p>With that in mind, the lenght of the X row of our tilted-and-scaled matrix&nbsp;is   </p>
+<div class="highlight"><pre><span></span>sqrt ( 1.732**2 + 1**2 + 0**2 )
+</pre></div>
+
+
+<p>in other words 2, as expected (with allowance for my rounding,&nbsp;anyway).  </p>
+<p>This is a particularly neat trick &#8212; as always, working through my stuff has left me in awe of the geniuses who devised this system! &#8212; because the scales are embedded in the matrix and easily recovered even though they don&#8217;t show up as single&nbsp;numbers.  </p>
+<p>Pretty slick, huh?  But it also explains why you frequently get objects in Max and Maya reporting themselves with scale values that seem off, like 3.99999997 or the like:  that&#8217;s floating point error accumulating in the calculation of the length of those row&nbsp;vectors.   </p>
+<h2>Next&nbsp;up</h2>
+<p>Scaling, it turns out, is quite pleasantly simple after the mad 4-D adventures involved in adding translation. It remains happily parked in the upper-left-hand corner of the matrix, doing its thing in a predictable&nbsp;way.  </p>
+<p>Next time out we’ll take a look at shears - a way to skew a matrix which usually happens by accident but which is sometimes useful to know about. In the meantime, Happy New Year and keep on&nbsp;dotting!  </p>
+<h2>Posts in this&nbsp;series</h2>
+<ul>
+<li><a href="bagels_and_coffee.html">Bagels and Coffee (intro to dot&nbsp;products)</a></li>
+<li><a href="dots_all_folks.html">Dots All Folks (dot product&nbsp;uses)</a></li>
+<li><a href="dot_matrix.html">Dot Matrix (intro to&nbsp;matrices)</a></li>
+<li><a href="adventures_in_4th_dimension.html">Adventures in the 4th Dimension (translation&nbsp;matrices)</a></li>
+<li><a href="to_scale.html">To Scale! (scale&nbsp;matrices)</a></li>
+</ul>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2015/to_scale#disqus_thread">comments</a>.</p>
+-->
+                <a href="http://theodox.com/2015/to_scale#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="http://theodox.com/2015/to_scale#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/adventures_in_the_4th_dimension" rel="bookmark" title="Permalink to Adventures in the 4th dimension">
+                <h2 class="post-title">
+                    Adventures in the 4th&nbsp;dimension
+                </h2>
+            </a>
+            <p class="post-meta">Mon 15 December 2014
+            </p>
+                Matrices and how they can be used to transform 3-d points
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/adventures_in_the_4th_dimension#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/dot_matrix" rel="bookmark" title="Permalink to Dot Matrix">
+                <h2 class="post-title">
+                    Dot&nbsp;Matrix
+                </h2>
+            </a>
+            <p class="post-meta">Sat 06 December 2014
+            </p>
+                Understanding the graphics matrix, with some help from dot products.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/dot_matrix#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/dots_all_folks" rel="bookmark" title="Permalink to Dot’s all, folks">
+                <h2 class="post-title">
+                    Dot&#8217;s all,&nbsp;folks
+                </h2>
+            </a>
+            <p class="post-meta">Sat 29 November 2014
+            </p>
+                Some ways to use the vector dot product in TA programming
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/dots_all_folks#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+        <hr>
+        <div class="post-preview">
+            <a href="http://theodox.com/2014/bagels_and_coffee" rel="bookmark" title="Permalink to Bagels and Coffee, or, the vector dot product and you">
+                <h2 class="post-title">
+                    Bagels and Coffee, or, the vector dot product and&nbsp;you
+                </h2>
+            </a>
+            <p class="post-meta">Sat 22 November 2014
+            </p>
+                An introduction to the vector dot product, and how it’s used in computer graphics.
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="http://theodox.com/2014/bagels_and_coffee#disqus_thread">comments</a>.</p>
+-->
+
+        </div>
+
+    <hr>
+    <!-- Pager -->
+    <ul class="pager">
+        <li class="next">
+        </li>
+    </ul>
+    Page 1 / 1
+    <hr>
+            </div>
+            <!---- right sidebar -->
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="http://theodox.com/tag/animation.html">animation</a>
+            <a class="tag-link" href="http://theodox.com/tag/api.html">api</a>
+            <a class="tag-link" href="http://theodox.com/tag/articles.html">articles</a>
+            <a class="tag-link" href="http://theodox.com/tag/blog.html">blog</a>
+            <a class="tag-link" href="http://theodox.com/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="http://theodox.com/tag/boo.html">boo</a>
+            <a class="tag-link" href="http://theodox.com/tag/books.html">books</a>
+            <a class="tag-link" href="http://theodox.com/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="http://theodox.com/tag/careers.html">careers</a>
+            <a class="tag-link" href="http://theodox.com/tag/cg.html">cg</a>
+            <a class="tag-link" href="http://theodox.com/tag/console.html">console</a>
+            <a class="tag-link" href="http://theodox.com/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="http://theodox.com/tag/games.html">games</a>
+            <a class="tag-link" href="http://theodox.com/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="http://theodox.com/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="http://theodox.com/tag/gui.html">GUI</a>
+            <a class="tag-link" href="http://theodox.com/tag/industry.html">industry</a>
+            <a class="tag-link" href="http://theodox.com/tag/ls.html">ls</a>
+            <a class="tag-link" href="http://theodox.com/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="http://theodox.com/tag/math.html">math</a>
+            <a class="tag-link" href="http://theodox.com/tag/matrix.html">matrix</a>
+            <a class="tag-link" href="http://theodox.com/tag/maya.html">maya</a>
+            <a class="tag-link" href="http://theodox.com/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="http://theodox.com/tag/minq.html">minq</a>
+            <a class="tag-link" href="http://theodox.com/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="http://theodox.com/tag/modo.html">modo</a>
+            <a class="tag-link" href="http://theodox.com/tag/modules.html">modules</a>
+            <a class="tag-link" href="http://theodox.com/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="http://theodox.com/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="http://theodox.com/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="http://theodox.com/tag/programming.html">programming</a>
+            <a class="tag-link" href="http://theodox.com/tag/python.html">python</a>
+            <a class="tag-link" href="http://theodox.com/tag/regex.html">regex</a>
+            <a class="tag-link" href="http://theodox.com/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="http://theodox.com/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="http://theodox.com/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="http://theodox.com/tag/sod.html">SOD</a>
+            <a class="tag-link" href="http://theodox.com/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="http://theodox.com/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="http://theodox.com/tag/ta.html">TA</a>
+            <a class="tag-link" href="http://theodox.com/tag/techart.html">techart</a>
+            <a class="tag-link" href="http://theodox.com/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="http://theodox.com/tag/tools.html">tools</a>
+            <a class="tag-link" href="http://theodox.com/tag/unity.html">unity</a>
+            <a class="tag-link" href="http://theodox.com/tag/web.html">web</a>
+            <a class="tag-link" href="http://theodox.com/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
+        </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="http://theodox.com/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="http://theodox.com/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="http://theodox.com/theme/js/clean-blog.min.js"></script>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-79232212-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+<script type="text/javascript">
+    var disqus_shortname = 'theodoxcom';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>
