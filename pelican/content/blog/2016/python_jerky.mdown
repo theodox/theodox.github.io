@@ -1,0 +1,16 @@
+Title: Happy Thanksgiving!
+Date: 2016-11-25
+Category: blog
+Tags: python
+Slug: python_jerky
+Authors: Steve Theodore
+Summary: Happy Thanksgiving!
+
+You know what I'm thankful for?
+
+![python jerky](images/PythonJerky.jpg)
+
+Every minute I'm not writing C++.
+
+PS If you're puzzled what to get for your TA Secret Santa gift, you can order it [here](http://www.newportjerkycompany.com/python-jerky/)
+
