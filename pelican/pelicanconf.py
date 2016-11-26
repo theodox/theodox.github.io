@@ -5,7 +5,7 @@ from __future__ import unicode_literals
 AUTHOR = u'Steve Theodore'
 SITENAME = u'Chimeras & Manticores'
 SITESUBTITLE = 'technical art, python, the games business, and obscurantism'
-SITEURL = 'https://blog.theodox.com'
+SITEURL = 'https://theodox.github.io'
 COPYRIGHT_YEAR = 2016
 
 PATH = 'content'

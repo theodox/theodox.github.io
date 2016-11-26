@@ -8,7 +8,7 @@ Summary: Happy Thanksgiving!
 
 You know what I'm thankful for?
 
-![python jerky](images/PythonJerky.jpg)
+![python jerky](/images/PythonJerky.jpg)
 
 Every minute I'm not writing C++.
 
