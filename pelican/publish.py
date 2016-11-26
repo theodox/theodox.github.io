@@ -11,7 +11,7 @@ commit_cmd = 'git commit -a -m "published %s-%s-%s %s:%s"' % (now.year, now.mont
 push_cmd = 'git push'
 
 os.chdir(sys.argv[1])
-os.system(pull_cms)
+os.system(pull_cmd)
 os.system(add_cmd)
 os.system(commit_cmd)
 os.system(push_cmd)
