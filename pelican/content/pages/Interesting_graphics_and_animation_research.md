@@ -8,6 +8,9 @@ Summary: A new permanent page of interesting academic research
 
 This page is a list of interesting,  maybe not-quite-ready-real time graphics and animation tech that I'm keeping an eye on. Should be growing over time.
 
+You can certainly not go wrong by subscribing to [Two Minute Papers](https://www.youtube.com/user/keeroyz/videos), very human-watchable Youtube channel that covers a lot of interesting graphics, animation and machine-learning topics a couple of times per week.
+
+
 ### Rendering
 
 Anybody in games should be interested in the fate of [Ptex](http://ptex.us/), the no-uvs, variable resolution texturing system from Disney and used in, for example, [Mari](http://www.thefoundry.co.uk/products/mari/).  So far, it's not ready for runtime graphics. but [this Nvidia slideset](https://developer.nvidia.com/sites/default/files/akamai/gamedev/docs/Borderless%20Ptex.pdf) discusses a realtime implementation.  It claims to be only 15% slower than a UV mapped alternative - while saving about 18% of texture memory.  I'll believe it when I see it, but i _want_ to believe. ( **Update: **_I went over this with our residence graphics genius and he doesn't think it'll fly, even on XBone / PS4 class hardware)_
