@@ -5,6 +5,7 @@ Tags: python, mGui, maya, gui
 Slug: mGui_maintenance
 Authors: Steve Theodore
 Summary: A new release for mGui
+header_cover: https://vaguevisages.files.wordpress.com/2016/08/modern-times-movie-seven.jpg?w=750&h=531 
 
 With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I'd like to announce the 2.1 point release of [mGui](https://github.com/theodox/mGui).  
 
@@ -12,7 +13,7 @@ This is mostly a stabilization release for the [big 2.0 update we pushed in Octo
 
 ## New Feature
 
-The main new feature in this release is the addition of `[mGui.treeView](https://github.com/theodox/mGui/blob/master/mGui/treeView.py)`, a module for wrapping Maya's `treeView` widget.  I've never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it's so different that it needed a whole module of it's own to make it workable. 
+The main new feature in this release is the addition of [`mGui.treeView`](https://github.com/theodox/mGui/blob/master/mGui/treeView.py), a module for wrapping Maya's `treeView` widget.  I've never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it's so different that it needed a whole module of it's own to make it workable. 
 
 The new `MTreeView()` class wraps the existing mGui `TreeView`, but provides a more idiomatic way to get at the TreeView's button commands.  You can now use the same style you use for other mGui buttons:
 
@@ -52,7 +53,14 @@ The `buttons` field looks like an array, and you can (as you see in the sample) 
 
 ## Updated examples
 
-The example code has been cleaned up a tad -- some of this is just part of the conversion to the new keyless idiom and some of this is just graphic polish. In particular `[mGui.examples.formExamples.py](https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py)`, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  `[mgui.examples.boundCollection.py](https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py)` got some much-needed cleanup
+
+The example code has been cleaned up a tad -- some of this is just part of the conversion to the new keyless idiom and some of this is just graphic polish. 
+
+![](https://dl.dropboxusercontent.com/u/2977490/bound_collection)
+
+_A better-looking version of the boundCollection sample_
+
+In particular [`mGui.examples.formExamples.py`](https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py), which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  [`mgui.examples.boundCollection.py`](https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py) got some much-needed cleanup.
 
 
 ## Bug fixes
