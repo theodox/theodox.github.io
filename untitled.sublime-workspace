@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"s",
+				"scope"
+			],
+			[
 				"f",
 				"file"
 			],
@@ -24,28 +28,24 @@
 				"otherKlass"
 			],
 			[
-				"s",
-				"self"
-			],
-			[
 				"c",
 				"cmds"
 			],
 			[
 				"fun",
-				"function	ContextMenuItemAttribute.*"
+				"function\tContextMenuItemAttribute.*"
 			],
 			[
 				"log",
-				"log	Debug.*(message, context)"
+				"log\tDebug.*(message, context)"
 			],
 			[
 				"cons",
-				"console	DeviceType.*"
+				"console\tDeviceType.*"
 			],
 			[
 				"o",
-				"onclick	Attr"
+				"onclick\tAttr"
 			],
 			[
 				"addre",
@@ -73,7 +73,7 @@
 			],
 			[
 				"conne",
-				"connections	Network.*"
+				"connections\tNetwork.*"
 			],
 			[
 				"m_",
@@ -89,7 +89,7 @@
 			],
 			[
 				"def",
-				"default	ReplacePrefabOptions.*"
+				"default\tReplacePrefabOptions.*"
 			],
 			[
 				"m_c",
@@ -97,11 +97,11 @@
 			],
 			[
 				"del",
-				"delta	Event.*"
+				"delta\tEvent.*"
 			],
 			[
 				"Math",
-				"Mathf.Abs	*(value)"
+				"Mathf.Abs\t*(value)"
 			],
 			[
 				"addres",
@@ -129,7 +129,7 @@
 			],
 			[
 				"widh",
-				"width	Rect.*"
+				"width\tRect.*"
 			],
 			[
 				"next",
@@ -137,7 +137,7 @@
 			],
 			[
 				"Rem",
-				"Remove	Hashtable.*(?)"
+				"Remove\tHashtable.*(?)"
 			],
 			[
 				"resu",
@@ -157,19 +157,19 @@
 			],
 			[
 				"obj",
-				"object	[class]"
+				"object\t[class]"
 			],
 			[
 				"coun",
-				"counter	ComputeBufferType.*"
+				"counter\tComputeBufferType.*"
 			],
 			[
 				"Remov",
-				"RemoveAt	ArrayUtility.*(array, index)"
+				"RemoveAt\tArrayUtility.*(array, index)"
 			],
 			[
 				"constr",
-				"constructor	Define constructor"
+				"constructor\tDefine constructor"
 			],
 			[
 				"recu",
@@ -185,15 +185,15 @@
 			],
 			[
 				"Deb",
-				"Debug.Log	*(message)"
+				"Debug.Log\t*(message)"
 			],
 			[
 				"cou",
-				"counter	ComputeBufferType.*"
+				"counter\tComputeBufferType.*"
 			],
 			[
 				"L",
-				"Log	Debug.*(message, context)"
+				"Log\tDebug.*(message, context)"
 			],
 			[
 				"pu",
@@ -201,15 +201,15 @@
 			],
 			[
 				"ed",
-				"edge	[class]"
+				"edge\t[class]"
 			],
 			[
 				"Sta",
-				"Start	UIBehaviour.*()"
+				"Start\tUIBehaviour.*()"
 			],
 			[
 				"Ed",
-				"Edge	[class]"
+				"Edge\t[class]"
 			],
 			[
 				"P",
@@ -245,35 +245,35 @@
 			],
 			[
 				"Tran",
-				"Transform	[class]"
+				"Transform\t[class]"
 			],
 			[
 				"pos",
-				"position	Transform.*"
+				"position\tTransform.*"
 			],
 			[
 				"gameo",
-				"gameObject	[class]"
+				"gameObject\t[class]"
 			],
 			[
 				"SetPar",
-				"SetParent	Transform.*(parent, worldPositionStays)"
+				"SetParent\tTransform.*(parent, worldPositionStays)"
 			],
 			[
 				"tr",
-				"transform	[class]"
+				"transform\t[class]"
 			],
 			[
 				"Tras",
-				"Transform.localScale	[property]"
+				"Transform.localScale\t[property]"
 			],
 			[
 				"transfor",
-				"transform	[class]"
+				"transform\t[class]"
 			],
 			[
 				"trans",
-				"transform	[class]"
+				"transform\t[class]"
 			],
 			[
 				"t",
@@ -332,14 +332,40 @@
 	"buffers":
 	[
 		{
-			"contents": "import os\n\ndef fix_slug(s):\n	lowered = s.lower()\n	for char in \":.!?[]()& \":\n		lowered = lowered.replace(char, \"_\")\n	lowered = lowered.replace(\"__\", \"_\")\n	lowered = lowered.replace(\"__\", \"_\")\n	lowered = lowered.replace(\"__\", \"_\")\n	lowered = lowered.replace(\"_md\", \"\")\n	return lowered\n\ndef rewrite(f):\n	result = []\n	with open(f, 'rt') as handle:\n		for line in handle:\n			if 'Slug:' in line:\n				s,_,rest = line.partition(\":\")\n				rest = fix_slug(rest)\n				line = \"Slug: \" + rest\n			result.append(line)\n\n	with open(f, 'wt') as handle:\n		handle.writelines(result)\n\nfor file in os.listdir(\".\"):\n	oldname = fix_slug(file)\n	print file, oldname\n	if file.endswith(\"md\"):\n		rewrite(file)\n\n	os.rename(file, fix_slug(file) + \".md\")",
-			"file": "pelican/content/fix_slugs.py",
-			"file_size": 719,
-			"file_write_time": 131091271340000000,
+			"file": "pelican/content/blog/2016/A_touch_of_minq.md",
 			"settings":
 			{
-				"buffer_size": 719,
-				"line_ending": "Unix"
+				"buffer_size": 7838,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"contents": "ZTitle: Two Minute Papers\nDate:  2017-1-10\nCategory: blog\nTags: graphics, research\nSlug: two_minute_papers\nAuthors: Steve Theodore\nSummary: A great, condensed source for cool graphics research\n\nIt's been a while since in updated the [graphics research](/pages/research) page -- and, given that ominous *Coming 2017* in the _State of Decay 2_ E3 trailer it may be a while before I get to frolic in the fields of pure science once more.  \n\nHowever, I've stumbled on a great stand-in for slogging through those SIGGRAPH abstracts: a cool YouTube channel called [Two Minute Papers](https://www.youtube.com/user/keeroyz/videos), which aims to provide a fast, not-too-math heavy intro to a lot of interesting research in graphics and animation.  \n\n<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/_ZLXKt4L-AA\" frameborder=\"0\" allowfullscreen></iframe>\n\nIt's a great fast way to get an insight into what's going on in the academic realm without too much investment (and without having to slog through the inevitable SIGGRAPH calculus lesson). There are occasional non-graphics papers in there (like \"What is Impostor Syndrome?\") which seem like fluff, and a bit too much \"yay Neural Networks!\" cheerleading -- but on the whole this is a great way to find out some cool academic research you would never dig up on your own.  There are supposed to be two new videos per week.\n\nBy the way, the [creator of the videos](https://twitter.com/karoly_zsolnai) has a [Patreon](https://www.patreon.com/TwoMinutePapers). If you like the stuff, think aboout hitting the tip jar!\n",
+			"file": "pelican/content/blog/2017/two_min_papers.md",
+			"file_size": 1594,
+			"file_write_time": 131285506733648002,
+			"settings":
+			{
+				"buffer_size": 1578,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/UL/ue4/assets.csv",
+			"settings":
+			{
+				"buffer_size": 280206,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/D/UL/ue4/DaytonGame/Content/Developers/steve/assets.csv",
+			"settings":
+			{
+				"buffer_size": 262377,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -366,10 +392,34 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 147.0,
-		"last_filter": "",
+		"height": 81.0,
+		"last_filter": "Snippet: bl\t",
 		"selected_items":
 		[
+			[
+				"Snippet: bl\t",
+				"Snippet: blog header"
+			],
+			[
+				"Snippet: bl",
+				"Snippet: blog header"
+			],
+			[
+				"Snippet: blo",
+				"Snippet: blog header"
+			],
+			[
+				"Snippet: blog",
+				"Snippet: Add blog head-matter"
+			],
+			[
+				"Snippet: blog\t",
+				"Snippet: Add blog head-matter"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Add blog head-matter"
+			],
 			[
 				"markdp",
 				"Markdown Preview: Export HTML in Sublime Text"
@@ -475,7 +525,7 @@
 				"Preferences: Browse Packages"
 			]
 		],
-		"width": 449.0
+		"width": 496.0
 	},
 	"console":
 	{
@@ -496,10 +546,18 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/stevet/theodox.github.io/pelican/content"
+		"/D/prj/theodox.github.io/pelican/content",
+		"/D/prj/theodox.github.io/pelican/content/blog",
+		"/D/prj/theodox.github.io/pelican/content/blog/2016",
+		"/D/prj/theodox.github.io/pelican/content/blog/2017",
+		"/D/prj/theodox.github.io/pelican/content/pages"
 	],
 	"file_history":
 	[
+		"/C/Users/steve/AppData/Roaming/Sublime Text 3/Packages/User/blog-head.sublime-snippet",
+		"/D/prj/theodox.github.io/pelican/content/pages/Interesting_graphics_and_animation_research.md",
+		"/D/prj/theodox.github.io/pelican/content/blog/2017/two_min_papers.md",
+		"/D/prj/theodox.github.io/pelican/content/fix_slugs.py",
 		"/Users/stevet/theodox.github.io/pelican/content/Maya_GUI_II:_All_Your_Base_Classes_Are_Belong_To_Us.md",
 		"/Users/stevet/theodox.github.io/pelican/content/The_Game_Artists_Resume_Guide_(Revisited).md",
 		"/Users/stevet/theodox.github.io/pelican/content/The_Dog_Ate_My_Homework.md",
@@ -623,11 +681,7 @@
 		"/Users/stevetheodore/Dropbox/blog/assaph_2",
 		"/Users/stevetheodore/prj/electron/main.js",
 		"/Users/stevetheodore/Dropbox/blog/inflexible.md",
-		"/Users/stevetheodore/Dropbox/blog/inflex.html",
-		"/Users/stevetheodore/example_graph.sfx",
-		"/Users/stevetheodore/example_graph.material",
-		"/Users/stevetheodore/prj/electron/index.html",
-		"/Users/stevetheodore/prj/electron/main.pyj"
+		"/Users/stevetheodore/Dropbox/blog/inflex.html"
 	],
 	"find":
 	{
@@ -745,37 +799,151 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "pelican/content/fix_slugs.py",
+					"file": "pelican/content/blog/2016/A_touch_of_minq.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 719,
+						"buffer_size": 7838,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								397,
-								397
+								216,
+								0
 							]
 						],
 						"settings":
 						{
 							"WordCount":
 							{
-								"changes": -1,
-								"modified": true,
-								"selection": true,
+								"changes": 1,
+								"count": 1001,
+								"modified": false,
+								"selection": false,
 								"status": -1,
-								"syntax": "python"
+								"syntax": "plain text"
 							},
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "pelican/content/blog/2017/two_min_papers.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1578,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1190,
+								1190
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 1,
+								"count": 222,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/D/UL/ue4/assets.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 280206,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9475,
+								9475
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 95,
+								"count": 1,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 5589.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/D/UL/ue4/DaytonGame/Content/Developers/steve/assets.csv",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 262377,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 0,
+								"count": 1,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -876,7 +1044,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 383.0,
+	"side_bar_width": 373.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
