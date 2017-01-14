@@ -95,6 +95,77 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
+                <h2 class="post-title">
+                    mGui&nbsp;Maintenance
+                </h2>
+            </a>
+            <p class="post-meta">Sat 14 January 2017
+            </p>
+                <p>With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I&#8217;d like to announce the 2.1 point release of <a href="https://github.com/theodox/mGui">mGui</a>.  </p>
+<p>This is mostly a stabilization release for the <a href="/2016/mgui2_live">big 2.0 update we pushed in October</a>. </p>
+<h2>New&nbsp;Feature</h2>
+<p>The main new feature in this release is the addition of <a href="https://github.com/theodox/mGui/blob/master/mGui/treeView.py"><code>mGui.treeView</code></a>, a module for wrapping Maya&#8217;s <code>treeView</code> widget.  I&#8217;ve never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it&#8217;s so different that it needed a whole module of it&#8217;s own to make it&nbsp;workable. </p>
+<p>The new <code>MTreeView()</code> class wraps the existing mGui <code>TreeView</code>, but provides a more idiomatic way to get at the TreeView&#8217;s button commands.  You can now use the same style you use for other mGui&nbsp;buttons:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.treeView</span> <span class="kn">import</span> <span class="n">MTreeView</span>
+<span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">win</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">FillForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">form</span><span class="p">:</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">MTreeView</span><span class="p">(</span><span class="n">numberOfButtons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">set_items</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">btn_a</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
+    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">btn_b</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
+    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s1">&#39;button 2 was pressed&#39;</span>
+
+<span class="k">def</span> <span class="nf">double_click</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39;double click&#39;</span><span class="p">,</span> <span class="n">arg</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_a</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_b</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">itemDblClickCommand</span> <span class="o">+=</span> <span class="n">double_click</span>
+
+<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The <code>buttons</code> field looks like an array, and you can (as you see in the sample) use the standard mGui <code>+=</code> syntax to add a handler to the buttons as defined by the TreeViews <code>numberOfButtons</code> parameter.  </p>
+<h2>Updated&nbsp;examples</h2>
+<p>The example code has been cleaned up a tad &#8212; some of this is just part of the conversion to the new keyless idiom and some of this is just graphic&nbsp;polish. </p>
+<p><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/bound_collection" /></p>
+<p><em>A better-looking version of the boundCollection&nbsp;sample</em></p>
+<p>In particular <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py"><code>mGui.examples.formExamples.py</code></a>, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py"><code>mgui.examples.boundCollection.py</code></a> got some much-needed&nbsp;cleanup.</p>
+<h2>Bug&nbsp;fixes</h2>
+<h3>Better handling of&nbsp;LayoutDialogs</h3>
+<p>We discovered an odd condition where Maya would sometimes refuse to fire off the event handlers attached to an mGui widget when the widget was called through maya&#8217;s <code>layoutDialog</code> command.  It seems like Maya didn&#8217;t like the potentially aynchronous <code>MayaEvent</code> handlers inside of <code>layoutDialog</code>, so we added a little bit of tracking to make sure that only synchronous <code>Event</code> handlers get attached in that special case. I&#8217;d been working around that by manually re-assigning Event objects to the handlers &#8212; but that&#8217;s a silly thing to ask users to remember, so now it&#8217;s all transparently handled under the&nbsp;hood.</p>
+<h3>HorizontalExpandForm</h3>
+<p>We found and fixed an issue with the <code>HorizontalExpandForm()</code>, which had somehow stopped&nbsp;expanding.</p>
+<h3>List.inner_list</h3>
+<p>Fixed a condition where sometimes <code>List()</code> controls didn&#8217;t correctly report their the &#8216;inner_list&#8217; property which actually contained their visible contents.  In general you don&#8217;t want to mess with the <code>inner_list</code> property in any case, but it should be available for inspection when absolutely necessary&nbsp;now.</p>
+<h2>Till next&nbsp;time&#8230;</h2>
+<p>This was a fun release, since it had a lot more contributions from new faces. It&#8217;s nice to see people running with the code and it&#8217;s gratifying that it is holding up <span class="caps">OK</span> so&nbsp;far. </p>
+<p>It&#8217;s a <a href="http://www.xbox.com/en-US/games/state-of-decay-2">ship year</a>, so I expect that both the blogging and hacking will be a bit&#8230; light&#8230; for a while.  But don&#8217;t hesitate to chime in with questions, comments or, better yet, bug fix pull&nbsp;requests!  </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2016/python_jerky" rel="bookmark" title="Permalink to Happy Thanksgiving!">
                 <h2 class="post-title">
                     Happy&nbsp;Thanksgiving!
@@ -102,19 +173,10 @@
             </a>
             <p class="post-meta">Fri 25 November 2016
             </p>
-                <p>You know what I&#8217;m thankful&nbsp;for?</p>
-<p><img alt="python jerky" src="/images/PythonJerky.jpg" /></p>
-<p>Every minute I&#8217;m not writing&nbsp;C++.</p>
-<p><span class="caps">PS</span> If you&#8217;re puzzled what to get for your <span class="caps">TA</span> Secret Santa gift, you can order it <a href="http://www.newportjerkycompany.com/python-jerky/">here</a></p>
+                Happy Thanksgiving!
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2016/python_jerky#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2016/python_jerky#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2016/python_jerky#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -207,21 +269,6 @@
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2016/sod_2" rel="bookmark" title="Permalink to State of Decay 2 announced">
-                <h2 class="post-title">
-                    State of Decay 2&nbsp;announced
-                </h2>
-            </a>
-            <p class="post-meta">Tue 14 June 2016
-            </p>
-                State of Decay 2 is finally going public!
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2016/sod_2#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
@@ -291,7 +338,7 @@
             <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
             <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
             <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">GUI</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
             <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
             <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
             <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>

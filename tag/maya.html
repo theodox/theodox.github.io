@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#maya</h1>
-                        <h3>43 items<h3>
+                        <h3>44 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,77 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
+                <h2 class="post-title">
+                    mGui&nbsp;Maintenance
+                </h2>
+            </a>
+            <p class="post-meta">Sat 14 January 2017
+            </p>
+                <p>With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I&#8217;d like to announce the 2.1 point release of <a href="https://github.com/theodox/mGui">mGui</a>.  </p>
+<p>This is mostly a stabilization release for the <a href="/2016/mgui2_live">big 2.0 update we pushed in October</a>. </p>
+<h2>New&nbsp;Feature</h2>
+<p>The main new feature in this release is the addition of <a href="https://github.com/theodox/mGui/blob/master/mGui/treeView.py"><code>mGui.treeView</code></a>, a module for wrapping Maya&#8217;s <code>treeView</code> widget.  I&#8217;ve never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it&#8217;s so different that it needed a whole module of it&#8217;s own to make it&nbsp;workable. </p>
+<p>The new <code>MTreeView()</code> class wraps the existing mGui <code>TreeView</code>, but provides a more idiomatic way to get at the TreeView&#8217;s button commands.  You can now use the same style you use for other mGui&nbsp;buttons:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.treeView</span> <span class="kn">import</span> <span class="n">MTreeView</span>
+<span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">win</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">FillForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">form</span><span class="p">:</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">MTreeView</span><span class="p">(</span><span class="n">numberOfButtons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">set_items</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">btn_a</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
+    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">btn_b</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
+    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s1">&#39;button 2 was pressed&#39;</span>
+
+<span class="k">def</span> <span class="nf">double_click</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39;double click&#39;</span><span class="p">,</span> <span class="n">arg</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_a</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_b</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">itemDblClickCommand</span> <span class="o">+=</span> <span class="n">double_click</span>
+
+<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The <code>buttons</code> field looks like an array, and you can (as you see in the sample) use the standard mGui <code>+=</code> syntax to add a handler to the buttons as defined by the TreeViews <code>numberOfButtons</code> parameter.  </p>
+<h2>Updated&nbsp;examples</h2>
+<p>The example code has been cleaned up a tad &#8212; some of this is just part of the conversion to the new keyless idiom and some of this is just graphic&nbsp;polish. </p>
+<p><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/bound_collection" /></p>
+<p><em>A better-looking version of the boundCollection&nbsp;sample</em></p>
+<p>In particular <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py"><code>mGui.examples.formExamples.py</code></a>, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py"><code>mgui.examples.boundCollection.py</code></a> got some much-needed&nbsp;cleanup.</p>
+<h2>Bug&nbsp;fixes</h2>
+<h3>Better handling of&nbsp;LayoutDialogs</h3>
+<p>We discovered an odd condition where Maya would sometimes refuse to fire off the event handlers attached to an mGui widget when the widget was called through maya&#8217;s <code>layoutDialog</code> command.  It seems like Maya didn&#8217;t like the potentially aynchronous <code>MayaEvent</code> handlers inside of <code>layoutDialog</code>, so we added a little bit of tracking to make sure that only synchronous <code>Event</code> handlers get attached in that special case. I&#8217;d been working around that by manually re-assigning Event objects to the handlers &#8212; but that&#8217;s a silly thing to ask users to remember, so now it&#8217;s all transparently handled under the&nbsp;hood.</p>
+<h3>HorizontalExpandForm</h3>
+<p>We found and fixed an issue with the <code>HorizontalExpandForm()</code>, which had somehow stopped&nbsp;expanding.</p>
+<h3>List.inner_list</h3>
+<p>Fixed a condition where sometimes <code>List()</code> controls didn&#8217;t correctly report their the &#8216;inner_list&#8217; property which actually contained their visible contents.  In general you don&#8217;t want to mess with the <code>inner_list</code> property in any case, but it should be available for inspection when absolutely necessary&nbsp;now.</p>
+<h2>Till next&nbsp;time&#8230;</h2>
+<p>This was a fun release, since it had a lot more contributions from new faces. It&#8217;s nice to see people running with the code and it&#8217;s gratifying that it is holding up <span class="caps">OK</span> so&nbsp;far. </p>
+<p>It&#8217;s a <a href="http://www.xbox.com/en-US/games/state-of-decay-2">ship year</a>, so I expect that both the blogging and hacking will be a bit&#8230; light&#8230; for a while.  But don&#8217;t hesitate to chime in with questions, comments or, better yet, bug fix pull&nbsp;requests!  </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2016/minq_fixes" rel="bookmark" title="Permalink to Moar Minq!">
                 <h2 class="post-title">
                     Moar&nbsp;Minq!
@@ -96,75 +167,10 @@
             </a>
             <p class="post-meta">Sun 16 October 2016
             </p>
-                <p>After the recent updates to <a href="/2016/mgui2_live">mGui</a>, I&#8217;ve just pushed a few changes to <a href="https://github.com/theodox/minq/blob/master/readme.MD">minq</a>.  After a couple of months away I solved a couple of nagging issues with that had me stumped&nbsp;earlier.  </p>
-<blockquote>
-<p>Oh man, after a month of C++ it feels so nice to do somey Python, even if it&#8217;s just playing&nbsp;hooky&#8230;</p>
-</blockquote>
-<h1>Fabulous Fancy&nbsp;Filters</h1>
-<p>The big change is to the way you do attribute filters.  In the first release, you had to choose between a nice clean way of writing an attribute filter and a limited set of features.  The <code>where()</code> operator on a query let you pass in a filter function , so you could &#8212; for example &#8212; find all the transforms above the zero line like&nbsp;this:</p>
-<div class="highlight"><pre><span></span>    <span class="n">upper</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">p</span> <span class="o">+</span> <span class="s1">&#39;.ty&#39;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Under the hood that would look more or less&nbsp;like:</p>
-<div class="highlight"><pre><span></span>    <span class="k">for</span> <span class="n">each_node</span> <span class="ow">in</span> <span class="n">cmds</span><span class="o">.</span><span class="n">ls</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;transform&#39;</span><span class="p">)</span>
-        <span class="k">if</span> <span class="n">cmds</span><span class="o">.</span><span class="n">getAttr</span><span class="p">(</span><span class="n">each_node</span> <span class="o">+</span> <span class="s2">&quot;.ty&quot;</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">:</span>
-            <span class="k">yield</span> <span class="n">each_node</span>
-</pre></div>
-
-
-<p>Which works fine. However for a big list it involves a potentially large number of independent <code>getAttr</code> calls, which aren&#8217;t too fast.  So we also added the option to format a special bulk query that would issue the same <code>getAttr</code> on all of the items in your query at once, for a big speed boost. Those accelerated queries looked like&nbsp;this:</p>
-<div class="highlight"><pre><span></span>   <span class="n">upper</span> <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">item</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>
-</pre></div>
-
-
-<p>This exploits an interesting behavior in Maya: if you select a whole bunch of items at once and do a <code>getAttr</code> from the listener you&#8217;ll get a whole list of answers, not just one &#8212; and the cost of the query is correspondingly lower.  Unfortunately, it doesn&#8217;t work for <em>custom</em> attributes: it only works for Maya&#8217;s built-in&nbsp;attributes.</p>
-<p>So in the old version of minq you had to choose between a clean, fast bulk query or a wordy, slower but more flexible version using a lambda.  To de-couple the style from the speed, I&#8217;ve added two new variants on the query syntax:  <code>native</code> will generate a fast bulk attribute query for built-in attributes, and <code>custom</code> uses the same syntax but uses the slower-but-flexible approach instead.&nbsp;Thus</p>
-<div class="highlight"><pre><span></span>    <span class="n">upper</span>  <span class="o">=</span> <span class="n">Transforms</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">native</span><span class="o">.</span><span class="n">ty</span> <span class="o">&gt;</span> <span class="mi">50</span><span class="p">)</span>  <span class="c1"># a fast bulk query</span>
-    <span class="n">customized</span> <span class="o">=</span> <span class="n">Shapes</span><span class="p">()</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">custom</span><span class="o">.</span><span class="n">example</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># a slower general query</span>
-</pre></div>
-
-
-<p>There&#8217;s also an option for tweaking the custom queries so they will or will not raise exceptions if the custom attribute isn&#8217;t found.  The default behavior for missing attributes is simply not to pass the filter, but in some situations you may want to know for sure if your stream has items that are missing the attributes you&nbsp;expect.</p>
-<h1>Proud, Pleasing&nbsp;Positions</h1>
-<p>Another longstanding gripe that is partially cleaned up in this pass is bulk queries for object positions.  It&#8217;s always been easy to get <em>local</em> positions with a simple query&nbsp;like</p>
-<div class="highlight"><pre><span></span>    <span class="n">Selected</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Transforms</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">AttribValues</span><span class="p">,</span> <span class="s2">&quot;translate&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>However there was no easy way to get <em>world</em> positions. This release adds the <code>WorldPositions</code> and <code>LocalPositions</code> classes which will return the&nbsp;positions:</p>
-<div class="highlight"><pre><span></span>    <span class="n">camera_positions</span> <span class="o">=</span> <span class="n">Cameras</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">WorldPositions</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Under the hood these are extracted from the <code>matrix</code> and <code>worldMatrix</code> attributes so they work as speedy bulk queries.  The main limitation is that the results will always come back in native Maya units (ie, in centimeters) so you may need to transform them if you&#8217;re working in another unit.  Should you need to do that, here&#8217;s a handy hack using <code>api.OpenMaya.MVector</code>:</p>
-<div class="highlight"><pre><span></span>    <span class="n">in_meters</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">p</span><span class="p">:</span> <span class="n">MVector</span><span class="p">(</span><span class="n">p</span><span class="p">)</span> <span class="o">/</span> <span class="mi">100</span>
-    <span class="n">Selected</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">WorldPositions</span><span class="p">)</span><span class="o">.</span><span class="n">foreach</span><span class="p">(</span><span class="n">in_meters</span><span class="p">)</span>
-</pre></div>
-
-
-<p>Along with <code>LocalPositions</code> and <code>WorldPositions</code>, access to the matrices also made it easy to add a <code>LocalAxis</code> query. This will return the local X, Y or Z axis of a transform in either world or local&nbsp;space:</p>
-<div class="highlight"><pre><span></span>    <span class="n">forwards</span> <span class="o">=</span> <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LocalAxis</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">)</span> 
-</pre></div>
-
-
-<p>By default the axis vectors will be returned in world space, but you can get local space&nbsp;instead:</p>
-<div class="highlight"><pre><span></span>    <span class="n">lcl_forwards</span> <span class="o">=</span> <span class="n">Meshes</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">Parents</span><span class="p">)</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">LocalAxis</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="n">local</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</pre></div>
-
-
-<p>These vectors are extracted directly from the matrices, so you may need to renormalize them depending on what you want them&nbsp;for. </p>
-<h1>Dauntless&nbsp;Documentation</h1>
-<p>While we&#8217;re on the subject, I&#8217;ve cleaned up the <a href="https://github.com/theodox/minq/wiki">minq wiki</a>.  After a long month of slogging through the Unreal Engine codebase in search of what-the-heck-is-going-on-here?, I&#8217;ve tried to atone for my past sins in terms of under-documenting.  Please give me a shout out or update the wiki yourself if you see something wrong or unclear on the&nbsp;docs!</p>
+                Some updates and improvements for minq
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2016/minq_fixes#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2016/minq_fixes#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2016/minq_fixes#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -257,21 +263,6 @@
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2015/grrrr_maya" rel="bookmark" title="Permalink to Grrrr….. Maya!!!">
-                <h2 class="post-title">
-                    Grrrr&#8230;..&nbsp;Maya!!!
-                </h2>
-            </a>
-            <p class="post-meta">Tue 27 October 2015
-            </p>
-                A really annoying, and really old bug in Maya relating to materials.
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2015/grrrr_maya#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
@@ -341,7 +332,7 @@
             <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
             <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
             <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">GUI</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
             <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
             <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
             <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>

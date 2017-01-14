@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#mGui</h1>
-                        <h3>8 items<h3>
+                        <h3>9 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,77 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
+                <h2 class="post-title">
+                    mGui&nbsp;Maintenance
+                </h2>
+            </a>
+            <p class="post-meta">Sat 14 January 2017
+            </p>
+                <p>With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I&#8217;d like to announce the 2.1 point release of <a href="https://github.com/theodox/mGui">mGui</a>.  </p>
+<p>This is mostly a stabilization release for the <a href="/2016/mgui2_live">big 2.0 update we pushed in October</a>. </p>
+<h2>New&nbsp;Feature</h2>
+<p>The main new feature in this release is the addition of <a href="https://github.com/theodox/mGui/blob/master/mGui/treeView.py"><code>mGui.treeView</code></a>, a module for wrapping Maya&#8217;s <code>treeView</code> widget.  I&#8217;ve never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it&#8217;s so different that it needed a whole module of it&#8217;s own to make it&nbsp;workable. </p>
+<p>The new <code>MTreeView()</code> class wraps the existing mGui <code>TreeView</code>, but provides a more idiomatic way to get at the TreeView&#8217;s button commands.  You can now use the same style you use for other mGui&nbsp;buttons:</p>
+<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.treeView</span> <span class="kn">import</span> <span class="n">MTreeView</span>
+<span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">win</span><span class="p">:</span>
+    <span class="k">with</span> <span class="n">FillForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">form</span><span class="p">:</span>
+        <span class="n">tree</span> <span class="o">=</span> <span class="n">MTreeView</span><span class="p">(</span><span class="n">numberOfButtons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">set_items</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">})</span>
+
+<span class="k">def</span> <span class="nf">btn_a</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
+    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
+
+<span class="k">def</span> <span class="nf">btn_b</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
+    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s1">&#39;button 2 was pressed&#39;</span>
+
+<span class="k">def</span> <span class="nf">double_click</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s1">&#39;double click&#39;</span><span class="p">,</span> <span class="n">arg</span>
+
+<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_a</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_b</span>
+<span class="n">tree</span><span class="o">.</span><span class="n">itemDblClickCommand</span> <span class="o">+=</span> <span class="n">double_click</span>
+
+<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+
+
+<p>The <code>buttons</code> field looks like an array, and you can (as you see in the sample) use the standard mGui <code>+=</code> syntax to add a handler to the buttons as defined by the TreeViews <code>numberOfButtons</code> parameter.  </p>
+<h2>Updated&nbsp;examples</h2>
+<p>The example code has been cleaned up a tad &#8212; some of this is just part of the conversion to the new keyless idiom and some of this is just graphic&nbsp;polish. </p>
+<p><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/bound_collection" /></p>
+<p><em>A better-looking version of the boundCollection&nbsp;sample</em></p>
+<p>In particular <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py"><code>mGui.examples.formExamples.py</code></a>, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py"><code>mgui.examples.boundCollection.py</code></a> got some much-needed&nbsp;cleanup.</p>
+<h2>Bug&nbsp;fixes</h2>
+<h3>Better handling of&nbsp;LayoutDialogs</h3>
+<p>We discovered an odd condition where Maya would sometimes refuse to fire off the event handlers attached to an mGui widget when the widget was called through maya&#8217;s <code>layoutDialog</code> command.  It seems like Maya didn&#8217;t like the potentially aynchronous <code>MayaEvent</code> handlers inside of <code>layoutDialog</code>, so we added a little bit of tracking to make sure that only synchronous <code>Event</code> handlers get attached in that special case. I&#8217;d been working around that by manually re-assigning Event objects to the handlers &#8212; but that&#8217;s a silly thing to ask users to remember, so now it&#8217;s all transparently handled under the&nbsp;hood.</p>
+<h3>HorizontalExpandForm</h3>
+<p>We found and fixed an issue with the <code>HorizontalExpandForm()</code>, which had somehow stopped&nbsp;expanding.</p>
+<h3>List.inner_list</h3>
+<p>Fixed a condition where sometimes <code>List()</code> controls didn&#8217;t correctly report their the &#8216;inner_list&#8217; property which actually contained their visible contents.  In general you don&#8217;t want to mess with the <code>inner_list</code> property in any case, but it should be available for inspection when absolutely necessary&nbsp;now.</p>
+<h2>Till next&nbsp;time&#8230;</h2>
+<p>This was a fun release, since it had a lot more contributions from new faces. It&#8217;s nice to see people running with the code and it&#8217;s gratifying that it is holding up <span class="caps">OK</span> so&nbsp;far. </p>
+<p>It&#8217;s a <a href="http://www.xbox.com/en-US/games/state-of-decay-2">ship year</a>, so I expect that both the blogging and hacking will be a bit&#8230; light&#8230; for a while.  But don&#8217;t hesitate to chime in with questions, comments or, better yet, bug fix pull&nbsp;requests!  </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2016/mgui2_live" rel="bookmark" title="Permalink to mGui 2.0 is live">
                 <h2 class="post-title">
                     mGui 2.0 is&nbsp;live
@@ -96,83 +167,10 @@
             </a>
             <p class="post-meta">Sun 09 October 2016
             </p>
-                <p>It&#8217;s been a <em>craaazy</em> summer at work, so I had to defer integrating a bunch of <a href="https://github.com/theodox/mGui">mGui</a> changes that have been sitting on a branch in the GitHub repo for several months.  However things have settled down a bit, and it&#8217;s time to get this&nbsp;done.</p>
-<p><img alt="all your rebase" src="http://i2.wp.com/discoposse.com/wp-content/uploads/2015/07/all-your-rebase-featured.png?resize=250%2C243" /></p>
-<p>So, <strong>I&#8217;m going to merge the <a href="https://github.com/theodox/mGui/tree/remove_keys"><code>remove_keys</code></a> branch &#8212; aka &#8216;mGui 2.0&#8217; &#8212; into the main line tomorrow: October 10th, 2016.</strong>  It&#8217;s been in use at a couple of sites for the last few months and seems pretty stable, so the time has come to pull the&nbsp;trigger. </p>
-<h1>mGui? What&#8217;s&nbsp;that?</h1>
-<p>For those of you who haven&#8217;t heard of it, <a href="https://github.com/theodox/mGui">mGui</a> is a module designed to speed the creation of Maya <span class="caps">GUI</span> items.  The main design goal is to combine the portability of native Maya <span class="caps">GUI</span> with more modern software&nbsp;patterns.  </p>
-<p><a href="https://github.com/theodox/mGui">mGui</a> syntax is more object-oriented than you&#8217;d see in <code>maya.cmds</code>. Instead of issuing commands to create a widget you make objects instead.  This little snippet in vanilla maya creates a window with <code>TextScrollList</code> and adds to the list when you click a&nbsp;button: </p>
-<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span>
-
-<span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
-<span class="n">form</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">()</span>
-<span class="n">textScroll</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">()</span>
-
-<span class="k">def</span> <span class="nf">button_callback</span> <span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
-    <span class="n">cmds</span><span class="o">.</span><span class="n">textScrollList</span><span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">append</span><span class="o">=</span><span class="s2">&quot;pushed&quot;</span><span class="p">)</span>
-
-<span class="n">btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s2">&quot;push&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="n">button_callback</span><span class="p">)</span>
-<span class="n">cmds</span><span class="o">.</span><span class="n">formLayout</span><span class="p">(</span><span class="n">form</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> 
-    <span class="n">af</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span>  <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> 
-            <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;left&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="s1">&#39;right&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)],</span>
-    <span class="n">aoc</span> <span class="o">=</span> <span class="p">(</span><span class="n">textScroll</span><span class="p">,</span> <span class="s1">&#39;bottom&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span>  <span class="n">btn</span><span class="p">)</span>
-    <span class="p">)</span>    
-<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
-</pre></div>
-
-
-<p>The mGui version looks like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
-
-
-<span class="k">with</span> <span class="n">Window</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s1">&#39;example&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">FooterForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-        <span class="n">textScroll</span> <span class="o">=</span> <span class="n">TextScrollList</span><span class="p">()</span>
-        <span class="n">btn</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;push&#39;</span><span class="p">)</span>
-
-        <span class="k">def</span> <span class="nf">handle_push</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span> <span class="o">**</span><span class="n">__</span><span class="p">):</span>
-            <span class="n">textScroll</span><span class="o">.</span><span class="n">append</span> <span class="o">=</span> <span class="s1">&#39;pushed&#39;</span>
-        <span class="n">btn</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">handle_push</span>
-
-<span class="n">window</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-<p>The actual <span class="caps">GUI</span> produced by both snippets is identical, but the mGui version adds a few nice gimmicks to make the code shorter and simpler.  Instead of functions, mGui widgets are objects with properties. That lets you tweak they layout and appearance more naturally. To change the color of the button in this example, the vanilla maya would&nbsp;be:</p>
-<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
-</pre></div>
-
-
-<p>whereas the mGui version&nbsp;is </p>
-<div class="highlight"><pre><span></span><span class="n">btn</span><span class="o">.</span><span class="n">backgroundColor</span> <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">)</span>
-</pre></div>
-
-
-<p>There are also a bunch of supporting features designed to make it easier to manage large, complex GUIs without too much tedium.  For more background you can check out <a href="/2014/all_your_base">the original post</a> to see how the underlyint tech works, and the <a href="/2016/mgui_updates_2">mGui 2.0 announcement</a> to see all the features in that will be coming&nbsp;on-line.</p>
-<h1>Incoming!!!</h1>
-<p>Part of the reason I&#8217;ve sat on this one for so long is that it does introduce some minor breaking changes.  There are two key things to watch out&nbsp;for.</p>
-<p><strong>Key names</strong> In mGui 1.0, every widget was supposed to have a &#8216;key name&#8217;.  This was used to create an absolute path to the widget, so you could address it as &#8216;window.columnLayout.button1&#8217; or something like that.  It worked fine but it required every widget to get an explicit name or a bailout value like <code>None</code>, which rendered the code a bit more cluttered than it had to be.  In mGui 2.0, the key names are derived from local variables: so if you build your gui like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">window</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">ColumnLayout</span><span class="p">()</span> <span class="k">as</span> <span class="n">main</span><span class="p">:</span>
-        <span class="n">go_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Go&quot;</span><span class="p">)</span>
-        <span class="n">stop_button</span> <span class="o">=</span> <span class="n">Button</span><span class="p">(</span><span class="s2">&quot;Stop&quot;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>you could address the buttons as <code>window.main.go_button</code> or <code>window.main.stop_button</code> because of the variable names which were present when they were created.  You can still provide an explicit key if you really want to but it&#8217;s not commonly&nbsp;needed.</p>
-<p><strong>Naming conventions</strong>  In mGui 1.0 the property names used a convention we used in my office, that member variables were capitalized. Thus a property on a widget would get a capital letter: <code>my_button.Width = 128</code> and so on.  This is not very typical python style, so in this release we&#8217;re using the the standard python convention and the properties are now lower-cased:  <code>my_button.width = 128</code>.  This makes the upgrade a little more painful than it has to be, for which I apologize; but it helps with readability and code-compatibility in the long run.  A good <a href="/2014/for_regex_haters">regular expression</a> will help you find and fix most issues quickly &#8212; I got all of my code (and I have alot of mGui code!) fixed in a couple of&nbsp;hours.</p>
-<p>Anyway, hope you find it useful. Please don&#8217;t hesitate to put bugs or questions up on the GitHub site &#8212; that&#8217;s what it&#8217;s there for! Special thanks to <a href="https://github.com/bob-white">+Bob White</a> for his help on this one.  And if you feel like taking a whack at fixing bugs, improving docs or adding features to the project by all means take a shot and send me a pull&nbsp;request!</p>
-<p>All mGui-related posts can be found <a href="/tag/mgui">here</a></p>
+                mGui 2 is live
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2016/mgui2_live#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2016/mgui2_live#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2016/mgui2_live#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -265,29 +263,15 @@
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2014/pity_for_the_outcast" rel="bookmark" title="Permalink to Pity for the outcast">
-                <h2 class="post-title">
-                    Pity for the&nbsp;outcast
-                </h2>
-            </a>
-            <p class="post-meta">Sun 16 February 2014
-            </p>
-                A litany of complaints about Maya GUI programming, with a teensy ray of hope
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2014/pity_for_the_outcast#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
     <ul class="pager">
         <li class="next">
+                <a href="https://theodox.github.io/tag/mgui2.html">Older Posts &rarr;</a>
         </li>
     </ul>
-    Page 1 / 1
+    Page 1 / 2
     <hr>
             </div>
             <!---- right sidebar -->
@@ -348,7 +332,7 @@
             <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
             <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
             <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">GUI</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
             <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
             <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
             <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
