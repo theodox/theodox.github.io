@@ -89,6 +89,32 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/two_minute_papers" rel="bookmark" title="Permalink to Two Minute Papers">
+                <h2 class="post-title">
+                    Two Minute&nbsp;Papers
+                </h2>
+            </a>
+            <p class="post-meta">Wed 01 February 2017
+            </p>
+                <p>It&#8217;s been a while since in updated the <a href="/pages/research">graphics research</a> page &#8212; and, given that ominous <em>Coming 2017</em> in the <em>State of Decay 2</em> E3 trailer it may be a while before I get to frolic in the fields of pure science once&nbsp;more.  </p>
+<p>However, I&#8217;ve stumbled on a great stand-in for slogging through those <span class="caps">SIGGRAPH</span> abstracts: a cool YouTube channel called <a href="https://www.youtube.com/user/keeroyz/videos">Two Minute Papers</a>, which aims to provide a fast, not-too-math heavy intro to a lot of interesting research in graphics and&nbsp;animation.  </p>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_ZLXKt4L-AA" frameborder="0" allowfullscreen></iframe>
+
+<p>It&#8217;s a great fast way to get an insight into what&#8217;s going on in the academic realm without too much investment (and without having to slog through the inevitable <span class="caps">SIGGRAPH</span> calculus lesson). There are occasional non-graphics papers in there (like &#8220;What is Impostor Syndrome?&#8221;) which seem like fluff, and a bit too much &#8220;yay Neural Networks!&#8221; cheerleading &#8212; but on the whole this is a great way to find out some cool academic research you would never dig up on your own.  There are supposed to be two new videos per&nbsp;week.</p>
+<p>By the way, the <a href="https://twitter.com/karoly_zsolnai">creator of the videos</a> has a <a href="https://www.patreon.com/TwoMinutePapers">Patreon</a>. If you like the stuff, think aboout hitting the tip&nbsp;jar!</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/two_minute_papers#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/two_minute_papers#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/two_minute_papers#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
                 <h2 class="post-title">
                     mGui&nbsp;Maintenance
@@ -96,66 +122,10 @@
             </a>
             <p class="post-meta">Sat 14 January 2017
             </p>
-                <p>With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I&#8217;d like to announce the 2.1 point release of <a href="https://github.com/theodox/mGui">mGui</a>.  </p>
-<p>This is mostly a stabilization release for the <a href="/2016/mgui2_live">big 2.0 update we pushed in October</a>. </p>
-<h2>New&nbsp;Feature</h2>
-<p>The main new feature in this release is the addition of <a href="https://github.com/theodox/mGui/blob/master/mGui/treeView.py"><code>mGui.treeView</code></a>, a module for wrapping Maya&#8217;s <code>treeView</code> widget.  I&#8217;ve never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it&#8217;s so different that it needed a whole module of it&#8217;s own to make it&nbsp;workable. </p>
-<p>The new <code>MTreeView()</code> class wraps the existing mGui <code>TreeView</code>, but provides a more idiomatic way to get at the TreeView&#8217;s button commands.  You can now use the same style you use for other mGui&nbsp;buttons:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.treeView</span> <span class="kn">import</span> <span class="n">MTreeView</span>
-<span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">win</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">FillForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">form</span><span class="p">:</span>
-        <span class="n">tree</span> <span class="o">=</span> <span class="n">MTreeView</span><span class="p">(</span><span class="n">numberOfButtons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span>
-
-<span class="n">tree</span><span class="o">.</span><span class="n">set_items</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">})</span>
-
-<span class="k">def</span> <span class="nf">btn_a</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
-    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">btn_b</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
-    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
-    <span class="k">print</span> <span class="s1">&#39;button 2 was pressed&#39;</span>
-
-<span class="k">def</span> <span class="nf">double_click</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s1">&#39;double click&#39;</span><span class="p">,</span> <span class="n">arg</span>
-
-<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_a</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_b</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">itemDblClickCommand</span> <span class="o">+=</span> <span class="n">double_click</span>
-
-<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-<p>The <code>buttons</code> field looks like an array, and you can (as you see in the sample) use the standard mGui <code>+=</code> syntax to add a handler to the buttons as defined by the TreeViews <code>numberOfButtons</code> parameter.  </p>
-<h2>Updated&nbsp;examples</h2>
-<p>The example code has been cleaned up a tad &#8212; some of this is just part of the conversion to the new keyless idiom and some of this is just graphic&nbsp;polish. </p>
-<p><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/bound_collection" /></p>
-<p><em>A better-looking version of the boundCollection&nbsp;sample</em></p>
-<p>In particular <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py"><code>mGui.examples.formExamples.py</code></a>, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py"><code>mgui.examples.boundCollection.py</code></a> got some much-needed&nbsp;cleanup.</p>
-<h2>Bug&nbsp;fixes</h2>
-<h3>Better handling of&nbsp;LayoutDialogs</h3>
-<p>We discovered an odd condition where Maya would sometimes refuse to fire off the event handlers attached to an mGui widget when the widget was called through maya&#8217;s <code>layoutDialog</code> command.  It seems like Maya didn&#8217;t like the potentially aynchronous <code>MayaEvent</code> handlers inside of <code>layoutDialog</code>, so we added a little bit of tracking to make sure that only synchronous <code>Event</code> handlers get attached in that special case. I&#8217;d been working around that by manually re-assigning Event objects to the handlers &#8212; but that&#8217;s a silly thing to ask users to remember, so now it&#8217;s all transparently handled under the&nbsp;hood.</p>
-<h3>HorizontalExpandForm</h3>
-<p>We found and fixed an issue with the <code>HorizontalExpandForm()</code>, which had somehow stopped&nbsp;expanding.</p>
-<h3>List.inner_list</h3>
-<p>Fixed a condition where sometimes <code>List()</code> controls didn&#8217;t correctly report their the &#8216;inner_list&#8217; property which actually contained their visible contents.  In general you don&#8217;t want to mess with the <code>inner_list</code> property in any case, but it should be available for inspection when absolutely necessary&nbsp;now.</p>
-<h2>Till next&nbsp;time&#8230;</h2>
-<p>This was a fun release, since it had a lot more contributions from new faces. It&#8217;s nice to see people running with the code and it&#8217;s gratifying that it is holding up <span class="caps">OK</span> so&nbsp;far. </p>
-<p>It&#8217;s a <a href="http://www.xbox.com/en-US/games/state-of-decay-2">ship year</a>, so I expect that both the blogging and hacking will be a bit&#8230; light&#8230; for a while.  But don&#8217;t hesitate to chime in with questions, comments or, better yet, bug fix pull&nbsp;requests!  </p>
+                A new release for mGui
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -248,21 +218,6 @@
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2016/cli_zip" rel="bookmark" title="Permalink to Command and Conquer">
-                <h2 class="post-title">
-                    Command and&nbsp;Conquer
-                </h2>
-            </a>
-            <p class="post-meta">Thu 16 June 2016
-            </p>
-                A handy hack for distributing Python command line tools with predictable execution environments.
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2016/cli_zip#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
@@ -351,6 +306,7 @@
             <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
             <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
             <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
             <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
             <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
             <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
