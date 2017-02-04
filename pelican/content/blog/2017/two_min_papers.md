@@ -1,10 +1,9 @@
 Title: Two Minute Papers
-Date:  2017-1-10
+Date:  2017-2-1
 Category: blog
 Tags: graphics, research
 Slug: two_minute_papers
 Authors: Steve Theodore
-Status: draft
 Summary: A great, condensed source for cool graphics research
 
 It's been a while since in updated the [graphics research](/pages/research) page -- and, given that ominous *Coming 2017* in the _State of Decay 2_ E3 trailer it may be a while before I get to frolic in the fields of pure science once more.  
