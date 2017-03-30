@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#web</h1>
-                        <h3>4 items<h3>
+                        <h3>5 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,32 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/techart_2_0" rel="bookmark" title="Permalink to Tech-Artists Org 2.0">
+                <h2 class="post-title">
+                    Tech-Artists Org&nbsp;2.0
+                </h2>
+            </a>
+            <p class="post-meta">Wed 29 March 2017
+            </p>
+                <p>After several months of behind the scenes work, <a href="http://d.tech-artists.org/">Tech-artists.org</a> has a new&nbsp;face. </p>
+<p><img alt="tao2" src="/images/tao2.png" /></p>
+<p>We&#8217;ve moved the site to a cloud-hosted <a href="http://www.discourse.org/">Discourse</a> server, replacing our wonky old VBulletin forums with a swanky, mobile-friendly front end.  It&#8217;s a <em>much</em> more pleasant reading and writing experience, and it uses the same Markdown syntax as <a href="/2016/new_blog">this blog</a> and GitHub, which makes adding code examples approximately 17 million times easier than the old VBulletin&nbsp;way. </p>
+<p>If you&#8217;re already a registered user you should check it out. New users are more than welcome (and we&#8217;ve added easy sign-in with either Google or Github&nbsp;credentials).</p>
+<p>This is a great time to get involved the tech-art community as we clean up and modernize the site.  Hope to see you there. And, if you&#8217;ve missed out on it, don&#8217;t forget to join the chatter in the <a href="https://tech-artists.slack.com/">Tech-artists slack channel</a>&nbsp;too!</p>
+<p>Hat tip to <a href="https://plus.google.com/u/0/+RobertButterworth">+Rob Butterworth</a> and <a href="https://plus.google.com/u/0/116461271591099938175">+Jeff Hanna</a> for helping put this all together &#8212; and of course to <a href="https://plus.google.com/u/0/+RobGalanakis">+Rob Galanakis</a> who got the whole ball rolling in the first&nbsp;place.</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/techart_2_0#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/techart_2_0#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/techart_2_0#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2014/pythonista" rel="bookmark" title="Permalink to Pythonistas need Pythonista!">
                 <h2 class="post-title">
                     Pythonistas need&nbsp;Pythonista!
@@ -96,22 +122,10 @@
             </a>
             <p class="post-meta">Sun 27 July 2014
             </p>
-                <p>If you consider yourself a Pythonista, you&#8217;ve probably been frustrated by the difficulty involved in getting to work in Python on iOS devices.  I just stumbled upon a really cool answer to your prayers in the form of <a href="http://omz-software.com/pythonista/">Pythonista</a>. It&#8217;s not brand new - it looks like it came out last year - but I just found out about it and flipped my proverbial&nbsp;wig.  </p>
-<p>Pythonista is a sandboxed Python 2.7 development environment for iOS.  It borrows a page from the playbook of earlier sandboxes like <a href="http://twolivesleft.com/Codea/">Codea</a>. and manages to skirt Apple&#8217;s rules for what you can do on the device while still allowing plenty of power.  It includes a script editor (a pretty slick one for iOS, by the way) ,an interactive environment, and a bunch of libraries to make development really useful.  Among the &#8216;batteries&#8217; included are heavy hitters like <code>pil</code>,<code>numpy</code> and <code>matplotlib</code>, along with a few cool little things like a text-to-speech module and tools for dealing with the iOS&nbsp;console.</p>
-<p>The most impressive inclusions are the <code>scene</code> and <code>ui</code> modules: custom modules devoted to iOS drawing and <span class="caps">UI</span>.  Ironically, it&#8217;s easier to develop a <span class="caps">GUI</span> application on your iPad using Pythonista than it is to do it on a desktop machine - the app even comes with a <span class="caps">UI</span> builder tool similar to <span class="caps">QT</span>&#8217;s interface builder (not nearly as deep or complex, of course, but iOS <span class="caps">UI</span> is less complex than desktop). You can read multiple touches.  You can even do hardware accelerate drawing - nice for things like a finger-sketching program.  Since Pythonista includes <code>pil</code>, you can even do stuff like image&nbsp;processing:  </p>
-<p><a href="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg"><img alt="" src="http://a1.mzstatic.com/us/r30/Purple2/v4/11/f3/e5/11f3e59b-90f9-68e2-fc61-c6f440bfccf7/screen568x568.jpeg" /></a></p>
-<p>Pythonista&#8217;s main limitation is that it&#8217;s not possible to add external modules to the library in the usual ways: <code>setuptools</code> and <code>pip</code> aren&#8217;t available.  You can manually install pure-python modules by copy-paste-save, and there are few installation tools floating around on the web such as <a href="https://gist.github.com/pudquick/4116558">pipista</a> and <a href="https://gist.github.com/anonymous/5243199">Pypi</a>.  (As an aside: here&#8217;s a <a href="http://randomfoo.net/2013/12/08/pythonista-and-ios-automation">handy collection of Pythonista snippets and links</a>).  Modules with binary dependencies &#8212; such as the perforce api &#8212; are off-limits; I&#8217;m not sure it it would be possible to use .pyd&#8217;s that were properly compiled for iOS or if the security sandbox won&#8217;t allow arbitrary binary code at&nbsp;all.  </p>
-<p>All in all, it&#8217;s pretty cool stuff for any Pythonerd.  My big project right now is a touch based inteface on the iPad to control a <a href="http://www.dexterindustries.com/BrickPi/">BrickPi</a> Mindstorms robot, but at some point I think an asset-database / issue tracker client on the iPad would be a handy tool for our production team&nbsp;.  </p>
-<p>All in all, pretty cool for&nbsp;$6.99!</p>
+                Pythonista, a remarkably slick Python interpreter for iOS
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2014/pythonista#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2014/pythonista#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2014/pythonista#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -222,6 +236,7 @@
             <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
             <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
             <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
             <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
             <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
             <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
