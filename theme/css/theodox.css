@@ -62,3 +62,8 @@ dd {
 article br {
 	line-height: 2em;
 }
+
+
+.page-heading{
+  text-shadow: 2px 2px 4px #000000;
+}
