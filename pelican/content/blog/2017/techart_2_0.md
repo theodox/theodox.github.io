@@ -6,7 +6,7 @@ Slug: techart_2_0
 Authors: Steve Theodore
 Summary: Tech-Artists.Org got a facelift!
 
-After several months of behind the scenes work, [Tech-artists.org](http://d.tech-artists.org/) has a new face. 
+After several months of behind the scenes work, [Tech-artists.org](http://tech-artists.org/) has a new face. 
 
 ![tao2](/images/tao2.png)
 
