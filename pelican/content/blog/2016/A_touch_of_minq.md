@@ -1,10 +1,4 @@
-Title: A touch of minq
-Date: 2016-03-06 09:02:00.001
-Category: blog
-Tags: python, maya, programming, minq
-Slug: a_touch_of_minq
-Authors: Steve Theodore
-Summary: Introducing **Minq**, a query language for Maya scenes.
+ 
 
 If you’re a long-time reader, you may recall that i’m very ambivalent about [wrapper code](wraptastic.html). I’m just as prone to adding my own little spoonful of syntax sugar on top of my daily tasks, but I’ve also been around long enough to be a bit cynical about my own various faddisms and dubious style choices over the years. Sure, extra typing is annoying – but nowadays I tend to set a pretty high bar for actually writing wrapper code instead of just, ya know, doing my actual _job_.  
 So, it’s with a little bit of trepidation that I’m sharing my latest library. **[Minq](https://github.com/theodox/minq)** bills itself as ‘a query language for Maya scenes.’ The goal is to simplify a very common task for Maya coders: finding things in a scene.  

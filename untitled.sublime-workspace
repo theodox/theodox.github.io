@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"s",
+				"scope"
+			],
+			[
 				"f",
 				"file"
 			],
@@ -24,28 +28,24 @@
 				"otherKlass"
 			],
 			[
-				"s",
-				"self"
-			],
-			[
 				"c",
 				"cmds"
 			],
 			[
 				"fun",
-				"function	ContextMenuItemAttribute.*"
+				"function\tContextMenuItemAttribute.*"
 			],
 			[
 				"log",
-				"log	Debug.*(message, context)"
+				"log\tDebug.*(message, context)"
 			],
 			[
 				"cons",
-				"console	DeviceType.*"
+				"console\tDeviceType.*"
 			],
 			[
 				"o",
-				"onclick	Attr"
+				"onclick\tAttr"
 			],
 			[
 				"addre",
@@ -73,7 +73,7 @@
 			],
 			[
 				"conne",
-				"connections	Network.*"
+				"connections\tNetwork.*"
 			],
 			[
 				"m_",
@@ -89,7 +89,7 @@
 			],
 			[
 				"def",
-				"default	ReplacePrefabOptions.*"
+				"default\tReplacePrefabOptions.*"
 			],
 			[
 				"m_c",
@@ -97,11 +97,11 @@
 			],
 			[
 				"del",
-				"delta	Event.*"
+				"delta\tEvent.*"
 			],
 			[
 				"Math",
-				"Mathf.Abs	*(value)"
+				"Mathf.Abs\t*(value)"
 			],
 			[
 				"addres",
@@ -129,7 +129,7 @@
 			],
 			[
 				"widh",
-				"width	Rect.*"
+				"width\tRect.*"
 			],
 			[
 				"next",
@@ -137,7 +137,7 @@
 			],
 			[
 				"Rem",
-				"Remove	Hashtable.*(?)"
+				"Remove\tHashtable.*(?)"
 			],
 			[
 				"resu",
@@ -157,19 +157,19 @@
 			],
 			[
 				"obj",
-				"object	[class]"
+				"object\t[class]"
 			],
 			[
 				"coun",
-				"counter	ComputeBufferType.*"
+				"counter\tComputeBufferType.*"
 			],
 			[
 				"Remov",
-				"RemoveAt	ArrayUtility.*(array, index)"
+				"RemoveAt\tArrayUtility.*(array, index)"
 			],
 			[
 				"constr",
-				"constructor	Define constructor"
+				"constructor\tDefine constructor"
 			],
 			[
 				"recu",
@@ -185,15 +185,15 @@
 			],
 			[
 				"Deb",
-				"Debug.Log	*(message)"
+				"Debug.Log\t*(message)"
 			],
 			[
 				"cou",
-				"counter	ComputeBufferType.*"
+				"counter\tComputeBufferType.*"
 			],
 			[
 				"L",
-				"Log	Debug.*(message, context)"
+				"Log\tDebug.*(message, context)"
 			],
 			[
 				"pu",
@@ -201,15 +201,15 @@
 			],
 			[
 				"ed",
-				"edge	[class]"
+				"edge\t[class]"
 			],
 			[
 				"Sta",
-				"Start	UIBehaviour.*()"
+				"Start\tUIBehaviour.*()"
 			],
 			[
 				"Ed",
-				"Edge	[class]"
+				"Edge\t[class]"
 			],
 			[
 				"P",
@@ -245,35 +245,35 @@
 			],
 			[
 				"Tran",
-				"Transform	[class]"
+				"Transform\t[class]"
 			],
 			[
 				"pos",
-				"position	Transform.*"
+				"position\tTransform.*"
 			],
 			[
 				"gameo",
-				"gameObject	[class]"
+				"gameObject\t[class]"
 			],
 			[
 				"SetPar",
-				"SetParent	Transform.*(parent, worldPositionStays)"
+				"SetParent\tTransform.*(parent, worldPositionStays)"
 			],
 			[
 				"tr",
-				"transform	[class]"
+				"transform\t[class]"
 			],
 			[
 				"Tras",
-				"Transform.localScale	[property]"
+				"Transform.localScale\t[property]"
 			],
 			[
 				"transfor",
-				"transform	[class]"
+				"transform\t[class]"
 			],
 			[
 				"trans",
-				"transform	[class]"
+				"transform\t[class]"
 			],
 			[
 				"t",
@@ -332,13 +332,131 @@
 	"buffers":
 	[
 		{
-			"contents": "import os\n\ndef fix_slug(s):\n	lowered = s.lower()\n	for char in \":.!?[]()& \":\n		lowered = lowered.replace(char, \"_\")\n	lowered = lowered.replace(\"__\", \"_\")\n	lowered = lowered.replace(\"__\", \"_\")\n	lowered = lowered.replace(\"__\", \"_\")\n	lowered = lowered.replace(\"_md\", \"\")\n	return lowered\n\ndef rewrite(f):\n	result = []\n	with open(f, 'rt') as handle:\n		for line in handle:\n			if 'Slug:' in line:\n				s,_,rest = line.partition(\":\")\n				rest = fix_slug(rest)\n				line = \"Slug: \" + rest\n			result.append(line)\n\n	with open(f, 'wt') as handle:\n		handle.writelines(result)\n\nfor file in os.listdir(\".\"):\n	oldname = fix_slug(file)\n	print file, oldname\n	if file.endswith(\"md\"):\n		rewrite(file)\n\n	os.rename(file, fix_slug(file) + \".md\")",
-			"file": "pelican/content/fix_slugs.py",
-			"file_size": 719,
-			"file_write_time": 131091271340000000,
+			"file": "pelican/content/blog/2016/A_touch_of_minq.md",
 			"settings":
 			{
-				"buffer_size": 719,
+				"buffer_size": 7838,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "pelican/content/blog/2017/two_min_papers.md",
+			"settings":
+			{
+				"buffer_size": 1576,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/blog/2017/techart_2_0.md",
+			"settings":
+			{
+				"buffer_size": 1469,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "Title: Tech-Artists Org 2.0"
+			}
+		},
+		{
+			"contents": "blockquote {\n    color: #0d89a1;\n    font-style: italic;\n    border-left: none;\n    font-size: smaller;\n    margin-top: 1px;\n}\n\n/* nested blockquotes for 'asides' */\n\nblockquote blockquote{\n    background-color: #d7e7eb;\n    color: black;\n    border-left: none;\n    padding-left: 24px; \n    padding-right: 24px;\n    margin-top: 24px;\n    margin-bottom: 24px;\n    margin-left: -24px;\n    margin-right: 0px;\n    font-size: larger;\n       \n}\n\n.feed-button {\n    margin: 4px;\n    padding: 4px;\n    margin-left: -12px;\n}\n\n.feed-button a {\n  padding: 4px 4px 4px 40px;\n  background: #ffffff url(\"/theme/images/feed-icon-14x14.png\") no-repeat 15px 50%;\n\n}\n\n.feed-button a:hover {\n  background: #eee url(\"/theme/images/feed-icon-14x14.png\") no-repeat 15px 50%;\n  border-top: 1px solid #f5f5f5;\n  border-right: 1px solid #969696;\n  border-bottom: 1px solid #646464;\n  border-left: 1px solid #f2f2f2;\n}\n\n.vertical-spacer {\n\tpadding-top: 24px;\n}\n\n/* fix the spacing on archive pages */\ndd dl {\n\tline-height: 1.5em;\n}\n\ndt {\n\tmargin-top: 1.5em;\n}\ndd {\n\tmargin: 0px 0px 0px 0px;\n}\n\n/* better para spacing */\narticle br {\n\tline-height: 2em;\n}\n\n\n",
+			"file": "pelican/pelican-clean-blog/static/css/theodox.css",
+			"file_size": 1182,
+			"file_write_time": 131353299810000000,
+			"settings":
+			{
+				"buffer_size": 1130,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/pelican-clean-blog/static/css/clean-blog.css",
+			"settings":
+			{
+				"buffer_size": 9905,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pelican/content/blog/2016/python_jerky.mdown",
+			"settings":
+			{
+				"buffer_size": 394,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "def loft():\n    global room\n    global have_front_door_key\n    global have_plank1\n    global have_plank2\n\n    print('You are in the loft...')\n    print('It is empty.')\n    print('press (D)escend to go down the stairs.')\n\n    inp = input()\n\n    if inp == 'D':\n        room = 'stairs'\n\ndef house():\n    global room\n    while room != 'exit':\n\n        if room == 'entrance':\n            entrance()\n            prn = 1\n\n        if room == 'exit1':\n            exit1()\n\n        if room == 'bathroom':\n            bathroom()\n            prn = 2\n\n        if room == 'kitchen':\n            kitchen()\n            prn = 3\n\n        if room == 'boiler':\n            boiler()\n            prn = 4\n\n        if room == 'livingroom1':\n            livingroom1()\n            prn = 5\n\n        if room == 'stairs':\n            stairs()\n            prn = 6\n\n        if room == 'hallway':\n            hallway()\n            prn = 7\n\n        if room == 'livingroom2':\n            livingroom2()\n            prn = 8\n\n        if room == 'vault':\n            vault()\n            prn = 9\n\n        if room == 'hall2':\n            hall2()\n            prn = 10\n\n        if room == 'diningroom':\n            diningroom()\n            prn = 11\n\n        if room == 'hall1':\n            hall1()\n            prn = 12\n\n        elif room == 'loft':\n            loft()\n            prn = 13\n\n    grn = (random.randint(1,13))\n    if prn == grn:\n        print(\" \")\n        print('BOO!')\n        print(\" \")\n",
+			"settings":
+			{
+				"buffer_size": 1460,
+				"line_ending": "Unix",
+				"name": "def loft():"
+			}
+		},
+		{
+			"file": "/Users/stevet/Desktop/test.html",
+			"settings":
+			{
+				"buffer_size": 511,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "<!-- Start Buy Now Text Link Form -->"
+			}
+		},
+		{
+			"file": "/Users/stevet/Dropbox/work notes/tree test notes.md",
+			"settings":
+			{
+				"buffer_size": 2573,
+				"encoding": "UTF-8",
+				"line_ending": "Unix",
+				"name": "tree test notes"
+			}
+		},
+		{
+			"file": "pelican/content/blog/2017/mGui_2_1.md",
+			"settings":
+			{
+				"buffer_size": 4368,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/stevet/Downloads/techart-online-2016-12-17-033731/meta.json",
+			"settings":
+			{
+				"buffer_size": 47,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"contents": "\t```\n\t/opt/bitnami/ruby/bin/ruby extconf.rb\n\tchecking for rb_absint_size()... no\n\tchecking for rb_absint_singlebit_p()... no\n\tchecking for ruby/thread.h... yes\n\tchecking for rb_thread_call_without_gvl() in ruby/thread.h... no\n\tchecking for rb_thread_blocking_region()... no\n\tchecking for rb_wait_for_single_fd()... no\n\tchecking for rb_hash_dup()... no\n\tchecking for rb_intern3()... no\n\tchecking for rb_big_cmp()... no\n\t-----\n\tUsing mysql_config at /usr/bin/mysql_config\n\t-----\n\tchecking for mysql.h... yes\n\tchecking for SSL_MODE_DISABLED in mysql.h... no\n\tchecking for MYSQL_OPT_SSL_ENFORCE in mysql.h... no\n\tchecking for errmsg.h... yes\n\tchecking for mysqld_error.h... yes\n\t-----\n\tSetting libpath to /usr/lib/x86_64-linux-gnu\n\t-----\n\tcreating Makefile\n\n\tmake \"DESTDIR=\" clean\n\n\tmake \"DESTDIR=\"\n\tcompiling statement.c\n\tIn file included from ./client.h:18:0,\n\t                 from ./mysql2_ext.h:39,\n\t                 from statement.c:1:\n\t/opt/bitnami/ruby/include/ruby-2.1.0/ruby/backward/rubysig.h:14:2: warning: #warning rubysig.h is obsolete [-Wcpp]\n\t #warning rubysig.h is obsolete\n\t  ^\n\tIn file included from ./mysql2_ext.h:39:0,\n\t                 from statement.c:1:\n\t./client.h:22:1: error: static declaration of ‘rb_thread_call_without_gvl’ follows non-static declaration\n\t rb_thread_call_without_gvl(\n\t ^\n\tIn file included from ./mysql2_ext.h:28:0,\n\t                 from statement.c:1:\n\t/opt/bitnami/ruby/include/ruby-2.1.0/ruby/thread.h:28:7: note: previous declaration of ‘rb_thread_call_without_gvl’ was here\n\t void *rb_thread_call_without_gvl(void *(*func)(void *), void *data1,\n\t       ^\n\tIn file included from ./client.h:18:0,\n\t                 from ./mysql2_ext.h:39,\n\t                 from statement.c:1:\n\t./client.h: In function ‘rb_thread_call_without_gvl’:\n\t/opt/bitnami/ruby/include/ruby-2.1.0/ruby/backward/rubysig.h:35:29: warning: ‘rb_thread_blocking_region_begin’ is deprecated (declared at /opt/bitnami/ruby/include/ruby-2.1.0/ruby/backward/rubysig.h:33) [-Wdeprecated-declarations]\n\t #define TRAP_BEG do {struct rb_blocking_region_buffer *__region = rb_thread_blocking_region_begin();\n\t                             ^\n\t./client.h:29:3: note: in expansion of macro ‘TRAP_BEG’\n\t   TRAP_BEG;\n\t   ^\n\tIn file included from ./mysql2_ext.h:39:0,\n\t                 from statement.c:1:\n\t./client.h:31:3: warning: ‘rb_thread_blocking_region_end’ is deprecated (declared at /opt/bitnami/ruby/include/ruby-2.1.0/ruby/backward/rubysig.h:34) [-Wdeprecated-declarations]\n\t   TRAP_END;\n\t   ^\n\tstatement.c: At top level:\n\tcc1: warning: unrecognized command line option \"-Wno-used-but-marked-unused\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-static-in-inline\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-reserved-id-macro\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-missing-variable-declarations\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-documentation-unknown-command\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-disabled-macro-expansion\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-covered-switch-default\" [enabled by default]\n\tcc1: warning: unrecognized command line option \"-Wno-conditional-uninitialized\" [enabled by default]\n\tmake: *** [statement.o] Error 1\n\n\tmake failed, exit code 2\n",
+			"settings":
+			{
+				"buffer_size": 3392,
+				"line_ending": "Unix",
+				"name": "```"
+			}
+		},
+		{
+			"file": "/Users/stevet/Dropbox/quora/justiniain",
+			"settings":
+			{
+				"buffer_size": 13865,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/Users/stevet/prj/ulMaya/external/mGui/mGui/examples/boundCollection.py",
+			"settings":
+			{
+				"buffer_size": 5092,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -366,10 +484,34 @@
 	"build_varint": "",
 	"command_palette":
 	{
-		"height": 147.0,
-		"last_filter": "",
+		"height": 81.0,
+		"last_filter": "Snippet: bl\t",
 		"selected_items":
 		[
+			[
+				"Snippet: bl\t",
+				"Snippet: blog header"
+			],
+			[
+				"Snippet: bl",
+				"Snippet: blog header"
+			],
+			[
+				"Snippet: blo",
+				"Snippet: blog header"
+			],
+			[
+				"Snippet: blog",
+				"Snippet: Add blog head-matter"
+			],
+			[
+				"Snippet: blog\t",
+				"Snippet: Add blog head-matter"
+			],
+			[
+				"Snippet: ",
+				"Snippet: Add blog head-matter"
+			],
 			[
 				"markdp",
 				"Markdown Preview: Export HTML in Sublime Text"
@@ -475,7 +617,7 @@
 				"Preferences: Browse Packages"
 			]
 		],
-		"width": 449.0
+		"width": 496.0
 	},
 	"console":
 	{
@@ -496,10 +638,18 @@
 	},
 	"expanded_folders":
 	[
-		"/Users/stevet/theodox.github.io/pelican/content"
+		"/Users/stevet/theodox.github.io/pelican/content",
+		"/Users/stevet/theodox.github.io/pelican/content/blog/2015",
+		"/Users/stevet/theodox.github.io/pelican/content/blog/2016"
 	],
 	"file_history":
 	[
+		"/D/UL/ue4/assets.csv",
+		"/D/UL/ue4/DaytonGame/Content/Developers/steve/assets.csv",
+		"/C/Users/steve/AppData/Roaming/Sublime Text 3/Packages/User/blog-head.sublime-snippet",
+		"/D/prj/theodox.github.io/pelican/content/pages/Interesting_graphics_and_animation_research.md",
+		"/D/prj/theodox.github.io/pelican/content/blog/2017/two_min_papers.md",
+		"/D/prj/theodox.github.io/pelican/content/fix_slugs.py",
 		"/Users/stevet/theodox.github.io/pelican/content/Maya_GUI_II:_All_Your_Base_Classes_Are_Belong_To_Us.md",
 		"/Users/stevet/theodox.github.io/pelican/content/The_Game_Artists_Resume_Guide_(Revisited).md",
 		"/Users/stevet/theodox.github.io/pelican/content/The_Dog_Ate_My_Homework.md",
@@ -621,17 +771,11 @@
 		"/Users/stevetheodore/Dropbox/keeblog",
 		"/Users/stevetheodore/Dropbox/blog/sfx.md",
 		"/Users/stevetheodore/Dropbox/blog/assaph_2",
-		"/Users/stevetheodore/prj/electron/main.js",
-		"/Users/stevetheodore/Dropbox/blog/inflexible.md",
-		"/Users/stevetheodore/Dropbox/blog/inflex.html",
-		"/Users/stevetheodore/example_graph.sfx",
-		"/Users/stevetheodore/example_graph.material",
-		"/Users/stevetheodore/prj/electron/index.html",
-		"/Users/stevetheodore/prj/electron/main.pyj"
+		"/Users/stevetheodore/prj/electron/main.js"
 	],
 	"find":
 	{
-		"height": 38.0
+		"height": 41.0
 	},
 	"find_in_files":
 	{
@@ -646,6 +790,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"malalas",
 			"minq",
 			"\\n\\n\\n",
 			"\\n\\n",
@@ -745,24 +890,137 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 3,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "pelican/content/fix_slugs.py",
+					"file": "pelican/content/blog/2016/A_touch_of_minq.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 719,
+						"buffer_size": 7838,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								397,
-								397
+								217,
+								0
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 0,
+								"count": 1027,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "pelican/content/blog/2017/two_min_papers.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1576,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								40,
+								40
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 0,
+								"count": 222,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "pelican/content/blog/2017/techart_2_0.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1469,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								312,
+								312
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 1685,
+								"count": 187,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 49.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "pelican/pelican-clean-blog/static/css/theodox.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1130,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1130,
+								1130
 							]
 						],
 						"settings":
@@ -773,15 +1031,332 @@
 								"modified": true,
 								"selection": true,
 								"status": -1,
-								"syntax": "python"
+								"syntax": "css"
 							},
-							"syntax": "Packages/Python/Python.sublime-syntax"
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 824.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "pelican/pelican-clean-blog/static/css/clean-blog.css",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 9905,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3556,
+								3556
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": -1,
+								"modified": true,
+								"selection": true,
+								"status": -1,
+								"syntax": "css"
+							},
+							"syntax": "Packages/CSS/CSS.sublime-syntax",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 3312.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "pelican/content/blog/2016/python_jerky.mdown",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 394,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								218,
+								178
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 0,
+								"count": 46,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1460,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								141,
+								141
+							]
+						],
+						"settings":
+						{
+							"auto_name": "def loft():",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1345.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 8,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/stevet/Desktop/test.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 511,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								511,
+								39
+							]
+						],
+						"settings":
+						{
+							"auto_name": "<!-- Start Buy Now Text Link Form -->",
+							"syntax": "Packages/HTML/HTML.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 7,
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "/Users/stevet/Dropbox/work notes/tree test notes.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2573,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2567,
+								2567
+							]
+						],
+						"settings":
+						{
+							"WordCount":
+							{
+								"changes": 0,
+								"count": 444,
+								"modified": false,
+								"selection": false,
+								"status": -1,
+								"syntax": "plain text"
+							},
+							"auto_name": "tree test notes",
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 537.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "pelican/content/blog/2017/mGui_2_1.md",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 4368,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								269,
+								269
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MarkdownEditing/Markdown.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 12,
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "/Users/stevet/Downloads/techart-online-2016-12-17-033731/meta.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 47,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 11,
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3392,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								3392
+							]
+						],
+						"settings":
+						{
+							"auto_name": "```",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 307.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 10,
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "/Users/stevet/Dropbox/quora/justiniain",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 13865,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 2711.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 9,
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "/Users/stevet/prj/ulMaya/external/mGui/mGui/examples/boundCollection.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 5092,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								5092,
+								5092
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 285.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 13,
 					"type": "text"
 				}
 			]
@@ -830,7 +1405,7 @@
 	{
 		"height": 124.0
 	},
-	"pinned_build_system": "Packages/Python/Python.sublime-build",
+	"pinned_build_system": "Packages/Markdown Preview/Markdown.sublime-build",
 	"project": "untitled.sublime-project",
 	"replace":
 	{
@@ -876,7 +1451,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 383.0,
+	"side_bar_width": 373.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
