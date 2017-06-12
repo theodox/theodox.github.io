@@ -1,0 +1,214 @@
+Title: Maya GUI for beginners
+Date: 2017-03-29
+Category: blog
+Tags: gdc, rigging
+Slug: slides_slippin
+Authors: Steve Theodore
+Status: draft 
+Summary: An intro to Maya GUI coding for beginners (and a refresher course for experts)
+
+One of the most interesting things I've noticed hanging around on [StackOverflow](http://stackoverflow.com/users/1936075/theodox) is that questions about Maya are remarkably concentrated on making buttons and sliders. This strikes me as kind of odd, since I'd expect to see a lot questions about things Maya is bad at: complex geometry operations, or custom deformers, or the creation of exporters and importers.  But buttons? 
+
+Well, the public knows what it wants -- and it clearly seems to want a good guide to making Maya GUI. So I thought I'd put down some notes here so I could at least point to a single place for the many similar questions that come up. I've [already talked about this](2014/Maya_callbacks_cheat_sheet) but in a narrow technical context, so this time I'll try to tackle it from the ground up.
+
+# The toolkit
+
+Though I love to grumble -- and I don't promise not to grumble in the course of this -- I will say up front that what Maya gives you out of the box is really pretty good. Most of the regular Maya UI uses the same widgets and layouts that you get from `maya.cmds`. While there are some fancy tricks that Maya can't do, the functionality you can achieve with nothing except vanilla maya is really powerful -- particularly if you take the time to learn how to use it right.
+
+So, let's start out by reviewing the basic components of the Maya GUI system:
+
+### Windows
+Pretty self explanatory. The [`window` command](https://help.autodesk.com/cloudhelp/2016/CHS/Maya-Tech-Docs/CommandsPython/window.html) creates windows which can float free or dock into the main Maya window.
+
+### Panels 
+Panels are similar to windows, but can't float free. Typically they contain an editor object, like the 3d view in your main maya window or a Hypershade. 
+
+### Controls
+Controls is Maya-speak for all the stuff that the users interact with. Every button, slider, textbox or checkbox is a control.  Controls typically come with callbacks: functions that will fire when the user itneracts with the control. They usually come with a lot of options as well, from labels to background colors to things to recommended values.  Most of the work you do in Maya GUI is working with controls.
+
+### Layouts
+Layouts are the invisible structure of a GUI window or panel: they control the way controls are positioned and how they react when a window or panel is resized. One of the best ways to learn to be productive with Maya gui is to learn how to make the best use of layouts! Many newcomers waste a lot of time trying to manually position controls and line things up.
+
+Windows, panels and layouts are primarily about structure: they establish how your gui is laid out.  Controls do all the actual work -- they are the buttons, sliders, textfields and so on with which your users will interact. 
+
+# The basics: addresses
+
+All of these kinds of items share some basic similarities. The most important its they way they are created and edited.  Each type of object is created with a command that follows whose name matches the widget type. So windows are created by `window()`, column layouts by `columnLayout()`, and buttons by `button()`.  So a very minimal example of maya gui will look something like this:
+
+```python
+import maya.cmds as cmds 
+
+cmds.window()  # create a window
+cmds.columnLayout()
+cmds.button()
+```
+
+If you run that example, though, nothing will appear to happen. Windows are created invisible -- you need to tell Maya to show your window. 
+
+Which raises a very fundamental question -- how do I tell Maya which window to show? 
+
+Whenever Maya creates a new gui object, it will get a name -- this is exactly like what happens when you create a new cube or sphere in the scene.  Repeatedly hitting the sphere button will create `polySphere1`, then `polySphere2`, then `polySphere3` and so on. So the three commands above created a window -- but, since we didn't bother to check what the name of the window _was_, we don't know how to find it!
+
+Maya provides a little known but handy tool for this: `cmds.lsUI()`.  It's the UI equivalent of the `ls()` command: it will tell you what UI elements are present in the current maya session. So if you enter
+
+```python
+cmds.lsUI(type='window')
+```
+
+you'll get back a list of all the windows currently available (including the invisible ones, like the one we created above.  It'll look something like this:
+
+```python
+# Result: [u'MayaWindow', u'window7', u'sampleWin'] # 
+```
+
+You in this case your new window will be the highest numbered entry with the default name of window; here, `window7` but the number could be anything.  `MayaWindow` is (almost always) the name of the main Maya application window, and most of the other main Maya UI windows such as the Graph Editor or Hypershade will have obvious names -- but many other windows will just have `window` and a number.  
+
+That's obviously less than ideal, you'd like to be able to find your objects.  So, just like you can when creating physical objects you can create new gui objects with the names you want.
+
+However -- and **this is important!** -- the names have to be **unique**.  Which means you won't be able to run this code without an error
+
+```python
+cmds.window('my_special_window')
+cmds.window('my_special_window')
+# Error: RuntimeError: file <maya console> line 1: Object's name 'my_special_window' is not unique. # 
+```
+
+Sometimes that uniqueness is a good thing: it guarantees that you can, if you really want to get `my_special_window`, always get to it.  However more often than not it's a false friend, for two reasons.  First, keeping track of a huge number of uniquely named objects by hand is going to be a pain.  Second, you never know what other people's code has done -- if your entire tool hinges on "myWindow" being the address of your tool window, but  somebody else has used the same name for _their_ window, you'll have a world of hurt.
+
+For that reason, it's good to develop the habit early of _not_ relying on explicit names. Instead,  keep track of GUI items you care about with variables.  Every gui command returns the name of the widget it creates, so something like this does the trick:
+
+```python
+my_window = cmds.window()
+# we don't care about the name of the layout right now
+cmds.columnLayout()
+b1 = cmds.button(label = "button one")
+b2 = cmds.button(label = "button two")
+
+# my_window knows what the name of the window is for us
+cmds.showWindow(my_window)
+
+# b1 and b2 know the names of the buttons. We can use those
+# to, say, edit the labels:
+    
+cmds.button(b1, edit=True, label = "I was edited")
+```
+
+This style is much more robust than trying to hard-code your names. It saves your from checking all the time to see if the name you want to use already exists. More importantly, it means you can add new items without having to cook up new names for them. If you're going to care about the address of a gui item, just capture it when you create it.  If you _don't_ care, like the example above doesn't care about the `columnLayout`... well, don't save the name.
+
+# the basics: query and edit
+
+You might have noticed this little bit in the last line of the example above:
+
+```python
+ cmds.button(b1, edit=True, label = "I was edited")
+```
+
+All maya GUI commands take the same basic form.  You start with an optional name, then you add "flags" to control the appearance and behavior.  For example you can make a 100 pixel wide button like this:
+
+```python
+wide_button = cmds.button(width=100)
+```
+
+or a label that says "hello world" like this:
+
+```python
+hello_label = cmds.text(label="hello world")
+```
+
+The precise flags for each GUI element are different, and depend on what the element is and does. But all Maya GUI widgets share two critical flags: `query` and `edit`.  These are the basic tools of the trade in Maya GUI.  In combination
+
+You'll notice that the commands use the variables I created when I made the button and the label earlier. I could have hard-coded the names, but I didn't for the reason outlined above. Instead, we pass in the variable to tell which existing control we want to ask a question about or to change. 
+
+`query` (you can also use `q` to save space) will return the value of another flag.  So you can get the width of the button or the text of the label in the last two examples like this:
+
+```python
+button_width = cmds.button(wide_button, query=True, width=True)
+print button_width
+# 100
+
+#'q' is the same as 'query'
+label_text = cmds.text(hello_label, q=True, label=True) 
+print label_text
+# hello world
+```
+
+Setting the values works similarly, but uses the `edit` flag. You pass in the new values along with the flags:
+
+```python
+#reset the button to be even wider
+cmds.button(wide_button, edit=True, width = 200)
+
+# and 'e' is a shortcut for 'edit'
+cmds.text(hello_label, e=True, label = "goodbye cruel world")
+```
+
+It's fine to set multiple values in one go:
+
+```python
+cmds.button(wide_button, e=True, label = 'tiny!', width = 50)
+```
+
+
+# The basics: callbacks
+
+Since the whole point of buttons, sliders and whatnot is to _do_ things with them, it's time to talk about hooking functions to your GUI elements.  This is actually quite simple, but for a variety of reasons (bad documentation, confusing articles floating around on the web, and unfamiliar ideas for new coders) it seems to generate a _lot_ of confusion. I'd say more than half the questions I see on StackOverflow about Maya GUI are variations on the theme of "How do I make my button do X". 
+
+There are a bunch of interesting complexities here, which I've actually [covered in an older post](). I'll cover the process simply here, but I'd recommend reviewing that one at some point as well.
+
+## Connecting a callback
+
+Connecting a callback is just like setting any other property on a gui widget: you assign a value to a flag either when creating an object or using the edit flag.  For example:
+
+```python
+def say_hi(*_):
+    # buttons always fire with a single argument; the *_ just ignores it
+    print "hello"
+
+hello_btn = cmds.button(label = "greet", command = say_hi)
+```
+
+You'll notice that that we're not passing the _name_ of the `say_hi` function: we're passing the function itself.  This is a **really** important point -- although Maya will actually allow you to pass in the name of your callback function as a string, you should never do it that way: it's an invitation to problems, because Maya can easily get confused about where to look for your function. Passing the callback function directly, as shown here, avoids that problem. 
+
+You will, however, have to make sure Maya actually has your function.  If you took the example above but reversed the order of the lines, it would fail:
+
+```python
+# this will fail, because `say_hi` 
+hello_btn = cmds.button(label = "greet", command = say_hi)
+
+def say_hi(*_):
+    print "hello"
+```
+
+Depending on your task, this might not be a problem that comes up often. However, there are some good reasons why you might want to defer the creation of your functions until after the GUI has been created. A lot of GUI work involve multiple pieces that need to work together.  For example, you might want a checkbox in your GUI to enable or disable another control.  For that to work, you'll need to know the names of both elements.  Here's a simple example:
+
+```python
+window = cmds.window(title = 'widget to widget communication')
+# create a row with a checkbox, a text field, and a button
+row = cmds.rowLayout(numberOfColumns=3)
+cb = cmds.checkBox(label = "enable")
+field = cmds.textField()
+btn = cmds.button(label = "rename")
+
+# create the functions
+def set_enable(val):
+    cmds.control(field, edit =True, enable=val)
+    cmds.control(btn, edit =True, enable=val)
+
+def rename_selected(*_):
+    try:
+        new_name = cmds.textField (field, q=True, text=True)
+        cmds.rename(new_name)
+    except RuntimeError:
+        cmds.warning("Select soemthing before trying to rename!")
+
+# hoook up the functions
+cmds.checkBox(cb, edit=True, changeCommand=set_enable)
+cmds.button(btn, edit=True, command=rename_selected)
+
+# start disabled
+set_enable(0)
+
+cmds.showWindow(window)
+```
+
+You can see that `set_enable` and `rename_selected` are defined after the objects they work for, and are added using the `edit=True` flag.  Because the functions are created when the variables for the gui items are already defined, they inherit the values of those variables automatically. This is known as a 
