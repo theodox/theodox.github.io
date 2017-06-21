@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+            <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+        <title>Maya <span class="caps">GUI</span> for&nbsp;beginners</title>
+
+            <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
+            <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
+        <!-- Bootstrap Core CSS -->
+        <link href="https://theodox.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- Custom CSS -->
+        <link href="https://theodox.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
+
+        <!-- Code highlight color scheme -->
+            <link href="https://theodox.github.io/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+
+            <!-- CSS specified by the user -->
+            <link href="https://theodox.github.io/theme/css/theodox.css" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+
+
+        <meta name="description" content="An intro to Maya GUI coding for beginners (and a refresher course for experts)">
+
+        <meta name="author" content="Steve Theodore">
+
+        <meta name="tags" content="gdc">
+        <meta name="tags" content="rigging">
+
+	                <meta property="og:locale" content="">
+		<meta property="og:site_name" content="Chimeras & Manticores">
+
+	<meta property="og:type" content="article">
+            <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
+	<meta property="og:url" content="https://theodox.github.io/drafts/slides_slippin.html">
+	<meta property="og:title" content="Maya <span class="caps">GUI</span> for&nbsp;beginners">
+	<meta property="article:published_time" content="2017-03-29 00:00:00-07:00">
+            <meta property="og:description" content="An intro to Maya GUI coding for beginners (and a refresher course for experts)">
+
+            <meta property="og:image" content="https://theodox.github.io/theme/images/post-bg.jpg">
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="https://theodox.github.io/">Chimeras & Manticores</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/about">About...</a></li>
+                        <li><a href="/pages/pub">Publications</a></li>
+                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
+                        <li><a href="/pages/cookbook">Cookbook</a></li>
+
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+
+    <!-- Page Header -->
+        <header class="intro-header" style="background-image: url('https://theodox.github.io/theme/images/post-bg.jpg')">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="post-heading">
+                        <h1>Maya <span class="caps">GUI</span> for&nbsp;beginners</h1>
+                        <span class="meta">
+                            Wed 29 March 2017
+                        </span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+    <!-- Post Content -->
+    <article>
+        <p>One of the most interesting things I&#8217;ve noticed hanging around on <a href="http://stackoverflow.com/users/1936075/theodox">StackOverflow</a> is that questions about Maya are remarkably concentrated on making buttons and sliders. This strikes me as kind of odd, since I&#8217;d expect to see a lot questions about things Maya is bad at: complex geometry operations, or custom deformers, or the creation of exporters and importers.  But&nbsp;buttons? </p>
+<p>Well, the public knows what it wants &#8212; and it clearly seems to want a good guide to making Maya <span class="caps">GUI</span>. So I thought I&#8217;d put down some notes here so I could at least point to a single place for the many similar questions that come up. I&#8217;ve <a href="2014/Maya_callbacks_cheat_sheet">already talked about this</a> but in a narrow technical context, so this time I&#8217;ll try to tackle it from the ground&nbsp;up.</p>
+<h1>The&nbsp;toolkit</h1>
+<p>Though I love to grumble &#8212; and I don&#8217;t promise not to grumble in the course of this &#8212; I will say up front that what Maya gives you out of the box is really pretty good. Most of the regular Maya <span class="caps">UI</span> uses the same widgets and layouts that you get from <code>maya.cmds</code>. While there are some fancy tricks that Maya can&#8217;t do, the functionality you can achieve with nothing except vanilla maya is really powerful &#8212; particularly if you take the time to learn how to use it&nbsp;right.</p>
+<p>So, let&#8217;s start out by reviewing the basic components of the Maya <span class="caps">GUI</span>&nbsp;system:</p>
+<h3>Windows</h3>
+<p>Pretty self explanatory. The <a href="https://help.autodesk.com/cloudhelp/2016/CHS/Maya-Tech-Docs/CommandsPython/window.html"><code>window</code> command</a> creates windows which can float free or dock into the main Maya&nbsp;window.</p>
+<h3>Panels</h3>
+<p>Panels are similar to windows, but can&#8217;t float free. Typically they contain an editor object, like the 3d view in your main maya window or a&nbsp;Hypershade. </p>
+<h3>Controls</h3>
+<p>Controls is Maya-speak for all the stuff that the users interact with. Every button, slider, textbox or checkbox is a control.  Controls typically come with callbacks: functions that will fire when the user itneracts with the control. They usually come with a lot of options as well, from labels to background colors to things to recommended values.  Most of the work you do in Maya <span class="caps">GUI</span> is working with&nbsp;controls.</p>
+<h3>Layouts</h3>
+<p>Layouts are the invisible structure of a <span class="caps">GUI</span> window or panel: they control the way controls are positioned and how they react when a window or panel is resized. One of the best ways to learn to be productive with Maya gui is to learn how to make the best use of layouts! Many newcomers waste a lot of time trying to manually position controls and line things&nbsp;up.</p>
+<p>Windows, panels and layouts are primarily about structure: they establish how your gui is laid out.  Controls do all the actual work &#8212; they are the buttons, sliders, textfields and so on with which your users will&nbsp;interact. </p>
+<h1>The basics:&nbsp;addresses</h1>
+<p>All of these kinds of items share some basic similarities. The most important its they way they are created and edited.  Each type of object is created with a command that follows whose name matches the widget type. So windows are created by <code>window()</code>, column layouts by <code>columnLayout()</code>, and buttons by <code>button()</code>.  So a very minimal example of maya gui will look something like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">maya.cmds</span> <span class="kn">as</span> <span class="nn">cmds</span> 
+
+<span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  <span class="c1"># create a window</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">()</span>
+</pre></div>
+
+
+<p>If you run that example, though, nothing will appear to happen. Windows are created invisible &#8212; you need to tell Maya to show your&nbsp;window. </p>
+<p>Which raises a very fundamental question &#8212; how do I tell Maya which window to&nbsp;show? </p>
+<p>Whenever Maya creates a new gui object, it will get a name &#8212; this is exactly like what happens when you create a new cube or sphere in the scene.  Repeatedly hitting the sphere button will create <code>polySphere1</code>, then <code>polySphere2</code>, then <code>polySphere3</code> and so on. So the three commands above created a window &#8212; but, since we didn&#8217;t bother to check what the name of the window <em>was</em>, we don&#8217;t know how to find&nbsp;it!</p>
+<p>Maya provides a little known but handy tool for this: <code>cmds.lsUI()</code>.  It&#8217;s the <span class="caps">UI</span> equivalent of the <code>ls()</code> command: it will tell you what <span class="caps">UI</span> elements are present in the current maya session. So if you&nbsp;enter</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">lsUI</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="s1">&#39;window&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>you&#8217;ll get back a list of all the windows currently available (including the invisible ones, like the one we created above.  It&#8217;ll look something like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="c1"># Result: [u&#39;MayaWindow&#39;, u&#39;window7&#39;, u&#39;sampleWin&#39;] # </span>
+</pre></div>
+
+
+<p>You in this case your new window will be the highest numbered entry with the default name of window; here, <code>window7</code> but the number could be anything.  <code>MayaWindow</code> is (almost always) the name of the main Maya application window, and most of the other main Maya <span class="caps">UI</span> windows such as the Graph Editor or Hypershade will have obvious names &#8212; but many other windows will just have <code>window</code> and a&nbsp;number.  </p>
+<p>That&#8217;s obviously less than ideal, you&#8217;d like to be able to find your objects.  So, just like you can when creating physical objects you can create new gui objects with the names you&nbsp;want.</p>
+<p>However &#8212; and <strong>this is important!</strong> &#8212; the names have to be <strong>unique</strong>.  Which means you won&#8217;t be able to run this code without an&nbsp;error</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="s1">&#39;my_special_window&#39;</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="s1">&#39;my_special_window&#39;</span><span class="p">)</span>
+<span class="c1"># Error: RuntimeError: file &lt;maya console&gt; line 1: Object&#39;s name &#39;my_special_window&#39; is not unique. # </span>
+</pre></div>
+
+
+<p>Sometimes that uniqueness is a good thing: it guarantees that you can, if you really want to get <code>my_special_window</code>, always get to it.  However more often than not it&#8217;s a false friend, for two reasons.  First, keeping track of a huge number of uniquely named objects by hand is going to be a pain.  Second, you never know what other people&#8217;s code has done &#8212; if your entire tool hinges on &#8220;myWindow&#8221; being the address of your tool window, but  somebody else has used the same name for <em>their</em> window, you&#8217;ll have a world of&nbsp;hurt.</p>
+<p>For that reason, it&#8217;s good to develop the habit early of <em>not</em> relying on explicit names. Instead,  keep track of <span class="caps">GUI</span> items you care about with variables.  Every gui command returns the name of the widget it creates, so something like this does the&nbsp;trick:</p>
+<div class="highlight"><pre><span></span><span class="n">my_window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
+<span class="c1"># we don&#39;t care about the name of the layout right now</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;button one&quot;</span><span class="p">)</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;button two&quot;</span><span class="p">)</span>
+
+<span class="c1"># my_window knows what the name of the window is for us</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">my_window</span><span class="p">)</span>
+
+<span class="c1"># b1 and b2 know the names of the buttons. We can use those</span>
+<span class="c1"># to, say, edit the labels:</span>
+
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;I was edited&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>This style is much more robust than trying to hard-code your names. It saves your from checking all the time to see if the name you want to use already exists. More importantly, it means you can add new items without having to cook up new names for them. If you&#8217;re going to care about the address of a gui item, just capture it when you create it.  If you <em>don&#8217;t</em> care, like the example above doesn&#8217;t care about the <code>columnLayout</code>&#8230; well, don&#8217;t save the&nbsp;name.</p>
+<h1>the basics: query and&nbsp;edit</h1>
+<p>You might have noticed this little bit in the last line of the example&nbsp;above:</p>
+<div class="highlight"><pre><span></span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">b1</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;I was edited&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>All maya <span class="caps">GUI</span> commands take the same basic form.  You start with an optional name, then you add &#8220;flags&#8221; to control the appearance and behavior.  For example you can make a 100 pixel wide button like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="n">wide_button</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">width</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
+</pre></div>
+
+
+<p>or a label that says &#8220;hello world&#8221; like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="n">hello_label</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s2">&quot;hello world&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>The precise flags for each <span class="caps">GUI</span> element are different, and depend on what the element is and does. But all Maya <span class="caps">GUI</span> widgets share two critical flags: <code>query</code> and <code>edit</code>.  These are the basic tools of the trade in Maya <span class="caps">GUI</span>.  In&nbsp;combination</p>
+<p>You&#8217;ll notice that the commands use the variables I created when I made the button and the label earlier. I could have hard-coded the names, but I didn&#8217;t for the reason outlined above. Instead, we pass in the variable to tell which existing control we want to ask a question about or to&nbsp;change. </p>
+<p><code>query</code> (you can also use <code>q</code> to save space) will return the value of another flag.  So you can get the width of the button or the text of the label in the last two examples like&nbsp;this:</p>
+<div class="highlight"><pre><span></span><span class="n">button_width</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">wide_button</span><span class="p">,</span> <span class="n">query</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">button_width</span>
+<span class="c1"># 100</span>
+
+<span class="c1">#&#39;q&#39; is the same as &#39;query&#39;</span>
+<span class="n">label_text</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">hello_label</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span> 
+<span class="k">print</span> <span class="n">label_text</span>
+<span class="c1"># hello world</span>
+</pre></div>
+
+
+<p>Setting the values works similarly, but uses the <code>edit</code> flag. You pass in the new values along with the&nbsp;flags:</p>
+<div class="highlight"><pre><span></span><span class="c1">#reset the button to be even wider</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">wide_button</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">200</span><span class="p">)</span>
+
+<span class="c1"># and &#39;e&#39; is a shortcut for &#39;edit&#39;</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">text</span><span class="p">(</span><span class="n">hello_label</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;goodbye cruel world&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>It&#8217;s fine to set multiple values in one&nbsp;go:</p>
+<div class="highlight"><pre><span></span><span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">wide_button</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;tiny!&#39;</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span>
+</pre></div>
+
+
+<h1>The basics:&nbsp;callbacks</h1>
+<p>Since the whole point of buttons, sliders and whatnot is to <em>do</em> things with them, it&#8217;s time to talk about hooking functions to your <span class="caps">GUI</span> elements.  This is actually quite simple, but for a variety of reasons (bad documentation, confusing articles floating around on the web, and unfamiliar ideas for new coders) it seems to generate a <em>lot</em> of confusion. I&#8217;d say more than half the questions I see on StackOverflow about Maya <span class="caps">GUI</span> are variations on the theme of &#8220;How do I make my button do&nbsp;X&#8221;. </p>
+<p>There are a bunch of interesting complexities here, which I&#8217;ve actually <a href="">covered in an older post</a>. I&#8217;ll cover the process simply here, but I&#8217;d recommend reviewing that one at some point as&nbsp;well.</p>
+<h2>Connecting a&nbsp;callback</h2>
+<p>Connecting a callback is just like setting any other property on a gui widget: you assign a value to a flag either when creating an object or using the edit flag.  For&nbsp;example:</p>
+<div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">say_hi</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
+    <span class="c1"># buttons always fire with a single argument; the *_ just ignores it</span>
+    <span class="k">print</span> <span class="s2">&quot;hello&quot;</span>
+
+<span class="n">hello_btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;greet&quot;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="n">say_hi</span><span class="p">)</span>
+</pre></div>
+
+
+<p>You&#8217;ll notice that that we&#8217;re not passing the <em>name</em> of the <code>say_hi</code> function: we&#8217;re passing the function itself.  This is a <strong>really</strong> important point &#8212; although Maya will actually allow you to pass in the name of your callback function as a string, you should never do it that way: it&#8217;s an invitation to problems, because Maya can easily get confused about where to look for your function. Passing the callback function directly, as shown here, avoids that&nbsp;problem. </p>
+<p>You will, however, have to make sure Maya actually has your function.  If you took the example above but reversed the order of the lines, it would&nbsp;fail:</p>
+<div class="highlight"><pre><span></span><span class="c1"># this will fail, because `say_hi` </span>
+<span class="n">hello_btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;greet&quot;</span><span class="p">,</span> <span class="n">command</span> <span class="o">=</span> <span class="n">say_hi</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">say_hi</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s2">&quot;hello&quot;</span>
+</pre></div>
+
+
+<p>Depending on your task, this might not be a problem that comes up often. However, there are some good reasons why you might want to defer the creation of your functions until after the <span class="caps">GUI</span> has been created. A lot of <span class="caps">GUI</span> work involve multiple pieces that need to work together.  For example, you might want a checkbox in your <span class="caps">GUI</span> to enable or disable another control.  For that to work, you&#8217;ll need to know the names of both elements.  Here&#8217;s a simple&nbsp;example:</p>
+<div class="highlight"><pre><span></span><span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;widget to widget communication&#39;</span><span class="p">)</span>
+<span class="c1"># create a row with a checkbox, a text field, and a button</span>
+<span class="n">row</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">rowLayout</span><span class="p">(</span><span class="n">numberOfColumns</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="n">cb</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;enable&quot;</span><span class="p">)</span>
+<span class="n">field</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textField</span><span class="p">()</span>
+<span class="n">btn</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s2">&quot;rename&quot;</span><span class="p">)</span>
+
+<span class="c1"># create the functions</span>
+<span class="k">def</span> <span class="nf">set_enable</span><span class="p">(</span><span class="n">val</span><span class="p">):</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">edit</span> <span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">enable</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
+    <span class="n">cmds</span><span class="o">.</span><span class="n">control</span><span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="n">edit</span> <span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">enable</span><span class="o">=</span><span class="n">val</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">rename_selected</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">new_name</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">textField</span> <span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">q</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">text</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">new_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">RuntimeError</span><span class="p">:</span>
+        <span class="n">cmds</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Select soemthing before trying to rename!&quot;</span><span class="p">)</span>
+
+<span class="c1"># hoook up the functions</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">checkBox</span><span class="p">(</span><span class="n">cb</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">changeCommand</span><span class="o">=</span><span class="n">set_enable</span><span class="p">)</span>
+<span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="n">btn</span><span class="p">,</span> <span class="n">edit</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">command</span><span class="o">=</span><span class="n">rename_selected</span><span class="p">)</span>
+
+<span class="c1"># start disabled</span>
+<span class="n">set_enable</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+
+<span class="n">cmds</span><span class="o">.</span><span class="n">showWindow</span><span class="p">(</span><span class="n">window</span><span class="p">)</span>
+</pre></div>
+
+
+<p>You can see that <code>set_enable</code> and <code>rename_selected</code> are defined after the objects they work for, and are added using the <code>edit=True</code> flag.  Because the functions are created when the variables for the gui items are already defined, they inherit the values of those variables automatically. This is known as&nbsp;a </p>
+    </article>
+
+        <div class="tags">
+            <p>tags: <a href="https://theodox.github.io/tag/gdc.html">gdc</a>, <a href="https://theodox.github.io/tag/rigging.html">rigging</a></p>
+        </div>
+    <div id="comment">
+    </div>
+            </div>
+            <!---- right sidebar -->
+<div class="right-sidebar col-lg-2 col-md-1">
+    <div class="vertical-spacer">
+    <h4>@social</h4>
+        <ul class="list-inline text-center">
+                <li>
+                    <a href="https://www.linkedin.com/in/stevetheodore">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="http://stackoverflow.com/users/1936075/theodox">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-circle fa-stack-2x"></i>
+                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
+                        </span>
+                    </a>
+                </li>
+        </ul>
+    </div>
+    <div class="vertical-spacer">
+        <h4>#tags</h4>
+        <a href="/tags">tag list</a>
+        
+            <a class="tag-link" href="https://theodox.github.io/tag/animation.html">animation</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/api.html">api</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/articles.html">articles</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/blog.html">blog</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/blogging.html">blogging</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/boo.html">boo</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/books.html">books</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/modo.html">modo</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/modules.html">modules</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/moonrise.html">moonrise</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/photoshop.html">photoshop</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/pipeline.html">pipeline</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/rigging.html">rigging</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/sod.html">SOD</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/spelcheck.html">spelcheck</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/standalone.html">standalone</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/ta.html">TA</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/techart.html">techart</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/thunderbirds.html">thunderbirds</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/tools.html">tools</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/unity.html">unity</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/web.html">web</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/writing.html">writing</a>
+    </div>
+    <div class="vertical-spacer">
+        <h4>archives</h4>
+        <div>
+          <a href="/archives">all</a>
+        </div>      
+        <div>
+        <a href="/2013/index.html">2013</a>
+        </div>      
+        <div>
+        <a href="/2014/index.html">2014</a>
+        </div>      
+        <div>
+        <a href="/2015/index.html">2015</a>
+        </div>      
+        <div>
+        <a href="/2016/index.html">2016</a>
+        </div>
+    </div> 
+    <div class="vertical-spacer">
+        <h4>feeds </h4>
+        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
+        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
+    </div>   
+
+</div>        </div>
+    </div>
+
+    <hr>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+<p class="copyright text-muted">
+   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
+</p>                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- jQuery -->
+    <script src="https://theodox.github.io/theme/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="https://theodox.github.io/theme/js/bootstrap.min.js"></script>
+
+        <!-- Custom Theme JavaScript -->
+        <script src="https://theodox.github.io/theme/js/clean-blog.min.js"></script>
+
+    <script type="text/javascript">
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-79232212-1']);
+    _gaq.push(['_trackPageview']);
+    (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+    </script>
+<script type="text/javascript">
+    var disqus_shortname = 'theodoxcom';
+    (function () {
+        var s = document.createElement('script'); s.async = true;
+        s.type = 'text/javascript';
+        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
+        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
+    }());
+</script>
+</body>
+
+</html>

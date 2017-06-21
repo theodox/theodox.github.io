@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#python</h1>
-                        <h3>46 items<h3>
+                        <h3>47 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,83 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/transcrypt.md" rel="bookmark" title="Permalink to How the other half lives, revisited">
+                <h2 class="post-title">
+                    How the other half lives,&nbsp;revisited
+                </h2>
+            </a>
+            <p class="post-meta">Thu 22 June 2017
+            </p>
+                <p>Way back in 2013, when I was first getting this blog rolling, I spent some time investigating <a href="blog/2013/Python_in_browsers">different ways to get Python into the browser</a>. In the intervening several years, Javascript has continued to spread its dark cloud of despair over the web like a digital Mount Doom, spewing depression and silent type conversions to every corner of Middle&nbsp;Earth. </p>
+<p>The much-hyped prospect of <a href="http://webassembly.org/">WebAssembly</a> hasn&#8217;t really panned out yet. There has been progress, and someday we&#8217;ll probably get to the point where Python and other languages can be &#8216;compiled&#8217; directly to WebAssembly &#8212; but right now the tools and processes for doing it are pretty clunky and the performance of Python intepreters running in the browser remains unimpressive. The most successful project in this space &#8212; <a href="http://pypyjs.org/">Pypy.js</a> works pretty well. But, because it&#8217;s a port of the whole CPython interpreter, it&#8217;s a huge download: on my fast connection it takes 11 seconds to load and boot the Pypy.js interpreter for the first time. Pypy.js is a hopeful sign, since it&#8217;s extremely compatable and, startup times excepted, not too slow to run. However it&#8217;s going to be a while yet before somebody figures out how to cut down the huge cost of importing a whole python ecosystem into a&nbsp;browser. </p>
+<p>A different approach approach which has prospered in the last few years is the creation of dialects of Javascript which work around some of the language&#8217;s quirks and syntax. Effectively, you write in some <em>other</em> language and then compile (or more precisely, &#8220;transpile&#8221;) it into Javascript. This approach has two obvious benefits. First off, you get the universality of Javascript &#8212; once your code is transpiled, it&#8217;s just another bit of <span class="caps">JS</span> so it will work in all sorts of browsers without extra help. Secondly, it&#8217;s automatically interoperable with all the Javascript libraries out there, so you can tap into web ecosystem right off the&nbsp;bat. </p>
+<p>One of the first examples of this approach <a href="http://coffeescript.org/">CoffeeScript</a>, which looks and acts a lot like Ruby but gets turned into vanilla Javascript when compiled. I did a couple of hobby projects with a more Python-ish transpiler called <a href="http://www.rapydscript.com/">RapydScript</a>, which bills itself modestly as &#8220;Pythonic Javascript that doesn&#8217;t suck&#8221;. For a lot of common cases Rapydscript really looks and acts like Python. However if you&#8217;re a moderately advanced Python programmer the two languages start to show increasing differences; the maintainer of RapydScript wants to optimize for raw Javascript performance, which means that many language constructs don&#8217;t work quite the same way; the project&#8217;s <a href="https://github.com/atsepkov/RapydScript#quirks">list of &#8220;quirks&#8221;</a> ended up being a little long for my&nbsp;taste. </p>
+<h1>Transcrypt</h1>
+<p><img alt="transcrypt" src="http://transcrypt.org/illustrations/merchandise.png" /></p>
+<blockquote>
+<p>You can tell it&#8217;s a real project because it&#8217;s got&nbsp;merch!</p>
+</blockquote>
+<p>The most recent entry in the transpiler field is <a href="http://www.transcrypt.org/">Transcrypt</a>. Like other transpilers it allows you to write &#8220;almost Python&#8221; (in this case, &#8220;almost Python 3.6&#8221;) and compile it to Javascript. For me, at any rate, it has a couple of interesting advantages to other entries in this&nbsp;space:</p>
+<h4>Source&nbsp;maps</h4>
+<p>The most irritating part of using a transpiler is debugging. By definition, there&#8217;s not a 1:1 match between the code you wrote and the code that&#8217;s being run, which usually makes it tricky to understand how things have gone&nbsp;wrong.</p>
+<p>Transcrypt makes this far less painful by generating <a href="https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps">good source maps</a>, which provide a map between the compiled code and the source. This feature was created to support &#8216;minified&#8217; <span class="caps">JS</span> (where all the whitespace is removed to allow for quicker downloads), but Transcrypt hijacks it so that runtime problems in the <span class="caps">JS</span> version point to the python source when debugging. In Chrome, at least, I can even get live preview of the values at a&nbsp;breakpoint:</p>
+<p><img alt="debug image" src="/images/transcrypt_debug.png" /></p>
+<blockquote>
+<p>Debugging <a href="https://github.com/theodox/pysteroids">Pysteroids.py</a> in Transcrypt and&nbsp;Chrome.</p>
+</blockquote>
+<p>For me this is Transcrypt&#8217;s killer advantage over alternate transpilers: it means I can <em>debug</em> as well as code in&nbsp;Python. </p>
+<p>Occasionally the problems are in code that doesn&#8217;t map easily to mine, in which case I&#8217;ll see the Javascript debug code instead. Transcrypt&#8217;s <span class="caps">JS</span> is generally clean and readable, although (being Javascript) it still involves spooky scope magic that my brain refuses to process properly. It&#8217;s true that things get funky when you start descending into code from Javascript libraries &#8212; in the shot above, for example, all of the graphics are rendered <a href="http://threejs.org">three.js</a> &#8212; so one occasionally gets shunted into unreadable minified library code. Still, so far I&#8217;ve found Transcrypt&#8217;s source mapping combined with the Chrome debugger is a pretty good productivity environment; it&#8217;s at certainly more sophisticated than dumping print statements into the Maya&nbsp;listener!</p>
+<h4>Fine-grained&nbsp;control</h4>
+<p>There&#8217;s a built-in tension in all transpiled projects. A lot of core language features in Python have only approximate counterparts in Javascript; basic data types like lists (= <span class="caps">JS</span> <code>Array</code>) and dicts (= <span class="caps">JS</span> <code>Object</code>) have related but still distinct behaviors. This forces the transpiler designer to choose between re-implementing the Python behavior in a custom <span class="caps">JS</span> object &#8212; which is going to be slower than using the native <span class="caps">JS</span> types &#8212; and creating false-friend code which confounds the user&#8217;s expectations when run in the browser. Rapydscript basically followed the designer&#8217;s intuitions as to which behaviors to keep and which to branch, so perhaps it&#8217;s not surprising that this has led to a rival <a href="https://github.com/kovidgoyal/rapydscript-ng">fork of the project</a> from a developer who disagreed with some of those choices. All translation involves compromises: as they used to say <a href="https://www.altalang.com/beyond-words/2008/10/09/traduttore-traditore/">&#8220;traddutore tradditore&#8221;</a>, &#8220;a translator is a&nbsp;traitor.&#8221;</p>
+<p>Transcrypt tries to resolve this tension by allowing more local control over the compilation strateg. You can opt in to the more expensive or intrusive features using compiler directives. This moves more of the burden onto you, but it at least allows the choices to be made tactically rather than making you work in a predetermined&nbsp;way.</p>
+<p>So, for example, an ordinary Transcrypt function does not accept the <code>**kwards</code> syntax. However you can enable it in functions where it&#8217;s appropriate like&nbsp;this:</p>
+<div class="highlight"><pre><span></span>    <span class="k">def</span> <span class="nf">vanilla_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">):</span>
+        <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;*args are supported automatically&quot;</span><span class="p">)</span>
+
+    <span class="n">__pragma__</span><span class="p">(</span><span class="s1">&#39;kwargs&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">kwargs_function</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;test&#39;</span><span class="p">]:</span>
+            <span class="k">print</span> <span class="p">(</span><span class="s2">&quot;kwargs have to be enabled manually&quot;</span><span class="p">)</span>
+
+    <span class="n">__pragma__</span><span class="p">(</span><span class="s1">&#39;nokwargs&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>I could be happier about the aesthetics of all those <code>__pragma__</code> statements lying around but at least they are explicit. One quirk I did find a bit tough is that it&#8217;s not always clear where the <code>__pragma__</code> really wants to reside: so, for example, I wrote a litte coroutine generator that needed to use <a href="https://stackoverflow.com/questions/19302530/python-generator-send-function-purpose">the <code>send()</code> feature of generators</a>. In Transcrypt, that is only enabled with a pragma, but it took me a couple of hourse of confusion before I realized the pragma had to be present where I called <code>send()</code>, not when I created the&nbsp;generator.</p>
+<p>Nevertheless, I do like the idea of having opt-in control over the more expensive or complex features of Python. Not only does it let the user make personal tradeoffs between Pythonicism and performance, it also helps to teach you where the real differences betwee pure Python and Transcrybed Python&nbsp;lie.</p>
+<h4>Pythonic&nbsp;feel</h4>
+<p>This aspect is subjective, but in general I&#8217;d say Transcrypt feels more &#8220;pythonic&#8221; than Rapydscript. The compiler is actually written in Python and uses the native Python <span class="caps">AST</span> module, so it does not have to reinvent the semantics of the Python side of the language. It&#8217;s got most of the things that make Python a high-productivity environment &#8212; classes, list comprehensions, decorators, even metaclasses. I&#8217;ve run into a few gaps in the toolkit &#8212; for example, at present a metaclass can&#8217;t create an instancemethod for you &#8212; but I&#8217;d say that at least 9 out of every ten things I try using my Python instincts work as&nbsp;expected.</p>
+<h1>Gotchas</h1>
+<p>Of course, there is still a residue of gotchas. Javascript is a language (and one with many notorious quirks of its own) and not a neutral platform. So, Transcrypt inherits some of Javascript&#8217;s less&#8230; useful&#8230; behaviors in ways that can trip you up. The nastiest one is <span class="caps">JS</span>&#8217;s habit of silently changing types for you. I never really got the point of those forum trolls who insist &#8220;Python is a <em>strongly typed</em> language&#8221; until I started getting bugs that came from this behavior. Sure, you don&#8217;t need all the scaffolding of C# or C++ variable declarations in Python, but a number is still a number and a string is still a string. In <span class="caps">JS</span>, well&#8230; maybe not. In&nbsp;Python</p>
+<div class="highlight"><pre><span></span>  <span class="k">print</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="s2">&quot;X&quot;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>will raise an&nbsp;error:</p>
+<div class="highlight"><pre><span></span>  <span class="ne">TypeError</span><span class="p">:</span> <span class="n">unsupported</span> <span class="n">operand</span> <span class="nb">type</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">for</span> <span class="o">+</span><span class="p">:</span> <span class="s1">&#39;int&#39;</span> <span class="ow">and</span> <span class="s1">&#39;str&#39;</span>
+</pre></div>
+
+
+<p>but in Javascript &#8212; and in Transcrypt &#8212; it just prints &#8220;1X&#8221;. This leads to an awful lot of deferred bugs, where code just continues skipping merrily along long after it should have crashed because you passed in the wrong kind of variable. Transcrypt actually supports the new Python type annotations, and it provides a linter that will help you spot possible type errors at compile time. That&#8217;s helpful but it&#8217;s still not what my Python radar is scanning&nbsp;for. </p>
+<p>There are also parts of Python that haven&#8217;t been ported. The two that I&#8217;ve been bummed out by are <a href="http://book.pythontips.com/en/latest/context_managers.html">context managers</a> and <a href="https://www.smallsurething.com/python-descriptors-made-simple/">descriptors</a>, both of which I miss. I&#8217;ve bumped into the limits of the port once or twice as well &#8212; for example the Transcrypt <code>zip()</code> works as expected for static lists but doesn&#8217;t work with iterators or generators. On the plus side Transcrypt is open source so it&#8217;s not unlikely that some of these gaps will get filled. However it&#8217;s important to recognize that Transcrypt isn&#8217;t intended to be a complete Python: the project&#8217;s goal to combine high &#8212; but not complete &#8212; compatibility with speed and simplicity. Completists will probably find it frustrating, but pragmatists will probably enjoy what it can already&nbsp;do. </p>
+<h2>Report&nbsp;Card</h2>
+<p>Despite the missing pieces, I like Transcrypt pretty well so far. It&#8217;s not a complete web-ready Python, but it&#8217;s a lot more fun and productive for me than writing <span class="caps">JS</span>. It only took a few nights to bang out a version of Asteroids with Transcrypt and <a href="https://threejs.org/">three.<span class="caps">JS</span></a> which runs pretty smoothly on my phone with 3d graphics and audio.  You can play it <a href="">here</a> (note that I didn&#8217;t push it too far &#8212; you&#8217;ll need to reload the page after you clear the level or die three times.  My high score so far is 9157, if you&#8217;re feeling&nbsp;competitive).</p>
+<p>I don&#8217;t think I&#8217;d be substantially more worried about tackling a bigger project in Transcrypt than I would be to do it in <span class="caps">JS</span>, though that probably says more about my lack of <span class="caps">JS</span>-fu than anything else. On the whole, it&#8217;s a fun and useful piece of kit. Although the missing bits and pieces are irritating, I&#8217;m not altogether sure they&#8217;re actually more irritating than the hassle of creating a working virtualenv with pyglet or pygame would be. And &#8212; unlike pyglet or pygame &#8212; once I&#8217;ve got my project compiled I can get it into lots of people&#8217;s hands by simply popping it onto a web server without any of the usual indignities of Python&nbsp;distribution. </p>
+<p>So&#8230; it&#8217;s not quite web-python Nirvana but it&#8217;s pretty damn&nbsp;cool. </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/transcrypt.md#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/transcrypt.md#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/transcrypt.md#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
                 <h2 class="post-title">
                     mGui&nbsp;Maintenance
@@ -96,66 +173,10 @@
             </a>
             <p class="post-meta">Sat 14 January 2017
             </p>
-                <p>With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I&#8217;d like to announce the 2.1 point release of <a href="https://github.com/theodox/mGui">mGui</a>.  </p>
-<p>This is mostly a stabilization release for the <a href="/2016/mgui2_live">big 2.0 update we pushed in October</a>. </p>
-<h2>New&nbsp;Feature</h2>
-<p>The main new feature in this release is the addition of <a href="https://github.com/theodox/mGui/blob/master/mGui/treeView.py"><code>mGui.treeView</code></a>, a module for wrapping Maya&#8217;s <code>treeView</code> widget.  I&#8217;ve never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it&#8217;s so different that it needed a whole module of it&#8217;s own to make it&nbsp;workable. </p>
-<p>The new <code>MTreeView()</code> class wraps the existing mGui <code>TreeView</code>, but provides a more idiomatic way to get at the TreeView&#8217;s button commands.  You can now use the same style you use for other mGui&nbsp;buttons:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.treeView</span> <span class="kn">import</span> <span class="n">MTreeView</span>
-<span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">win</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">FillForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">form</span><span class="p">:</span>
-        <span class="n">tree</span> <span class="o">=</span> <span class="n">MTreeView</span><span class="p">(</span><span class="n">numberOfButtons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span>
-
-<span class="n">tree</span><span class="o">.</span><span class="n">set_items</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">})</span>
-
-<span class="k">def</span> <span class="nf">btn_a</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
-    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">btn_b</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
-    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
-    <span class="k">print</span> <span class="s1">&#39;button 2 was pressed&#39;</span>
-
-<span class="k">def</span> <span class="nf">double_click</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s1">&#39;double click&#39;</span><span class="p">,</span> <span class="n">arg</span>
-
-<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_a</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_b</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">itemDblClickCommand</span> <span class="o">+=</span> <span class="n">double_click</span>
-
-<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-<p>The <code>buttons</code> field looks like an array, and you can (as you see in the sample) use the standard mGui <code>+=</code> syntax to add a handler to the buttons as defined by the TreeViews <code>numberOfButtons</code> parameter.  </p>
-<h2>Updated&nbsp;examples</h2>
-<p>The example code has been cleaned up a tad &#8212; some of this is just part of the conversion to the new keyless idiom and some of this is just graphic&nbsp;polish. </p>
-<p><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/bound_collection" /></p>
-<p><em>A better-looking version of the boundCollection&nbsp;sample</em></p>
-<p>In particular <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py"><code>mGui.examples.formExamples.py</code></a>, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py"><code>mgui.examples.boundCollection.py</code></a> got some much-needed&nbsp;cleanup.</p>
-<h2>Bug&nbsp;fixes</h2>
-<h3>Better handling of&nbsp;LayoutDialogs</h3>
-<p>We discovered an odd condition where Maya would sometimes refuse to fire off the event handlers attached to an mGui widget when the widget was called through maya&#8217;s <code>layoutDialog</code> command.  It seems like Maya didn&#8217;t like the potentially aynchronous <code>MayaEvent</code> handlers inside of <code>layoutDialog</code>, so we added a little bit of tracking to make sure that only synchronous <code>Event</code> handlers get attached in that special case. I&#8217;d been working around that by manually re-assigning Event objects to the handlers &#8212; but that&#8217;s a silly thing to ask users to remember, so now it&#8217;s all transparently handled under the&nbsp;hood.</p>
-<h3>HorizontalExpandForm</h3>
-<p>We found and fixed an issue with the <code>HorizontalExpandForm()</code>, which had somehow stopped&nbsp;expanding.</p>
-<h3>List.inner_list</h3>
-<p>Fixed a condition where sometimes <code>List()</code> controls didn&#8217;t correctly report their the &#8216;inner_list&#8217; property which actually contained their visible contents.  In general you don&#8217;t want to mess with the <code>inner_list</code> property in any case, but it should be available for inspection when absolutely necessary&nbsp;now.</p>
-<h2>Till next&nbsp;time&#8230;</h2>
-<p>This was a fun release, since it had a lot more contributions from new faces. It&#8217;s nice to see people running with the code and it&#8217;s gratifying that it is holding up <span class="caps">OK</span> so&nbsp;far. </p>
-<p>It&#8217;s a <a href="http://www.xbox.com/en-US/games/state-of-decay-2">ship year</a>, so I expect that both the blogging and hacking will be a bit&#8230; light&#8230; for a while.  But don&#8217;t hesitate to chime in with questions, comments or, better yet, bug fix pull&nbsp;requests!  </p>
+                A new release for mGui
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -205,9 +226,9 @@
         </div>
         <hr>
         <div class="post-preview">
-            <a href="https://theodox.github.io/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq">
+            <a href="https://theodox.github.io/2016/a_touch_of_minq" rel="bookmark" title="Permalink to A touch of minq +">
                 <h2 class="post-title">
-                    A touch of&nbsp;minq
+                    A touch of minq&nbsp;+
                 </h2>
             </a>
             <p class="post-meta">Sun 06 March 2016
@@ -245,21 +266,6 @@
                 Introducing SFX — a python module for scripting Maya shaderFX shaders.
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2016/sfx_module#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2015/charcoal" rel="bookmark" title="Permalink to Charcoal - it’s smokin’!">
-                <h2 class="post-title">
-                    Charcoal - it&#8217;s&nbsp;smokin&#8217;!
-                </h2>
-            </a>
-            <p class="post-meta">Tue 06 October 2015
-            </p>
-                The Charcoal editor, an excellent drop-in replacement for Maya’s script editor
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2015/charcoal#disqus_thread">comments</a>.</p>
 -->
 
         </div>
