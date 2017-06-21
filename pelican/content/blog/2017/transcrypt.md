@@ -17,6 +17,9 @@ One of the first examples of this approach [CoffeeScript](http://coffeescript.or
 
 #Transcrypt
 
+![transcrypt](http://transcrypt.org/illustrations/merchandise.png)
+>You can tell it's a real project because it's got merch!
+
 The most recent entry in the transpiler field is [Transcrypt](http://www.transcrypt.org/). Like other transpilers it allows you to write "almost Python" (in this case, "almost Python 3.6") and compile it to Javascript. For me, at any rate, it has a couple of interesting advantages to other entries in this space:
 
 #### Source maps
@@ -25,6 +28,7 @@ The most irritating part of using a transpiler is debugging. By definition, ther
 Transcrypt makes this far less painful by generating [good source maps](https://developers.google.com/web/tools/chrome-devtools/javascript/source-maps), which provide a map between the compiled code and the source. This feature was created to support 'minified' JS (where all the whitespace is removed to allow for quicker downloads), but Transcrypt hijacks it so that runtime problems in the JS version point to the python source when debugging. In Chrome, at least, I can even get live preview of the values at a breakpoint:
 
 ![debug image](/images/transcrypt_debug.png)
+>Debugging [Pysteroids.py](https://github.com/theodox/pysteroids) in Transcrypt and Chrome.
 
 For me this is Transcrypt's killer advantage over alternate transpilers: it means I can _debug_ as well as code in Python. 
 
@@ -77,13 +81,13 @@ will raise an error:
 
 but in Javascript -- and in Transcrypt -- it just prints "1X". This leads to an awful lot of deferred bugs, where code just continues skipping merrily along long after it should have crashed because you passed in the wrong kind of variable. Transcrypt actually supports the new Python type annotations, and it provides a linter that will help you spot possible type errors at compile time. That's helpful but it's still not what my Python radar is scanning for. 
 
-There are also parts of Python that haven't been ported. The two that I've been bummed out by are [context managers]() and [descriptors](), both of which I miss. I've bumped into the limits of the port once or twice as well -- for example the Transcrypt `zip()` works as expected for static lists but doesn't work with iterators or generators. On the plus side Transcrypt is open source so it's not unlikely that some of these gaps will get filled. However it's important to recognize that Transcrypt isn't intended to be a complete Python: the project's goal to combine high -- but not complete -- compatibility with speed and simplicity. Completists will probably find it frustrating. 
+There are also parts of Python that haven't been ported. The two that I've been bummed out by are [context managers](http://book.pythontips.com/en/latest/context_managers.html) and [descriptors](https://www.smallsurething.com/python-descriptors-made-simple/), both of which I miss. I've bumped into the limits of the port once or twice as well -- for example the Transcrypt `zip()` works as expected for static lists but doesn't work with iterators or generators. On the plus side Transcrypt is open source so it's not unlikely that some of these gaps will get filled. However it's important to recognize that Transcrypt isn't intended to be a complete Python: the project's goal to combine high -- but not complete -- compatibility with speed and simplicity. Completists will probably find it frustrating, but pragmatists will probably enjoy what it can already do. 
 
 ## Report Card
 
-Despite a few missing pieces, I like Transcrypt pretty well so far. It's not a complete web-ready Python, but it's a lot more fun and productive for me than writing JS. I banged out a version of Asteroids with Transcrypt and [three.JS](https://threejs.org/) which runs pretty smoothly on my phone with 3d graphics and all in a couple of nights. I don't think I'd be substantially more worried about tackling a bigger project in Transcrypt than I would be to do it in JS, though that probably says more about my lack of JS-fu than anything else.
+Despite the missing pieces, I like Transcrypt pretty well so far. It's not a complete web-ready Python, but it's a lot more fun and productive for me than writing JS. It only took a few nights to bang out a version of Asteroids with Transcrypt and [three.JS](https://threejs.org/) which runs pretty smoothly on my phone with 3d graphics and audio.  You can play it [here]() (note that I didn't push it too far -- you'll need to reload the page after you clear the level or die three times.  My high score so far is 9157, if you're feeling competitive).
 
-![](embed pysteroids here)
+I don't think I'd be substantially more worried about tackling a bigger project in Transcrypt than I would be to do it in JS, though that probably says more about my lack of JS-fu than anything else. On the whole, it's a fun and useful piece of kit. Although the missing bits and pieces are irritating, I'm not altogether sure they're actually more irritating than the hassle of creating a working virtualenv with pyglet or pygame would be. And -- unlike pyglet or pygame -- once I've got my project compiled I can get it into lots of people's hands by simply popping it onto a web server without any of the usual indignities of Python distribution. 
 
-On the whole, it's a fun and useful piece of kit. Although the missing bits and pieces are irritating, I'm not altogether sure they're actually more irritating than the hassle of creating a working virtualenv with pyglet or pygame would be. And -- unlike pyglet or pygame -- once I've got my project compiled I can get it into lots o people's hands by simply popping it onto a web server without any of the [usual indignities of Python distribution](). So it's not quite web-python Nirvana but it's pretty damn cool. 
+So... it's not quite web-python Nirvana but it's pretty damn cool. 
 
