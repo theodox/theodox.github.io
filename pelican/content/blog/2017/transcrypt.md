@@ -1,5 +1,5 @@
 Title: How the other half lives, revisited
-Date: 2017-06-15
+Date: 2017-06-22
 Category: blog
 Tags: python, web
 Slug: transcrypt.md
