@@ -7904,7 +7904,7 @@ function pysteroids () {
 					var audio_path = '';
 				};
 				var pth = (function __lambda__ (p) {
-					return './extra/' + p;
+					return './' + p;
 				});
 				self.fire_rota = list ([audio.clip (pth ('344276__nsstudios__laser3.wav')), audio.clip (pth ('344276__nsstudios__laser3.wav')), audio.clip (pth ('344276__nsstudios__laser3.wav')), audio.clip (pth ('344276__nsstudios__laser3.wav'))]);
 				self.explosion_rota = list ([audio.clip (pth ('108641__juskiddink__nearby-explosion-with-debris.wav')), audio.clip (pth ('108641__juskiddink__nearby-explosion-with-debris.wav')), audio.clip (pth ('108641__juskiddink__nearby-explosion-with-debris.wav')), audio.clip (pth ('108641__juskiddink__nearby-explosion-with-debris.wav'))]);
