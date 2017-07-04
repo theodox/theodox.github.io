@@ -1,5 +1,5 @@
 "use strict";
-// Transcrypt'ed from Python, 2017-07-03 23:34:58
+// Transcrypt'ed from Python, 2017-07-03 23:50:52
 function pysteroids () {
    var __symbols__ = ['__py3.6__', '__esv6__'];
     var __all__ = {};
@@ -7958,6 +7958,7 @@ function pysteroids () {
 				hud.style.height = canvas.offsetHeight;
 				var frame = document.getElementById ('game_frame');
 				frame.style.min_height = canvas.offsetHeight;
+				document.getElementById ('game_frame').focus ();
 			});},
 			get create_controls () {return __get__ (this, function (self) {
 				self.keyboard.add_handler ('spin', ControlAxis ('ArrowRight', 'ArrowLeft', __kwargtrans__ ({attack: 1, decay: 0.6})));
