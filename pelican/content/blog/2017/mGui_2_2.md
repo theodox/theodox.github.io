@@ -7,7 +7,9 @@ Authors: Steve Theodore
 Summary: mGui version 2.2 is here
 Status: Draft
 
-The latest next point release of the [mGui](https://github.com/theodox/mGui) module for maya gui is up on on Github.  Although this is a point release, it has some exciting improvements:
+The latest next point release of the [mGui](https://github.com/theodox/mGui) module for maya gui is up on on Github, thanks in large part to [+Bob White](https://github.com/bob-white), who put in a lot of the work on this release. 
+
+Although this is a point release, it has some exciting improvements:
 
 # Improved Menu Support
 
@@ -83,12 +85,16 @@ At various points we supported three different idioms (`Menu.from_existing()`, `
 	* It does a better job matching the underlying maya gui widgets to mGui wrapper classes than any of the previous methods.  Because of some irregularities in the way Maya relates commands to objects there are still some edge cases the new `wrap()` should get most cases.
 	* For maya objects with python callbacks, you can ask `wrap()` to convert them to [multicast delegates for you. This does not support mel callbacks yet, but we may be able to expand to supporting them in the future.
 
-The new, improved `gui.wrap()` should make it much easier to add mGui controls or layouts to menus and windows that come from regular Maya.
+The new, improved `gui.wrap()` should make it much easier to add mGui controls or layouts to menus and windows that come from regular Maya.  
+
+For the time being, we've re-pointed `gui.derive()` at `gui.wrap()` under the hood so it won't break existing code -- it will however issue a deprecation warning so that when we remove `derive()` in 2.3 people will have had plenty of warning.
+
 
 # find() method for child controls
 
 We've added a new method to all layouts that will collect all children of a layout by mGui type.  This is handy for big complex layouts where you aren't quite sure what something should be called -- or for layouts that you've gotten from `gui.wrap()`.
 
-----
+# &c.
 
-In addition to these there are some new examples, wider test coverage, and minor bug fixes.     
+We've also cleaned up and expanded the [examples](), added more test coverage, and fixed a few minor bugs (the most obvious one will be that the `StretchForm()` classes properly respect margins.  We're also starting to put more time into the [project wiki](), including some new tutorials.  Feedback and suggestions are much appreciated! And of course if you run into any problems be sore to log them on the [project issues page].  
+
