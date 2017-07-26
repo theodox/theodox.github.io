@@ -76,7 +76,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="page-heading">
                         <h1>#maya</h1>
-                        <h3>44 items<h3>
+                        <h3>45 items<h3>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,100 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/mGui_2_2" rel="bookmark" title="Permalink to mGui 2.2 release is ready">
+                <h2 class="post-title">
+                    mGui 2.2 release is&nbsp;ready
+                </h2>
+            </a>
+            <p class="post-meta">Tue 25 July 2017
+            </p>
+                <p>The latest next point release of <a href="https://github.com/theodox/mGui">mGui</a> &#8212; the python module to <a href="2016/mgui2_live">streamline maya gui creation</a> &#8212; is up on on Github, thanks in large part to <a href="https://github.com/bob-white">+Bob White</a>, who put in a lot of the work on this&nbsp;release. </p>
+<p>Although this is a point release, it has some exciting&nbsp;improvements:</p>
+<h1>Improved Menu&nbsp;Support</h1>
+<p>We&#8217;ve added a more refined an elegant method for handling sub-menus with the <code>SubMenu</code> class.  This works like a context manager, so the structure of the menu is obvious when reading the&nbsp;code.  </p>
+<div class="highlight"><pre><span></span>    <span class="k">with</span> <span class="n">Menu</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;TestMenu&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">food_menu</span><span class="p">:</span>
+
+        <span class="c1"># conventional menu items</span>
+        <span class="n">hotdog</span> <span class="o">=</span> <span class="n">MenuItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Hot Dog&#39;</span><span class="p">)</span>
+        <span class="n">burger</span> <span class="o">=</span> <span class="n">MenuItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Burger&#39;</span><span class="p">)</span>
+        <span class="n">taco</span> <span class="o">=</span> <span class="n">MenuItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Taco&#39;</span><span class="p">)</span>
+
+        <span class="c1"># a submenu</span>
+        <span class="k">with</span> <span class="n">SubMenu</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pizza&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sm</span><span class="p">:</span>
+            <span class="n">pepperoni</span> <span class="o">=</span> <span class="n">CheckBoxMenuItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pepperoni&#39;</span><span class="p">)</span>
+            <span class="n">sausage</span> <span class="o">=</span> <span class="n">CheckBoxMenuItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sausage&#39;</span><span class="p">)</span>
+            <span class="n">pineapples</span> <span class="o">=</span> <span class="n">CheckBoxMenuItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pineapples&#39;</span><span class="p">)</span>
+            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pepperoni</span><span class="p">,</span> <span class="n">sausage</span><span class="p">,</span> <span class="n">pineapples</span><span class="p">):</span>
+                <span class="n">each</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">pizza_selected</span>
+
+
+        <span class="n">MenuDivider</span><span class="p">()</span>
+
+        <span class="k">with</span> <span class="n">SubMenu</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Delivery&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sm</span><span class="p">:</span>
+            <span class="k">with</span> <span class="n">RadioMenuItemCollection</span><span class="p">()</span> <span class="k">as</span> <span class="n">radio</span><span class="p">:</span>
+                <span class="n">eatin</span> <span class="o">=</span> <span class="n">RadioMenuItem</span><span class="p">(</span><span class="s1">&#39;Eat In&#39;</span><span class="p">)</span>
+                <span class="n">takeout</span> <span class="o">=</span> <span class="n">RadioMenuItem</span><span class="p">(</span><span class="s1">&#39;Take Out&#39;</span><span class="p">)</span>
+                <span class="n">delivery</span> <span class="o">=</span> <span class="n">RadioMenuItem</span><span class="p">(</span><span class="s1">&#39;Delivery&#39;</span><span class="p">)</span>
+</pre></div>
+
+
+<p>We&#8217;ve also enhance menus so they support the same kind of dot notation as other mGui controls.  In this example that means you could get to the &#8216;sausage&#8217; item&nbsp;as</p>
+<div class="highlight"><pre><span></span>    <span class="n">food_menu</span><span class="o">.</span><span class="n">sm</span><span class="o">.</span><span class="n">sausage</span>
+</pre></div>
+
+
+<p>which is going to be both more readable and more consistent with other mGui code.  If you use the <span class="caps">YAML</span> menu loader, that also supports&nbsp;submenus:</p>
+<div class="highlight"><pre><span></span>        <span class="p p-Indicator">-</span> <span class="kt">!MMenuItem</span>
+            <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">check</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">checkboxes</span>
+            <span class="l l-Scalar l-Scalar-Plain">annotation</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Toggle me!</span>
+            <span class="l l-Scalar l-Scalar-Plain">options</span><span class="p p-Indicator">:</span>
+              <span class="l l-Scalar l-Scalar-Plain">checkBox</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
+            <span class="l l-Scalar l-Scalar-Plain">command</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mGui.examples.menu_loader.checkbox</span>
+
+
+        <span class="p p-Indicator">-</span> <span class="kt">!MSubMenu</span>
+            <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">submenu</span>
+            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">submenus</span>
+
+            <span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
+                <span class="p p-Indicator">-</span> <span class="kt">!MMenuItem</span>
+                  <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sub1</span>
+                  <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Item 1</span>
+
+                <span class="p p-Indicator">-</span> <span class="kt">!MMenuItem</span>
+                  <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sub2</span>
+                  <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Item 2</span>
+</pre></div>
+
+
+<h1>Working with existing&nbsp;items</h1>
+<p>At various points we supported three different idioms (<code>Menu.from_existing()</code>, <code>gui.derive()</code> and <code>Control.wrap()</code>. for putting an mGui wrapper around existng controls.  In this release these have been collapsed into a single function, <code>gui.wrap()</code> which has some cool new&nbsp;features:</p>
+<ul>
+<li>It&#8217;s automatically recursive. So if you wrap an existing menu, the returned object will have nested properties for all of the menuItems in the menu.  If you wrap an existing layout, you&#8217;ll have nested properties for all the layout&#8217;s&nbsp;children.</li>
+<li>It does a better job matching the underlying maya gui widgets to mGui wrapper classes than any of the previous methods.  Because of some irregularities in the way Maya relates commands to objects there are still some edge cases the new <code>wrap()</code> should get most&nbsp;cases.</li>
+<li>For maya objects with python callbacks, you can ask <code>wrap()</code> to convert them to [multicast delegates for you. This does not support mel callbacks yet, but we may be able to expand to supporting them in the&nbsp;future.</li>
+</ul>
+<p>The new, improved <code>gui.wrap()</code> should make it much easier to add mGui controls or layouts to menus and windows that come from regular&nbsp;Maya.  </p>
+<p>For the time being, we&#8217;ve re-pointed <code>gui.derive()</code> at <code>gui.wrap()</code> under the hood so it won&#8217;t break existing code &#8212; it will however issue a deprecation warning so that when we remove <code>derive()</code> in 2.3 people will have had plenty of&nbsp;warning.</p>
+<h1><code>Find()</code> method for child&nbsp;controls</h1>
+<p>We&#8217;ve added a new method to all layouts that will collect all children of a layout by mGui type.  This is handy for big complex layouts where you aren&#8217;t quite sure what something should be called &#8212; or for layouts that you&#8217;ve gotten from <code>gui.wrap()</code>.</p>
+<h1>&amp;c.</h1>
+<p>We&#8217;ve also cleaned up and expanded the <a href="https://github.com/theodox/mGui/tree/master/mGui/examples">examples</a>, added more test coverage, and fixed a few minor bugs (the most obvious one will be that the <code>StretchForm()</code> classes properly respect margins, at long&nbsp;last!). </p>
+<p>We&#8217;re starting to put more time into the <a href="https://github.com/theodox/mGui/wiki/Getting-started">project wiki</a>, including some new tutorials.  Feedback and suggestions are much appreciated! And of course if you run into any problems be sure to log them on the <a href="https://github.com/theodox/mGui/issues">project issues page</a>.  We&#8217;ve been debated whether or not we should package the project for PyPi and/or the Maya app store &#8212; if you have an opinion you should chime in in the comments or on the issues&nbsp;page.</p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/mGui_2_2#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/mGui_2_2#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/mGui_2_2#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
                 <h2 class="post-title">
                     mGui&nbsp;Maintenance
@@ -96,66 +190,10 @@
             </a>
             <p class="post-meta">Sat 14 January 2017
             </p>
-                <p>With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I&#8217;d like to announce the 2.1 point release of <a href="https://github.com/theodox/mGui">mGui</a>.  </p>
-<p>This is mostly a stabilization release for the <a href="/2016/mgui2_live">big 2.0 update we pushed in October</a>. </p>
-<h2>New&nbsp;Feature</h2>
-<p>The main new feature in this release is the addition of <a href="https://github.com/theodox/mGui/blob/master/mGui/treeView.py"><code>mGui.treeView</code></a>, a module for wrapping Maya&#8217;s <code>treeView</code> widget.  I&#8217;ve never been a fan of the maya treeView, which seems like it comes from another planet than the rest of the Maya widget set; it&#8217;s so different that it needed a whole module of it&#8217;s own to make it&nbsp;workable. </p>
-<p>The new <code>MTreeView()</code> class wraps the existing mGui <code>TreeView</code>, but provides a more idiomatic way to get at the TreeView&#8217;s button commands.  You can now use the same style you use for other mGui&nbsp;buttons:</p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">mGui.treeView</span> <span class="kn">import</span> <span class="n">MTreeView</span>
-<span class="kn">from</span> <span class="nn">mGui.gui</span> <span class="kn">import</span> <span class="o">*</span>
-<span class="kn">from</span> <span class="nn">mGui.forms</span> <span class="kn">import</span> <span class="o">*</span>
-
-<span class="k">with</span> <span class="n">Window</span><span class="p">()</span> <span class="k">as</span> <span class="n">win</span><span class="p">:</span>
-    <span class="k">with</span> <span class="n">FillForm</span><span class="p">()</span> <span class="k">as</span> <span class="n">form</span><span class="p">:</span>
-        <span class="n">tree</span> <span class="o">=</span> <span class="n">MTreeView</span><span class="p">(</span><span class="n">numberOfButtons</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">width</span> <span class="o">=</span> <span class="mi">256</span><span class="p">,</span> <span class="n">height</span> <span class="o">=</span> <span class="mi">256</span><span class="p">)</span>
-
-<span class="n">tree</span><span class="o">.</span><span class="n">set_items</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span><span class="s1">&#39;b&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">:</span><span class="s1">&#39;a&#39;</span><span class="p">})</span>
-
-<span class="k">def</span> <span class="nf">btn_a</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
-    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
-
-<span class="k">def</span> <span class="nf">btn_b</span><span class="p">(</span><span class="o">*</span><span class="n">_</span><span class="p">,</span><span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="n">selected</span> <span class="o">=</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;tree_view&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">selectItem</span>
-    <span class="k">print</span> <span class="s1">&#39;items&#39;</span><span class="p">,</span> <span class="n">selected</span><span class="p">,</span> <span class="s1">&#39;button&#39;</span><span class="p">,</span> <span class="n">kw</span><span class="p">[</span><span class="s1">&#39;button_index&#39;</span><span class="p">]</span>
-    <span class="k">print</span> <span class="s1">&#39;button 2 was pressed&#39;</span>
-
-<span class="k">def</span> <span class="nf">double_click</span><span class="p">(</span><span class="o">*</span><span class="n">arg</span><span class="p">,</span> <span class="o">**</span><span class="n">kw</span><span class="p">):</span>
-    <span class="k">print</span> <span class="s1">&#39;double click&#39;</span><span class="p">,</span> <span class="n">arg</span>
-
-<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_a</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">buttons</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">pressed</span> <span class="o">+=</span> <span class="n">btn_b</span>
-<span class="n">tree</span><span class="o">.</span><span class="n">itemDblClickCommand</span> <span class="o">+=</span> <span class="n">double_click</span>
-
-<span class="n">win</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</pre></div>
-
-
-<p>The <code>buttons</code> field looks like an array, and you can (as you see in the sample) use the standard mGui <code>+=</code> syntax to add a handler to the buttons as defined by the TreeViews <code>numberOfButtons</code> parameter.  </p>
-<h2>Updated&nbsp;examples</h2>
-<p>The example code has been cleaned up a tad &#8212; some of this is just part of the conversion to the new keyless idiom and some of this is just graphic&nbsp;polish. </p>
-<p><img alt="" src="https://dl.dropboxusercontent.com/u/2977490/bound_collection" /></p>
-<p><em>A better-looking version of the boundCollection&nbsp;sample</em></p>
-<p>In particular <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/formExamples.py"><code>mGui.examples.formExamples.py</code></a>, which shows the various options for FormLayouts in mGui, got a bit of cleanup to make it more understandable.  <a href="https://github.com/theodox/mGui/blob/master/mGui/examples/boundCollection.py"><code>mgui.examples.boundCollection.py</code></a> got some much-needed&nbsp;cleanup.</p>
-<h2>Bug&nbsp;fixes</h2>
-<h3>Better handling of&nbsp;LayoutDialogs</h3>
-<p>We discovered an odd condition where Maya would sometimes refuse to fire off the event handlers attached to an mGui widget when the widget was called through maya&#8217;s <code>layoutDialog</code> command.  It seems like Maya didn&#8217;t like the potentially aynchronous <code>MayaEvent</code> handlers inside of <code>layoutDialog</code>, so we added a little bit of tracking to make sure that only synchronous <code>Event</code> handlers get attached in that special case. I&#8217;d been working around that by manually re-assigning Event objects to the handlers &#8212; but that&#8217;s a silly thing to ask users to remember, so now it&#8217;s all transparently handled under the&nbsp;hood.</p>
-<h3>HorizontalExpandForm</h3>
-<p>We found and fixed an issue with the <code>HorizontalExpandForm()</code>, which had somehow stopped&nbsp;expanding.</p>
-<h3>List.inner_list</h3>
-<p>Fixed a condition where sometimes <code>List()</code> controls didn&#8217;t correctly report their the &#8216;inner_list&#8217; property which actually contained their visible contents.  In general you don&#8217;t want to mess with the <code>inner_list</code> property in any case, but it should be available for inspection when absolutely necessary&nbsp;now.</p>
-<h2>Till next&nbsp;time&#8230;</h2>
-<p>This was a fun release, since it had a lot more contributions from new faces. It&#8217;s nice to see people running with the code and it&#8217;s gratifying that it is holding up <span class="caps">OK</span> so&nbsp;far. </p>
-<p>It&#8217;s a <a href="http://www.xbox.com/en-US/games/state-of-decay-2">ship year</a>, so I expect that both the blogging and hacking will be a bit&#8230; light&#8230; for a while.  But don&#8217;t hesitate to chime in with questions, comments or, better yet, bug fix pull&nbsp;requests!  </p>
+                A new release for mGui
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2017/mGui_maintenance#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -248,21 +286,6 @@
 -->
 
         </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
-                <h2 class="post-title">
-                    First module of the&nbsp;year!
-                </h2>
-            </a>
-            <p class="post-meta">Wed 13 January 2016
-            </p>
-                Introducing SFX — a python module for scripting Maya shaderFX shaders.
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2016/sfx_module#disqus_thread">comments</a>.</p>
--->
-
-        </div>
 
     <hr>
     <!-- Pager -->
@@ -340,7 +363,7 @@
             <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
             <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
             <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
+            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mgui</a>
             <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
             <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
             <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
