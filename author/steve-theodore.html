@@ -95,6 +95,29 @@
             <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
         <div class="post-preview">
+            <a href="https://theodox.github.io/2017/gdc_deadline" rel="bookmark" title="Permalink to GDC deadline approaching…">
+                <h2 class="post-title">
+                    <span class="caps">GDC</span> deadline&nbsp;approaching&#8230;
+                </h2>
+            </a>
+            <p class="post-meta">Thu 03 August 2017
+            </p>
+                <p>If you&#8217;re thinking of speaking at next year&#8217;s <a href="http://www.gdconf.com/conference/c4p/">Game Developers Conference</a>, the submissions period ends on August 17th.  We&#8217;re always looking for new speakers to expand the range of views, backgrounds and topics at the show!  TAs tend to make an outsize contribution, since our projects are often easier to talk about and to share than those of other&nbsp;artists. </p>
+<p>Speaking at <span class="caps">GDC</span> is also a great chance to meet the rest of the community, epecially at the <a href="http://schedule.gdconf.com/tutorials/technical-artist-bootcamp">Technical Art Bootcamp</a> &#8212; a whole day of talks dedicated entirely to tech-art&nbsp;topics. </p>
+<p>As the industry gets more complex and more diverse we&#8217;re always looking for new faces to bring new perspectives to the show. So&#8230; you&#8217;ve got a couple of weeks. Come up with a topic!  If you need some advice on how to frame a talk for the show, you should check out <a href="/pages/pub/submit">this post</a>.  Hope to see you&nbsp;there! </p>
+            <!-- removed comments, it was cluttery -->
+            <!--<p>There are <a href="https://theodox.github.io/2017/gdc_deadline#disqus_thread">comments</a>.</p>
+-->
+                <a href="https://theodox.github.io/2017/gdc_deadline#comment" > 
+                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
+                 </a>
+                 <a href="https://theodox.github.io/2017/gdc_deadline#comment" > 
+                  <span class="glyphicon glyphicon-share" aria-hidden="true">
+                 </a>
+
+        </div>
+        <hr>
+        <div class="post-preview">
             <a href="https://theodox.github.io/2017/mGui_2_2" rel="bookmark" title="Permalink to mGui 2.2 release is ready">
                 <h2 class="post-title">
                     mGui 2.2 release is&nbsp;ready
@@ -102,89 +125,10 @@
             </a>
             <p class="post-meta">Tue 25 July 2017
             </p>
-                <p>The latest next point release of <a href="https://github.com/theodox/mGui">mGui</a> &#8212; the python module to <a href="2016/mgui2_live">streamline maya gui creation</a> &#8212; is up on on Github, thanks in large part to <a href="https://github.com/bob-white">+Bob White</a>, who put in a lot of the work on this&nbsp;release. </p>
-<p>Although this is a point release, it has some exciting&nbsp;improvements:</p>
-<h1>Improved Menu&nbsp;Support</h1>
-<p>We&#8217;ve added a more refined an elegant method for handling sub-menus with the <code>SubMenu</code> class.  This works like a context manager, so the structure of the menu is obvious when reading the&nbsp;code.  </p>
-<div class="highlight"><pre><span></span>    <span class="k">with</span> <span class="n">Menu</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;TestMenu&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">food_menu</span><span class="p">:</span>
-
-        <span class="c1"># conventional menu items</span>
-        <span class="n">hotdog</span> <span class="o">=</span> <span class="n">MenuItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Hot Dog&#39;</span><span class="p">)</span>
-        <span class="n">burger</span> <span class="o">=</span> <span class="n">MenuItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Burger&#39;</span><span class="p">)</span>
-        <span class="n">taco</span> <span class="o">=</span> <span class="n">MenuItem</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="s1">&#39;Taco&#39;</span><span class="p">)</span>
-
-        <span class="c1"># a submenu</span>
-        <span class="k">with</span> <span class="n">SubMenu</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pizza&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sm</span><span class="p">:</span>
-            <span class="n">pepperoni</span> <span class="o">=</span> <span class="n">CheckBoxMenuItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pepperoni&#39;</span><span class="p">)</span>
-            <span class="n">sausage</span> <span class="o">=</span> <span class="n">CheckBoxMenuItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Sausage&#39;</span><span class="p">)</span>
-            <span class="n">pineapples</span> <span class="o">=</span> <span class="n">CheckBoxMenuItem</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Pineapples&#39;</span><span class="p">)</span>
-            <span class="k">for</span> <span class="n">each</span> <span class="ow">in</span> <span class="p">(</span><span class="n">pepperoni</span><span class="p">,</span> <span class="n">sausage</span><span class="p">,</span> <span class="n">pineapples</span><span class="p">):</span>
-                <span class="n">each</span><span class="o">.</span><span class="n">command</span> <span class="o">+=</span> <span class="n">pizza_selected</span>
-
-
-        <span class="n">MenuDivider</span><span class="p">()</span>
-
-        <span class="k">with</span> <span class="n">SubMenu</span><span class="p">(</span><span class="n">label</span><span class="o">=</span><span class="s1">&#39;Delivery&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">sm</span><span class="p">:</span>
-            <span class="k">with</span> <span class="n">RadioMenuItemCollection</span><span class="p">()</span> <span class="k">as</span> <span class="n">radio</span><span class="p">:</span>
-                <span class="n">eatin</span> <span class="o">=</span> <span class="n">RadioMenuItem</span><span class="p">(</span><span class="s1">&#39;Eat In&#39;</span><span class="p">)</span>
-                <span class="n">takeout</span> <span class="o">=</span> <span class="n">RadioMenuItem</span><span class="p">(</span><span class="s1">&#39;Take Out&#39;</span><span class="p">)</span>
-                <span class="n">delivery</span> <span class="o">=</span> <span class="n">RadioMenuItem</span><span class="p">(</span><span class="s1">&#39;Delivery&#39;</span><span class="p">)</span>
-</pre></div>
-
-
-<p>We&#8217;ve also enhance menus so they support the same kind of dot notation as other mGui controls.  In this example that means you could get to the &#8216;sausage&#8217; item&nbsp;as</p>
-<div class="highlight"><pre><span></span>    <span class="n">food_menu</span><span class="o">.</span><span class="n">sm</span><span class="o">.</span><span class="n">sausage</span>
-</pre></div>
-
-
-<p>which is going to be both more readable and more consistent with other mGui code.  If you use the <span class="caps">YAML</span> menu loader, that also supports&nbsp;submenus:</p>
-<div class="highlight"><pre><span></span>        <span class="p p-Indicator">-</span> <span class="kt">!MMenuItem</span>
-            <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">check</span>
-            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span>  <span class="l l-Scalar l-Scalar-Plain">checkboxes</span>
-            <span class="l l-Scalar l-Scalar-Plain">annotation</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Toggle me!</span>
-            <span class="l l-Scalar l-Scalar-Plain">options</span><span class="p p-Indicator">:</span>
-              <span class="l l-Scalar l-Scalar-Plain">checkBox</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">True</span>
-            <span class="l l-Scalar l-Scalar-Plain">command</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">mGui.examples.menu_loader.checkbox</span>
-
-
-        <span class="p p-Indicator">-</span> <span class="kt">!MSubMenu</span>
-            <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">submenu</span>
-            <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">submenus</span>
-
-            <span class="l l-Scalar l-Scalar-Plain">items</span><span class="p p-Indicator">:</span>
-                <span class="p p-Indicator">-</span> <span class="kt">!MMenuItem</span>
-                  <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sub1</span>
-                  <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Item 1</span>
-
-                <span class="p p-Indicator">-</span> <span class="kt">!MMenuItem</span>
-                  <span class="l l-Scalar l-Scalar-Plain">key</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">sub2</span>
-                  <span class="l l-Scalar l-Scalar-Plain">label</span><span class="p p-Indicator">:</span> <span class="l l-Scalar l-Scalar-Plain">Item 2</span>
-</pre></div>
-
-
-<h1>Working with existing&nbsp;items</h1>
-<p>At various points we supported three different idioms (<code>Menu.from_existing()</code>, <code>gui.derive()</code> and <code>Control.wrap()</code>. for putting an mGui wrapper around existng controls.  In this release these have been collapsed into a single function, <code>gui.wrap()</code> which has some cool new&nbsp;features:</p>
-<ul>
-<li>It&#8217;s automatically recursive. So if you wrap an existing menu, the returned object will have nested properties for all of the menuItems in the menu.  If you wrap an existing layout, you&#8217;ll have nested properties for all the layout&#8217;s&nbsp;children.</li>
-<li>It does a better job matching the underlying maya gui widgets to mGui wrapper classes than any of the previous methods.  Because of some irregularities in the way Maya relates commands to objects there are still some edge cases the new <code>wrap()</code> should get most&nbsp;cases.</li>
-<li>For maya objects with python callbacks, you can ask <code>wrap()</code> to convert them to [multicast delegates for you. This does not support mel callbacks yet, but we may be able to expand to supporting them in the&nbsp;future.</li>
-</ul>
-<p>The new, improved <code>gui.wrap()</code> should make it much easier to add mGui controls or layouts to menus and windows that come from regular&nbsp;Maya.  </p>
-<p>For the time being, we&#8217;ve re-pointed <code>gui.derive()</code> at <code>gui.wrap()</code> under the hood so it won&#8217;t break existing code &#8212; it will however issue a deprecation warning so that when we remove <code>derive()</code> in 2.3 people will have had plenty of&nbsp;warning.</p>
-<h1><code>Find()</code> method for child&nbsp;controls</h1>
-<p>We&#8217;ve added a new method to all layouts that will collect all children of a layout by mGui type.  This is handy for big complex layouts where you aren&#8217;t quite sure what something should be called &#8212; or for layouts that you&#8217;ve gotten from <code>gui.wrap()</code>.</p>
-<h1>&amp;c.</h1>
-<p>We&#8217;ve also cleaned up and expanded the <a href="https://github.com/theodox/mGui/tree/master/mGui/examples">examples</a>, added more test coverage, and fixed a few minor bugs (the most obvious one will be that the <code>StretchForm()</code> classes properly respect margins, at long&nbsp;last!). </p>
-<p>We&#8217;re starting to put more time into the <a href="https://github.com/theodox/mGui/wiki/Getting-started">project wiki</a>, including some new tutorials.  Feedback and suggestions are much appreciated! And of course if you run into any problems be sure to log them on the <a href="https://github.com/theodox/mGui/issues">project issues page</a>.  We&#8217;ve been debated whether or not we should package the project for PyPi and/or the Maya app store &#8212; if you have an opinion you should chime in in the comments or on the issues&nbsp;page.</p>
+                mGui version 2.2 is here
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2017/mGui_2_2#disqus_thread">comments</a>.</p>
 -->
-                <a href="https://theodox.github.io/2017/mGui_2_2#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2017/mGui_2_2#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
 
         </div>
         <hr>
@@ -274,21 +218,6 @@
                 A great, condensed source for cool graphics research
             <!-- removed comments, it was cluttery -->
             <!--<p>There are <a href="https://theodox.github.io/2017/two_minute_papers#disqus_thread">comments</a>.</p>
--->
-
-        </div>
-        <hr>
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2017/mGui_maintenance" rel="bookmark" title="Permalink to mGui Maintenance">
-                <h2 class="post-title">
-                    mGui&nbsp;Maintenance
-                </h2>
-            </a>
-            <p class="post-meta">Sat 14 January 2017
-            </p>
-                A new release for mGui
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2017/mGui_maintenance#disqus_thread">comments</a>.</p>
 -->
 
         </div>
