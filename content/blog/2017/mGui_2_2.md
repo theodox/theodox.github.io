@@ -4,12 +4,13 @@ Category: blog
 Tags: maya, mgui
 Slug: mGui_2_2
 Authors: Steve Theodore
-Summary: mGui version 2.2 is here
 header_cover: /images/launch.jpg
 
 The latest next point release of [mGui](https://github.com/theodox/mGui) -- the python module to [streamline maya gui creation](2016/mgui2_live) -- is up on on Github, thanks in large part to [+Bob White](https://github.com/bob-white), who put in a lot of the work on this release. 
 
 Although this is a point release, it has some exciting improvements:
+
+<!---jump--->
 
 # Improved Menu Support
 

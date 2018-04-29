@@ -6,18 +6,21 @@ AUTHOR = u'Steve Theodore'
 SITENAME = u'Chimeras & Manticores'
 SITESUBTITLE = 'technical art, python, the games business, and obscurantism'
 SITEURL = 'https://theodox.github.io'
-COPYRIGHT_YEAR = 2016
+COPYRIGHT_YEAR = 2018
 
 PATH = 'content'
 
 TIMEZONE = 'US/Pacific'
 DEFAULT_LANG = u'en'
-
 ROBOTS = 'index, follow'
+
+
+PLUGIN_PATHS = ['../pelican-plugins']
+PLUGINS = ['assets', 'sitemap', 'summary', 'tag_cloud']
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = 'feeds/atom.xml'
-CATEGORY_FEED_ATOM = None #'atom/%s.atom.xml'
+CATEGORY_FEED_ATOM = None  # 'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 FEED_ALL_RSS = 'feeds/rss.xml'
@@ -36,29 +39,29 @@ SINGLE_AUTHOR = True
 AMAZON_STORE = 'http://astore.amazon.com/tecsurgui-20'
 DISQUS_SITENAME = 'theodoxcom'
 
+SUMMARY_END_MARKER = "<!---jump--->"
+
 #SHOW_FULL_ARTICLE = True
 SHOW_SITESUBTITLE_IN_HTML = True
 DISPLAY_CATEGORIES_ON_MENU = False
 DISPLAY_PAGES_ON_MENU = False
-MENUITEMS = (
-                ('About...', '/about'),
-        ('Publications', '/pages/pub'),
-        ('Tech-Art Book Store', AMAZON_STORE),
-        ('Cookbook', '/pages/cookbook')
-        )
+MENUITEMS = [
+    ('About...', '/about'),
+    ('Publications', '/pages/pub'),
+    ('Cookbook', '/pages/cookbook')
+]
 
 # Blogroll
-LINKS = (('home', 'index.html'))
+LINKS = [('home', 'index.html'), ('tech-artists.org', 'https://tech-artists.org')]
 
 
 # Social widget
-
-SOCIAL = (
-	('linkedin', 'https://www.linkedin.com/in/stevetheodore'),
-        ('github', 'https://github.com/theodox'),
-	('google', 'https://plus.google.com/u/0/+SteveTheodore480BC/posts'),
-	('stack-overflow', 'http://stackoverflow.com/users/1936075/theodox'),
-	)
+SOCIAL = [
+    ('linkedin', 'https://www.linkedin.com/in/stevetheodore'),
+    ('github', 'https://github.com/theodox'),
+    ('google', 'https://plus.google.com/u/0/+SteveTheodore480BC/posts'),
+    ('stack-overflow', 'http://stackoverflow.com/users/1936075/theodox'),
+]
 
 DEFAULT_PAGINATION = 8
 DEFAULT_HEADER_IMAGE = 'http://texturetaddka.com/wp-content/uploads/2011/09/DSC862.jpg'
@@ -71,5 +74,5 @@ TYPOGRIFY = True
 YEAR_ARCHIVE_SAVE_AS = '{date:%Y}/index.html'
 
 
-THEME = "pelican-clean-blog"
+THEME = "../pelican-themes/svbtle"
 DELETE_OUTPUT_DIRECTORY = True

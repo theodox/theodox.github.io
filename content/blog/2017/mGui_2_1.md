@@ -4,12 +4,13 @@ Category: blog
 Tags: python, mGui, maya, gui
 Slug: mGui_maintenance
 Authors: Steve Theodore
-Summary: A new release for mGui
 header_cover: https://vaguevisages.files.wordpress.com/2016/08/modern-times-movie-seven.jpg?w=750&h=531 
 
 With special thanks to Bob White, Eric Spevacek, Logan Bender and Kartik Hariharan I'd like to announce the 2.1 point release of [mGui](https://github.com/theodox/mGui).  
 
 This is mostly a stabilization release for the [big 2.0 update we pushed in October](/2016/mgui2_live). 
+
+<!---jump--->
 
 ## New Feature
 
