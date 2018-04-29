@@ -1,6 +1,13 @@
 Readme
 =====
 
-This repo is the markdown based wiki website.  To edit it, you can clone the repo using github, edit the local markdown files, and sync them back up to this repo -- that's all it takes to update the website.
+To set up a new blog publishing arrangement:
 
-**Note**:  The github wiki for the repo (link at right) is **not** part of the website!  Editing it won't change the website!
+```
+mkdir blog;
+cd blog;
+git clone -b master --single-branch git@github.com:theodox/theodox.github.io.git production;
+git clone -b content_only --single-branch git@github.com:theodox/theodox.github.io.git source;
+git clone --recursive git@github.com:theodox/pelican-plugins.git;
+git clone --recursive git@github.com:theodox/pelican-themes.git;
+```
