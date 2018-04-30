@@ -4,10 +4,8 @@ Tags: games, industry
 Slug: sod2
 Date: 2018-04-29
 Authors: Steve Theodore
+Summary: After a long, long, _long_ dev cycle, [State of Decay 2](https://www.stateofdecay.com/) is finally about done.
 
-After a long, long, _long_ dev cycle, [State of Decay 2](https://www.stateofdecay.com/) is finally about done.
-
-<!--jump-->
 ![SOD 2 box](https://news.xbox.com/en-us/wp-content/uploads/thumb_610D2555B6F4417F9CDEDA14369E8419.jpg)
 
 It's no accident that there have not been a lot of blog entries in the last several months, but hopefully life will be returning to normal soon.  I took the time to clean up my [site generator](2016/new_blog) and simplify the site theme, though I expect I'll probably waste a bunch of time fiddling around over the summer.
