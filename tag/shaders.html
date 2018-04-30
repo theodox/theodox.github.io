@@ -1,399 +1,361 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
-        <title>Chimeras & Manticores - Tag shaders</title>
+    <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Atom">
 
-            <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
-            <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
-        <!-- Bootstrap Core CSS -->
-        <link href="https://theodox.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores RSS">
 
-        <!-- Custom CSS -->
-        <link href="https://theodox.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
 
-        <!-- Code highlight color scheme -->
-            <link href="https://theodox.github.io/theme/css/code_blocks/zenburn.css" rel="stylesheet">
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-            <!-- CSS specified by the user -->
-            <link href="https://theodox.github.io/theme/css/theodox.css" rel="stylesheet">
+  ga('create', 'UA-79232212-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
 
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+    <meta name="author" content="Steve Theodore" />
+    <meta name="description" content="" />
+<meta property="og:site_name" content="Chimeras & Manticores"/>
+<meta property="og:type" content="blog"/>
+<meta property="og:title" content="Chimeras & Manticores"/>
+<meta property="og:description" content=""/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://theodox.github.io"/>
 
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+   <title>Chimeras & Manticores &ndash;     Tag shaders
+</title>
 
-                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="Chimeras & Manticores">
+
+
+  <script type="text/javascript">
+    var host = "https://theodox.github.io";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+      window.location.protocol = "https";
+  </script>
+
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://theodox.github.io/">Chimeras & Manticores</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">About...</a></li>
-                        <li><a href="/pages/pub">Publications</a></li>
-                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
-                        <li><a href="/pages/cookbook">Cookbook</a></li>
 
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+  <aside>
+    <div>
+      <h2>Chimeras & Manticores</h2>
+      <a href="https://theodox.github.io">
+        <img src="https://theodox.github.io/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="https://theodox.github.io"></a></h1>
+
+<p>a blog about technical art, python, the games business, and obscurantism</p>
+
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
+      </ul>
+
+    <nav>
+<!---if pages or LINKS -->
+
+
+        <div>
+          <h3 class="tagcloud_header">SUBJECTS</h3>
         </div>
-        <!-- /.container -->
+        <ul class="tagcloud">
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/animation.html">
+                animation
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/api.html">
+                api
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/articles.html">
+                articles
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/blog.html">
+                blog
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/blogging.html">
+                blogging
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/boo.html">
+                boo
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/books.html">
+                books
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/bugs.html">
+                bugs
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/cg.html">
+                cg
+                        <span class="badge">(8)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/distribution.html">
+                distribution
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/games.html">
+                games
+                        <span class="badge">(9)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gdc.html">
+                gdc
+                        <span class="badge">(12)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/graphics.html">
+                graphics
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gui.html">
+                gui
+                        <span class="badge">(7)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/industry.html">
+                industry
+                        <span class="badge">(33)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/jobs.html">
+                jobs
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/markdown.html">
+                markdown
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/math.html">
+                math
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/maya.html">
+                maya
+                        <span class="badge">(45)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/mgui.html">
+                mgui
+                        <span class="badge">(10)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/minq.html">
+                minq
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modeling.html">
+                modeling
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modules.html">
+                modules
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/moonrise.html">
+                moonrise
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/pipeline.html">
+                pipeline
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/programming.html">
+                programming
+                        <span class="badge">(36)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/python.html">
+                python
+                        <span class="badge">(47)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/rigging.html">
+                rigging
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/sfx.html">
+                sfx
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/techart.html">
+                techart
+                        <span class="badge">(20)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/tools.html">
+                tools
+                        <span class="badge">(16)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/unity.html">
+                unity
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/web.html">
+                web
+                        <span class="badge">(6)</span>
+                </a>
+            </li>
+      </ul>
+      </nav>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://theodox.github.io">    Home
+</a>
+
+      <a href="/about">About...</a>
+      <a href="/pages/pub">Publications</a>
+      <a href="/pages/cookbook">Cookbook</a>
+      <a href="/archives">By date</a>
+      <a href="/tags">By subject</a>
+
+      <a href="https://theodox.github.io/feeds/atom.xml">    Atom
+</a>
+
+      <a href="https://theodox.github.io/feeds/rss.xml">    RSS
+</a>
     </nav>
 
-        <header class="intro-header" style="background-image: url('https://theodox.github.io/theme/images/home-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="page-heading">
-                        <h1>#shaders</h1>
-                        <h3>1 items<h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-
-        <div class="post-preview">
-            <a href="https://theodox.github.io/2016/sfx_module" rel="bookmark" title="Permalink to First module of the year!">
-                <h2 class="post-title">
-                    First module of the&nbsp;year!
-                </h2>
-            </a>
-            <p class="post-meta">Wed 13 January 2016
-            </p>
-                <p>It&#8217;s been a busy few months at work, and the blogging has been pretty light. But I promised some folks on the Tech-Artists.org slack that I&#8217;d share some code for dealing with Mays&#8217;s ShaderFX system: a very useful toolkit but not the best documented or automatable part of Maya. Since it&#8217;s New Years&#8217; Resolution time, I thought I&#8217;d kill two birds with one stone and put up some notes to go with the&nbsp;code  </p>
-<p>All of shaderfx in maya is organized by a single, undocumented command. Which is pretty&nbsp;lame.   </p>
-<p>However, it’s not as bad as it seems once you figure out the standard command form, which is always some variant of this&nbsp;form:  </p>
-<div class="highlight"><pre><span></span>    shaderfx -sfxnode &lt;shader node&gt; -command &lt;command&gt; &lt;node id&gt;
-</pre></div>
 
 
-<p>The <code>sfxnode</code> argument tells maya which sfx shader to work on. The <code>command</code> flag indiciates an action and the <code>node id</code> specifies an node in the network. Nodes are assigned an id in order of creation, with the firstnode after the root ordinarily being number 2 and so on – however the ids are not recycled so a network which has been edited extensively can have what look like random ids and there is no guarantee that the nodes will form a neat, continuous order. <br />
-Many commands take additional arguments as well. Those extra always follow the main command;&nbsp;thus   </p>
-<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -edit_int 19 &quot;uiorder&quot; 1;
-</pre></div>
+<article>
+  <header>
+    <h2><a href="https://theodox.github.io/2016/sfx_module#sfx_module">First module of the&nbsp;year!</a></h2>
+    <p>
+          Posted on Wed 13 January 2016 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
 
-<p>sets the value of the <code>uiorder</code> field on node 19 to a value of 1. <br />
-The <code>shaderfx</code> command can also return a value: to query the <code>uiorder</code> field in the example above you’d&nbsp;issue   </p>
-<div class="highlight"><pre><span></span>    shaderfx -n &quot;StingrayPBS1&quot; -getPropertyValue 19 &quot;uiorder&quot;;  
-    // Result: 1 //
-</pre></div>
+          &#8226;     Tagged with
+
+              <a href="https://theodox.github.io/tag/maya.html">maya</a>,              <a href="https://theodox.github.io/tag/python.html">python</a>,              <a href="https://theodox.github.io/tag/shaders.html">shaders</a>,              <a href="https://theodox.github.io/tag/techart.html">techart</a>,              <a href="https://theodox.github.io/tag/sfx.html">sfx</a>
+    </p>
+  </header>
+  <div>
+      <p>Introducing <span class="caps">SFX</span> &#8212; a python module for scripting Maya shaderFX&nbsp;shaders.</p>
+      <br>
+      <a class="btn" href="https://theodox.github.io/2016/sfx_module#sfx_module">    Continue reading
+</a>
+  </div>
+</article>
+
+  <div class="pagination">
+  </div>
 
 
-<p>So, the good news is that the <code>shaderfx</code> command is actually pretty capable: so far, at least, I have not found anything I really needed to do that the command did not support. For some reason the help documentation on the mel command is pretty sparse but the python version of the help text is actually quite verbose and useful.<br />
-Still, it’s kind of a wonky <span class="caps">API</span>: a single command for everything, and no way to really reason over a network as a whole. Worse, the different types of nodes are identified only by cryptic (and undocumented) numeric codes: for example a <code>Cosine</code> node is 20205 – but the only way to find that out is to use the <code>getNodeTypeByClassName</code> command (and, by the way, the node type names are case and space&nbsp;sensitive).  </p>
-<h2>Cleanup&nbsp;crew</h2>
-<p>With all that baggage I was pretty discouraged about actually getting any work done using shaderfx programmatically. However a little poking around produced what I hope is a somewhat more logical <span class="caps">API</span>, which I’m <a href="https://github.com/theodox/sfx">sharing on github</a>.<br />
-The <code>sfx</code> module is a plain python module - you can drop it into whatever location you use to story your Maya python scripts. It exposes two main classes:<br />
-<strong><code>SFXNetwork</code></strong> represents a single shader network – it is a wrapper around the Maya shader ball. The <code>SFXNetwork</code> contains an indexed list of all the nodes in the network and also exposes methods for adding, deleting, finding and connecting the nodes in the network.<br />
-<strong><code>SFXNode</code></strong> represets a single node inside the network. It exposes the properties of the node so they can be accessed and edited using python dot-style&nbsp;syntax. </p>
-<p>The module also includes to submodules, <code>sfxnodes</code> and <code>pbsnodes</code>. These make it easier to work with the zillions of custom node ids: Instead of remembering that a <code>Cosine</code> node is type 20205, you reference <code>sfxnodes.Cosine</code>. I’ll be using the <code>StingrayPBSNetwork</code> class and the <code>pbsnodes</code> submodule in my examples, since most of my actual use-case involves the Stingray <span class="caps">PBS</span> shader. The syntax and usage, however, are the same for the vanilla <code>SFXNetwork</code> and <code>sfxnodes</code> – only the array of node types and their properties.<br />
-Here’s a bit of the basic network&nbsp;functionality.   </p>
-<h3>Create a&nbsp;network</h3>
-<p>To create a new shaderfx network, use the <code>create()</code> classmethod:  </p>
-<div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sfx</span> <span class="kn">import</span> <span class="n">StingrayPBSNetwork</span>  
-<span class="kn">import</span> <span class="nn">sfx.pbsnodes</span> <span class="kn">as</span> <span class="nn">pbsnodes</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">StingrayPBSNetwork</span><span class="o">.</span><span class="n">create</span><span class="p">(</span><span class="s1">&#39;new_shader&#39;</span><span class="p">)</span>
-</pre></div>
 
 
-<p>That creates a new shaderball (note that it won’t be connected to a shadingEngine by default – that’s up to&nbsp;you).  </p>
-<h3>Listing&nbsp;nodes</h3>
-<p>An SFXNetwork contains a dictionary of id and nodes in the field <code>nodes</code>. This represents all of the graph nodes in the network. <em>Note I’ve used a different shader than the default one in this example to make things easier to&nbsp;read.</em>  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span>  
-<span class="c1"># { 1 : &lt;sfxNode UnlitBase (1)&gt;, 2: &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt; }</span>
-
-<span class="k">print</span> <span class="n">network</span><span class="o">.</span><span class="n">nodes</span><span class="p">[</span><span class="mi">2</span><span class="p">]:</span>  
-<span class="c1"># &lt;sfxNode &#39;MaterialVariable&#39; (2)&gt;</span>
-</pre></div>
-
-
-<p>The keys of the dictionary are the node ids. As already noted, these are not guaranteed to be in a continuous order depending on what you do to the network - however they are stable and they will always match the id numbers shown in the shaderfx ui when you activate the <code>show node IDs</code> toggle in the ShaderFX&nbsp;window.  </p>
-<p>The values of the node dictionary are <code>SFXNode</code> objects.  </p>
-<h3>Adding new&nbsp;nodes</h3>
-<p>To add a node to the network use its <code>add()</code> method and pass a class from either the <code>sfxnodes</code> or <code>pbsnodes</code> submodule to indicate the&nbsp;type.   </p>
-<div class="highlight"><pre><span></span><span class="n">if_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">If</span><span class="p">)</span>  
-<span class="c1"># creates an If node and adds it to the network</span>
-
-<span class="n">var_node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">pbsnodes</span><span class="o">.</span><span class="n">MaterialVariable</span><span class="p">)</span>  
-<span class="c1"># creates a MaterialVariable node and adds it to the network</span>
-</pre></div>
-
-
-<h3>Connecting&nbsp;nodes</h3>
-<p>Connecting nodes in shaderfx requires specifying the source node the source plug, the target node and the target plug. Unforunately the plugs are indentifited by zero-based index numbers: the only way to know them by default is to count the slots in the actual shaderfx <span class="caps">UI</span>. Output plugs are usually (not always) going to be index zero but the target plugs can be all over the map.<br />
-To make this cleaner, each <code>SFXNode</code> object exposes two fields called <code>inputs</code> and <code>outputs</code>, which have named members for the available plugs. So to connect the ‘result’ output of the <code>var_node</code> object to the input named ‘B’ on the <code>if_node</code>:  </p>
-<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">)</span>
-</pre></div>
-
-
-<p>If the connection can’t be made for some reason, a <code>MayaCommandError</code> will be&nbsp;raised.  </p>
-<p>In any shader system it&#8217;s common to have to ‘swizzle’ the connections: to connect the x and z channels of a 3-pronged output to channels of an input, for example. Mismatched swizzles are a common cause of those <code>MayaCommandErrors</code>. You can set the swizzle along with the connection by passing the swizzle you need as a&nbsp;string  </p>
-<div class="highlight"><pre><span></span><span class="n">network</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">var_node</span><span class="o">.</span><span class="n">outputs</span><span class="o">.</span><span class="n">result</span><span class="p">,</span> <span class="n">if_node</span><span class="o">.</span><span class="n">inputs</span><span class="o">.</span><span class="n">b</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">)</span>  
-<span class="c1"># connects the &#39;x&#39; output of var_node  to the b channel of the input</span>
-</pre></div>
-
-
-<h3>Setting node&nbsp;properties</h3>
-<p>Nodes often have editable properties. There are a lot of different ones so it is often necessary to inspect a node and find out what properties it has and what type of values those properties accept. Every <code>SFXNode</code> object has a read-only member <code>properties</code>, which is a dictionary of names and property types.&nbsp;Thus:</p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span>  
-<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
-</pre></div>
-
-
-<p>If you know that a property exists on an object you can query it or set it using typical python dot&nbsp;syntax:  </p>
-<div class="highlight"><pre><span></span><span class="n">node</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">properties</span><span class="p">[</span><span class="mi">5</span><span class="p">]</span>   
-<span class="c1"># get the node at index 5 in this network</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">properties</span><span class="p">:</span>  
-<span class="c1"># { &#39;min&#39;: &#39;float&#39;, &#39;max&#39;: &#39;float&#39;, &#39;method&#39;: &#39;stringlist&#39; }</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>  
-<span class="c1"># 1.0  </span>
-<span class="c1"># getting a named property returns its value.</span>
-
-<span class="n">node</span><span class="o">.</span><span class="n">min</span> <span class="o">=</span> <span class="mf">2.0</span>  
-<span class="c1"># sets the node value</span>
-
-<span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">min</span>  
-<span class="c1"># 2.0</span>
-</pre></div>
-
-
-<p>If you try to access a property that doesnt exist, an error will be&nbsp;raised:  </p>
-<div class="highlight"><pre><span></span><span class="k">print</span> <span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span>  
-<span class="c1"># AttributeError: no attribute named i_dont_exist</span>
-
-<span class="n">node</span><span class="o">.</span><span class="n">i_dont_exist</span> <span class="o">=</span> <span class="mi">99</span>  
-<span class="c1"># MayaCommandError</span>
-</pre></div>
-
-
-<h2>Help&nbsp;wanted!</h2>
-<p>So, there’s the basics. This module is pretty simple but I’ve found it <em>extremely</em> helpful in workign with <span class="caps">SFX</span> nodes. It will be much easier to work with, of course, if you already know your way around ShaderFX. Please let me know how it works for you – and as always bug reports and pull requests are very&nbsp;welcome! </p>
-            <!-- removed comments, it was cluttery -->
-            <!--<p>There are <a href="https://theodox.github.io/2016/sfx_module#disqus_thread">comments</a>.</p>
--->
-                <a href="https://theodox.github.io/2016/sfx_module#comment" > 
-                  <span class="glyphicon glyphicon-comment" aria-hidden="true">
-                 </a>
-                 <a href="https://theodox.github.io/2016/sfx_module#comment" > 
-                  <span class="glyphicon glyphicon-share" aria-hidden="true">
-                 </a>
-
-        </div>
-
-    <hr>
-    <!-- Pager -->
-    <ul class="pager">
-        <li class="next">
-        </li>
-    </ul>
-    Page 1 / 1
-    <hr>
-            </div>
-            <!---- right sidebar -->
-<div class="right-sidebar col-lg-2 col-md-1">
-    <div class="vertical-spacer">
-    <h4>@social</h4>
-        <ul class="list-inline text-center">
-                <li>
-                    <a href="https://www.linkedin.com/in/stevetheodore">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://stackoverflow.com/users/1936075/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-    <div class="vertical-spacer">
-        <h4>#tags</h4>
-        <a href="/tags">tag list</a>
-        
-            <a class="tag-link" href="https://theodox.github.io/tag/animation.html">animation</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/api.html">api</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/articles.html">articles</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blog.html">blog</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blogging.html">blogging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/boo.html">boo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/books.html">books</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modo.html">modo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modules.html">modules</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/moonrise.html">moonrise</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/photoshop.html">photoshop</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/pipeline.html">pipeline</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/rigging.html">rigging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sod.html">SOD</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/spelcheck.html">spelcheck</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/standalone.html">standalone</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ta.html">TA</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/talks.html">talks</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/techart.html">techart</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/thunderbirds.html">thunderbirds</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/tools.html">tools</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/unity.html">unity</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/web.html">web</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/writing.html">writing</a>
-    </div>
-    <div class="vertical-spacer">
-        <h4>archives</h4>
-        <div>
-          <a href="/archives">all</a>
-        </div>      
-        <div>
-        <a href="/2013/index.html">2013</a>
-        </div>      
-        <div>
-        <a href="/2014/index.html">2014</a>
-        </div>      
-        <div>
-        <a href="/2015/index.html">2015</a>
-        </div>      
-        <div>
-        <a href="/2016/index.html">2016</a>
-        </div>
-    </div> 
-    <div class="vertical-spacer">
-        <h4>feeds </h4>
-        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-    </div>   
-
-</div>        </div>
-    </div>
-
-    <hr>
-
-    <!-- Footer -->
     <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+<p>&copy;  2018</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
 
-<p class="copyright text-muted">
-   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
 
-    <!-- jQuery -->
-    <script src="https://theodox.github.io/theme/js/jquery.js"></script>
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207" async="async"></script>
 
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://theodox.github.io/theme/js/bootstrap.min.js"></script>
 
-        <!-- Custom Theme JavaScript -->
-        <script src="https://theodox.github.io/theme/js/clean-blog.min.js"></script>
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-79232212-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
-<script type="text/javascript">
-    var disqus_shortname = 'theodoxcom';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Chimeras & Manticores ",
+  "url" : "https://theodox.github.io",
+  "image": "",
+  "description": ""
+}
 </script>
-</body>
 
+</body>
 </html>

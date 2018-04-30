@@ -1,138 +1,357 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-            <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
-        <title>Wraptastic!</title>
+    <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Atom">
 
-            <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
-            <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
-        <!-- Bootstrap Core CSS -->
-        <link href="https://theodox.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="https://theodox.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="https://theodox.github.io/theme/css/code_blocks/zenburn.css" rel="stylesheet">
-
-            <!-- CSS specified by the user -->
-            <link href="https://theodox.github.io/theme/css/theodox.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores RSS">
 
 
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <meta name="description" content="When is it time to write a wrapper?">
+  ga('create', 'UA-79232212-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
 
-        <meta name="author" content="Steve Theodore">
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="When is it time to write a wrapper?" />
+<meta name="keywords" content="programming">
 
-        <meta name="tags" content="programming">
+<meta property="og:site_name" content="Chimeras & Manticores"/>
+<meta property="og:title" content="Wraptastic!"/>
+<meta property="og:description" content="When is it time to write a wrapper?"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://theodox.github.io/2015/wraptastic"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2015-07-12 14:34:00.003000-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="programming"/>
+<meta property="og:image" content="">
 
-	                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="Chimeras & Manticores">
+   <title>Chimeras & Manticores &ndash; Wraptastic!</title>
 
-	<meta property="og:type" content="article">
-            <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
-	<meta property="og:url" content="https://theodox.github.io/2015/wraptastic">
-	<meta property="og:title" content="Wraptastic!">
-	<meta property="article:published_time" content="2015-07-12 14:34:00.003000-07:00">
-            <meta property="og:description" content="When is it time to write a wrapper?">
 
-            <meta property="og:image" content="https://theodox.github.io/theme/images/post-bg.jpg">
+    <link rel="canonical" href="https://theodox.github.io/2015/wraptastic"/>
+
+  <script type="text/javascript">
+    var host = "https://theodox.github.io";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+      window.location.protocol = "https";
+  </script>
+
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://theodox.github.io/">Chimeras & Manticores</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">About...</a></li>
-                        <li><a href="/pages/pub">Publications</a></li>
-                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
-                        <li><a href="/pages/cookbook">Cookbook</a></li>
 
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+  <aside>
+    <div>
+      <h2>Chimeras & Manticores</h2>
+      <a href="https://theodox.github.io">
+        <img src="https://theodox.github.io/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="https://theodox.github.io"></a></h1>
+
+<p>a blog about technical art, python, the games business, and obscurantism</p>
+
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
+      </ul>
+
+    <nav>
+<!---if pages or LINKS -->
+
+
+        <div>
+          <h3 class="tagcloud_header">SUBJECTS</h3>
         </div>
-        <!-- /.container -->
+        <ul class="tagcloud">
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/animation.html">
+                animation
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/api.html">
+                api
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/articles.html">
+                articles
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/blog.html">
+                blog
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/blogging.html">
+                blogging
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/boo.html">
+                boo
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/books.html">
+                books
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/bugs.html">
+                bugs
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/cg.html">
+                cg
+                        <span class="badge">(8)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/distribution.html">
+                distribution
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/games.html">
+                games
+                        <span class="badge">(9)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gdc.html">
+                gdc
+                        <span class="badge">(12)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/graphics.html">
+                graphics
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gui.html">
+                gui
+                        <span class="badge">(7)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/industry.html">
+                industry
+                        <span class="badge">(33)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/jobs.html">
+                jobs
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/markdown.html">
+                markdown
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/math.html">
+                math
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/maya.html">
+                maya
+                        <span class="badge">(45)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/mgui.html">
+                mgui
+                        <span class="badge">(10)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/minq.html">
+                minq
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modeling.html">
+                modeling
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modules.html">
+                modules
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/moonrise.html">
+                moonrise
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/pipeline.html">
+                pipeline
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/programming.html">
+                programming
+                        <span class="badge">(36)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/python.html">
+                python
+                        <span class="badge">(47)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/rigging.html">
+                rigging
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/sfx.html">
+                sfx
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/techart.html">
+                techart
+                        <span class="badge">(20)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/tools.html">
+                tools
+                        <span class="badge">(16)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/unity.html">
+                unity
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/web.html">
+                web
+                        <span class="badge">(6)</span>
+                </a>
+            </li>
+      </ul>
+      </nav>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://theodox.github.io">    Home
+</a>
+
+      <a href="/about">About...</a>
+      <a href="/pages/pub">Publications</a>
+      <a href="/pages/cookbook">Cookbook</a>
+      <a href="/archives">By date</a>
+      <a href="/tags">By subject</a>
+
+      <a href="https://theodox.github.io/feeds/atom.xml">    Atom
+</a>
+
+      <a href="https://theodox.github.io/feeds/rss.xml">    RSS
+</a>
     </nav>
 
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://theodox.github.io/theme/images/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Wraptastic!</h1>
-                        <span class="meta">
-                            Sun 12 July 2015
-                        </span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<article class="single">
+  <header>
+      
+    <h1 id="wraptastic">Wraptastic!</h1>
+    <p>
+          Posted on Sun 12 July 2015 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!-- Post Content -->
-    <article>
-        <h2>The wrap&nbsp;up</h2>
+
+    </p>
+  </header>
+
+
+  <div>
+    <h2>The wrap&nbsp;up</h2>
 <p>The beauty of working with code, even really simple code, is that you can build your own little universe out of bits and pieces contributed by thousands of other people – all without paying a dime or even asking them for help. From sharing a script off of CreativeCrash to downloading a huge open-source behemoth like Apache, any reasonably plucky individual can today make stuff that actually involves the work of thousands of anonymous others. It’s really quite a remarkable evolution in human history that so many people voluntarily give away their work for nothing, and (whatever else you can say about the internet era) it’s something to be proud of participatng&nbsp;in.  </p>
 <p>On the other&nbsp;hand…   </p>
-<p>Well, Say you are an Amish farmer and all your neighbors showed up to help you raise your barn, you’d certainly be grateful. But you might still be pretty annoyed if Hans from next door hung your barn doors so they stuck in the summer heat. Maybe old Hans worries more about keeping the barn warm than you do, so he prefers a tight seal: but that’s small comfort when you’re heaving on that handle in a muggy Pennsylvania morning.<br />
-<img alt="barn raising" src="http://notonbluray.com/blog/wp-content/uploads/2014/04/Witness-barn-raising-scene-Bluray-screenshot-3.png" />  </p>
+<p>Well, Say you are an Amish farmer and all your neighbors showed up to help you raise your barn, you’d certainly be grateful. But you might still be pretty annoyed if Hans from next door hung your barn doors so they stuck in the summer heat. Maybe old Hans worries more about keeping the barn warm than you do, so he prefers a tight seal: but that’s small comfort when you’re heaving on that handle in a muggy Pennsylvania morning.<br>
+<img alt="barn raising" src="http://notonbluray.com/blog/wp-content/uploads/2014/04/Witness-barn-raising-scene-Bluray-screenshot-3.png">  </p>
 <p>The internet abounds in excellent – and, amazingly, free – tools to help make your life easier. But they all started life as tools to make somebody else’s life easier. If your needs don’t line up perfectly with the needs of the original author, you’re likely to get a little <em><a href="http://www.dict.cc/deutsch-englisch/gereizt.html">gereizt</a></em>.  </p>
 <p>The fact is that nobody writes all their own stuff: we all use other people’s code all the time (and, as sharing becomes more and more ingrained in coding, that’s only going to increase). All that sharing means that we constantly have to work with libraries and APIs that are useful and free and for which we know we should be grateful… but – like that sticky barn door – they drive us absolutely&nbsp;bonkers.  </p>
 <h2>Wrap&nbsp;up</h2>
-<p>Not surprisingly, almost everybody ends up writing <em>wrappers</em>: code to help ease those nice-but-imperferct tools and <span class="caps">API</span> into a something that feels a little more natural. If you spend a lot of time on <a href="http://tech-artists.org/"><span class="caps">TAO</span></a> or coding forums where people swap tips and advertise their wares you’ll see a huge variety of wrappers for all sorts of tasks: indeed, the wrappers often seem to outnumber the actual functional bits. Whether you call the job making things ‘more pythonic’ or ‘more functional’ or ‘cleaner’, its something we all feel compelled to do (and to <a href="https://github.com/theodox/mGui">share</a>) from time to time.<br />
-It’s also easy to get cynical about wrappers. You see so many – and so many of them just taste-driven syntactic variations on each other – that veteran coders often reflexively shrug and ignore them. This is particularly true in Python land, where the malleability of the language encourages a certain degree of experimentation and re-casting. Because you <em>can</em> adapt Python to suit your tastes, the temptation to do so even when it’s not actually getting you much beyond style points is hard to resist. <br />
-The net result of all this customization and adaptation is messier than Christmas morning: wrappers everywhere. Whatever simplifications each individual wrapper gives you, the aggregate effect of so many different extra layers is overwhelming. At several times in the last decade I’ve sworn off wrappers and vowed to stick with vanilla python, straight-up maya.cmds and simple, linear code. A good code archaeologist could troll through my history and find several repeated periods of growth and die-offs in the wrapper ecosystem, like fossils trapped in shale.<br />
-<img alt="where's pymel?" src="http://www.lparchaeology.com/prescot/images/156.jpg" /><br />
+<p>Not surprisingly, almost everybody ends up writing <em>wrappers</em>: code to help ease those nice-but-imperferct tools and <span class="caps">API</span> into a something that feels a little more natural. If you spend a lot of time on <a href="http://tech-artists.org/"><span class="caps">TAO</span></a> or coding forums where people swap tips and advertise their wares you’ll see a huge variety of wrappers for all sorts of tasks: indeed, the wrappers often seem to outnumber the actual functional bits. Whether you call the job making things ‘more pythonic’ or ‘more functional’ or ‘cleaner’, its something we all feel compelled to do (and to <a href="https://github.com/theodox/mGui">share</a>) from time to time.<br>
+It’s also easy to get cynical about wrappers. You see so many – and so many of them just taste-driven syntactic variations on each other – that veteran coders often reflexively shrug and ignore them. This is particularly true in Python land, where the malleability of the language encourages a certain degree of experimentation and re-casting. Because you <em>can</em> adapt Python to suit your tastes, the temptation to do so even when it’s not actually getting you much beyond style points is hard to resist. <br>
+The net result of all this customization and adaptation is messier than Christmas morning: wrappers everywhere. Whatever simplifications each individual wrapper gives you, the aggregate effect of so many different extra layers is overwhelming. At several times in the last decade I’ve sworn off wrappers and vowed to stick with vanilla python, straight-up maya.cmds and simple, linear code. A good code archaeologist could troll through my history and find several repeated periods of growth and die-offs in the wrapper ecosystem, like fossils trapped in shale.<br>
+<img alt="where's pymel?" src="http://www.lparchaeology.com/prescot/images/156.jpg"><br>
 <em>Where&#8217;s pymel in&nbsp;there?</em>  </p>
 <h2>Wraptors</h2>
-<p>Wrappers, though, never really die off like the dinosaurs: they, in fact, more persistent as the cockroaches. And there’s a lesson in that. <br />
-Consider a classic case of wrapper-iteis: a system for <a href="rescuing_maya_gui_from_itself.html">making maya <span class="caps">GUI</span> less of a pain</a>. Everybody writes that one at some point in their <span class="caps">TA</span> career (I’ve done it 4 times to my certain knowledge, not counting one-offs and half-assed, abandonware). When somebody feels compelled to spruce something up that much it’s a sign. <br />
+<p>Wrappers, though, never really die off like the dinosaurs: they, in fact, more persistent as the cockroaches. And there’s a lesson in that. <br>
+Consider a classic case of wrapper-iteis: a system for <a href="rescuing_maya_gui_from_itself.html">making maya <span class="caps">GUI</span> less of a pain</a>. Everybody writes that one at some point in their <span class="caps">TA</span> career (I’ve done it 4 times to my certain knowledge, not counting one-offs and half-assed, abandonware). When somebody feels compelled to spruce something up that much it’s a sign. <br>
 Sure, most gui wrappers are just a reaction to the clunky, wordy way that Maya expects us to pop up a window or make a button. And sure, most of those wrappers (some of my own, I hasten to add) really aren’t much better: they’re just shortcuts that cut down on the carpal-tunnel of <code>cmds.textField(fieldname, q=True, text=True)</code>.   </p>
 <p>Sure, saving keystrokes is nice, but over the life of a piece of code the time spent typing is a tiny fraction of that spent reading, debugging and refactoring: that you could (and probably should) just bit the bullet on. But so many persistent, repeated efforts to fix a problemare a symptom that something worse than wordiness is the problem. Wrapper-itis really runs rampant when the toolkit that is simply not adequate to the job at hand. If you have to spend a lot of time thinking about the implementation details <em>instead</em> of the problem you really want to solve you’re not just wasting keystrokes: you’re wasting precious thought and&nbsp;time.  </p>
-<p>So I’ve been trying to soften my anti-wrapper stance. Sometimes it’s better to actually solve a recurring problem instead of papering it over; sometimes it’s worth taking the time to be in a position to write the code you <em>need</em> to write instead of the code you’re <em>forced</em> to write. Sometimes.<br />
+<p>So I’ve been trying to soften my anti-wrapper stance. Sometimes it’s better to actually solve a recurring problem instead of papering it over; sometimes it’s worth taking the time to be in a position to write the code you <em>need</em> to write instead of the code you’re <em>forced</em> to write. Sometimes.<br>
 Which of course raises the question of how you can identify those situations and distinguish between a real need for better abstractions and a plain old peevish desire to avoid&nbsp;boilerplate.   </p>
 <h2>Wraptitude</h2>
 <p>The prime way to distinguish between a ‘wrappable’ problem and a purely syntactic one is to consider the needs of the person who’ll be picking through your code after you’be been run over by a&nbsp;bus.   </p>
-<p><img alt="" src="http://i.ytimg.com/vi/y_PrZ-J7D3k/maxresdefault.jpg" />  </p>
+<p><img alt="" src="http://i.ytimg.com/vi/y_PrZ-J7D3k/maxresdefault.jpg">  </p>
 <p>When your replacement comes to look at your code, will they see something that seems to clearly express the problems you were trying to solve? Or just code that clearly expresses your preferences for a particular set of formatting options and code&nbsp;idioms?  </p>
 <p>Here’s a little bit of code that reads some information from a database in order to add some ‘credits’ to a time&nbsp;account:   </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replenish</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>  
@@ -165,9 +384,9 @@ Which of course raises the question of how you can identify those situations and
 <li>if the user hasn’t been replenished today, get the amount&nbsp;due</li>
 <li>add the amount to the user’s&nbsp;account</li>
 </ul>
-<p>That’s just four basic ideas. but it takes more than 20 lines to express them. <br />
-Far worse, the key logical linkages of the operation are implied, not stated.For the code to make real sense you need to know or deduce that the <em>users</em> table has a field called <em>replenished</em> which stores the last day when the user was topped off; that the ‘replenish’ table has seven fields containing the top-off numbers, arranged Sunday throguh Saturday; and that the user table stores both the maximum number of credits to store and the current balance of credits. The implementation of our simple, 4-step idea only makes sense with all of that special knowledge. It’s further obscured by time saving shortcuts, like using the actual column index in a database table to check today’s value. That may save a couple of lines but it renders the code even harder to parse. And, of course, there are syntax quirks big and small, particularly relating to the creation and formatting of the <span class="caps">SQL</span>. <br />
-This code works fine; it’s even fairly economical and readable for what it does (for a given value ‘economical’) But it’s not the kind of thing you’d ever want to <em>inherit</em>; it makes sense to me, because I wrote it and I remember (at least today) what I was thinking about when I did. But some future inheritor (heck, even me a year from now) will have to think long and hard about what really ought to be a simple process. The whole thing is bogged down in implementation details that <em>obscure the intent</em> of what’s going on. Really good code often reads almost like pseudo-code. This does not.<br />
+<p>That’s just four basic ideas. but it takes more than 20 lines to express them. <br>
+Far worse, the key logical linkages of the operation are implied, not stated.For the code to make real sense you need to know or deduce that the <em>users</em> table has a field called <em>replenished</em> which stores the last day when the user was topped off; that the ‘replenish’ table has seven fields containing the top-off numbers, arranged Sunday throguh Saturday; and that the user table stores both the maximum number of credits to store and the current balance of credits. The implementation of our simple, 4-step idea only makes sense with all of that special knowledge. It’s further obscured by time saving shortcuts, like using the actual column index in a database table to check today’s value. That may save a couple of lines but it renders the code even harder to parse. And, of course, there are syntax quirks big and small, particularly relating to the creation and formatting of the <span class="caps">SQL</span>. <br>
+This code works fine; it’s even fairly economical and readable for what it does (for a given value ‘economical’) But it’s not the kind of thing you’d ever want to <em>inherit</em>; it makes sense to me, because I wrote it and I remember (at least today) what I was thinking about when I did. But some future inheritor (heck, even me a year from now) will have to think long and hard about what really ought to be a simple process. The whole thing is bogged down in implementation details that <em>obscure the intent</em> of what’s going on. Really good code often reads almost like pseudo-code. This does not.<br>
 To illustrate what a good wrapper can do, here’s the same code using an ‘<a href="https://en.wikipedia.org/wiki/Object-relational_mapping">object relational mapper</a>‘ called <a href="https://github.com/coleifer/peewee">peewee</a>: it’s a wrapper around the <span class="caps">SQL</span> backend that map database operations onto classes and allows you to focus on the logic instead of the&nbsp;mechanics:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">replenish</span><span class="p">(</span><span class="n">user</span><span class="p">):</span>  
     <span class="k">if</span> <span class="n">user</span> <span class="ow">is</span> <span class="bp">None</span><span class="p">:</span>  
@@ -186,219 +405,69 @@ To illustrate what a good wrapper can do, here’s the same code using an ‘<a 
 </pre></div>
 
 
-<p>That’s a significantly cleaner bit of code to read. It still requires some outside knowledge but the intention is much more clearly expressed and the message isn’t drowned out in quotes and parens. An ‘offscreen’ benefit, given the way peewee is structured, is that backtracking to the <code>User</code> and <code>Replenish</code> classes would tell the rest of the story pretty straightforwardly without a ton of comments. Only a handful of lines are needed to munge data into the right forms, and the code almost <em>reads</em> like the summary. <br />
+<p>That’s a significantly cleaner bit of code to read. It still requires some outside knowledge but the intention is much more clearly expressed and the message isn’t drowned out in quotes and parens. An ‘offscreen’ benefit, given the way peewee is structured, is that backtracking to the <code>User</code> and <code>Replenish</code> classes would tell the rest of the story pretty straightforwardly without a ton of comments. Only a handful of lines are needed to munge data into the right forms, and the code almost <em>reads</em> like the summary. <br>
 That’s a good example of how wrappers can help: saving keystrokes is nice but clarifying the real <em>meaning</em> of the code is&nbsp;priceless.  </p>
 <h2>Wrapola</h2>
-<p>Well, maybe not exactly price-<em>less</em>. All wrapper code comes with a cost: there are new rules to learn and, probably, new bugs to encounter. If the wrapper uses odd conventions, unusual data formats or is simply slower than hand rolled code it may still be a bad bargain. Nonetheless, this example shows wrappers can be more than just a protest against awkward syntax and <span class="caps">API</span>’s that don’t match your taste. Ultimately wrappers are a perfect microcosm of what all coding is about: the search for a clearer understanding of the problem you’re trying to solve. <br />
+<p>Well, maybe not exactly price-<em>less</em>. All wrapper code comes with a cost: there are new rules to learn and, probably, new bugs to encounter. If the wrapper uses odd conventions, unusual data formats or is simply slower than hand rolled code it may still be a bad bargain. Nonetheless, this example shows wrappers can be more than just a protest against awkward syntax and <span class="caps">API</span>’s that don’t match your taste. Ultimately wrappers are a perfect microcosm of what all coding is about: the search for a clearer understanding of the problem you’re trying to solve. <br>
 So if you’re thinking about writing a wrapper, ask yourself this: does the code you want to write teach you something about the problem your solving? Or does it just save you a few keystrokes? Typing is a pain, but you’ll spend a lot more tine looking at your code than you ever will typing it. So don’t focus on just counting lines or syntax: focus on whether the wrapper helps you understand the problem better. If the wrapped code reads like a description of your thought process, you’re on the right track. If it’s just getting you back to <a href="http://www.twitch.tv/undeadlabs">that TwitchTV stream</a> on your second monitor a few minutes earlier it might not be worth your&nbsp;time.  </p>
 <h2><span class="caps">PS</span></h2>
 <p>I used an <span class="caps">ORM</span> for my example because it provides such a powerful example of code that’s not bogged down in syntactic complexities. There is, however, a classic internet flame war about ORMs that I’m glossing over, with nerd rage aplenty for friends and foes of ORMs. Background <a href="http://martinfowler.com/bliki/OrmHate.html">here</a> if you&nbsp;care. </p>
-    </article>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://theodox.github.io/tag/programming.html">programming</a>
+    </p>
+  </div>
 
-        <div class="tags">
-            <p>tags: <a href="https://theodox.github.io/tag/programming.html">programming</a></p>
-        </div>
-    <div id="comment">
-<hr>
-<div class="sharing">
-        <!-- AddThis Button BEGIN -->
-        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-            <a class="addthis_button_preferred_1"></a>
-            <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
-            <a class="addthis_button_preferred_5"></a>
-            <a class="addthis_button_preferred_6"></a>
-            <a class="addthis_button_preferred_7"></a>
-            <a class="addthis_button_preferred_8"></a>
-            <a class="addthis_button_preferred_9"></a>
-            <a class="addthis_button_compact"></a>
-            <a class="addthis_counter addthis_bubble_style"></a>
-        </div>
-        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
-        <!-- AddThis Button END -->
-</div>
-    <div class="comments">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'theodoxcom';
-            var disqus_identifier = '2015/wraptastic';
-            var disqus_url = 'https://theodox.github.io/2015/wraptastic';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//theodoxcom.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
-    </div>
-            </div>
-            <!---- right sidebar -->
-<div class="right-sidebar col-lg-2 col-md-1">
-    <div class="vertical-spacer">
-    <h4>@social</h4>
-        <ul class="list-inline text-center">
-                <li>
-                    <a href="https://www.linkedin.com/in/stevetheodore">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://stackoverflow.com/users/1936075/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-    <div class="vertical-spacer">
-        <h4>#tags</h4>
-        <a href="/tags">tag list</a>
-        
-            <a class="tag-link" href="https://theodox.github.io/tag/animation.html">animation</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/api.html">api</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/articles.html">articles</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blog.html">blog</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blogging.html">blogging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/boo.html">boo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/books.html">books</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modo.html">modo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modules.html">modules</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/moonrise.html">moonrise</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/photoshop.html">photoshop</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/pipeline.html">pipeline</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/rigging.html">rigging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sod.html">SOD</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/spelcheck.html">spelcheck</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/standalone.html">standalone</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ta.html">TA</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/talks.html">talks</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/techart.html">techart</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/thunderbirds.html">thunderbirds</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/tools.html">tools</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/unity.html">unity</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/web.html">web</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/writing.html">writing</a>
-    </div>
-    <div class="vertical-spacer">
-        <h4>archives</h4>
-        <div>
-          <a href="/archives">all</a>
-        </div>      
-        <div>
-        <a href="/2013/index.html">2013</a>
-        </div>      
-        <div>
-        <a href="/2014/index.html">2014</a>
-        </div>      
-        <div>
-        <a href="/2015/index.html">2015</a>
-        </div>      
-        <div>
-        <a href="/2016/index.html">2016</a>
-        </div>
-    </div> 
-    <div class="vertical-spacer">
-        <h4>feeds </h4>
-        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-    </div>   
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
 
-</div>        </div>
-    </div>
 
-    <hr>
+    <div class="addthis_relatedposts_inline"></div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<p class="copyright text-muted">
-   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="https://theodox.github.io/theme/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://theodox.github.io/theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="https://theodox.github.io/theme/js/clean-blog.min.js"></script>
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-79232212-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<!-- Disqus -->
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'theodoxcom';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
 </script>
-</body>
+<noscript>
+        Please enable JavaScript to view comments.
 
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy;  2018</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Chimeras & Manticores ",
+  "url" : "https://theodox.github.io",
+  "image": "",
+  "description": ""
+}
+</script>
+
+</body>
 </html>

@@ -1,131 +1,350 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-            <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
-        <title>Maya <span class="caps">GUI</span> <span class="caps">II</span>: All Your Base Classes Are Belong To&nbsp;Us</title>
+    <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Atom">
 
-            <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
-            <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
-        <!-- Bootstrap Core CSS -->
-        <link href="https://theodox.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="https://theodox.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="https://theodox.github.io/theme/css/code_blocks/zenburn.css" rel="stylesheet">
-
-            <!-- CSS specified by the user -->
-            <link href="https://theodox.github.io/theme/css/theodox.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores RSS">
 
 
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <meta name="description" content="Introducing mGui, a module for making Maya GUI coding more pythonic and less infuriating.">
+  ga('create', 'UA-79232212-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
 
-        <meta name="author" content="Steve Theodore">
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="Introducing mGui, a module for making Maya GUI coding more pythonic and less infuriating." />
+<meta name="keywords" content="Maya, python, GUI, programming, mGui">
 
-        <meta name="tags" content="Maya">
-        <meta name="tags" content="python">
-        <meta name="tags" content="GUI">
-        <meta name="tags" content="programming">
-        <meta name="tags" content="mGui">
+<meta property="og:site_name" content="Chimeras & Manticores"/>
+<meta property="og:title" content="Maya GUI II: All Your Base Classes Are Belong To Us"/>
+<meta property="og:description" content="Introducing mGui, a module for making Maya GUI coding more pythonic and less infuriating."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://theodox.github.io/2014/all_your_base"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-03-28 09:30:00-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="Maya"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="GUI"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="mGui"/>
+<meta property="og:image" content="">
 
-	                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="Chimeras & Manticores">
+   <title>Chimeras & Manticores &ndash; Maya GUI II: All Your Base Classes Are Belong To Us</title>
 
-	<meta property="og:type" content="article">
-            <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
-	<meta property="og:url" content="https://theodox.github.io/2014/all_your_base">
-	<meta property="og:title" content="Maya <span class="caps">GUI</span> <span class="caps">II</span>: All Your Base Classes Are Belong To&nbsp;Us">
-	<meta property="article:published_time" content="2014-03-28 09:30:00-07:00">
-            <meta property="og:description" content="Introducing mGui, a module for making Maya GUI coding more pythonic and less infuriating.">
 
-            <meta property="og:image" content="https://theodox.github.io/theme/images/post-bg.jpg">
+    <link rel="canonical" href="https://theodox.github.io/2014/all_your_base"/>
+
+  <script type="text/javascript">
+    var host = "https://theodox.github.io";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+      window.location.protocol = "https";
+  </script>
+
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://theodox.github.io/">Chimeras & Manticores</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">About...</a></li>
-                        <li><a href="/pages/pub">Publications</a></li>
-                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
-                        <li><a href="/pages/cookbook">Cookbook</a></li>
 
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+  <aside>
+    <div>
+      <h2>Chimeras & Manticores</h2>
+      <a href="https://theodox.github.io">
+        <img src="https://theodox.github.io/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="https://theodox.github.io"></a></h1>
+
+<p>a blog about technical art, python, the games business, and obscurantism</p>
+
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
+      </ul>
+
+    <nav>
+<!---if pages or LINKS -->
+
+
+        <div>
+          <h3 class="tagcloud_header">SUBJECTS</h3>
         </div>
-        <!-- /.container -->
+        <ul class="tagcloud">
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/animation.html">
+                animation
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/api.html">
+                api
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/articles.html">
+                articles
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/blog.html">
+                blog
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/blogging.html">
+                blogging
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/boo.html">
+                boo
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/books.html">
+                books
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/bugs.html">
+                bugs
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/cg.html">
+                cg
+                        <span class="badge">(8)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/distribution.html">
+                distribution
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/games.html">
+                games
+                        <span class="badge">(9)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gdc.html">
+                gdc
+                        <span class="badge">(12)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/graphics.html">
+                graphics
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gui.html">
+                gui
+                        <span class="badge">(7)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/industry.html">
+                industry
+                        <span class="badge">(33)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/jobs.html">
+                jobs
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/markdown.html">
+                markdown
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/math.html">
+                math
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/maya.html">
+                maya
+                        <span class="badge">(45)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/mgui.html">
+                mgui
+                        <span class="badge">(10)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/minq.html">
+                minq
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modeling.html">
+                modeling
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modules.html">
+                modules
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/moonrise.html">
+                moonrise
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/pipeline.html">
+                pipeline
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/programming.html">
+                programming
+                        <span class="badge">(36)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/python.html">
+                python
+                        <span class="badge">(47)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/rigging.html">
+                rigging
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/sfx.html">
+                sfx
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/techart.html">
+                techart
+                        <span class="badge">(20)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/tools.html">
+                tools
+                        <span class="badge">(16)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/unity.html">
+                unity
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/web.html">
+                web
+                        <span class="badge">(6)</span>
+                </a>
+            </li>
+      </ul>
+      </nav>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://theodox.github.io">    Home
+</a>
+
+      <a href="/about">About...</a>
+      <a href="/pages/pub">Publications</a>
+      <a href="/pages/cookbook">Cookbook</a>
+      <a href="/archives">By date</a>
+      <a href="/tags">By subject</a>
+
+      <a href="https://theodox.github.io/feeds/atom.xml">    Atom
+</a>
+
+      <a href="https://theodox.github.io/feeds/rss.xml">    RSS
+</a>
     </nav>
 
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://theodox.github.io/theme/images/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Maya <span class="caps">GUI</span> <span class="caps">II</span>: All Your Base Classes Are Belong To&nbsp;Us</h1>
-                        <span class="meta">
-                            Fri 28 March 2014
-                        </span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<article class="single">
+  <header>
+      
+    <h1 id="all_your_base">Maya <span class="caps">GUI</span> <span class="caps">II</span>: All Your Base Classes Are Belong To&nbsp;Us</h1>
+    <p>
+          Posted on Fri 28 March 2014 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!-- Post Content -->
-    <article>
-        <blockquote>
+
+    </p>
+  </header>
+
+
+  <div>
+    <blockquote>
 <p>I&#8217;ve left this article mostly intact, but some elements of the syntax have changed in mGui 2.0.  The big changes, generally speaking, are under the hood &#8212; but the 2.0 version uses pep-8 style naming so the capital letters for properties have been replaced with lower-case ones. See the <a href="mGui_updates_2">mGui updates</a> post for a more up-to-date view of the current mGui syntax. mGui 2 will be the main line in GitHub after&nbsp;10-10-2016.</p>
 </blockquote>
-<p>In <a href="rescuing_maya_gui_from_itself.html">Rescuing Maya <span class="caps">GUI</span> From Itself</a> I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya <span class="caps">GUI</span> toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to <a href="http://www.youtube.com/watch?v=BfIAKj3Gl1E">Thunderbirds</a>. This time out I want to detail what a working implementation of the ideas I sketched out there looks like.<br />
-<img alt="" src="http://fc06.deviantart.net/fs70/f/2010/282/6/a/all_your_base_by_ultimathegod-d30fu0f.jpg" />  </p>
+<p>In <a href="rescuing_maya_gui_from_itself.html">Rescuing Maya <span class="caps">GUI</span> From Itself</a> I talked in some detail about how to use descriptors and metaclasses to create a wrapper for the Maya <span class="caps">GUI</span> toolkit that, er, sucks less than the default implementation. I also strove mightily to include a lot of more or less irrelevant references to <a href="http://www.youtube.com/watch?v=BfIAKj3Gl1E">Thunderbirds</a>. This time out I want to detail what a working implementation of the ideas I sketched out there looks like.<br>
+<img alt="" src="http://fc06.deviantart.net/fs70/f/2010/282/6/a/all_your_base_by_ultimathegod-d30fu0f.jpg">  </p>
 <p>I think this time the irrelevant thematic gloss will come from <a href="http://knowyourmeme.com/memes/all-your-base-are-belong-to-us">All Your Base Are Belong To Us</a> jokes. Because (a), we’re talking about base classes, (b) what could be more retro and 90’s than Maya’s <span class="caps">GUI</span> system, and (c) <strong>For Great Justice, Make All&nbsp;Zig!</strong>  </p>
 <p>I’ve put my current stab at a comprehensive implementation up on Github, in the form of the <a href="https://github.com/theodox/mGUI">mGUI project</a> , where you can poke at it to your heart’s content. The whole project is there, and it’s all free to use under the <span class="caps">MIT</span>, <a href="http://opensource.org/licenses/MIT"><em>‘do-what-thou-wilt-but-keep-the-copyright-notice’</em></a> license. Enjoy! I should warn you, though, that this is still <span class="caps">W.I.</span>P code, and is evolving all the time! Use it at your own risk – things may change a lot before its really&nbsp;‘ready’.   </p>
 <h2>All Your Properties Are Belong To Our Base&nbsp;Class</h2>
-<p><img alt="" src="http://fc00.deviantart.net/fs30/f/2008/064/8/0/All_your_base_are_belong_to_us_by_Sky_roxorz_815.png" /> </p>
+<p><img alt="" src="http://fc00.deviantart.net/fs30/f/2008/064/8/0/All_your_base_are_belong_to_us_by_Sky_roxorz_815.png"> </p>
 <p>What we’re shooting for is a library that provides all of Maya;’s <span class="caps">GUI</span> widgets in a clean, pythonic way without making anybody learn too much new stuff. If all goes well, the result is a cleaned up and more efficient version of things most of us already know. You can also treat this an template for how you might want to to wrap other aspects of Maya – say, rendering or rigging – in cleaner&nbsp;code.  </p>
-<p>From last time, we know we can wrap a Maya <span class="caps">GUI</span> component in a class which uses <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">descriptors</a> to make conventional property access work. The main thing we’re going to be delivering in this installment is a slew of classes that have the right property descriptors to replicate the Maya <span class="caps">GUI</span> toolkit. We’ll be using the metaclass system we showed earlier to populate the classes (if none of this makes sense, you probably want to <a href="rescuing_maya_gui_from_itself.html">hop back to the previous blog entry</a> before following along).<br />
-To keep things simple and minimize the boilerplate, we’ll want to derive all of our concrete classes – the widgets and layouts and so on – from a single base. This helps the code simple and ensure that the features we add work the same way for the whole library. We’ll add a second class later to handle some details specific to layouts, but that will derive from the base class.<br />
+<p>From last time, we know we can wrap a Maya <span class="caps">GUI</span> component in a class which uses <a href="http://nbviewer.ipython.org/urls/gist.github.com/ChrisBeaumont/5758381/raw/descriptor_writeup.ipynb">descriptors</a> to make conventional property access work. The main thing we’re going to be delivering in this installment is a slew of classes that have the right property descriptors to replicate the Maya <span class="caps">GUI</span> toolkit. We’ll be using the metaclass system we showed earlier to populate the classes (if none of this makes sense, you probably want to <a href="rescuing_maya_gui_from_itself.html">hop back to the previous blog entry</a> before following along).<br>
+To keep things simple and minimize the boilerplate, we’ll want to derive all of our concrete classes – the widgets and layouts and so on – from a single base. This helps the code simple and ensure that the features we add work the same way for the whole library. We’ll add a second class later to handle some details specific to layouts, but that will derive from the base class.<br>
 Before we look at the details of the base class, we should think a little more about the properties. In the last installment, we treated all properties the same way - as generic wrappers around Maya.cmds. In a production setting, though, we want to distinGUIsh between 3 types of&nbsp;properties:  </p>
 <h4>Regular&nbsp;properties</h4>
 <p>These are just wrapped accesses to commands, like we demonstrated last week. They use the same ControlProperty class as we used last time to call commands on our <span class="caps">GUI</span>&nbsp;widgets.</p>
@@ -137,7 +356,7 @@ To differentiate between these three types of properties, we need to tweak our o
 <h2>Somebody Set Us Up The&nbsp;Bomb!</h2>
 <p>Before getting into the nitty-gritty of our overall widget class, I want to make a side noted about the special properties used for the callbacks. These CallbackProperty descriptors are slightly different from the familiar ControlProperty. Their job is to de-couple the Maya <span class="caps">GUI</span> widget from the commands it fires. They create special delegate objects which will intercept callbacks fired by our <span class="caps">GUI</span>&nbsp;objects.  </p>
 <p>If you have experimented a little with last time’s code, you may already have seen that it works just as well for callbacks and commands as for other properties. So you may wonder why we should bother to treat callbacks differently. What’s the&nbsp;point?  </p>
-<p>There are two main reasons this is a useful complication.<br />
+<p>There are two main reasons this is a useful complication.<br>
 First, and most usefully, event delegates make it easier to add your callbacks after you lay out your <span class="caps">GUI</span>, rather than forcing you to interleave your code logic with the process of building forms and layouts. De-coupling the functional code form the graphic display makes for more readable and more maintainable code. It also makes it possible for you to reuse fairly generic layouts with different back ends. In&nbsp;pseudo-code:  </p>
 <div class="highlight"><pre><span></span>Layout  
    Layout  
@@ -167,23 +386,23 @@ ButtonC adds new item to ListA
 </pre></div>
 
 
-<p>Keeping the functional bits separate makes it easy to, say, split the purely visual layout details into a separate file, but more importantly makes it clear whats an administrative detail and what’s actual functionality.<br />
+<p>Keeping the functional bits separate makes it easy to, say, split the purely visual layout details into a separate file, but more importantly makes it clear whats an administrative detail and what’s actual functionality.<br>
 On a second, more tactical level the proxies also allow you to attach more than one function to a callback. It’s pretty common, for example, that you the act of want selecting an item in a list to select object in the Maya scene, but also to enable some relevant controls and maybe check with a database or talk to source control. Using an event proxy lets you handle those different tasks in three separate functions instead of one big monster that mixes up lots of <span class="caps">UI</span> feedback and other&nbsp;concerns.  </p>
-<p><img alt="" src="https://images-blogger-opensocial.googleusercontent.com/gadgets/proxy?url=http%3A%2F%2F3.bp.blogspot.com%2F-OFyQFgarV3I%2FUmU6BLY68jI%2FAAAAAAAAA6g%2FHSk55Z2R5Io%2Fs1600%2FPantallazo-1.png&amp;container=blogger&amp;gadget=a&amp;rewriteMime=image%2F*" />  </p>
+<p><img alt="" src="https://images-blogger-opensocial.googleusercontent.com/gadgets/proxy?url=http%3A%2F%2F3.bp.blogspot.com%2F-OFyQFgarV3I%2FUmU6BLY68jI%2FAAAAAAAAA6g%2FHSk55Z2R5Io%2Fs1600%2FPantallazo-1.png&amp;container=blogger&amp;gadget=a&amp;rewriteMime=image%2F*">  </p>
 <p>If you’re familiar with <span class="caps">QT</span> you’ll rexognize that event delegates are basically <span class="caps">QT</span>&nbsp;“Signals”  </p>
 <p>So that’s why the extra complexity is worth&nbsp;it.  </p>
-<p>The actual workings of the proxy class are documented in the <a href="https://github.com/theodox/mGUI/blob/master/mGUI/events.py">events.py file in the Github project</a>; I’ll get back to how those work in a future post. Details aside, they key takeaway for right now is that this setup helps us move towards <span class="caps">GUI</span> code that’s more declarative. That’s the other reason why <code>button.label = “Reset”</code> is better than <code>cmds.Button(self.activeButton, e=True, l="Reset"</code>– it’s not just less typing. The real value comes from treating the <span class="caps">GUI</span> layout as <strong>data</strong> rather than <strong>code</strong>. That means you can concentrate on the actual work of your tools rather than the fiddly details of highlighting buttons or whatever.<br />
+<p>The actual workings of the proxy class are documented in the <a href="https://github.com/theodox/mGUI/blob/master/mGUI/events.py">events.py file in the Github project</a>; I’ll get back to how those work in a future post. Details aside, they key takeaway for right now is that this setup helps us move towards <span class="caps">GUI</span> code that’s more declarative. That’s the other reason why <code>button.label = “Reset”</code> is better than <code>cmds.Button(self.activeButton, e=True, l="Reset"</code>– it’s not just less typing. The real value comes from treating the <span class="caps">GUI</span> layout as <strong>data</strong> rather than <strong>code</strong>. That means you can concentrate on the actual work of your tools rather than the fiddly details of highlighting buttons or whatever.<br>
 Last but not least - by standardizing on the event mechanism we have an easy way to standardize the information that comes with the callback events for very little extra works. So, for example, all of the callbacks include a dictionary of keyword arguments when they fire - and the dictionary includes a reference to the widget that fired the event. That way it’s easy to write a generic event handler and not have to manually bind the firing control to a callback&nbsp;function.  </p>
 <blockquote>
 <p>While we’re on the topic of de-coupling: Wouldn’t it be nice to separate out the details of the visuals (“what color is that button?”) from the structure of the forms and layouts?. Spoiler alert! This is a topic for a future post – but the curious might want to check out <a href="https://github.com/theodox/mGUI/blob/master/mGUI/styles.py">styles.py in the&nbsp;GitHub</a></p>
 </blockquote>
 <h2>Think&nbsp;ahead</h2>
-<p><img alt="" src="http://www.geekytattoos.com/wp-content/uploads/2009/04/all-your-base-tattoo.jpg" />  </p>
+<p><img alt="" src="http://www.geekytattoos.com/wp-content/uploads/2009/04/all-your-base-tattoo.jpg">  </p>
 <blockquote>
-<p>How the hell are you going to explain <span class="caps">THAT</span> to your grandchildren?<br />
+<p>How the hell are you going to explain <span class="caps">THAT</span> to your grandchildren?<br>
 The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD</span>  </p>
 </blockquote>
-<hr />
+<hr>
 <p>So, we’ve covered our improved property descriptors, and now it’s time to set up our base&nbsp;class.  </p>
 <p>This is a great opportunity to do some plumbing for more efficient coding. However it’s also a temptation – when the desire to sneak everything under the sun into your base classes is a recipe for monster code and untraceable bugs. This design should be as simple as we can make&nbsp;it.  </p>
 <p>Still, there are a couple of things that it would be nice to put into the base class - they are all very general (as befits base-class functions) and they are all common to any <span class="caps">GUI</span>&nbsp;tasks.  </p>
@@ -237,9 +456,9 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
     <span class="n">_READ_ONLY</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;isObscured&#39;</span><span class="p">,</span> <span class="s1">&#39;popupMenuArray&#39;</span><span class="p">,</span> <span class="s1">&#39;numberOfPopupMenus&#39;</span><span class="p">]</span>
 
     <span class="c1"># Activate the metaclass!</span>
-    <span class="n">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
+    <span class="vm">__metaclass__</span> <span class="o">=</span> <span class="n">ControlMeta</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 
         <span class="bp">self</span><span class="o">.</span><span class="n">Key</span> <span class="o">=</span> <span class="n">key</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">_style</span><span class="p">)</span>  
@@ -260,26 +479,26 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
         <span class="n">kwargs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;e&#39;</span><span class="p">:</span><span class="bp">True</span><span class="p">,</span> <span class="n">callbackName</span><span class="p">:</span><span class="n">event</span><span class="p">}</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">CMD</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">Widget</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__nonzero__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">exists</span>
 
-    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
         <span class="k">if</span> <span class="bp">self</span><span class="p">:</span>  
             <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span>  
         <span class="k">else</span><span class="p">:</span>  
-            <span class="k">return</span> <span class="s2">&quot;&lt;deleted UI element </span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span>
+            <span class="k">return</span> <span class="s2">&quot;&lt;deleted UI element </span><span class="si">%s</span><span class="s2">&gt;&quot;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span>
 
-    <span class="k">def</span> <span class="nf">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">Widget</span>
 
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
         <span class="k">yield</span> <span class="bp">self</span>
 </pre></div>
 
 
 <p>You’ll notice that it is inheriting from two classes we have not touched on, <code>Styled</code> and <code>BindableObject</code>. Those don’t interact with what we’re doing here - they’ll come up in a later post. You can pretend it just says ‘object’. If you’re reading the code carefully you’ll probably spot a little bit of code I haven’t described. <code>register_callback</code> is there to support event proxies – we’ll talk about the details when we get to <a href="http://techartsurvival.blogspot.com/2014/04/the-main-event-event-oriented.html">event proxies</a> in the&nbsp;future.  </p>
 <p>Despite my rather verbose way of describing it all, this is not a lot of code. Which is what exactly you want in a base class: simple, common functionality, not rocket science. Hopefully, though, adding those pythonic behaviors will save a lot of waste verbiage in production&nbsp;work.  </p>
-<p><img alt="" src="http://3.bp.blogspot.com/-9goyxbxMoA8/Uy5eUMQ1DxI/AAAAAAABIBI/McpZ1Vp2SIQ/s1600/yeoldeayb+(2" />  </p>
+<p><img alt="" src="http://3.bp.blogspot.com/-9goyxbxMoA8/Uy5eUMQ1DxI/AAAAAAABIBI/McpZ1Vp2SIQ/s1600/yeoldeayb+(2">  </p>
 <blockquote>
 <p>Damn, the internet has a lot of time on its&nbsp;hands   </p>
 </blockquote>
@@ -298,16 +517,16 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
 <span class="sd">    &#39;&#39;&#39;</span>  
     <span class="n">ACTIVE_LAYOUT</span> <span class="o">=</span> <span class="bp">None</span>
 
-    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">Controls</span> <span class="o">=</span> <span class="p">[]</span>  
-        <span class="nb">super</span><span class="p">(</span><span class="n">Nested</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">Nested</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 
-    <span class="k">def</span> <span class="nf">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">__cache_layout</span> <span class="o">=</span> <span class="n">Nested</span><span class="o">.</span><span class="n">ACTIVE_LAYOUT</span>  
         <span class="n">Nested</span><span class="o">.</span><span class="n">ACTIVE_LAYOUT</span> <span class="o">=</span> <span class="bp">self</span>  
         <span class="k">return</span> <span class="bp">self</span>
 
-    <span class="k">def</span> <span class="nf">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">typ</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="p">):</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">layout</span><span class="p">()</span>  
         <span class="n">Nested</span><span class="o">.</span><span class="n">ACTIVE_LAYOUT</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__cache_layout</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">__cache_layout</span> <span class="o">=</span> <span class="bp">None</span>  
@@ -326,25 +545,25 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
             <span class="bp">self</span><span class="o">.</span><span class="n">Controls</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
 
         <span class="k">if</span> <span class="n">control</span><span class="o">.</span><span class="n">Key</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">control</span><span class="o">.</span><span class="n">Key</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;_&quot;</span><span class="p">:</span>  
-            <span class="k">if</span> <span class="n">control</span><span class="o">.</span><span class="n">Key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">:</span>  
+            <span class="k">if</span> <span class="n">control</span><span class="o">.</span><span class="n">Key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">:</span>  
                 <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s1">&#39;Children of a layout must have unique IDs&#39;</span><span class="p">)</span>  
-            <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">control</span><span class="o">.</span><span class="n">Key</span><span class="p">]</span> <span class="o">=</span> <span class="n">control</span>
+            <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">control</span><span class="o">.</span><span class="n">Key</span><span class="p">]</span> <span class="o">=</span> <span class="n">control</span>
 
     <span class="k">def</span> <span class="nf">remove</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">Controls</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>  
-        <span class="n">k</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">control</span><span class="p">]</span>  
+        <span class="n">k</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="o">==</span> <span class="n">control</span><span class="p">]</span>  
         <span class="k">if</span> <span class="n">k</span><span class="p">:</span>  
-            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">k</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
 
-    <span class="k">def</span> <span class="nf">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>  
         <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">Controls</span><span class="p">:</span>  
             <span class="k">for</span> <span class="n">sub</span> <span class="ow">in</span> <span class="n">item</span><span class="p">:</span>  
                 <span class="k">yield</span> <span class="n">sub</span>  
         <span class="k">yield</span> <span class="bp">self</span>
 
     <span class="nd">@classmethod</span>  
-    <span class="k">def</span> <span class="nf">add_current</span><span class="p">(</span><span class="n">cls</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>  
-        <span class="k">if</span> <span class="n">cls</span><span class="o">.</span><span class="n">ACTIVE_LAYOUT</span><span class="p">:</span>  
+    <span class="k">def</span> <span class="nf">add_current</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">control</span><span class="p">):</span>  
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">ACTIVE_LAYOUT</span><span class="p">:</span>  
             <span class="n">Nested</span><span class="o">.</span><span class="n">ACTIVE_LAYOUT</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">control</span><span class="p">)</span>
 </pre></div>
 
@@ -443,13 +662,13 @@ The obvious lession is <span class="caps">THINK</span> <span class="caps">AHEAD<
 </pre></div>
 
 
-<p><img alt="" src="http://1.bp.blogspot.com/-YbhMcGSYTpg/Uy58bLV2nlI/AAAAAAABIBo/4q3TtCRPosI/s1600/example.png" />  </p>
-<p>I don’t even want to think about the equivalent code in <code>cmds</code>!<br />
+<p><img alt="" src="http://1.bp.blogspot.com/-YbhMcGSYTpg/Uy58bLV2nlI/AAAAAAABIBo/4q3TtCRPosI/s1600/example.png">  </p>
+<p>I don’t even want to think about the equivalent code in <code>cmds</code>!<br>
 One parting note about the naming scheme, It does have one, inevitable drawback: it means that the child wrappers have unique names inside a given context. Not much we can do about that. They can, however, have the same name under different parents - the example above has , <code>GUI.t_buttons.grid</code>.<code>mk_sphere</code>, and <code>GUI.g_buttons.grid.mk_sphere</code> Thats a useful thing to exploit if you want to, say, find all of the ‘Select’ buttons on a form and disable them or something off that&nbsp;sort.  </p>
 <h2>Make All&nbsp;Zig!</h2>
 <p>Hopefully, the combination of some syntax sugar in our wrappers and turning layouts into context managers will make Maya <span class="caps">GUI</span> layout less of a pain in the butt. However, we still need to actually crank out all the wrappers for all those scores of classes in the Maya <span class="caps">GUI</span> library. Descriptors and metaclasses are powerful tools, but few of us have the intestinal fortitude to plow through the dozens of classes in the Maya <span class="caps">GUI</span> library getting every flag and command&nbsp;correct.  </p>
 <p>In an ideal world we’d have a way of reflecting over some kind of assembly information and extracting all of the Maya <span class="caps">GUI</span> commands with their flags and options. Of course, in an ideal world we would not have to do this in the first place, since the native <span class="caps">GUI</span> system would not be the unfortunate <span class="caps">SNES</span>-era mishmash that it&nbsp;is.  </p>
-<p><img alt="" src="http://www.rogerwendell.com/images/allyourbase/allyourbase_clip.gif" />  </p>
+<p><img alt="" src="http://www.rogerwendell.com/images/allyourbase/allyourbase_clip.gif">  </p>
 <blockquote>
 <p>Mass production is a pain in the&nbsp;ass.  </p>
 </blockquote>
@@ -465,222 +684,76 @@ One parting note about the naming scheme, It does have one, inevitable drawback:
 
 
 <p>We generate two files, one for controls and one for layouts (that’s an arbitrary design call on my part, you could of course have one file). Now they’re just sitting on disk as if we’d written them by hand. We can import our newly generated modules and away we go, with nice pythonic properties and our new&nbsp;functions.  </p>
-<p>There is one judgement call here that is worth mentioning in passing.<br />
+<p>There is one judgement call here that is worth mentioning in passing.<br>
 The logic in the helper modules which generate this is all deterministic, it doesn’t need human intervention so it could actually be run at module load time rather than being run and dumped out to a file. For what I want to do, I felt that physical files were a better choice, because they allow the option of hand tailoring the wrapper classes as the project evolves. Plus, the startup cost of trolling through every <span class="caps">MEL</span> command, while it’s not very big, is real and it seems good to avoid it. I’ve have heard enough grumbling over the years about PyMel’s startup speed that I thought it wisest to opt for speed and clarity over fewer files on&nbsp;disk.  </p>
 <p>One nice side effect of generating our wrappers this way: we’ve added some functionality through our base classes but fundamentally we’ve kept the same names and options we already know from plain old Maya.cmds. The only changes are the mandatory names and the fact that I’ve capitalized the class names to make them more&nbsp;pep-8-friendly.  </p>
 <p>Hopefully, keeps the learning curve short for new user. Its hard enough to pick up a new style, making you memorize hundreds of new property names seem like a big tax on&nbsp;users.  </p>
 <p>In the version up on Github (and in this example) I opted to use only the long name for the properties. This is definitely a matter of taste; I’m sure that many TAs out there are sufficiently familiar with the old Maya command flags that a howler like <code>cmds.rowLayout(nc=2, cw2=(50,100), ct2=('both', 5), bgc = (.8,.6,.6), cl2=("left", "right")</code> makes its meaning clear. for my part, though, the long names clarify the intent of the code enormously if you make a fairly small upfront investment in&nbsp;typing.   </p>
 <p>If you are of the opposite opinion, though, you can call the <code>generate_helpers</code> and <code>generate_controls</code> functions in mGUI.helpers.tools with <code>includeShortNames</code> set to true make your own wrappers with the short flags&nbsp;too.  </p>
 <h2>What You&nbsp;Say!!!</h2>
-<p>Now we’ve got a complete library of all the widgets. You can see the results in <a href="https://github.com/theodox/mGUI/blob/master/mGUI/core/controls.py">controls.py</a> and <a href="https://github.com/theodox/mGUI/blob/master/mGUI/core/layouts.py">layouts.py</a> on GitHub. (The base classes are also up there for your perusal in <a href="https://github.com/theodox/mGUI/blob/master/mGUI/core/__init__.py">the root of the core module</a>). If all you want is to stop writing long commands every time you touch a <span class="caps">GUI</span> item, you’re done. You can write crisper layout code, tweak your properties, and so on with what we’ve covered so far. If you’re interested in making practical use of this setup – remember that <span class="caps">WIP</span> warning! – you should read the docs in the events.py module to make sure you know how to hook up callback events. I’ll cover that in more detail in the future.<br />
+<p>Now we’ve got a complete library of all the widgets. You can see the results in <a href="https://github.com/theodox/mGUI/blob/master/mGUI/core/controls.py">controls.py</a> and <a href="https://github.com/theodox/mGUI/blob/master/mGUI/core/layouts.py">layouts.py</a> on GitHub. (The base classes are also up there for your perusal in <a href="https://github.com/theodox/mGUI/blob/master/mGUI/core/__init__.py">the root of the core module</a>). If all you want is to stop writing long commands every time you touch a <span class="caps">GUI</span> item, you’re done. You can write crisper layout code, tweak your properties, and so on with what we’ve covered so far. If you’re interested in making practical use of this setup – remember that <span class="caps">WIP</span> warning! – you should read the docs in the events.py module to make sure you know how to hook up callback events. I’ll cover that in more detail in the future.<br>
 However… Simpler syntax is just scratching the surface of what we can get up to now that we have a proper class library for our widgets. Next time out we’ll look at the event mechanism in more detail and talk about how to cleanly separate your functional code, <span class="caps">GUI</span> layouts, and the display styles of your&nbsp;widgets.  </p>
 <p><a href="http://www.youtube.com/watch?v=8fvTxv46ano">Until next&nbsp;time&#8230;.</a></p>
-    </article>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://theodox.github.io/tag/maya.html">Maya</a>
+      <a href="https://theodox.github.io/tag/python.html">python</a>
+      <a href="https://theodox.github.io/tag/gui.html">GUI</a>
+      <a href="https://theodox.github.io/tag/programming.html">programming</a>
+      <a href="https://theodox.github.io/tag/mgui.html">mGui</a>
+    </p>
+  </div>
 
-        <div class="tags">
-            <p>tags: <a href="https://theodox.github.io/tag/maya.html">Maya</a>, <a href="https://theodox.github.io/tag/python.html">python</a>, <a href="https://theodox.github.io/tag/gui.html">GUI</a>, <a href="https://theodox.github.io/tag/programming.html">programming</a>, <a href="https://theodox.github.io/tag/mgui.html">mGui</a></p>
-        </div>
-    <div id="comment">
-<hr>
-<div class="sharing">
-        <!-- AddThis Button BEGIN -->
-        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-            <a class="addthis_button_preferred_1"></a>
-            <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
-            <a class="addthis_button_preferred_5"></a>
-            <a class="addthis_button_preferred_6"></a>
-            <a class="addthis_button_preferred_7"></a>
-            <a class="addthis_button_preferred_8"></a>
-            <a class="addthis_button_preferred_9"></a>
-            <a class="addthis_button_compact"></a>
-            <a class="addthis_counter addthis_bubble_style"></a>
-        </div>
-        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
-        <!-- AddThis Button END -->
-</div>
-    <div class="comments">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'theodoxcom';
-            var disqus_identifier = '2014/all_your_base';
-            var disqus_url = 'https://theodox.github.io/2014/all_your_base';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//theodoxcom.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
-    </div>
-            </div>
-            <!---- right sidebar -->
-<div class="right-sidebar col-lg-2 col-md-1">
-    <div class="vertical-spacer">
-    <h4>@social</h4>
-        <ul class="list-inline text-center">
-                <li>
-                    <a href="https://www.linkedin.com/in/stevetheodore">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://stackoverflow.com/users/1936075/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-    <div class="vertical-spacer">
-        <h4>#tags</h4>
-        <a href="/tags">tag list</a>
-        
-            <a class="tag-link" href="https://theodox.github.io/tag/animation.html">animation</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/api.html">api</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/articles.html">articles</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blog.html">blog</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blogging.html">blogging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/boo.html">boo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/books.html">books</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modo.html">modo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modules.html">modules</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/moonrise.html">moonrise</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/photoshop.html">photoshop</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/pipeline.html">pipeline</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/rigging.html">rigging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sod.html">SOD</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/spelcheck.html">spelcheck</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/standalone.html">standalone</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ta.html">TA</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/talks.html">talks</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/techart.html">techart</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/thunderbirds.html">thunderbirds</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/tools.html">tools</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/unity.html">unity</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/web.html">web</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/writing.html">writing</a>
-    </div>
-    <div class="vertical-spacer">
-        <h4>archives</h4>
-        <div>
-          <a href="/archives">all</a>
-        </div>      
-        <div>
-        <a href="/2013/index.html">2013</a>
-        </div>      
-        <div>
-        <a href="/2014/index.html">2014</a>
-        </div>      
-        <div>
-        <a href="/2015/index.html">2015</a>
-        </div>      
-        <div>
-        <a href="/2016/index.html">2016</a>
-        </div>
-    </div> 
-    <div class="vertical-spacer">
-        <h4>feeds </h4>
-        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-    </div>   
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
 
-</div>        </div>
-    </div>
 
-    <hr>
+    <div class="addthis_relatedposts_inline"></div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<p class="copyright text-muted">
-   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="https://theodox.github.io/theme/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://theodox.github.io/theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="https://theodox.github.io/theme/js/clean-blog.min.js"></script>
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-79232212-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<!-- Disqus -->
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'theodoxcom';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
 </script>
-</body>
+<noscript>
+        Please enable JavaScript to view comments.
 
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy;  2018</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Chimeras & Manticores ",
+  "url" : "https://theodox.github.io",
+  "image": "",
+  "description": ""
+}
+</script>
+
+</body>
 </html>

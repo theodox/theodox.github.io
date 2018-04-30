@@ -1,126 +1,345 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-            <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
-        <title>The Dog Ate My&nbsp;Homework</title>
+    <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Atom">
 
-            <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
-            <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
-        <!-- Bootstrap Core CSS -->
-        <link href="https://theodox.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="https://theodox.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="https://theodox.github.io/theme/css/code_blocks/zenburn.css" rel="stylesheet">
-
-            <!-- CSS specified by the user -->
-            <link href="https://theodox.github.io/theme/css/theodox.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores RSS">
 
 
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <meta name="description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions.">
+  ga('create', 'UA-79232212-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
 
-        <meta name="author" content="Steve Theodore">
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions." />
+<meta name="keywords" content="programming, python, maya">
 
-        <meta name="tags" content="programming">
-        <meta name="tags" content="python">
-        <meta name="tags" content="maya">
+<meta property="og:site_name" content="Chimeras & Manticores"/>
+<meta property="og:title" content="The Dog Ate My Homework"/>
+<meta property="og:description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions."/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://theodox.github.io/2014/dog_ate_my_homework"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-10-30 09:55:00.001000-07:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="maya"/>
+<meta property="og:image" content="">
 
-	                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="Chimeras & Manticores">
+   <title>Chimeras & Manticores &ndash; The Dog Ate My Homework</title>
 
-	<meta property="og:type" content="article">
-            <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
-	<meta property="og:url" content="https://theodox.github.io/2014/dog_ate_my_homework">
-	<meta property="og:title" content="The Dog Ate My&nbsp;Homework">
-	<meta property="article:published_time" content="2014-10-30 09:55:00.001000-07:00">
-            <meta property="og:description" content="a cheap-ass way to specialize Maya unit tests for different Maya versions.">
 
-            <meta property="og:image" content="https://theodox.github.io/theme/images/post-bg.jpg">
+    <link rel="canonical" href="https://theodox.github.io/2014/dog_ate_my_homework"/>
+
+  <script type="text/javascript">
+    var host = "https://theodox.github.io";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+      window.location.protocol = "https";
+  </script>
+
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://theodox.github.io/">Chimeras & Manticores</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">About...</a></li>
-                        <li><a href="/pages/pub">Publications</a></li>
-                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
-                        <li><a href="/pages/cookbook">Cookbook</a></li>
 
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+  <aside>
+    <div>
+      <h2>Chimeras & Manticores</h2>
+      <a href="https://theodox.github.io">
+        <img src="https://theodox.github.io/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="https://theodox.github.io"></a></h1>
+
+<p>a blog about technical art, python, the games business, and obscurantism</p>
+
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
+      </ul>
+
+    <nav>
+<!---if pages or LINKS -->
+
+
+        <div>
+          <h3 class="tagcloud_header">SUBJECTS</h3>
         </div>
-        <!-- /.container -->
+        <ul class="tagcloud">
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/animation.html">
+                animation
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/api.html">
+                api
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/articles.html">
+                articles
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/blog.html">
+                blog
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/blogging.html">
+                blogging
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/boo.html">
+                boo
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/books.html">
+                books
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/bugs.html">
+                bugs
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/cg.html">
+                cg
+                        <span class="badge">(8)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/distribution.html">
+                distribution
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/games.html">
+                games
+                        <span class="badge">(9)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gdc.html">
+                gdc
+                        <span class="badge">(12)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/graphics.html">
+                graphics
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gui.html">
+                gui
+                        <span class="badge">(7)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/industry.html">
+                industry
+                        <span class="badge">(33)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/jobs.html">
+                jobs
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/markdown.html">
+                markdown
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/math.html">
+                math
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/maya.html">
+                maya
+                        <span class="badge">(45)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/mgui.html">
+                mgui
+                        <span class="badge">(10)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/minq.html">
+                minq
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modeling.html">
+                modeling
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modules.html">
+                modules
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/moonrise.html">
+                moonrise
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/pipeline.html">
+                pipeline
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/programming.html">
+                programming
+                        <span class="badge">(36)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/python.html">
+                python
+                        <span class="badge">(47)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/rigging.html">
+                rigging
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/sfx.html">
+                sfx
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/techart.html">
+                techart
+                        <span class="badge">(20)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/tools.html">
+                tools
+                        <span class="badge">(16)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/unity.html">
+                unity
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/web.html">
+                web
+                        <span class="badge">(6)</span>
+                </a>
+            </li>
+      </ul>
+      </nav>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://theodox.github.io">    Home
+</a>
+
+      <a href="/about">About...</a>
+      <a href="/pages/pub">Publications</a>
+      <a href="/pages/cookbook">Cookbook</a>
+      <a href="/archives">By date</a>
+      <a href="/tags">By subject</a>
+
+      <a href="https://theodox.github.io/feeds/atom.xml">    Atom
+</a>
+
+      <a href="https://theodox.github.io/feeds/rss.xml">    RSS
+</a>
     </nav>
 
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://theodox.github.io/theme/images/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>The Dog Ate My&nbsp;Homework</h1>
-                        <span class="meta">
-                            Thu 30 October 2014
-                        </span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<article class="single">
+  <header>
+      
+    <h1 id="dog_ate_my_homework">The Dog Ate My&nbsp;Homework</h1>
+    <p>
+          Posted on Thu 30 October 2014 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!-- Post Content -->
-    <article>
-        <p>I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth&nbsp;sharing.  </p>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>I had an interesting issue at work the other day. While the details are unit-test specific, I learned a useful general idea that’s worth&nbsp;sharing.  </p>
 <p>We run all of our various Maya tools through a single build system which runs unit tests and compiles code for our different targets (currently Maya 2011 and 2015). Ordinarily, since I’m very allergic to using binaries when I don’t have to, this multi-maya setup doesn’t cause us a lot of headaches. I have a little extractor routine which unzips the few binaries we do distribute in the right places, and all the rest of the code is blissfully unaware of which Maya version it’s running (with the exception of the nasty <a href="http://techartsurvival.blogspot.com/2014/09/2015-bug-watch-ls.html">ls bug I mentioned a few weeks ago</a>.)  </p>
-<p><a href="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg"><img alt="" src="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg" /></a></p>
-<p>Last week, however, we added a new tool and accompanying test suite to the toolkit. It works fine in 2015 (where we do all of our actual development right now), but crashes in 2011. After a bit of head-scratching we eventually realized that this one was absurdly simple: the test uses a saved Maya so that it can work with known, valid data. Of course the file was saved from Maya 2015, so when the Maya 2011 version of the tests tries to run boot up, it falls over because 2011 won’t read a 2015 file.<br />
+<p><a href="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg"><img alt="" src="http://rs1img.memecdn.com/how-many-times-have-you-heard-amp-quot-my-dog-ate-my-homework-amp-quot_fb_2216011.jpg"></a></p>
+<p>Last week, however, we added a new tool and accompanying test suite to the toolkit. It works fine in 2015 (where we do all of our actual development right now), but crashes in 2011. After a bit of head-scratching we eventually realized that this one was absurdly simple: the test uses a saved Maya so that it can work with known, valid data. Of course the file was saved from Maya 2015, so when the Maya 2011 version of the tests tries to run boot up, it falls over because 2011 won’t read a 2015 file.<br>
 Or, as the checkin comment has it,&nbsp;“Doh!”  </p>
 <h2>Test&nbsp;cancelled!</h2>
-<p>The obvious fix is just to skip the test in Maya 2011 - a test that can never pass is hardly generating much useful information, and the likelihood that our small pool of 2011 customers actually need this tool is low anyway. Skipping a test is easy enough if you’re running the tests manually in an <span class="caps">IDE</span> – but a lot more complex if you’re got a build server that’s trying to auto-detect the tests. Plus, designing a system that makes it <em>too</em> easy to skip tests is a Bad Thingtm; - you generally want all of your tests running all the time, since “I’ll re-enable that test after I deal with this problem” is right up there with “the check is in the mail” and “it’s not you, it’s me” in the probity department. <br />
+<p>The obvious fix is just to skip the test in Maya 2011 - a test that can never pass is hardly generating much useful information, and the likelihood that our small pool of 2011 customers actually need this tool is low anyway. Skipping a test is easy enough if you’re running the tests manually in an <span class="caps">IDE</span> – but a lot more complex if you’re got a build server that’s trying to auto-detect the tests. Plus, designing a system that makes it <em>too</em> easy to skip tests is a Bad Thingtm; - you generally want all of your tests running all the time, since “I’ll re-enable that test after I deal with this problem” is right up there with “the check is in the mail” and “it’s not you, it’s me” in the probity department. <br>
 So, the goal is to allow us to conditionally disable tests based on a hard constraint - in this case, when they are running on an inappropriate version of Maya - without compromising the tests as a whole . Secondarily it would be nice to do this without any kind of central registry file - we’d really just like the tests to just run, except when they <em>can’t</em>.  </p>
-<p><a href="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg"><img alt="" src="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg" /></a></p>
+<p><a href="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg"><img alt="" src="http://i1.wp.com/lotsofhumor.com/wp-content/uploads/2013/04/didnt-study-for-test-test-cancelled.jpg"></a></p>
 <p>Now, typically a test runner will detect tests by looking for classes that derive from <a href="https://docs.python.org/2/library/unittest.html">unittest.TestCase</a>. The easiest way to skip the test, therefore, is simply not to define it at all - if the test runner doesn’t see the class when it imports your test modules, we’ll be fine. <em>Note: this strategy won’t work if you have some kind of hand-rolled test harness that finds tests by string parsing file contents or something like that! However, you probably want to be doing the standard thing anyway… As they say in Python land, <a href="http://legacy.python.org/dev/peps/pep-0020/">“There should be one– and preferably only one –obvious way to do&nbsp;it.”</a></em>  </p>
 <p>In C++ or C# you could do this with a “preprocessor directive”, aka a “#define” - a conditional check that runs at compile time to include or exclude certain parts of a&nbsp;file.   </p>
 <p>In Python we don’t even need that: you can just inline the check in your file and it will execute when the module is imported. Here’s a simple example which conditionally use Raymond Hettinger’s <a href="https://pypi.python.org/pypi/ordereddict">ordereddict module</a> in Python 2.6 and the equivalent built-in version in Python&nbsp;2.7:  </p>
@@ -135,10 +354,10 @@ So, the goal is to allow us to conditionally disable tests based on a hard const
 
 <p>_(If you are total #<span class="caps">IFDEF</span> addict there is also the <a href="http://stackoverflow.com/questions/482014/how-would-you-do-the-equivalent-of-preprocessor-directives-in-python">pypredef module</a>. Not my cup of tea, but the author does make some good points about the utility of his approach).&nbsp;_  </p>
 <p>The inline approach works fine in small amounts, but it’s aesthetically unappealing - it forces a bunch of module-level definitions away from the left margin, visually demoting them from important names to generic code blocks. More importantly, it’s easy to mess up: a misplaced indentation can radically change the contents of your file, and even though I’m a big fan of indentations over cur lies, I miss my indents with depressing&nbsp;regularity.  </p>
-<p>Fortunately, Python has an elegantly succinct way of annotating code for higher-level purposes without messing up the visual cleanliness and logical flow: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">decorators</a>. Decorators are handy here for two reasons: first off, they express your intent very clearly by telling future readers something unambiguous about the structure of your code. Secondly, they can execute code (even fairly complex code, though frankly it’s a bad idea for what I’m describing here!) without compromising the layout and readability of your module.<br />
+<p>Fortunately, Python has an elegantly succinct way of annotating code for higher-level purposes without messing up the visual cleanliness and logical flow: <a href="http://www.artima.com/weblogs/viewpost.jsp?thread=240808">decorators</a>. Decorators are handy here for two reasons: first off, they express your intent very clearly by telling future readers something unambiguous about the structure of your code. Secondly, they can execute code (even fairly complex code, though frankly it’s a bad idea for what I’m describing here!) without compromising the layout and readability of your module.<br>
 The particularly nice thing about decorators in this case is that the way decorators work in any case is a natural match for the problem we&nbsp;have.   </p>
 <h2>The substitute&nbsp;teacher</h2>
-<p>A decorator is just a function (or a callable class) which takes another function or class as an argument. When Python finds a decorated function or class, it calls the decorator function and passes the target – that is, the decorated bit of code – as an argument Whatever comes out of the decorator function is then swapped in for the original code. <br />
+<p>A decorator is just a function (or a callable class) which takes another function or class as an argument. When Python finds a decorated function or class, it calls the decorator function and passes the target – that is, the decorated bit of code – as an argument Whatever comes out of the decorator function is then swapped in for the original code. <br>
 Here’s a simple example, using functions for&nbsp;simplicity:  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">decorated</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
         <span class="k">def</span> <span class="nf">replacement_func</span><span class="p">(</span><span class="n">arg</span><span class="p">):</span>  
@@ -194,7 +413,7 @@ Here’s a simple example, using functions for&nbsp;simplicity:  </p>
 
 
 <p>The essential thing here is that the decorator sort of like one of those elves who swap out children for changelings. Officially nothing has changed - the name you defined in the un-decorated code is right there - but under the hood it may be&nbsp;different.  </p>
-<p><a href="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg"><img alt="" src="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg" /></a></p>
+<p><a href="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg"><img alt="" src="http://bartsblackboard.com/files/2009/11/The-Simpsons-05x11-Homer-The-Vigilante.jpg"></a></p>
 <h2>Mandatory&nbsp;testing</h2>
 <p>Once you understand the decorator-as-changeling idea, it becomes pretty easy to see how the decorator can allow code swaps based on some condition. You might, for example, try to patch around a function which returns an empty list in Maya 2014, but <a href="https://www.blogger.com/blogger.g?blogID=3596910715538761404">crashes in Maya 2015</a>(link):  </p>
 <div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">safe_2015</span><span class="p">(</span><span class="n">original_func</span><span class="p">):</span>  
@@ -273,213 +492,65 @@ Here’s a simple example, using functions for&nbsp;simplicity:  </p>
 <p>This particular gimmick was a great way to clean up our messy test set. Predictably, about 30 seconds I verified that it worked I was starting to brainstorm all sorts of cool new uses for this&nbsp;tactic.   </p>
 <p>A few more minutes of reflection, however, brought me to see that this kind of trick should be reserved for special occasions. The ability to swap the contents of a name based on runtime condition is definitely cool - but it’s hardly a good practice for readability and maintenance down the road. It happens to be a nice fit for this problem because a test is never going to be used by anything other than the test suite. Trying the same thing with, say, a geometry library that gets imported all over the place would be a nightmare to&nbsp;debug.  </p>
 <p>Magic is wonderful but, best used <em>sparingly</em>.  </p>
-<p><a href="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg"><img alt="" src="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg" /></a></p>
-    </article>
+<p><a href="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg"><img alt="" src="http://pad2.whstatic.com/images/thumb/f/f5/Get-out-of-Class-Step-6.jpg/670px-Get-out-of-Class-Step-6.jpg"></a></p>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://theodox.github.io/tag/programming.html">programming</a>
+      <a href="https://theodox.github.io/tag/python.html">python</a>
+      <a href="https://theodox.github.io/tag/maya.html">maya</a>
+    </p>
+  </div>
 
-        <div class="tags">
-            <p>tags: <a href="https://theodox.github.io/tag/programming.html">programming</a>, <a href="https://theodox.github.io/tag/python.html">python</a>, <a href="https://theodox.github.io/tag/maya.html">maya</a></p>
-        </div>
-    <div id="comment">
-<hr>
-<div class="sharing">
-        <!-- AddThis Button BEGIN -->
-        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-            <a class="addthis_button_preferred_1"></a>
-            <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
-            <a class="addthis_button_preferred_5"></a>
-            <a class="addthis_button_preferred_6"></a>
-            <a class="addthis_button_preferred_7"></a>
-            <a class="addthis_button_preferred_8"></a>
-            <a class="addthis_button_preferred_9"></a>
-            <a class="addthis_button_compact"></a>
-            <a class="addthis_counter addthis_bubble_style"></a>
-        </div>
-        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
-        <!-- AddThis Button END -->
-</div>
-    <div class="comments">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'theodoxcom';
-            var disqus_identifier = '2014/dog_ate_my_homework';
-            var disqus_url = 'https://theodox.github.io/2014/dog_ate_my_homework';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//theodoxcom.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
-    </div>
-            </div>
-            <!---- right sidebar -->
-<div class="right-sidebar col-lg-2 col-md-1">
-    <div class="vertical-spacer">
-    <h4>@social</h4>
-        <ul class="list-inline text-center">
-                <li>
-                    <a href="https://www.linkedin.com/in/stevetheodore">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://stackoverflow.com/users/1936075/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-    <div class="vertical-spacer">
-        <h4>#tags</h4>
-        <a href="/tags">tag list</a>
-        
-            <a class="tag-link" href="https://theodox.github.io/tag/animation.html">animation</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/api.html">api</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/articles.html">articles</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blog.html">blog</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blogging.html">blogging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/boo.html">boo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/books.html">books</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modo.html">modo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modules.html">modules</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/moonrise.html">moonrise</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/photoshop.html">photoshop</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/pipeline.html">pipeline</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/rigging.html">rigging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sod.html">SOD</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/spelcheck.html">spelcheck</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/standalone.html">standalone</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ta.html">TA</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/talks.html">talks</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/techart.html">techart</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/thunderbirds.html">thunderbirds</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/tools.html">tools</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/unity.html">unity</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/web.html">web</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/writing.html">writing</a>
-    </div>
-    <div class="vertical-spacer">
-        <h4>archives</h4>
-        <div>
-          <a href="/archives">all</a>
-        </div>      
-        <div>
-        <a href="/2013/index.html">2013</a>
-        </div>      
-        <div>
-        <a href="/2014/index.html">2014</a>
-        </div>      
-        <div>
-        <a href="/2015/index.html">2015</a>
-        </div>      
-        <div>
-        <a href="/2016/index.html">2016</a>
-        </div>
-    </div> 
-    <div class="vertical-spacer">
-        <h4>feeds </h4>
-        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-    </div>   
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
 
-</div>        </div>
-    </div>
 
-    <hr>
+    <div class="addthis_relatedposts_inline"></div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<p class="copyright text-muted">
-   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="https://theodox.github.io/theme/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://theodox.github.io/theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="https://theodox.github.io/theme/js/clean-blog.min.js"></script>
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-79232212-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<!-- Disqus -->
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'theodoxcom';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
 </script>
-</body>
+<noscript>
+        Please enable JavaScript to view comments.
 
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy;  2018</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Chimeras & Manticores ",
+  "url" : "https://theodox.github.io",
+  "image": "",
+  "description": ""
+}
+</script>
+
+</body>
 </html>

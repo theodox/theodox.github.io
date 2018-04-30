@@ -1,116 +1,335 @@
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-            <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="HandheldFriendly" content="True" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="index, follow" />
+
+  <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700,400italic' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
+
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
-        <title>Adventures in the 4th&nbsp;dimension</title>
+    <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Atom">
 
-            <link href="https://theodox.github.io/feeds/atom.xml" type="application/atom+xml" rel="alternate" title="Chimeras & Manticores Full Atom Feed" />
-            <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores Full RSS Feed" />
-        <!-- Bootstrap Core CSS -->
-        <link href="https://theodox.github.io/theme/css/bootstrap.min.css" rel="stylesheet">
-
-        <!-- Custom CSS -->
-        <link href="https://theodox.github.io/theme/css/clean-blog.min.css" rel="stylesheet">
-
-        <!-- Code highlight color scheme -->
-            <link href="https://theodox.github.io/theme/css/code_blocks/zenburn.css" rel="stylesheet">
-
-            <!-- CSS specified by the user -->
-            <link href="https://theodox.github.io/theme/css/theodox.css" rel="stylesheet">
-
-        <!-- Custom Fonts -->
-        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-        <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
-
-        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-        <![endif]-->
+    <link href="https://theodox.github.io/feeds/rss.xml" type="application/rss+xml" rel="alternate" title="Chimeras & Manticores RSS">
 
 
+<!-- Google Analytics -->
+<script type="text/javascript">
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        <meta name="description" content="Matrices and how they can be used to transform 3-d points">
+  ga('create', 'UA-79232212-1', 'auto');
+  ga('send', 'pageview');
+</script>
+<!-- End Google Analytics -->
 
-        <meta name="author" content="Steve Theodore">
+<meta name="author" content="Steve Theodore" />
+<meta name="description" content="Matrices and how they can be used to transform 3-d points" />
+<meta name="keywords" content="math">
 
-        <meta name="tags" content="math">
+<meta property="og:site_name" content="Chimeras & Manticores"/>
+<meta property="og:title" content="Adventures in the 4th dimension"/>
+<meta property="og:description" content="Matrices and how they can be used to transform 3-d points"/>
+<meta property="og:locale" content="en_US"/>
+<meta property="og:url" content="https://theodox.github.io/2014/adventures_in_the_4th_dimension"/>
+<meta property="og:type" content="article"/>
+<meta property="article:published_time" content="2014-12-15 23:35:00-08:00"/>
+<meta property="article:modified_time" content=""/>
+<meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
+<meta property="article:section" content="blog"/>
+<meta property="article:tag" content="math"/>
+<meta property="og:image" content="">
 
-	                <meta property="og:locale" content="">
-		<meta property="og:site_name" content="Chimeras & Manticores">
+   <title>Chimeras & Manticores &ndash; Adventures in the 4th dimension</title>
 
-	<meta property="og:type" content="article">
-            <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
-	<meta property="og:url" content="https://theodox.github.io/2014/adventures_in_the_4th_dimension">
-	<meta property="og:title" content="Adventures in the 4th&nbsp;dimension">
-	<meta property="article:published_time" content="2014-12-15 23:35:00-08:00">
-            <meta property="og:description" content="Matrices and how they can be used to transform 3-d points">
 
-            <meta property="og:image" content="https://theodox.github.io/theme/images/post-bg.jpg">
+    <link rel="canonical" href="https://theodox.github.io/2014/adventures_in_the_4th_dimension"/>
+
+  <script type="text/javascript">
+    var host = "https://theodox.github.io";
+    if ((host == window.location.host) && (window.location.protocol != "https:"))
+      window.location.protocol = "https";
+  </script>
+
 </head>
-
 <body>
 
-    <!-- Navigation -->
-    <nav class="navbar navbar-default navbar-custom navbar-fixed-top">
-        <div class="container-fluid">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="https://theodox.github.io/">Chimeras & Manticores</a>
-            </div>
 
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                        <li><a href="/about">About...</a></li>
-                        <li><a href="/pages/pub">Publications</a></li>
-                        <li><a href="http://astore.amazon.com/tecsurgui-20">Tech-Art Book Store</a></li>
-                        <li><a href="/pages/cookbook">Cookbook</a></li>
 
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
+  <aside>
+    <div>
+      <h2>Chimeras & Manticores</h2>
+      <a href="https://theodox.github.io">
+        <img src="https://theodox.github.io/theme/img/profile.png" alt="" title="">
+      </a>
+      <h1><a href="https://theodox.github.io"></a></h1>
+
+<p>a blog about technical art, python, the games business, and obscurantism</p>
+
+
+      <ul class="social">
+        <li><a class="sc-linkedin" href="https://www.linkedin.com/in/stevetheodore" target="_blank"><i class="fa fa-linkedin"></i></a></li>
+        <li><a class="sc-github" href="https://github.com/theodox" target="_blank"><i class="fa fa-github"></i></a></li>
+        <li><a class="sc-google" href="https://plus.google.com/u/0/+SteveTheodore480BC/posts" target="_blank"><i class="fa fa-google"></i></a></li>
+        <li><a class="sc-stack-overflow" href="http://stackoverflow.com/users/1936075/theodox" target="_blank"><i class="fa fa-stack-overflow"></i></a></li>
+      </ul>
+
+    <nav>
+<!---if pages or LINKS -->
+
+
+        <div>
+          <h3 class="tagcloud_header">SUBJECTS</h3>
         </div>
-        <!-- /.container -->
+        <ul class="tagcloud">
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/animation.html">
+                animation
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/api.html">
+                api
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/articles.html">
+                articles
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/blog.html">
+                blog
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/blogging.html">
+                blogging
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/boo.html">
+                boo
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/books.html">
+                books
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/bugs.html">
+                bugs
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/cg.html">
+                cg
+                        <span class="badge">(8)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/distribution.html">
+                distribution
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/games.html">
+                games
+                        <span class="badge">(9)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gdc.html">
+                gdc
+                        <span class="badge">(12)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/graphics.html">
+                graphics
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/gui.html">
+                gui
+                        <span class="badge">(7)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/industry.html">
+                industry
+                        <span class="badge">(33)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/jobs.html">
+                jobs
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/markdown.html">
+                markdown
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/math.html">
+                math
+                        <span class="badge">(5)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/maya.html">
+                maya
+                        <span class="badge">(45)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/mgui.html">
+                mgui
+                        <span class="badge">(10)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/minq.html">
+                minq
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modeling.html">
+                modeling
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/modules.html">
+                modules
+                        <span class="badge">(3)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/moonrise.html">
+                moonrise
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/pipeline.html">
+                pipeline
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/programming.html">
+                programming
+                        <span class="badge">(36)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/python.html">
+                python
+                        <span class="badge">(47)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/rigging.html">
+                rigging
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/sfx.html">
+                sfx
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/techart.html">
+                techart
+                        <span class="badge">(20)</span>
+                </a>
+            </li>
+            <li class="tag-1">
+                <a href="https://theodox.github.io/tag/tools.html">
+                tools
+                        <span class="badge">(16)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/unity.html">
+                unity
+                        <span class="badge">(4)</span>
+                </a>
+            </li>
+            <li class="tag-2">
+                <a href="https://theodox.github.io/tag/web.html">
+                web
+                        <span class="badge">(6)</span>
+                </a>
+            </li>
+      </ul>
+      </nav>
+    </div>
+
+
+  </aside>
+  <main>
+
+    <nav>
+      <a href="https://theodox.github.io">    Home
+</a>
+
+      <a href="/about">About...</a>
+      <a href="/pages/pub">Publications</a>
+      <a href="/pages/cookbook">Cookbook</a>
+      <a href="/archives">By date</a>
+      <a href="/tags">By subject</a>
+
+      <a href="https://theodox.github.io/feeds/atom.xml">    Atom
+</a>
+
+      <a href="https://theodox.github.io/feeds/rss.xml">    RSS
+</a>
     </nav>
 
-    <!-- Page Header -->
-        <header class="intro-header" style="background-image: url('https://theodox.github.io/theme/images/post-bg.jpg')">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-                    <div class="post-heading">
-                        <h1>Adventures in the 4th&nbsp;dimension</h1>
-                        <span class="meta">
-                            Mon 15 December 2014
-                        </span>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-    </header>
+<article class="single">
+  <header>
+      
+    <h1 id="adventures_in_the_4th_dimension">Adventures in the 4th&nbsp;dimension</h1>
+    <p>
+          Posted on Mon 15 December 2014 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
-    <!-- Main Content -->
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
-    <!-- Post Content -->
-    <article>
-        <p>In <a href="dot_matrix">our last discussion of 3d math</a>, we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that <strong>matrices are just a convention for applying dot products in series.</strong> We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three&nbsp;dimensions.  </p>
+
+    </p>
+  </header>
+
+
+  <div>
+    <p>In <a href="dot_matrix">our last discussion of 3d math</a>, we started to plumb the mysteries of the matrix. Along the way we discovered two important facts: First, that it’s possible to write an article about matrices with only the merest smidge of a Keanu Reeves mention and second (almost as important), that <strong>matrices are just a convention for applying dot products in series.</strong> We walked through the derivation of matrices for a series of dot products and shows how hat simple operation allows you to do rotations in two and three&nbsp;dimensions.  </p>
 <p>Naturally, any <span class="caps">TA</span> reading this will be knows there&#8217;s more. We all know that the matrices we’re most familiar with — the transform matrices that drive animation and modeling — do more than rotate. So this this time out we’re going talk about how <strong>translation</strong> — spatial offsets — can be packed into matrices.  And we&#8217;re going to do it in a truly brain bending way.  Sort&nbsp;of.  </p>
 <blockquote>
 <blockquote>
@@ -120,65 +339,19 @@
 <p>After all of the time we’ve spent with dot products in this series, one thing we should remember is that dots are <strong>additive</strong> — if you dot two vectors, you sum up all of the products. “Additive” is a nice quality to have if we’re thinking about adding translations to our matrices  It suggests that maybe we can use the additive-ness of dot products to teach our matrices how to do translations as well as&nbsp;rotations.  </p>
 <p>Multiplying a vector against a matrix, <a href="dot_matrix.html">you’ll recall</a>, is nothing more than stringing together a set of dot products between the vector and the columns of the matrix. So, putting together the fact that dots are additive and the fact that matrix multiplication uses dots, it seems logical that we can just stick our translation right onto the bottom of the matrix.  By dropping it down at the end of the matrix columns, we&#8217;ll add it add it to our results. One important side effect that we’ll have to worry about is that this will break the pretty symmetry we noted last time whereby every matrix row is an axis in the matrix&#8217;s local coordinate system.  However we’ll deal with that after we know it&nbsp;works.  </p>
 <p>To keep things simple, let’s start with a rotate matrix that doesn’t do any, you know, <em>rotating</em> — a matrix that works but leaves incoming data unchanged. That&#8217;ll make it easier to see when our translations kick in. The correct math moniker for this do-nothing matrix is an <em>identity</em> matrix (as in the otherwise-inexplicable <code>MakeIdentity()</code> command in Maya) and it’s just a set of rows that match the default <span class="caps">XYZ</span>&nbsp;axes:  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
+<p>|   |   | 
+|&#8212;-|&#8212;-|&#8212;-|  <br>
+1| 0| 0<br>
+0| 1| 0<br>
+0| 0|&nbsp;1  </p>
 <p>I won’t bother with the math here, but if your work it out for yourself you’ll quickly see that dotting the columns of this matrix in turn against any vector returns the original vector&nbsp;unchanged.   </p>
 <p>Next, we’d like to add some extra information to this matrix to include a translation. Since we know our dots are going down the columns, if we tack on an extra row we should be getting a new value added to the output: hopefully, the translation we want. Adding an extra row for translation gives us a 4X3 matrix like this (with an example translation of <code>[1,2,3]</code> :  </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>0</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>1</td>
-<td>0</td>
-</tr>
-<tr>
-<td>0</td>
-<td>0</td>
-<td>1</td>
-</tr>
-<tr>
-<td>1</td>
-<td>2</td>
-<td>3</td>
-</tr>
-</tbody>
-</table>
+<p>|   |   | 
+|&#8212;-|&#8212;-|&#8212;-|
+1| 0| 0<br>
+0| 1| 0<br>
+0| 0| 1<br>
+1| 2|&nbsp;3  </p>
 <blockquote>
 <p><em>For future reference, matrices are usually described as ‘rows by columns’; in the last article we derived our matrix first as a 2X2 then as a 3X3 matrx. Most transformation matrices in 3d software are 4X4, for reasons that will become apparent shortly, but Max users will find this 4X3 format familiar — Maxscript makes extensive use of 4x3 matrices for object&nbsp;transforms.</em></p>
 </blockquote>
@@ -208,7 +381,7 @@
 <p>Well, it’s nice to get the right result, but this still leaves us with a bit of a conundrum.  I know what [2,3,4] means. But what the heck is that last coordinate doing there? Did we just make it&nbsp;up?  </p>
 <h2>X,Y,Z,<span class="caps">WTH</span>?</h2>
 <p>You may remember from our <a href="bagles_and_coffee.html">original discussion of dot products</a> that <em>vector</em> is actually a very general term, encompassing any bundle of numbers. In tech art we’re used to thinking of vectors as <span class="caps">XYZ</span> bundles in 3-D space, but a vector can just as easily be something else — such as your weekly Starbucks expenditure, which is how we started down this road in the first place. 3-D points can be represented by vectors — but so could any bundle of 3 numbers which formed part of a linear equation; say, the value of the dollar, the euro and the yen on a given day. Dot products and matrices work the same way regardless of the subject matter. So, one thing we know already is that all 3-D points are vectors, so to speak, but _not _all vectors are&nbsp;3-D. </p>
-<p><a href="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg"><img alt="" src="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg" /></a>  </p>
+<p><a href="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg"><img alt="" src="http://micro.magnet.fsu.edu/optics/timeline/people/antiqueimages/euclid.jpg"></a>  </p>
 <blockquote>
 <p>Not only did he pioneer analytical geometry, he seems to have invented the Mall Santa look&nbsp;too.  </p>
 </blockquote>
@@ -218,16 +391,16 @@
 <p>On the other hand a Euclidean point _is _an actual location in space. The point <code>[1,1,1]</code> is just that : the location <code>[1,1,1]</code>. it has no &#8216;facing&#8217; or &#8216;direction&#8217; the way a surface normal does - and it&#8217;s not the same as any other 3-D point. It&#8217;s an _address, _while a regular vector is an&nbsp;offset.  </p>
 <p>That&#8217;s where our fourth coordinate comes in. The fourth coordinate in our example <strong>tells us if we’re dealing with a Euclidean point or a Euclidean vector</strong>; that is, if we are dealing with something that can be translated or not.  If the last coordinate is a <strong>1</strong>, the data is a <strong>point </strong>which can be transformed (moved, rotated and scaled). If the last coordinate is a <strong>0</strong>, the data is a <strong>vector</strong>, which can be rotated and scaled but not moved. The last number is known as the <a href="http://en.wikipedia.org/wiki/Homogeneous_coordinates">homogeneous coordinate</a>, although most people refer to it as the “W” component by analogy with X Y and Z.  <em>Although I kind of wish they had just wrapped it around back to A, or started at W, or something. <span class="caps">XYZW</span>? Like I said, I&#8217;d like to concentrate on the mind-warping concepts more and the annoying terminology less.  Oh&nbsp;well.</em>  </p>
 <h2>Homegeneophobia</h2>
-<p>If you’re practically minded, all you <em>really _need to know today is that a W of 1 is a point and a W of 0 is a direction. If you are especially literal minded, in fact, this next bit may be a bit&#8230; bizarre. You can probably skip it without missing much practical information, but try to stick it out. It will give you an appreciation of the abstract beauty the underlies matrix math.  I&#8217;m going to try to explain of the ‘meaning’ of the W coordinate but take this with a grain of salt, since this one goes a bit beyond my limited mathematical imagination.<br />
-We&#8217;ve already suggested that the W component represents a 4th dimension.  While that&#8217;s kind of hard to visualize, we can see the results by &#8216;projecting&#8217; onto the <span class="caps">XYZ</span> space that we are used to. Got that? Just like we project a 3-D set of points onto the 2-D screen of our computers, we can project a 4-D quantity into 3 dimensions.<br />
+<p>If you’re practically minded, all you <em>really _need to know today is that a W of 1 is a point and a W of 0 is a direction. If you are especially literal minded, in fact, this next bit may be a bit&#8230; bizarre. You can probably skip it without missing much practical information, but try to stick it out. It will give you an appreciation of the abstract beauty the underlies matrix math.  I&#8217;m going to try to explain of the ‘meaning’ of the W coordinate but take this with a grain of salt, since this one goes a bit beyond my limited mathematical imagination.<br>
+We&#8217;ve already suggested that the W component represents a 4th dimension.  While that&#8217;s kind of hard to visualize, we can see the results by &#8216;projecting&#8217; onto the <span class="caps">XYZ</span> space that we are used to. Got that? Just like we project a 3-D set of points onto the 2-D screen of our computers, we can project a 4-D quantity into 3 dimensions.<br>
 Another way to think about it is that an <span class="caps">XYZW</span> vector is _one point along a 4-dimensional line that intersects 3-space</em>.  In this image, engraver/ math whiz / literal Renaissance Man <a href="http://www.albrecht-durer.org/">Albrecht Durer</a> is using a perspective scrim to do his life drawing: projecting a 3-D reality on the 2-D silk screen by keeping his eye in one location and then seeing how the 3-D lady lines up with his 2-D&nbsp;grid.  </p>
-<h2><a href="http://relativity.net.au/gaming/java/images/DurerFrustum.png"><img alt="" src="http://relativity.net.au/gaming/java/images/DurerFrustum.png" /></a></h2>
+<h2><a href="http://relativity.net.au/gaming/java/images/DurerFrustum.png"><img alt="" src="http://relativity.net.au/gaming/java/images/DurerFrustum.png"></a></h2>
 <p>A decent analogy for projecting 4-D down to 3, here a 3-D world projected  down to&nbsp;2:   </p>
 <p>In this word, each 2-D point on the scrim corresponds to a 3-D line running from Durer&#8217;s eye through the plane of the scrim and beyond.  In a matrix, each 3-D point is on a similar line that runs into the fourth dimension.  While it&#8217;s hard to visualize, it&#8217;s mathematically consistent - which is why the mathematicians like&nbsp;it.  </p>
 <p>How cool – or confusing – is&nbsp;that?    </p>
 <p>The point where our mystical 4-D vector intersects our plain old 3-D space corresponds to the point where Durer&#8217;s eyeline passes through the scrim.  In our case, the point is  <code>[X,Y,Z]</code> divided by <code>W</code>. One side effect of this is that there are many different 4-D points that correspond to the same 3-D point: <code>[1,1,1,1]</code>, <code>[2,2,2,2]</code> and <code>[-1,-1,-1,-1]</code> all represent the same point.  In the illustration above, you can see how each of the orange lines hits one _point _in 2-D, but that the point lies on a 3-D _line. _Going from 4-D space down to 3-D works the same way - except that the extra dimension is brain-bendingly hard to&nbsp;visualize.  </p>
 <p>A W value of 1 represents the projection of our 4-D vector onto boring old 3-D reality, sort of like the plane of the perspective scrim in the image above.  W values less than one approach the &#8216;eye point&#8217;, while values larger than 1 extend past the scrim into the scene.  To understand how the W changes the projected value in 3-D, imagine picking a point on Durer&#8217;s 2-D screen and pushing back through the screen. As the distance (the W) increases, the projected point will get closer to the center of the screen.  In fact, this is plain old 1-point perspective in action:  A W approaches infinity, any coordinate translates into the perspective vanishing point, which in this case is the center of the&nbsp;scrim.  </p>
-<p><a href="http://www.robinurton.com/history/Renaissance/perspective.jpg"><img alt="" src="http://www.robinurton.com/history/Renaissance/perspective.jpg" /></a></p>
+<p><a href="http://www.robinurton.com/history/Renaissance/perspective.jpg"><img alt="" src="http://www.robinurton.com/history/Renaissance/perspective.jpg"></a></p>
 <blockquote>
 <p>All lines converge at W=infinity, at least according to Piero Della&nbsp;Francesca</p>
 </blockquote>
@@ -240,7 +413,7 @@ Another way to think about it is that an <span class="caps">XYZW</span> vector i
 <p>It&#8217;s simultaneously baffling and awe-inspring. Like <em><a href="http://www.goat-simulator.com/">Goat Simulator</a>.</em>  </p>
 <p>If you&#8217;ve stuck it out this far, the whole visualization actually has one imporant side benefit. It explains the _other _reason we need homogeneous coordinates: they allow us to handle perspective projections and regular geometry using the same set of rules. W coordinates that aren’t 0’s or 1’s generally crop up only when you’re working with the perspective matrix of a camera or trying to transform points from world space to screen space. However that’s a matter for another&nbsp;time.   </p>
 <p>For now, however, I need to relax my frontal&nbsp;lobe.  </p>
-<p><a href="http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg"><img alt="" src="http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg" /></a>  </p>
+<p><a href="http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg"><img alt="" src="http://www.lovingmystuff.co.uk/wp-content/uploads/2013/08/543.jpg"></a>  </p>
 <blockquote>
 <p>Why did they wear those hankies on their heads,&nbsp;anyway?  </p>
 </blockquote>
@@ -250,24 +423,24 @@ Another way to think about it is that an <span class="caps">XYZW</span> vector i
 </blockquote>
 <h2>Homogenius!</h2>
 <p>Alright, let&#8217;s get our feet back on the ground (which involves setting our Z coordinate to 0 and our W coordinate to&nbsp;1).  </p>
-<p>If you just skipped over the mental gymnastics above —or if you just need to be brought back down to earth — let’s remind ourselves where we are:<br />
-We&#8217;ve got a nice, easy to manage system for packing spatial translations and rotations into a single operation, in the form of the 4X3 matrix. By adding a W coordinate — the ~~<em>mysterious</em>~~ homogeneous coordinate – to the end of our original vector, we have gained the ability to do translations. We&#8217;ve also shown how we can toggle back and forth between rotation-only vector operations and rotate-and-translate point operations by changing the W coordinate from 0 to 1.<br />
-There is one little flaw to this nifty system, however: it’s lossy. Our 4-part vectors let us distinguish between points and pure vectors, but our 4x3 matrix is only giving us back 3 components not 4. This is fine if all we want is the points, but it’s throwing away information we might need to keep if, for example, if we wanted to multiply a point by several matrices in series. <br />
-If we want to get a 4—way vector back from the matrix we are going to need an extra column. Luckily, we know what we want from that extra column — we just need to preserve that W value and nothing else. So how do we get there?<br />
-We already know from <a href="http://techartsurvival.blogspot.com/2014/12/dot-matrix.html">last time</a> that the first 3 rows of our matrix are supposed to be the axes of the coordinate system which our matrix defines. By definition, an axis can’t move: it’s a direction, not a position. That suggests that it’s going turn into a vector with a W of 0 when we expand it into the next column. After all, you can’t <em>move</em> the X axis or the Y axis: no matter how you rotate it around it is only an <em>axis</em> if it passes through origin. The last row, on the other hand, is a <em>translation</em>: it is actually intended to enforce a change of location: In other words, it’s a <em>point</em> with a W value of 1, rather than a vector with a W of 0.<br />
-In other words our 4x3 matrix turns into a 4 x 4 matrix that looks like this:<br />
-1| 0| 0| 0<br />
-&#8212;-|&#8212;-|&#8212;-|&#8212;-<br />
-0| 1| 0| 0<br />
-0| 0| 1| 0<br />
+<p>If you just skipped over the mental gymnastics above —or if you just need to be brought back down to earth — let’s remind ourselves where we are:<br>
+We&#8217;ve got a nice, easy to manage system for packing spatial translations and rotations into a single operation, in the form of the 4X3 matrix. By adding a W coordinate — the ~~<em>mysterious</em>~~ homogeneous coordinate – to the end of our original vector, we have gained the ability to do translations. We&#8217;ve also shown how we can toggle back and forth between rotation-only vector operations and rotate-and-translate point operations by changing the W coordinate from 0 to 1.<br>
+There is one little flaw to this nifty system, however: it’s lossy. Our 4-part vectors let us distinguish between points and pure vectors, but our 4x3 matrix is only giving us back 3 components not 4. This is fine if all we want is the points, but it’s throwing away information we might need to keep if, for example, if we wanted to multiply a point by several matrices in series. <br>
+If we want to get a 4—way vector back from the matrix we are going to need an extra column. Luckily, we know what we want from that extra column — we just need to preserve that W value and nothing else. So how do we get there?<br>
+We already know from <a href="http://techartsurvival.blogspot.com/2014/12/dot-matrix.html">last time</a> that the first 3 rows of our matrix are supposed to be the axes of the coordinate system which our matrix defines. By definition, an axis can’t move: it’s a direction, not a position. That suggests that it’s going turn into a vector with a W of 0 when we expand it into the next column. After all, you can’t <em>move</em> the X axis or the Y axis: no matter how you rotate it around it is only an <em>axis</em> if it passes through origin. The last row, on the other hand, is a <em>translation</em>: it is actually intended to enforce a change of location: In other words, it’s a <em>point</em> with a W value of 1, rather than a vector with a W of 0.<br>
+In other words our 4x3 matrix turns into a 4 x 4 matrix that looks like this:<br>
+1| 0| 0| 0<br>
+&#8212;-|&#8212;-|&#8212;-|&#8212;-<br>
+0| 1| 0| 0<br>
+0| 0| 1| 0<br>
 0| 0| 0|&nbsp;1  </p>
 <p>The first 3 rows are the vectors defining our coordinate system and the last row is a point defining the spatial offset. Any <span class="caps">TA</span> should be able to visualize this as transform node — a group, a joint, a null or whatever you prefer — aligned so that it’s axes line up with the first 3 rows and it’s origin sits at the <span class="caps">XYZ</span> position of the fourth&nbsp;row.   </p>
-<p>The nice bit is that, despite all the 4-dimensional mumbo-jumbo this 4X4 matrix (just like the 3X3 and 4X3 versions we’ve touched on before) is <strong>still just a plain old set of dot products</strong> when you clear away all the verbiage, special typography and extra dimensions. Dot your 4-D point or vector against the columns of this 4-D matrix and you’ll get back a rotated vector, just like we did when learning how matrices work. If your incoming W is set to 0, you’ll get just a rotation; if it’s set to 1, you’ll get a rotation and a translation at the same time. With plain old bagels-and-coffee math. <br />
-Petty slick, huh? <br />
-So, after a consciousness-expanding (and headache-inducing) journey into other dimensions, we’ve finally sort of arrived at the full 4X4 matrix that powers every graphics application under the sun. And, amazingly enough, we’ve just scratched the surface (<em>What is the surface of a 4-D object anyway? My brain hurts.</em>)<br />
+<p>The nice bit is that, despite all the 4-dimensional mumbo-jumbo this 4X4 matrix (just like the 3X3 and 4X3 versions we’ve touched on before) is <strong>still just a plain old set of dot products</strong> when you clear away all the verbiage, special typography and extra dimensions. Dot your 4-D point or vector against the columns of this 4-D matrix and you’ll get back a rotated vector, just like we did when learning how matrices work. If your incoming W is set to 0, you’ll get just a rotation; if it’s set to 1, you’ll get a rotation and a translation at the same time. With plain old bagels-and-coffee math. <br>
+Petty slick, huh? <br>
+So, after a consciousness-expanding (and headache-inducing) journey into other dimensions, we’ve finally sort of arrived at the full 4X4 matrix that powers every graphics application under the sun. And, amazingly enough, we’ve just scratched the surface (<em>What is the surface of a 4-D object anyway? My brain hurts.</em>)<br>
 Next time out we’ll talk about how a 4x4 matrix can encode scale as well, which luckily is a little less Timothy Leary than what we’ve already gone through.  Until then here&#8217;s an animated gif of a 4-dimensional cube (which in this case is a 2-D projection of the 3-D physical extrusion of the 4-D object&#8230;. piece of&nbsp;cake!)  </p>
 <p>Me, I need a good stiff&nbsp;drink.  </p>
-<p><a href="http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif"><img alt="" src="http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif" /></a></p>
+<p><a href="http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif"><img alt="" src="http://24.media.tumblr.com/tumblr_m3dy5zVFhq1qgnjgmo1_400.gif"></a></p>
 <h2>Posts in this&nbsp;series</h2>
 <ul>
 <li><a href="bagels_and_coffee">Bagels and Coffee (intro to dot&nbsp;products)</a></li>
@@ -276,212 +449,62 @@ Next time out we’ll talk about how a 4x4 matrix can encode scale as well, whic
 <li><a href="adventures-in-4th-dimension">Adventures in the 4th Dimension (translation&nbsp;matrices)</a></li>
 <li><a href="to-scale">To Scale! (scale&nbsp;matrices)</a></li>
 </ul>
-    </article>
+  </div>
+  <div class="tag-cloud">
+    <p>
+      <a href="https://theodox.github.io/tag/math.html">math</a>
+    </p>
+  </div>
 
-        <div class="tags">
-            <p>tags: <a href="https://theodox.github.io/tag/math.html">math</a></p>
-        </div>
-    <div id="comment">
-<hr>
-<div class="sharing">
-        <!-- AddThis Button BEGIN -->
-        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
-            <a class="addthis_button_preferred_1"></a>
-            <a class="addthis_button_preferred_2"></a>
-            <a class="addthis_button_preferred_3"></a>
-            <a class="addthis_button_preferred_4"></a>
-            <a class="addthis_button_preferred_5"></a>
-            <a class="addthis_button_preferred_6"></a>
-            <a class="addthis_button_preferred_7"></a>
-            <a class="addthis_button_preferred_8"></a>
-            <a class="addthis_button_preferred_9"></a>
-            <a class="addthis_button_compact"></a>
-            <a class="addthis_counter addthis_bubble_style"></a>
-        </div>
-        <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207"></script>
-        <!-- AddThis Button END -->
-</div>
-    <div class="comments">
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-            var disqus_shortname = 'theodoxcom';
-            var disqus_identifier = '2014/adventures_in_the_4th_dimension';
-            var disqus_url = 'https://theodox.github.io/2014/adventures_in_the_4th_dimension';
-            (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
-                dsq.src = '//theodoxcom.disqus.com/embed.js';
-                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the comments.</noscript>
-    </div>
-    </div>
-            </div>
-            <!---- right sidebar -->
-<div class="right-sidebar col-lg-2 col-md-1">
-    <div class="vertical-spacer">
-    <h4>@social</h4>
-        <ul class="list-inline text-center">
-                <li>
-                    <a href="https://www.linkedin.com/in/stevetheodore">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://github.com/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-github fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="https://plus.google.com/u/0/+SteveTheodore480BC/posts">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-google fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-                <li>
-                    <a href="http://stackoverflow.com/users/1936075/theodox">
-                        <span class="fa-stack fa-lg">
-                            <i class="fa fa-circle fa-stack-2x"></i>
-                            <i class="fa fa-stack-overflow fa-stack-1x fa-inverse"></i>
-                        </span>
-                    </a>
-                </li>
-        </ul>
-    </div>
-    <div class="vertical-spacer">
-        <h4>#tags</h4>
-        <a href="/tags">tag list</a>
-        
-            <a class="tag-link" href="https://theodox.github.io/tag/animation.html">animation</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/api.html">api</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/articles.html">articles</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blog.html">blog</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/blogging.html">blogging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/boo.html">boo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/books.html">books</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/bugs.html">bugs</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/careers.html">careers</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/cg.html">cg</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/community.html">community</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/console.html">console</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/distribution.html">distribution</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/games.html">games</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gdc.html">gdc</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/graphics.html">graphics</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/gui.html">gui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/industry.html">industry</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ls.html">ls</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/markdown.html">markdown</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/math.html">math</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/matrix.html">matrix</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/maya.html">maya</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/mgui.html">mGui</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/minq.html">minq</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modeling.html">modeling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modelling.html">modelling</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modo.html">modo</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/modules.html">modules</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/moonrise.html">moonrise</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/photoshop.html">photoshop</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/pipeline.html">pipeline</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/programming.html">programming</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/python.html">python</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/regex.html">regex</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/research.html">research</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/rigging.html">rigging</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sfx.html">sfx</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/shaders.html">shaders</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/siggraph.html">siggraph</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/sod.html">SOD</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/spelcheck.html">spelcheck</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/standalone.html">standalone</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/ta.html">TA</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/talks.html">talks</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/techart.html">techart</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/thunderbirds.html">thunderbirds</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/tools.html">tools</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/unity.html">unity</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/web.html">web</a>
-            <a class="tag-link" href="https://theodox.github.io/tag/writing.html">writing</a>
-    </div>
-    <div class="vertical-spacer">
-        <h4>archives</h4>
-        <div>
-          <a href="/archives">all</a>
-        </div>      
-        <div>
-        <a href="/2013/index.html">2013</a>
-        </div>      
-        <div>
-        <a href="/2014/index.html">2014</a>
-        </div>      
-        <div>
-        <a href="/2015/index.html">2015</a>
-        </div>      
-        <div>
-        <a href="/2016/index.html">2016</a>
-        </div>
-    </div> 
-    <div class="vertical-spacer">
-        <h4>feeds </h4>
-        <p class="feed-button"><a href="/feeds/atom.xml">Atom</a></p>
-        <p class="feed-button"><a href="/feeds/rss.xml">Rss</a>&nbsp;</p>
-    </div>   
+  <div class="center social-share">
+    <p>    Like this article? Share it with your friends!
+</p>
+    <div class="addthis_native_toolbox"></div>
+    <div class="addthis_sharing_toolbox"></div>
+    <div class="addthis_inline_share_toolbox"></div>
+  </div>
 
-</div>        </div>
-    </div>
 
-    <hr>
+    <div class="addthis_relatedposts_inline"></div>
 
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
 
-<p class="copyright text-muted">
-   	Site contents &copy; Steve Theodore.  Blog powered by <a href="http://getpelican.com">Pelican</a> and <a href="http://python.org">Python</a>.
-</p>                </div>
-            </div>
-        </div>
-    </footer>
-
-    <!-- jQuery -->
-    <script src="https://theodox.github.io/theme/js/jquery.js"></script>
-
-    <!-- Bootstrap Core JavaScript -->
-    <script src="https://theodox.github.io/theme/js/bootstrap.min.js"></script>
-
-        <!-- Custom Theme JavaScript -->
-        <script src="https://theodox.github.io/theme/js/clean-blog.min.js"></script>
-
-    <script type="text/javascript">
-    var _gaq = _gaq || [];
-    _gaq.push(['_setAccount', 'UA-79232212-1']);
-    _gaq.push(['_trackPageview']);
-    (function() {
-        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-    })();
-    </script>
+<!-- Disqus -->
+<div id="disqus_thread"></div>
 <script type="text/javascript">
     var disqus_shortname = 'theodoxcom';
-    (function () {
-        var s = document.createElement('script'); s.async = true;
-        s.type = 'text/javascript';
-        s.src = '//' + disqus_shortname + '.disqus.com/count.js';
-        (document.getElementsByTagName('HEAD')[0] || document.getElementsByTagName('BODY')[0]).appendChild(s);
-    }());
+    (function() {
+        var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+        dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+        (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
 </script>
-</body>
+<noscript>
+        Please enable JavaScript to view comments.
 
+</noscript>
+<!-- End Disqus -->
+</article>
+
+    <footer>
+<p>&copy;  2018</p>
+<p>    Powered by <a href="http://getpelican.com" target="_blank">Pelican</a> - <a href="https://github.com/alexandrevicenzi/flex" target="_blank">Flex</a> theme by <a href="http://alexandrevicenzi.com" target="_blank">Alexandre Vicenzi</a>
+</p>    </footer>
+  </main>
+
+
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-575daf41c4afb207" async="async"></script>
+
+
+<script type="application/ld+json">
+{
+  "@context" : "http://schema.org",
+  "@type" : "Blog",
+  "name": " Chimeras & Manticores ",
+  "url" : "https://theodox.github.io",
+  "image": "",
+  "description": ""
+}
+</script>
+
+</body>
 </html>
