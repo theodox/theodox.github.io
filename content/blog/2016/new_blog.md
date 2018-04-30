@@ -1,5 +1,5 @@
 Title: Bye-Bye Blogger Blues
-Tags: blog, markdown
+Tags: blogging, markdown
 Slug: new_blog
 Date: 2016-06-12  12:31:00
 Category: blog

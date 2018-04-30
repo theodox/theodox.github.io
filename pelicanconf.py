@@ -17,6 +17,7 @@ ROBOTS = 'index, follow'
 
 PLUGIN_PATHS = ['../pelican-plugins']
 PLUGINS = ['assets', 'sitemap', 'summary', 'tag_cloud', 'representative_image']
+# the 'filename from git' plugin is too slow for now    
 
 # Feed generation is usually not desired when developing
 FEED_ALL_ATOM = 'feeds/atom.xml'
@@ -24,13 +25,14 @@ CATEGORY_FEED_ATOM = None  # 'atom/%s.atom.xml'
 TRANSLATION_FEED_ATOM = None
 AUTHOR_FEED_ATOM = None
 FEED_ALL_RSS = 'feeds/rss.xml'
-ADD_THIS_ID = 'ra-575daf41c4afb207'
+ADD_THIS_ID = 'ra-575daef5596b169a'
+
 SLUGIFIY_SOURCE = 'basename'
 
 ARTICLE_URL = '{date:%Y}/{slug}'
 ARTICLE_SAVE_AS = '{date:%Y}/{slug}.html'
 
-STATIC_PATHS = ['pages/course', 'pages/cookbook', 'pages/publications', 'images', 'extra', 'tipue-search']
+STATIC_PATHS = ['pages/course', 'pages/cookbook', 'pages/publications', 'images', 'extra']
 ARTICLE_EXCLUDES = ['extra']
 
 
