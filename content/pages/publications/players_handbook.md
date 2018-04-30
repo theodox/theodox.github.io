@@ -1,6 +1,6 @@
 Title: The Player's Handbook
 Date: 2014-09-16 22:53:00.000
-Tags: games, jobs, industry
+Tags: games, industry, careers
 Category: publications
 Slug: /pub/players_handbook
 Authors: Steve Theodore

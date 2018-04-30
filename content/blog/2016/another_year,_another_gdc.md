@@ -1,7 +1,7 @@
 Title: Another Year, Another GDC...
 Date: 2016-03-20 14:43:00.000
 Category: blog
-Tags: industry, gdc, careers
+Tags: industry, gdc, jobs
 Slug: gdc_2016
 Authors: Steve Theodore
 Summary: GDC 2016 after-action report

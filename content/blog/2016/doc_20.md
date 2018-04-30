@@ -1,10 +1,12 @@
 Title: Documentation 2.0?
 Date: 2016-07-25
 Category: blog
-Tags: maya, programming, industry, TA
+Tags: maya, programming, industry, techart
 Slug: doc_20
 Authors: Steve Theodore
 Summary: StackOverflow wants to tackle documentation. Maybe we should help.
+
+> Alas, since this was posted the Stackoverflow documentation project has come and gone.  The Documentary millennium is postponed for the forseeable future
 
 I noticed recently that [StackOverflow](http://stackoverflow.com/users/1936075/theodox) is trying to encourage community documentation. The tagline they're using is "Let's do for documentation what we did for QA," which immediately made the cynical side of my brain think "like, turn it into a brogrammer mud-wrestling match?" 
 

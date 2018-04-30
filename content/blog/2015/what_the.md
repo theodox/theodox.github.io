@@ -1,7 +1,7 @@
 Title: What The...?
 Date: 2015-02-05 22:57:00.001
 Category: blog
-Tags: maya, python, ls
+Tags: maya, python
 Slug: ls_float3
 Authors: Steve Theodore
 Summary: A nice little trick for filtering components in Maya using `cmds.ls()`

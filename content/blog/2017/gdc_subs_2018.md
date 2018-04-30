@@ -1,12 +1,13 @@
-Title: GCD submissions time again!
+Title: GDC submissions time again!
 Date: 2017-07-20
 Category: blog
 Tags: industry, gdc
 Slug: gdc_subs_2018
 Authors: Steve Theodore
-Summary: The [GDC 2018 call for submissions](http://www.gdconf.com/conference/c4p/index.html).
 
 It's that time of year again: the [GDC call for submissions](http://www.gdconf.com/conference/c4p/index.html) is open. We're looking for artists, animators from tech artists of every stripe, shape, size and industry specialty to share their expertise and insights with the community.  This is a great opportunity to share knowledge and burnish up your professional credentials as well. 
+
+<!---jump--->
 
 ![](https://www.brokenjoysticks.net/wp-content/uploads/2016/01/GDC_Logo.png)
 
