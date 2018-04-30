@@ -1,3 +1,0 @@
-[submodule "pelican/pelican-clean-blog"]
-	path = pelican/pelican-clean-blog
-	url = git@github.com:theodox/pelican-clean-blog.git

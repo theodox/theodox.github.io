@@ -70,7 +70,6 @@ SITEMAP = {
 LINKS = [   ]
 
 
-
 # tag cload
 TAG_CLOUD_STEPS = 4  # tag step 4 is suppressed in the style sheet
 TAG_CLOUD_SORTING = 'alphabetically'
@@ -85,7 +84,6 @@ SOCIAL = [
 ]
 
 DEFAULT_PAGINATION = 8
-DEFAULT_HEADER_IMAGE = 'http://texturetaddka.com/wp-content/uploads/2011/09/DSC862.jpg'
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
