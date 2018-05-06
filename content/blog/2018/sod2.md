@@ -8,7 +8,7 @@ Summary: After a long, long, _long_ dev cycle, [State of Decay 2](https://www.st
 
 ![SOD 2 box](https://news.xbox.com/en-us/wp-content/uploads/thumb_610D2555B6F4417F9CDEDA14369E8419.jpg)
 
-It's no accident that there have not been a lot of blog entries in the last several months, but hopefully life will be returning to normal soon.  I took the time to clean up my [site generator](2016/new_blog) and simplify the site theme, though I expect I'll probably waste a bunch of time fiddling around over the summer.
+It's no accident that there have not been a lot of blog entries in the last several months, but hopefully life will be returning to normal soon.  I took the time to clean up my [site generator](/2016/new_blog) and simplify the site theme, though I expect I'll probably waste a bunch of time fiddling around over the summer.
 
 In any event, the game is looking good -- although I've got one **HUGE** bug I must squish before we go out the door! -- and it's been a real blast to bask in some of the reactions from people who've seen the game.  
 
