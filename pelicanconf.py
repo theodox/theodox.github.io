@@ -62,8 +62,8 @@ SITEMAP = {
         'pages': 0.5
     },
     'changefreqs': {
-        'articles': 'monthly',
-        'indexes': 'daily',
+        'articles': 'weekly',
+        'indexes': 'weekly',
         'pages': 'monthly'
     }
 }
@@ -89,13 +89,12 @@ DEFAULT_PAGINATION = 8
 
 # Uncomment following line if you want document-relative URLs when developing
 RELATIVE_URLS = True
-COLOR_SCHEME_CSS = 'zenburn.css'
+PYGMENTS_STYLE = 'monokai'
 USE_LESS = True
 TYPOGRIFY = True
 YEAR_ARCHIVE_SAVE_AS = '{date:%Y}/index.html'
 
 
 THEME = "theme"
-PYGMENTS_STYLE = "native"
 
 DELETE_OUTPUT_DIRECTORY = True
