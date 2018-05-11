@@ -13,7 +13,7 @@
     <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/monokai.min.css">
   <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
@@ -207,7 +207,7 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/maya.html">
                 maya
-                        <span class="badge">(45)</span>
+                        <span class="badge">(46)</span>
                 </a>
             </li>
             <li class="tag-2">
@@ -249,13 +249,13 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/programming.html">
                 programming
-                        <span class="badge">(36)</span>
+                        <span class="badge">(37)</span>
                 </a>
             </li>
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/python.html">
                 python
-                        <span class="badge">(47)</span>
+                        <span class="badge">(48)</span>
                 </a>
             </li>
             <li class="tag-3">
@@ -399,7 +399,7 @@
 <p>Since you&#8217;ve got the callback in scope when you create the <span class="caps">GUI</span>, you&#8217;re certain to have it when you need it (if by some accident it was out of scope at creation time you&#8217;d get an obvious error that you&#8217;d have to fix before moving&nbsp;on).  </p>
 <p>Clear, predictable scoping is why it&#8217;s almost always the right decision to wrap your GUIs in classes. The class defines a predictable scope so you don&#8217;t  have to worry about what&#8217;s loaded or try to cram import statements into your callback functions.   Plus, classes include data storage, so you can keep your data nicely independent of your code. Suppose, for example, you needed to display a different set of greetings beyond the standard &#8220;hello world.&#8221;  With a class you can defer the problem up to the moment of the actual button press with no fancy footwork or complex lambda&nbsp;management:  </p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Greeter</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>  
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">greeting</span><span class="p">):</span>  
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">greeting</span><span class="p">):</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">greeting</span> <span class="o">=</span> <span class="n">greeting</span>  
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>  
         <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>  

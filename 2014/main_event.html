@@ -13,7 +13,7 @@
     <link rel="stylesheet/less" type="text/css" href="https://theodox.github.io/theme/stylesheet/style.less">
     <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.5.1/less.min.js" type="text/javascript"></script>
 
-  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/native.min.css">
+  <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/pygments/monokai.min.css">
   <link rel="stylesheet" type="text/css" href="https://theodox.github.io/theme/font-awesome/css/font-awesome.min.css">
 
 
@@ -207,7 +207,7 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/maya.html">
                 maya
-                        <span class="badge">(45)</span>
+                        <span class="badge">(46)</span>
                 </a>
             </li>
             <li class="tag-2">
@@ -249,13 +249,13 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/programming.html">
                 programming
-                        <span class="badge">(36)</span>
+                        <span class="badge">(37)</span>
                 </a>
             </li>
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/python.html">
                 python
-                        <span class="badge">(47)</span>
+                        <span class="badge">(48)</span>
                 </a>
             </li>
             <li class="tag-3">
@@ -359,7 +359,7 @@
 <p>Here&#8217;s the important bit of the core code (the full thing, as always, is <a href="https://github.com/theodox/mGui/blob/master/mGui/events.py">up on github</a>)&nbsp;:</p>
 <div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Event</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-   <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">data</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_Handlers</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
         <span class="sd">&#39;&#39;&#39;Set list of handlers callables. Use a set to avoid multiple calls on one handler&#39;&#39;&#39;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">Data</span> <span class="o">=</span> <span class="n">data</span>
@@ -415,10 +415,10 @@
     <span class="c1"># hook up the instance methods to the base methods</span>
     <span class="c1"># doing it this way allows you to override more neatly</span>
     <span class="c1"># in derived classes</span>
-    <span class="fm">__call__</span> <span class="o">=</span> <span class="n">_fire</span>
-    <span class="fm">__len__</span> <span class="o">=</span> <span class="n">_handler_Count</span>
-    <span class="fm">__iadd__</span> <span class="o">=</span> <span class="n">_add_handler</span>
-    <span class="fm">__isub__</span> <span class="o">=</span> <span class="n">_remove_handler</span>
+    <span class="n">__call__</span> <span class="o">=</span> <span class="n">_fire</span>
+    <span class="n">__len__</span> <span class="o">=</span> <span class="n">_handler_Count</span>
+    <span class="n">__iadd__</span> <span class="o">=</span> <span class="n">_add_handler</span>
+    <span class="n">__isub__</span> <span class="o">=</span> <span class="n">_remove_handler</span>
 </pre></div>
 
 
@@ -459,7 +459,7 @@
 <div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">time</span>
 <span class="k">class</span> <span class="nc">OverCoupled</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">window</span>  <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">window</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">col</span>  <span class="o">=</span> <span class="n">cmds</span><span class="o">.</span><span class="n">columnLayout</span><span class="p">()</span>
         <span class="n">cmds</span><span class="o">.</span><span class="n">button</span><span class="p">(</span><span class="s1">&#39;start&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">some_complex_function</span><span class="p">)</span>
