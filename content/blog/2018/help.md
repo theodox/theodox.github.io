@@ -14,13 +14,13 @@ If (like I often dow) you've forgotten the countless different flags that go wit
 
 In MEL you can type
 
-```Php
+```
     help file;
 ```
 
 from the command line, which prints a nicely formatted list of the whole shebang:
 
-```Php
+```
     Synopsis: file [flags] [String]
     Flags:
        -e -edit
@@ -144,14 +144,14 @@ from the command line, which prints a nicely formatted list of the whole shebang
 
 `maya.cmds`, alas, does not support this directly.  Python's built-in `help()` function is very handy for remembering options and syntax but it works off of docstrings, and `cmds` does not include useful ones.  If you try 
 
-```perl
+```
     help(file)
 ```
 
 in the listener you get the supremely useless
 
 
-```Perl
+```
     Help on built-in function file in module maya.cmds:
     
     file(...)
