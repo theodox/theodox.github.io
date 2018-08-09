@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/</loc>
-<lastmod>2018-05-10T22:09:32-00:00</lastmod>
+<lastmod>2018-08-08T22:01:38-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/archives.html</loc>
-<lastmod>2018-05-10T22:09:32-00:00</lastmod>
+<lastmod>2018-08-08T22:01:38-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/tags.html</loc>
-<lastmod>2018-05-10T22:09:32-00:00</lastmod>
+<lastmod>2018-08-08T22:01:38-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/categories.html</loc>
-<lastmod>2018-05-10T22:09:32-00:00</lastmod>
+<lastmod>2018-08-08T22:01:38-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -75,7 +75,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/pages/cookbook/index.html</loc>
-<lastmod>2018-05-10T22:09:32-00:00</lastmod>
+<lastmod>2018-08-08T22:01:38-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -133,6 +133,13 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <loc>https://theodox.github.io/pages/pub/never_hire.html</loc>
 <lastmod>2015-03-16T19:05:00-07:00</lastmod>
 <changefreq>monthly</changefreq>
+<priority>0.5</priority>
+</url>
+
+<url>
+<loc>https://theodox.github.io/2018/ta_101</loc>
+<lastmod>2018-08-07T00:00:00-07:00</lastmod>
+<changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
@@ -1090,7 +1097,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/category/blog.html</loc>
-<lastmod>2018-05-10T00:00:00-07:53</lastmod>
+<lastmod>2018-08-07T00:00:00-07:53</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1314,7 +1321,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/tag/techart.html</loc>
-<lastmod>2017-03-29T00:00:00-07:53</lastmod>
+<lastmod>2018-08-07T00:00:00-07:53</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1370,14 +1377,14 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/tag/industry.html</loc>
-<lastmod>2018-04-29T00:00:00-07:53</lastmod>
+<lastmod>2018-08-07T00:00:00-07:53</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/tag/programming.html</loc>
-<lastmod>2018-05-10T00:00:00-07:53</lastmod>
+<lastmod>2018-08-07T00:00:00-07:53</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -1440,7 +1447,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/author/steve-theodore.html</loc>
-<lastmod>2018-05-10T00:00:00-07:53</lastmod>
+<lastmod>2018-08-07T00:00:00-07:53</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>

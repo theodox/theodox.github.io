@@ -35,28 +35,28 @@
 <!-- End Google Analytics -->
 
 <meta name="author" content="Steve Theodore" />
-<meta name="description" content="Rob Galanakis’ Maya Programming book is up for preorder" />
-<meta name="keywords" content="maya, python, industry">
+<meta name="description" content="Some thoughts about building a coding culture for tech artists." />
+<meta name="keywords" content="techart, industry, programming">
 
 <meta property="og:site_name" content="Chimeras & Manticores"/>
-<meta property="og:title" content="Rob G’s book is up for preorder on amazon"/>
-<meta property="og:description" content="Rob Galanakis’ Maya Programming book is up for preorder"/>
+<meta property="og:title" content="TA 101"/>
+<meta property="og:description" content="Some thoughts about building a coding culture for tech artists."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://theodox.github.io/2014/rob_g_preorder"/>
+<meta property="og:url" content="https://theodox.github.io/2018/ta_101"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2014-05-15 10:30:00-07:00"/>
+<meta property="article:published_time" content="2018-08-07 00:00:00-07:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
 <meta property="article:section" content="blog"/>
-<meta property="article:tag" content="maya"/>
-<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="techart"/>
 <meta property="article:tag" content="industry"/>
+<meta property="article:tag" content="programming"/>
 <meta property="og:image" content="">
 
-   <title>Chimeras & Manticores &ndash; Rob G’s book is up for preorder on amazon</title>
+   <title>Chimeras & Manticores &ndash; TA 101</title>
 
 
-    <link rel="canonical" href="https://theodox.github.io/2014/rob_g_preorder"/>
+    <link rel="canonical" href="https://theodox.github.io/2018/ta_101"/>
 
   <script type="text/javascript">
     var host = "https://theodox.github.io";
@@ -321,9 +321,9 @@
 <article class="single">
   <header>
       
-    <h1 id="rob_g_preorder">Rob G&#8217;s book is up for preorder on&nbsp;amazon</h1>
+    <h1 id="ta_101"><span class="caps">TA</span>&nbsp;101</h1>
     <p>
-          Posted on Thu 15 May 2014 in <a href="https://theodox.github.io/category/blog.html">blog</a>
+          Posted on Tue 07 August 2018 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
 
     </p>
@@ -331,14 +331,43 @@
 
 
   <div>
-    <p>I just noticed that <a href="http://www.amazon.com/gp/product/1849694729/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=1849694729&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=Z2TRIATKVMUZBACZ">Rob G&#8217;s upcoming book about Maya Python programming</a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=1849694729">is up for pre-order on Amazon! Looking forward to seeing it in&nbsp;&#8220;print&#8221;! </p>
-<p><strong><span class="caps">PS</span>.</strong> <a href="http://www.amazon.com/gp/product/0415812291/ref=as_li_tl?ie=UTF8&amp;camp=1789&amp;creative=9325&amp;creativeASIN=0415812291&amp;linkCode=as2&amp;tag=tecsurgui-20&amp;linkId=U4W56JG5ISVGDJIB">Mine</a><img alt="" src="http://ir-na.amazon-adsystem.com/e/ir?t=tecsurgui-20&amp;l=as2&amp;o=1&amp;a=0415812291"> is still up there&nbsp;too!</p>
+    <p>It&#8217;s been long and <a href="https://wccftech.com/undead-labs-microsoft-not-messing-around/">very eventful</a> few&nbsp;months.</p>
+<p><img alt="" src="https://cdn.wccftech.com/wp-content/uploads/2018/06/Xbox_E32018_Spencer.jpg"></p>
+<blockquote>
+<p>Phil Spencer at E3, announcing that Microsoft is aquiring Undead&nbsp;Labs</p>
+</blockquote>
+<p>Looking ahead to a rather bigger future version of Undead Labs &#8212; and a <strong>State of Decay 3</strong> that&#8217;s even more ambitious than 2 was &#8212; I&#8217;ve been doing a lot of code reviews on my existing code base to see what new hires will have to deal&nbsp;with.  </p>
+<p>The results are not always pretty.  On the purely functional side, the code has held up reasonably well.  But it&#8217;s got the logical coherence of the street grid in a medieval city &#8212; it&#8217;s full of quirks, blind alleys, dead code and other hazards waiting to trap the unwary.  I rather despair of being able to introduce new TAs to the team without (a) spending inordinate amounts of time on teaching and (b) dying of&nbsp;shame.</p>
+<h3>Archaeology</h3>
+<p>The first thing jumps out at me when I read over our code is the hodgepodge of different styles.  Not only does the code reflect several different individual styles &#8212; any codebase with more than zero coders has that &#8212;  it also shows distinct archaeological strata in my own style over the last eight years.  There&#8217;s code that reads like C# (right down to C# naming conventions) and code that reads like <span class="caps">MEL</span>.  There&#8217;s code that does everything in giant 1,000 line monster functions and code that can&#8217;t seem to take a step without definining a new&nbsp;class.  </p>
+<p>Style drift is inevitable &#8212; and healthy.  It shows that a team is growing and getting better.  Unfortunately it also makes it hard to keep a codebase healthy.  Trying to revert to the mindset I had seven or eight years ago is difficult as well as embarassing; trying to understand why I did something a certain way is often so much work that it&#8217;s tempting to simply rubbish a working but creaky solution and write a shiny new one from&nbsp;scratch.  </p>
+<p>Alas, it&#8217;s easy to plan on writing new and improved systems.  Nobody, after all,  plans on writing new and improved bugs&#8230; but that doesn&#8217;t mean you won&#8217;t.  And the time spent fixing those new bugs is time not spent on new functionality (and the new bugs that come with <em>that</em>).  </p>
+<p>It&#8217;s a big investment to get back to where you are&nbsp;today. </p>
+<p>So, dealing with all that fugly old code is definitely not an easy task.  Letting things sit is an invitation to code rot and a drag on training; constantly trying to rebuild from scratch means a long struggle just to get back to&nbsp;parity.  </p>
+<p>The closest thing I&#8217;ve been able to come up with as an &#8220;answer&#8221; is gradualism &#8212; don&#8217;t let code sit ungroomed, but try to nudge it in the right direction instead of nuking it from orbit and building on the glass. A steady diet of small improvements and modernisations is very preferable to simply burning the whole house down every few&nbsp;years.</p>
+<p>At least, I <em>hope</em> it&nbsp;is.</p>
+<h3>Set&nbsp;Theory</h3>
+<p>One of the most interesting hidden taxes in old code is the incredible mare&#8217;s nest of <strong>duplication.</strong> </p>
+<p>No individual really knows a whole codebase very well.  Plus, some people tend to reinvent their own solutions instead of looking around for what&#8217;s already there. Meanwhile some people &#8212; myself definitely included! &#8212; are constantly tempted to invent pure, perfect, abstract solutions for all the world&#8217;s problems&#8230; solutions so abstract that they often languish away in Platonic purity, unused because they level of abstraction is impossibly&nbsp;high.  </p>
+<p>And, of course, everybody is better at solving code problems than at naming the solutions, so even the the most well-intentioned colleague may never even know that the tools they want are lying there in plain&nbsp;sight.</p>
+<p>Duplication isn&#8217;t just a waste of time &#8212; it&#8217;s an obstacle to making things better and an invitation to code rot.  All else being equal, every line of code is a potential liabilitt.  So a good part of trying to modernise the codebase is simply going to be cleaning house: finding and standardizing the fifty different ways people look for files that are &#8216;in the project&#8217; or &#8216;not in the project&#8217;, the dozens of ways people decide of one object is a child of another, the scores of methods for deciding what is or is not supposed to be animatable, and so&nbsp;on.</p>
+<h3>Comparative&nbsp;Sociology</h3>
+<p>Untangling that Gordian knot is going to be a large project &#8212; one of those things that you have to describe in meetings as &#8220;a&nbsp;process&#8221;.  </p>
+<p>I&#8217;ve <a href="https://github.com/theodox/ta_101/blob/master/TA%20coding%20101.md">already shared</a> a draft of the doc I&#8217;m working on as part of the process.<br>
+It may be casually described as a &#8220;coding standards&#8221; document, but that&#8217;s not really a good description: I scarcely give a damn about things like where brackets go.  What I&#8217;m groping for &#8212; and it&#8217;s definitely an exploration &#8212; is the right way to foster and grow a shared approach to problem solving.  Neat well organized code is certainly part of that, but it&#8217;s only a small part.   The real end product of a process like this is not just better code: it&#8217;s a better <em>coding culture</em>.  </p>
+<p>It might be a bit suprising that I&#8217;d bother sharing what&#8217;s essentially an internal policy document on the internet. But a lot of what I want to accomplish is to make it easier for new team members to know what&#8217;s going on as they join Undead Labs; if my ideas are too far outsife of what you might call the &#8220;techart mainstream&#8221; it doesn&#8217;t matter if I write them down and blather on about them.  The whole idea is not to create something radical and new &#8212; it&#8217;s to help clarify and crystallize the ideas we all half-way know&nbsp;already. </p>
+<p>There&#8217;s useful analogy in the way that Python programmers use the word &#8220;Pythonic.&#8221; It&#8217;s an almost mystical quality &#8212; and, like many mystical experiences, <a href="https://www.theregister.co.uk/2018/07/13/python_creator_guido_van_rossum_quits/">the search for it often ends in controversy and feuding</a>.  Even though &#8220;Pythonic&#8221; is not easily reducable to a set of Powerpoint bullets it&#8217;s still a powerful ideal that has shaped a generation of Python code in both very obvious and very subtle ways.  After spending much of the last two years in the depths of the Unreal C++ codebase, I&#8217;m extremely aware of the way that programming languages create their own cultures.  If you want an object lesson, Just watch some of the best C++ speakers, like <a href="https://www.youtube.com/watch?v=smqT9Io_bKo">Scott Meyers</a> or <a href="https://www.youtube.com/watch?v=xnqTKD8uD64">Herb Sutter</a> and listen to the way they talk abou their language &#8212; then contrast it to the way somebody like <a href="https://www.youtube.com/watch?v=OSGv2VnC0go">Raymond Hettinger</a> or <a href="https://www.youtube.com/watch?v=x-kB2o8sd5c">Brandon Rhodes</a> talks about&nbsp;Python.  </p>
+<h3>Philosophy&nbsp;101</h3>
+<p>Hence, my immediate instinct to a looming cultural change at the company is to write a doc about coding.  But the target isn&#8217;t just my own team &#8212; it&#8217;s all those future teammates out there that will have to learn the way we do things.  If we can somehow <em>scrape away</em> the idiosyncracies of one team&#8217;s history and get at the common, instinctual basis of <span class="caps">TA</span> work then onboarding new people will be a lot easier.  They&#8217;ll be productive sooner, and we&#8217;ll spend less energy trying to change <em>their</em> habits into <em>our</em> habits.  Instead of trying to invent a novel new culture, it&#8217;s more about trying to clarify and articulate things that most <span class="caps">TA</span>&#8217;s already know and do on some&nbsp;level. </p>
+<p>Python has it&#8217;s famous <a href="https://www.python.org/dev/peps/pep-0020/">Zen of Python</a>.  What would a &#8220;Zen of technical art&#8221; look like?  I don&#8217;t really know, but I think the next several months might met me a little&nbsp;closer.  </p>
+<p>If you&#8217;re interested in the questions as well, I&#8217;d encourage you to grab that <a href="https://github.com/theodox/ta_101/blob/master/TA%20coding%20101.md">coding document</a> and see how you&#8217;d re-write it. Feel free to lodge an issue on the github repo, or to submit a pull request if you think something could be better.  For that matter, fork your own version and we&#8217;ll see how different teams think this ought to work out.   I&#8217;ve already gotten a lot of useful feedback both through GitHub and person-to-person; more is always better!  One of the things I feel is part of half-unconscious <span class="caps">TA</span> culture is a commitment to sharing&nbsp;knowledge. </p>
+<p>What do you say? Is that part of how we do&nbsp;things?</p>
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="https://theodox.github.io/tag/maya.html">maya</a>
-      <a href="https://theodox.github.io/tag/python.html">python</a>
+      <a href="https://theodox.github.io/tag/techart.html">techart</a>
       <a href="https://theodox.github.io/tag/industry.html">industry</a>
+      <a href="https://theodox.github.io/tag/programming.html">programming</a>
     </p>
   </div>
 
