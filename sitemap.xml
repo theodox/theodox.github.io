@@ -5,28 +5,28 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/</loc>
-<lastmod>2018-08-08T22:03:50-00:00</lastmod>
+<lastmod>2018-10-24T20:32:17-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/archives.html</loc>
-<lastmod>2018-08-08T22:03:50-00:00</lastmod>
+<lastmod>2018-10-24T20:32:17-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/tags.html</loc>
-<lastmod>2018-08-08T22:03:50-00:00</lastmod>
+<lastmod>2018-10-24T20:32:17-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
 
 <url>
 <loc>https://theodox.github.io/categories.html</loc>
-<lastmod>2018-08-08T22:03:50-00:00</lastmod>
+<lastmod>2018-10-24T20:32:17-00:00</lastmod>
 <changefreq>weekly</changefreq>
 <priority>0.5</priority>
 </url>
@@ -75,7 +75,7 @@ xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 
 <url>
 <loc>https://theodox.github.io/pages/cookbook/index.html</loc>
-<lastmod>2018-08-08T22:03:50-00:00</lastmod>
+<lastmod>2018-10-24T20:32:17-00:00</lastmod>
 <changefreq>monthly</changefreq>
 <priority>0.5</priority>
 </url>
