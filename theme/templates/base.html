@@ -26,7 +26,7 @@
     <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/stylesheet/style.min.css">
   {% endif %}
 
-  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pygments/{{ PYGMENTS_STYLE|default('github') }}.min.css">
+  <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/pygments/{{ PYGMENTS_STYLE }}.min.css">
   <link rel="stylesheet" type="text/css" href="{{ SITEURL }}/{{ THEME_STATIC_DIR }}/font-awesome/css/font-awesome.min.css">
 
   {% if CUSTOM_CSS %}
@@ -218,9 +218,6 @@
     {% include "partial/guages.html" %}
   {% endif %}
 
-  {% if ADD_THIS_ID %}
-    <script type="text/javascript" src="https://s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADD_THIS_ID }}"></script>
-  {% endif %}
 
   {% if PIWIK_URL and PIWIK_SITE_ID %}
     {% include "partial/piwik.html" %}
@@ -233,5 +230,10 @@
   {% if GITHUB_CORNER_URL %}
   {% include 'partial/github.html' %}
   {% endif %}
+
+    {% if ADD_THIS_ID %}
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid={{ ADD_THIS_ID }}"></script>
+  {% endif %}
+
 </body>
 </html>

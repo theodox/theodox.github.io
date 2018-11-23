@@ -11,7 +11,7 @@ SITEDESCRIPTION = 'Flex - The minimalist Pelican theme.'
 # SITELOGO = ''
 # FAVICON = '/images/favicon.ico'
 BROWSER_COLOR = '#333333'
-PYGMENTS_STYLE = 'monokai'
+PYGMENTS_STYLE = 'paraiso-dark'
 
 ROBOTS = 'index, follow'
 
