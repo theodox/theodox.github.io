@@ -36,7 +36,7 @@
 
 <meta name="author" content="Steve Theodore" />
 <meta name="description" content="It used to be impossible to launch any old Maya Python script directly from the desktop. But not anymore, thanks to this one simple trick!" />
-<meta name="keywords" content="python, maya, programming">
+<meta name="keywords" content="python, maya, programming, distribution, MEL">
 
 <meta property="og:site_name" content="Chimeras & Manticores"/>
 <meta property="og:title" content="Pythonception!"/>
@@ -51,6 +51,8 @@
 <meta property="article:tag" content="python"/>
 <meta property="article:tag" content="maya"/>
 <meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="distribution"/>
+<meta property="article:tag" content="MEL"/>
 <meta property="og:image" content="">
 
    <title>Chimeras & Manticores &ndash; Pythonception!</title>
@@ -95,6 +97,12 @@
           <h3 class="tagcloud_header">SUBJECTS</h3>
         </div>
         <ul class="tagcloud">
+            <li class="tag-3">
+                <a href="https://theodox.github.io/tag/mel.html">
+                MEL
+                        <span class="badge">(2)</span>
+                </a>
+            </li>
             <li class="tag-3">
                 <a href="https://theodox.github.io/tag/animation.html">
                 animation
@@ -149,10 +157,10 @@
                         <span class="badge">(8)</span>
                 </a>
             </li>
-            <li class="tag-3">
+            <li class="tag-2">
                 <a href="https://theodox.github.io/tag/distribution.html">
                 distribution
-                        <span class="badge">(3)</span>
+                        <span class="badge">(5)</span>
                 </a>
             </li>
             <li class="tag-2">
@@ -206,7 +214,7 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/maya.html">
                 maya
-                        <span class="badge">(47)</span>
+                        <span class="badge">(48)</span>
                 </a>
             </li>
             <li class="tag-2">
@@ -248,13 +256,13 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/programming.html">
                 programming
-                        <span class="badge">(39)</span>
+                        <span class="badge">(40)</span>
                 </a>
             </li>
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/python.html">
                 python
-                        <span class="badge">(49)</span>
+                        <span class="badge">(50)</span>
                 </a>
             </li>
             <li class="tag-3">
@@ -272,7 +280,7 @@
             <li class="tag-1">
                 <a href="https://theodox.github.io/tag/techart.html">
                 techart
-                        <span class="badge">(21)</span>
+                        <span class="badge">(22)</span>
                 </a>
             </li>
             <li class="tag-1">
@@ -337,22 +345,26 @@
 <p>Unsurprisingly. many teams end up with dedicated launchers &#8212; either dedicated applications or just .<span class="caps">BAT</span> files &#8212; whose job it is to configure maya on startup.  For example you might keep parallel userSetup/code combinations in different locations and then launch Maya with an .<span class="caps">BAT</span> that manipulates <code>sys.path</code> or <code>PYTHONPATH</code> to get the right version to the top of the list.  These kinds of systems work reasonably well, although they also complicate your support structure &#8212; when you&#8217;re trying to add a new artists to the team you need to train them out of just launching Maya from the applications menu, and if you&#8217;re supporting outsources or partner studios you need to distribute the launcher infrastructure as well as the code that does the actual&nbsp;work.</p>
 <p>If you stick with the simple stuff, on the other hand&#8230; well, <span class="caps">BAT</span> files are just nasty &#8212; they&#8217;re the computing equivalent of truckstop corn dogs that have been rolling under the heatlamp since&nbsp;1984.</p>
 <p>In the words of the great <a href="https://pyvideo.org/speaker/raymond-hettinger.html">Raymond Hettinger</a>, <em>there&#8217;s got to be a better way.</em>  A way you can distribute a toolkit&nbsp;that&#8217;s:</p>
-<p><strong>Easy to activate</strong> &#8212; It won&#8217;t require me to fire up a different program just to use the one I want to use
-<strong>A good citizen</strong> &#8212; It doesn&#8217;t force me to reorganize my Maya install (particularly if I&#8217;m an outsource who might only be using this toolkit for a few weeks!)
-<strong>Install Free</strong> &#8212; It doesn&#8217;t demand a separate installer or a plugin or anything else I don&#8217;t already&nbsp;have.</p>
+<p><strong>Easy to activate</strong>
+It won&#8217;t require me to fire up a different program just to use the one I want to&nbsp;use.</p>
+<p><strong>A good citizen</strong>
+It doesn&#8217;t force me to reorganize my Maya install (particularly if I&#8217;m an outsource who might only be using this toolkit for a few&nbsp;weeks!).</p>
+<p><strong>Install Free</strong>
+It doesn&#8217;t demand a separate installer or a plugin or anything else I don&#8217;t already&nbsp;have.</p>
 <p>&#8230; but at the same time&nbsp;it&#8217;s</p>
-<p><strong>Fully functional</strong> &#8212; you can&#8217;t compromise the depth of what you&#8217;re delivering just in order to make it easy to&nbsp;deliver.</p>
+<p><strong>Fully functional</strong>
+You can&#8217;t compromise the depth of what you&#8217;re delivering just in order to make it easy to&nbsp;deliver.</p>
 <p>The first three are actually surprisingly easy.  After all, Maya has always has it&#8217;s own dedicated script file type &#8212; you can always double-click or drag-and-drop a mel file and it will just work.  No installation, not configuration, not even any special rules about where the file has to be. You can mail somebody a <span class="caps">MEL</span> file and they can just run it from their downloads&nbsp;folder.</p>
 <p>Alas, it works in <span class="caps">MEL</span>.  Which is to say, it&#8217;s going to be an uphill battle to make it hit that last bullet point and be fully functional. And how much power can you really pack into a single <span class="caps">MEL</span>&nbsp;file?</p>
 <p>But, as Ray would say, <em>there is a better way</em>.</p>
 <p>If you&#8217;ve ever had to write one of those <span class="caps">BAT</span> file launchers, you may have seen something like&nbsp;this:</p>
-<div class="highlight"><pre><span></span><span class="n">maya</span><span class="o">.</span><span class="n">exe</span> <span class="o">-</span><span class="n">c</span> <span class="s2">&quot;python(</span><span class="se">\&quot;</span><span class="s2">import sys; sys.path.insert(0, &#39;c:</span><span class="se">\\</span><span class="s2">path</span><span class="se">\\</span><span class="s2">to</span><span class="se">\\</span><span class="s2">mayatools&#39;); import mayatools; maytools.run()</span><span class="se">\&quot;</span><span class="s2">)&quot;</span>
+<div class="highlight"><pre><span></span>maya.exe -c <span class="s2">&quot;python(\&quot;import sys; sys.path.insert(0, &#39;c:\\path\\to\\mayatools&#39;); import mayatools; maytools.run()\&quot;)&quot;</span>
 </pre></div>
 
 
 <p>That&#8217;s telling Maya to run a <span class="caps">MEL</span> command that in turn tells Python to add a folder to the path and then run.  Conceptually simple, if ugly as sin; and fine enough for a one liner.  Not, however, the stuff of which great programs are made &#8212; those string escapes alone are enough to make one want to take a hot&nbsp;shower.</p>
 <p>You can make things a bit better if you delegate the work to an actual Python file; that gets you down to something&nbsp;like:</p>
-<div class="highlight"><pre><span></span>maya.exe -c &quot;python(\&quot;execfile &#39;c:\\path\\to\\mayatools\\mayatools.py&#39;)\&quot;)&quot;
+<div class="highlight"><pre><span></span>maya.exe -c <span class="s2">&quot;python(\&quot;execfile &#39;c:\\path\\to\\mayatools\\mayatools.py&#39;)\&quot;)&quot;</span>
 </pre></div>
 
 
@@ -365,7 +377,7 @@
 <p>Using Python to make <span class="caps">MEL</span> to make Python&#8230;?&#8221; <strong>Pythonception!</strong></p>
 </blockquote>
 <p>The problem with jamming complex code into your <span class="caps">MEL</span> is all the string escaping. But Python comes with built-in tools for dealing with string-safe encoding of arbitrary data &#8212; including strings.  The <code>base64</code> moduie is used to encode aribtrary data for transmission over the internet as blocks of characters.  For example you can take a string&nbsp;like </p>
-<div class="highlight"><pre><span></span>example = r&#39;This is a long string, including punctuation and &quot;difficult&quot; characters like quotes\slashes&#39;
+<div class="highlight"><pre><span></span><span class="n">example</span> <span class="o">=</span> <span class="s1">r&#39;This is a long string, including punctuation and &quot;difficult&quot; characters like quotes\slashes&#39;</span>
 </pre></div>
 
 
@@ -398,6 +410,8 @@
       <a href="https://theodox.github.io/tag/python.html">python</a>
       <a href="https://theodox.github.io/tag/maya.html">maya</a>
       <a href="https://theodox.github.io/tag/programming.html">programming</a>
+      <a href="https://theodox.github.io/tag/distribution.html">distribution</a>
+      <a href="https://theodox.github.io/tag/mel.html">MEL</a>
     </p>
   </div>
 

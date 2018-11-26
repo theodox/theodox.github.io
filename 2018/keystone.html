@@ -35,29 +35,31 @@
 <!-- End Google Analytics -->
 
 <meta name="author" content="Steve Theodore" />
-<meta name="description" content="The Character Rigger’s Cookbook is back online." />
-<meta name="keywords" content="rigging, gdc, talks, animation">
+<meta name="description" content="An even funkier method to launch Maya Python from the desktop, with a little help from our old friend MEL." />
+<meta name="keywords" content="python, maya, programming, distribution, MEL, techart">
 
 <meta property="og:site_name" content="Chimeras & Manticores"/>
-<meta property="og:title" content="Cookbook’s back!"/>
-<meta property="og:description" content="The Character Rigger’s Cookbook is back online."/>
+<meta property="og:title" content="Keystone"/>
+<meta property="og:description" content="An even funkier method to launch Maya Python from the desktop, with a little help from our old friend MEL."/>
 <meta property="og:locale" content="en_US"/>
-<meta property="og:url" content="https://theodox.github.io/2017/cookbook-back"/>
+<meta property="og:url" content="https://theodox.github.io/2018/keystone"/>
 <meta property="og:type" content="article"/>
-<meta property="article:published_time" content="2017-06-25 00:00:00-07:00"/>
+<meta property="article:published_time" content="2018-11-25 00:00:00-08:00"/>
 <meta property="article:modified_time" content=""/>
 <meta property="article:author" content="https://theodox.github.io/author/steve-theodore.html">
 <meta property="article:section" content="blog"/>
-<meta property="article:tag" content="rigging"/>
-<meta property="article:tag" content="gdc"/>
-<meta property="article:tag" content="talks"/>
-<meta property="article:tag" content="animation"/>
+<meta property="article:tag" content="python"/>
+<meta property="article:tag" content="maya"/>
+<meta property="article:tag" content="programming"/>
+<meta property="article:tag" content="distribution"/>
+<meta property="article:tag" content="MEL"/>
+<meta property="article:tag" content="techart"/>
 <meta property="og:image" content="">
 
-   <title>Chimeras & Manticores &ndash; Cookbook’s back!</title>
+   <title>Chimeras & Manticores &ndash; Keystone</title>
 
 
-    <link rel="canonical" href="https://theodox.github.io/2017/cookbook-back"/>
+    <link rel="canonical" href="https://theodox.github.io/2018/keystone"/>
 
   <script type="text/javascript">
     var host = "https://theodox.github.io";
@@ -328,9 +330,9 @@
 <article class="single">
   <header>
       
-    <h1 id="cookbook-back">Cookbook&#8217;s&nbsp;back!</h1>
+    <h1 id="keystone">Keystone</h1>
     <p>
-          Posted on Sun 25 June 2017 in <a href="https://theodox.github.io/category/blog.html">blog</a>
+          Posted on Sun 25 November 2018 in <a href="https://theodox.github.io/category/blog.html">blog</a>
 
 
     </p>
@@ -338,19 +340,43 @@
 
 
   <div>
-    <p>A couple of months ago, Dropbox stopped serving image requests and the slides from the <em>Character Rigger&#8217;s Cookbok</em> went&nbsp;offline.  </p>
-<p>While scrambling around trying to figure out how to resurrect them, I discovered an old copy of the audio from the original talk. This allowed me to put together a YouTube of the whole thing (minus some of the animated examples, alas, which have long since&nbsp;disappeared).  </p>
-<iframe width="560" height="315" src="https://www.youtube.com/embed/RlgLSq-GsVg" frameborder="0" allowfullscreen></iframe>
-
-<p>I wish I had a proper presentation video so you could see my gyrations and gesticulations as I tried to illustrate things &#8212; but, remembering how much hopping and posing I did for that talk, perhaps it&#8217;s for the best.  The video + audio format here, even without accompanying animations, is way better than the bare slides were.  See, every cloud has a silver lining.  Phhhhttt,&nbsp;Dropbox!</p>
-<p>If you want to permalink to the video you can use <a href="https://youtu.be/RlgLSq-GsVg">this YouTube link</a> or link directly to the <a href="pages/cookbook">Cookbook page</a> on my nav&nbsp;bar.</p>
+    <p><a href="/2018/pythonception">Last time out</a>, we talked about how to &#8216;compile&#8217; a python script into a form that could be stuffed inside a <span class="caps">MEL</span> file &#8212; and, therefore, could be launched directly from your desktop without the need for a <span class="caps">BAT</span> file, launcher app, or long cumbersome command line.  I ended up by hinting that there was more to come on the same&nbsp;idea.  </p>
+<p>The strategy we sketched out for the first version worked by converting a single file to a base64-encoded binary representation that could be safely stored in a <span class="caps">MEL</span> string variable without complicated escaping of special characters and so on.  That&#8217;s a great trick &#8212; as long as what you&#8217;re trying to accomplish can be done in a single&nbsp;file.</p>
+<p>However, a single script is usually just a tiny part of a real-world production pipeline.  Real Maya environments are usually much more sprawling &#8212; at my work ours is fairly modest and it&#8217;s still several hundred files and tens of thousands of lines of code.  There are dozens of modules and libraries involved. Jamming all of that into a single string and executing it would be, well&#8230; let&#8217;s just call it&nbsp;&#8220;ambitious.&#8221;</p>
+<h2>Sprawl</h2>
+<p>How to maintain and version a big sprawling environment like that is a <a href="http://tech-artists.org/t/maya-github-and-script-paths-for-mel-and-python-how-would-you-do-it/3718/21">frequent subject for discussion</a> going back <a href="http://discourse.techart.online/t/python-maya-startup-script/2145">many years</a>.  All of the different strategies, however, amount to roughtly the same basic&nbsp;ideas:</p>
+<ol>
+<li>Make sure that everything you depend on is available to all your users in the same way &#8212; there&#8217;s no worse kind of bug-hunting than the dreaded <strong>&#8220;It worked on my machine&#8230;!&#8221;</strong>&nbsp;variety. </li>
+<li>Getting the right bits to your users also means  making sure they don&#8217;t have the wrong ones.  An out of date library or a leftover .pyc file can be even worse than a missing file, since incorrect code can create subtler and more difficult to catch&nbsp;problems.</li>
+<li>You&#8217;ll probably have to support multiple configurations, so make it easy to pick a toolkit at startup time instead of just pointing at one file&nbsp;location. </li>
+</ol>
+<p>What I&#8217;ve <a href="https://theodox.github.io/2014/egg_man">been doing for many years</a> is to maintain my entire environment as a single zip file. Since Python allows you to put zip files on your Python path and will find modules inside zips automatically this doesn&#8217;t require any special code &#8212; yet it does ensure that there is one and only one copy of the toolkit running in any given scenario. We use a launcher app that puts the zip on the Python path and tells Maya to run it at startup, so you can always run a different toolkit by simply bypassing the launcher, or by using a different launch script that points at a different zip&nbsp;file. </p>
+<p>This zip-based system has worked like a charm for the better part of a decade, and I&#8217;ve never regretted adopting it.  The only thing that has always frustrated me about it is the fact that you still need to find a way to tell Maya about that zip file.  <code>userSetup.py</code> works fine for this, but many users want that userSetup for their own customization purposes and you don&#8217;t want people to have to hand edit that file to switch between projects.  Custom launcher scripts (<span class="caps">BAT</span> files or other ways of formatting a command line argument to Maya) support project switching well &#8212; but they are separate software projects int their own right with their own distribution and versioning hassles.  Plus, they add an extra support burden when you&#8217;re supporting people at remote studios who don&#8217;t necessarily participate in your entire studio&nbsp;ecosystem.</p>
+<p>A distribution method that was simple and robust and untethered to external depenendencies has been a kind of obsession of mine for a long time now.  Thanks to the Python-inside-<span class="caps">MEL</span> idea from our last outing, I think it&#8217;s finally within&nbsp;reach. </p>
+<h2>Keystone&#8230;</h2>
+<p>I&#8217;ve got a working first version of the concept bundled up into a short, single-file script that <a href="https://github.com/theodox/keystone">you can get from this GitHub</a> &#8212; a project I&#8217;ve dubbed <code>Keystone</code> because, ya know, lame &#8220;pipelne&#8221;&nbsp;puns.</p>
+<p>Keystone is a simple command line script that you point at a folder which contains your Python toolkit.  It will compile all of the Python files to <code>.pyc</code> for speed and then zip them up into a single archive.  Then, it will generate a startup script to find an launch the zipped-up toolkit.  Finally it will compile that startup script and the binary data from the zip file into a double-clickable <span class="caps">MEL</span> file &#8212; a single-source distribution of the whole shebang which doesn&#8217;t need any extra&nbsp;infrastructure.</p>
+<p>The strategy is actually very simple. Just as the last post showed how to stuff Python code into a binary blob inside the <span class="caps">MEL</span> file, Keystone does the same thing for a zipped-up Python tookit.  The final result is a <span class="caps">MEL</span> file which makes sure the user has a zipped up copy of the Python environment, puts that zip on the user&#8217;s path, and launches it inside of Maya when the user double-clicks on the <span class="caps">MEL</span>.  This combines all the ease-of-use advantages of having a <span class="caps">MEL</span> launcher instead of a separately maintained <span class="caps">BAT</span> file or a complex command line with the ability to distribute a big, complex toolset in a single bundle.  The self-contained nature of the <span class="caps">MEL</span>-zip hybride makes it trivially easy to maintain multiple versions side-by-side.  The launcher <em>is</em> the environment and&nbsp;vice-versa.</p>
+<h2>..the&nbsp;pipeline</h2>
+<p>Here&#8217;s a basic flowchart of what happens in a Keystone pipeline ( environmental destruction, petro-dollars, and giant protest puppets omitted for&nbsp;clarity):</p>
+<p><img alt="" src="/images/keystone-pipeline.svg"></p>
+<p>The only &#8216;complexity&#8217; &#8212; it barely deserves the name &#8212; is the way in which the zip file data is jammed into the <span class="caps">MEL</span> file.  This amounts to simply generating a zip file, reading it in as binary bytes, and appended those bytes to the end of the <span class="caps">MEL</span> file after a comment mark so that Maya doesn&#8217;t try to read them.  The offset where the comment begins is encoded into the script so that it&#8217;s eay to grab the relevant bits and put them back on the user&#8217;s hard drive as ordinary zip&nbsp;files. </p>
+<p>The Keystone compiler automatically generates the code to add the zip file onto the Python path (this script is encoded using the base64 method we outlined in the <a href="2018/pythonception">previous post</a>). When the user runs the <span class="caps">MEL</span> file it hands execution over to this startup code.  The startup script checks to make see if there&#8217;s already a zip that matches the data stuffed into the <span class="caps">MEL</span> file.  If there&#8217;s no script (or if there is a zip which is older than the <span class="caps">MEL</span> file) the startup code will extract the hidden binary data from the <span class="caps">MEL</span> and save it (currently it&#8217;s getting stashed in the Maya user directory, though it would be easy to change&nbsp;that).  </p>
+<p>The <span class="caps">MEL</span> file&#8217;s startup code adds the zip to the Python path, launches Maya with the new zip as the first item on the Python path, and then executes any startup code you&#8217;ve included in the zip file &#8212; you can put any initialization you want into the zip as a  <code>__main__.py</code> and it will get fired off in the same way that an ordinary Maya session executes <code>userSetup.py</code>.  The nice thing is that the code, however complex it wants to be, is part of the overall Python codebase and not part of the small bit of startup code.  Bitter experience has taught me never to let the first bit of a startup script to be more complex than &#8220;put this stuff on the path and go&#8221; &#8212; it&#8217;s much easier to maintain and version and tweak production code than the first few lines of the bootstrapper which are always running in a very bare-bones&nbsp;context.</p>
+<p>The upshot of all this is, hopefully, a complete Maya Python environment in a single file &#8212; as many modules and scripts as you need, but without the need for tools in other languages to get it plugged into a given Maya session.  It&#8217;s <span class="caps">MEL</span> and Python, so it&#8217;s cross-platform (no need to translate .<span class="caps">BATS</span> into shell scripts for <span class="caps">OSX</span> or Linux).  You can distribute this file through Perforce or a download link or simply by emailing it to one contractor; no matter how that file lands on their desk it should give them a complete environment.  If you need to give them an update you simply replace that one file and the rest follows&nbsp;naturally.</p>
+<h2>Go with the&nbsp;flow</h2>
+<p>I&#8217;ve been fiddling around with variation on this idea for a long time.  The primary reason I find it compelling that productions nowadays are distributed around the globe &#8212; I know, for example, that I met far less than half of the artists and animators who contributed to <strong>State of Decay 2</strong>.  A toolkit that&#8217;s easy to drop in as a single file, and which doesn&#8217;t depend on a complex web of other tools like launcher apps or perforce automation is very appealing.  It&#8217;s also nice to have a way to let outsource artists leave the party with as little friction as possible: it&#8217;s far better to simply drag one file to the trash than to remove an entire&nbsp;ecosystem.</p>
+<p>Of course, all tech involves tradeoffs and I&#8217;m still trying to learn what the tradeoffs in this approach will be.  The most obvious issue is that there&#8217;s the data in the zip portion of the package ends up getting duplicated.  My work toolkit zips up about 25 mb, so the overhead is far from trememndous, but it would be nicer if there were a good way around that.  A more annoying issue is the need to extract any binary tools (such as the P4Python module) from the zip file &#8212; Python currently won&#8217;t read compiled extensions out of a zip which is irritating though easy to get around by extracting binaries to a hidden&nbsp;folder.  </p>
+<p>So &#8212; I&#8217;d be curious to hear what other people think and whether this answers a need.  As always, pull requests and issue on the Github. Until then, have fun checking it out.  Help us make <span class="caps">MEL</span> great&nbsp;again!</p>
   </div>
   <div class="tag-cloud">
     <p>
-      <a href="https://theodox.github.io/tag/rigging.html">rigging</a>
-      <a href="https://theodox.github.io/tag/gdc.html">gdc</a>
-      <a href="https://theodox.github.io/tag/talks.html">talks</a>
-      <a href="https://theodox.github.io/tag/animation.html">animation</a>
+      <a href="https://theodox.github.io/tag/python.html">python</a>
+      <a href="https://theodox.github.io/tag/maya.html">maya</a>
+      <a href="https://theodox.github.io/tag/programming.html">programming</a>
+      <a href="https://theodox.github.io/tag/distribution.html">distribution</a>
+      <a href="https://theodox.github.io/tag/mel.html">MEL</a>
+      <a href="https://theodox.github.io/tag/techart.html">techart</a>
     </p>
   </div>
 
