@@ -138,7 +138,7 @@
       pyodide.FS.mount(pyodide.FS.filesystems.IDBFS, { root: "d:/prj/utu" }, mountDir);
       await pyodide.runPythonAsync(`
     from pyodide.http import pyfetch
-    response = await pyfetch("http://127.0.0.1:8000/cuneiform.db")
+    response = await pyfetch("cuneiform.db")
     with open("cuneiform.db", "wb") as f:
         f.write(await response.bytes())
     print ('database loaded')
@@ -147,7 +147,7 @@
       await pyodide.runPythonAsync(`
         
         from pyodide.http import pyfetch
-        response = await pyfetch("http://127.0.0.1:8000/utu.py")
+        response = await pyfetch("utu.py")
         with open("utu.py", "wb") as f:
             f.write(await response.bytes())
         print ('python code loaded')
